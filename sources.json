@@ -140,7 +140,7 @@
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
     },
-    "筲箕灣區": {
+  "筲箕灣區": {
       "region": "港島地域",
       "url": "https://www.skwscout.org.hk/latest-news/",
       "type": "wordpress_elementor",
@@ -148,14 +148,15 @@
       "fingerprint_selector": ".elementor-posts-container",
       "link_selector": ".elementor-post a",
       "title_selector": ".elementor-post__title a",
-      "url_sanitize": ["?v=", "?t=", "?ver="],
+      "url_sanitize": [
+        "?v=",
+        "?t=",
+        "?ver="
+      ],
       "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": ".elementor-posts-container",
       "notes": "指向最新消息列表頁，強制開啟 Playwright 以便深挖內頁"
-    },
-      "notes": "排除頂部Slider區域，鎖定Post List區塊",
-      "use_playwright": false
     },
     "港島北區": {
       "region": "港島地域",
