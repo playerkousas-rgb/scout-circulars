@@ -1,0 +1,50 @@
+# ============================================================
+# 全港童軍通告自動化圖書館 v5.0 — GitHub Actions 定時爬蟲
+# ============================================================
+# 每天 UTC 20:00 (香港時間 04:00) 自動執行
+# 支援雙模式: Supabase (生產) 或 本地 JSON (開發)
+
+name: Scout Notice Scraper
+
+on:
+  schedule:
+    # 每天 UTC 20:00 = 香港時間 04:00
+    - cron: '0 20 * * *'
+  # 手動觸發
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Run scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          python core.py
+
+      - name: Commit & push updated cache + fingerprints
+        # 僅在無 Supabase 時需要 commit (本地 JSON 模式)
+        # 若有 Supabase，資料直接在 DB 中，不需要 commit cache
+        if: env.SUPABASE_URL == ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cache.json fingerprints.json
+          git diff --staged --quiet || git commit -m "🤖 Daily scrape: $(date +%Y-%m-%d)"
+          git push
