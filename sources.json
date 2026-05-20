@@ -142,17 +142,18 @@
     },
     "筲箕灣區": {
       "region": "港島地域",
-      "url": "https://www.skwscout.org.hk/",
+      "url": "https://www.skwscout.org.hk/latest-news/",
       "type": "wordpress_elementor",
       "encoding": "utf-8",
-      "fingerprint_selector": "[class*='post-list'], [class*='latest-posts'], [class*='news-list'], .elementor-posts-container",
-      "link_selector": "[class*='post-list'] a[href$='.pdf'], [class*='news'] a[href$='.pdf'], .elementor-post a",
-      "title_selector": "[class*='post-list'] h3:first-of-type a, [class*='news'] h3:first-of-type a, .elementor-post__title:first-of-type a",
-      "url_sanitize": [
-        "?v=",
-        "?t=",
-        "?ver="
-      ],
+      "fingerprint_selector": ".elementor-posts-container",
+      "link_selector": ".elementor-post a",
+      "title_selector": ".elementor-post__title a",
+      "url_sanitize": ["?v=", "?t=", "?ver="],
+      "use_playwright": true,
+      "wait_strategy": "selector",
+      "wait_selector": ".elementor-posts-container",
+      "notes": "指向最新消息列表頁，強制開啟 Playwright 以便深挖內頁"
+    },
       "notes": "排除頂部Slider區域，鎖定Post List區塊",
       "use_playwright": false
     },
