@@ -155,69 +155,34 @@ def compute_fingerprint(soup: BeautifulSoup, selector: str) -> str:
 
 
 # ─── PDF 連結提取引擎 ─────────────────────────────────────
-def extract_pdf_links(soup: BeautifulSoup, link_selector: str, title_selector: str,
-                      base_url: str, sanitize_params: list = None,
-                      exclude_patterns: list = None,
-                      min_title_length: int = 0) -> list:
-    """
-    更新版：兩層剝皮法
-    1. 優先抓直接指向 .pdf 的連結。
-    2. 如果連結指向的是 WordPress 文章頁，自動點進去挖 PDF。
-    """
+def extract_pdf_links(soup, link_selector, title_selector, base_url, sanitize_params, exclude_patterns, min_title_length):
     results = []
-    
-    # 獲取所有候選連結
     links = soup.select(link_selector)
-    if not links:
-        # 如果 selector 沒東西，預設抓所有 a 標籤
-        links = soup.select("a[href]")
-
-    seen_urls = set()
-    
+    # 確保抓取到連結
     for link in links:
         href = link.get("href", "")
-        if not href or href.startswith(("#", "javascript:")):
-            continue
-            
+        if not href: continue
         full_url = resolve_url(base_url, href)
-        if not full_url or full_url in seen_urls:
-            continue
-            
-        # 判斷是否為 PDF
-        is_pdf = (full_url.lower().endswith(".pdf") or ".pdf?" in full_url.lower()
-                  or "drive.google.com" in full_url.lower())
         
-        # --- 策略 A：直接是 PDF ---
-        if is_pdf:
-            clean_url = sanitize_url(full_url, sanitize_params)
-            seen_urls.add(clean_url)
+        # 判斷是否為 PDF
+        if full_url.lower().endswith(".pdf"):
             title = link.get_text(" ", strip=True)
-            if len(title) < 3: # 補救標題
-                title = href.split("/")[-1]
-            results.append({"pdf_url": clean_url, "title": title.strip()[:500]})
-            
-        # --- 策略 B：文章頁（WordPress） → 啟動「深挖」 ---
-        elif "skwscout.org.hk" in full_url or "scout.org.hk" in full_url: # 這裡可以擴展你的網域過濾
+            results.append({"pdf_url": sanitize_url(full_url, sanitize_params), "title": title})
+        
+        # 內頁深挖：只對 WordPress 文章進行處理
+        elif "/2026/" in full_url or "/2025/" in full_url:
             try:
-                print(f"    🔍 深挖內頁: {full_url}")
-                resp_inner = SESSION.get(full_url, timeout=10)
+                # 這裡增加簡單的防錯處理
+                resp_inner = SESSION.get(full_url, timeout=5)
                 soup_inner = BeautifulSoup(resp_inner.text, "html.parser")
-                
-                # 抓取頁面 H1 作為標題
-                h1 = soup_inner.select_one("h1")
-                page_title = h1.get_text(" ", strip=True) if h1 else link.get_text(" ", strip=True)
-                
-                # 在內頁找 PDF
-                pdf_in_page = soup_inner.select_one("a[href$='.pdf'], a[href*='.pdf']")
+                pdf_in_page = soup_inner.select_one("a[href$='.pdf']")
                 if pdf_in_page:
-                    inner_href = resolve_url(full_url, pdf_in_page.get("href"))
-                    clean_url = sanitize_url(inner_href, sanitize_params)
-                    if clean_url not in seen_urls:
-                        seen_urls.add(clean_url)
-                        results.append({"pdf_url": clean_url, "title": page_title[:500]})
-            except Exception:
+                    inner_url = resolve_url(full_url, pdf_in_page.get("href"))
+                    h1 = soup_inner.select_one("h1")
+                    title = h1.get_text(" ", strip=True) if h1 else "未知通告"
+                    results.append({"pdf_url": sanitize_url(inner_url, sanitize_params), "title": title})
+            except:
                 continue
-
     return results
 
 
