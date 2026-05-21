@@ -117,7 +117,7 @@
     },
     "港島西區": {
       "region": "港島地域",
-      "url": "https://group.scout.org.hk/hkw/download/",
+      "url": "https://group.scout.org.hk/hkw/circular/",
       "type": "simple_list",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -128,7 +128,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "改用download頁面取代circular頁面",
+      "notes": "更正為正確的通告目錄",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 12000,
@@ -138,7 +138,7 @@
     },
     "柴灣區": {
       "region": "港島地域",
-      "url": "https://chaiwanscout.org.hk/v3/home/download/",
+      "url": "https://chaiwanscout.org.hk/v3/activities_and_courses/",
       "type": "simple_list",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -153,15 +153,15 @@
         "Sticky Post",
         "置頂"
       ],
-      "notes": "改用download頁面，包含PDF下載連結",
-      "use_playwright": false,
+      "notes": "卡片式，需進內頁抓取",
+      "use_playwright": true,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": ".entry-title a[href], [class*='post'] a[href], article a[href]",
+      "asset_link_selector": "a[href*='.pdf'], a[href*='drive.google'], a[href*='/wp-content/']",
       "follow_detail_pages": true,
       "detail_max_pages": 8,
-      "detail_link_selector": ".entry-title a[href], article h2 a[href], article a[href]"
+      "detail_link_selector": "a"
     },
     "維多利亞城區": {
       "region": "港島地域",
@@ -184,7 +184,7 @@
     },
     "港島南區": {
       "region": "港島地域",
-      "url": "https://sites.google.com/hkirscout.org.hk/hks/活動及訓練班",
+      "url": "https://www.southernscout.org/活動及訓練班",
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -195,11 +195,12 @@
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "改為鎖定 Google Sites 的「活動及訓練班」頁；在 role=main 容器內全量抓取所有通告下載連結。",
-      "use_playwright": false,
+      "notes": "使用Google Drive PDF，直接抓a，交由後端去重",
+      "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "follow_detail_pages": false
+      "follow_detail_pages": false,
+      "asset_link_selector": "a"
     },
     "筲箕灣區": {
       "region": "港島地域",
@@ -221,7 +222,7 @@
       "asset_link_selector": "a[href*='.pdf'], a[href*='/wp-content/uploads/']",
       "follow_detail_pages": true,
       "detail_max_pages": 8,
-      "detail_link_selector": ".elementor-post__title a[href], .elementor-post a[href]"
+      "detail_link_selector": "a[href*='2026'], a.elementor-post__read-more"
     },
     "港島北區": {
       "region": "港島地域",
@@ -349,7 +350,7 @@
     },
     "旺角區": {
       "region": "九龍地域",
-      "url": "https://sites.google.com/view/hkscoutmkd/通告及表格下載",
+      "url": "https://sites.google.com/view/hkscoutmkd/",
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
@@ -414,7 +415,7 @@
     },
     "深水埗西區": {
       "region": "九龍地域",
-      "url": "https://sspw.krscout.org/",
+      "url": "https://sspw.krscout.org/首頁",
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, .post-title, [class*='post']",
@@ -426,7 +427,7 @@
         "?ver="
       ],
       "notes": "通告以網誌文章發布; 監控首頁最新文章標題",
-      "use_playwright": false,
+      "use_playwright": true,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
@@ -504,52 +505,6 @@
       "detail_max_pages": 8,
       "wait_selector": "[role='main'] a, [role='main'] h1, [role='main'] h2, [role='main'] h3"
     },
-    "慈雲山區_課程": {
-      "region": "東九龍地域",
-      "url": "http://www.twsd-hkscout.org/content/",
-      "type": "joomla_category",
-      "encoding": "utf-8",
-      "fingerprint_selector": ".category, .items-row, [class*='blog']",
-      "link_selector": "a[href]",
-      "title_selector": "body",
-      "url_sanitize": [
-        "?v=",
-        "?t=",
-        "?ver="
-      ],
-      "notes": "已修正406錯誤，改為指向首頁 content 目錄",
-      "use_playwright": true,
-      "wait_strategy": "selector",
-      "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href]",
-      "follow_detail_pages": false,
-      "detail_max_pages": 8,
-      "detail_link_selector": ".category article h2 a[href], .items-row h2 a[href], article h2 a[href]"
-    },
-    "慈雲山區_活動": {
-      "region": "東九龍地域",
-      "url": "http://www.twsd-hkscout.org/content/",
-      "type": "joomla_category",
-      "encoding": "utf-8",
-      "fingerprint_selector": ".category, .items-row, [class*='blog']",
-      "link_selector": "a[href]",
-      "title_selector": "body",
-      "url_sanitize": [
-        "?v=",
-        "?t=",
-        "?ver="
-      ],
-      "notes": "已修正406錯誤，改為指向首頁 content 目錄",
-      "use_playwright": true,
-      "wait_strategy": "selector",
-      "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href]",
-      "follow_detail_pages": false,
-      "detail_max_pages": 8,
-      "detail_link_selector": ".category article h2 a[href], .items-row h2 a[href], article h2 a[href]"
-    },
     "黃大仙區": {
       "region": "東九龍地域",
       "url": "https://hkscout-wts.org/?page_id=355",
@@ -578,20 +533,21 @@
       "encoding": "utf-8",
       "fingerprint_selector": "table",
       "link_selector": "table a[href]",
-      "title_selector": "table tr td",
+      "title_selector": "a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "舊版靜態結構/web2017/; 直接讀取notice.html源碼",
+      "notes": "原通告文字可能重複，需依賴 core.py 中的 url/pdf 名稱回退機制",
       "use_playwright": false,
       "asset_link_selector": "table a[href]",
-      "follow_detail_pages": false
+      "follow_detail_pages": false,
+      "title_filter_regex": "下載通告|下載表格|PDF|Word|Excel|下載"
     },
     "秀茂坪區": {
       "region": "東九龍地域",
-      "url": "https://sites.google.com/view/smpscout/首頁",
+      "url": "https://sites.google.com/view/smpscout/通告",
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -607,11 +563,12 @@
         "Report abuse",
         "Google"
       ],
-      "notes": "通告頁目前近乎空白，改鎖定首頁「最新消息」主內容區塊做全量抓取。",
-      "use_playwright": false,
+      "notes": "已更新至正確通告頁面，Google Site需Playwright",
+      "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "follow_detail_pages": false
+      "follow_detail_pages": false,
+      "asset_link_selector": "a"
     },
     "將軍澳區": {
       "region": "東九龍地域",
@@ -689,7 +646,7 @@
     },
     "新界地域": {
       "region": "新界地域",
-      "url": "https://www.scout-ntr.org.hk/mainweb/big5/circulars/youth.php",
+      "url": "https://www.scout-ntr.org.hk/mainweb/big5/circulars/admin.php",
       "type": "static_table_big5",
       "encoding": "utf-8",
       "fingerprint_selector": "table",
@@ -700,10 +657,20 @@
         "?t=",
         "?ver="
       ],
-      "notes": "⚠️ Big5編碼; 抓取表格第一行非標頭的td內容",
+      "notes": "包含多個分頁(行政,青少年,訓練,發展,公關,特別,總監等)全抓",
       "use_playwright": false,
-      "asset_link_selector": "a[href*='/system/upload/youth/']",
-      "follow_detail_pages": false
+      "asset_link_selector": "a",
+      "follow_detail_pages": false,
+      "listing_page_urls": [
+        "https://www.scout-ntr.org.hk/mainweb/big5/circulars/youth.php",
+        "https://www.scout-ntr.org.hk/mainweb/big5/circulars/training.php",
+        "https://www.scout-ntr.org.hk/mainweb/big5/circulars/development.php",
+        "https://www.scout-ntr.org.hk/mainweb/big5/circulars/pr.php",
+        "https://www.scout-ntr.org.hk/mainweb/big5/circulars/special.php",
+        "https://www.scout-ntr.org.hk/mainweb/big5/circulars/admission.php",
+        "https://www.scout-ntr.org.hk/mainweb/big5/circulars/jamboree.php"
+      ],
+      "verify_ssl": false
     },
     "元朗東區": {
       "region": "新界地域",
@@ -730,7 +697,7 @@
     },
     "元朗西區": {
       "region": "新界地域",
-      "url": "https://www.ylw-scout.org.hk/category/通告/",
+      "url": "https://www.ylw-scout.org.hk/category/%e9%80%9a%e5%91%8a/",
       "type": "wordpress_category",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, article",
@@ -742,18 +709,19 @@
         "?ver="
       ],
       "notes": "時間倒序排列; 僅比對最頂端第一篇文章",
-      "use_playwright": false,
+      "use_playwright": true,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": ".entry-title a[href], article a[href]",
+      "asset_link_selector": "a[href*='.pdf'], a[href*='/wp-content/']",
       "follow_detail_pages": true,
       "detail_max_pages": 8,
-      "detail_link_selector": ".entry-title a[href], article h2 a[href]"
+      "detail_link_selector": "a",
+      "verify_ssl": false
     },
     "十八鄉區": {
       "region": "新界地域",
-      "url": "https://www.sph-scout.org.hk/",
+      "url": "https://www.sph-scout.org.hk/circular.htm",
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": "main, [class*='content'], [class*='entry']",
@@ -822,23 +790,23 @@
     },
     "屯門東區": {
       "region": "新界地域",
-      "url": "https://www.tmescout.org.hk/",
+      "url": "https://www.tmescout.org.hk/file/notice/",
       "type": "modern_cms",
       "encoding": "utf-8",
       "fingerprint_selector": "main, [class*='content'], [class*='news'], [class*='notice']",
       "link_selector": "main a[href], [class*='news'] a[href], [class*='notice'] a[href]",
-      "title_selector": "main a:first-of-type, [class*='news'] a:first-of-type",
+      "title_selector": "a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "針對main-content區域進行Hash監控",
+      "notes": "開放目錄列表，直接抓取.pdf",
       "use_playwright": true,
       "wait_strategy": "networkidle",
       "wait_timeout": 20000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "main a[href], [class*='news'] a[href], [class*='notice'] a[href]",
+      "asset_link_selector": "a[href$='.pdf']",
       "follow_detail_pages": true,
       "detail_max_pages": 8,
       "detail_link_selector": "main h1 a[href], main h2 a[href], [class*='news'] a[href], [class*='notice'] a[href]"
@@ -863,7 +831,7 @@
     },
     "南葵涌區": {
       "region": "新界地域",
-      "url": "https://skc.scout-ntr.org.hk/training.html",
+      "url": "https://skc.scout-ntr.org.hk/index.html",
       "type": "static_list",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -874,9 +842,9 @@
         "?t=",
         "?ver="
       ],
-      "notes": "training.html 之「活動與訓練通告」區塊以內文方式列出，現全量抓取頁面內所有通告附件連結。",
+      "notes": "首頁所有連結全抓",
       "use_playwright": false,
-      "asset_link_selector": "a[href$=\".pdf\"], a[href*=\"docs.google.com\"], a[href]",
+      "asset_link_selector": "a",
       "follow_detail_pages": false
     },
     "青衣區": {
@@ -904,7 +872,7 @@
     },
     "離島區": {
       "region": "新界地域",
-      "url": "https://sites.google.com/view/islands-scout/活動與訓練",
+      "url": "https://sites.google.com/view/islands-scout/%E6%B4%BB%E5%8B%95%E8%88%87%E8%A8%93%E7%B7%B4?authuser=0",
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -919,7 +887,8 @@
       "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "follow_detail_pages": false
+      "follow_detail_pages": false,
+      "asset_link_selector": "a"
     },
     "新界東地域": {
       "region": "新界東地域",
@@ -934,19 +903,19 @@
         "?t=",
         "?ver="
       ],
-      "notes": "新版地域通告頁為內容卡片列表，於主內容中全量抓取「下載通告」實體 PDF 連結。",
+      "notes": "動態卡片式，需要 Playwright 和 follow_detail_pages",
       "use_playwright": true,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href*=\"ctfassets.net\"], a[href$=\".pdf\"]",
-      "follow_detail_pages": false,
+      "asset_link_selector": "a[href*='.pdf'], a[href*='drive.google']",
+      "follow_detail_pages": true,
       "detail_max_pages": 8,
-      "detail_link_selector": ".entry-title a[href], .post-item a[href]"
+      "detail_link_selector": "a"
     },
     "雙魚區": {
       "region": "新界東地域",
-      "url": "https://www.syd-hkscout.org/",
+      "url": "https://www.syd-hkscout.org/活動及通告/雙魚區通告",
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, [class*='post']",
@@ -957,19 +926,19 @@
         "?t=",
         "?ver="
       ],
-      "notes": "同時記錄href路徑; 防止標題重複",
+      "notes": "Google Site 內嵌 Google Drive",
       "use_playwright": true,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": ".entry-title a[href], article a[href], [class*='post'] a[href]",
+      "asset_link_selector": "a",
       "follow_detail_pages": true,
       "detail_max_pages": 8,
       "detail_link_selector": ".entry-title a[href], article h2 a[href]"
     },
     "壁峰區": {
       "region": "新界東地域",
-      "url": "https://sites.google.com/view/pikfung-district/支部通訊",
+      "url": "https://sites.google.com/view/pikfung-district/區會通訊?authuser=0",
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -980,11 +949,12 @@
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "Google Sites 需Playwright渲染",
+      "notes": "Google Site INDEX 頁",
       "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "follow_detail_pages": false
+      "follow_detail_pages": false,
+      "asset_link_selector": "a"
     },
     "大埔北區": {
       "region": "新界東地域",
@@ -1030,7 +1000,7 @@
     },
     "沙田西區": {
       "region": "新界東地域",
-      "url": "https://www.stwscout.org/wp/notice/",
+      "url": "https://www.stwscout.org/wp/通告/",
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title",
@@ -1041,10 +1011,14 @@
         "?t=",
         "?ver="
       ],
-      "notes": "路徑為/wp/notice/; 監控首位文章的href屬性",
-      "use_playwright": false,
-      "asset_link_selector": ".entry-title a[href]",
-      "follow_detail_pages": false
+      "notes": "新版通告網址，舊版 notice 作為 listing page 後備",
+      "use_playwright": true,
+      "asset_link_selector": "a[href*='.pdf']",
+      "follow_detail_pages": false,
+      "listing_page_urls": [
+        "https://www.stwscout.org/wp/notice/"
+      ],
+      "verify_ssl": false
     },
     "沙田南區": {
       "region": "新界東地域",
@@ -1064,7 +1038,7 @@
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href*=\"/programme/view_notice/\"]",
+      "asset_link_selector": "a[href*='.pdf']",
       "follow_detail_pages": true,
       "detail_max_pages": 20,
       "detail_link_selector": "a[href*=\"/programme/view_notice/\"]",
@@ -1106,6 +1080,28 @@
       "use_playwright": false,
       "asset_link_selector": "table a[href]",
       "follow_detail_pages": false
+    },
+    "大嶼山區": {
+      "region": "新界地域",
+      "url": "https://vincentpun213.wixsite.com/lantauscout/portfolio",
+      "type": "wix",
+      "encoding": "utf-8",
+      "use_playwright": true,
+      "wait_strategy": "networkidle",
+      "follow_detail_pages": true,
+      "detail_link_selector": "a",
+      "asset_link_selector": "a",
+      "notes": "新增大嶼山區Wix網站，需Playwright支援。卡片式點擊。"
+    },
+    "慈雲山區": {
+      "region": "東九龍地域",
+      "url": "http://www.twsd-hkscout.org/content/index.php?option=com_content&view=section&id=5&Itemid=65",
+      "type": "joomla",
+      "encoding": "utf-8",
+      "follow_detail_pages": true,
+      "detail_link_selector": "a[href*='category']",
+      "asset_link_selector": "a[href*='.pdf']",
+      "notes": "合併課程與活動，從分類頁深挖通告"
     }
   }
 }
