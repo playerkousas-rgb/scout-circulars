@@ -618,25 +618,24 @@
       "url": "https://hkscout-tko.org/notice.php",
       "type": "php_list",
       "encoding": "utf-8",
-      "fingerprint_selector": "table, main, [class*='content']",
+      "fingerprint_selector": ".divContent, body",
       "link_selector": "a[href]",
-      "title_selector": "h4, h5, div",
+      "title_selector": ".divlink",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "此頁通告多為純文字列表，已啟用 text notice fallback，從 h4/h5 後方 div 解析通告編號與標題。",
-      "use_playwright": true,
+      "notes": "通告以純文字在.divlink顯示，無PDF下載連結，用text_notice處理",
+      "use_playwright": false,
       "wait_strategy": "networkidle",
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
       "asset_link_selector": "a[href]",
       "follow_detail_pages": false,
       "text_notice_selector": [
-        "h4 + div",
-        "h5 + div"
+        ".divlink"
       ],
-      "text_notice_pattern": "(?P<code>\\d{2}-\\d{4})\\s+(?P<title>.+?)\\s+(?:截止[:：]\\s*(?P<deadline>\\d{4}-\\d{2}-\\d{2})|已截止)"
+      "text_notice_pattern": "(?P<code>\\d{2}-\\d{4})\\s*(?P<title>.+?)\\s*(?:截止[:：]\\s*(?P<deadline>\\d{4}-\\d{2}-\\d{2})|已截止)"
     },
     "觀塘區": {
       "region": "東九龍地域",
@@ -989,19 +988,19 @@
     },
     "大埔北區": {
       "region": "新界東地域",
-      "url": "https://tpnscout.org/",
+      "url": "https://tpnscout.org/%E9%80%9A%E5%91%8A/",
       "type": "wordpress_list",
       "encoding": "utf-8",
-      "fingerprint_selector": "body",
-      "link_selector": "h3 a[href], article a[href]",
-      "title_selector": "h3 a, article h3 a, article",
+      "fingerprint_selector": "article, body",
+      "link_selector": "a[href]",
+      "title_selector": "article h3 a, h3 a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "WordPress站，需要Playwright渲染完整內容",
-      "use_playwright": true,
+      "notes": "用通告頁取代首頁，45份PDF直接提取",
+      "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
