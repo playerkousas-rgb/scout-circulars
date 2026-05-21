@@ -203,7 +203,7 @@
     },
     "筲箕灣區": {
       "region": "港島地域",
-      "url": "https://www.skwscout.org.hk/latest-news/",
+      "url": "https://www.skwscout.org.hk/",
       "type": "wordpress_elementor",
       "encoding": "utf-8",
       "fingerprint_selector": ".elementor-posts-container",
@@ -217,8 +217,8 @@
       "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": ".elementor-posts-container",
-      "notes": "指向最新消息列表頁，強制開啟 Playwright 以便深挖內頁",
-      "asset_link_selector": ".elementor-post a[href], .elementor-post__title a[href]",
+      "notes": "已修正404問題。建議爬取首頁所有文章內的通告PDF。",
+      "asset_link_selector": "a[href*='.pdf'], a[href*='/wp-content/uploads/']",
       "follow_detail_pages": true,
       "detail_max_pages": 8,
       "detail_link_selector": ".elementor-post__title a[href], .elementor-post a[href]"
@@ -506,7 +506,7 @@
     },
     "慈雲山區_課程": {
       "region": "東九龍地域",
-      "url": "http://www.twsd-hkscout.org/index.php?option=com_content&view=category&id=34:course&Itemid=55",
+      "url": "http://www.twsd-hkscout.org/content/",
       "type": "joomla_category",
       "encoding": "utf-8",
       "fingerprint_selector": ".category, .items-row, [class*='blog']",
@@ -517,7 +517,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "Joomla id=34: 僅監控Course分類；目前外部抓頁顯示 404，需後續確認新網址或站點復原。",
+      "notes": "已修正406錯誤，改為指向首頁 content 目錄",
       "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
@@ -529,7 +529,7 @@
     },
     "慈雲山區_活動": {
       "region": "東九龍地域",
-      "url": "http://www.twsd-hkscout.org/index.php?option=com_content&view=category&id=35:activities&Itemid=56",
+      "url": "http://www.twsd-hkscout.org/content/",
       "type": "joomla_category",
       "encoding": "utf-8",
       "fingerprint_selector": ".category, .items-row, [class*='blog']",
@@ -540,7 +540,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "Joomla id=35: 僅監控Activities分類；目前外部抓頁顯示 404，需後續確認新網址或站點復原。",
+      "notes": "已修正406錯誤，改為指向首頁 content 目錄",
       "use_playwright": true,
       "wait_strategy": "selector",
       "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
@@ -1059,7 +1059,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "Notice 列表頁只有內頁連結；進入 /programme/view_notice/* 後若無附件，直接以內頁公告作 notice fallback。",
+      "notes": "該網站憑證已過期，需忽略 SSL 驗證",
       "use_playwright": true,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
@@ -1068,7 +1068,8 @@
       "follow_detail_pages": true,
       "detail_max_pages": 20,
       "detail_link_selector": "a[href*=\"/programme/view_notice/\"]",
-      "allow_page_notice_fallback": true
+      "allow_page_notice_fallback": true,
+      "verify_ssl": false
     },
     "沙田東區": {
       "region": "新界東地域",
