@@ -83,7 +83,7 @@
     <aside class="sidebar">
       <div class="brand">
         <h1>全港童軍通告自動化圖書館 v5.3</h1>
-        <p>來源隔離 + 物理分頁 + GitHub Raw 直連。未來一有新更新，就盡快抓回來。</p>
+        <p>每天香港時間 04:00 自動更新</p>
       </div>
 
       <div class="panel meta" id="sidebar-meta">
@@ -98,7 +98,7 @@
     <main class="content">
       <section class="panel hero">
         <h2 id="page-title">載入中…</h2>
-        <div class="sub" id="page-subtitle">前端只讀 GitHub Raw CDN，切換分頁只會讀取單一來源資料。</div>
+        <div class="sub" id="page-subtitle">目前支援分區或全港層級瀏覽。</div>
 
         <div class="controls">
           <input id="keyword" type="search" placeholder="搜尋目前分頁標題…">
@@ -114,18 +114,19 @@
 
       <section id="messages"></section>
       <section class="cards" id="cards"></section>
+      <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 13px;">Copyright &copy; 2026 SKWSCOUT</footer>
     </main>
   </div>
 
   <script>
     const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
     const TIME_WINDOWS = [
+      { id: '1d', label: '今天', days: 1 },
       { id: '7d', label: '7天', days: 7 },
       { id: '15d', label: '15天', days: 15 },
       { id: '30d', label: '30天', days: 30 },
       { id: '90d', label: '3個月', days: 90 },
       { id: '180d', label: '6個月', days: 180 },
-      { id: 'all', label: '全部', days: null },
     ];
 
     const state = {
@@ -209,8 +210,30 @@
       return (state.grouped[source] || []).length;
     }
 
-    function getBucket(source) {
-      return state.grouped[source] || [];
+    function getBucket(sourceId) {
+      if (sourceId === 'ALL_SOURCES') {
+        let all = [];
+        for (const src of state.sourceOrder) {
+          all = all.concat(state.grouped[src] || []);
+        }
+        return all;
+      }
+      if (sourceId && sourceId.startsWith('REGION:')) {
+        const regionName = sourceId.substring(7);
+        const sourcesInRegion = state.regions[regionName] || [];
+        let all = [];
+        for (const src of sourcesInRegion) {
+          all = all.concat(state.grouped[src] || []);
+        }
+        return all;
+      }
+      return state.grouped[sourceId] || [];
+    }
+
+    function getSourceTitle(sourceId) {
+      if (sourceId === 'ALL_SOURCES') return '全港 (所有層級)';
+      if (sourceId && sourceId.startsWith('REGION:')) return sourceId.substring(7) + ' (全部)';
+      return sourceId || '未選擇來源';
     }
 
     function currentWindow() {
@@ -274,7 +297,7 @@
       const nonEmptySources = state.sourceOrder.filter(source => sourceCount(source) > 0).length;
       $('#sidebar-meta').innerHTML = `
         <div class="big">最後更新：${escapeHtml(state.cache?.last_updated || '未有資料')}</div>
-        <div class="sub">目前 cache 已按來源分組，前端不再把全部資料混成單一陣列處理。</div>
+        <div class="sub">支援分區或全港層級瀏覽</div>
         <div class="meta-grid">
           <div class="meta-cell"><strong>${totalSources}</strong><span>來源</span></div>
           <div class="meta-cell"><strong>${nonEmptySources}</strong><span>有資料</span></div>
@@ -287,6 +310,25 @@
       const q = state.searchRegionKeyword.toLowerCase().trim();
       accordionEl.innerHTML = '';
 
+      // All Levels Pseudo-Region
+      if (!q || '全港 (所有層級)'.includes(q)) {
+        const allEl = document.createElement('section');
+        allEl.className = 'region';
+        const totalAll = state.sourceOrder.reduce((sum, src) => sum + sourceCount(src), 0);
+        
+        const allBtn = document.createElement('button');
+        allBtn.innerHTML = `<span>全港 (所有層級)</span><span>${totalAll}</span>`;
+        if (state.activeSource === 'ALL_SOURCES') allEl.classList.add('open');
+        allBtn.onclick = () => {
+          state.activeSource = 'ALL_SOURCES';
+          renderAccordion();
+          renderHeader();
+          renderCards();
+        };
+        allEl.appendChild(allBtn);
+        accordionEl.appendChild(allEl);
+      }
+
       const regions = Object.entries(state.regions);
       for (const [regionName, sources] of regions) {
         const filteredSources = q
@@ -296,7 +338,8 @@
 
         const regionEl = document.createElement('section');
         regionEl.className = 'region';
-        const shouldOpen = filteredSources.includes(state.activeSource);
+        const isRegionActive = state.activeSource === 'REGION:' + regionName;
+        const shouldOpen = isRegionActive || filteredSources.includes(state.activeSource);
         if (shouldOpen) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
@@ -307,6 +350,21 @@
 
         const list = document.createElement('div');
         list.className = 'source-list';
+        
+        // Add "All in this Region" button
+        if (filteredSources.length > 1 || true) {
+          const allRegionBtn = document.createElement('button');
+          allRegionBtn.className = `source-btn ${isRegionActive ? 'active' : ''}`;
+          allRegionBtn.innerHTML = `<span>全部 (${escapeHtml(regionName)})</span><small>${total} 則</small>`;
+          allRegionBtn.onclick = () => {
+            state.activeSource = 'REGION:' + regionName;
+            renderAccordion();
+            renderHeader();
+            renderCards();
+          };
+          list.appendChild(allRegionBtn);
+        }
+
         for (const source of filteredSources) {
           const btn = document.createElement('button');
           btn.className = `source-btn ${state.activeSource === source ? 'active' : ''}`;
@@ -329,12 +387,16 @@
     }
 
     function renderHeader() {
-      const total = sourceCount(state.activeSource);
+      const total = getBucket(state.activeSource).length;
       const current = getCurrentItems().length;
-      $('#page-title').textContent = state.activeSource || '未選擇來源';
-      $('#page-subtitle').textContent = state.activeSource
-        ? `目前只讀取 data["${state.activeSource}"]；切換分頁時只排序這個來源的陣列。`
-        : '請先選擇一個來源。';
+      $('#page-title').textContent = getSourceTitle(state.activeSource);
+      
+      let subtitle = '請先選擇一個來源。';
+      if (state.activeSource === 'ALL_SOURCES') subtitle = '目前顯示全港所有通告。';
+      else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
+      else if (state.activeSource) subtitle = `目前只讀取 data["${state.activeSource}"]；切換分頁時只排序這個來源的陣列。`;
+      
+      $('#page-subtitle').textContent = subtitle;
       $('#status-line').innerHTML = `
         視窗：<code>${escapeHtml(currentWindow().label)}</code>
         ・顯示：<code>${current}</code>
@@ -382,7 +444,7 @@
 
     function pickDefaultSource() {
       const firstNonEmpty = state.sourceOrder.find(source => sourceCount(source) > 0);
-      state.activeSource = firstNonEmpty || state.sourceOrder[0] || null;
+      state.activeSource = 'ALL_SOURCES';
     }
 
     async function loadCache() {
@@ -436,5 +498,5 @@
     renderWindowChips();
     loadCache();
   </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff2d8366d1810ac',t:'MTc3OTM1ODc4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
