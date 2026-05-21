@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-21 07:59:32",
+  "last_updated": "2026-05-21 11:51:07",
   "data": {
     "總會": [
       {
@@ -729,11 +729,209 @@
       }
     },
     "last_run": {
-      "updated_at": "2026-05-21 07:59:32",
-      "created": 6,
+      "updated_at": "2026-05-21 11:51:07",
+      "created": 0,
       "refreshed": 0,
       "skipped": 0,
-      "processed_sources": 1
+      "processed_sources": 49
+    },
+    "errors": {
+      "總會": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "港島地域": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "灣仔區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "港島西區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "柴灣區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "維多利亞城區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "港島南區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "筲箕灣區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "港島北區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "九龍地域": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "紅磡區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "何文田區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "九龍城區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "九龍塘區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "旺角區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "深旺區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "深水埗東區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "深水埗西區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "油尖區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "東九龍地域": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "西貢區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "慈雲山區_課程": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "慈雲山區_活動": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "黃大仙區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "九龍灣區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "秀茂坪區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "將軍澳區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "觀塘區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "鯉魚門區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "新界地域": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "元朗東區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "元朗西區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "十八鄉區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "屯門西區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "北葵涌區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "屯門東區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "荃灣區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "南葵涌區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "青衣區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "離島區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "新界東地域": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "雙魚區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "壁峰區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "大埔北區": {
+        "message": "requests failed: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?; playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "大埔南區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "沙田西區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "沙田南區": {
+        "message": "requests failed: HTTPSConnectionPool(host='www.stsd-scout.org', port=443): Max retries exceeded with url: /programme/notice (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)'))); playwright failed: Playwright unavailable: No module named 'playwright'",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "沙田東區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      },
+      "沙田北區": {
+        "message": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "updated_at": "2026-05-21 11:51:07"
+      }
     }
   }
 }
