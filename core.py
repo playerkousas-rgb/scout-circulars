@@ -572,8 +572,34 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     use_playwright = config.get("use_playwright", False)
     result: Optional[FetchResult] = None
 
+    # --- 新增：Contentful API 攔截器 ---
+    if config.get("type") == "contentful_api":
+        import requests
+        try:
+            r = requests.get(config.get("api_url"), params=config.get("api_params"), headers=config.get("api_headers"), timeout=15)
+            r.raise_for_status()
+            data = r.json()
+            # 將 API 數據轉為 HTML 模擬格式
+            asset_map = {a["sys"]["id"]: ("https:" + a["fields"]["file"]["url"] if a["fields"]["file"]["url"].startswith("//") else a["fields"]["file"]["url"]) 
+                         for a in data.get("includes", {}).get("Asset", [])}
+            mock_html = "<html><body>"
+            for item in data.get("items", []):
+                fields = item.get("fields", {})
+                title = fields.get("title", "Unknown Title")
+                attach = fields.get("attach", {})
+                file_url = asset_map.get(attach.get("sys", {}).get("id"))
+                if file_url:
+                    mock_html += f'<a href="{file_url}">{title}</a><br/>'
+            mock_html += "</body></html>"
+            return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
+        except Exception as e:
+            print(f"  [{name}] ⚠️ Contentful API 失敗: {e}")
+            return None
+    # ---------------------------------
+
     try:
         result = fetch_requests(url, config, timeout=30)
+        # ... 以下保持你原本的代碼不變 ...
         soup = BeautifulSoup(result.html, "html.parser")
         if has_useful_candidates(soup, config):
             return result
