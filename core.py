@@ -166,6 +166,30 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
     if not title:
         return None
 
+    # URL 解碼
+    title = unquote(title)
+    
+    # 移除句尾的副檔名
+    title = re.sub(r"\.(pdf|docx?|xlsx?|pptx?|zip|rar|7z|rtf|csv)$", "", title, flags=re.I).strip()
+    
+    # 移除 Apache index 常見的截斷後綴
+    title = re.sub(r"\.\.>$", "", title)
+    title = re.sub(r"\.\.&gt;$", "", title)
+    title = re.sub(r"\.\.$", "", title)
+    
+    # 將底線替換為空白
+    title = title.replace("_", " ")
+    title = re.sub(r"\s+", " ", title).strip()
+
+    # 智能移除童軍通告編號前綴 (例如 TPN/CIR/VS/2627/003 或 TPN CIR S 2526 006)
+    # 匹配: 2-5個英文字母 + (可選的英文部門代號) + 2-4位數字年份 + 2-3位數字序號
+    prefix_pattern = r"^[A-Za-z]{2,5}[/\-_\s]+(?:[A-Za-z]{1,4}[/\-_\s]+)*\d{2,4}[/\-_\s]+\d{2,3}[a-zA-Z]?\s*[/\-_\s]*"
+    cleaned_title = re.sub(prefix_pattern, "", title).strip()
+    
+    # 如果移除前綴後還有剩下真正的文字，就使用乾淨的標題；否則保留原樣(以免完全沒有標題)
+    if len(cleaned_title) > 2:
+        title = cleaned_title
+
     regex = config.get("title_filter_regex")
     if regex:
         try:
@@ -491,9 +515,11 @@ def compute_fingerprint(soup: BeautifulSoup, selector: str) -> str:
 # ─── 抓頁引擎 ──────────────────────────────────────────────
 def fetch_requests(url: str, config: Dict[str, Any], timeout: int = 20) -> FetchResult:
     try:
-        resp = SESSION.get(url, timeout=timeout)
+        resp = SESSION.get(url, timeout=timeout, verify=config.get("verify_ssl", True))
     except requests.exceptions.SSLError:
         resp = SESSION.get(url, timeout=timeout, verify=False)
+    except Exception as e:
+        raise e
     encoding_shield_response(resp, config)
     return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
 
@@ -575,7 +601,6 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     # --- WP API Injection ---
     if config.get("type") == "wordpress_api":
         import requests, json
-        from bs4 import BeautifulSoup
         try:
             r = requests.get(url, verify=config.get("verify_ssl", True), timeout=15)
             r.raise_for_status()
@@ -649,6 +674,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         if use_playwright:
             print(f"  [{name}] requests 結果太空，改用 Playwright")
     except Exception as e:
+        import traceback; traceback.print_exc()
         print(f"  [{name}] ⚠️ requests: {type(e).__name__}")
 
     if use_playwright:
