@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-21 06:10:57",
+  "last_updated": "2026-05-21 06:46:04",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 2151,
+    "total_notices": 2255,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -12367,8 +12367,136 @@
       }
     ],
     "西貢區": [],
-    "慈雲山區_課程": [],
-    "慈雲山區_活動": [],
+    "慈雲山區_課程": [
+      {
+        "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
+        "url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_課程",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_課程",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "8:30 – 12:00",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1001.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1001.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_課程",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "6) 有關「惡劣天氣及空氣污染應變措施」指引請參閱 總會 內容。",
+        "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_課程",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "(星期六)",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_課程",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "(星期二)",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_課程",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "(三)– 簡介會",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_課程",
+        "region": "東九龍地域"
+      }
+    ],
+    "慈雲山區_活動": [
+      {
+        "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
+        "url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_活動",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_活動",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "8:30 – 12:00",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1001.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1001.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_活動",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "6) 有關「惡劣天氣及空氣污染應變措施」指引請參閱 總會 內容。",
+        "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_活動",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "(星期六)",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_活動",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "(星期二)",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_活動",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "(三)– 簡介會",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "慈雲山區_活動",
+        "region": "東九龍地域"
+      }
+    ],
     "黃大仙區": [
       {
         "title": "香港童軍110周年系列 – 運動與健康推廣計劃 「童」運動 、齊健康 全區智能運動大賽",
@@ -12841,731 +12969,740 @@
     ],
     "九龍灣區": [
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-01-26_all.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-01-26_all.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-06-26.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-06-26.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-08-26.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-08-26.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-07-26.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-07-26.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-02-26.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-02-26.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-22-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-22-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-05-26.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-05-26.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-04-26.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-04-26.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-21-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-21-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-24-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-24-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-23-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-23-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-20-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-20-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-18-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-18-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-14-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-14-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-16-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-16-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-11-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-11-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-12-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-12-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-11-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-11-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-09-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-09-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-02-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-02-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-03-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-03-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-04-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-04-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-10-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-10-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-05-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-05-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-04-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-04-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-19-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-19-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-01-25.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-01-25.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-13-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-13-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-18-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-18-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-08-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-08-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-05-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-05-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-15-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-15-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-17-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-17-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-16-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-16-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-14-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-14-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-12-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-12-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-06-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-06-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-11-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-11-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-10-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-10-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-09-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-09-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-08-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-08-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-05-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-05-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-07-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-07-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-02-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-02-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-03-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-03-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-04-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-04-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-01-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-01-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-06-24.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-06-24.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-26.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-26.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23a.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23a.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-20-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-20-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-15-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-15-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-19-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-19-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-17-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-17-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
+        "title": "風之行 - 南丫島親子生態遊",
         "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-18-23.pdf",
         "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-18-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-21-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-21-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "title": "陶藝工作坊",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23a.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23a.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-15-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-15-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "title": "親子環保探索-海岸清潔",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-01-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-01-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-22-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-22-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-13-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-13-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-12-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-12-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-13-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-13-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-11-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-11-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-10-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-10-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-09-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-09-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-08-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-08-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-07-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-07-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
+        "title": "親子樂悠遊-日營活動",
         "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-05-23.pdf",
         "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-05-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-04-23.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-04-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "title": "蛇來運轉.九灣迎新春",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-18-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-18-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
+        "title": "第四十四屆區務委員會就職典禮 暨 「童」愛共融嘉年華 成員協助邀請",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-04-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-04-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第四十四屆區務委員會就職典禮",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-02-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-02-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第四十五屆區務委員會就職典禮 及 九灣傳承45載.永續發展童未來嘉年華攤位成員協助邀請",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-07-26.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-07-26.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第四十五屆區務委員會就職典禮",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-06-26.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-06-26.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第四十二屆區務委員會就職典禮 及「童心展望嘉年華」 攤位遊戲",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF_01_23_PT_03_23.zip",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF_01_23_PT_03_23.zip",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第四十三屆區務委員會就職典禮後",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-02-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-02-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第四十三屆區務委員會就職典禮 暨 九灣童行.身心靈健康嘉年華 成員協助",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-04-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-04-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第十五屆崇遠盃小童軍親子競技遊戲比賽",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-19-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-19-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第九屆童軍專章考驗日",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-12-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-12-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第83屆深資童軍消防章(服務組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-11-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-11-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第575屆童軍領導才訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-11-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-11-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第39屆童軍消防章(服務組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-10-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-10-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第38屆一級童軍標準艇訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-09-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-09-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第33童軍先鋒工程(教導組及技能組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-13-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-13-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第23屆二級童軍標準艇訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-10-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-10-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第 6 屆童軍露營章(教導組)訓練班及 第11屆童軍露營章(技能組)訓練班",
         "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-02-23.pdf",
         "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-02-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
+        "title": "童軍領袖木章訓練系統資助計劃",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-06-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-06-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍精神健康章(服務組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍技能比賽",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-17-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-17-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍急救章(服務組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-22-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-22-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍徒手潛水章(技能組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-08-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-08-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍工藝章(服務組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-19-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-19-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍射擊章(技能組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-07-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-07-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍射擊章(技能組)訓練班",
         "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-01-23.pdf",
         "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-01-23.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-22-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-22-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "title": "童軍共融(服務組)專章訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-16-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-16-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-10-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-10-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "title": "童軍公共衞生章(服務組)訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-23-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-23-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-14-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-14-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "title": "童軍先修章",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-26.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-26.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-20-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-20-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "title": "皮革工作坊",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-24-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-24-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       },
       {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-15-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-15-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-19-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-19-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-15-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-15-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-13-22.pdf",
-        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-13-22.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "九龍灣區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
+        "title": "癸卯年新春團拜同樂日",
         "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-11-22_.pdf",
         "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-11-22_.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "甲辰年新春團拜",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "環保遊蹤-海岸清潔",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-20-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-20-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "營藝工作坊",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-11-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-11-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "游泳測試考驗日",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-08-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-08-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "深資童軍自立段章考驗工作坊",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-17-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-17-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "深資童軍消防訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-02-26.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-02-26.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "深資童軍及樂行童軍-單車遊踨",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-13-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-13-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "泥灘清潔奇妙賞",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-12-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-12-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "會議程序研習班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-07-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-07-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "旅團獎勵計劃區評審安排",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-08-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-08-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "旅團獎勵計劃區評審安排",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-13-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-13-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "旅團獎勵計劃區評審安排",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-15-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-15-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "招募活動 2024",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-06-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-06-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍露營章訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-15-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-15-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊考驗營(二)",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-22-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-22-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊考驗營(一)",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-21-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-21-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍讀圖章訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-15-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-15-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍親子城市追蹤活動",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-05-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-05-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍繩結章訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-04-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-04-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍氣象章訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-14-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-14-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍探險章訓練班",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-13-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-13-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍主席盾比賽2025",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-14-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-14-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍主席盾比賽2023 結果",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-15-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-15-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "幼童軍主席盾比賽2023",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-12-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-12-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "小童軍親子競技遊戲比賽2025",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-18-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-18-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "小、幼童軍親子共融體驗",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-14-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-14-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "壹日急救重溫課程(ODRC)",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-09-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-09-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "區總部公佈 - 黃偉強先生由2023年2月1日起, 獲委任為 區領袖一職。 - 陳紀君小姐由2023年2月1日起, 獲委任為 區領袖一職。",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-20-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-20-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "傳承永續 • 童傲探索令和之旅",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-01-26_all.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-01-26_all.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "人事公佈",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-11-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-11-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "人事公佈",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-04-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-04-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "九龍灣區 生態體驗活動 –親子農莊體驗日",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-10-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-10-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "九龍灣區 45 周年徽章設計比賽",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-16-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-16-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "九灣童行.身心靈健康嘉年華",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-03-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-03-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "九灣傳承45載.永續發展童未來嘉年華",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-08-26.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-08-26.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "九巴車廠童遊樂",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-09-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-09-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "丙午年新春團拜",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-20-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-20-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「童繪熊貓樂」繪畫創作比賽結果",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-10-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-10-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「童繪熊貓樂」繪畫創作比賽",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-01-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-01-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「童心燕.創未來」立體藝術創作比賽",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-05-26.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-05-26.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「童」閱繪本樂",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-05-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-05-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「童」愛共融嘉年華",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-03-25.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-03-25.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「快樂陶」陶瓷創作比賽比賽結果公佈。",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-22-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-22-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「快樂陶」陶瓷創作比賽",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-15-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-15-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「同行未來」香港童軍大露營-九龍灣區營費資助",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-05-24.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-05-24.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「一旅一帳」創作計劃",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-04-26.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-04-26.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「一世童軍」大露營 – 九龍灣區資助計劃",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-19-22.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-19-22.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "2023-2024全區領袖聯誼 童心闖密室",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-21-23.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-21-23.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "九龍灣區",
         "region": "東九龍地域"
       }
@@ -13871,7 +14008,17 @@
         "region": "東九龍地域"
       }
     ],
-    "觀塘區": [],
+    "觀塘區": [
+      {
+        "title": "1 支部通告-幼童軍",
+        "url": "http://hkscout-ktd.org/ktdweb/index.php/event-and-program.html#1-支部通告-幼童軍",
+        "pdf_url": "http://hkscout-ktd.org/ktdweb/index.php/event-and-program.html#1-支部通告-幼童軍",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "觀塘區",
+        "region": "東九龍地域"
+      }
+    ],
     "鯉魚門區": [
       {
         "title": "黃惠貞活動基金",
@@ -15226,7 +15373,782 @@
         "region": "新界地域"
       }
     ],
-    "屯門東區": [],
+    "屯門東區": [
+      {
+        "title": "戶外活動通知書",
+        "url": "https://www.tmescout.org.hk/file/form/TME_ADM_01.doc",
+        "pdf_url": "https://www.tmescout.org.hk/file/form/TME_ADM_01.doc",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2007 No 2",
+        "url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+        "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(docx格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      }
+    ],
     "荃灣區": [
       {
         "title": "領袖木章訓練班報名表 (PT/02c)",
@@ -19218,8 +20140,8 @@
         "title": "香港童軍 115 周年 暨 沙田東區『童藝、童心、齊建未來』嘉年華 智能手機攝影比賽",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt05.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt05.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19227,8 +20149,8 @@
         "title": "香港童軍 115 周年 暨 沙田東區『童藝、童心、齊建未來』嘉年華",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt01.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt01.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19236,8 +20158,8 @@
         "title": "認證童軍單位網頁及社交媒體平台賬號事宜",
         "url": "http://stescout.org/pdf/cir_2018_ta01.pdf",
         "pdf_url": "http://stescout.org/pdf/cir_2018_ta01.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19245,8 +20167,8 @@
         "title": "童軍海上活動安全指引",
         "url": "http://www.scout.org.hk/article_attach/26164/P068-16.pdf",
         "pdf_url": "http://www.scout.org.hk/article_attach/26164/P068-16.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19254,8 +20176,17 @@
         "title": "童軍專科徽章考驗日2026",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "童軍專科徽章 / 獎章考驗申請表",
+        "url": "https://www.scout.org.hk/article_attach/8045/P120A1-09.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/8045/P120A1-09.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19263,8 +20194,8 @@
         "title": "活動/訓練班報名表 (PT/03)",
         "url": "https://www.scout.org.hk/article_attach/1367/PT03.pdf",
         "pdf_url": "https://www.scout.org.hk/article_attach/1367/PT03.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19272,8 +20203,8 @@
         "title": "沙田東區『童藝、童心、齊建未來』嘉年華 親子環保時裝設計比賽",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt02.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt02.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19281,8 +20212,8 @@
         "title": "沙田東區『童藝、童心、齊建未來』嘉年華 童軍紀念章設計比賽",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19290,8 +20221,8 @@
         "title": "沙田東區『童藝、童心、齊建未來』嘉年華 幼童軍故事創作比賽",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt03.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt03.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19299,8 +20230,8 @@
         "title": "戶外活動安全要則及須知",
         "url": "http://www.scout.org.hk/article_attach/21523/P028-14.pdf",
         "pdf_url": "http://www.scout.org.hk/article_attach/21523/P028-14.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19308,8 +20239,8 @@
         "title": "慶祝香港童軍 115 周年「地球保衛隊-童軍技能挑戰日」",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt09.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt09.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19317,8 +20248,17 @@
         "title": "慶祝香港童軍 115 周年 沙田東區「地球保衛隊-童軍技能挑戰日」 招募籌委會成員",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt08.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt08.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "家長同意書 (PT/46)",
+        "url": "https://www.scout.org.hk/article_attach/10498/PT46.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/10498/PT46.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19326,8 +20266,8 @@
         "title": "參加童軍申請書",
         "url": "https://www.scout.org.hk/article_attach/30947/FormY01.pdf",
         "pdf_url": "https://www.scout.org.hk/article_attach/30947/FormY01.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19335,8 +20275,8 @@
         "title": "二零二五至二零二六年度 周年大會",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt06.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt06.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19344,8 +20284,8 @@
         "title": "『領袖木章訓練班』津貼先導計劃",
         "url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a03.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a03.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19353,8 +20293,8 @@
         "title": "2025-26 年海外及內地活動資助計劃",
         "url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a02.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a02.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19362,8 +20302,8 @@
         "title": "2025-2026 沙田東區各支部訓練班資助",
         "url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a05.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a05.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       },
@@ -19371,8 +20311,8 @@
         "title": "2025-2026 年度各比賽資助",
         "url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a04.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a04.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田東區",
         "region": "新界東地域"
       }
@@ -20620,6 +21560,13 @@
       "region": "新界地域",
       "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/gs231101.pdf",
       "title": "2023小草蜢繽紛聖誕填色及設計比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "觀塘區",
+      "region": "東九龍地域",
+      "pdf_url": "http://hkscout-ktd.org/ktdweb/index.php/event-and-program.html#1-支部通告-幼童軍",
+      "title": "1 支部通告-幼童軍",
       "captured_date": "2026-05-21"
     },
     {
@@ -28218,6 +29165,146 @@
       "captured_date": "2026-05-21"
     },
     {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt05.pdf",
+      "title": "香港童軍 115 周年 暨 沙田東區『童藝、童心、齊建未來』嘉年華 智能手機攝影比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt01.pdf",
+      "title": "香港童軍 115 周年 暨 沙田東區『童藝、童心、齊建未來』嘉年華",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://stescout.org/pdf/cir_2018_ta01.pdf",
+      "title": "認證童軍單位網頁及社交媒體平台賬號事宜",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.scout.org.hk/article_attach/26164/P068-16.pdf",
+      "title": "童軍海上活動安全指引",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07.pdf",
+      "title": "童軍專科徽章考驗日2026",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/8045/P120A1-09.pdf",
+      "title": "童軍專科徽章 / 獎章考驗申請表",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/1367/PT03.pdf",
+      "title": "活動/訓練班報名表 (PT/03)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt02.pdf",
+      "title": "沙田東區『童藝、童心、齊建未來』嘉年華 親子環保時裝設計比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04.pdf",
+      "title": "沙田東區『童藝、童心、齊建未來』嘉年華 童軍紀念章設計比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt03.pdf",
+      "title": "沙田東區『童藝、童心、齊建未來』嘉年華 幼童軍故事創作比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.scout.org.hk/article_attach/21523/P028-14.pdf",
+      "title": "戶外活動安全要則及須知",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt09.pdf",
+      "title": "慶祝香港童軍 115 周年「地球保衛隊-童軍技能挑戰日」",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt08.pdf",
+      "title": "慶祝香港童軍 115 周年 沙田東區「地球保衛隊-童軍技能挑戰日」 招募籌委會成員",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/10498/PT46.pdf",
+      "title": "家長同意書 (PT/46)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/30947/FormY01.pdf",
+      "title": "參加童軍申請書",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt06.pdf",
+      "title": "二零二五至二零二六年度 周年大會",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a03.pdf",
+      "title": "『領袖木章訓練班』津貼先導計劃",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a02.pdf",
+      "title": "2025-26 年海外及內地活動資助計劃",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a05.pdf",
+      "title": "2025-2026 沙田東區各支部訓練班資助",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a04.pdf",
+      "title": "2025-2026 年度各比賽資助",
+      "captured_date": "2026-05-21"
+    },
+    {
       "source_site": "沙田北區",
       "region": "新界東地域",
       "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-04.pdf",
@@ -28799,6 +29886,104 @@
       "captured_date": "2026-05-21"
     },
     {
+      "source_site": "慈雲山區_課程",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+      "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_課程",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+      "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_課程",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1001.pdf",
+      "title": "8:30 – 12:00",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_課程",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+      "title": "6) 有關「惡劣天氣及空氣污染應變措施」指引請參閱 總會 內容。",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_課程",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+      "title": "(星期六)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_課程",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+      "title": "(星期二)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_課程",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+      "title": "(三)– 簡介會",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_活動",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+      "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_活動",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+      "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_活動",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1001.pdf",
+      "title": "8:30 – 12:00",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_活動",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+      "title": "6) 有關「惡劣天氣及空氣污染應變措施」指引請參閱 總會 內容。",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_活動",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+      "title": "(星期六)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_活動",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+      "title": "(星期二)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "慈雲山區_活動",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+      "title": "(三)– 簡介會",
+      "captured_date": "2026-05-21"
+    },
+    {
       "source_site": "屯門西區",
       "region": "新界地域",
       "pdf_url": "https://tmw.scout-ntr.org.hk/files/2025/區務委員會2025至2026年度委員名錄.pdf",
@@ -28817,6 +30002,608 @@
       "region": "新界地域",
       "pdf_url": "https://tmw.scout-ntr.org.hk/files/2025/屯門西區2025~2026活動與訓練行事曆.pdf",
       "title": "主目錄 本區架構 區務委員 公開旅簡介 行事曆 活動相片",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/form/TME_ADM_01.doc",
+      "title": "戶外活動通知書",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+      "title": "2007 No 2",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+      "title": "(docx格式)",
       "captured_date": "2026-05-21"
     },
     {
@@ -30973,6 +32760,580 @@
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1hZls9_38vm6vyPcfGmGTOBdAUr-UM5m2/view",
       "title": "202 5 年 10 月 25 日 第578屆童軍領導才訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-18-23.pdf",
+      "title": "風之行 - 南丫島親子生態遊",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23a.pdf",
+      "title": "陶藝工作坊",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-01-24.pdf",
+      "title": "親子環保探索-海岸清潔",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-05-23.pdf",
+      "title": "親子樂悠遊-日營活動",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-18-24.pdf",
+      "title": "蛇來運轉.九灣迎新春",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-04-25.pdf",
+      "title": "第四十四屆區務委員會就職典禮 暨 「童」愛共融嘉年華 成員協助邀請",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-02-25.pdf",
+      "title": "第四十四屆區務委員會就職典禮",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-07-26.pdf",
+      "title": "第四十五屆區務委員會就職典禮 及 九灣傳承45載.永續發展童未來嘉年華攤位成員協助邀請",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-06-26.pdf",
+      "title": "第四十五屆區務委員會就職典禮",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF_01_23_PT_03_23.zip",
+      "title": "第四十二屆區務委員會就職典禮 及「童心展望嘉年華」 攤位遊戲",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-02-24.pdf",
+      "title": "第四十三屆區務委員會就職典禮後",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-04-24.pdf",
+      "title": "第四十三屆區務委員會就職典禮 暨 九灣童行.身心靈健康嘉年華 成員協助",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-19-23.pdf",
+      "title": "第十五屆崇遠盃小童軍親子競技遊戲比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-12-24.pdf",
+      "title": "第九屆童軍專章考驗日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-11-24.pdf",
+      "title": "第83屆深資童軍消防章(服務組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-11-25.pdf",
+      "title": "第575屆童軍領導才訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-10-24.pdf",
+      "title": "第39屆童軍消防章(服務組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-09-23.pdf",
+      "title": "第38屆一級童軍標準艇訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-13-24.pdf",
+      "title": "第33童軍先鋒工程(教導組及技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-10-23.pdf",
+      "title": "第23屆二級童軍標準艇訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-02-23.pdf",
+      "title": "第 6 屆童軍露營章(教導組)訓練班及 第11屆童軍露營章(技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-06-24.pdf",
+      "title": "童軍領袖木章訓練系統資助計劃",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23.pdf",
+      "title": "童軍精神健康章(服務組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-17-23.pdf",
+      "title": "童軍技能比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-22-23.pdf",
+      "title": "童軍急救章(服務組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-08-24.pdf",
+      "title": "童軍徒手潛水章(技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-19-24.pdf",
+      "title": "童軍工藝章(服務組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-07-24.pdf",
+      "title": "童軍射擊章(技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-01-23.pdf",
+      "title": "童軍射擊章(技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-16-24.pdf",
+      "title": "童軍共融(服務組)專章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-23-25.pdf",
+      "title": "童軍公共衞生章(服務組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-26.pdf",
+      "title": "童軍先修章",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-24-25.pdf",
+      "title": "皮革工作坊",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-11-22_.pdf",
+      "title": "癸卯年新春團拜同樂日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-23.pdf",
+      "title": "甲辰年新春團拜",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-20-23.pdf",
+      "title": "環保遊蹤-海岸清潔",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-11-23.pdf",
+      "title": "營藝工作坊",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-08-23.pdf",
+      "title": "游泳測試考驗日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-17-24.pdf",
+      "title": "深資童軍自立段章考驗工作坊",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-02-26.pdf",
+      "title": "深資童軍消防訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-13-23.pdf",
+      "title": "深資童軍及樂行童軍-單車遊踨",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-12-25.pdf",
+      "title": "泥灘清潔奇妙賞",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-07-23.pdf",
+      "title": "會議程序研習班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-08-24.pdf",
+      "title": "旅團獎勵計劃區評審安排",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-13-23.pdf",
+      "title": "旅團獎勵計劃區評審安排",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-15-22.pdf",
+      "title": "旅團獎勵計劃區評審安排",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-06-24.pdf",
+      "title": "招募活動 2024",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-15-24.pdf",
+      "title": "幼童軍露營章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-22-25.pdf",
+      "title": "幼童軍金紫荊考驗營(二)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-21-25.pdf",
+      "title": "幼童軍金紫荊考驗營(一)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-15-23.pdf",
+      "title": "幼童軍讀圖章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-05-24.pdf",
+      "title": "幼童軍親子城市追蹤活動",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-04-23.pdf",
+      "title": "幼童軍繩結章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-14-22.pdf",
+      "title": "幼童軍氣象章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-13-22.pdf",
+      "title": "幼童軍探險章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-14-25.pdf",
+      "title": "幼童軍主席盾比賽2025",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-15-23.pdf",
+      "title": "幼童軍主席盾比賽2023 結果",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-12-23.pdf",
+      "title": "幼童軍主席盾比賽2023",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-18-25.pdf",
+      "title": "小童軍親子競技遊戲比賽2025",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-14-24.pdf",
+      "title": "小、幼童軍親子共融體驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-09-25.pdf",
+      "title": "壹日急救重溫課程(ODRC)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-20-22.pdf",
+      "title": "區總部公佈 - 黃偉強先生由2023年2月1日起, 獲委任為 區領袖一職。 - 陳紀君小姐由2023年2月1日起, 獲委任為 區領袖一職。",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-01-26_all.pdf",
+      "title": "傳承永續 • 童傲探索令和之旅",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-11-25.pdf",
+      "title": "人事公佈",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-04-25.pdf",
+      "title": "人事公佈",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-10-22.pdf",
+      "title": "九龍灣區 生態體驗活動 –親子農莊體驗日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-16-25.pdf",
+      "title": "九龍灣區 45 周年徽章設計比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-03-24.pdf",
+      "title": "九灣童行.身心靈健康嘉年華",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-08-26.pdf",
+      "title": "九灣傳承45載.永續發展童未來嘉年華",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-09-24.pdf",
+      "title": "九巴車廠童遊樂",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-20-25.pdf",
+      "title": "丙午年新春團拜",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-10-25.pdf",
+      "title": "「童繪熊貓樂」繪畫創作比賽結果",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-01-25.pdf",
+      "title": "「童繪熊貓樂」繪畫創作比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-05-26.pdf",
+      "title": "「童心燕.創未來」立體藝術創作比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-05-25.pdf",
+      "title": "「童」閱繪本樂",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-03-25.pdf",
+      "title": "「童」愛共融嘉年華",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-22-22.pdf",
+      "title": "「快樂陶」陶瓷創作比賽比賽結果公佈。",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-15-22.pdf",
+      "title": "「快樂陶」陶瓷創作比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-05-24.pdf",
+      "title": "「同行未來」香港童軍大露營-九龍灣區營費資助",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-04-26.pdf",
+      "title": "「一旅一帳」創作計劃",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-19-22.pdf",
+      "title": "「一世童軍」大露營 – 九龍灣區資助計劃",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-21-23.pdf",
+      "title": "2023-2024全區領袖聯誼 童心闖密室",
       "captured_date": "2026-05-21"
     },
     {
@@ -33594,132 +35955,6 @@
       "captured_date": "2026-05-20"
     },
     {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt05.pdf",
-      "title": "香港童軍 115 周年 暨 沙田東區『童藝、童心、齊建未來』嘉年華 智能手機攝影比賽",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt01.pdf",
-      "title": "香港童軍 115 周年 暨 沙田東區『童藝、童心、齊建未來』嘉年華",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://stescout.org/pdf/cir_2018_ta01.pdf",
-      "title": "認證童軍單位網頁及社交媒體平台賬號事宜",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.scout.org.hk/article_attach/26164/P068-16.pdf",
-      "title": "童軍海上活動安全指引",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07.pdf",
-      "title": "童軍專科徽章考驗日2026",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.scout.org.hk/article_attach/1367/PT03.pdf",
-      "title": "活動/訓練班報名表 (PT/03)",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt02.pdf",
-      "title": "沙田東區『童藝、童心、齊建未來』嘉年華 親子環保時裝設計比賽",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04.pdf",
-      "title": "沙田東區『童藝、童心、齊建未來』嘉年華 童軍紀念章設計比賽",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt03.pdf",
-      "title": "沙田東區『童藝、童心、齊建未來』嘉年華 幼童軍故事創作比賽",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.scout.org.hk/article_attach/21523/P028-14.pdf",
-      "title": "戶外活動安全要則及須知",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt09.pdf",
-      "title": "慶祝香港童軍 115 周年「地球保衛隊-童軍技能挑戰日」",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt08.pdf",
-      "title": "慶祝香港童軍 115 周年 沙田東區「地球保衛隊-童軍技能挑戰日」 招募籌委會成員",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.scout.org.hk/article_attach/30947/FormY01.pdf",
-      "title": "參加童軍申請書",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt06.pdf",
-      "title": "二零二五至二零二六年度 周年大會",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a03.pdf",
-      "title": "『領袖木章訓練班』津貼先導計劃",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a02.pdf",
-      "title": "2025-26 年海外及內地活動資助計劃",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a05.pdf",
-      "title": "2025-2026 沙田東區各支部訓練班資助",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田東區",
-      "region": "新界東地域",
-      "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a04.pdf",
-      "title": "2025-2026 年度各比賽資助",
-      "captured_date": "2026-05-20"
-    },
-    {
       "source_site": "南葵涌區",
       "region": "新界地域",
       "pdf_url": "https://skc.scout-ntr.org.hk/pdf/2021Circular/SKC_2021TA01_findinskc_app1_boundary.pdf",
@@ -33942,573 +36177,6 @@
       "pdf_url": "https://skc.scout-ntr.org.hk/pdf/2021Circular/SKC_2021TA03_Grasshopper_Color2021_form.pdf",
       "title": "SKC 2021TA03 Grasshopper Color2021 form",
       "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-01-26_all.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-06-26.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-08-26.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-07-26.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-02-26.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-22-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-05-26.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-04-26.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-21-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-24-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-23-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-20-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-18-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-14-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-16-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-11-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-12-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-11-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-09-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-02-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-03-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-04-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-10-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-05-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/AF-04-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-19-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2025/PT-01-25.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-13-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-18-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-08-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-05-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-15-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-17-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-16-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-14-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-12-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/AF-06-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-11-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-10-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-09-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-08-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-05-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-07-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-02-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-03-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-04-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-01-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2024/PT-06-24.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-26.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23a.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-20-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-15-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-24-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-23-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-19-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-17-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-18-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-21-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-15-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-22-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-13-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-12-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-13-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-11-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-10-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-09-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-08-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-07-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-05-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-04-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-02-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-01-23.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-22-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-10-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-14-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-20-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-15-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-19-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/AF-15-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-13-22.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "九龍灣區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2022/PT-11-22_.pdf",
-      "title": "區 總 部 小童軍支部 幼童軍支部 童軍支部 深資童軍支部 樂行童軍支部",
-      "captured_date": "2026-05-20"
     }
   ],
   "_meta": {
@@ -34629,11 +36297,11 @@
     ],
     "total_sources": 49,
     "last_run": {
-      "updated_at": "2026-05-21 06:10:57",
-      "new": 31,
-      "updated": 67,
-      "skipped": 32,
-      "processed": 17,
+      "updated_at": "2026-05-21 06:46:04",
+      "new": 104,
+      "updated": 104,
+      "skipped": 41,
+      "processed": 8,
       "playwright_used": 0
     }
   }
