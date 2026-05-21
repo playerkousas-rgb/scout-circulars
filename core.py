@@ -1,4 +1,22 @@
 #!/usr/bin/env python3
+"""
+全港童軍通告自動化圖書館 v5.3 — 核心爬蟲引擎 (core.py)
+========================================================
+目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
+
+v5.3 核心升級:
+  1. 不再只抓 PDF，改抓「可下載資產」(downloadable assets)
+  2. 列表頁 + 內頁兩階段作業
+  3. 指紋比對仍然保留，用來極速跳過沒變動頁面
+  4. 來源隔離：唯一鍵改為 (source_site, pdf_url)
+  5. cache.json 改為按來源分組 data[source]，並保留 notices 扁平輸出作兼容
+  6. 前端 / GitHub Raw / 本地 cache 都可以讀同一份 cache.json
+
+注意:
+  - 為兼容你現有 Supabase schema 與欄位名，資產網址欄位仍叫 pdf_url
+  - 但語義上它已經代表「downloadable asset url」，不再只限 PDF
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -8,74 +26,81 @@ import json
 import os
 import re
 import sys
+import time
 import unicodedata
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
-from urllib.parse import parse_qsl, unquote, urljoin, urlparse, urlunparse, urlencode
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse, urlunparse
 
 import requests
 from bs4 import BeautifulSoup
-from zoneinfo import ZoneInfo
 
-BASE_DIR = Path(__file__).resolve().parent
+# ─── Playwright (optional, lazy import) ───────────────────
+_playwright_available = False
+try:
+    from playwright.sync_api import sync_playwright
+    _playwright_available = True
+except ImportError:
+    pass
+
+# ─── 路徑配置 ─────────────────────────────────────────────
+BASE_DIR = Path(__file__).parent
 SOURCES_PATH = BASE_DIR / "sources.json"
 CACHE_PATH = BASE_DIR / "cache.json"
-TIMEZONE = ZoneInfo("Asia/Hong_Kong")
-USER_AGENT = (
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
-)
+FINGERPRINTS_PATH = BASE_DIR / "fingerprints.json"
+
+# ─── Supabase 配置 ────────────────────────────────────────
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+SUPABASE_TABLE = "scout_notices"
+USE_SUPABASE = bool(SUPABASE_URL and SUPABASE_KEY)
+
+# ─── HTTP Session ─────────────────────────────────────────
+SESSION = requests.Session()
+SESSION.headers.update({
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/125.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,*/*;q=0.9",
+    "Accept-Language": "zh-HK,zh-TW;q=0.9,zh;q=0.8,en;q=0.7",
+})
+
+DOWNLOAD_EXTENSIONS = {
+    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+    ".zip", ".rar", ".7z", ".rtf", ".csv"
+}
+IGNORE_FILE_EXTENSIONS = {
+    ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".bmp",
+    ".mp4", ".mp3", ".mov", ".avi", ".webm"
+}
 BAD_TITLE_FRAGMENTS = {"é", "ś", "ă", "æ", "°", "â", "ã"}
 NAV_TEXT_PATTERNS = [
-    "首頁",
-    "主頁",
-    "home",
-    "更多",
-    "read more",
-    "詳情",
-    "詳閱",
-    "查看",
-    "上一頁",
-    "下一頁",
-    "prev",
-    "next",
-    "facebook",
-    "instagram",
-    "youtube",
-    "whatsapp",
-    "分享",
-    "share",
-    "聯絡",
-    "contact",
-    "登入",
-    "login",
-    "register",
-    "訂閱",
-    "搜尋",
-    "search",
-    "menu",
-    "download",
-    "下載附件",
+    "首頁", "主頁", "home", "更多", "read more", "詳情", "詳閱", "查看",
+    "上一頁", "下一頁", "prev", "next", "facebook", "instagram", "youtube",
+    "whatsapp", "分享", "share", "聯絡", "contact", "登入", "login",
+    "register", "訂閱", "搜尋", "search", "menu", "download", "下載附件"
 ]
-ARTICLE_FRIENDLY_TYPES = {
-    "wordpress",
-    "wordpress_list",
-    "wordpress_page",
-    "wordpress_post",
-    "wordpress_archive",
-    "wordpress_category",
-    "wordpress_dynamic",
-    "wordpress_elementor",
-    "joomla_category",
-    "joomla_archive",
-    "home_news",
-    "modern_cms",
-    "structured_list",
-    "legacy_html",
-    "google_sites",
+SOCIAL_HOST_PATTERNS = [
+    "facebook.com", "instagram.com", "youtube.com", "wa.me", "twitter.com",
+    "x.com", "linkedin.com", "t.me"
+]
+GENERIC_DOWNLOAD_TITLES = {
+    "下載", "download", "檔案下載", "file download", "附件", "attachment",
+    "按此下載", "download here", "here", "click here"
 }
+ARTICLE_SOURCE_TYPES = {
+    "home_news", "wordpress", "wordpress_archive", "wordpress_category",
+    "wordpress_dynamic", "wordpress_elementor", "wordpress_post",
+    "joomla_category", "joomla_archive", "modern_cms"
+}
+
+# ─── Playwright browser singleton ────────────────────────
+_pw_browser = None
+_pw_controller = None
 
 
 @dataclass
@@ -86,593 +111,1223 @@ class FetchResult:
     status_code: int = 200
 
 
-class ScoutCrawler:
-    def __init__(self, verbose: bool = False, max_detail_pages: int = 12):
-        self.verbose = verbose
-        self.max_detail_pages = max_detail_pages
-        self.session = requests.Session()
-        self.session.headers.update({"User-Agent": USER_AGENT})
+def get_browser():
+    global _pw_browser, _pw_controller
+    if _pw_browser is not None:
+        return _pw_browser
+    if not _playwright_available:
+        return None
+    _pw_controller = sync_playwright().start()
+    _pw_browser = _pw_controller.chromium.launch(
+        headless=True,
+        args=[
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+        ],
+    )
+    return _pw_browser
 
-    def log(self, *parts: Any) -> None:
-        if self.verbose:
-            print(*parts)
 
-    def today(self) -> str:
-        return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
-
-    def now_ts(self) -> str:
-        return datetime.now(TIMEZONE).strftime("%Y-%m-%d %H:%M:%S")
-
-    def load_json(self, path: Path, default: Any) -> Any:
-        if not path.exists():
-            return default
+def close_browser():
+    global _pw_browser, _pw_controller
+    if _pw_browser:
         try:
-            with path.open("r", encoding="utf-8") as f:
-                return json.load(f)
+            _pw_browser.close()
         except Exception:
-            return default
-
-    def save_json(self, path: Path, data: Any) -> None:
-        with path.open("w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-            f.write("\n")
-
-    def normalize_ws(self, value: str) -> str:
-        value = html_lib.unescape(value or "")
-        value = unicodedata.normalize("NFKC", value)
-        value = value.replace("\u00a0", " ")
-        value = re.sub(r"[\u200b-\u200f\ufeff]", "", value)
-        value = re.sub(r"\s+", " ", value).strip()
-        return value
-
-    def clean_title(self, raw_title: str, conf: Dict[str, Any]) -> Optional[str]:
-        title = self.normalize_ws(raw_title)
-        if not title:
-            return None
-
-        regex = conf.get("title_filter_regex")
-        if regex:
-            try:
-                title = re.sub(regex, "", title).strip()
-            except re.error:
-                pass
-
-        exclude_patterns = conf.get("exclude_patterns") or []
-        for pattern in exclude_patterns:
-            if pattern and pattern.lower() in title.lower():
-                return None
-
-        for bad in BAD_TITLE_FRAGMENTS:
-            if bad in title:
-                return None
-
-        min_len = int(conf.get("min_title_length") or 4)
-        if len(title) < min_len:
-            return None
-
-        return title
-
-    def fallback_title_from_url(self, url: str, conf: Dict[str, Any]) -> Optional[str]:
-        path = unquote(urlparse(url).path)
-        name = path.rsplit("/", 1)[-1]
-        name = re.sub(r"\.pdf$", "", name, flags=re.I)
-        name = name.replace("_", " ").replace("-", " ")
-        return self.clean_title(name, conf)
-
-    def looks_like_notice_url(self, url: str) -> bool:
-        lowered = url.lower()
-        path = unquote(urlparse(url).path).lower()
-        host = urlparse(url).netloc.lower()
-        if re.search(r"\.pdf(?:$|[?#])", lowered):
-            return True
-        if path.endswith(".pdf"):
-            return True
-        if "drive.google.com" in host or "docs.google.com" in host:
-            return True
-        return False
-
-    def sanitize_url(self, href: str, base_url: str, patterns: Optional[List[str]] = None) -> Optional[str]:
-        href = (href or "").strip()
-        if not href:
-            return None
-        if href.startswith(("javascript:", "mailto:", "tel:")):
-            return None
-        if href.startswith("#"):
-            return None
-
-        absolute = urljoin(base_url, href)
-        parsed = urlparse(absolute)
-        parsed = parsed._replace(fragment="")
-
-        query_items = parse_qsl(parsed.query, keep_blank_values=True)
-        cleaned_items = list(query_items)
-
-        for pattern in patterns or []:
-            if pattern.startswith("?"):
-                key = pattern[1:].split("=", 1)[0]
-                if not key:
-                    continue
-                if key == "wpdmdl" and not self.looks_like_notice_url(absolute):
-                    continue
-                cleaned_items = [(k, v) for k, v in cleaned_items if k != key]
-            elif pattern.startswith("#"):
-                parsed = parsed._replace(fragment="")
-
-        new_query = urlencode(cleaned_items, doseq=True)
-        cleaned = urlunparse(parsed._replace(query=new_query))
-        cleaned = cleaned.rstrip("?&")
-        return cleaned
-
-    def fetch_requests(self, url: str, conf: Dict[str, Any], timeout: int = 20) -> FetchResult:
-        resp = self.session.get(url, timeout=timeout)
-        forced_encoding = conf.get("encoding")
-        resp.encoding = forced_encoding or resp.apparent_encoding or "utf-8"
-        return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
-
-    def fetch_playwright(self, url: str, conf: Dict[str, Any]) -> FetchResult:
+            pass
+        _pw_browser = None
+    if _pw_controller:
         try:
-            from playwright.sync_api import sync_playwright
-        except Exception as e:  # pragma: no cover
-            raise RuntimeError(f"Playwright unavailable: {e}") from e
-
-        wait_strategy = conf.get("wait_strategy") or "networkidle"
-        wait_timeout = int(conf.get("wait_timeout") or 15000)
-        wait_selector = conf.get("wait_selector")
-
-        with sync_playwright() as p:  # pragma: no cover
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page(user_agent=USER_AGENT)
-            page.goto(url, wait_until="domcontentloaded", timeout=wait_timeout)
-            if wait_strategy == "selector" and wait_selector:
-                page.wait_for_selector(wait_selector, timeout=wait_timeout)
-            else:
-                page.wait_for_load_state("networkidle", timeout=wait_timeout)
-            content = page.content()
-            final_url = page.url
-            browser.close()
-            return FetchResult(url=final_url, html=content, engine="playwright", status_code=200)
-
-    def html_has_useful_content(self, html: str, conf: Dict[str, Any]) -> bool:
-        soup = BeautifulSoup(html, "lxml")
-        fp_sel = conf.get("fingerprint_selector")
-        link_sel = conf.get("link_selector")
-        if fp_sel:
-            try:
-                if soup.select(fp_sel):
-                    return True
-            except Exception:
-                pass
-        if link_sel:
-            try:
-                if soup.select(link_sel):
-                    return True
-            except Exception:
-                pass
-        return bool(soup.select("a[href$='.pdf'], a[href*='drive.google.com']"))
-
-    def fetch_page(self, url: str, conf: Dict[str, Any], force_playwright: bool = False) -> FetchResult:
-        use_playwright = bool(conf.get("use_playwright")) or force_playwright
-        first_error: Optional[Exception] = None
-
-        try:
-            result = self.fetch_requests(url, conf)
-            if not use_playwright:
-                return result
-            if self.html_has_useful_content(result.html, conf):
-                return result
-            self.log(f"[fallback] requests result looks empty, switching to Playwright: {url}")
-            return self.fetch_playwright(url, conf)
-        except Exception as e:
-            first_error = e
-            if not use_playwright:
-                raise
-
-        try:
-            return self.fetch_playwright(url, conf)
-        except Exception as pe:
-            if first_error:
-                raise RuntimeError(f"requests failed: {first_error}; playwright failed: {pe}") from pe
-            raise
-
-    def fingerprint_payload(self, soup: BeautifulSoup, conf: Dict[str, Any]) -> str:
-        selector = conf.get("fingerprint_selector") or "body"
-        try:
-            nodes = soup.select(selector)
+            _pw_controller.stop()
         except Exception:
-            nodes = []
+            pass
+        _pw_controller = None
 
-        if not nodes:
-            nodes = [soup.body or soup]
 
-        chunks: List[str] = []
-        for node in nodes:
-            anchors = node.select("a[href]")
-            if anchors:
-                for a in anchors:
-                    href = self.sanitize_url(a.get("href", ""), "", conf.get("url_sanitize")) or (a.get("href") or "")
-                    text = self.normalize_ws(a.get_text(" ", strip=True))
-                    if href or text:
-                        chunks.append(f"{href}|{text}")
-            else:
-                chunks.append(self.normalize_ws(node.get_text(" ", strip=True)))
+# ─── 文字 / URL 工具 ──────────────────────────────────────
+def normalize_text(value: str) -> str:
+    value = html_lib.unescape(value or "")
+    value = unicodedata.normalize("NFKC", value)
+    value = value.replace("\u00a0", " ")
+    value = re.sub(r"[\u200b-\u200f\ufeff]", "", value)
+    value = re.sub(r"\s+", " ", value).strip()
+    return value
 
-        payload = "\n".join(c for c in chunks if c).strip()
-        return payload
 
-    def fingerprint_hash(self, html: str, conf: Dict[str, Any]) -> str:
-        soup = BeautifulSoup(html, "lxml")
-        payload = self.fingerprint_payload(soup, conf)
-        return hashlib.md5(payload.encode("utf-8", errors="ignore")).hexdigest()
+def is_generic_download_title(title: Optional[str]) -> bool:
+    title = normalize_text(title or "").lower()
+    return title in GENERIC_DOWNLOAD_TITLES
 
-    def source_domain(self, url: str) -> str:
-        return urlparse(url).netloc.lower()
 
-    def is_article_candidate(self, url: str, base_url: str, text: str) -> bool:
-        if not url or self.looks_like_notice_url(url):
-            return False
-        parsed = urlparse(url)
-        if parsed.scheme not in {"http", "https"}:
-            return False
-        if self.source_domain(url) != self.source_domain(base_url):
-            return False
+def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
+    title = normalize_text(raw_title)
+    if not title:
+        return None
 
-        lowered_url = url.lower()
-        for bad_host_piece in ["facebook.com", "instagram.com", "youtube.com", "wa.me", "twitter.com", "x.com"]:
-            if bad_host_piece in lowered_url:
-                return False
-
-        path = parsed.path.lower()
-        if re.search(r"\.(jpg|jpeg|png|gif|svg|webp|zip|rar|doc|docx|xls|xlsx|ppt|pptx)$", path):
-            return False
-
-        lowered_text = (text or "").strip().lower()
-        if any(pattern in lowered_text for pattern in NAV_TEXT_PATTERNS):
-            return False
-
-        if len(lowered_text) and len(lowered_text) < 2:
-            return False
-
-        return True
-
-    def anchors_from_selector(self, soup: BeautifulSoup, selector: Optional[str]) -> List[Any]:
-        if not selector:
-            return []
+    regex = config.get("title_filter_regex")
+    if regex:
         try:
-            nodes = soup.select(selector)
-        except Exception:
-            return []
+            title = re.sub(regex, "", title).strip()
+        except re.error:
+            pass
 
-        anchors: List[Any] = []
-        for node in nodes:
-            if getattr(node, "name", None) == "a":
-                anchors.append(node)
-            else:
-                found = node.find("a", href=True)
-                if found:
-                    anchors.append(found)
-        return anchors
+    for pattern in (config.get("exclude_patterns") or []):
+        if pattern and pattern.lower() in title.lower():
+            return None
 
-    def extract_from_main_page(
-        self,
-        source_name: str,
-        page_url: str,
-        html: str,
-        conf: Dict[str, Any],
-    ) -> Tuple[List[Dict[str, str]], List[str]]:
-        soup = BeautifulSoup(html, "lxml")
-        direct_notices: List[Dict[str, str]] = []
-        article_candidates: List[str] = []
-        seen_notice_urls = set()
-        seen_article_urls = set()
+    for bad in BAD_TITLE_FRAGMENTS:
+        if bad in title:
+            return None
 
-        anchors = self.anchors_from_selector(soup, conf.get("link_selector"))
-        anchors += self.anchors_from_selector(soup, conf.get("title_selector"))
-        if not anchors:
-            anchors = list(soup.select("a[href]"))
+    if is_generic_download_title(title):
+        return None
 
-        for a in anchors:
-            href = a.get("href")
-            sanitized = self.sanitize_url(href, page_url, conf.get("url_sanitize")) if href else None
-            if not sanitized:
-                continue
+    if re.fullmatch(r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}", title):
+        return None
+    if re.fullmatch(r"\d{1,2}\s+[A-Za-z]{3,9}\s+\d{2,4}", title):
+        return None
+    if any(flag in title for flag in ["通告日期", "截止日期", "活動/訓練班名稱", "下載"]):
+        return None
 
-            raw_text = a.get_text(" ", strip=True)
-            title = self.clean_title(raw_text, conf)
+    min_len = int(config.get("min_title_length") or 4)
+    if len(title) < min_len:
+        return None
 
-            if self.looks_like_notice_url(sanitized):
-                if not title:
-                    title = self.fallback_title_from_url(sanitized, conf)
-                if not title:
-                    continue
-                if sanitized in seen_notice_urls:
-                    continue
-                seen_notice_urls.add(sanitized)
-                direct_notices.append(
-                    {
-                        "title": title,
-                        "url": sanitized,
-                        "source_site": source_name,
-                    }
-                )
-            elif self.is_article_candidate(sanitized, page_url, raw_text):
-                if sanitized in seen_article_urls:
-                    continue
-                seen_article_urls.add(sanitized)
-                article_candidates.append(sanitized)
+    return title
 
-        return direct_notices, article_candidates
 
-    def extract_from_detail_page(
-        self,
-        source_name: str,
-        detail_url: str,
-        html: str,
-        conf: Dict[str, Any],
-    ) -> Optional[Dict[str, str]]:
-        soup = BeautifulSoup(html, "lxml")
+def fallback_title_from_url(url: str, config: Dict[str, Any]) -> Optional[str]:
+    path = unquote(urlparse(url).path)
+    filename = path.rsplit("/", 1)[-1]
+    filename = re.sub(r"\.(pdf|docx?|xlsx?|pptx?|zip|rar|7z|rtf|csv)$", "", filename, flags=re.I)
+    filename = filename.replace("_", " ").replace("-", " ")
+    return clean_title(filename, config)
 
-        pdf_candidates = []
-        for selector in [
-            "a[href$='.pdf']",
-            "a[href*='.pdf?']",
-            "a[href*='drive.google.com']",
-            "a[href*='/file/d/']",
-            "iframe[src$='.pdf']",
-            "iframe[src*='.pdf?']",
-            "embed[src$='.pdf']",
-            "object[data$='.pdf']",
-        ]:
-            try:
-                pdf_candidates.extend(soup.select(selector))
-            except Exception:
-                pass
 
-        pdf_url = None
-        for node in pdf_candidates:
-            href = node.get("href") or node.get("src") or node.get("data")
-            cleaned = self.sanitize_url(href, detail_url, conf.get("url_sanitize")) if href else None
-            if cleaned and self.looks_like_notice_url(cleaned):
-                pdf_url = cleaned
+
+
+def salvage_title_from_text(text: str, config: Dict[str, Any]) -> Optional[str]:
+    text = normalize_text(text)
+    if not text:
+        return None
+
+    # 移除常見日期前綴
+    patterns = [
+        r'^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\s+',
+        r'^\d{1,2}\s+[A-Za-z]{3,9}\s+\d{2,4}\s+',
+        r'^\d{4}年\d{1,2}月\d{1,2}日\s*',
+        r'^\d{4}-\d{1,2}-\d{1,2}\s*',
+    ]
+    for pat in patterns:
+        text = re.sub(pat, '', text).strip()
+
+    # 移除常見分類 / 編號 / 狀態 / 操作字樣
+    text = re.sub(r'[A-Z]{2,8}/\d{2}-\d{2}/[A-Z]{1,4}', ' ', text)
+    text = re.sub(r'[A-Z]{2,8}\d{2,4}[A-Z-]*', ' ', text)
+    text = re.sub(r'(活動與訓練通告|行政通告|特別通告)第\s*\d+[/-]\d+\s*號', ' ', text)
+    text = re.sub(r'(已經結束|接受報名|即將進行|檢視|開啟|下載)', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+
+    # 單欄位表格的支部標籤常在標題前面
+    text = re.sub(r'^(區會|區|地域總部|小童軍|幼童軍|童軍|深資童軍|樂行童軍)\s+', '', text).strip()
+    if text in {'行政通告', '特別通告', '公布', '地域總部', '刊物', '通告', '區會', '小童軍', '幼童軍', '童軍', '深資童軍', '樂行童軍'}:
+        return None
+    if re.fullmatch(r'[A-Za-z]{2,10}(?:[/-][A-Za-z0-9]{1,10}){1,6}', text):
+        return None
+    if re.fullmatch(r'[A-Za-z]{2,12}\d{2,8}[A-Za-z-]*', text):
+        return None
+    text = re.sub(r'^(小|幼|童|深|樂)\s+', '', text).strip()
+
+    # 遇到分類/受眾/百分比編碼等長尾噪音就截斷
+    cut_tokens = [
+        ' 所有成員', ' 小童軍,', ' 幼童軍,', ' 童軍,', ' 深資童軍,', ' 樂行童軍,',
+        ' 行政通告', ' 特別通告', ' 活動/訓練', ' 地域總部 / 刊物',
+        ' 九龍地域最新消息', ' announcement ', ' 活動與訓練 ', ' 活動／課程之報名須知 '
+    ]
+    for token in cut_tokens:
+        if token in text:
+            left = text.split(token, 1)[0].strip()
+            if left:
+                text = left
                 break
 
-        if not pdf_url:
-            return None
+    if '%e' in text.lower():
+        text = re.split(r'\s+%[0-9a-fA-F]{2}', text, maxsplit=1)[0].strip()
 
-        title = None
-        h1 = soup.find("h1")
-        if h1:
-            title = self.clean_title(h1.get_text(" ", strip=True), conf)
+    text = re.sub(r'\s+', ' ', text).strip(' -–—|/：:')
+    cleaned = clean_title(text, config)
+    return cleaned or None
 
-        if not title:
-            og = soup.find("meta", attrs={"property": "og:title"}) or soup.find("meta", attrs={"name": "og:title"})
-            if og and og.get("content"):
-                title = self.clean_title(og.get("content", ""), conf)
 
-        if not title and soup.title:
-            title = self.clean_title(soup.title.get_text(" ", strip=True), conf)
+def nearest_container(anchor: Any) -> Optional[Any]:
+    node = anchor
+    while node is not None:
+        name = getattr(node, 'name', None)
+        if name in {'tr', 'li', 'article', 'section'}:
+            return node
+        if name == 'div':
+            txt = normalize_text(node.get_text(' ', strip=True))
+            classes = ' '.join(node.get('class', [])) if hasattr(node, 'get') else ''
+            if txt and txt not in {'下載', 'download'}:
+                if any(key in classes for key in ['media', 'well', 'entry', 'post', 'content', 'item', 'card']):
+                    return node
+                if len(txt) > 20:
+                    return node
+        node = node.parent
+    return None
 
-        if not title:
-            title = self.fallback_title_from_url(pdf_url, conf)
 
-        if not title:
-            return None
+def infer_listing_title(anchor: Any, page_soup: BeautifulSoup, config: Dict[str, Any]) -> Optional[str]:
+    raw_candidates: List[str] = []
 
-        return {
-            "title": title,
-            "url": pdf_url,
-            "source_site": source_name,
-        }
+    # 1. anchor 自身文字
+    raw_candidates.append(anchor.get_text(' ', strip=True) or '')
+    if anchor.get('title'):
+        raw_candidates.append(anchor.get('title'))
+    if anchor.get('aria-label'):
+        raw_candidates.append(anchor.get('aria-label'))
 
-    def should_follow_detail_pages(self, conf: Dict[str, Any], direct_count: int, article_count: int) -> bool:
-        if article_count == 0:
-            return False
-        if "follow_detail_pages" in conf:
-            return bool(conf.get("follow_detail_pages"))
-        if direct_count == 0:
+    container = nearest_container(anchor)
+    title_selector = config.get('title_selector')
+
+    # 2. 先處理表格列，因為很多來源真正標題在相鄰 td
+    if container is not None and getattr(container, 'name', None) == 'tr':
+        for cell in container.find_all(['td', 'th']):
+            raw_candidates.append(cell.get_text(' ', strip=True) or '')
+
+    # 3. 再看鄰近容器內 title_selector
+    if container is not None and title_selector:
+        try:
+            nodes = container.select(title_selector)
+        except Exception:
+            nodes = []
+        for node in nodes:
+            raw_candidates.append(node.get_text(' ', strip=True) or '')
+
+    # 4. 容器全文
+    if container is not None:
+        raw_candidates.append(container.get_text(' ', strip=True) or '')
+
+    # 5. page level title_selector 最後補救
+    if title_selector:
+        try:
+            nodes = page_soup.select(title_selector)
+        except Exception:
+            nodes = []
+        for node in nodes[:5]:
+            raw_candidates.append(node.get_text(' ', strip=True) or '')
+
+    seen = set()
+    for cand in raw_candidates:
+        cand = normalize_text(cand)
+        if not cand or cand in seen:
+            continue
+        seen.add(cand)
+        fixed = salvage_title_from_text(cand, config)
+        if fixed:
+            return fixed
+
+    return None
+
+def resolve_url(base_url: str, href: Optional[str]) -> Optional[str]:
+    if not href:
+        return None
+    href = href.strip()
+    if not href or href.startswith(("javascript:", "mailto:", "tel:", "#")):
+        return None
+    if href.startswith(("http://", "https://")):
+        return href
+    if href.startswith("//"):
+        return "https:" + href
+    return urljoin(base_url, href)
+
+
+def sanitize_url(url: str, sanitize_params: Optional[List[str]] = None) -> str:
+    if not url:
+        return ""
+
+    parsed = urlparse(url)
+    strip_keys = {
+        "v", "t", "ver", "timestamp", "authuser", "usp",
+        "_", "nocache", "rand", "random"
+    }
+    for p in sanitize_params or []:
+        p = (p or "").strip()
+        if p.startswith("?"):
+            strip_keys.add(p[1:].split("=", 1)[0].strip())
+
+    path_lower = parsed.path.lower()
+    if 'wpdmdl' in parsed.query and '/download/' not in path_lower and not path_lower.endswith(tuple(ext for ext in DOWNLOAD_EXTENSIONS)):
+        strip_keys.add('wpdmdl')
+
+    query_items = parse_qsl(parsed.query, keep_blank_values=True)
+    cleaned_items = []
+    for k, v in query_items:
+        if k in strip_keys or k.startswith("utm_"):
+            continue
+        cleaned_items.append((k, v))
+
+    query = urlencode(cleaned_items, doseq=True)
+    cleaned = urlunparse((parsed.scheme, parsed.netloc, parsed.path, parsed.params, query, ""))
+    return cleaned.rstrip("?&")
+
+
+def url_path_ext(url: str) -> str:
+    path = urlparse(url).path.lower()
+    if "." not in path:
+        return ""
+    return "." + path.rsplit(".", 1)[-1]
+
+
+def is_download_url(url: str) -> bool:
+    if not url:
+        return False
+    lowered = url.lower()
+    host = urlparse(lowered).netloc
+    path = urlparse(lowered).path
+
+    ext = url_path_ext(lowered)
+    if ext in DOWNLOAD_EXTENSIONS:
+        return True
+    if ext in IGNORE_FILE_EXTENSIONS:
+        return False
+
+    if "drive.google.com" in host:
+        if "/file/d/" in path or "/uc" in path or "export=download" in lowered:
             return True
-        return (conf.get("type") or "") in ARTICLE_FRIENDLY_TYPES
+    if "dropbox.com" in host and ("dl=1" in lowered or path.endswith(tuple(DOWNLOAD_EXTENSIONS))):
+        return True
+    if any(k in lowered for k in ["download=1", "download=", "/download/", "attachment_id="]):
+        return True
+    return False
 
-    def collect_notices(self, source_name: str, source_url: str, html: str, conf: Dict[str, Any]) -> List[Dict[str, str]]:
-        direct_notices, article_candidates = self.extract_from_main_page(source_name, source_url, html, conf)
-        notices = list(direct_notices)
-        seen = {item["url"] for item in direct_notices}
 
-        if not self.should_follow_detail_pages(conf, len(direct_notices), len(article_candidates)):
-            return notices
+def is_article_candidate(url: str, root_url: str, text: str) -> bool:
+    if not url or is_download_url(url):
+        return False
 
-        self.log(f"[detail] {source_name}: scanning up to {self.max_detail_pages} detail pages")
-        for detail_url in article_candidates[: self.max_detail_pages]:
-            try:
-                detail_result = self.fetch_page(detail_url, conf)
-                notice = self.extract_from_detail_page(source_name, detail_result.url, detail_result.html, conf)
-                if not notice:
-                    continue
-                if notice["url"] in seen:
-                    continue
-                seen.add(notice["url"])
-                notices.append(notice)
-            except Exception as e:
-                self.log(f"[detail-skip] {source_name}: {detail_url} -> {e}")
-                continue
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"}:
+        return False
 
-        return notices
+    if url_path_ext(url) in IGNORE_FILE_EXTENSIONS:
+        return False
 
-    def build_regions(self, sources: Dict[str, Dict[str, Any]]) -> Dict[str, List[str]]:
-        regions: Dict[str, List[str]] = {}
-        for name, conf in sources.items():
-            region = conf.get("region") or "未分類"
-            regions.setdefault(region, []).append(name)
-        return regions
+    root_host = urlparse(root_url).netloc.lower()
+    host = parsed.netloc.lower()
+    if host != root_host:
+        return False
 
-    def empty_cache(self, sources: Dict[str, Dict[str, Any]], meta_root: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        meta_root = meta_root or {}
-        regions = self.build_regions(sources)
-        source_order = list(sources.keys())
-        return {
-            "last_updated": None,
-            "data": {name: [] for name in source_order},
-            "_meta": {
-                "project": meta_root.get("project", "全港童軍通告自動化圖書館"),
-                "version": meta_root.get("version", "5.0.0"),
-                "design": meta_root.get("design", "DOM指紋對比 + PDF絕對網址去重 + 系統日期 + 來源隔離"),
-                "total_sources": meta_root.get("total_sources", len(source_order)),
-                "regions": regions,
-                "source_order": source_order,
-                "fingerprints": {},
-            },
-        }
+    if any(social in host for social in SOCIAL_HOST_PATTERNS):
+        return False
 
-    def ensure_cache_shape(self, cache: Dict[str, Any], sources: Dict[str, Dict[str, Any]], meta_root: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        if not cache or not isinstance(cache, dict):
-            return self.empty_cache(sources, meta_root)
+    lowered_text = normalize_text(text).lower()
+    if lowered_text and any(pattern in lowered_text for pattern in NAV_TEXT_PATTERNS):
+        return False
 
-        cache.setdefault("last_updated", None)
-        cache.setdefault("data", {})
-        cache.setdefault("_meta", {})
-        cache["_meta"].setdefault("project", (meta_root or {}).get("project", "全港童軍通告自動化圖書館"))
-        cache["_meta"].setdefault("version", (meta_root or {}).get("version", "5.0.0"))
-        cache["_meta"].setdefault("design", (meta_root or {}).get("design", "DOM指紋對比 + PDF絕對網址去重 + 系統日期 + 來源隔離"))
-        cache["_meta"]["regions"] = self.build_regions(sources)
-        cache["_meta"]["source_order"] = list(sources.keys())
-        cache["_meta"]["total_sources"] = (meta_root or {}).get("total_sources", len(sources))
-        cache["_meta"].setdefault("fingerprints", {})
+    path = parsed.path.lower().strip()
+    if path in {"", "/"}:
+        return False
 
-        for name in sources.keys():
-            cache["data"].setdefault(name, [])
-            if not isinstance(cache["data"][name], list):
-                cache["data"][name] = []
+    return True
 
-        return cache
 
-    def update_source_records(
-        self,
-        cache: Dict[str, Any],
-        source_name: str,
-        notices: List[Dict[str, str]],
-        captured_date: str,
-    ) -> Tuple[int, int]:
-        bucket = cache["data"].setdefault(source_name, [])
-        existing_map = {item.get("url"): item for item in bucket if item.get("url")}
-        created = 0
-        updated = 0
+def broaden_selector(selector: Optional[str]) -> Optional[str]:
+    if not selector:
+        return selector
+    replacements = [
+        ("[href$='.pdf']", "[href]"),
+        ('[href$=".pdf"]', "[href]"),
+        ("[href*='.pdf']", "[href]"),
+        ('[href*=".pdf"]', "[href]"),
+        ("[href*='drive.google.com']", "[href]"),
+        ('[href*="drive.google.com"]', "[href]"),
+    ]
+    out = selector
+    for old, new in replacements:
+        out = out.replace(old, new)
+    return out
 
-        for notice in notices:
-            key = notice["url"]
-            if key in existing_map:
-                record = existing_map[key]
-                record["title"] = notice["title"]
-                record["date"] = captured_date
-                record["captured_date"] = captured_date
-                record["source_site"] = source_name
-                updated += 1
+
+def encoding_shield_response(resp: requests.Response, config: Dict[str, Any]) -> None:
+    forced = (config.get("encoding") or '').strip().lower()
+    apparent = (resp.apparent_encoding or '').strip().lower()
+    if forced in {'big5', 'cp950'} and apparent and apparent not in {'big5', 'cp950'}:
+        resp.encoding = resp.apparent_encoding
+    elif forced in {'big5', 'cp950'}:
+        resp.encoding = 'cp950'
+    else:
+        resp.encoding = resp.apparent_encoding or forced or 'utf-8'
+
+
+# ─── 指紋引擎 ──────────────────────────────────────────────
+def compute_fingerprint(soup: BeautifulSoup, selector: str) -> str:
+    try:
+        elements = soup.select(selector)
+        if not elements:
+            body = soup.select_one("body")
+            elements = [body] if body else []
+
+        parts: List[str] = []
+        for el in elements:
+            anchors = el.select("a[href]")
+            if anchors:
+                for a in anchors:
+                    href = normalize_text(a.get("href", ""))
+                    text = normalize_text(a.get_text(" ", strip=True))
+                    if href or text:
+                        parts.append(f"{href}|{text}")
             else:
-                record = {
-                    "title": notice["title"],
-                    "url": notice["url"],
-                    "date": captured_date,
-                    "captured_date": captured_date,
-                    "source_site": source_name,
-                }
-                bucket.append(record)
-                existing_map[key] = record
-                created += 1
+                parts.append(normalize_text(el.get_text(" ", strip=True)))
 
-        def sort_key(item: Dict[str, Any]) -> Tuple[str, str]:
-            return (item.get("date") or "", item.get("title") or "")
+        combined = "|".join(parts)
+        return hashlib.md5(combined.encode("utf-8", errors="ignore")).hexdigest()
+    except Exception:
+        return ""
 
-        bucket.sort(key=sort_key, reverse=True)
-        return created, updated
 
-    def run(self, only_sources: Optional[List[str]] = None, force: bool = False) -> Dict[str, Any]:
-        source_root = self.load_json(SOURCES_PATH, {})
-        if not source_root or "sources" not in source_root:
-            raise RuntimeError("sources.json 不存在或格式錯誤")
+# ─── 抓頁引擎 ──────────────────────────────────────────────
+def fetch_requests(url: str, config: Dict[str, Any], timeout: int = 20) -> FetchResult:
+    try:
+        resp = SESSION.get(url, timeout=timeout)
+    except requests.exceptions.SSLError:
+        resp = SESSION.get(url, timeout=timeout, verify=False)
+    encoding_shield_response(resp, config)
+    return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
 
-        meta_root = source_root.get("_meta") or {}
-        sources: Dict[str, Dict[str, Any]] = source_root["sources"]
-        if only_sources:
-            missing = [name for name in only_sources if name not in sources]
-            if missing:
-                raise RuntimeError(f"sources.json 找不到來源: {', '.join(missing)}")
-            sources = {name: sources[name] for name in only_sources}
 
-        cache = self.load_json(CACHE_PATH, {})
-        cache = self.ensure_cache_shape(cache, source_root["sources"], meta_root)
+def fetch_with_playwright(name: str, config: Dict[str, Any], url: Optional[str] = None) -> Optional[FetchResult]:
+    if not _playwright_available:
+        print(f"  [{name}] ⚠️ Playwright 未安裝 (pip install playwright && playwright install chromium)")
+        return None
 
-        total_created = 0
-        total_updated = 0
-        total_skipped = 0
-        now_ts = self.now_ts()
-        today = self.today()
+    browser = get_browser()
+    if not browser:
+        return None
 
-        for source_name, conf in sources.items():
-            source_url = conf["url"]
-            self.log(f"\n=== {source_name} ===")
+    target_url = url or config["url"]
+    wait_strategy = config.get("wait_strategy", "networkidle")
+    wait_selector = config.get("wait_selector", "")
+    wait_timeout = int(config.get("wait_timeout", 15000))
+
+    page = None
+    try:
+        page = browser.new_page()
+        page.set_default_timeout(30000)
+        page.goto(target_url, wait_until="domcontentloaded", timeout=30000)
+
+        if wait_strategy == "selector" and wait_selector:
+            page.wait_for_selector(wait_selector, state="attached", timeout=wait_timeout)
+            page.wait_for_timeout(800)
+        else:
+            page.wait_for_load_state("networkidle", timeout=wait_timeout)
+
+        return FetchResult(url=page.url, html=page.content(), engine="playwright", status_code=200)
+    except Exception as e:
+        print(f"  [{name}] ⚠️ Playwright: {type(e).__name__}: {e}")
+        return None
+    finally:
+        if page:
             try:
-                result = self.fetch_page(source_url, conf)
-                fp_hash = self.fingerprint_hash(result.html, conf)
-                prev_fp = (((cache.get("_meta") or {}).get("fingerprints") or {}).get(source_name) or {}).get("hash")
+                page.close()
+            except Exception:
+                pass
 
-                if prev_fp == fp_hash and not force:
-                    total_skipped += 1
-                    self.log(f"[skip] fingerprint unchanged ({result.engine})")
+
+def has_useful_candidates(soup: BeautifulSoup, config: Dict[str, Any]) -> bool:
+    selectors = [
+        broaden_selector(config.get("link_selector")),
+        broaden_selector(config.get("title_selector")),
+        config.get("fingerprint_selector"),
+    ]
+    for sel in selectors:
+        if not sel:
+            continue
+        try:
+            if soup.select(sel):
+                return True
+        except Exception:
+            continue
+    return bool(soup.select("a[href]"))
+
+
+def fetch_page(url: str, config: Dict[str, Any], force_playwright: bool = False) -> Optional[FetchResult]:
+    use_playwright = force_playwright or config.get('use_playwright', False)
+    result: Optional[FetchResult] = None
+    try:
+        result = fetch_requests(url, config, timeout=30)
+        soup = BeautifulSoup(result.html, 'html.parser')
+        if has_useful_candidates(soup, config):
+            return result
+    except Exception:
+        result = None
+    if use_playwright:
+        return fetch_with_playwright('subpage', config, url=url)
+    return result
+
+def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
+    url = config.get("url", "")
+    use_playwright = config.get("use_playwright", False)
+    result: Optional[FetchResult] = None
+
+    try:
+        result = fetch_requests(url, config, timeout=30)
+        soup = BeautifulSoup(result.html, "html.parser")
+        if has_useful_candidates(soup, config):
+            return result
+        if use_playwright:
+            print(f"  [{name}] requests 結果太空，改用 Playwright")
+    except Exception as e:
+        print(f"  [{name}] ⚠️ requests: {type(e).__name__}")
+
+    if use_playwright:
+        return fetch_with_playwright(name, config, url=url)
+    return result
+
+
+# ─── 資產提取 ─────────────────────────────────────────────
+def collect_anchor_nodes_by_selectors(soup: BeautifulSoup, selectors: List[str], config: Dict[str, Any]) -> List[Any]:
+    anchors: List[Any] = []
+    seen_pairs: Set[Tuple[str, str]] = set()
+
+    for raw_sel in selectors:
+        if not raw_sel:
+            continue
+        expanded_selectors = [raw_sel]
+        broadened = broaden_selector(raw_sel)
+        if broadened and broadened != raw_sel:
+            expanded_selectors.append(broadened)
+
+        for sel in expanded_selectors:
+            try:
+                nodes = soup.select(sel)
+            except Exception:
+                continue
+            for node in nodes:
+                anchor = node if getattr(node, "name", None) == "a" else node.find("a", href=True)
+                if not anchor:
                     continue
+                key = (anchor.get("href", ""), normalize_text(anchor.get_text(" ", strip=True)))
+                if key in seen_pairs:
+                    continue
+                seen_pairs.add(key)
+                anchors.append(anchor)
 
-                notices = self.collect_notices(source_name, result.url, result.html, conf)
-                if not notices:
-                    self.log(f"[warn] no notices extracted ({result.engine})")
+    return anchors
 
-                created, updated = self.update_source_records(cache, source_name, notices, today)
-                total_created += created
-                total_updated += updated
 
-                cache["_meta"]["fingerprints"][source_name] = {
-                    "hash": fp_hash,
-                    "updated_at": now_ts,
-                    "engine": result.engine,
-                    "source_url": result.url,
-                    "item_count": len(notices),
-                }
-                self.log(f"[ok] {source_name}: created={created}, refreshed={updated}, extracted={len(notices)}, engine={result.engine}")
-            except Exception as e:
-                self.log(f"[error] {source_name}: {e}")
-                cache["_meta"].setdefault("errors", {})[source_name] = {
-                    "message": str(e),
-                    "updated_at": now_ts,
-                }
+def collect_anchor_nodes(soup: BeautifulSoup, config: Dict[str, Any]) -> List[Any]:
+    selectors: List[str] = []
+    for key in ["asset_link_selector", "detail_link_selector", "link_selector", "title_selector"]:
+        raw = config.get(key)
+        if raw:
+            selectors.append(raw)
+
+    anchors = collect_anchor_nodes_by_selectors(soup, selectors, config)
+    if anchors:
+        return anchors
+
+    fp_selector = config.get("fingerprint_selector") or "body"
+    try:
+        blocks = soup.select(fp_selector)
+    except Exception:
+        blocks = []
+    if not blocks:
+        blocks = [soup]
+
+    seen_pairs: Set[Tuple[str, str]] = set()
+    for block in blocks:
+        for anchor in block.select("a[href]"):
+            key = (anchor.get("href", ""), normalize_text(anchor.get_text(" ", strip=True)))
+            if key in seen_pairs:
+                continue
+            seen_pairs.add(key)
+            anchors.append(anchor)
+    return anchors
+
+
+def should_follow_detail_pages(config: Dict[str, Any]) -> bool:
+    if "follow_detail_pages" in config:
+        return bool(config.get("follow_detail_pages"))
+    return (config.get("type") or "") in ARTICLE_SOURCE_TYPES
+
+
+def make_asset_record(url: str, title: Optional[str], config: Dict[str, Any]) -> Optional[Dict[str, str]]:
+    final_title = clean_title(title or "", config) if title else None
+    if not final_title and title:
+        final_title = salvage_title_from_text(title, config)
+    if not final_title:
+        final_title = fallback_title_from_url(url, config)
+    if not final_title:
+        return None
+    return {"pdf_url": url, "title": final_title}
+
+
+def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str, Any]) -> List[Dict[str, str]]:
+    records: List[Dict[str, str]] = []
+    seen: Set[str] = set()
+
+    page_title = None
+    h1 = soup.select_one("h1")
+    if h1:
+        page_title = clean_title(h1.get_text(" ", strip=True), config)
+    if not page_title and soup.title:
+        page_title = clean_title(soup.title.get_text(" ", strip=True), config)
+
+    for a in soup.select("a[href]"):
+        href = resolve_url(detail_url, a.get("href"))
+        href = sanitize_url(href or "", config.get("url_sanitize", []))
+        if not href or not is_download_url(href) or href in seen:
+            continue
+        seen.add(href)
+
+        anchor_title = clean_title(a.get_text(" ", strip=True), config)
+        effective_title = page_title if is_generic_download_title(anchor_title) else (anchor_title or page_title)
+        record = make_asset_record(href, effective_title, config)
+        if record:
+            records.append(record)
+
+    for selector in ["iframe[src]", "embed[src]", "object[data]"]:
+        for node in soup.select(selector):
+            href = node.get("src") or node.get("data")
+            href = resolve_url(detail_url, href)
+            href = sanitize_url(href or "", config.get("url_sanitize", []))
+            if not href or not is_download_url(href) or href in seen:
+                continue
+            seen.add(href)
+            record = make_asset_record(href, page_title, config)
+            if record:
+                records.append(record)
+
+    if not records and config.get("allow_page_notice_fallback"):
+        fallback_title = page_title or clean_title(soup.get_text(' ', strip=True), config)
+        if fallback_title:
+            records.append({
+                "pdf_url": sanitize_url(detail_url, config.get("url_sanitize", [])),
+                "title": fallback_title,
+            })
+
+    return records
+
+
+def fetch_detail_page(name: str, detail_url: str, config: Dict[str, Any]) -> Optional[FetchResult]:
+    try:
+        result = fetch_requests(detail_url, config, timeout=12)
+        soup = BeautifulSoup(result.html, "html.parser")
+        if extract_detail_assets(soup, result.url, config):
+            return result
+        if config.get('allow_page_notice_fallback'):
+            if soup.find('h1') or soup.find('title') or soup.get_text(' ', strip=True):
+                return result
+    except Exception:
+        pass
+
+    if config.get("use_playwright", False):
+        return fetch_with_playwright(name, config, url=detail_url)
+    return None
+
+
+
+
+def slugify_fragment(text: str) -> str:
+    text = normalize_text(text).lower()
+    text = re.sub(r'[^\w一-鿿]+', '-', text)
+    return text.strip('-')[:80] or 'notice'
+
+
+def parse_text_notice_blocks(soup: BeautifulSoup, page_url: str, config: Dict[str, Any]) -> List[Dict[str, str]]:
+    results: List[Dict[str, str]] = []
+    selectors = config.get('text_notice_selector') or []
+    if isinstance(selectors, str):
+        selectors = [selectors]
+    notice_pattern = config.get('text_notice_pattern') or r'(?P<code>\d{2}-\d{4})\s+(?P<title>.+?)\s+(?:截止[:：]\s*(?P<deadline>\d{4}-\d{2}-\d{2})|已截止)'
+    seen: Set[str] = set()
+
+    for sel in selectors:
+        try:
+            containers = soup.select(sel)
+        except Exception:
+            containers = []
+        for container in containers:
+            heading = ''
+            prev = container.find_previous(['h5','h4','h3'])
+            if prev:
+                heading = normalize_text(prev.get_text(' ', strip=True))
+            text_blob = normalize_text(container.get_text(' ', strip=True))
+            for m in re.finditer(notice_pattern, text_blob):
+                code = normalize_text(m.groupdict().get('code') or '')
+                title = normalize_text(m.groupdict().get('title') or '')
+                deadline = normalize_text(m.groupdict().get('deadline') or '')
+                full_title = f"{heading} - {title}" if heading and heading not in title else title
+                full_title = clean_title(full_title, config) or salvage_title_from_text(full_title, config) or title
+                if not full_title:
+                    continue
+                pseudo = page_url + '#' + slugify_fragment((heading + '-' + code + '-' + title).strip('-'))
+                if pseudo in seen:
+                    continue
+                seen.add(pseudo)
+                subtitle = f"{code} {full_title}".strip()
+                if deadline:
+                    subtitle += f" (截止: {deadline})"
+                results.append({'pdf_url': pseudo, 'title': subtitle})
+    return results
+
+def extract_assets_from_listing(
+    name: str,
+    soup: BeautifulSoup,
+    page_url: str,
+    config: Dict[str, Any],
+    max_detail_pages: int,
+) -> List[Dict[str, str]]:
+    assets: List[Dict[str, str]] = []
+    detail_candidates: List[str] = []
+    seen_assets: Set[str] = set()
+    seen_details: Set[str] = set()
+
+    asset_selectors = [config.get("asset_link_selector") or config.get("link_selector") or "a[href]"]
+    detail_selectors = []
+    if should_follow_detail_pages(config):
+        detail_selectors = [
+            config.get("detail_link_selector") or config.get("title_selector") or config.get("link_selector") or "a[href]"
+        ]
+
+    asset_anchors = collect_anchor_nodes_by_selectors(soup, [s for s in asset_selectors if s], config)
+    detail_anchors = collect_anchor_nodes_by_selectors(soup, [s for s in detail_selectors if s], config)
+    if should_follow_detail_pages(config) and not detail_anchors:
+        detail_anchors = list(asset_anchors)
+
+    for a in asset_anchors:
+        href = resolve_url(page_url, a.get("href"))
+        href = sanitize_url(href or "", config.get("url_sanitize", []))
+        if not href or not is_download_url(href) or href in seen_assets:
+            continue
+        raw_text = a.get_text(" ", strip=True) or a.get("title") or a.get("aria-label") or ""
+        inferred_title = infer_listing_title(a, soup, config) or raw_text
+        record = make_asset_record(href, inferred_title, config)
+        if not record:
+            continue
+        seen_assets.add(href)
+        assets.append(record)
+
+    for a in detail_anchors:
+        href = resolve_url(page_url, a.get("href"))
+        href = sanitize_url(href or "", config.get("url_sanitize", []))
+        if not href or href in seen_details:
+            continue
+        raw_text = a.get_text(" ", strip=True) or a.get("title") or a.get("aria-label") or ""
+        if is_article_candidate(href, config.get("url", page_url), raw_text):
+            seen_details.add(href)
+            detail_candidates.append(href)
+        elif is_download_url(href) and href not in seen_assets:
+            inferred_title = infer_listing_title(a, soup, config) or raw_text
+            record = make_asset_record(href, inferred_title, config)
+            if record:
+                seen_assets.add(href)
+                assets.append(record)
+
+    if not asset_anchors and not detail_anchors:
+        for a in collect_anchor_nodes(soup, config):
+            href = resolve_url(page_url, a.get("href"))
+            href = sanitize_url(href or "", config.get("url_sanitize", []))
+            if not href:
+                continue
+            raw_text = a.get_text(" ", strip=True) or a.get("title") or a.get("aria-label") or ""
+            if is_download_url(href):
+                if href in seen_assets:
+                    continue
+                inferred_title = infer_listing_title(a, soup, config) or raw_text
+                record = make_asset_record(href, inferred_title, config)
+                if record:
+                    seen_assets.add(href)
+                    assets.append(record)
+            elif should_follow_detail_pages(config) and is_article_candidate(href, config.get("url", page_url), raw_text):
+                if href not in seen_details:
+                    seen_details.add(href)
+                    detail_candidates.append(href)
+
+    if not assets and config.get('text_notice_selector'):
+        assets.extend(parse_text_notice_blocks(soup, page_url, config))
+
+    if not should_follow_detail_pages(config):
+        return assets
+
+    detail_limit = int(config.get("detail_max_pages") or max_detail_pages)
+    for detail_url in detail_candidates[:detail_limit]:
+        result = fetch_detail_page(name, detail_url, config)
+        if not result:
+            continue
+        detail_soup = BeautifulSoup(result.html, "html.parser")
+        for record in extract_detail_assets(detail_soup, result.url, config):
+            if record["pdf_url"] in seen_assets:
+                continue
+            seen_assets.add(record["pdf_url"])
+            assets.append(record)
+
+    if not assets and config.get('text_notice_selector'):
+        assets.extend(parse_text_notice_blocks(soup, page_url, config))
+
+    return assets
+
+
+# ─── Cache / Meta 工具 ───────────────────────────────────
+
+
+def discover_listing_pages(soup: BeautifulSoup, page_url: str, config: Dict[str, Any]) -> List[str]:
+    urls: List[str] = []
+    seen: Set[str] = set()
+
+    for u in config.get('listing_page_urls') or []:
+        full = sanitize_url(resolve_url(page_url, u) or u, config.get('url_sanitize', []))
+        if full and full not in seen:
+            seen.add(full)
+            urls.append(full)
+
+    selectors = config.get('listing_link_selector') or []
+    if isinstance(selectors, str):
+        selectors = [selectors]
+    for sel in selectors:
+        for a in collect_anchor_nodes_by_selectors(soup, [sel], config):
+            href = sanitize_url(resolve_url(page_url, a.get('href')) or '', config.get('url_sanitize', []))
+            if not href or href in seen:
+                continue
+            if is_download_url(href):
+                continue
+            seen.add(href)
+            urls.append(href)
+
+    return urls
+
+def build_regions(sources: Dict[str, Dict[str, Any]]) -> Dict[str, List[str]]:
+    regions: Dict[str, List[str]] = {}
+    for source_name, conf in sources.items():
+        region = conf.get("region") or "未分類"
+        regions.setdefault(region, []).append(source_name)
+    return regions
+
+
+def iter_records_from_cache(cache: Dict[str, Any]) -> List[Dict[str, Any]]:
+    if isinstance(cache.get("notices"), list) and cache["notices"]:
+        return [dict(x) for x in cache["notices"] if isinstance(x, dict)]
+
+    grouped = cache.get("data") or {}
+    records: List[Dict[str, Any]] = []
+    if isinstance(grouped, dict):
+        for source_name, arr in grouped.items():
+            if not isinstance(arr, list):
+                continue
+            for item in arr:
+                if not isinstance(item, dict):
+                    continue
+                record = dict(item)
+                record.setdefault("source_site", source_name)
+                records.append(record)
+    return records
+
+
+def build_grouped_cache(
+    all_records: List[Dict[str, Any]],
+    all_sources: Dict[str, Dict[str, Any]],
+    last_updated: str,
+) -> Dict[str, Any]:
+    data = {source_name: [] for source_name in all_sources.keys()}
+    normalized_records: List[Dict[str, Any]] = []
+
+    for record in all_records:
+        source_name = record.get("source_site") or "未知"
+        source_conf = all_sources.get(source_name, {})
+        normalized_title = clean_title(record.get("title", ""), source_conf) or fallback_title_from_url(record.get("pdf_url", ""), source_conf) or record.get("title", "") or record.get("pdf_url", "")
+        normalized = {
+            "source_site": source_name,
+            "region": record.get("region", source_conf.get("region", "")),
+            "pdf_url": record.get("pdf_url", ""),
+            "title": normalized_title,
+            "captured_date": record.get("captured_date", ""),
+        }
+        normalized_records.append(normalized)
+        data.setdefault(source_name, []).append({
+            "title": normalized_title,
+            "url": normalized["pdf_url"],
+            "pdf_url": normalized["pdf_url"],
+            "date": normalized["captured_date"],
+            "captured_date": normalized["captured_date"],
+            "source_site": source_name,
+            "region": normalized["region"],
+        })
+
+    for source_name, arr in data.items():
+        arr.sort(key=lambda x: ((x.get("date") or x.get("captured_date") or ""), x.get("title") or ""), reverse=True)
+
+    notices = sorted(
+        [
+            {
+                "source_site": r.get("source_site", ""),
+                "region": r.get("region", ""),
+                "pdf_url": r.get("pdf_url", ""),
+                "title": r.get("title", ""),
+                "captured_date": r.get("captured_date", ""),
+            }
+            for r in normalized_records
+        ],
+        key=lambda x: ((x.get("captured_date") or ""), x.get("source_site") or "", x.get("title") or ""),
+        reverse=True,
+    )
+
+    return {
+        "last_updated": last_updated,
+        "meta": {
+            "version": "5.3.0",
+            "total_sources": len(all_sources),
+            "total_notices": len(notices),
+            "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底",
+        },
+        "data": data,
+        "notices": notices,
+        "_meta": {
+            "version": "5.3.0",
+            "regions": build_regions(all_sources),
+            "source_order": list(all_sources.keys()),
+            "total_sources": len(all_sources),
+        }
+    }
+
+
+# ─── Supabase 操作 ────────────────────────────────────────
+def supabase_fetch_all() -> List[Dict[str, Any]]:
+    headers = {"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"}
+    url = f"{SUPABASE_URL}/rest/v1/{SUPABASE_TABLE}?select=*&order=captured_date.desc&limit=10000"
+    try:
+        resp = SESSION.get(url, headers=headers, timeout=15)
+        return resp.json() if resp.status_code == 200 else []
+    except Exception:
+        return []
+
+
+def supabase_upsert(records: List[Dict[str, Any]]):
+    if not records:
+        return
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates",
+    }
+    url = f"{SUPABASE_URL}/rest/v1/{SUPABASE_TABLE}"
+    for i in range(0, len(records), 100):
+        batch = records[i:i+100]
+        try:
+            SESSION.post(url, headers=headers, json=batch, timeout=20)
+        except Exception:
+            pass
+
+
+def supabase_update_records(records: List[Dict[str, Any]], new_date: str):
+    if not records:
+        return
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json"
+    }
+    for rec in records:
+        source_site = rec.get("source_site", "")
+        asset_url = rec.get("pdf_url", "")
+        if not source_site or not asset_url:
+            continue
+        payload = {
+            "captured_date": new_date,
+            "title": rec.get("title", ""),
+            "region": rec.get("region", ""),
+        }
+        try:
+            patch_url = (
+                f"{SUPABASE_URL}/rest/v1/{SUPABASE_TABLE}"
+                f"?source_site=eq.{quote(source_site, safe='')}"
+                f"&pdf_url=eq.{quote(asset_url, safe='')}"
+            )
+            SESSION.patch(patch_url, headers=headers, json=payload, timeout=10)
+        except Exception:
+            pass
+
+
+# ─── 本地 JSON 儲存 ────────────────────────────────────────
+def load_local_cache() -> Dict[str, Any]:
+    if CACHE_PATH.exists():
+        try:
+            with open(CACHE_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {"last_updated": "", "notices": [], "data": {}, "_meta": {}}
+
+
+def save_local_cache(data: Dict[str, Any]):
+    with open(CACHE_PATH, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+def load_fingerprints() -> Dict[str, Any]:
+    if FINGERPRINTS_PATH.exists():
+        try:
+            with open(FINGERPRINTS_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {}
+
+
+def save_fingerprints(fp: Dict[str, Any]):
+    with open(FINGERPRINTS_PATH, "w", encoding="utf-8") as f:
+        json.dump(fp, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+# ─── 單一來源處理 ──────────────────────────────────────────
+def process_source(
+    name: str,
+    config: Dict[str, Any],
+    fingerprints: Dict[str, Any],
+    existing_keys: Set[Tuple[str, str]],
+    today_str: str,
+    force: bool = False,
+    max_detail_pages: int = 12,
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], str, bool, Optional[str]]:
+    print(f"  [{name}] {config.get('url', '')[:80]}...")
+
+    result = fetch_main_page(name, config)
+    if not result:
+        return [], [], fingerprints.get(name, ""), True, None
+
+    soup = BeautifulSoup(result.html, "html.parser")
+    fp_selector = config.get("fingerprint_selector", "body")
+    new_fp = compute_fingerprint(soup, fp_selector)
+    old_fp = fingerprints.get(name, "")
+
+    if not force and new_fp and old_fp and new_fp == old_fp:
+        tag = "🎭 PW" if result.engine == "playwright" else "⏭️"
+        print(f"  [{name}] {tag} 指紋相同，跳過 (0.1s)")
+        return [], [], new_fp, True, result.engine
+
+    assets = extract_assets_from_listing(
+        name=name,
+        soup=soup,
+        page_url=result.url,
+        config=config,
+        max_detail_pages=max_detail_pages,
+    )
+
+    if config.get('follow_listing_pages'):
+        listing_pages = discover_listing_pages(soup, result.url, config)
+        listing_limit = int(config.get('listing_max_pages') or len(listing_pages) or 0)
+        seen_asset_urls = {a['pdf_url'] for a in assets}
+        for listing_url in listing_pages[:listing_limit]:
+            try:
+                sub = fetch_page(listing_url, config, force_playwright=bool(config.get('listing_use_playwright')))
+                sub_soup = BeautifulSoup(sub.html, 'html.parser')
+                sub_assets = extract_assets_from_listing(
+                    name=name,
+                    soup=sub_soup,
+                    page_url=sub.url,
+                    config=config,
+                    max_detail_pages=max_detail_pages,
+                )
+                for rec in sub_assets:
+                    if rec['pdf_url'] in seen_asset_urls:
+                        continue
+                    seen_asset_urls.add(rec['pdf_url'])
+                    assets.append(rec)
+            except Exception:
                 continue
 
-        cache["last_updated"] = now_ts
-        cache["_meta"]["last_run"] = {
-            "updated_at": now_ts,
-            "created": total_created,
-            "refreshed": total_updated,
-            "skipped": total_skipped,
-            "processed_sources": len(sources),
+    if not assets:
+        print(f"  [{name}] ⚠️ 指紋變動但無可下載資產")
+        return [], [], new_fp, False, result.engine
+
+    region = config.get("region", "")
+    new_records: List[Dict[str, Any]] = []
+    updated_records: List[Dict[str, Any]] = []
+
+    for item in assets:
+        asset_url = item["pdf_url"]
+        key = (name, asset_url)
+        payload = {
+            "source_site": name,
+            "region": region,
+            "pdf_url": asset_url,
+            "title": item["title"],
+            "captured_date": today_str,
         }
-        self.save_json(CACHE_PATH, cache)
-        return cache
+        if key in existing_keys:
+            updated_records.append(payload)
+        else:
+            new_records.append(payload)
+            existing_keys.add(key)
+
+    tag = "🎭" if result.engine == "playwright" else ""
+    print(f"  [{name}] {tag} 🆕{len(new_records)} 🔄{len(updated_records)} 📎{len(assets)}")
+    return new_records, updated_records, new_fp, False, result.engine
 
 
+# ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library crawler")
-    parser.add_argument("--source", action="append", help="只跑某一個來源，可重複使用")
-    parser.add_argument("--force", action="store_true", help="忽略 fingerprint，強制重新解析")
-    parser.add_argument("--verbose", action="store_true", help="輸出詳細日誌")
-    parser.add_argument("--max-detail-pages", type=int, default=12, help="每個來源最多進入多少個文章內頁")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.3 crawler")
+    parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
+    parser.add_argument("--dry", action="store_true", help="同 --dry-run")
+    parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
+    parser.add_argument("--force", action="store_true", help="忽略指紋快取，強制重跑")
+    parser.add_argument("--max-detail-pages", type=int, default=12, help="每個來源最多深挖多少個內頁")
     return parser.parse_args()
 
 
-def main() -> int:
-    args = parse_args()
-    crawler = ScoutCrawler(verbose=args.verbose, max_detail_pages=args.max_detail_pages)
-    try:
-        crawler.run(only_sources=args.source, force=args.force)
-        return 0
-    except Exception as e:
-        print(f"Fatal: {e}", file=sys.stderr)
-        return 1
+# ─── 主程式 ───────────────────────────────────────────────
+def main(
+    dry_run: bool = False,
+    only_sources: Optional[List[str]] = None,
+    force: bool = False,
+    max_detail_pages: int = 12,
+):
+    print("═" * 60)
+    print("🦅 全港童軍通告自動化圖書館 v5.3")
+    print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
+    pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
+    print(f"   Playwright: {pw_status}")
+    print(f"   啟動: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print("═" * 60)
+
+    if not SOURCES_PATH.exists():
+        print(f"❌ 找不到 {SOURCES_PATH}")
+        sys.exit(1)
+
+    with open(SOURCES_PATH, "r", encoding="utf-8") as f:
+        root = json.load(f)
+    all_sources = root.get("sources", {})
+    sources = dict(all_sources)
+
+    if only_sources:
+        missing = [s for s in only_sources if s not in sources]
+        if missing:
+            print(f"❌ 找不到來源: {', '.join(missing)}")
+            sys.exit(1)
+        sources = {k: sources[k] for k in only_sources}
+
+    pw_count = sum(1 for s in sources.values() if s.get("use_playwright"))
+    print(f"📋 {len(sources)} 個來源 ({pw_count} 需 Playwright, {len(sources)-pw_count} 靜態)\n")
+
+    today_str = date.today().isoformat()
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    fingerprints = load_fingerprints()
+    local_cache = load_local_cache()
+    local_records = iter_records_from_cache(local_cache)
+
+    existing_keys: Set[Tuple[str, str]] = set()
+    local_record_map: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for record in local_records:
+        key = (record.get("source_site", ""), record.get("pdf_url", ""))
+        if not all(key):
+            continue
+        existing_keys.add(key)
+        local_record_map[key] = record
+
+    if USE_SUPABASE:
+        for record in supabase_fetch_all():
+            key = (record.get("source_site", ""), record.get("pdf_url", ""))
+            if all(key):
+                existing_keys.add(key)
+
+    all_new: List[Dict[str, Any]] = []
+    all_updated: List[Dict[str, Any]] = []
+    skipped = 0
+    processed = 0
+    pw_used = 0
+
+    source_items = list(sources.items())
+    for i, (name, source_config) in enumerate(source_items, 1):
+        print(f"[{i}/{len(source_items)}] {name}")
+        new_recs, updated, fp, skip, engine = process_source(
+            name=name,
+            config=source_config,
+            fingerprints=fingerprints,
+            existing_keys=existing_keys,
+            today_str=today_str,
+            force=force,
+            max_detail_pages=max_detail_pages,
+        )
+        fingerprints[name] = fp
+        if engine == "playwright":
+            pw_used += 1
+        if skip:
+            skipped += 1
+        else:
+            processed += 1
+        all_new.extend(new_recs)
+        all_updated.extend(updated)
+        if i < len(source_items):
+            time.sleep(0.4)
+
+    if not dry_run:
+        if USE_SUPABASE:
+            supabase_upsert(all_new)
+            supabase_update_records(all_updated, today_str)
+        else:
+            for record in all_new:
+                key = (record["source_site"], record["pdf_url"])
+                local_record_map[key] = record
+            for rec in all_updated:
+                key = (rec.get("source_site", ""), rec.get("pdf_url", ""))
+                if key in local_record_map:
+                    local_record_map[key]["captured_date"] = today_str
+                    local_record_map[key]["title"] = rec.get("title", local_record_map[key].get("title", ""))
+                    local_record_map[key]["region"] = rec.get("region", local_record_map[key].get("region", ""))
+            merged_records = list(local_record_map.values())
+            grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
+            grouped_cache.setdefault("_meta", {})["last_run"] = {
+                "updated_at": now_str,
+                "new": len(all_new),
+                "updated": len(all_updated),
+                "skipped": skipped,
+                "processed": processed,
+                "playwright_used": pw_used,
+            }
+            save_local_cache(grouped_cache)
+
+        save_fingerprints(fingerprints)
+
+    close_browser()
+
+    print(f"\n{'═'*60}")
+    print("📊 執行報告 v5.3")
+    print(f"   🆕 新通告:     {len(all_new)}")
+    print(f"   🔄 更新時間戳: {len(all_updated)}")
+    print(f"   ⏭️  指紋相同:   {skipped}")
+    print(f"   🔍 指紋變動:   {processed}")
+    print(f"   🎭 Playwright: {pw_used} 次")
+    print(f"   💾 模式:       {'Supabase' if USE_SUPABASE else '本地 JSON'}")
+    print(f"   🧪 Dry run:    {'是' if dry_run else '否'}")
+    print(f"   🕐 {now_str}")
+    print("═" * 60)
+
+    if all_new:
+        print("\n🔍 新資產抽樣:")
+        for rec in all_new[:5]:
+            print(f"   [{rec['source_site']}] {rec['title'][:70]}")
+
+    return {
+        "new": len(all_new),
+        "updated": len(all_updated),
+        "skipped": skipped,
+        "processed": processed,
+        "pw_used": pw_used,
+    }
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    args = parse_args()
+    main(
+        dry_run=args.dry_run or args.dry,
+        only_sources=args.source,
+        force=args.force,
+        max_detail_pages=args.max_detail_pages,
+    )
