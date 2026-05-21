@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>全港童軍通告自動化圖書館 v5.3</title>
+  <style>
+    :root {
+      --bg: #09111f;
+      --panel: #0f1728;
+      --panel-2: #111d32;
+      --line: #243553;
+      --text: #e6eefb;
+      --muted: #8ea2c6;
+      --brand: #3b82f6;
+      --brand-2: #11284f;
+      --good: #10b981;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 18px 40px rgba(0,0,0,.28);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: radial-gradient(circle at top, #10203d 0%, #09111f 45%, #050b14 100%); color: var(--text); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; }
+    .sidebar { border-right: 1px solid var(--line); background: rgba(7,13,24,.88); backdrop-filter: blur(14px); padding: 18px 14px; position: sticky; top: 0; height: 100vh; overflow: auto; }
+    .brand { padding: 8px 10px 14px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+    .brand h1 { margin: 0; font-size: 20px; line-height: 1.35; }
+    .brand p { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+    .panel { background: linear-gradient(180deg, rgba(17,29,50,.95), rgba(11,20,36,.95)); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .meta { padding: 12px; margin-bottom: 12px; }
+    .meta .big { font-size: 15px; font-weight: 700; }
+    .meta .sub { margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+    .meta-cell { background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 12px; padding: 10px 8px; text-align: center; }
+    .meta-cell strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .meta-cell span { color: var(--muted); font-size: 11px; }
+    .sidebar input[type="search"] { width: 100%; border: 1px solid var(--line); background: #0b1424; color: var(--text); border-radius: 12px; padding: 11px 12px; margin-bottom: 12px; outline: none; }
+    .accordion { display: grid; gap: 10px; }
+    .region { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: rgba(255,255,255,.02); }
+    .region > button { width: 100%; border: 0; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; background: transparent; color: var(--text); cursor: pointer; }
+    .region > button:hover { background: rgba(255,255,255,.03); }
+    .region.open > button { background: var(--brand-2); color: #d9e8ff; }
+    .source-list { display: none; padding: 8px; gap: 8px; }
+    .region.open .source-list { display: grid; }
+    .source-btn { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #0b1424; color: var(--text); text-align: left; cursor: pointer; }
+    .source-btn:hover { background: #10203a; }
+    .source-btn.active { background: linear-gradient(135deg, #173664, #2450a3); border-color: #4d82e7; }
+    .source-btn small { display: block; margin-top: 4px; color: var(--muted); }
+    .content { padding: 24px; }
+    .hero { padding: 18px; }
+    .hero h2 { margin: 0 0 8px; font-size: 28px; line-height: 1.25; }
+    .hero .sub { color: var(--muted); font-size: 14px; }
+    .controls { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .controls input[type="search"] { flex: 1; min-width: 240px; border: 1px solid var(--line); background: #09111f; color: var(--text); border-radius: 12px; padding: 12px 14px; outline: none; }
+    .toggle { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #0b1424; color: var(--muted); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 999px; padding: 9px 13px; cursor: pointer; }
+    .chip.active { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
+    .status { margin-top: 12px; color: var(--muted); font-size: 13px; }
+    .msg { margin-top: 18px; padding: 18px; border-radius: var(--radius); border: 1px solid var(--line); background: rgba(255,255,255,.03); }
+    .msg.error { border-color: rgba(239,68,68,.4); color: #ffd6d6; background: rgba(127,29,29,.18); }
+    .cards { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+    .card { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(180deg, rgba(15,23,40,.92), rgba(8,14,26,.95)); box-shadow: var(--shadow); }
+    .badge { display: inline-flex; align-items: center; gap: 6px; width: fit-content; font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(59,130,246,.35); background: rgba(29,78,216,.18); color: #b6d4ff; }
+    .card h3 { margin: 0; font-size: 18px; line-height: 1.45; }
+    .meta-row { display: flex; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; margin-top: auto; }
+    .meta-row .host { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .meta-row .link { color: #cfe3ff; }
+    code { background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 8px; }
+    @media (max-width: 980px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .content { padding: 16px; }
+      .hero h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>全港童軍通告自動化圖書館 v5.3</h1>
+        <p>來源隔離 + 物理分頁 + GitHub Raw 直連。未來一有新更新，就盡快抓回來。</p>
+      </div>
+
+      <div class="panel meta" id="sidebar-meta">
+        <div class="big">讀取中…</div>
+        <div class="sub">等待 GitHub Raw cache.json</div>
+      </div>
+
+      <input id="district-search" type="search" placeholder="搜尋地域 / 區會…">
+      <div class="accordion" id="accordion"></div>
+    </aside>
+
+    <main class="content">
+      <section class="panel hero">
+        <h2 id="page-title">載入中…</h2>
+        <div class="sub" id="page-subtitle">前端只讀 GitHub Raw CDN，切換分頁只會讀取單一來源資料。</div>
+
+        <div class="controls">
+          <input id="keyword" type="search" placeholder="搜尋目前分頁標題…">
+          <label class="toggle"><input id="explicit-date" type="checkbox"> 只顯示明確日期</label>
+        </div>
+
+        <div class="controls">
+          <div class="chips" id="window-chips"></div>
+        </div>
+
+        <div class="status" id="status-line"></div>
+      </section>
+
+      <section id="messages"></section>
+      <section class="cards" id="cards"></section>
+    </main>
+  </div>
+
+  <script>
+    const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
+    const TIME_WINDOWS = [
+      { id: '7d', label: '7天', days: 7 },
+      { id: '15d', label: '15天', days: 15 },
+      { id: '30d', label: '30天', days: 30 },
+      { id: '90d', label: '3個月', days: 90 },
+      { id: '180d', label: '6個月', days: 180 },
+      { id: 'all', label: '全部', days: null },
+    ];
+
+    const state = {
+      cache: null,
+      grouped: {},
+      regions: {},
+      sourceOrder: [],
+      activeSource: null,
+      keyword: '',
+      explicitDateOnly: false,
+      windowId: '30d',
+      searchRegionKeyword: '',
+    };
+
+    const $ = (sel) => document.querySelector(sel);
+    const accordionEl = $('#accordion');
+    const cardsEl = $('#cards');
+    const messagesEl = $('#messages');
+
+    function getRawUrl() {
+      const params = new URLSearchParams(location.search);
+      const raw = params.get('raw') || RAW_CACHE_URL;
+      return `${raw}${raw.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    }
+
+    function parseDate(value) {
+      if (!value) return null;
+      const m = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!m) return null;
+      const year = Number(m[1]);
+      if (year < 2024 || year > 2028) return null;
+      const d = new Date(`${m[1]}-${m[2]}-${m[3]}T00:00:00+08:00`);
+      return Number.isNaN(d.getTime()) ? null : d;
+    }
+
+    function formatDate(value) {
+      const d = parseDate(value);
+      if (!d) return '日期不明';
+      return `${d.getMonth() + 1}月${d.getDate()}日`;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function buildGroupedFromFlat(notices) {
+      const grouped = {};
+      for (const item of notices || []) {
+        const source = item.source_site || '未分類';
+        grouped[source] ||= [];
+        grouped[source].push({
+          title: item.title || '',
+          url: item.pdf_url || item.url || '',
+          pdf_url: item.pdf_url || item.url || '',
+          date: item.captured_date || item.date || '',
+          captured_date: item.captured_date || item.date || '',
+          source_site: source,
+          region: item.region || '',
+        });
+      }
+      return grouped;
+    }
+
+    function deriveRegions(grouped, metaRegions) {
+      if (metaRegions && Object.keys(metaRegions).length) return metaRegions;
+      const regions = {};
+      for (const [source, arr] of Object.entries(grouped)) {
+        const region = arr[0]?.region || '未分類';
+        regions[region] ||= [];
+        regions[region].push(source);
+      }
+      return regions;
+    }
+
+    function sourceCount(source) {
+      return (state.grouped[source] || []).length;
+    }
+
+    function getBucket(source) {
+      return state.grouped[source] || [];
+    }
+
+    function currentWindow() {
+      return TIME_WINDOWS.find(x => x.id === state.windowId) || TIME_WINDOWS[2];
+    }
+
+    function inWindow(itemDate) {
+      const win = currentWindow();
+      if (win.days == null) return true;
+      const d = parseDate(itemDate);
+      if (!d) return false;
+      const now = new Date();
+      const diff = now.getTime() - d.getTime();
+      return diff <= win.days * 24 * 60 * 60 * 1000;
+    }
+
+    function getCurrentItems() {
+      const source = state.activeSource;
+      let items = [...getBucket(source)];
+
+      items = items.filter(item => {
+        const dateValue = item.date || item.captured_date || '';
+        if (state.explicitDateOnly && !parseDate(dateValue)) return false;
+        if (!inWindow(dateValue)) return false;
+        if (state.keyword) {
+          return String(item.title || '').toLowerCase().includes(state.keyword.toLowerCase());
+        }
+        return true;
+      });
+
+      items.sort((a, b) => {
+        const da = parseDate(a.date || a.captured_date)?.getTime() ?? -Infinity;
+        const db = parseDate(b.date || b.captured_date)?.getTime() ?? -Infinity;
+        if (db !== da) return db - da;
+        return String(a.title || '').localeCompare(String(b.title || ''), 'zh-Hant');
+      });
+
+      return items;
+    }
+
+    function renderWindowChips() {
+      const wrap = $('#window-chips');
+      wrap.innerHTML = '';
+      for (const win of TIME_WINDOWS) {
+        const btn = document.createElement('button');
+        btn.className = `chip ${state.windowId === win.id ? 'active' : ''}`;
+        btn.textContent = win.label;
+        btn.onclick = () => {
+          state.windowId = win.id;
+          renderWindowChips();
+          renderHeader();
+          renderCards();
+        };
+        wrap.appendChild(btn);
+      }
+    }
+
+    function renderSidebarMeta() {
+      const totalSources = state.sourceOrder.length;
+      const totalNotices = state.sourceOrder.reduce((sum, source) => sum + sourceCount(source), 0);
+      const nonEmptySources = state.sourceOrder.filter(source => sourceCount(source) > 0).length;
+      $('#sidebar-meta').innerHTML = `
+        <div class="big">最後更新：${escapeHtml(state.cache?.last_updated || '未有資料')}</div>
+        <div class="sub">目前 cache 已按來源分組，前端不再把全部資料混成單一陣列處理。</div>
+        <div class="meta-grid">
+          <div class="meta-cell"><strong>${totalSources}</strong><span>來源</span></div>
+          <div class="meta-cell"><strong>${nonEmptySources}</strong><span>有資料</span></div>
+          <div class="meta-cell"><strong>${totalNotices}</strong><span>資產</span></div>
+        </div>
+      `;
+    }
+
+    function renderAccordion() {
+      const q = state.searchRegionKeyword.toLowerCase().trim();
+      accordionEl.innerHTML = '';
+
+      const regions = Object.entries(state.regions);
+      for (const [regionName, sources] of regions) {
+        const filteredSources = q
+          ? sources.filter(src => src.toLowerCase().includes(q) || regionName.toLowerCase().includes(q))
+          : sources;
+        if (!filteredSources.length) continue;
+
+        const regionEl = document.createElement('section');
+        regionEl.className = 'region';
+        const shouldOpen = filteredSources.includes(state.activeSource);
+        if (shouldOpen) regionEl.classList.add('open');
+
+        const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
+        const header = document.createElement('button');
+        header.innerHTML = `<span>${escapeHtml(regionName)}</span><span>${total}</span>`;
+        header.onclick = () => regionEl.classList.toggle('open');
+        regionEl.appendChild(header);
+
+        const list = document.createElement('div');
+        list.className = 'source-list';
+        for (const source of filteredSources) {
+          const btn = document.createElement('button');
+          btn.className = `source-btn ${state.activeSource === source ? 'active' : ''}`;
+          btn.innerHTML = `<span>${escapeHtml(source)}</span><small>${sourceCount(source)} 則</small>`;
+          btn.onclick = () => {
+            state.activeSource = source;
+            renderAccordion();
+            renderHeader();
+            renderCards();
+          };
+          list.appendChild(btn);
+        }
+        regionEl.appendChild(list);
+        accordionEl.appendChild(regionEl);
+      }
+
+      if (!accordionEl.children.length) {
+        accordionEl.innerHTML = '<div class="msg">找不到相符地域 / 區會。</div>';
+      }
+    }
+
+    function renderHeader() {
+      const total = sourceCount(state.activeSource);
+      const current = getCurrentItems().length;
+      $('#page-title').textContent = state.activeSource || '未選擇來源';
+      $('#page-subtitle').textContent = state.activeSource
+        ? `目前只讀取 data["${state.activeSource}"]；切換分頁時只排序這個來源的陣列。`
+        : '請先選擇一個來源。';
+      $('#status-line').innerHTML = `
+        視窗：<code>${escapeHtml(currentWindow().label)}</code>
+        ・顯示：<code>${current}</code>
+        ・本來源總數：<code>${total}</code>
+        ・cache：<code>${escapeHtml(state.cache?.meta?.version || state.cache?._meta?.version || 'unknown')}</code>
+      `;
+    }
+
+    function renderCards() {
+      messagesEl.innerHTML = '';
+      cardsEl.innerHTML = '';
+
+      if (!state.activeSource) {
+        messagesEl.innerHTML = '<div class="msg">請先從左邊揀選一個地域 / 區會分頁。</div>';
+        return;
+      }
+
+      const items = getCurrentItems();
+      if (!items.length) {
+        messagesEl.innerHTML = '<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。</div>';
+        return;
+      }
+
+      for (const item of items) {
+        const href = item.url || item.pdf_url || '#';
+        let host = '';
+        try { host = new URL(href).hostname; } catch (_) {}
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</div>
+          <h3>${escapeHtml(item.title || '未命名通告')}</h3>
+          <div class="meta-row">
+            <span>${escapeHtml(formatDate(item.date || item.captured_date || ''))}</span>
+            <span class="host">${escapeHtml(host)}</span>
+          </div>
+          <div class="meta-row">
+            <span>${escapeHtml(item.region || '')}</span>
+            <a class="link" href="${encodeURI(href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
+          </div>
+        `;
+        cardsEl.appendChild(card);
+      }
+    }
+
+    function pickDefaultSource() {
+      const firstNonEmpty = state.sourceOrder.find(source => sourceCount(source) > 0);
+      state.activeSource = firstNonEmpty || state.sourceOrder[0] || null;
+    }
+
+    async function loadCache() {
+      messagesEl.innerHTML = '<div class="msg">正在從 GitHub Raw CDN 讀取最新 cache.json…</div>';
+      try {
+        const resp = await fetch(getRawUrl(), { cache: 'no-store' });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        state.cache = await resp.json();
+
+        state.grouped = state.cache.data && Object.keys(state.cache.data).length
+          ? state.cache.data
+          : buildGroupedFromFlat(state.cache.notices || []);
+
+        state.regions = deriveRegions(state.grouped, state.cache?._meta?.regions || {});
+        state.sourceOrder = state.cache?._meta?.source_order?.length
+          ? state.cache._meta.source_order
+          : Object.keys(state.grouped);
+
+        for (const source of Object.keys(state.grouped)) {
+          if (!state.sourceOrder.includes(source)) state.sourceOrder.push(source);
+        }
+
+        pickDefaultSource();
+        renderSidebarMeta();
+        renderAccordion();
+        renderWindowChips();
+        renderHeader();
+        renderCards();
+      } catch (err) {
+        messagesEl.innerHTML = `<div class="msg error">讀取 GitHub Raw cache.json 失敗：${escapeHtml(err.message || String(err))}</div>`;
+      }
+    }
+
+    $('#keyword').addEventListener('input', (e) => {
+      state.keyword = e.target.value.trim();
+      renderHeader();
+      renderCards();
+    });
+
+    $('#explicit-date').addEventListener('change', (e) => {
+      state.explicitDateOnly = e.target.checked;
+      renderHeader();
+      renderCards();
+    });
+
+    $('#district-search').addEventListener('input', (e) => {
+      state.searchRegionKeyword = e.target.value || '';
+      renderAccordion();
+    });
+
+    renderWindowChips();
+    loadCache();
+  </script>
+</body>
+</html>

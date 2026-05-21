@@ -4,7 +4,7 @@
     "version": "5.0.0",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 49,
-    "note": "全部URL來源於官方CSV，排除Facebook(大嶼山區)"
+    "note": "全部URL來源於用戶提供規格；前端只讀 GitHub Raw cache.json"
   },
   "sources": {
     "總會": {
@@ -21,7 +21,6 @@
         "?ver=",
         "?timestamp="
       ],
-      "notes": "year=2026 需每年更新; 抓取表格第一行通函編號與標題",
       "use_playwright": false
     },
     "港島地域": {
@@ -37,7 +36,6 @@
         "?t=",
         "?ver="
       ],
-      "notes": "抓取第一個<table>內第一行<tr>的第一個<a>標籤文字; 比對上載日期",
       "use_playwright": false
     },
     "灣仔區": {
@@ -46,19 +44,17 @@
       "type": "home_news",
       "encoding": "utf-8",
       "fingerprint_selector": "#最新告示, [class*='news'], [class*='notice'], [class*='latest']",
-      "link_selector": "#最新告示 a[href$='.pdf'], [class*='news'] a[href$='.pdf'], [class*='notice'] a[href$='.pdf']",
+      "link_selector": "#最新告示 a, [class*='news'] a, [class*='notice'] a",
       "title_selector": "#最新告示 a:first-of-type, [class*='news'] a:first-of-type",
+      "title_filter_regex": "\\(\\d+\\s*次\\)$",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "title_filter_regex": "\\(\\d+\\s*次\\)$",
-      "notes": "定位'最新告示'區塊; 過濾標題末尾括號內的次數數字",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 12000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 12000
     },
     "港島西區": {
       "region": "港島地域",
@@ -66,18 +62,16 @@
       "type": "simple_list",
       "encoding": "utf-8",
       "fingerprint_selector": "[class*='entry-content'], [class*='post-content'], main, #content",
-      "link_selector": "a[href$='.pdf']",
-      "title_selector": "a[href$='.pdf']",
+      "link_selector": "a[href]",
+      "title_selector": "a[href]",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "抓取最新年份資料夾內最新檔名; 忽略過往年份資料夾",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 12000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 12000
     },
     "柴灣區": {
       "region": "港島地域",
@@ -85,22 +79,20 @@
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-content, [class*='post']",
-      "link_selector": ".entry-title a, [class*='post'] a[href$='.pdf']",
+      "link_selector": ".entry-title a, [class*='post'] a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type",
+      "exclude_patterns": [
+        "Sticky Post",
+        "置頂"
+      ],
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "exclude_patterns": [
-        "Sticky Post",
-        "置頂"
-      ],
-      "notes": "排除Sticky Post置頂文章",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "維多利亞城區": {
       "region": "港島地域",
@@ -108,18 +100,16 @@
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href$='.pdf'], [role='main'] a[href*='drive.google.com']",
+      "link_selector": "[role='main'] a[href]",
       "title_selector": "[role='main'] a",
       "url_sanitize": [
         "?authuser=0",
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "移除?authuser=0參數; 抓取role=main區域內前3個連結文字",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc"
     },
     "港島南區": {
       "region": "港島地域",
@@ -127,26 +117,24 @@
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href$='.pdf'], [role='main'] a[href*='drive.google.com']",
+      "link_selector": "[role='main'] a[href]",
       "title_selector": "[role='main'] a",
       "url_sanitize": [
         "?authuser=0",
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "原網站失效，改用Google Sites備援網址",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc"
     },
-  "筲箕灣區": {
+    "筲箕灣區": {
       "region": "港島地域",
       "url": "https://www.skwscout.org.hk/latest-news/",
       "type": "wordpress_elementor",
       "encoding": "utf-8",
       "fingerprint_selector": ".elementor-posts-container",
-      "link_selector": ".elementor-post a",
+      "link_selector": ".elementor-post a[href]",
       "title_selector": ".elementor-post__title a",
       "url_sanitize": [
         "?v=",
@@ -155,8 +143,7 @@
       ],
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": ".elementor-posts-container",
-      "notes": "指向最新消息列表頁，強制開啟 Playwright 以便深挖內頁"
+      "wait_selector": ".elementor-posts-container"
     },
     "港島北區": {
       "region": "港島地域",
@@ -164,13 +151,13 @@
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href$='.pdf']",
+      "link_selector": "[role='main'] a[href]",
       "title_selector": "[role='main'] a:first-of-type",
       "url_sanitize": [
         "?authuser=0",
-        "?authuser=1"
+        "?authuser=1",
+        "?usp=sharing"
       ],
-      "notes": "抓取訓練頁面第一個連結文字",
       "use_playwright": false
     },
     "九龍地域": {
@@ -179,19 +166,18 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-content",
-      "link_selector": ".entry-content a[href$='.pdf']",
-      "title_selector": ".entry-content a[href$='.pdf']",
-      "url_sanitize": [
-        "?v=",
-        "?t=",
-        "?ver="
-      ],
+      "link_selector": ".entry-content a[href]",
+      "title_selector": ".entry-content a[href]",
       "exclude_patterns": [
         "表格",
         "Form",
         "form"
       ],
-      "notes": "全頁面比對所有PDF連結文字; 忽略表格/Form固定關鍵字",
+      "url_sanitize": [
+        "?v=",
+        "?t=",
+        "?ver="
+      ],
       "use_playwright": false
     },
     "紅磡區": {
@@ -200,18 +186,16 @@
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": "[class*='news'], [class*='latest'], [class*='notice'], .entry-content",
-      "link_selector": "[class*='news'] a[href$='.pdf'], [class*='notice'] a[href$='.pdf']",
+      "link_selector": "[class*='news'] a[href], [class*='notice'] a[href], article a[href]",
       "title_selector": "[class*='news'] article:first-of-type h2 a, [class*='news'] h3:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "hhd前綴但實為紅磡區; 抓取最新消息前三個文章標題",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "何文田區": {
       "region": "九龍地域",
@@ -219,18 +203,16 @@
       "type": "wordpress_page",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-content",
-      "link_selector": ".entry-content a[href$='.pdf']",
-      "title_selector": ".entry-content a[href$='.pdf']:first-of-type",
+      "link_selector": ".entry-content a[href]",
+      "title_selector": ".entry-content a[href]",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "此專頁資訊比首頁單純; 抓取最新連結文字",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "九龍城區": {
       "region": "九龍地域",
@@ -238,18 +220,16 @@
       "type": "structured_list",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
-      "link_selector": "a[href$='.pdf']",
-      "title_selector": "a[href$='.pdf']",
+      "link_selector": "a[href]",
+      "title_selector": "a[href]",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "分類極細; 全頁所有連結標題比對，任何變動皆視為更新",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 12000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 12000
     },
     "九龍塘區": {
       "region": "九龍地域",
@@ -257,7 +237,7 @@
       "type": "php_table",
       "encoding": "utf-8",
       "fingerprint_selector": "table",
-      "link_selector": "table a[href$='.pdf']",
+      "link_selector": "table a[href]",
       "title_selector": "table tr:first-of-type td",
       "url_sanitize": [
         "?v=",
@@ -265,7 +245,6 @@
         "?ver=",
         "#front"
       ],
-      "notes": "抓取通告列表第一行日期與標題; 忽略#front",
       "use_playwright": false
     },
     "旺角區": {
@@ -274,18 +253,16 @@
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href$='.pdf'], [role='main'] a[href*='drive.google.com']",
+      "link_selector": "[role='main'] a[href]",
       "title_selector": "[role='main'] a",
       "url_sanitize": [
         "?authuser=0",
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "全量比對role=main區域內所有連結文字",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc"
     },
     "深旺區": {
       "region": "九龍地域",
@@ -293,14 +270,13 @@
       "type": "legacy_html",
       "encoding": "utf-8",
       "fingerprint_selector": "table",
-      "link_selector": "table a[href$='.pdf']",
+      "link_selector": "table a[href]",
       "title_selector": "table tr:first-of-type td:nth-child(2)",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "Legacy HTML; 抓取最新消息列表第一個連結文字",
       "use_playwright": false
     },
     "深水埗東區": {
@@ -309,23 +285,21 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-content",
-      "link_selector": ".entry-content a[href$='.pdf']",
-      "title_selector": ".entry-content a[href$='.pdf']",
-      "url_sanitize": [
-        "?v=",
-        "?t=",
-        "?ver="
-      ],
+      "link_selector": ".entry-content a[href]",
+      "title_selector": ".entry-content a[href]",
       "exclude_patterns": [
         "表格",
         "Form",
         "form"
       ],
-      "notes": "全量比對內容區域所有PDF連結; 過濾固定表格項目",
+      "url_sanitize": [
+        "?v=",
+        "?t=",
+        "?ver="
+      ],
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "深水埗西區": {
       "region": "九龍地域",
@@ -333,18 +307,16 @@
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, .post-title, [class*='post']",
-      "link_selector": ".entry-title a[href$='.pdf'], .post-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], .post-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type, .post-title:first-of-type",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "通告以網誌文章發布; 監控首頁最新文章標題",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "油尖區": {
       "region": "九龍地域",
@@ -352,22 +324,20 @@
       "type": "wordpress_post",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, [class*='post']",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type",
+      "exclude_patterns": [
+        "置頂",
+        "公告"
+      ],
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "exclude_patterns": [
-        "置頂",
-        "公告"
-      ],
-      "notes": "抓取最新一篇文章的entry-title; 忽略置頂/公告固定項目",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "東九龍地域": {
       "region": "東九龍地域",
@@ -375,7 +345,7 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".well.c2a3, [class*='wpdm'], [class*='download']",
-      "link_selector": "a.wpdm-download-link, a[href$='.pdf']",
+      "link_selector": "a[href]",
       "title_selector": ".media-heading, h5",
       "url_sanitize": [
         "?v=",
@@ -383,11 +353,9 @@
         "?ver=",
         "?wpdmdl="
       ],
-      "notes": "WPDM格式; 代碼層面直接讀取所有連結文字; sanitize wpdm數字參數",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "西貢區": {
       "region": "東九龍地域",
@@ -395,7 +363,7 @@
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": "main, [class*='entry-content'], [class*='post']",
-      "link_selector": ".entry-title a, article a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a, article:first-of-type h2 a",
       "url_sanitize": [
         "?v=",
@@ -403,11 +371,9 @@
         "?ver="
       ],
       "min_title_length": 4,
-      "notes": "排除標題字數少於4個字的連結",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "慈雲山區_課程": {
       "region": "東九龍地域",
@@ -415,18 +381,16 @@
       "type": "joomla_category",
       "encoding": "utf-8",
       "fingerprint_selector": ".category, .items-row, [class*='blog']",
-      "link_selector": ".category a[href$='.pdf'], .items-row a[href$='.pdf']",
+      "link_selector": ".category a[href], .items-row a[href], article a[href]",
       "title_selector": ".category article:first-of-type h2 a, .items-row:first-of-type h2 a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "Joomla id=34: 僅監控Course分類",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": ".category, .items-row, article, [class*='item']"
     },
     "慈雲山區_活動": {
       "region": "東九龍地域",
@@ -434,18 +398,16 @@
       "type": "joomla_category",
       "encoding": "utf-8",
       "fingerprint_selector": ".category, .items-row, [class*='blog']",
-      "link_selector": ".category a[href$='.pdf'], .items-row a[href$='.pdf']",
+      "link_selector": ".category a[href], .items-row a[href], article a[href]",
       "title_selector": ".category article:first-of-type h2 a, .items-row:first-of-type h2 a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "Joomla id=35: 僅監控Activities分類",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": ".category, .items-row, article, [class*='item']"
     },
     "黃大仙區": {
       "region": "東九龍地域",
@@ -453,18 +415,16 @@
       "type": "wordpress_page",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-content",
-      "link_selector": ".entry-content a",
+      "link_selector": ".entry-content a[href]",
       "title_selector": ".entry-content a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "全量比對entry-content內所有連結innerText",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "九龍灣區": {
       "region": "東九龍地域",
@@ -472,14 +432,13 @@
       "type": "static_html",
       "encoding": "utf-8",
       "fingerprint_selector": "table",
-      "link_selector": "table a[href$='.pdf']",
+      "link_selector": "table a[href]",
       "title_selector": "table tr:first-of-type td",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "舊版靜態結構/web2017/; 直接讀取notice.html源碼",
       "use_playwright": false
     },
     "秀茂坪區": {
@@ -488,23 +447,21 @@
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href$='.pdf'], [role='main'] a[href*='drive.google.com']",
+      "link_selector": "[role='main'] a[href]",
       "title_selector": "[role='main'] a",
-      "url_sanitize": [
-        "?authuser=0",
-        "?authuser=1",
-        "?usp=sharing"
-      ],
       "exclude_patterns": [
         "舉報濫用行為",
         "Report abuse",
         "Google"
       ],
-      "notes": "移除?authuser=0; 忽略Google系統頁尾連結",
+      "url_sanitize": [
+        "?authuser=0",
+        "?authuser=1",
+        "?usp=sharing"
+      ],
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc"
     },
     "將軍澳區": {
       "region": "東九龍地域",
@@ -512,17 +469,15 @@
       "type": "php_list",
       "encoding": "utf-8",
       "fingerprint_selector": "table, main, [class*='content']",
-      "link_selector": "a[href$='.pdf']",
+      "link_selector": "a[href]",
       "title_selector": "table tr:first-of-type td, tr:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "日期優先; 比對日期字串與標題組合",
       "use_playwright": true,
-      "wait_strategy": "networkidle",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_strategy": "networkidle"
     },
     "觀塘區": {
       "region": "東九龍地域",
@@ -530,18 +485,16 @@
       "type": "joomla_archive",
       "encoding": "utf-8",
       "fingerprint_selector": ".items-row, article, [class*='item']",
-      "link_selector": ".items-row a[href$='.pdf'], article a[href$='.pdf']",
+      "link_selector": ".items-row a[href], article a[href]",
       "title_selector": ".items-row:first-of-type h2 a, article:first-of-type h2 a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "全量比對; 若無日期排序則記錄全頁標題Hash",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": ".category, .items-row, article, [class*='item']"
     },
     "鯉魚門區": {
       "region": "東九龍地域",
@@ -549,18 +502,16 @@
       "type": "wordpress_archive",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, article, [class*='post']",
-      "link_selector": ".entry-title a[href$='.pdf'], article a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a, article:first-of-type h2 a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "監控entry-title或article標籤; 全量比對首頁所有文章標題",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "新界地域": {
       "region": "新界地域",
@@ -568,14 +519,13 @@
       "type": "static_table_big5",
       "encoding": "big5",
       "fingerprint_selector": "table",
-      "link_selector": "table a[href$='.pdf']",
+      "link_selector": "table a[href]",
       "title_selector": "table tr:first-of-type td",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "⚠️ Big5編碼; 抓取表格第一行非標頭的td內容",
       "use_playwright": false
     },
     "元朗東區": {
@@ -584,18 +534,16 @@
       "type": "wordpress_dynamic",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, [class*='news'], [class*='latest']",
-      "link_selector": ".entry-title a[href$='.pdf'], [class*='news'] a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], [class*='news'] a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "無視CSS狀態; 直接讀取HTML中的文章標題連結",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "元朗西區": {
       "region": "新界地域",
@@ -603,18 +551,16 @@
       "type": "wordpress_category",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, article",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "時間倒序排列; 僅比對最頂端第一篇文章",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "十八鄉區": {
       "region": "新界地域",
@@ -622,18 +568,16 @@
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": "main, [class*='content'], [class*='entry']",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "僅針對main內容區塊Hash比對; 忽略側邊欄",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "屯門西區": {
       "region": "新界地域",
@@ -641,18 +585,16 @@
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": "[class*='content'], main, [class*='entry']",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "排除頁腳與側邊欄; 僅針對content區域Hash比對",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "北葵涌區": {
       "region": "新界地域",
@@ -660,18 +602,16 @@
       "type": "modern_cms",
       "encoding": "utf-8",
       "fingerprint_selector": "[class*='post-title'], [class*='news'], [class*='notice'], [class*='latest']",
-      "link_selector": "[class*='post-title'] a[href$='.pdf'], [class*='news'] a[href$='.pdf']",
+      "link_selector": "[class*='post-title'] a[href], [class*='news'] a[href]",
       "title_selector": "[class*='post-title']:first-of-type a, [class*='news'] h3:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "Wix/Modern CMS; 鎖定最新消息區塊",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 20000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 20000
     },
     "屯門東區": {
       "region": "新界地域",
@@ -679,18 +619,16 @@
       "type": "modern_cms",
       "encoding": "utf-8",
       "fingerprint_selector": "main, [class*='content'], [class*='news'], [class*='notice']",
-      "link_selector": "main a[href$='.pdf'], [class*='news'] a[href$='.pdf'], [class*='notice'] a[href$='.pdf']",
+      "link_selector": "main a[href], [class*='news'] a[href], [class*='notice'] a[href]",
       "title_selector": "main a:first-of-type, [class*='news'] a:first-of-type",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "針對main-content區域進行Hash監控",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 20000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 20000
     },
     "荃灣區": {
       "region": "新界地域",
@@ -698,14 +636,13 @@
       "type": "php_list_table",
       "encoding": "utf-8",
       "fingerprint_selector": "table",
-      "link_selector": "table a[href$='.pdf']",
+      "link_selector": "table a[href]",
       "title_selector": "table tr:first-of-type td",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "日期倒序排列; 同時紀錄日期與標題以防誤報",
       "use_playwright": false
     },
     "南葵涌區": {
@@ -714,14 +651,13 @@
       "type": "static_list",
       "encoding": "utf-8",
       "fingerprint_selector": "#活動與訓練通告, [id*='訓練'], [id*='活動']",
-      "link_selector": "a[href$='.pdf']",
-      "title_selector": "a[href$='.pdf']:first-of-type",
+      "link_selector": "a[href]",
+      "title_selector": "a[href]",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "鎖定#活動與訓練通告錨點下方清單",
       "use_playwright": false
     },
     "青衣區": {
@@ -730,18 +666,16 @@
       "type": "wordpress",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, [class*='category-notice']",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "自動識別category-notice分類文章; 忽略一般報導",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "離島區": {
       "region": "新界地域",
@@ -749,18 +683,16 @@
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href$='.pdf'], [role='main'] a[href*='drive.google.com'], [role='main'] a[role='button']",
+      "link_selector": "[role='main'] a[href], [role='main'] a[role='button']",
       "title_selector": "[role='main'] a",
       "url_sanitize": [
         "?authuser=0",
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "掃描最新按鈕或文字連結; 移除?authuser=0",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc"
     },
     "新界東地域": {
       "region": "新界東地域",
@@ -768,18 +700,16 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".post-item, .entry-title, [class*='post']",
-      "link_selector": ".entry-title a[href$='.pdf'], .post-item a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], .post-item a[href]",
       "title_selector": ".entry-title:first-of-type a, .post-item:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "日期優先; 同時抓取post-date",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "雙魚區": {
       "region": "新界東地域",
@@ -787,18 +717,16 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title, [class*='post']",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "同時記錄href路徑; 防止標題重複",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "壁峰區": {
       "region": "新界東地域",
@@ -806,18 +734,16 @@
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href$='.pdf'], [role='main'] a[href*='drive.google.com']",
+      "link_selector": "[role='main'] a[href]",
       "title_selector": "[role='main'] a",
       "url_sanitize": [
         "?authuser=0",
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "全量內容抓取生成Hash; 比對前移除所有空格與換行",
       "use_playwright": true,
       "wait_strategy": "selector",
-      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc"
     },
     "大埔北區": {
       "region": "新界東地域",
@@ -825,18 +751,16 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "監控首頁最新文章的href是否變動",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "大埔南區": {
       "region": "新界東地域",
@@ -844,14 +768,13 @@
       "type": "static_table",
       "encoding": "utf-8",
       "fingerprint_selector": "table",
-      "link_selector": "table a[href$='.pdf']",
+      "link_selector": "table a[href]",
       "title_selector": "table tr:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "網頁較老舊; 抓取整個通告名稱與發布日期作為Hash",
       "use_playwright": false
     },
     "沙田西區": {
@@ -860,14 +783,13 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "路徑為/wp/notice/; 監控首位文章的href屬性",
       "use_playwright": false
     },
     "沙田南區": {
@@ -876,18 +798,16 @@
       "type": "wordpress_list",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-title",
-      "link_selector": ".entry-title a[href$='.pdf']",
+      "link_selector": ".entry-title a[href], article a[href]",
       "title_selector": ".entry-title:first-of-type a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "路徑結構極穩定; 比對第一篇文章URL即可",
       "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換"
+      "wait_timeout": 15000
     },
     "沙田東區": {
       "region": "新界東地域",
@@ -895,14 +815,13 @@
       "type": "static_html",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
-      "link_selector": "a[href$='.pdf']",
-      "title_selector": "a[href$='.pdf']",
+      "link_selector": "a[href]",
+      "title_selector": "a[href]",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "全量內容比對; 任何新發布必然反映在第一頁文字變動中",
       "use_playwright": false
     },
     "沙田北區": {
@@ -911,14 +830,13 @@
       "type": "php_table",
       "encoding": "utf-8",
       "fingerprint_selector": "table",
-      "link_selector": "table a[href$='.pdf']",
+      "link_selector": "table a[href], table td a[href]",
       "title_selector": "table tr td",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "表格全量抓取; 新行出現或第一行文字改變即觸發更新",
       "use_playwright": false
     }
   }

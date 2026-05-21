@@ -1,0 +1,54 @@
+[
+  {
+    "name": "港島地域",
+    "region": "港島地域",
+    "use_playwright": false,
+    "url": "https://www.hkirscout.org.hk/tc/circular/summary/index.html",
+    "engine": "requests",
+    "assets": 5,
+    "samples": [
+      "港島地域通告便覽(2026年5月)",
+      "港島地域通告便覽(2026年4月)",
+      "港島地域通告便覽(2026年3月)",
+      "港島地域通告便覽(2026年2月)",
+      "港島地域通告便覽(2026年1月)"
+    ],
+    "status": "PASS"
+  },
+  {
+    "name": "灣仔區",
+    "region": "港島地域",
+    "use_playwright": true,
+    "url": "https://www.wanchaiscout.org.hk/index.php",
+    "engine": "requests",
+    "assets": 10,
+    "samples": [
+      "區會15/5 - 22/5/2026辦公時間",
+      "區會 15/5/2026 辦公時間 (更新)",
+      "區會 9/3 - 15/5/2026 辦公時間",
+      "區會1/5 – 8/5/2026辦公時間",
+      "區會27/4 – 3/5/2026辦公時間"
+    ],
+    "status": "PASS_BUT_ACTIONS_VERIFY"
+  },
+  {
+    "name": "維多利亞城區",
+    "region": "港島地域",
+    "use_playwright": true,
+    "url": "https://sites.google.com/hkirscout.org.hk/vicscout/訓練-活動資訊",
+    "engine": "requests",
+    "assets": 0,
+    "samples": [],
+    "status": "FAIL_NO_ASSETS"
+  },
+  {
+    "name": "港島南區",
+    "region": "港島地域",
+    "use_playwright": true,
+    "url": "https://sites.google.com/hkirscout.org.hk/hks/活動及訓練班",
+    "engine": "requests",
+    "assets": 0,
+    "samples": [],
+    "status": "FAIL_NO_ASSETS"
+  }
+]
