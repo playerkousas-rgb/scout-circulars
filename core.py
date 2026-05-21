@@ -572,24 +572,68 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     use_playwright = config.get("use_playwright", False)
     result: Optional[FetchResult] = None
 
-    # --- 新增：Contentful API 攔截器 ---
-    if config.get("type") == "contentful_api":
-        import requests
+    # --- WP API Injection ---
+    if config.get("type") == "wordpress_api":
+        import requests, json
+        from bs4 import BeautifulSoup
         try:
-            r = requests.get(config.get("api_url"), params=config.get("api_params"), headers=config.get("api_headers"), timeout=15)
+            r = requests.get(url, verify=config.get("verify_ssl", True), timeout=15)
+            r.raise_for_status()
+            posts = r.json()
+            mock_html = "<html><body>"
+            for post in posts:
+                title = post.get("title", {}).get("rendered", "Unknown")
+                content = post.get("content", {}).get("rendered", "")
+                
+                # Parse content to find links
+                soup_content = BeautifulSoup(content, "html.parser")
+                links = soup_content.find_all("a")
+                found_asset = False
+                for a in links:
+                    href = a.get("href")
+                    if href and ('.pdf' in href.lower() or '/wp-content/uploads/' in href.lower() or 'drive.google' in href.lower()):
+                        mock_html += f'<a href="{href}">{title}</a><br/>'
+                        found_asset = True
+                
+                # If no direct asset link, maybe the post itself is needed, but we only want assets
+            mock_html += "</body></html>"
+            return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
+        except Exception as e:
+            print(f"  [{name}] ⚠️ WP API 失敗: {e}")
+            return None
+    # ---------------------------------
+
+
+    # --- Contentful API Injection ---
+    if config.get("type") == "contentful_api":
+        import requests, json
+        api_url = config.get("api_url")
+        headers = config.get("api_headers", {})
+        params = config.get("api_params", {})
+        try:
+            r = requests.get(api_url, params=params, headers=headers, timeout=15)
             r.raise_for_status()
             data = r.json()
-            # 將 API 數據轉為 HTML 模擬格式
-            asset_map = {a["sys"]["id"]: ("https:" + a["fields"]["file"]["url"] if a["fields"]["file"]["url"].startswith("//") else a["fields"]["file"]["url"]) 
-                         for a in data.get("includes", {}).get("Asset", [])}
+            asset_map = {}
+            for asset in data.get("includes", {}).get("Asset", []):
+                try:
+                    asset_id = asset["sys"]["id"]
+                    file_url = asset["fields"]["file"]["url"]
+                    if file_url.startswith("//"):
+                        file_url = "https:" + file_url
+                    asset_map[asset_id] = file_url
+                except Exception:
+                    pass
             mock_html = "<html><body>"
             for item in data.get("items", []):
                 fields = item.get("fields", {})
                 title = fields.get("title", "Unknown Title")
-                attach = fields.get("attach", {})
-                file_url = asset_map.get(attach.get("sys", {}).get("id"))
-                if file_url:
-                    mock_html += f'<a href="{file_url}">{title}</a><br/>'
+                attach = fields.get("attach")
+                if attach and isinstance(attach, dict):
+                    asset_id = attach.get("sys", {}).get("id")
+                    file_url = asset_map.get(asset_id)
+                    if file_url:
+                        mock_html += f'<a href="{file_url}">{title}</a><br/>'
             mock_html += "</body></html>"
             return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
         except Exception as e:
@@ -599,7 +643,6 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
 
     try:
         result = fetch_requests(url, config, timeout=30)
-        # ... 以下保持你原本的代碼不變 ...
         soup = BeautifulSoup(result.html, "html.parser")
         if has_useful_candidates(soup, config):
             return result
