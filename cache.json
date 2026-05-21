@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-21 05:59:43",
+  "last_updated": "2026-05-21 06:10:57",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 2120,
+    "total_notices": 2151,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -7775,8 +7775,8 @@
         "title": "2024-2025 年報",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2025/09/2024-2025-AR.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2025/09/2024-2025-AR.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "筲箕灣區",
         "region": "港島地域"
       },
@@ -7784,8 +7784,8 @@
         "title": "2023-2024 年報",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2024/07/2023-2024-AR.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2024/07/2023-2024-AR.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "筲箕灣區",
         "region": "港島地域"
       },
@@ -7793,8 +7793,8 @@
         "title": "2022-2023年報",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2023/06/2022-2023AR.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2023/06/2022-2023AR.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "筲箕灣區",
         "region": "港島地域"
       },
@@ -7802,8 +7802,8 @@
         "title": "2021-2022 年報",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2022/08/2021-2022AR.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2022/08/2021-2022AR.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "筲箕灣區",
         "region": "港島地域"
       },
@@ -7811,8 +7811,8 @@
         "title": "2020-2021 年報",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2021/06/2020-2021AR.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2021/06/2020-2021AR.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "筲箕灣區",
         "region": "港島地域"
       }
@@ -7822,8 +7822,8 @@
         "title": "體驗活動系列(四)",
         "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7831,8 +7831,8 @@
         "title": "體驗活動系 – 銅線花",
         "url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7840,8 +7840,8 @@
         "title": "體驗活動系 – 日本書藝粉彩",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7849,8 +7849,8 @@
         "title": "香港總監挑戰盾-港島北區選拔賽",
         "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7858,8 +7858,17 @@
         "title": "香港總監挑戰盾-港島北區選拔日",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "農曆新年揮春設計比賽",
+        "url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_A2023_07_gh.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_A2023_07_gh.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7867,8 +7876,8 @@
         "title": "賽馬會青年領袖獎章計劃第 22 屆「童笑同行」大使訓練班 暨 童軍精神健康章(服務組)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7876,8 +7885,8 @@
         "title": "童軍領導才訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7885,8 +7894,8 @@
         "title": "童軍領導才訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7894,8 +7903,8 @@
         "title": "童軍消防訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7903,8 +7912,8 @@
         "title": "童軍消防訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7912,8 +7921,8 @@
         "title": "童軍機械章(技能組)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7921,8 +7930,8 @@
         "title": "童軍手藝章(皮工)工作坊及考驗",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7930,8 +7939,8 @@
         "title": "童軍多媒體創作章(技能組)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7939,8 +7948,8 @@
         "title": "童軍原野烹飪章工作坊及考驗日",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7948,8 +7957,8 @@
         "title": "童軍先修章訓練班 – 原野烹飪體驗",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7957,8 +7966,8 @@
         "title": "童繫社區二部曲 之 與眾北童深度遊 童軍組",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7966,8 +7975,8 @@
         "title": "童繫社區二部曲 之 與眾北童深度遊 深資童軍段章考驗",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7975,8 +7984,8 @@
         "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍挑戰組",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7984,8 +7993,8 @@
         "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍優游組",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -7993,8 +8002,8 @@
         "title": "童繫社區二部曲 之 與眾北童深度遊 小童軍親子組",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_03_G_Hunt_V3.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_03_G_Hunt_V3.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8002,8 +8011,8 @@
         "title": "童繫社區二部曲 之 與眾北童深度遊 公開組",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8011,8 +8020,8 @@
         "title": "童繫社區三部曲 之 [躍動北區 同創未來]",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8020,8 +8029,8 @@
         "title": "深資童軍消防訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8029,8 +8038,8 @@
         "title": "深資童軍先鋒工程訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8038,8 +8047,8 @@
         "title": "手藝章(線裝釘書)工作坊及考驗",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8047,8 +8056,8 @@
         "title": "幼童軍藝術章(皮藝)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8056,8 +8065,8 @@
         "title": "幼童軍繩結章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8065,8 +8074,8 @@
         "title": "幼童軍氣象章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8074,8 +8083,8 @@
         "title": "幼童軍攝影章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8083,8 +8092,8 @@
         "title": "幼童軍戶外歷險暨探險章訓練營",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8092,8 +8101,8 @@
         "title": "幼童軍急救章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8101,8 +8110,8 @@
         "title": "幼童軍夜行活動",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8110,8 +8119,8 @@
         "title": "幼童軍單車章暨道路安全章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8119,8 +8128,8 @@
         "title": "幼童軍勞作章暨藝術章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8128,17 +8137,8 @@
         "title": "小童軍四格漫畫同樂活動",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_01_gh_%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_01_gh_%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "小童軍 – 農曆新年揮春設計比賽",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_A2023_07_gh.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_A2023_07_gh.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8146,8 +8146,8 @@
         "title": "報名表格",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8155,8 +8155,89 @@
         "title": "報名表格",
         "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "http://www.hknscout.org/wp-content/uploads/2026/02/幼童軍攝影章訓練班_報名表_.xlsx",
+        "pdf_url": "http://www.hknscout.org/wp-content/uploads/2026/02/幼童軍攝影章訓練班_報名表_.xlsx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/幼童軍戶外歷險暨探險章訓練營_報名表_.xlsx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/幼童軍戶外歷險暨探險章訓練營_報名表_.xlsx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_公開組.xlsx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_公開組.xlsx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_童軍組.xlsx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_童軍組.xlsx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍挑戰組.xlsx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍挑戰組.xlsx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍優游組.xlsx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍優游組.xlsx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_小童軍組.xlsx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_小童軍組.xlsx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8164,8 +8245,8 @@
         "title": "嘉爾頓錦標區選拔賽",
         "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8173,8 +8254,8 @@
         "title": "取錄名單",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/04/%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E5%A4%9A%E5%AA%92%E9%AB%94%E5%89%B5%E4%BD%9C%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AEv7.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E5%A4%9A%E5%AA%92%E9%AB%94%E5%89%B5%E4%BD%9C%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AEv7.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8182,8 +8263,8 @@
         "title": "取錄名單",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/03/2025-Backwood-assessment_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/2025-Backwood-assessment_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8191,8 +8272,8 @@
         "title": "取錄名單",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/08/%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/08/%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8200,8 +8281,8 @@
         "title": "取錄名單",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/03/%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8209,8 +8290,8 @@
         "title": "初級航空活動章(混合) 暨 模擬飛行章(技能組)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN-T2025_02_S_%E5%88%9D%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0-V2.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN-T2025_02_S_%E5%88%9D%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0-V2.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8218,8 +8299,8 @@
         "title": "中級航空活動章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_03_-%E7%AB%A5%E8%BB%8D%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_03_-%E7%AB%A5%E8%BB%8D%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       },
@@ -8227,8 +8308,8 @@
         "title": "中級航空活動章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/01/HKN_T007-%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/01/HKN_T007-%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "港島北區",
         "region": "港島地域"
       }
@@ -9326,7 +9407,206 @@
         "region": "九龍地域"
       }
     ],
-    "何文田區": [],
+    "何文田區": [
+      {
+        "title": "越野駕駛救援培訓課程及越野駕駛體驗",
+        "url": "https://drive.google.com/file/d/17_O6VS6LSeXjDvDEVuUlwtdFCfRfm9sJ/view",
+        "pdf_url": "https://drive.google.com/file/d/17_O6VS6LSeXjDvDEVuUlwtdFCfRfm9sJ/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍原野烹飪章(教導組)專章訓練班",
+        "url": "https://drive.google.com/file/d/1JQyAHBzgZGtVqiLQJujCzb9k0QyueECd/view",
+        "pdf_url": "https://drive.google.com/file/d/1JQyAHBzgZGtVqiLQJujCzb9k0QyueECd/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "游泳測試及幼童軍(游泳章)考驗",
+        "url": "https://drive.google.com/file/d/1VCRAHonDdXrK94auuAqYvPQj9b-ECi92/view",
+        "pdf_url": "https://drive.google.com/file/d/1VCRAHonDdXrK94auuAqYvPQj9b-ECi92/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "游泳測試(游泳章)考驗",
+        "url": "https://drive.google.com/file/d/1NtDS_3gjHPB1zNVXG99ZqQSOD19nBXlA/view",
+        "pdf_url": "https://drive.google.com/file/d/1NtDS_3gjHPB1zNVXG99ZqQSOD19nBXlA/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "會長盃(深資童軍)錦標賽",
+        "url": "https://drive.google.com/file/d/1kQ-MAk5NGDhfZgi-2u3ccPVdzWWMxGld/view",
+        "pdf_url": "https://drive.google.com/file/d/1kQ-MAk5NGDhfZgi-2u3ccPVdzWWMxGld/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "小/幼童軍遊戲日暨總監盾比賽",
+        "url": "https://drive.google.com/file/d/1JQgdsRSKEMsF3-lqeeAvC-nzCiy_0VEC/view",
+        "pdf_url": "https://drive.google.com/file/d/1JQgdsRSKEMsF3-lqeeAvC-nzCiy_0VEC/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "主席盃童軍支部技能比賽",
+        "url": "https://drive.google.com/file/d/1PnoEHFyr3lyzM2OtTCLsWAJBJ-qa0mgw/view",
+        "pdf_url": "https://drive.google.com/file/d/1PnoEHFyr3lyzM2OtTCLsWAJBJ-qa0mgw/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年5月1 6 日 童軍原野烹飪章(技能組)專章訓練班",
+        "url": "https://drive.google.com/file/d/1CVA9IARnn17KArcKeCF4qdrJP_Ys_DN-/view",
+        "pdf_url": "https://drive.google.com/file/d/1CVA9IARnn17KArcKeCF4qdrJP_Ys_DN-/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年3月21-22日 金紫荊獎章活動營",
+        "url": "https://drive.google.com/file/d/1r--3S6yb0FOm-jDe7o5E7NHfZMJiEZGJ/view",
+        "pdf_url": "https://drive.google.com/file/d/1r--3S6yb0FOm-jDe7o5E7NHfZMJiEZGJ/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年3月 21-22 日 露營章活動營",
+        "url": "https://drive.google.com/file/d/1HyYh2iDHA76behvGsXamMbr_H9bjFj1H/view",
+        "pdf_url": "https://drive.google.com/file/d/1HyYh2iDHA76behvGsXamMbr_H9bjFj1H/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年2月 1 日 第12屆獅情長意服務",
+        "url": "https://drive.google.com/file/d/1CVSl92Ex_vCBu_U4vBeSys98ISDpgZwH/view",
+        "pdf_url": "https://drive.google.com/file/d/1CVSl92Ex_vCBu_U4vBeSys98ISDpgZwH/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年 7 月 30 日至8月4日 跨越疆界:港台童軍泰北服務之旅2026",
+        "url": "https://drive.google.com/file/d/183dv7XDb1Uo9M35cu8CqdwMadA4Y1SyG/view",
+        "pdf_url": "https://drive.google.com/file/d/183dv7XDb1Uo9M35cu8CqdwMadA4Y1SyG/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年 4 月 26 日 幼童軍戶外活動 日",
+        "url": "https://drive.google.com/file/d/1SABHXNcMMcPag0uF0D6g2cCU2cLQKOIh/view",
+        "pdf_url": "https://drive.google.com/file/d/1SABHXNcMMcPag0uF0D6g2cCU2cLQKOIh/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年 4 月 11-12 日 主席盃童軍支部露營比賽",
+        "url": "https://drive.google.com/file/d/1IlcJRz9bFl62Rs35fiyJH4bengssjIsS/view",
+        "pdf_url": "https://drive.google.com/file/d/1IlcJRz9bFl62Rs35fiyJH4bengssjIsS/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年 3 月 3 日 遊樂船隻二級操作人證明書課程",
+        "url": "https://drive.google.com/file/d/1yJiniySZu0YA6tLHZWpudKFF5pBmKI4i/view",
+        "pdf_url": "https://drive.google.com/file/d/1yJiniySZu0YA6tLHZWpudKFF5pBmKI4i/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年 2 月 28 日 何文田區新春團拜",
+        "url": "https://drive.google.com/file/d/1Spl_xRA-hECfxf_54LR_n-NyLKIzarhu/view",
+        "pdf_url": "https://drive.google.com/file/d/1Spl_xRA-hECfxf_54LR_n-NyLKIzarhu/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026",
+        "url": "https://drive.google.com/file/d/1ZDbyW_ApBRWZrpAibkW_2iwzWCQrEcYZ/view",
+        "pdf_url": "https://drive.google.com/file/d/1ZDbyW_ApBRWZrpAibkW_2iwzWCQrEcYZ/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2025年8月12-21日獨木舟一星、二星及三星訓練班",
+        "url": "https://drive.google.com/file/d/1LvJ3I_zMM2K-nwtbI9fxBLENp_m74anU/view",
+        "pdf_url": "https://drive.google.com/file/d/1LvJ3I_zMM2K-nwtbI9fxBLENp_m74anU/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2025年6月21, 22及7月12-13, 19-20日童軍露營及原野烹飪章(技能組)訓練班 2025",
+        "url": "https://drive.google.com/file/d/1lY0xa-MoS2BYEFyUhtA5EePFTbZchK8o/view",
+        "pdf_url": "https://drive.google.com/file/d/1lY0xa-MoS2BYEFyUhtA5EePFTbZchK8o/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "202 6 年 6 月 21 日 小幼童軍總監盾比賽",
+        "url": "https://drive.google.com/file/d/1QwzhSmzqjZaPswzZ9XeCHtl6AbPsL4fK/view",
+        "pdf_url": "https://drive.google.com/file/d/1QwzhSmzqjZaPswzZ9XeCHtl6AbPsL4fK/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "202 5 年12月14日 青少年獲獎人士頒獎禮",
+        "url": "https://drive.google.com/file/d/1uZPQp8m0GBb0f2dsNTqfY2F4MBbHwBnm/view",
+        "pdf_url": "https://drive.google.com/file/d/1uZPQp8m0GBb0f2dsNTqfY2F4MBbHwBnm/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "202 5 年 10 月 25 日 第578屆童軍領導才訓練班",
+        "url": "https://drive.google.com/file/d/1hZls9_38vm6vyPcfGmGTOBdAUr-UM5m2/view",
+        "pdf_url": "https://drive.google.com/file/d/1hZls9_38vm6vyPcfGmGTOBdAUr-UM5m2/view",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      }
+    ],
     "九龍城區": [],
     "九龍塘區": [
       {
@@ -19102,8 +19382,8 @@
         "title": "沙田區童軍運動五十周年紀念晚宴",
         "url": "https://www.stnscout.org/doc/2026/D/STN2026-A-04.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-04.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       },
@@ -19111,8 +19391,8 @@
         "title": "沙田北區新春團拜暨全區領袖聯誼日",
         "url": "https://www.stnscout.org/doc/2026/D/STN2026-A-001.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-001.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       },
@@ -19120,8 +19400,8 @@
         "title": "幼童軍露營章暨金紫荊考驗營",
         "url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-002.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-002.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       },
@@ -19129,8 +19409,8 @@
         "title": "幼童軍獨木舟(初級)活動徽章",
         "url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-003.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-003.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       },
@@ -19138,8 +19418,8 @@
         "title": "幼童軍活動徽章考驗日",
         "url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-006.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-006.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       },
@@ -19147,8 +19427,8 @@
         "title": "十周年紀念特刊",
         "url": "https://www.stnscout.org/10th-anniversary/stnd_10th_anniversary.pdf",
         "pdf_url": "https://www.stnscout.org/10th-anniversary/stnd_10th_anniversary.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       },
@@ -19156,8 +19436,8 @@
         "title": "初級航空活動章訓練班",
         "url": "https://www.stnscout.org/doc/2026/SS/STN2026-S-07.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/SS/STN2026-S-07.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       },
@@ -19165,8 +19445,8 @@
         "title": "2026至2027年度區務委員會就職典禮暨聯歡晚宴",
         "url": "https://www.stnscout.org/doc/2026/D/STN2026-A-05.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-05.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
         "source_site": "沙田北區",
         "region": "新界東地域"
       }
@@ -24284,6 +24564,41 @@
       "captured_date": "2026-05-21"
     },
     {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2025/09/2024-2025-AR.pdf",
+      "title": "2024-2025 年報",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2024/07/2023-2024-AR.pdf",
+      "title": "2023-2024 年報",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2023/06/2022-2023AR.pdf",
+      "title": "2022-2023年報",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2022/08/2021-2022AR.pdf",
+      "title": "2021-2022 年報",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2021/06/2020-2021AR.pdf",
+      "title": "2020-2021 年報",
+      "captured_date": "2026-05-21"
+    },
+    {
       "source_site": "秀茂坪區",
       "region": "東九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1deID9OwQx2q2ZSo52Dc2BRxRwYe8Fi7o/view",
@@ -26720,6 +27035,391 @@
       "captured_date": "2026-05-21"
     },
     {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
+      "title": "體驗活動系列(四)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
+      "title": "體驗活動系 – 銅線花",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
+      "title": "體驗活動系 – 日本書藝粉彩",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
+      "title": "香港總監挑戰盾-港島北區選拔賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
+      "title": "香港總監挑戰盾-港島北區選拔日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_A2023_07_gh.pdf",
+      "title": "農曆新年揮春設計比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "賽馬會青年領袖獎章計劃第 22 屆「童笑同行」大使訓練班 暨 童軍精神健康章(服務組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
+      "title": "童軍領導才訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
+      "title": "童軍領導才訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "童軍消防訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "童軍消防訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "童軍機械章(技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
+      "title": "童軍手藝章(皮工)工作坊及考驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
+      "title": "童軍多媒體創作章(技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
+      "title": "童軍原野烹飪章工作坊及考驗日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
+      "title": "童軍先修章訓練班 – 原野烹飪體驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 童軍組",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 深資童軍段章考驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍挑戰組",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍優游組",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_03_G_Hunt_V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 小童軍親子組",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 公開組",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
+      "title": "童繫社區三部曲 之 [躍動北區 同創未來]",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
+      "title": "深資童軍消防訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
+      "title": "深資童軍先鋒工程訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
+      "title": "手藝章(線裝釘書)工作坊及考驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "幼童軍藝術章(皮藝)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
+      "title": "幼童軍繩結章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "幼童軍氣象章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
+      "title": "幼童軍攝影章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
+      "title": "幼童軍戶外歷險暨探險章訓練營",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "幼童軍急救章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
+      "title": "幼童軍夜行活動",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "幼童軍單車章暨道路安全章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
+      "title": "幼童軍勞作章暨藝術章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_01_gh_%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95.pdf",
+      "title": "小童軍四格漫畫同樂活動",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "http://www.hknscout.org/wp-content/uploads/2026/02/幼童軍攝影章訓練班_報名表_.xlsx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/幼童軍戶外歷險暨探險章訓練營_報名表_.xlsx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_公開組.xlsx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_童軍組.xlsx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍挑戰組.xlsx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍優游組.xlsx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_小童軍組.xlsx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+      "title": "報名表格",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
+      "title": "嘉爾頓錦標區選拔賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E5%A4%9A%E5%AA%92%E9%AB%94%E5%89%B5%E4%BD%9C%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AEv7.pdf",
+      "title": "取錄名單",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/2025-Backwood-assessment_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
+      "title": "取錄名單",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/08/%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
+      "title": "取錄名單",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
+      "title": "取錄名單",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN-T2025_02_S_%E5%88%9D%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0-V2.pdf",
+      "title": "初級航空活動章(混合) 暨 模擬飛行章(技能組)訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_03_-%E7%AB%A5%E8%BB%8D%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "中級航空活動章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/01/HKN_T007-%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "中級航空活動章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
       "source_site": "深水埗西區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1S1IjDJHswuyhIU6-ao-cytHQZlZySGwg/view",
@@ -27515,6 +28215,62 @@
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1RsPmZy-Kdq5a_mDzrqQR2WgyNKhSEUfb/view",
       "title": "010-2025 致各第三十六屆區務委員會務委員",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-04.pdf",
+      "title": "沙田區童軍運動五十周年紀念晚宴",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-001.pdf",
+      "title": "沙田北區新春團拜暨全區領袖聯誼日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-002.pdf",
+      "title": "幼童軍露營章暨金紫荊考驗營",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-003.pdf",
+      "title": "幼童軍獨木舟(初級)活動徽章",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-006.pdf",
+      "title": "幼童軍活動徽章考驗日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/10th-anniversary/stnd_10th_anniversary.pdf",
+      "title": "十周年紀念特刊",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/SS/STN2026-S-07.pdf",
+      "title": "初級航空活動章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-05.pdf",
+      "title": "2026至2027年度區務委員會就職典禮暨聯歡晚宴",
       "captured_date": "2026-05-21"
     },
     {
@@ -30066,6 +30822,160 @@
       "captured_date": "2026-05-21"
     },
     {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/17_O6VS6LSeXjDvDEVuUlwtdFCfRfm9sJ/view",
+      "title": "越野駕駛救援培訓課程及越野駕駛體驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1JQyAHBzgZGtVqiLQJujCzb9k0QyueECd/view",
+      "title": "童軍原野烹飪章(教導組)專章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1VCRAHonDdXrK94auuAqYvPQj9b-ECi92/view",
+      "title": "游泳測試及幼童軍(游泳章)考驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1NtDS_3gjHPB1zNVXG99ZqQSOD19nBXlA/view",
+      "title": "游泳測試(游泳章)考驗",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1kQ-MAk5NGDhfZgi-2u3ccPVdzWWMxGld/view",
+      "title": "會長盃(深資童軍)錦標賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1JQgdsRSKEMsF3-lqeeAvC-nzCiy_0VEC/view",
+      "title": "小/幼童軍遊戲日暨總監盾比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1PnoEHFyr3lyzM2OtTCLsWAJBJ-qa0mgw/view",
+      "title": "主席盃童軍支部技能比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1CVA9IARnn17KArcKeCF4qdrJP_Ys_DN-/view",
+      "title": "2026年5月1 6 日 童軍原野烹飪章(技能組)專章訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1r--3S6yb0FOm-jDe7o5E7NHfZMJiEZGJ/view",
+      "title": "2026年3月21-22日 金紫荊獎章活動營",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1HyYh2iDHA76behvGsXamMbr_H9bjFj1H/view",
+      "title": "2026年3月 21-22 日 露營章活動營",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1CVSl92Ex_vCBu_U4vBeSys98ISDpgZwH/view",
+      "title": "2026年2月 1 日 第12屆獅情長意服務",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/183dv7XDb1Uo9M35cu8CqdwMadA4Y1SyG/view",
+      "title": "2026年 7 月 30 日至8月4日 跨越疆界:港台童軍泰北服務之旅2026",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1SABHXNcMMcPag0uF0D6g2cCU2cLQKOIh/view",
+      "title": "2026年 4 月 26 日 幼童軍戶外活動 日",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1IlcJRz9bFl62Rs35fiyJH4bengssjIsS/view",
+      "title": "2026年 4 月 11-12 日 主席盃童軍支部露營比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1yJiniySZu0YA6tLHZWpudKFF5pBmKI4i/view",
+      "title": "2026年 3 月 3 日 遊樂船隻二級操作人證明書課程",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1Spl_xRA-hECfxf_54LR_n-NyLKIzarhu/view",
+      "title": "2026年 2 月 28 日 何文田區新春團拜",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1ZDbyW_ApBRWZrpAibkW_2iwzWCQrEcYZ/view",
+      "title": "2026",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1LvJ3I_zMM2K-nwtbI9fxBLENp_m74anU/view",
+      "title": "2025年8月12-21日獨木舟一星、二星及三星訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1lY0xa-MoS2BYEFyUhtA5EePFTbZchK8o/view",
+      "title": "2025年6月21, 22及7月12-13, 19-20日童軍露營及原野烹飪章(技能組)訓練班 2025",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1QwzhSmzqjZaPswzZ9XeCHtl6AbPsL4fK/view",
+      "title": "202 6 年 6 月 21 日 小幼童軍總監盾比賽",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1uZPQp8m0GBb0f2dsNTqfY2F4MBbHwBnm/view",
+      "title": "202 5 年12月14日 青少年獲獎人士頒獎禮",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1hZls9_38vm6vyPcfGmGTOBdAUr-UM5m2/view",
+      "title": "202 5 年 10 月 25 日 第578屆童軍領導才訓練班",
+      "captured_date": "2026-05-21"
+    },
+    {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
@@ -31788,363 +32698,6 @@
       "captured_date": "2026-05-21"
     },
     {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2025/09/2024-2025-AR.pdf",
-      "title": "2024-2025 年報",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2024/07/2023-2024-AR.pdf",
-      "title": "2023-2024 年報",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2023/06/2022-2023AR.pdf",
-      "title": "2022-2023年報",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2022/08/2021-2022AR.pdf",
-      "title": "2021-2022 年報",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2021/06/2020-2021AR.pdf",
-      "title": "2020-2021 年報",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
-      "title": "體驗活動系列(四)",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
-      "title": "體驗活動系 – 銅線花",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
-      "title": "體驗活動系 – 日本書藝粉彩",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
-      "title": "香港總監挑戰盾-港島北區選拔賽",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
-      "title": "香港總監挑戰盾-港島北區選拔日",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "賽馬會青年領袖獎章計劃第 22 屆「童笑同行」大使訓練班 暨 童軍精神健康章(服務組)訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
-      "title": "童軍領導才訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
-      "title": "童軍領導才訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "童軍消防訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "童軍消防訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "童軍機械章(技能組)訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
-      "title": "童軍手藝章(皮工)工作坊及考驗",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
-      "title": "童軍多媒體創作章(技能組)訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
-      "title": "童軍原野烹飪章工作坊及考驗日",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
-      "title": "童軍先修章訓練班 – 原野烹飪體驗",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 童軍組",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 深資童軍段章考驗",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍挑戰組",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍優游組",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_03_G_Hunt_V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 小童軍親子組",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 公開組",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
-      "title": "童繫社區三部曲 之 [躍動北區 同創未來]",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
-      "title": "深資童軍消防訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
-      "title": "深資童軍先鋒工程訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
-      "title": "手藝章(線裝釘書)工作坊及考驗",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍藝術章(皮藝)訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
-      "title": "幼童軍繩結章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍氣象章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
-      "title": "幼童軍攝影章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
-      "title": "幼童軍戶外歷險暨探險章訓練營",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍急救章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
-      "title": "幼童軍夜行活動",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍單車章暨道路安全章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
-      "title": "幼童軍勞作章暨藝術章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_01_gh_%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95.pdf",
-      "title": "小童軍四格漫畫同樂活動",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_A2023_07_gh.pdf",
-      "title": "小童軍 – 農曆新年揮春設計比賽",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
-      "title": "報名表格",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
-      "title": "報名表格",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
-      "title": "嘉爾頓錦標區選拔賽",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E5%A4%9A%E5%AA%92%E9%AB%94%E5%89%B5%E4%BD%9C%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AEv7.pdf",
-      "title": "取錄名單",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/2025-Backwood-assessment_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
-      "title": "取錄名單",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/08/%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD_%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
-      "title": "取錄名單",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD%E5%8F%96%E9%8C%84%E5%90%8D%E5%96%AE.pdf",
-      "title": "取錄名單",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN-T2025_02_S_%E5%88%9D%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0-V2.pdf",
-      "title": "初級航空活動章(混合) 暨 模擬飛行章(技能組)訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_03_-%E7%AB%A5%E8%BB%8D%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "中級航空活動章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/01/HKN_T007-%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "中級航空活動章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
       "source_site": "深旺區",
       "region": "九龍地域",
       "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/04/SMD2511_幼童軍集會工作坊 (一).pdf",
@@ -33167,62 +33720,6 @@
       "captured_date": "2026-05-20"
     },
     {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-04.pdf",
-      "title": "沙田區童軍運動五十周年紀念晚宴",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-001.pdf",
-      "title": "沙田北區新春團拜暨全區領袖聯誼日",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-002.pdf",
-      "title": "幼童軍露營章暨金紫荊考驗營",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-003.pdf",
-      "title": "幼童軍獨木舟(初級)活動徽章",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/doc/2026/CS/STN2026-C-006.pdf",
-      "title": "幼童軍活動徽章考驗日",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/10th-anniversary/stnd_10th_anniversary.pdf",
-      "title": "十周年紀念特刊",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/doc/2026/SS/STN2026-S-07.pdf",
-      "title": "初級航空活動章訓練班",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "沙田北區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-05.pdf",
-      "title": "2026至2027年度區務委員會就職典禮暨聯歡晚宴",
-      "captured_date": "2026-05-20"
-    },
-    {
       "source_site": "南葵涌區",
       "region": "新界地域",
       "pdf_url": "https://skc.scout-ntr.org.hk/pdf/2021Circular/SKC_2021TA01_findinskc_app1_boundary.pdf",
@@ -34132,11 +34629,11 @@
     ],
     "total_sources": 49,
     "last_run": {
-      "updated_at": "2026-05-21 05:59:43",
-      "new": 73,
-      "updated": 0,
-      "skipped": 0,
-      "processed": 2,
+      "updated_at": "2026-05-21 06:10:57",
+      "new": 31,
+      "updated": 67,
+      "skipped": 32,
+      "processed": 17,
       "playwright_used": 0
     }
   }
