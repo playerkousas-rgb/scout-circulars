@@ -154,14 +154,15 @@
         "置頂"
       ],
       "notes": "卡片式，需進內頁抓取",
-      "use_playwright": true,
+      "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href*='.pdf'], a[href*='drive.google'], a[href*='/wp-content/']",
+      "asset_link_selector": "a[href*='.pdf'], a[href*='drive.google']",
       "follow_detail_pages": true,
       "detail_max_pages": 8,
-      "detail_link_selector": "a"
+      "detail_link_selector": "a[href*='activities_and_courses/']",
+      "verify_ssl": false
     },
     "維多利亞城區": {
       "region": "港島地域",
@@ -204,7 +205,7 @@
     },
     "筲箕灣區": {
       "region": "港島地域",
-      "url": "https://www.skwscout.org.hk/",
+      "url": "https://www.skwscout.org.hk/category/notice/",
       "type": "wordpress_elementor",
       "encoding": "utf-8",
       "fingerprint_selector": ".elementor-posts-container",
@@ -215,12 +216,12 @@
         "?t=",
         "?ver="
       ],
-      "use_playwright": true,
+      "use_playwright": false,
       "wait_strategy": "selector",
       "wait_selector": ".elementor-posts-container",
       "notes": "已修正404問題。建議爬取首頁所有文章內的通告PDF。",
       "asset_link_selector": "a[href*='.pdf'], a[href*='/wp-content/uploads/']",
-      "follow_detail_pages": true,
+      "follow_detail_pages": false,
       "detail_max_pages": 8,
       "detail_link_selector": "a[href*='2026'], a.elementor-post__read-more"
     },
@@ -709,7 +710,7 @@
         "?ver="
       ],
       "notes": "時間倒序排列; 僅比對最頂端第一篇文章",
-      "use_playwright": true,
+      "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
@@ -893,25 +894,25 @@
     "新界東地域": {
       "region": "新界東地域",
       "url": "https://www.nter-hkscout.org/notice",
-      "type": "static_list",
+      "type": "contentful_api",
       "encoding": "utf-8",
+      "api_url": "https://cdn.contentful.com/spaces/g8bhf0l3d7iq/environments/master/entries",
+      "api_headers": {
+        "Authorization": "Bearer XYxxLAIs0crl96-An-NsHBRN_Qw23dalI2t8cG8Rdgs"
+      },
+      "api_params": {
+        "content_type": "geog_notice",
+        "limit": 500,
+        "skip": 0,
+        "order": "-fields.date"
+      },
       "fingerprint_selector": "body",
       "link_selector": "a[href]",
-      "title_selector": "h6, h5, h4, body",
-      "url_sanitize": [
-        "?v=",
-        "?t=",
-        "?ver="
-      ],
-      "notes": "動態卡片式，需要 Playwright 和 follow_detail_pages",
-      "use_playwright": true,
-      "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href*='.pdf'], a[href*='drive.google']",
-      "follow_detail_pages": true,
-      "detail_max_pages": 8,
-      "detail_link_selector": "a"
+      "title_selector": "a",
+      "use_playwright": false,
+      "follow_detail_pages": false,
+      "asset_link_selector": "a[href]",
+      "notes": "使用 Contentful JSON API 介接，免去了前端動態渲染的煩惱"
     },
     "雙魚區": {
       "region": "新界東地域",
@@ -1012,7 +1013,7 @@
         "?ver="
       ],
       "notes": "新版通告網址，舊版 notice 作為 listing page 後備",
-      "use_playwright": true,
+      "use_playwright": false,
       "asset_link_selector": "a[href*='.pdf']",
       "follow_detail_pages": false,
       "listing_page_urls": [
