@@ -138,7 +138,7 @@
     },
     "柴灣區": {
       "region": "港島地域",
-      "url": "https://chaiwanscout.org.hk/v3/wp-json/wp/v2/posts?per_page=100",
+      "url": "https://chaiwanscout.org.hk/v3/wp-json/wp/v2/posts?per_page=1000",
       "type": "wordpress_api",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -191,7 +191,7 @@
     },
     "筲箕灣區": {
       "region": "港島地域",
-      "url": "https://www.skwscout.org.hk/wp-json/wp/v2/posts?per_page=100",
+      "url": "https://www.skwscout.org.hk/wp-json/wp/v2/posts?per_page=1000",
       "type": "wordpress_api",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -879,7 +879,7 @@
       },
       "api_params": {
         "content_type": "geog_notice",
-        "limit": 500,
+        "limit": 5000,
         "skip": 0,
         "order": "-fields.date"
       },
