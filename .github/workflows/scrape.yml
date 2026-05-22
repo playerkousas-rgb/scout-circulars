@@ -16,7 +16,10 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    env: # 新增這一段
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     timeout-minutes: 15
+    steps:
 
     steps:
       - name: Checkout repo
