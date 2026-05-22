@@ -16,35 +16,27 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    env: # 新增這一段
+    env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     timeout-minutes: 15
-    steps:
-
-    steps:
+    steps:  # 这里保留一个即可
       - name: Checkout repo
         uses: actions/checkout@v4
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: |
           pip install requests beautifulsoup4 playwright
           playwright install chromium
-
       - name: Run scraper
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           python core.py
-
       - name: Commit & push updated cache + fingerprints
-        # 僅在無 Supabase 時需要 commit (本地 JSON 模式)
-        # 若有 Supabase，資料直接在 DB 中，不需要 commit cache
         if: env.SUPABASE_URL == ''
         run: |
           git config user.name "github-actions[bot]"
