@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-22 22:32:14",
+  "last_updated": "2026-05-22 23:45:21",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 2909,
+    "total_notices": 2911,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -6811,8 +6811,8 @@
         "title": "區會3/4/2026 – 12/4/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=608%3A3-4-2026-12-4-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=608%3A3-4-2026-12-4-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6820,8 +6820,8 @@
         "title": "區會27/4 – 3/5/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=611%3A27-4-3-5-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=611%3A27-4-3-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6829,8 +6829,8 @@
         "title": "區會16/4/2026 – 19/4/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=609%3A16-4-2026-19-4-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=609%3A16-4-2026-19-4-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6838,8 +6838,8 @@
         "title": "區會15/5 - 22/5/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=615%3A15-5-22-5-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=615%3A15-5-22-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6847,8 +6847,8 @@
         "title": "區會1/5 – 8/5/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=612%3A1-5-8-5-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=612%3A1-5-8-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6856,8 +6856,8 @@
         "title": "區會 9/3 - 15/5/2026 辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=613%3A9-3-15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=613%3A9-3-15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6865,8 +6865,17 @@
         "title": "區會 25/2 - 2/3/2026 辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=607%3A25-2-2-3-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=607%3A25-2-2-3-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
+        "title": "區會 22/5/2025 - 29/5/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=616%3A22-5-2025-29-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=616%3A22-5-2025-29-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6874,17 +6883,8 @@
         "title": "區會 15/5/2026 辦公時間 (更新)",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=614%3A15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=614%3A15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
-        "source_site": "灣仔區",
-        "region": "港島地域"
-      },
-      {
-        "title": "區會 13/2 – 23/2/2026 辦公時間",
-        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=606%3A13-2-23-2-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=606%3A13-2-23-2-2026&catid=51&lang=zh-tw&Itemid=1210",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
         "source_site": "灣仔區",
         "region": "港島地域"
       },
@@ -6892,6 +6892,15 @@
         "title": "2026射箭隊練習日",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=610%3A2026-2&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=610%3A2026-2&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
+        "title": "區會 13/2 – 23/2/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=606%3A13-2-23-2-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=606%3A13-2-23-2-2026&catid=51&lang=zh-tw&Itemid=1210",
         "date": "2026-05-21",
         "captured_date": "2026-05-21",
         "source_site": "灣仔區",
@@ -25951,6 +25960,15 @@
     ],
     "沙田南區": [
       {
+        "title": "船鐘報時",
+        "url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+        "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+        "date": "2026-05-22",
+        "captured_date": "2026-05-22",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
         "title": "童軍創始人 - 貝登堡勳爵",
         "url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
@@ -27114,6 +27132,83 @@
       "region": "港島地域",
       "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2024/01/2401.pdf",
       "title": "2024 年優異旅團獎勵計劃",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=608%3A3-4-2026-12-4-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會3/4/2026 – 12/4/2026辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=611%3A27-4-3-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會27/4 – 3/5/2026辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=609%3A16-4-2026-19-4-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會16/4/2026 – 19/4/2026辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=615%3A15-5-22-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會15/5 - 22/5/2026辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=612%3A1-5-8-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會1/5 – 8/5/2026辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=613%3A9-3-15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 9/3 - 15/5/2026 辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=607%3A25-2-2-3-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 25/2 - 2/3/2026 辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=616%3A22-5-2025-29-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 22/5/2025 - 29/5/2026 辦公時間",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=614%3A15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 15/5/2026 辦公時間 (更新)",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=610%3A2026-2&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "2026射箭隊練習日",
+      "captured_date": "2026-05-22"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+      "title": "船鐘報時",
       "captured_date": "2026-05-22"
     },
     {
@@ -32229,71 +32324,8 @@
     {
       "source_site": "灣仔區",
       "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=608%3A3-4-2026-12-4-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會3/4/2026 – 12/4/2026辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=611%3A27-4-3-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會27/4 – 3/5/2026辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=609%3A16-4-2026-19-4-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會16/4/2026 – 19/4/2026辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=615%3A15-5-22-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會15/5 - 22/5/2026辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=612%3A1-5-8-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會1/5 – 8/5/2026辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=613%3A9-3-15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會 9/3 - 15/5/2026 辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=607%3A25-2-2-3-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會 25/2 - 2/3/2026 辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=614%3A15-5-2026&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "區會 15/5/2026 辦公時間 (更新)",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
       "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=606%3A13-2-23-2-2026&catid=51&lang=zh-tw&Itemid=1210",
       "title": "區會 13/2 – 23/2/2026 辦公時間",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "灣仔區",
-      "region": "港島地域",
-      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=610%3A2026-2&catid=51&lang=zh-tw&Itemid=1210",
-      "title": "2026射箭隊練習日",
       "captured_date": "2026-05-21"
     },
     {
@@ -46765,11 +46797,11 @@
     ],
     "total_sources": 49,
     "last_run": {
-      "updated_at": "2026-05-22 22:32:14",
+      "updated_at": "2026-05-22 23:45:21",
       "new": 2,
-      "updated": 124,
-      "skipped": 46,
-      "processed": 3,
+      "updated": 15,
+      "skipped": 47,
+      "processed": 2,
       "playwright_used": 0
     }
   }
