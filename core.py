@@ -598,36 +598,43 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     use_playwright = config.get("use_playwright", False)
     result: Optional[FetchResult] = None
 
-    # --- WP API Injection ---
+   # --- WP API Injection (分頁版) ---
     if config.get("type") == "wordpress_api":
         import requests, json
-        try:
-            r = requests.get(url, verify=config.get("verify_ssl", True), timeout=15)
-            r.raise_for_status()
-            posts = r.json()
-            mock_html = "<html><body>"
-            for post in posts:
-                title = post.get("title", {}).get("rendered", "Unknown")
-                content = post.get("content", {}).get("rendered", "")
-                
-                # Parse content to find links
-                soup_content = BeautifulSoup(content, "html.parser")
-                links = soup_content.find_all("a")
-                found_asset = False
-                for a in links:
-                    href = a.get("href")
-                    if href and ('.pdf' in href.lower() or '/wp-content/uploads/' in href.lower() or 'drive.google' in href.lower()):
-                        mock_html += f'<a href="{href}">{title}</a><br/>'
-                        found_asset = True
-                
-                # If no direct asset link, maybe the post itself is needed, but we only want assets
-            mock_html += "</body></html>"
-            return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
-        except Exception as e:
-            print(f"  [{name}] ⚠️ WP API 失敗: {e}")
-            return None
+        all_posts = []
+        page = 1
+        while True:
+            # 這裡強制 per_page=100，配合 page 遞增來實現全抓
+            paged_url = f"{url}?per_page=100&page={page}"
+            try:
+                r = requests.get(paged_url, verify=config.get("verify_ssl", True), timeout=15)
+                if r.status_code != 200: break
+                posts = r.json()
+                if not posts: break
+                all_posts.extend(posts)
+                page += 1
+            except Exception as e:
+                print(f"  [{name}] ⚠️ WP API 分頁抓取失敗: {e}")
+                break
+        
+        mock_html = "<html><body>"
+        for post in all_posts:
+            title = post.get("title", {}).get("rendered", "Unknown")
+            content = post.get("content", {}).get("rendered", "")
+            
+            # 解析內容
+            soup_content = BeautifulSoup(content, "html.parser")
+            links = soup_content.find_all("a")
+            for a in links:
+                href = a.get("href")
+                if href and ('.pdf' in href.lower() or '/wp-content/uploads/' in href.lower() or 'drive.google' in href.lower()):
+                    # 這裡確保即使連結文字是亂碼，我們也用文章的 title
+                    mock_html += f'<a href="{href}">{title}</a><br/>'
+        
+        mock_html += "</body></html>"
+        return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
     # ---------------------------------
-
+   
 
     # --- Contentful API Injection ---
     if config.get("type") == "contentful_api":
