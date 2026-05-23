@@ -600,61 +600,43 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
 
    # --- WP API Injection (分頁版) ---
 if config.get("type") == "wordpress_api":
-      import requests
-      from bs4 import BeautifulSoup
-      
-      all_posts = []
-      # 為了確保抓到最新，且不觸發 400 錯誤，我們用最單純的請求
-      target_url = url
-      if "?" not in target_url:
-        target_url += "?per_page=100"
-      
-      print(f"[{name}] === 開始直接抓取 WordPress API ===")
-      
-      try:
-        r = requests.get(
-          target_url,
-          verify=config.get("verify_ssl", True),
-          timeout=30,
-          headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        )
+        # 這裡是你的邏輯起始 (縮排 4 個空格)
+        import requests
+        from bs4 import BeautifulSoup
         
-        print(f"[{name}] API Status Code: {r.status_code}")
+        all_posts = []
+        page = 1
+        max_pages = 10
         
-        if r.status_code == 200:
-          all_posts = r.json()
-        else:
-          print(f"[{name}] ❌ API 請求失敗 (Status: {r.status_code})")
-      except Exception as e:
-        print(f"[{name}] ❌ 抓取異常: {e}")
-
-      # ==================== PDF 提取 ====================
-      mock_html = "<html><body>"
-      pdf_count = 0
-      target_regions = ["筲箕灣區", "柴灣區"]
-
-      for post in all_posts:
-        title = post.get("title", {}).get("rendered", "Unknown").strip()
-        date_str = post.get("date", "")[:10]
-        content = post.get("content", {}).get("rendered", "")
-        soup = BeautifulSoup(content, "html.parser")
+        # 你的 while 迴圈 (縮排 8 個空格)
+        while page <= max_pages:
+            # 迴圈內的內容 (縮排 12 個空格)
+            paged_url = f"{url}?per_page=100&page={page}"
+            try:
+                r = requests.get(paged_url, ...)
+                # ...
+                page += 1
+            except Exception as e:
+                break
         
-        for a in soup.find_all("a", href=True):
-          href = a.get("href", "").strip()
-          if name in target_regions:
-            if href.lower().endswith(".pdf"):
-              mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
-              pdf_count += 1
-          elif '.pdf' in href.lower():
-            mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
-            pdf_count += 1
+        # 你的 PDF 處理區塊 (與 while 同層，縮排 8 個空格)
+        mock_html = "<html><body>"
+        pdf_count = 0
+        target_regions = ["筲箕灣區", "柴灣區"]
 
-      mock_html += "</body></html>"
-      return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
-    # ---------------------------------
-   
+        for post in all_posts:
+            # 迴圈內內容 (縮排 12 個空格)
+            # ...
+            for a in soup.find_all("a", href=True):
+                # 判斷 (縮排 16 個空格)
+                if name in target_regions:
+                     # ...
+        
+        # 結束處理 (與 while 同層，縮排 8 個空格)
+        mock_html += "</body></html>"
+        return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
 
-    # --- Contentful API Injection ---
+    # 這一行才是導致你錯誤的原因，它必須跟上面的 if 對齊，不能多也不能少
     if config.get("type") == "contentful_api":
         import requests, json
         api_url = config.get("api_url")
