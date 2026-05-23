@@ -598,67 +598,77 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     use_playwright = config.get("use_playwright", False)
     result: Optional[FetchResult] = None
 
-   # --- WP API Injection (分頁版) ---
-# --- WP API Injection (分頁版) ---
-  if config.get("type") == "wordpress_api":
-    import requests
-    from bs4 import BeautifulSoup
-    
-    all_posts = []
-    page = 1
-    max_pages = 10
-    
-    print(f"[{name}] === 開始抓取 WordPress API ===")
-
-    while page <= max_pages:
-      paged_url = f"{url}?per_page=100&page={page}"
-      try:
-        r = requests.get(
-          paged_url,
-          verify=config.get("verify_ssl", True),
-          timeout=30,
-          headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        )
+    # --- WP API Injection ---
+    if config.get("type") == "wordpress_api":
+        import requests
+        from bs4 import BeautifulSoup
         
-        if r.status_code != 200:
-          break
-          
-        posts = r.json()
-        if not isinstance(posts, list) or len(posts) == 0:
-          break
-          
-        all_posts.extend(posts)
-        page += 1
-      except Exception as e:
-        break
+        all_posts = []
+        page = 1
+        max_pages = 10
+        
+        print(f"[{name}] === 開始抓取 WordPress API ===")
 
-    # ==================== PDF 提取 ====================
-    mock_html = "<html><body>"
-    pdf_count = 0
-    target_regions = ["筲箕灣區", "柴灣區"]
+        while page <= max_pages:
+            paged_url = f"{url}?per_page=100&page={page}"
+            try:
+                r = requests.get(
+                    paged_url,
+                    verify=config.get("verify_ssl", True),
+                    timeout=30,
+                    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+                )
+                
+                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")  # ← 重要診斷
+                
+                if r.status_code != 200:
+                    print(f"[{name}] 第 {page} 頁 HTTP 錯誤: {r.status_code}")
+                    break
+                    
+                posts = r.json()
+                print(f"[{name}] 第 {page} 頁 返回類型: {type(posts)}, 數量: {len(posts) if isinstance(posts, list) else '非 list'}")  # ← 重要診斷
+                
+                if not isinstance(posts, list) or len(posts) == 0:
+                    print(f"[{name}] 第 {page} 頁沒有文章，停止")
+                    break
+                    
+                all_posts.extend(posts)
+                print(f"[{name}] ✅ 第 {page} 頁成功 | 本頁 {len(posts)} 筆 | 累計 {len(all_posts)} 筆")
+                page += 1
+                
+            except Exception as e:
+                print(f"[{name}] 第 {page} 頁異常: {e}")
+                break
 
-    for post in all_posts:
-      title = post.get("title", {}).get("rendered", "Unknown").strip()
-      date_str = post.get("date", "")[:10]
-      content = post.get("content", {}).get("rendered", "")
+        # ==================== PDF 提取 ====================
+        mock_html = "<html><body>"
+        pdf_count = 0
 
-      soup = BeautifulSoup(content, "html.parser")
-      
-      for a in soup.find_all("a", href=True):
-        href = a.get("href", "").strip()
-        if href and '.pdf' in href.lower():
-          # 檢查區域邏輯
-          if name in target_regions:
-            mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
-            pdf_count += 1
-          else:
-            mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
-            pdf_count += 1
+        for post in all_posts:
+            title = post.get("title", {}).get("rendered", "Unknown").strip()
+            date_str = post.get("date", "")[:10]
+            content = post.get("content", {}).get("rendered", "")
 
-    mock_html += "</body></html>"
-    return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
+            soup = BeautifulSoup(content, "html.parser")
+            
+            for a in soup.find_all("a", href=True):
+                href = a.get("href", "").strip()
+                if href and '.pdf' in href.lower():
+                    display_text = f"{date_str} | {title}"
+                    link_text = a.get_text(strip=True)
+                    if link_text:
+                        display_text += f" ({link_text})"
+                    
+                    mock_html += f'<a href="{href}">{display_text}</a><br/>'
+                    pdf_count += 1
+                    print(f"[{name}] 找到 PDF → {display_text}")
+
+        mock_html += "</body></html>"
+        
+        print(f"[{name}] 完成！總文章 {len(all_posts)} 筆，PDF {pdf_count} 個")
+        return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
     # ---------------------------------
-   
+
 
     # --- Contentful API Injection ---
     if config.get("type") == "contentful_api":
