@@ -599,7 +599,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     result: Optional[FetchResult] = None
 
    # --- WP API Injection (分頁版) ---
-   if config.get("type") == "wordpress_api":
+    if config.get("type") == "wordpress_api":
     import requests
     from bs4 import BeautifulSoup
     
