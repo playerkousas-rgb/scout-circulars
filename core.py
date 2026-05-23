@@ -600,60 +600,57 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
 
    # --- WP API Injection (分頁版) ---
 if config.get("type") == "wordpress_api":
-        import requests
-        from bs4 import BeautifulSoup
+      import requests
+      from bs4 import BeautifulSoup
+      
+      all_posts = []
+      # 為了確保抓到最新，且不觸發 400 錯誤，我們用最單純的請求
+      target_url = url
+      if "?" not in target_url:
+        target_url += "?per_page=100"
+      
+      print(f"[{name}] === 開始直接抓取 WordPress API ===")
+      
+      try:
+        r = requests.get(
+          target_url,
+          verify=config.get("verify_ssl", True),
+          timeout=30,
+          headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        )
         
-        all_posts = []
-        # 直接請求，不帶 page 參數，保留 per_page=100 抓取最新 100 筆
-        # 如果該網站 API 拒絕 per_page，請刪除 ?per_page=100 試試
-        target_url = url 
-        if "?" not in target_url:
-            target_url += "?per_page=100"
+        print(f"[{name}] API Status Code: {r.status_code}")
         
-        print(f"[{name}] === 開始直接抓取 WordPress API ===")
+        if r.status_code == 200:
+          all_posts = r.json()
+        else:
+          print(f"[{name}] ❌ API 請求失敗 (Status: {r.status_code})")
+      except Exception as e:
+        print(f"[{name}] ❌ 抓取異常: {e}")
+
+      # ==================== PDF 提取 ====================
+      mock_html = "<html><body>"
+      pdf_count = 0
+      target_regions = ["筲箕灣區", "柴灣區"]
+
+      for post in all_posts:
+        title = post.get("title", {}).get("rendered", "Unknown").strip()
+        date_str = post.get("date", "")[:10]
+        content = post.get("content", {}).get("rendered", "")
+        soup = BeautifulSoup(content, "html.parser")
         
-        try:
-            r = requests.get(
-                target_url,
-                verify=config.get("verify_ssl", True),
-                timeout=30,
-                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-            )
-            
-            print(f"[{name}] API Status Code: {r.status_code}")
-            
-            if r.status_code == 200:
-                all_posts = r.json()
-            else:
-                print(f"[{name}] ❌ API 請求失敗 (Status: {r.status_code})")
-                
-        except Exception as e:
-            print(f"[{name}] ❌ 抓取異常: {e}")
+        for a in soup.find_all("a", href=True):
+          href = a.get("href", "").strip()
+          if name in target_regions:
+            if href.lower().endswith(".pdf"):
+              mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
+              pdf_count += 1
+          elif '.pdf' in href.lower():
+            mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
+            pdf_count += 1
 
-        # ==================== PDF 提取 (不變動邏輯，只確保對齊) ====================
-        mock_html = "<html><body>"
-        pdf_count = 0
-        target_regions = ["筲箕灣區", "柴灣區"]
-
-        for post in all_posts:
-            title = post.get("title", {}).get("rendered", "Unknown").strip()
-            date_str = post.get("date", "")[:10]
-            content = post.get("content", {}).get("rendered", "")
-            soup = BeautifulSoup(content, "html.parser")
-            
-            for a in soup.find_all("a", href=True):
-                href = a.get("href", "").strip()
-                # 只有當是這兩區時，強制只抓 .pdf
-                if name in target_regions:
-                    if href.lower().endswith(".pdf"):
-                        mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
-                        pdf_count += 1
-                elif '.pdf' in href.lower():
-                    mock_html += f'<a href="{href}">{date_str} | {title}</a><br/>'
-                    pdf_count += 1
-
-        mock_html += "</body></html>"
-        return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
+      mock_html += "</body></html>"
+      return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
     # ---------------------------------
    
 
