@@ -601,7 +601,6 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     # --- WP API Injection ---
     if config.get("type") == "wordpress_api":
         import requests
-        from bs4 import BeautifulSoup
         
         all_posts = []
         page = 1
@@ -1382,24 +1381,31 @@ def main(
     source_items = list(sources.items())
     for i, (name, source_config) in enumerate(source_items, 1):
         print(f"[{i}/{len(source_items)}] {name}")
-        new_recs, updated, fp, skip, engine = process_source(
-            name=name,
-            config=source_config,
-            fingerprints=fingerprints,
-            existing_keys=existing_keys,
-            today_str=today_str,
-            force=force,
-            max_detail_pages=max_detail_pages,
-        )
-        fingerprints[name] = fp
-        if engine == "playwright":
-            pw_used += 1
-        if skip:
+        try:
+            new_recs, updated, fp, skip, engine = process_source(
+                name=name,
+                config=source_config,
+                fingerprints=fingerprints,
+                existing_keys=existing_keys,
+                today_str=today_str,
+                force=force,
+                max_detail_pages=max_detail_pages,
+            )
+            fingerprints[name] = fp
+            if engine == "playwright":
+                pw_used += 1
+            if skip:
+                skipped += 1
+            else:
+                processed += 1
+            all_new.extend(new_recs)
+            all_updated.extend(updated)
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            print(f"  [{name}] 🚨 處理過程中發生未預期錯誤跳過: {e}")
             skipped += 1
-        else:
-            processed += 1
-        all_new.extend(new_recs)
-        all_updated.extend(updated)
+            
         if i < len(source_items):
             time.sleep(0.4)
 
@@ -1419,6 +1425,7 @@ def main(
                     local_record_map[key]["region"] = rec.get("region", local_record_map[key].get("region", ""))
             merged_records = list(local_record_map.values())
             grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
+            grouped_cache.setdefault("_meta", {})["has_errors"] = (skipped > 0)
             grouped_cache.setdefault("_meta", {})["last_run"] = {
                 "updated_at": now_str,
                 "new": len(all_new),
