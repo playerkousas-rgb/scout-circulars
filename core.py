@@ -599,15 +599,15 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     result: Optional[FetchResult] = None
 
    # --- WP API Injection (分頁版) ---
-    if config.get("type") == "wordpress_api":
+   if config.get("type") == "wordpress_api":
         import requests
         from bs4 import BeautifulSoup
         
         all_posts = []
         page = 1
-        max_pages = 30
+        max_pages = 10
         
-        print(f"[{name}] 開始全量抓取 WordPress API...")
+        print(f"[{name}] === 開始抓取 WordPress API ===")
 
         while page <= max_pages:
             paged_url = f"{url}?per_page=100&page={page}"
@@ -619,27 +619,28 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
                 )
                 
-                if r.status_code in (400, 404):
-                    print(f"[{name}] 第 {page} 頁已無資料，停止")
-                    break
+                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")  # ← 重要診斷
+                
                 if r.status_code != 200:
-                    print(f"[{name}] 第 {page} 頁錯誤: {r.status_code}")
+                    print(f"[{name}] 第 {page} 頁 HTTP 錯誤: {r.status_code}")
                     break
                     
                 posts = r.json()
+                print(f"[{name}] 第 {page} 頁 返回類型: {type(posts)}, 數量: {len(posts) if isinstance(posts, list) else '非 list'}")  # ← 重要診斷
+                
                 if not isinstance(posts, list) or len(posts) == 0:
-                    print(f"[{name}] 第 {page} 頁無資料，停止")
+                    print(f"[{name}] 第 {page} 頁沒有文章，停止")
                     break
                     
                 all_posts.extend(posts)
-                print(f"[{name}] ✅ 第 {page} 頁成功 | 累計 {len(all_posts)} 筆")
+                print(f"[{name}] ✅ 第 {page} 頁成功 | 本頁 {len(posts)} 筆 | 累計 {len(all_posts)} 筆")
                 page += 1
                 
             except Exception as e:
-                print(f"[{name}] 異常: {e}")
+                print(f"[{name}] 第 {page} 頁異常: {e}")
                 break
 
-        # ==================== PDF 提取 (加強版) ====================
+        # ==================== PDF 提取 ====================
         mock_html = "<html><body>"
         pdf_count = 0
 
@@ -660,11 +661,11 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     
                     mock_html += f'<a href="{href}">{display_text}</a><br/>'
                     pdf_count += 1
-                    print(f"[{name}] 找到 PDF → {display_text} | {href}")   # 除錯用
-                    
+                    print(f"[{name}] 找到 PDF → {display_text}")
+
         mock_html += "</body></html>"
         
-        print(f"[{name}] 完成！總文章 {len(all_posts)} 筆，提取 PDF {pdf_count} 個")
+        print(f"[{name}] 完成！總文章 {len(all_posts)} 筆，PDF {pdf_count} 個")
         return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
     # ---------------------------------
    
