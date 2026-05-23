@@ -1229,12 +1229,13 @@ def process_source(
     today_str: str,
     force: bool = False,
     max_detail_pages: int = 12,
-) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], str, bool, Optional[str]]:
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], str, bool, Optional[str], bool]:
     print(f"  [{name}] {config.get('url', '')[:80]}...")
 
     result = fetch_main_page(name, config)
     if not result:
-        return [], [], fingerprints.get(name, ""), True, None
+        # If fetch_main_page returns None, it usually means network error or API error
+        return [], [], fingerprints.get(name, ""), True, None, True
 
     soup = BeautifulSoup(result.html, "html.parser")
     fp_selector = config.get("fingerprint_selector", "body")
@@ -1244,7 +1245,7 @@ def process_source(
     if not force and new_fp and old_fp and new_fp == old_fp:
         tag = "🎭 PW" if result.engine == "playwright" else "⏭️"
         print(f"  [{name}] {tag} 指紋相同，跳過 (0.1s)")
-        return [], [], new_fp, True, result.engine
+        return [], [], new_fp, True, result.engine, False
 
     assets = extract_assets_from_listing(
         name=name,
@@ -1303,7 +1304,7 @@ def process_source(
 
     tag = "🎭" if result.engine == "playwright" else ""
     print(f"  [{name}] {tag} 🆕{len(new_records)} 🔄{len(updated_records)} 📎{len(assets)}")
-    return new_records, updated_records, new_fp, False, result.engine
+    return new_records, updated_records, new_fp, False, result.engine, False
 
 
 # ─── CLI ──────────────────────────────────────────────────
@@ -1383,7 +1384,7 @@ def main(
     for i, (name, source_config) in enumerate(source_items, 1):
         print(f"[{i}/{len(source_items)}] {name}")
         try:
-            new_recs, updated, fp, skip, engine = process_source(
+            new_recs, updated, fp, skip, engine, has_err = process_source(
                 name=name,
                 config=source_config,
                 fingerprints=fingerprints,
@@ -1399,6 +1400,8 @@ def main(
                 skipped += 1
             else:
                 processed += 1
+            if has_err:
+                errors += 1
             all_new.extend(new_recs)
             all_updated.extend(updated)
         except Exception as e:
