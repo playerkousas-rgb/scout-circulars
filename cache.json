@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-23 23:08:37",
+  "last_updated": "2026-05-23 23:30:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3487,
+    "total_notices": 3532,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -30670,7 +30670,413 @@
       }
     ],
     "大嶼山區": [],
-    "慈雲山區": [],
+    "慈雲山區": [
+      {
+        "title": "香港童軍總會 慈雲山區",
+        "url": "https://hkscout-ekr.org/forms/download/?wpdmdl=1055",
+        "pdf_url": "https://hkscout-ekr.org/forms/download/?wpdmdl=1055",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
+        "url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "總會行政通告第04/2018 號",
+        "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "policycircular 272018 c",
+        "url": "https://www.scout.org.hk/article_attach/29389/policycircular_272018_c.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29389/policycircular_272018_c.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "policycircular 072022 c",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/10189/policycircular_072022_c.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/10189/policycircular_072022_c.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "pcr022022c",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/9154/pcr022022c.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/9154/pcr022022c.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "pc022025 童軍服務指引",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/19401/pc022025_%E7%AB%A5%E8%BB%8D%E6%9C%8D%E5%8B%99%E6%8C%87%E5%BC%95.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/19401/pc022025_%E7%AB%A5%E8%BB%8D%E6%9C%8D%E5%8B%99%E6%8C%87%E5%BC%95.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "pc 062022 c",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/9926/pc-062022_c.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/9926/pc-062022_c.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "leader wb form Oct16",
+        "url": "http://www.twsd-hkscout.org/content/doc/leader_wb_form_Oct16.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/leader_wb_form_Oct16.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "leader wb Oct16",
+        "url": "http://www.twsd-hkscout.org/content/doc/leader_wb_Oct16.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/leader_wb_Oct16.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "ag072018c",
+        "url": "https://www.scout.org.hk/article_attach/29315/ag072018c.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29315/ag072018c.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "a01c rev042025",
+        "url": "https://www.scout.org.hk/uploads/tc/forms/17476/a01c_rev042025.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/17476/a01c_rev042025.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "TVS01 0323",
+        "url": "http://www.twsd-hkscout.org/content/doc/TVS01_0323.doc",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/TVS01_0323.doc",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "SPCR2021C HAB01 Non School",
+        "url": "https://www.scout.org.hk/article_attach/32404/SPCR2021C-HAB01_Non-School.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/32404/SPCR2021C-HAB01_Non-School.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "SDFS Application form C(01.13)",
+        "url": "https://www.scout.org.hk/article_attach/8701/SDFS%20Application%20form-C(01.13).pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/8701/SDFS%20Application%20form-C(01.13).pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "R02 REV122021",
+        "url": "https://www.scout.org.hk/uploads/tc/forms/R02_REV122021.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/R02_REV122021.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "R01 201910",
+        "url": "http://www.twsd-hkscout.org/content/doc/R01_201910.doc",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/R01_201910.doc",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PTForm",
+        "url": "http://www.twsd-hkscout.org/content/doc/PTForm.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/PTForm.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT69",
+        "url": "https://www.scout.org.hk/article_attach/23725/PT69.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/23725/PT69.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT68",
+        "url": "https://www.scout.org.hk/article_attach/23548/PT68.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/23548/PT68.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT65",
+        "url": "https://www.scout.org.hk/article_attach/22521/PT65.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/22521/PT65.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT46",
+        "url": "https://www.scout.org.hk/article_attach/10498/PT46.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/10498/PT46.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT22",
+        "url": "https://www.scout.org.hk/article_attach/23723/PT22.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/23723/PT22.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT21",
+        "url": "https://www.scout.org.hk/article_attach/23724/PT21.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/23724/PT21.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT20",
+        "url": "https://www.scout.org.hk/article_attach/22519/PT20.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/22519/PT20.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT19",
+        "url": "https://www.scout.org.hk/article_attach/22520/PT19.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/22520/PT19.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT18",
+        "url": "https://www.scout.org.hk/article_attach/23726/PT18.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/23726/PT18.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT1006",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1006.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1006.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT1005",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT1004",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT1002",
+        "url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT02c Aug 2019 Application Form for Wood Badge Training Course",
+        "url": "https://www.scout.org.hk/article_attach/7196/PT02c_Aug_2019_Application_Form_for_Wood_Badge_Training_Course.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/7196/PT02c_Aug_2019_Application_Form_for_Wood_Badge_Training_Course.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "P120A2 09",
+        "url": "https://www.scout.org.hk/article_attach/16249/P120A2-09.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/16249/P120A2-09.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "P120A1 09",
+        "url": "http://www.twsd-hkscout.org/content/doc/P120A1-09.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/P120A1-09.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "FROM S",
+        "url": "http://www.twsd-hkscout.org/content/doc/FROM_S.doc",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/FROM_S.doc",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "FROM C 2009",
+        "url": "http://www.twsd-hkscout.org/content/doc/FROM_C_2009.pdf",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/FROM_C_2009.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "DAR05 FFA app form(09 2017)",
+        "url": "https://www.scout.org.hk/article_attach/28768/DAR05-FFA_app_form(09-2017).pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/28768/DAR05-FFA_app_form(09-2017).pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "DAR04 FFA app form(09 2017)",
+        "url": "https://www.scout.org.hk/article_attach/28771/DAR04-FFA_app_form(09-2017).pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/28771/DAR04-FFA_app_form(09-2017).pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "CR01 REV122021",
+        "url": "https://www.scout.org.hk/uploads/tc/forms/CR01_REV122021.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/CR01_REV122021.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "Adm27 form",
+        "url": "http://www.twsd-hkscout.org/content/doc/Adm27-form.xlsx",
+        "pdf_url": "http://www.twsd-hkscout.org/content/doc/Adm27-form.xlsx",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "AG052018C",
+        "url": "http://www.scout.org.hk/article_attach/29310/AG052018C.pdf",
+        "pdf_url": "http://www.scout.org.hk/article_attach/29310/AG052018C.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "AG042018C",
+        "url": "http://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "pdf_url": "http://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "AG022021C",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/5896/AG022021C.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/5896/AG022021C.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "102020 SSSF 2021C form",
+        "url": "https://www.scout.org.hk/article_attach/22930/102020_SSSF_2021C_form.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/22930/102020_SSSF_2021C_form.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      }
+    ],
     "青衣區": [
       {
         "title": "青衣區童軍支部比賽–區總監挑戰盃2024",
@@ -46186,6 +46592,321 @@
       "captured_date": "2026-05-23"
     },
     {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/forms/download/?wpdmdl=1055",
+      "title": "香港童軍總會 慈雲山區",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
+      "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+      "title": "總會行政通告第04/2018 號",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+      "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29389/policycircular_272018_c.pdf",
+      "title": "policycircular 272018 c",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/10189/policycircular_072022_c.pdf",
+      "title": "policycircular 072022 c",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/9154/pcr022022c.pdf",
+      "title": "pcr022022c",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/19401/pc022025_%E7%AB%A5%E8%BB%8D%E6%9C%8D%E5%8B%99%E6%8C%87%E5%BC%95.pdf",
+      "title": "pc022025 童軍服務指引",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/9926/pc-062022_c.pdf",
+      "title": "pc 062022 c",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/leader_wb_form_Oct16.pdf",
+      "title": "leader wb form Oct16",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/leader_wb_Oct16.pdf",
+      "title": "leader wb Oct16",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29315/ag072018c.pdf",
+      "title": "ag072018c",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/17476/a01c_rev042025.pdf",
+      "title": "a01c rev042025",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/TVS01_0323.doc",
+      "title": "TVS01 0323",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/32404/SPCR2021C-HAB01_Non-School.pdf",
+      "title": "SPCR2021C HAB01 Non School",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/8701/SDFS%20Application%20form-C(01.13).pdf",
+      "title": "SDFS Application form C(01.13)",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/R02_REV122021.pdf",
+      "title": "R02 REV122021",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/R01_201910.doc",
+      "title": "R01 201910",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/PTForm.pdf",
+      "title": "PTForm",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/23725/PT69.pdf",
+      "title": "PT69",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/23548/PT68.pdf",
+      "title": "PT68",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/22521/PT65.pdf",
+      "title": "PT65",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/10498/PT46.pdf",
+      "title": "PT46",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/23723/PT22.pdf",
+      "title": "PT22",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/23724/PT21.pdf",
+      "title": "PT21",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/22519/PT20.pdf",
+      "title": "PT20",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/22520/PT19.pdf",
+      "title": "PT19",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/23726/PT18.pdf",
+      "title": "PT18",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1006.pdf",
+      "title": "PT1006",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1005.pdf",
+      "title": "PT1005",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1004.pdf",
+      "title": "PT1004",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/notice/PT1002.pdf",
+      "title": "PT1002",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/7196/PT02c_Aug_2019_Application_Form_for_Wood_Badge_Training_Course.pdf",
+      "title": "PT02c Aug 2019 Application Form for Wood Badge Training Course",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/16249/P120A2-09.pdf",
+      "title": "P120A2 09",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/P120A1-09.pdf",
+      "title": "P120A1 09",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/FROM_S.doc",
+      "title": "FROM S",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/FROM_C_2009.pdf",
+      "title": "FROM C 2009",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/28768/DAR05-FFA_app_form(09-2017).pdf",
+      "title": "DAR05 FFA app form(09 2017)",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/28771/DAR04-FFA_app_form(09-2017).pdf",
+      "title": "DAR04 FFA app form(09 2017)",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/CR01_REV122021.pdf",
+      "title": "CR01 REV122021",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.twsd-hkscout.org/content/doc/Adm27-form.xlsx",
+      "title": "Adm27 form",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.scout.org.hk/article_attach/29310/AG052018C.pdf",
+      "title": "AG052018C",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+      "title": "AG042018C",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/5896/AG022021C.pdf",
+      "title": "AG022021C",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/22930/102020_SSSF_2021C_form.pdf",
+      "title": "102020 SSSF 2021C form",
+      "captured_date": "2026-05-23"
+    },
+    {
       "source_site": "屯門西區",
       "region": "新界地域",
       "pdf_url": "https://tmw.scout-ntr.org.hk/files/2025/區務委員會2025至2026年度委員名錄.pdf",
@@ -56010,13 +56731,13 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": true,
+    "has_errors": false,
     "last_run": {
-      "updated_at": "2026-05-23 23:08:37",
-      "new": 561,
-      "updated": 231,
-      "skipped": 38,
-      "processed": 10,
+      "updated_at": "2026-05-23 23:30:06",
+      "new": 0,
+      "updated": 7,
+      "skipped": 0,
+      "processed": 1,
       "playwright_used": 0
     }
   }

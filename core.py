@@ -621,7 +621,6 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                 print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")  # ← 重要診斷
                 
                 if r.status_code != 200:
-                    print(f"[{name}] 第 {page} 頁 HTTP 錯誤: {r.status_code}")
                     break
                     
                 posts = r.json()
@@ -677,7 +676,9 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         params = config.get("api_params", {})
         try:
             r = requests.get(api_url, params=params, headers=headers, timeout=15)
-            r.raise_for_status()
+            if r.status_code != 200:
+                print(f"  [{name}] ⚠️ Contentful API 回傳 {r.status_code}")
+                return None
             data = r.json()
             asset_map = {}
             for asset in data.get("includes", {}).get("Asset", []):

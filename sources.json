@@ -989,7 +989,7 @@
         "?ver="
       ],
       "notes": "該網站憑證已過期，需忽略 SSL 驗證",
-      "use_playwright": true,
+      "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
@@ -1054,10 +1054,11 @@
       "type": "joomla",
       "encoding": "utf-8",
       "follow_detail_pages": true,
-      "detail_link_selector": "a[href*='category']",
+      "detail_link_selector": "a",
       "asset_link_selector": "a[href*='.pdf']",
       "notes": "合併課程與活動，從分類頁深挖通告",
-      "verify_ssl": false
+      "verify_ssl": false,
+      "title_filter_regex": "香港童軍總會 慈雲山區|香港童軍總會慈雲山區"
     }
   }
 }

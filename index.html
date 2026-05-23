@@ -295,8 +295,12 @@
       const totalSources = state.sourceOrder.length;
       const totalNotices = state.sourceOrder.reduce((sum, source) => sum + sourceCount(source), 0);
       const nonEmptySources = state.sourceOrder.filter(source => sourceCount(source) > 0).length;
+      
+      const hasErrors = state.cache?._meta?.has_errors === true;
+      const errorStyle = hasErrors ? 'color: var(--warn);' : '';
+      
       $('#sidebar-meta').innerHTML = `
-        <div class="big">最後更新：${escapeHtml(state.cache?.last_updated || '未有資料')}</div>
+        <div class="big" style="${errorStyle}">最後更新：${escapeHtml(state.cache?.last_updated || '未有資料')}</div>
         <div class="sub">支援分區或全港層級瀏覽</div>
         <div class="meta-grid">
           <div class="meta-cell"><strong>${totalSources}</strong><span>來源</span></div>
