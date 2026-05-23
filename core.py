@@ -599,7 +599,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     result: Optional[FetchResult] = None
 
    # --- WP API Injection (分頁版) ---
-       if config.get("type") == "wordpress_api":
+    if config.get("type") == "wordpress_api":
         import requests
         from bs4 import BeautifulSoup
         
@@ -619,14 +619,14 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
                 )
                 
-                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")  # ← 重要診斷
+                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")
                 
                 if r.status_code != 200:
                     print(f"[{name}] 第 {page} 頁 HTTP 錯誤: {r.status_code}")
                     break
                     
                 posts = r.json()
-                print(f"[{name}] 第 {page} 頁 返回類型: {type(posts)}, 數量: {len(posts) if isinstance(posts, list) else '非 list'}")  # ← 重要診斷
+                print(f"[{name}] 第 {page} 頁 返回類型: {type(posts)}, 數量: {len(posts) if isinstance(posts, list) else '非 list'}")
                 
                 if not isinstance(posts, list) or len(posts) == 0:
                     print(f"[{name}] 第 {page} 頁沒有文章，停止")
