@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-22 23:45:21",
+  "last_updated": "2026-05-23 00:07:20",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
@@ -25963,17 +25963,8 @@
         "title": "船鐘報時",
         "url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
-        "date": "2026-05-22",
-        "captured_date": "2026-05-22",
-        "source_site": "沙田南區",
-        "region": "新界東地域"
-      },
-      {
-        "title": "童軍創始人 - 貝登堡勳爵",
-        "url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
-        "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
-        "date": "2026-05-22",
-        "captured_date": "2026-05-22",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -25981,8 +25972,8 @@
         "title": "殘存小包",
         "url": "https://www.stsd-scout.org/media/resources/1554049582_殘存小包.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1554049582_殘存小包.pdf",
-        "date": "2026-05-22",
-        "captured_date": "2026-05-22",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -25990,8 +25981,8 @@
         "title": "小隊長錦囊",
         "url": "https://www.stsd-scout.org/media/resources/1554049624_小隊長錦囊.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1554049624_小隊長錦囊.pdf",
-        "date": "2026-05-22",
-        "captured_date": "2026-05-22",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -25999,8 +25990,8 @@
         "title": "基本繩結",
         "url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
-        "date": "2026-05-22",
-        "captured_date": "2026-05-22",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -26008,8 +25999,8 @@
         "title": "SST04 訓練班 / 活動 集體報名表",
         "url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
         "pdf_url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
-        "date": "2026-05-22",
-        "captured_date": "2026-05-22",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -26017,8 +26008,8 @@
         "title": "SST02 訓練班 / 活動 / 講座個人報名表",
         "url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
         "pdf_url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
-        "date": "2026-05-22",
-        "captured_date": "2026-05-22",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -26026,6 +26017,15 @@
         "title": "SST01 訓練班 / 活動 / 講座集體報名表",
         "url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
         "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "童軍創始人 - 貝登堡勳爵",
+        "url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
+        "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
         "date": "2026-05-22",
         "captured_date": "2026-05-22",
         "source_site": "沙田南區",
@@ -26301,6 +26301,55 @@
     "慈雲山區": []
   },
   "notices": [
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+      "title": "船鐘報時",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1554049582_殘存小包.pdf",
+      "title": "殘存小包",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1554049624_小隊長錦囊.pdf",
+      "title": "小隊長錦囊",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
+      "title": "基本繩結",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
+      "title": "SST04 訓練班 / 活動 集體報名表",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
+      "title": "SST02 訓練班 / 活動 / 講座個人報名表",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
+      "title": "SST01 訓練班 / 活動 / 講座集體報名表",
+      "captured_date": "2026-05-23"
+    },
     {
       "source_site": "鯉魚門區",
       "region": "東九龍地域",
@@ -27207,57 +27256,8 @@
     {
       "source_site": "沙田南區",
       "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
-      "title": "船鐘報時",
-      "captured_date": "2026-05-22"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
       "title": "童軍創始人 - 貝登堡勳爵",
-      "captured_date": "2026-05-22"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1554049582_殘存小包.pdf",
-      "title": "殘存小包",
-      "captured_date": "2026-05-22"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1554049624_小隊長錦囊.pdf",
-      "title": "小隊長錦囊",
-      "captured_date": "2026-05-22"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
-      "title": "基本繩結",
-      "captured_date": "2026-05-22"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
-      "title": "SST04 訓練班 / 活動 集體報名表",
-      "captured_date": "2026-05-22"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
-      "title": "SST02 訓練班 / 活動 / 講座個人報名表",
-      "captured_date": "2026-05-22"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
-      "title": "SST01 訓練班 / 活動 / 講座集體報名表",
       "captured_date": "2026-05-22"
     },
     {
@@ -46797,11 +46797,11 @@
     ],
     "total_sources": 49,
     "last_run": {
-      "updated_at": "2026-05-22 23:45:21",
-      "new": 2,
-      "updated": 15,
-      "skipped": 47,
-      "processed": 2,
+      "updated_at": "2026-05-23 00:07:20",
+      "new": 0,
+      "updated": 7,
+      "skipped": 46,
+      "processed": 3,
       "playwright_used": 0
     }
   }
