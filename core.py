@@ -607,7 +607,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         page = 1
         max_pages = 30
         
-        print(f"[{name}] 開始全量抓取，最多 {max_pages} 頁...")
+        print(f"[{name}] 開始全量抓取 WordPress API...")
 
         while page <= max_pages:
             paged_url = f"{url}?per_page=100&page={page}"
@@ -616,9 +616,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     paged_url,
                     verify=config.get("verify_ssl", True),
                     timeout=30,
-                    headers={
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36'
-                    }
+                    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
                 )
                 
                 if r.status_code in (400, 404):
@@ -634,14 +632,14 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     break
                     
                 all_posts.extend(posts)
-                print(f"[{name}] ✅ 第 {page} 頁成功 | 本頁 {len(posts)} 筆 | 累計 {len(all_posts)} 筆")
+                print(f"[{name}] ✅ 第 {page} 頁成功 | 累計 {len(all_posts)} 筆")
                 page += 1
                 
             except Exception as e:
-                print(f"[{name}] 第 {page} 頁異常: {e}")
+                print(f"[{name}] 異常: {e}")
                 break
 
-        # ==================== PDF 提取 ====================
+        # ==================== PDF 提取 (加強版) ====================
         mock_html = "<html><body>"
         pdf_count = 0
 
@@ -656,18 +654,17 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                 href = a.get("href", "").strip()
                 if href and '.pdf' in href.lower():
                     display_text = f"{date_str} | {title}"
-                    
                     link_text = a.get_text(strip=True)
-                    if link_text and len(link_text) > 2:
+                    if link_text:
                         display_text += f" ({link_text})"
                     
                     mock_html += f'<a href="{href}">{display_text}</a><br/>'
                     pdf_count += 1
-                    break
-
+                    print(f"[{name}] 找到 PDF → {display_text} | {href}")   # 除錯用
+                    
         mock_html += "</body></html>"
         
-        print(f"[{name}] 🎉 抓取完成！總文章 {len(all_posts)} 筆，PDF {pdf_count} 個")
+        print(f"[{name}] 完成！總文章 {len(all_posts)} 筆，提取 PDF {pdf_count} 個")
         return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
     # ---------------------------------
    
