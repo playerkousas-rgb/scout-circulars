@@ -1280,7 +1280,7 @@ def process_source(
 
     if not assets:
         print(f"  [{name}] ⚠️ 指紋變動但無可下載資產")
-        return [], [], new_fp, False, result.engine
+        return [], [], new_fp, False, result.engine, False
 
     region = config.get("region", "")
     new_records: List[Dict[str, Any]] = []
@@ -1379,6 +1379,7 @@ def main(
     skipped = 0
     processed = 0
     pw_used = 0
+    errors = 0
 
     source_items = list(sources.items())
     for i, (name, source_config) in enumerate(source_items, 1):
@@ -1429,7 +1430,7 @@ def main(
                     local_record_map[key]["region"] = rec.get("region", local_record_map[key].get("region", ""))
             merged_records = list(local_record_map.values())
             grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
-            grouped_cache.setdefault("_meta", {})["has_errors"] = (skipped > 0)
+            grouped_cache.setdefault("_meta", {})["has_errors"] = (errors > 0)
             grouped_cache.setdefault("_meta", {})["last_run"] = {
                 "updated_at": now_str,
                 "new": len(all_new),

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-23 23:56:27",
+  "last_updated": "2026-05-24 00:31:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
@@ -56731,13 +56731,13 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": true,
+    "has_errors": false,
     "last_run": {
-      "updated_at": "2026-05-23 23:56:27",
+      "updated_at": "2026-05-24 00:31:06",
       "new": 0,
-      "updated": 7,
-      "skipped": 47,
-      "processed": 1,
+      "updated": 0,
+      "skipped": 1,
+      "processed": 0,
       "playwright_used": 0
     }
   }

@@ -296,8 +296,20 @@
       const totalNotices = state.sourceOrder.reduce((sum, source) => sum + sourceCount(source), 0);
       const nonEmptySources = state.sourceOrder.filter(source => sourceCount(source) > 0).length;
       
+      let isTodayError = false;
+      const lastUpdateStr = state.cache?.last_updated;
       const hasErrors = state.cache?._meta?.has_errors === true;
-      const errorStyle = hasErrors ? 'color: var(--warn);' : '';
+      
+      if (hasErrors && lastUpdateStr) {
+        const updateDate = lastUpdateStr.substring(0, 10);
+        const hkTime = new Date(new Date().getTime() + (8 * 60 * 60 * 1000));
+        const todayHK = hkTime.toISOString().substring(0, 10);
+        if (updateDate === todayHK) {
+          isTodayError = true;
+        }
+      }
+      
+      const errorStyle = isTodayError ? 'color: var(--warn);' : '';
       
       $('#sidebar-meta').innerHTML = `
         <div class="big" style="${errorStyle}">最後更新：${escapeHtml(state.cache?.last_updated || '未有資料')}</div>
