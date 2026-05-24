@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-24 00:34:18",
+  "last_updated": "2026-05-24 00:43:07",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
@@ -30332,6 +30332,15 @@
     ],
     "沙田南區": [
       {
+        "title": "船鐘報時",
+        "url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+        "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
         "title": "童軍創始人 - 貝登堡勳爵",
         "url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
@@ -30391,15 +30400,6 @@
         "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
         "date": "2026-05-24",
         "captured_date": "2026-05-24",
-        "source_site": "沙田南區",
-        "region": "新界東地域"
-      },
-      {
-        "title": "船鐘報時",
-        "url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
-        "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -31891,6 +31891,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+      "title": "船鐘報時",
+      "captured_date": "2026-05-24"
+    },
     {
       "source_site": "沙田南區",
       "region": "新界東地域",
@@ -44209,13 +44216,6 @@
       "region": "新界東地域",
       "pdf_url": "http://www.stescout.org/pdf/circular 2025/cir_2025_a04.pdf",
       "title": "2025-2026 年度各比賽資助",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
-      "title": "船鐘報時",
       "captured_date": "2026-05-23"
     },
     {
@@ -56733,11 +56733,11 @@
     "total_sources": 48,
     "has_errors": false,
     "last_run": {
-      "updated_at": "2026-05-24 00:34:18",
+      "updated_at": "2026-05-24 00:43:07",
       "new": 0,
       "updated": 7,
-      "skipped": 40,
-      "processed": 8,
+      "skipped": 47,
+      "processed": 1,
       "playwright_used": 0
     }
   }
