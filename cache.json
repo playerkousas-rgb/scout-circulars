@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-24 20:47:24",
+  "last_updated": "2026-05-26 04:59:42",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3535,
+    "total_notices": 3536,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -25203,6 +25203,15 @@
     ],
     "荃灣區": [
       {
+        "title": "荃灣區深資童軍支部技能比賽",
+        "url": "https://www.twdscout.org.hk/documents/notices/T202605.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202605.pdf",
+        "date": "2026-05-26",
+        "captured_date": "2026-05-26",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
         "title": "領袖木章訓練班報名表 (PT/02c)",
         "url": "https://www.scout.org.hk/article_attach/7196/PT02c_Aug_2019_Application_Form_for_Wood_Badge_Training_Course.pdf",
         "pdf_url": "https://www.scout.org.hk/article_attach/7196/PT02c_Aug_2019_Application_Form_for_Wood_Badge_Training_Course.pdf",
@@ -31918,6 +31927,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202605.pdf",
+      "title": "荃灣區深資童軍支部技能比賽",
+      "captured_date": "2026-05-26"
+    },
     {
       "source_site": "灣仔區",
       "region": "港島地域",
@@ -56781,11 +56797,11 @@
     "total_sources": 48,
     "has_errors": false,
     "last_run": {
-      "updated_at": "2026-05-24 20:47:24",
-      "new": 3,
-      "updated": 331,
-      "skipped": 42,
-      "processed": 6,
+      "updated_at": "2026-05-26 04:59:42",
+      "new": 1,
+      "updated": 48,
+      "skipped": 46,
+      "processed": 2,
       "playwright_used": 0
     }
   }
