@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.4 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.3 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
-v5.4 核心升級:
+v5.3 核心升級:
   1. 不再只抓 PDF，改抓「可下載資產」(downloadable assets)
   2. 列表頁 + 內頁兩階段作業
   3. 指紋比對仍然保留，用來極速跳過沒變動頁面
@@ -30,19 +30,6 @@ import time
 import unicodedata
 from dataclasses import dataclass
 from datetime import date, datetime
-from zoneinfo import ZoneInfo
-
-# HKT
-HKT = ZoneInfo("Asia/Hong_Kong")
-
-def hkt_now():
-    return datetime.now(HKT)
-
-def hkt_today_str():
-    return datetime.now(HKT).strftime("%Y-%m-%d")
-
-def hkt_now_str():
-    return datetime.now(HKT).strftime("%Y-%m-%d %H:%M:%S")
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse, urlunparse
@@ -1171,7 +1158,7 @@ def supabase_upsert(records: List[Dict[str, Any]]):
             pass
 
 
-def supabase_update_records(records: List[Dict[str, Any]]):
+def supabase_update_records(records: List[Dict[str, Any]], new_date: str):
     if not records:
         return
     headers = {
@@ -1185,6 +1172,7 @@ def supabase_update_records(records: List[Dict[str, Any]]):
         if not source_site or not asset_url:
             continue
         payload = {
+            "captured_date": new_date,
             "title": rec.get("title", ""),
             "region": rec.get("region", ""),
         }
@@ -1309,8 +1297,6 @@ def process_source(
             "captured_date": today_str,
         }
         if key in existing_keys:
-            # ⚠️ 保留舊 captured_date：不要覆寫已存在項目的入庫日期
-            payload.pop("captured_date", None)
             updated_records.append(payload)
         else:
             new_records.append(payload)
@@ -1323,7 +1309,7 @@ def process_source(
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.4 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.3 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1340,11 +1326,11 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.4")
+    print("🦅 全港童軍通告自動化圖書館 v5.3")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
-    print(f"   啟動: {hkt_now_str()}")
+    print(f"   啟動: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("═" * 60)
 
     if not SOURCES_PATH.exists():
@@ -1366,8 +1352,8 @@ def main(
     pw_count = sum(1 for s in sources.values() if s.get("use_playwright"))
     print(f"📋 {len(sources)} 個來源 ({pw_count} 需 Playwright, {len(sources)-pw_count} 靜態)\n")
 
-    today_str = hkt_today_str()
-    now_str = hkt_now_str()
+    today_str = date.today().isoformat()
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     fingerprints = load_fingerprints()
     local_cache = load_local_cache()
@@ -1431,7 +1417,7 @@ def main(
     if not dry_run:
         if USE_SUPABASE:
             supabase_upsert(all_new)
-            supabase_update_records(all_updated)
+            supabase_update_records(all_updated, today_str)
         else:
             for record in all_new:
                 key = (record["source_site"], record["pdf_url"])
@@ -1439,7 +1425,7 @@ def main(
             for rec in all_updated:
                 key = (rec.get("source_site", ""), rec.get("pdf_url", ""))
                 if key in local_record_map:
-                    # ⚠️ 保留舊 captured_date：只更新標題/分區，不覆寫入庫日期
+                    local_record_map[key]["captured_date"] = today_str
                     local_record_map[key]["title"] = rec.get("title", local_record_map[key].get("title", ""))
                     local_record_map[key]["region"] = rec.get("region", local_record_map[key].get("region", ""))
             merged_records = list(local_record_map.values())
@@ -1460,7 +1446,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.4")
+    print("📊 執行報告 v5.3")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
