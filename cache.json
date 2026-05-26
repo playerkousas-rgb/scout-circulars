@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-26 04:59:42",
+  "last_updated": "2026-05-27 05:42:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3536,
+    "total_notices": 3538,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -18908,6 +18908,24 @@
     ],
     "油尖區": [
       {
+        "title": "初級航空活動章訓練班",
+        "url": "https://drive.google.com/file/d/1XXySDR0R-asmyrP39wcxBqMfC1o__1uT/view",
+        "pdf_url": "https://drive.google.com/file/d/1XXySDR0R-asmyrP39wcxBqMfC1o__1uT/view",
+        "date": "2026-05-27",
+        "captured_date": "2026-05-27",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "一級童軍標準艇訓練班",
+        "url": "https://drive.google.com/file/d/1JVDRcVwpP2_wrpFfeKPsqMd6aLOfyV6E/view",
+        "pdf_url": "https://drive.google.com/file/d/1JVDRcVwpP2_wrpFfeKPsqMd6aLOfyV6E/view",
+        "date": "2026-05-27",
+        "captured_date": "2026-05-27",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
         "title": "香港童軍貝登堡聯誼會 油尖區分會",
         "url": "https://www.scout.org.hk/uploads/tc/forms/10890/sub-club_form-b-20230914.pdf",
         "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/10890/sub-club_form-b-20230914.pdf",
@@ -31927,6 +31945,20 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1XXySDR0R-asmyrP39wcxBqMfC1o__1uT/view",
+      "title": "初級航空活動章訓練班",
+      "captured_date": "2026-05-27"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1JVDRcVwpP2_wrpFfeKPsqMd6aLOfyV6E/view",
+      "title": "一級童軍標準艇訓練班",
+      "captured_date": "2026-05-27"
+    },
     {
       "source_site": "荃灣區",
       "region": "新界地域",
@@ -56797,9 +56829,9 @@
     "total_sources": 48,
     "has_errors": false,
     "last_run": {
-      "updated_at": "2026-05-26 04:59:42",
-      "new": 1,
-      "updated": 48,
+      "updated_at": "2026-05-27 05:42:06",
+      "new": 2,
+      "updated": 67,
       "skipped": 46,
       "processed": 2,
       "playwright_used": 0
