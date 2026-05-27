@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-27 05:42:06",
+  "last_updated": "2026-05-28 05:48:58",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3538,
+    "total_notices": 3542,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -25221,6 +25221,33 @@
     ],
     "荃灣區": [
       {
+        "title": "郵件貼上足夠郵資",
+        "url": "http://www.twdscout.org.hk/documents/notices/A072018.pdf",
+        "pdf_url": "http://www.twdscout.org.hk/documents/notices/A072018.pdf",
+        "date": "2026-05-28",
+        "captured_date": "2026-05-28",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "荃灣區童軍支部技能比賽 參賽名單",
+        "url": "https://www.twdscout.org.hk/documents/notices/T202603-Candidates.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202603-Candidates.pdf",
+        "date": "2026-05-28",
+        "captured_date": "2026-05-28",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍旅管理財務事宜",
+        "url": "http://www.twdscout.org.hk/documents/notices/a1229.pdf",
+        "pdf_url": "http://www.twdscout.org.hk/documents/notices/a1229.pdf",
+        "date": "2026-05-28",
+        "captured_date": "2026-05-28",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
         "title": "荃灣區深資童軍支部技能比賽",
         "url": "https://www.twdscout.org.hk/documents/notices/T202605.pdf",
         "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202605.pdf",
@@ -28176,6 +28203,15 @@
       }
     ],
     "大埔南區": [
+      {
+        "title": "第二十屆童軍技能比賽",
+        "url": "http://www.tps.org.hk/download/notice/Form01b_circular_第二十屆童軍技能比賽.pdf",
+        "pdf_url": "http://www.tps.org.hk/download/notice/Form01b_circular_第二十屆童軍技能比賽.pdf",
+        "date": "2026-05-28",
+        "captured_date": "2026-05-28",
+        "source_site": "大埔南區",
+        "region": "新界東地域"
+      },
       {
         "title": "香港童軍110周年總會大型慶祝活動- 潔伴童行110-大埔南區報名",
         "url": "http://www.tps.org.hk/download/notice/潔伴童行 110_通告TPSDS202102.pdf",
@@ -31945,6 +31981,34 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "http://www.twdscout.org.hk/documents/notices/A072018.pdf",
+      "title": "郵件貼上足夠郵資",
+      "captured_date": "2026-05-28"
+    },
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202603-Candidates.pdf",
+      "title": "荃灣區童軍支部技能比賽 參賽名單",
+      "captured_date": "2026-05-28"
+    },
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "http://www.twdscout.org.hk/documents/notices/a1229.pdf",
+      "title": "童軍旅管理財務事宜",
+      "captured_date": "2026-05-28"
+    },
+    {
+      "source_site": "大埔南區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.tps.org.hk/download/notice/Form01b_circular_第二十屆童軍技能比賽.pdf",
+      "title": "第二十屆童軍技能比賽",
+      "captured_date": "2026-05-28"
+    },
     {
       "source_site": "油尖區",
       "region": "九龍地域",
@@ -56827,13 +56891,13 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": false,
+    "has_errors": true,
     "last_run": {
-      "updated_at": "2026-05-27 05:42:06",
-      "new": 2,
-      "updated": 67,
-      "skipped": 46,
-      "processed": 2,
+      "updated_at": "2026-05-28 05:48:58",
+      "new": 4,
+      "updated": 178,
+      "skipped": 45,
+      "processed": 3,
       "playwright_used": 0
     }
   }
