@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-28 05:48:58",
+  "last_updated": "2026-05-29 05:51:53",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3542,
+    "total_notices": 3543,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -27797,6 +27797,15 @@
     ],
     "大埔北區": [
       {
+        "title": "Pre-Alpha 溜冰訓練班(支部成員) 取錄名單",
+        "url": "https://tpnscout.org/wp-content/uploads/2026/05/2026-溜冰班_取錄名單.pdf",
+        "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/05/2026-溜冰班_取錄名單.pdf",
+        "date": "2026-05-29",
+        "captured_date": "2026-05-29",
+        "source_site": "大埔北區",
+        "region": "新界東地域"
+      },
+      {
         "title": "香港童軍110周年總會大型慶祝活動 潔伴童行110",
         "url": "https://tpnscout.org/wp-content/uploads/2021/notice/TPN_CIR_HQ_2122_003_潔伴童行110.pdf",
         "pdf_url": "https://tpnscout.org/wp-content/uploads/2021/notice/TPN_CIR_HQ_2122_003_潔伴童行110.pdf",
@@ -31981,6 +31990,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "大埔北區",
+      "region": "新界東地域",
+      "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/05/2026-溜冰班_取錄名單.pdf",
+      "title": "Pre-Alpha 溜冰訓練班(支部成員) 取錄名單",
+      "captured_date": "2026-05-29"
+    },
     {
       "source_site": "荃灣區",
       "region": "新界地域",
@@ -56891,13 +56907,13 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": true,
+    "has_errors": false,
     "last_run": {
-      "updated_at": "2026-05-28 05:48:58",
-      "new": 4,
-      "updated": 178,
-      "skipped": 45,
-      "processed": 3,
+      "updated_at": "2026-05-29 05:51:53",
+      "new": 1,
+      "updated": 242,
+      "skipped": 41,
+      "processed": 7,
       "playwright_used": 0
     }
   }
