@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.0.0",
+    "version": "5.5.0",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 48,
-    "note": "全部URL來源於官方CSV，排除Facebook(大嶼山區)"
+    "note": "Fix TMW, TME, YLW, NKC, SPH, TWS URLs and WP API bugs"
   },
   "sources": {
     "總會": {
