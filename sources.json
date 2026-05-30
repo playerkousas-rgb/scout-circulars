@@ -675,12 +675,9 @@
     },
     "元朗西區": {
       "region": "新界地域",
-      "url": "https://www.ylw-scout.org.hk/category/%e9%80%9a%e5%91%8a/",
-      "type": "wordpress_category",
+      "url": "https://www.ylw-scout.org.hk/wp-json/wp/v2/posts",
+      "type": "wordpress_api",
       "encoding": "utf-8",
-      "fingerprint_selector": ".entry-title, article",
-      "link_selector": ".entry-title a[href]",
-      "title_selector": ".entry-title, article",
       "url_sanitize": [
         "?v=",
         "?t=",
@@ -692,13 +689,7 @@
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
       "asset_link_selector": "a[href*='.pdf'], a[href*='/wp-content/']",
-      "follow_detail_pages": true,
-      "detail_max_pages": 8,
-      "detail_link_selector": "a",
-      "verify_ssl": false,
-      "follow_listing_pages": true,
-      "listing_max_pages": 3,
-      "listing_link_selector": "a.page-numbers"
+      "verify_ssl": false
     },
     "十八鄉區": {
       "region": "新界地域",
