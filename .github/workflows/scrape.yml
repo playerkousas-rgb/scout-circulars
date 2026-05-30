@@ -1,16 +1,11 @@
 # ============================================================
 # 全港童軍通告自動化圖書館 v5.0 — GitHub Actions 定時爬蟲
 # ============================================================
-# 每天 UTC 20:00 (香港時間 04:00) 自動執行
-# 支援雙模式: Supabase (生產) 或 本地 JSON (開發)
-
 name: Scout Notice Scraper
 
 on:
   schedule:
-    # 每天 UTC 20:00 = 香港時間 04:00
     - cron: '0 20 * * *'
-  # 手動觸發
   workflow_dispatch:
 
 jobs:
@@ -19,7 +14,7 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     timeout-minutes: 15
-    steps:  # 这里保留一个即可
+    steps:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Setup Python
@@ -35,8 +30,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          python -c 'import json; d=json.load(open("cache.json", encoding="utf-8")); d["notices"]=[n for n in d.get("notices",[]) if n.get("source_site") not in ["屯門西區", "屯門東區", "元朗西區", "慈雲山區", "十八鄉區"]]; [d.get("data",{}).pop(k, None) for k in ["屯門西區", "屯門東區", "元朗西區", "慈雲山區", "十八鄉區"]]; json.dump(d, open("cache.json","w", encoding="utf-8"), ensure_ascii=False, indent=2)'
-          python core.py
+          # 加上 --force 強制忽略指紋，讓爬蟲今天乖乖把所有歸 0 的區會重新抓回來！
+          python core.py --force
       - name: Commit & push updated cache + fingerprints
         if: env.SUPABASE_URL == ''
         run: |
