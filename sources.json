@@ -695,16 +695,18 @@
       "follow_detail_pages": true,
       "detail_max_pages": 8,
       "detail_link_selector": "a",
-      "verify_ssl": false
+      "verify_ssl": false,
+      "follow_listing_pages": true,
+      "listing_max_pages": 3,
+      "listing_link_selector": "a.page-numbers"
     },
     "十八鄉區": {
       "region": "新界地域",
       "url": "https://www.sph-scout.org.hk/circular.htm",
-      "type": "wordpress",
-      "encoding": "utf-8",
-      "fingerprint_selector": "main, [class*='content'], [class*='entry']",
-      "link_selector": ".entry-title a[href]",
-      "title_selector": ".entry-title:first-of-type a",
+      "type": "static_list",
+      "encoding": "big5",
+      "fingerprint_selector": "body",
+      "link_selector": "a[href*=\".pdf\"]",
       "url_sanitize": [
         "?v=",
         "?t=",
@@ -715,14 +717,11 @@
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": ".entry-title a[href], article a[href], main a[href]",
-      "follow_detail_pages": true,
-      "detail_max_pages": 8,
-      "detail_link_selector": ".entry-title a[href], article h2 a[href]"
+      "detail_max_pages": 8
     },
     "屯門西區": {
       "region": "新界地域",
-      "url": "https://tmw.scout-ntr.org.hk/left.htm",
+      "url": "https://tmw.scout-ntr.org.hk/main2.html",
       "type": "static_list",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -745,7 +744,7 @@
     },
     "北葵涌區": {
       "region": "新界地域",
-      "url": "https://www.nkcscout.org/notice.html",
+      "url": "https://www.nkcscout.org/notice/nkcscout_notice.html",
       "type": "modern_cms",
       "encoding": "utf-8",
       "fingerprint_selector": "[class*='post-title'], [class*='news'], [class*='notice'], [class*='latest']",
@@ -768,12 +767,12 @@
     },
     "屯門東區": {
       "region": "新界地域",
-      "url": "https://www.tmescout.org.hk/file/notice/",
-      "type": "modern_cms",
-      "encoding": "utf-8",
-      "fingerprint_selector": "main, [class*='content'], [class*='news'], [class*='notice']",
-      "link_selector": "main a[href], [class*='news'] a[href], [class*='notice'] a[href]",
-      "title_selector": "a",
+      "url": "https://www.tmescout.org.hk/file/memo.htm",
+      "type": "static_table",
+      "encoding": "big5",
+      "fingerprint_selector": "table",
+      "link_selector": "table a[href*=\".pdf\"]",
+      "title_selector": "td:nth-child(2)",
       "url_sanitize": [
         "?v=",
         "?t=",
@@ -1050,15 +1049,11 @@
     },
     "慈雲山區": {
       "region": "東九龍地域",
-      "url": "http://www.twsd-hkscout.org/content/index.php?option=com_content&view=section&id=5&Itemid=65",
-      "type": "joomla",
+      "url": "https://group.scout.org.hk/tws/wp-json/wp/v2/posts",
+      "type": "wordpress_api",
       "encoding": "utf-8",
-      "follow_detail_pages": true,
-      "detail_link_selector": "a",
-      "asset_link_selector": "a[href*='.pdf']",
-      "notes": "合併課程與活動，從分類頁深挖通告",
-      "verify_ssl": false,
-      "title_filter_regex": "香港童軍總會 慈雲山區|香港童軍總會慈雲山區"
+      "follow_detail_pages": false,
+      "use_playwright": false
     }
   }
 }
