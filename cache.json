@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-30 05:49:23",
+  "last_updated": "2026-05-30 03:30:20",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3543,
+    "total_notices": 3548,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -23482,29 +23482,767 @@
     ],
     "屯門東區": [
       {
-        "title": "admissio",
+        "title": "TME_幼童軍歷奇章考核紀錄冊",
+        "url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+        "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
         "url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
         "source_site": "屯門東區",
         "region": "新界地域"
       },
       {
-        "title": "admissio",
+        "title": "(pdf格式)",
         "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
         "source_site": "屯門東區",
         "region": "新界地域"
       },
       {
-        "title": "admissio",
+        "title": "(pdf格式)",
         "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(pdf格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(docx格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
         "source_site": "屯門東區",
         "region": "新界地域"
       },
@@ -23539,24 +24277,6 @@
         "title": "TME Õ╣╝ń1⁄2źĶ╗ŹńŹÄń1⁄2ĀĶ",
         "url": "https://www.tmescout.org.hk/file/notice/TME_%e5%b9%bc%e7%ab%a5%e8%bb%8d%e7%8d%8e%e7%ab%a0%e8%80%83%e6%a0%b8%e7%b4%80%e9%8c%84%e5%86%8a.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_%e5%b9%bc%e7%ab%a5%e8%bb%8d%e7%8d%8e%e7%ab%a0%e8%80%83%e6%a0%b8%e7%b4%80%e9%8c%84%e5%86%8a.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME V 25 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME V 25 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "屯門東區",
@@ -23611,204 +24331,6 @@
         "title": "TME V 18 01",
         "url": "https://www.tmescout.org.hk/file/notice/TME_V_18_01.doc",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_18_01.doc",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 26 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 26 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 26 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 25 03A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 25 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 25 02A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 25 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 25 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 25 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 24 06A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 24 06",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 24 05",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 24 04",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 24 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 23 04A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 23 04",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 23 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 23 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 22 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 22 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 22 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME S 22 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "屯門東區",
@@ -24139,231 +24661,6 @@
         "region": "新界地域"
       },
       {
-        "title": "TME P 26 04",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 26 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 26 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 26 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 25 04",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 25 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 25 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 08",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 07",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 06A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 06",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 05A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 05",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 04",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 24 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 23 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 23 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 23 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 22 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 22 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 22 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME P 22 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
         "title": "TME P 21 03",
         "url": "https://www.tmescout.org.hk/file/notice/TME_P_21_03.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_21_03.pdf",
@@ -24385,15 +24682,6 @@
         "title": "TME P 21 01",
         "url": "https://www.tmescout.org.hk/file/notice/TME_P_21_01.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_21_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME Invitation 2324",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "屯門東區",
@@ -24448,51 +24736,6 @@
         "title": "TME Invitation 1718",
         "url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_1718.doc",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_1718.doc",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME G 26 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME G 26 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME G 24 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME G 24 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME G 21 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "屯門東區",
@@ -24580,63 +24823,9 @@
         "region": "新界地域"
       },
       {
-        "title": "TME CS 24 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME CS 24 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME CS 23 02B",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
         "title": "TME CS 23 02",
         "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME CS 23 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME CS 22 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME CS 22 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "屯門東區",
@@ -24763,123 +24952,6 @@
         "title": "TME CS 14 02",
         "url": "https://www.tmescout.org.hk/file/notice/TME_CS_14_02.docx",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_14_02.docx",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME C 26 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME C 26 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME C 25 01A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME C 25 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME C 24 03",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME C 24 02A",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME C 24 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME A 26 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME A 25 08",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME A 25 04",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME A 24 02",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME A 24 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "TME A 22 01",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "屯門東區",
@@ -25156,15 +25228,6 @@
         "region": "新界地域"
       },
       {
-        "title": "CNYCelebration",
-        "url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
         "title": "1819volunteers info",
         "url": "https://www.tmescout.org.hk/file/notice/1819volunteers_info_TME.xlsx",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/1819volunteers_info_TME.xlsx",
@@ -25195,24 +25258,6 @@
         "title": "1415reply",
         "url": "https://www.tmescout.org.hk/file/notice/groupcolour/1415reply.doc",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/groupcolour/1415reply.doc",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "(R2)",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "屯門東區",
-        "region": "新界地域"
-      },
-      {
-        "title": "(R2)",
-        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
-        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "屯門東區",
@@ -30434,8 +30479,8 @@
         "title": "船鐘報時",
         "url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -30443,8 +30488,53 @@
         "title": "童軍創始人 - 貝登堡勳爵",
         "url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "基本繩結",
+        "url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
+        "pdf_url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "刀斧使用",
+        "url": "https://www.stsd-scout.org/media/resources/1554049361_刀斧使用.pdf",
+        "pdf_url": "https://www.stsd-scout.org/media/resources/1554049361_刀斧使用.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "SST04 訓練班 / 活動 集體報名表",
+        "url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
+        "pdf_url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "SST02 訓練班 / 活動 / 講座個人報名表",
+        "url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
+        "pdf_url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "沙田南區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "SST01 訓練班 / 活動 / 講座集體報名表",
+        "url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
+        "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
         "source_site": "沙田南區",
         "region": "新界東地域"
       },
@@ -30461,51 +30551,6 @@
         "title": "小隊長錦囊",
         "url": "https://www.stsd-scout.org/media/resources/1554049624_小隊長錦囊.pdf",
         "pdf_url": "https://www.stsd-scout.org/media/resources/1554049624_小隊長錦囊.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "沙田南區",
-        "region": "新界東地域"
-      },
-      {
-        "title": "基本繩結",
-        "url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
-        "pdf_url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "沙田南區",
-        "region": "新界東地域"
-      },
-      {
-        "title": "刀斧使用",
-        "url": "https://www.stsd-scout.org/media/resources/1554049361_刀斧使用.pdf",
-        "pdf_url": "https://www.stsd-scout.org/media/resources/1554049361_刀斧使用.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "沙田南區",
-        "region": "新界東地域"
-      },
-      {
-        "title": "SST04 訓練班 / 活動 集體報名表",
-        "url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
-        "pdf_url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "沙田南區",
-        "region": "新界東地域"
-      },
-      {
-        "title": "SST02 訓練班 / 活動 / 講座個人報名表",
-        "url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
-        "pdf_url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "沙田南區",
-        "region": "新界東地域"
-      },
-      {
-        "title": "SST01 訓練班 / 活動 / 講座集體報名表",
-        "url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
-        "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
         "date": "2026-05-24",
         "captured_date": "2026-05-24",
         "source_site": "沙田南區",
@@ -31991,6 +32036,650 @@
   },
   "notices": [
     {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
+      "title": "船鐘報時",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
+      "title": "童軍創始人 - 貝登堡勳爵",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
+      "title": "基本繩結",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/resources/1554049361_刀斧使用.pdf",
+      "title": "刀斧使用",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
+      "title": "SST04 訓練班 / 活動 集體報名表",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
+      "title": "SST02 訓練班 / 活動 / 講座個人報名表",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "沙田南區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
+      "title": "SST01 訓練班 / 活動 / 講座集體報名表",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+      "title": "TME_幼童軍歷奇章考核紀錄冊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+      "title": "(pdf格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+      "title": "(docx格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
       "source_site": "大埔北區",
       "region": "新界東地域",
       "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/05/2026-溜冰班_取錄名單.pdf",
@@ -32119,20 +32808,6 @@
     {
       "source_site": "沙田南區",
       "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1515381485_bell_signal.pdf",
-      "title": "船鐘報時",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1516243085_BPStory.pdf",
-      "title": "童軍創始人 - 貝登堡勳爵",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/media/resources/1554049582_殘存小包.pdf",
       "title": "殘存小包",
       "captured_date": "2026-05-24"
@@ -32142,41 +32817,6 @@
       "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/media/resources/1554049624_小隊長錦囊.pdf",
       "title": "小隊長錦囊",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1516959775_基本繩結.pdf",
-      "title": "基本繩結",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/resources/1554049361_刀斧使用.pdf",
-      "title": "刀斧使用",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/form/1515137129_SST04.doc",
-      "title": "SST04 訓練班 / 活動 集體報名表",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/form/1600084150_FORM_SST02.docx",
-      "title": "SST02 訓練班 / 活動 / 講座個人報名表",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "沙田南區",
-      "region": "新界東地域",
-      "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
-      "title": "SST01 訓練班 / 活動 / 講座集體報名表",
       "captured_date": "2026-05-24"
     },
     {
@@ -49311,27 +49951,6 @@
     {
       "source_site": "屯門東區",
       "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
-      "title": "admissio",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
-      "title": "admissio",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
-      "title": "admissio",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_%e6%8e%a2%e7%b4%a2%e7%8d%8e%e7%ab%a0_%e6%95%99%e5%ad%b8%e8%b3%87%e6%ba%90%e5%b9%b3%e5%8f%b0.pdf",
       "title": "TME μÄóń┤óńŹÄń1⁄2Ā μĢÖ",
       "captured_date": "2026-05-23"
@@ -49355,20 +49974,6 @@
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_%e5%b9%bc%e7%ab%a5%e8%bb%8d%e7%8d%8e%e7%ab%a0%e8%80%83%e6%a0%b8%e7%b4%80%e9%8c%84%e5%86%8a.pdf",
       "title": "TME Õ╣╝ń1⁄2źĶ╗ŹńŹÄń1⁄2ĀĶ",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
-      "title": "TME V 25 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
-      "title": "TME V 25 01",
       "captured_date": "2026-05-23"
     },
     {
@@ -49411,160 +50016,6 @@
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_18_01.doc",
       "title": "TME V 18 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
-      "title": "TME S 26 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
-      "title": "TME S 26 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
-      "title": "TME S 26 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
-      "title": "TME S 25 03A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
-      "title": "TME S 25 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
-      "title": "TME S 25 02A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
-      "title": "TME S 25 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
-      "title": "TME S 25 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
-      "title": "TME S 25 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
-      "title": "TME S 24 06A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
-      "title": "TME S 24 06",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
-      "title": "TME S 24 05",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
-      "title": "TME S 24 04",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
-      "title": "TME S 24 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
-      "title": "TME S 23 04A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
-      "title": "TME S 23 04",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
-      "title": "TME S 23 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
-      "title": "TME S 23 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
-      "title": "TME S 22 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
-      "title": "TME S 22 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
-      "title": "TME S 22 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
-      "title": "TME S 22 01",
       "captured_date": "2026-05-23"
     },
     {
@@ -49822,181 +50273,6 @@
     {
       "source_site": "屯門東區",
       "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
-      "title": "TME P 26 04",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
-      "title": "TME P 26 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
-      "title": "TME P 26 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
-      "title": "TME P 26 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
-      "title": "TME P 25 04",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
-      "title": "TME P 25 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
-      "title": "TME P 25 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
-      "title": "TME P 24 08",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
-      "title": "TME P 24 07",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
-      "title": "TME P 24 06A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
-      "title": "TME P 24 06",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
-      "title": "TME P 24 05A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
-      "title": "TME P 24 05",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
-      "title": "TME P 24 04",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
-      "title": "TME P 24 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
-      "title": "TME P 24 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
-      "title": "TME P 24 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
-      "title": "TME P 24 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
-      "title": "TME P 23 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
-      "title": "TME P 23 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
-      "title": "TME P 23 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
-      "title": "TME P 22 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
-      "title": "TME P 22 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
-      "title": "TME P 22 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
-      "title": "TME P 22 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_21_03.pdf",
       "title": "TME P 21 03",
       "captured_date": "2026-05-23"
@@ -50013,13 +50289,6 @@
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_21_01.pdf",
       "title": "TME P 21 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
-      "title": "TME Invitation 2324",
       "captured_date": "2026-05-23"
     },
     {
@@ -50062,41 +50331,6 @@
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_1718.doc",
       "title": "TME Invitation 1718",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
-      "title": "TME G 26 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
-      "title": "TME G 26 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
-      "title": "TME G 24 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
-      "title": "TME G 24 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
-      "title": "TME G 21 01A",
       "captured_date": "2026-05-23"
     },
     {
@@ -50165,50 +50399,8 @@
     {
       "source_site": "屯門東區",
       "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
-      "title": "TME CS 24 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
-      "title": "TME CS 24 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
-      "title": "TME CS 23 02B",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02.pdf",
       "title": "TME CS 23 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
-      "title": "TME CS 23 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
-      "title": "TME CS 22 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
-      "title": "TME CS 22 01",
       "captured_date": "2026-05-23"
     },
     {
@@ -50307,97 +50499,6 @@
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_14_02.docx",
       "title": "TME CS 14 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
-      "title": "TME C 26 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
-      "title": "TME C 26 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
-      "title": "TME C 25 01A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
-      "title": "TME C 25 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
-      "title": "TME C 24 03",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
-      "title": "TME C 24 02A",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
-      "title": "TME C 24 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
-      "title": "TME A 26 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
-      "title": "TME A 25 08",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
-      "title": "TME A 25 04",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
-      "title": "TME A 24 02",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
-      "title": "TME A 24 01",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
-      "title": "TME A 22 01",
       "captured_date": "2026-05-23"
     },
     {
@@ -50613,13 +50714,6 @@
     {
       "source_site": "屯門東區",
       "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
-      "title": "CNYCelebration",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/1819volunteers_info_TME.xlsx",
       "title": "1819volunteers info",
       "captured_date": "2026-05-23"
@@ -50643,20 +50737,6 @@
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/groupcolour/1415reply.doc",
       "title": "1415reply",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
-      "title": "(R2)",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "屯門東區",
-      "region": "新界地域",
-      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
-      "title": "(R2)",
       "captured_date": "2026-05-23"
     },
     {
@@ -56907,13 +56987,12 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": true,
     "last_run": {
-      "updated_at": "2026-05-30 05:49:23",
-      "new": 0,
-      "updated": 12,
-      "skipped": 42,
-      "processed": 6,
+      "updated_at": "2026-05-30 03:30:20",
+      "new": 5,
+      "updated": 87,
+      "skipped": 41,
+      "processed": 7,
       "playwright_used": 0
     }
   }
