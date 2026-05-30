@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>全港童軍通告自動化圖書館 v5.3</title>
+  <title>全港童軍通告自動化圖書館 v5.6</title>
   <style>
     :root {
       --bg: #02133e;
@@ -207,7 +207,11 @@
     }
 
     function sourceCount(source) {
-      return (state.grouped[source] || []).length;
+      const items = state.grouped[source] || [];
+      return items.filter(item => {
+        const dateValue = item.date || item.captured_date || '';
+        return inWindow(dateValue);
+      }).length;
     }
 
     function getBucket(sourceId) {
@@ -284,6 +288,8 @@
         btn.onclick = () => {
           state.windowId = win.id;
           renderWindowChips();
+          renderAccordion();
+          renderSidebarMeta();
           renderHeader();
           renderCards();
         };
