@@ -35,6 +35,7 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
+          python -c 'import json; d=json.load(open("cache.json", encoding="utf-8")); d["notices"]=[n for n in d.get("notices",[]) if n.get("source_site") not in ["屯門西區", "屯門東區", "元朗西區", "慈雲山區", "十八鄉區"]]; [d.get("data",{}).pop(k, None) for k in ["屯門西區", "屯門東區", "元朗西區", "慈雲山區", "十八鄉區"]]; json.dump(d, open("cache.json","w", encoding="utf-8"), ensure_ascii=False, indent=2)'
           python core.py
       - name: Commit & push updated cache + fingerprints
         if: env.SUPABASE_URL == ''
