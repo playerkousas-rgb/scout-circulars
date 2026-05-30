@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.5 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
+
+v5.6 核心升級:
+  1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
+  2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
 
 v5.5 核心升級:
   1. 強化 WP API 分頁參數相容性
@@ -618,7 +622,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
 
     # --- WP API Injection ---
     if config.get("type") == "wordpress_api":
-        import requests
+        import requests, json
         
         all_posts = []
         page = 1
@@ -636,9 +640,11 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
                 )
                 
-                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")  # ← 重要診斷
+                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")
                 
                 if r.status_code != 200:
+                    if page == 1:
+                        return None # Trigger error if first page fails
                     break
                     
                 posts = r.json()
@@ -728,17 +734,28 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
 
     try:
         result = fetch_requests(url, config, timeout=30)
-        soup = BeautifulSoup(result.html, "html.parser")
-        if has_useful_candidates(soup, config):
-            return result
-        if use_playwright:
-            print(f"  [{name}] requests 結果太空，改用 Playwright")
+        if result.status_code != 200:
+            print(f"  [{name}] ⚠️ HTTP 錯誤碼: {result.status_code}")
+            if not use_playwright:
+                return None
+        else:
+            soup = BeautifulSoup(result.html, "html.parser")
+            if has_useful_candidates(soup, config):
+                return result
+            if use_playwright:
+                print(f"  [{name}] requests 結果太空，改用 Playwright")
     except Exception as e:
         import traceback; traceback.print_exc()
         print(f"  [{name}] ⚠️ requests: {type(e).__name__}")
+        if not use_playwright:
+            return None # Force error to propagate
 
     if use_playwright:
-        return fetch_with_playwright(name, config, url=url)
+        pw_result = fetch_with_playwright(name, config, url=url)
+        if pw_result is None:
+            return None # Force error if playwright also fails
+        return pw_result
+        
     return result
 
 
