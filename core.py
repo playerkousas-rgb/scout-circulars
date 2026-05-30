@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.4 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.3 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
-v5.4 核心升級:
+v5.3 核心升級:
   1. 不再只抓 PDF，改抓「可下載資產」(downloadable assets)
   2. 列表頁 + 內頁兩階段作業
   3. 指紋比對仍然保留，用來極速跳過沒變動頁面
@@ -30,19 +30,6 @@ import time
 import unicodedata
 from dataclasses import dataclass
 from datetime import date, datetime
-from zoneinfo import ZoneInfo
-
-# HKT
-HKT = ZoneInfo("Asia/Hong_Kong")
-
-def hkt_now():
-    return datetime.now(HKT)
-
-def hkt_today_str():
-    return datetime.now(HKT).strftime("%Y-%m-%d")
-
-def hkt_now_str():
-    return datetime.now(HKT).strftime("%Y-%m-%d %H:%M:%S")
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse, urlunparse
@@ -178,30 +165,6 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
     title = normalize_text(raw_title)
     if not title:
         return None
-
-    # URL 解碼
-    title = unquote(title)
-    
-    # 移除句尾的副檔名
-    title = re.sub(r"\.(pdf|docx?|xlsx?|pptx?|zip|rar|7z|rtf|csv)$", "", title, flags=re.I).strip()
-    
-    # 移除 Apache index 常見的截斷後綴
-    title = re.sub(r"\.\.>$", "", title)
-    title = re.sub(r"\.\.&gt;$", "", title)
-    title = re.sub(r"\.\.$", "", title)
-    
-    # 將底線替換為空白
-    title = title.replace("_", " ")
-    title = re.sub(r"\s+", " ", title).strip()
-
-    # 智能移除童軍通告編號前綴 (例如 TPN/CIR/VS/2627/003 或 TPN CIR S 2526 006)
-    # 匹配: 2-5個英文字母 + (可選的英文部門代號) + 2-4位數字年份 + 2-3位數字序號
-    prefix_pattern = r"^[A-Za-z]{2,5}[/\-_\s]+(?:[A-Za-z]{1,4}[/\-_\s]+)*\d{2,4}[/\-_\s]+\d{2,3}[a-zA-Z]?\s*[/\-_\s]*"
-    cleaned_title = re.sub(prefix_pattern, "", title).strip()
-    
-    # 如果移除前綴後還有剩下真正的文字，就使用乾淨的標題；否則保留原樣(以免完全沒有標題)
-    if len(cleaned_title) > 2:
-        title = cleaned_title
 
     regex = config.get("title_filter_regex")
     if regex:
@@ -528,11 +491,9 @@ def compute_fingerprint(soup: BeautifulSoup, selector: str) -> str:
 # ─── 抓頁引擎 ──────────────────────────────────────────────
 def fetch_requests(url: str, config: Dict[str, Any], timeout: int = 20) -> FetchResult:
     try:
-        resp = SESSION.get(url, timeout=timeout, verify=config.get("verify_ssl", True))
+        resp = SESSION.get(url, timeout=timeout)
     except requests.exceptions.SSLError:
         resp = SESSION.get(url, timeout=timeout, verify=False)
-    except Exception as e:
-        raise e
     encoding_shield_response(resp, config)
     return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
 
@@ -611,115 +572,6 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     use_playwright = config.get("use_playwright", False)
     result: Optional[FetchResult] = None
 
-    # --- WP API Injection ---
-    if config.get("type") == "wordpress_api":
-        import requests
-        
-        all_posts = []
-        page = 1
-        max_pages = 10
-        
-        print(f"[{name}] === 開始抓取 WordPress API ===")
-
-        while page <= max_pages:
-            paged_url = f"{url}?per_page=100&page={page}"
-            try:
-                r = requests.get(
-                    paged_url,
-                    verify=config.get("verify_ssl", True),
-                    timeout=30,
-                    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-                )
-                
-                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")  # ← 重要診斷
-                
-                if r.status_code != 200:
-                    break
-                    
-                posts = r.json()
-                print(f"[{name}] 第 {page} 頁 返回類型: {type(posts)}, 數量: {len(posts) if isinstance(posts, list) else '非 list'}")  # ← 重要診斷
-                
-                if not isinstance(posts, list) or len(posts) == 0:
-                    print(f"[{name}] 第 {page} 頁沒有文章，停止")
-                    break
-                    
-                all_posts.extend(posts)
-                print(f"[{name}] ✅ 第 {page} 頁成功 | 本頁 {len(posts)} 筆 | 累計 {len(all_posts)} 筆")
-                page += 1
-                
-            except Exception as e:
-                print(f"[{name}] 第 {page} 頁異常: {e}")
-                break
-
-        # ==================== PDF 提取 ====================
-        mock_html = "<html><body>"
-        pdf_count = 0
-
-        for post in all_posts:
-            title = post.get("title", {}).get("rendered", "Unknown").strip()
-            date_str = post.get("date", "")[:10]
-            content = post.get("content", {}).get("rendered", "")
-
-            soup = BeautifulSoup(content, "html.parser")
-            
-            for a in soup.find_all("a", href=True):
-                href = a.get("href", "").strip()
-                if href and '.pdf' in href.lower():
-                    display_text = f"{date_str} | {title}"
-                    link_text = a.get_text(strip=True)
-                    if link_text:
-                        display_text += f" ({link_text})"
-                    
-                    mock_html += f'<a href="{href}">{display_text}</a><br/>'
-                    pdf_count += 1
-                    print(f"[{name}] 找到 PDF → {display_text}")
-
-        mock_html += "</body></html>"
-        
-        print(f"[{name}] 完成！總文章 {len(all_posts)} 筆，PDF {pdf_count} 個")
-        return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
-    # ---------------------------------
-
-
-    # --- Contentful API Injection ---
-    if config.get("type") == "contentful_api":
-        import requests, json
-        api_url = config.get("api_url")
-        headers = config.get("api_headers", {})
-        params = config.get("api_params", {})
-        try:
-            r = requests.get(api_url, params=params, headers=headers, timeout=15)
-            if r.status_code != 200:
-                print(f"  [{name}] ⚠️ Contentful API 回傳 {r.status_code}")
-                return None
-            data = r.json()
-            asset_map = {}
-            for asset in data.get("includes", {}).get("Asset", []):
-                try:
-                    asset_id = asset["sys"]["id"]
-                    file_url = asset["fields"]["file"]["url"]
-                    if file_url.startswith("//"):
-                        file_url = "https:" + file_url
-                    asset_map[asset_id] = file_url
-                except Exception:
-                    pass
-            mock_html = "<html><body>"
-            for item in data.get("items", []):
-                fields = item.get("fields", {})
-                title = fields.get("title", "Unknown Title")
-                attach = fields.get("attach")
-                if attach and isinstance(attach, dict):
-                    asset_id = attach.get("sys", {}).get("id")
-                    file_url = asset_map.get(asset_id)
-                    if file_url:
-                        mock_html += f'<a href="{file_url}">{title}</a><br/>'
-            mock_html += "</body></html>"
-            return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
-        except Exception as e:
-            print(f"  [{name}] ⚠️ Contentful API 失敗: {e}")
-            return None
-    # ---------------------------------
-
     try:
         result = fetch_requests(url, config, timeout=30)
         soup = BeautifulSoup(result.html, "html.parser")
@@ -728,7 +580,6 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         if use_playwright:
             print(f"  [{name}] requests 結果太空，改用 Playwright")
     except Exception as e:
-        import traceback; traceback.print_exc()
         print(f"  [{name}] ⚠️ requests: {type(e).__name__}")
 
     if use_playwright:
@@ -1171,7 +1022,7 @@ def supabase_upsert(records: List[Dict[str, Any]]):
             pass
 
 
-def supabase_update_records(records: List[Dict[str, Any]]):
+def supabase_update_records(records: List[Dict[str, Any]], new_date: str):
     if not records:
         return
     headers = {
@@ -1185,6 +1036,7 @@ def supabase_update_records(records: List[Dict[str, Any]]):
         if not source_site or not asset_url:
             continue
         payload = {
+            "captured_date": new_date,
             "title": rec.get("title", ""),
             "region": rec.get("region", ""),
         }
@@ -1241,13 +1093,12 @@ def process_source(
     today_str: str,
     force: bool = False,
     max_detail_pages: int = 12,
-) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], str, bool, Optional[str], bool]:
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], str, bool, Optional[str]]:
     print(f"  [{name}] {config.get('url', '')[:80]}...")
 
     result = fetch_main_page(name, config)
     if not result:
-        # If fetch_main_page returns None, it usually means network error or API error
-        return [], [], fingerprints.get(name, ""), True, None, True
+        return [], [], fingerprints.get(name, ""), True, None
 
     soup = BeautifulSoup(result.html, "html.parser")
     fp_selector = config.get("fingerprint_selector", "body")
@@ -1257,7 +1108,7 @@ def process_source(
     if not force and new_fp and old_fp and new_fp == old_fp:
         tag = "🎭 PW" if result.engine == "playwright" else "⏭️"
         print(f"  [{name}] {tag} 指紋相同，跳過 (0.1s)")
-        return [], [], new_fp, True, result.engine, False
+        return [], [], new_fp, True, result.engine
 
     assets = extract_assets_from_listing(
         name=name,
@@ -1292,7 +1143,7 @@ def process_source(
 
     if not assets:
         print(f"  [{name}] ⚠️ 指紋變動但無可下載資產")
-        return [], [], new_fp, False, result.engine, False
+        return [], [], new_fp, False, result.engine
 
     region = config.get("region", "")
     new_records: List[Dict[str, Any]] = []
@@ -1309,8 +1160,6 @@ def process_source(
             "captured_date": today_str,
         }
         if key in existing_keys:
-            # ⚠️ 保留舊 captured_date：不要覆寫已存在項目的入庫日期
-            payload.pop("captured_date", None)
             updated_records.append(payload)
         else:
             new_records.append(payload)
@@ -1318,12 +1167,12 @@ def process_source(
 
     tag = "🎭" if result.engine == "playwright" else ""
     print(f"  [{name}] {tag} 🆕{len(new_records)} 🔄{len(updated_records)} 📎{len(assets)}")
-    return new_records, updated_records, new_fp, False, result.engine, False
+    return new_records, updated_records, new_fp, False, result.engine
 
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.4 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.3 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1340,11 +1189,11 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.4")
+    print("🦅 全港童軍通告自動化圖書館 v5.3")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
-    print(f"   啟動: {hkt_now_str()}")
+    print(f"   啟動: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("═" * 60)
 
     if not SOURCES_PATH.exists():
@@ -1366,8 +1215,8 @@ def main(
     pw_count = sum(1 for s in sources.values() if s.get("use_playwright"))
     print(f"📋 {len(sources)} 個來源 ({pw_count} 需 Playwright, {len(sources)-pw_count} 靜態)\n")
 
-    today_str = hkt_today_str()
-    now_str = hkt_now_str()
+    today_str = date.today().isoformat()
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     fingerprints = load_fingerprints()
     local_cache = load_local_cache()
@@ -1393,45 +1242,35 @@ def main(
     skipped = 0
     processed = 0
     pw_used = 0
-    errors = 0
 
     source_items = list(sources.items())
     for i, (name, source_config) in enumerate(source_items, 1):
         print(f"[{i}/{len(source_items)}] {name}")
-        try:
-            new_recs, updated, fp, skip, engine, has_err = process_source(
-                name=name,
-                config=source_config,
-                fingerprints=fingerprints,
-                existing_keys=existing_keys,
-                today_str=today_str,
-                force=force,
-                max_detail_pages=max_detail_pages,
-            )
-            fingerprints[name] = fp
-            if engine == "playwright":
-                pw_used += 1
-            if skip:
-                skipped += 1
-            else:
-                processed += 1
-            if has_err:
-                errors += 1
-            all_new.extend(new_recs)
-            all_updated.extend(updated)
-        except Exception as e:
-            import traceback
-            traceback.print_exc()
-            print(f"  [{name}] 🚨 處理過程中發生未預期錯誤跳過: {e}")
+        new_recs, updated, fp, skip, engine = process_source(
+            name=name,
+            config=source_config,
+            fingerprints=fingerprints,
+            existing_keys=existing_keys,
+            today_str=today_str,
+            force=force,
+            max_detail_pages=max_detail_pages,
+        )
+        fingerprints[name] = fp
+        if engine == "playwright":
+            pw_used += 1
+        if skip:
             skipped += 1
-            
+        else:
+            processed += 1
+        all_new.extend(new_recs)
+        all_updated.extend(updated)
         if i < len(source_items):
             time.sleep(0.4)
 
     if not dry_run:
         if USE_SUPABASE:
             supabase_upsert(all_new)
-            supabase_update_records(all_updated)
+            supabase_update_records(all_updated, today_str)
         else:
             for record in all_new:
                 key = (record["source_site"], record["pdf_url"])
@@ -1439,12 +1278,11 @@ def main(
             for rec in all_updated:
                 key = (rec.get("source_site", ""), rec.get("pdf_url", ""))
                 if key in local_record_map:
-                    # ⚠️ 保留舊 captured_date：只更新標題/分區，不覆寫入庫日期
+                    local_record_map[key]["captured_date"] = today_str
                     local_record_map[key]["title"] = rec.get("title", local_record_map[key].get("title", ""))
                     local_record_map[key]["region"] = rec.get("region", local_record_map[key].get("region", ""))
             merged_records = list(local_record_map.values())
             grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
-            grouped_cache.setdefault("_meta", {})["has_errors"] = (errors > 0)
             grouped_cache.setdefault("_meta", {})["last_run"] = {
                 "updated_at": now_str,
                 "new": len(all_new),
@@ -1460,7 +1298,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.4")
+    print("📊 執行報告 v5.3")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
