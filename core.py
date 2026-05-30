@@ -103,7 +103,7 @@ SOCIAL_HOST_PATTERNS = [
 ]
 GENERIC_DOWNLOAD_TITLES = {
     "下載", "download", "檔案下載", "file download", "附件", "attachment",
-    "按此下載", "download here", "here", "click here"
+    "按此下載", "download here", "here", "click here", "pdf格式", "(pdf格式)", "doc格式", "(doc格式)"
 }
 ARTICLE_SOURCE_TYPES = {
     "home_news", "wordpress", "wordpress_archive", "wordpress_category",
@@ -225,7 +225,7 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
         return None
     if re.fullmatch(r"\d{1,2}\s+[A-Za-z]{3,9}\s+\d{2,4}", title):
         return None
-    if any(flag in title for flag in ["通告日期", "截止日期", "活動/訓練班名稱", "下載"]):
+    if any(flag in title for flag in ["通告日期", "截止日期", "活動/訓練班名稱"]):
         return None
 
     min_len = int(config.get("min_title_length") or 4)
@@ -665,10 +665,11 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
             for a in soup.find_all("a", href=True):
                 href = a.get("href", "").strip()
                 if href and '.pdf' in href.lower():
-                    display_text = f"{date_str} | {title}"
+                    display_text = title
                     link_text = a.get_text(strip=True)
-                    if link_text:
-                        display_text += f" ({link_text})"
+                    if link_text and not is_generic_download_title(link_text):
+                        if link_text.lower() not in title.lower():
+                            display_text += f" - {link_text}"
                     
                     mock_html += f'<a href="{href}">{display_text}</a><br/>'
                     pdf_count += 1
