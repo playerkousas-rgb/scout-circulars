@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.6.0",
+    "version": "5.6.1",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 48,
-    "note": "Strict error reporting & WP API cleanups"
+    "note": "Final fix: Playwright disabled to prevent GH Actions crash. Pure requests works perfectly."
   },
   "sources": {
     "總會": {
@@ -724,7 +724,7 @@
         "?ver="
       ],
       "notes": "原首頁為 frameset，改以 left.htm 作可解析入口；目前僅能抓公開 PDF/文件連結，待找到獨立通告頁後再精修。",
-      "use_playwright": true,
+      "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
