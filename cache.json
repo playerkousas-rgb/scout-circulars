@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-30 03:30:20",
+  "last_updated": "2026-05-30 11:58:54",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3548,
+    "total_notices": 3584,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -22475,6 +22475,330 @@
     ],
     "元朗西區": [
       {
+        "title": "高級航空活動章訓練班 – 取錄通知 (https://www.scout.org.hk/article attach/29308/AG042018C.pdf)",
+        "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "鄧永昌主席領袖木章助學金計劃(2024-25年度) (special01-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/special01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "鄧永昌主席領袖木章助學金計劃(2023-24年度) (special01-20231)",
+        "url": "https://www.ylw-scout.org.hk/circular/special01-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第554屆領導才訓練班-取錄通知 (training03-2024 admission.pdf)",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2024_admission.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024_admission.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第554屆領導才訓練班 (training03-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍支部-深資童軍先修章訓練班 (training02-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/training02-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍專章考驗日 (附件一(電子版))",
+        "url": "https://www.ylw-scout.org.hk/circular/training11-2025_form_appendix1.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025_form_appendix1.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍多媒體創作章(技能組)工作坊及考驗日 (training01-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/training01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章(技能組)訓練班 (training03-2023)",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍大會及聯誼日(更新) (activity04-2025v2)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity04-2025v2.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2025v2.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "海洋公園贊助免費門票事宜(5月23日前登記) (memo01-2026)",
+        "url": "https://www.ylw-scout.org.hk/circular/memo01-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/memo01-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "海洋公園贊助免費門票-分配數目及派發安排 (memo02-2026)",
+        "url": "https://www.ylw-scout.org.hk/circular/memo02-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/memo02-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "新界地域65周年紀念活動 「童承傳各區文化保育故事」 「元朗飲食文化」專題探討 (activity10-2023)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity10-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity10-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍主席盾比賽 2024 (activity05-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity05-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍主席盾比賽 2023 (activity08-2023)",
+        "url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity08-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity08-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍親子復活蛋填色設計比賽 (以下通告)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity02-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍綠色生活填色比賽 (activity04-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity04-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "元朗西區2024年『童軍獎券銷售比賽』結果 (activity06-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity06-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "元朗西區2023年度『童軍獎券銷售比賽』結果 (activity05-2023)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity05-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "『小童軍親子復活蛋填色設計比賽』結果公佈 (activity03-2024)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity03-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "『元西飛躍110-世界添美好齊創作 四格漫畫創作比賽』結果公佈 (activity06-2022)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity06-2022.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2022.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「地球部落童躍動」填色比賽 (activity07-2023)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity07-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity07-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training12 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/training12-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training12-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training11 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/training11-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training10 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/training10-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training10-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training09 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/training09-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training09-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training08 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/training08-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training08-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training07 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/training07-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training07-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "special03 2024",
+        "url": "https://www.ylw-scout.org.hk/circular/special03-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special03-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "special02 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/special02-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special02-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "admin01 2024",
+        "url": "https://www.ylw-scout.org.hk/circular/admin01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "admin01 2023",
+        "url": "https://www.ylw-scout.org.hk/circular/admin01-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "activity06 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/activity06-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "activity05 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/activity05-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2024年童軍獎券銷售比賽 (以下通告)",
+        "url": "https://www.ylw-scout.org.hk/circular/activity01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2023年童軍獎券銷售比賽 (activity01-2023)",
+        "url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity01-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity01-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
         "title": "重劃區界後的範圍地圖(附件一)",
         "url": "https://www.scout.org.hk/article_attach/7549/special2_i.pdf",
         "pdf_url": "https://www.scout.org.hk/article_attach/7549/special2_i.pdf",
@@ -22520,52 +22844,7 @@
         "region": "新界地域"
       },
       {
-        "title": "深資童軍及樂行童軍支部聯合活動 – 高結構繩網歷奇同樂日",
-        "url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
-        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
-        "source_site": "元朗西區",
-        "region": "新界地域"
-      },
-      {
-        "title": "幼童軍金紫荊獎章訓練班(戶外挑戰)暨考驗",
-        "url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
-        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
-        "source_site": "元朗西區",
-        "region": "新界地域"
-      },
-      {
-        "title": "幼童軍金紫荊獎章考驗 – 歷險挑戰 (運動攀登)",
-        "url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
-        "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
-        "source_site": "元朗西區",
-        "region": "新界地域"
-      },
-      {
-        "title": "元朗西區慶祝50週年標語設計比賽",
-        "url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
-        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
-        "source_site": "元朗西區",
-        "region": "新界地域"
-      },
-      {
-        "title": "元朗西區慶祝50週年標誌及紀念章設計比賽",
-        "url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
-        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
-        "date": "2026-05-21",
-        "captured_date": "2026-05-21",
-        "source_site": "元朗西區",
-        "region": "新界地域"
-      },
-      {
-        "title": "training01-2026",
+        "title": "童軍專章考驗日-取錄通知 (training01-2026.pdf)",
         "url": "https://www.ylw-scout.org.hk/circular/training01-2026.pdf",
         "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2026.pdf",
         "date": "2026-05-21",
@@ -22574,7 +22853,7 @@
         "region": "新界地域"
       },
       {
-        "title": "activity06-2026",
+        "title": "小童軍支部領袖「DIY護手霜」工作坊 (activity06-2026)",
         "url": "https://www.ylw-scout.org.hk/circular/activity06-2026.pdf",
         "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2026.pdf",
         "date": "2026-05-21",
@@ -22583,9 +22862,54 @@
         "region": "新界地域"
       },
       {
-        "title": "activity05-2026",
+        "title": "『小童軍親子賀年利是封花燈設計比賽』結果公佈 (activity05-2026.pdf)",
         "url": "https://www.ylw-scout.org.hk/circular/activity05-2026.pdf",
         "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2026.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training03 2026",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "training02 2026",
+        "url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "activity04 2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "activity03 2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
+        "date": "2026-05-21",
+        "captured_date": "2026-05-21",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "activity02 2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
         "date": "2026-05-21",
         "captured_date": "2026-05-21",
         "source_site": "元朗西區",
@@ -23482,7 +23806,7 @@
     ],
     "屯門東區": [
       {
-        "title": "TME_幼童軍歷奇章考核紀錄冊",
+        "title": "TME 幼童軍歷奇章考核紀錄冊",
         "url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
         "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
         "date": "2026-05-30",
@@ -32088,7 +32412,7 @@
       "source_site": "屯門東區",
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
-      "title": "TME_幼童軍歷奇章考核紀錄冊",
+      "title": "TME 幼童軍歷奇章考核紀錄冊",
       "captured_date": "2026-05-30"
     },
     {
@@ -32677,6 +33001,258 @@
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
       "title": "(docx格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+      "title": "高級航空活動章訓練班 – 取錄通知 (https://www.scout.org.hk/article attach/29308/AG042018C.pdf)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2024.pdf",
+      "title": "鄧永昌主席領袖木章助學金計劃(2024-25年度) (special01-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2023.pdf",
+      "title": "鄧永昌主席領袖木章助學金計劃(2023-24年度) (special01-20231)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024_admission.pdf",
+      "title": "第554屆領導才訓練班-取錄通知 (training03-2024 admission.pdf)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024.pdf",
+      "title": "第554屆領導才訓練班 (training03-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2024.pdf",
+      "title": "童軍支部-深資童軍先修章訓練班 (training02-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025_form_appendix1.pdf",
+      "title": "童軍專章考驗日 (附件一(電子版))",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2024.pdf",
+      "title": "童軍多媒體創作章(技能組)工作坊及考驗日 (training01-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2023.pdf",
+      "title": "童軍先鋒工程章(技能組)訓練班 (training03-2023)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2025v2.pdf",
+      "title": "深資童軍大會及聯誼日(更新) (activity04-2025v2)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/memo01-2026.pdf",
+      "title": "海洋公園贊助免費門票事宜(5月23日前登記) (memo01-2026)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/memo02-2026.pdf",
+      "title": "海洋公園贊助免費門票-分配數目及派發安排 (memo02-2026)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity10-2023.pdf",
+      "title": "新界地域65周年紀念活動 「童承傳各區文化保育故事」 「元朗飲食文化」專題探討 (activity10-2023)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2024.pdf",
+      "title": "幼童軍主席盾比賽 2024 (activity05-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity08-2023.pdf",
+      "title": "幼童軍主席盾比賽 2023 (activity08-2023)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2024.pdf",
+      "title": "小童軍親子復活蛋填色設計比賽 (以下通告)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2024.pdf",
+      "title": "小童軍綠色生活填色比賽 (activity04-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2024.pdf",
+      "title": "元朗西區2024年『童軍獎券銷售比賽』結果 (activity06-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2023.pdf",
+      "title": "元朗西區2023年度『童軍獎券銷售比賽』結果 (activity05-2023)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2024.pdf",
+      "title": "『小童軍親子復活蛋填色設計比賽』結果公佈 (activity03-2024)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2022.pdf",
+      "title": "『元西飛躍110-世界添美好齊創作 四格漫畫創作比賽』結果公佈 (activity06-2022)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity07-2023.pdf",
+      "title": "「地球部落童躍動」填色比賽 (activity07-2023)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training12-2025.pdf",
+      "title": "training12 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025.pdf",
+      "title": "training11 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training10-2025.pdf",
+      "title": "training10 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training09-2025.pdf",
+      "title": "training09 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training08-2025.pdf",
+      "title": "training08 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training07-2025.pdf",
+      "title": "training07 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special03-2024.pdf",
+      "title": "special03 2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special02-2025.pdf",
+      "title": "special02 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2024.pdf",
+      "title": "admin01 2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2023.pdf",
+      "title": "admin01 2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2025.pdf",
+      "title": "activity06 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2025.pdf",
+      "title": "activity05 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity01-2024.pdf",
+      "title": "2024年童軍獎券銷售比賽 (以下通告)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity01-2023.pdf",
+      "title": "2023年童軍獎券銷售比賽 (activity01-2023)",
       "captured_date": "2026-05-30"
     },
     {
@@ -56125,57 +56701,57 @@
     {
       "source_site": "元朗西區",
       "region": "新界地域",
-      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
-      "title": "深資童軍及樂行童軍支部聯合活動 – 高結構繩網歷奇同樂日",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "元朗西區",
-      "region": "新界地域",
-      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
-      "title": "幼童軍金紫荊獎章訓練班(戶外挑戰)暨考驗",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "元朗西區",
-      "region": "新界地域",
-      "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
-      "title": "幼童軍金紫荊獎章考驗 – 歷險挑戰 (運動攀登)",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "元朗西區",
-      "region": "新界地域",
-      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
-      "title": "元朗西區慶祝50週年標語設計比賽",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "元朗西區",
-      "region": "新界地域",
-      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
-      "title": "元朗西區慶祝50週年標誌及紀念章設計比賽",
-      "captured_date": "2026-05-21"
-    },
-    {
-      "source_site": "元朗西區",
-      "region": "新界地域",
       "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2026.pdf",
-      "title": "training01-2026",
+      "title": "童軍專章考驗日-取錄通知 (training01-2026.pdf)",
       "captured_date": "2026-05-21"
     },
     {
       "source_site": "元朗西區",
       "region": "新界地域",
       "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2026.pdf",
-      "title": "activity06-2026",
+      "title": "小童軍支部領袖「DIY護手霜」工作坊 (activity06-2026)",
       "captured_date": "2026-05-21"
     },
     {
       "source_site": "元朗西區",
       "region": "新界地域",
       "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2026.pdf",
-      "title": "activity05-2026",
+      "title": "『小童軍親子賀年利是封花燈設計比賽』結果公佈 (activity05-2026.pdf)",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
+      "title": "training03 2026",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
+      "title": "training02 2026",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
+      "title": "activity04 2026",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
+      "title": "activity03 2026",
+      "captured_date": "2026-05-21"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
+      "title": "activity02 2026",
       "captured_date": "2026-05-21"
     },
     {
@@ -56987,12 +57563,13 @@
       "慈雲山區"
     ],
     "total_sources": 48,
+    "has_errors": false,
     "last_run": {
-      "updated_at": "2026-05-30 03:30:20",
-      "new": 5,
-      "updated": 87,
-      "skipped": 41,
-      "processed": 7,
+      "updated_at": "2026-05-30 11:58:54",
+      "new": 36,
+      "updated": 897,
+      "skipped": 42,
+      "processed": 6,
       "playwright_used": 0
     }
   }
