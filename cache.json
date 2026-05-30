@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-30 14:36:24",
+  "last_updated": "2026-05-30 14:53:04",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3210,
+    "total_notices": 3418,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -22473,8 +22473,1117 @@
         "region": "新界地域"
       }
     ],
-    "元朗西區": [],
-    "十八鄉區": [],
+    "元朗西區": [
+      {
+        "title": "高級航空活動章訓練班 – 取錄通知 - https://www.scout.org.hk/article attach/29308/AG042018C",
+        "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "鄧永昌主席領袖木章助學金計劃(2024-25年度) - special01-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/special01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "鄧永昌主席領袖木章助學金計劃(2023-24年度) - special01-20231",
+        "url": "https://www.ylw-scout.org.hk/circular/special01-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第554屆領導才訓練班-取錄通知 - training03-2024 admission",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2024_admission.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024_admission.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第554屆領導才訓練班 - training03-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍支部-深資童軍先修章訓練班 - training02-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/training02-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍專章考驗日-取錄通知 - training01-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/training01-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍專章考驗日 - 附件一(電子版)",
+        "url": "https://www.ylw-scout.org.hk/circular/training11-2025_form_appendix1.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025_form_appendix1.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍專章考驗日",
+        "url": "https://www.ylw-scout.org.hk/circular/training11-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍射箭章(技能組)訓練班 – 取錄通知",
+        "url": "https://www.ylw-scout.org.hk/circular/training10-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training10-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍射箭章(技能組)訓練班",
+        "url": "https://www.ylw-scout.org.hk/circular/training07-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training07-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍多媒體創作章(技能組)工作坊及考驗日 - training01-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/training01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章(技能組)訓練班 - training03-2023",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童服務–聖誕節長者家居探訪義工活動",
+        "url": "https://www.ylw-scout.org.hk/circular/activity05-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍活動金帶A-103 露營技藝及營務工作考驗- 取錄通知",
+        "url": "https://www.ylw-scout.org.hk/circular/training12-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training12-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍活動金帶 – A-103露營技藝及營務工作考驗",
+        "url": "https://www.ylw-scout.org.hk/circular/training08-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training08-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍大會及聯誼日(更新) - activity04-2025v2",
+        "url": "https://www.ylw-scout.org.hk/circular/activity04-2025v2.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2025v2.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍及樂行童軍支部聯合活動 – 高結構繩網歷奇同樂日",
+        "url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "海洋公園贊助免費門票事宜(5月23日前登記) - memo01-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/memo01-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/memo01-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "海洋公園贊助免費門票-分配數目及派發安排 - memo02-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/memo02-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/memo02-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "新界地域65周年紀念活動 「童承傳各區文化保育故事」 「元朗飲食文化」專題探討 - activity10-2023",
+        "url": "https://www.ylw-scout.org.hk/circular/activity10-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity10-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章訓練班(戶外挑戰)暨考驗",
+        "url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章考驗 – 歷險挑戰 (運動攀登)",
+        "url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍公園定向章(初級)訓練班",
+        "url": "https://www.ylw-scout.org.hk/circular/training09-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training09-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍主席盾比賽 2024 - activity05-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/activity05-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍主席盾比賽 2023 - activity08-2023",
+        "url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity08-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity08-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍親子賀年利是封花燈設計比賽",
+        "url": "https://www.ylw-scout.org.hk/circular/activity06-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍親子復活蛋填色設計比賽 - 以下通告",
+        "url": "https://www.ylw-scout.org.hk/circular/activity02-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍綠色生活填色比賽 - activity04-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/activity04-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍支部領袖「DIY護手霜」工作坊 - activity06-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity06-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "元朗西區慶祝50週年標語設計比賽",
+        "url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "元朗西區慶祝50週年標誌及紀念章設計比賽",
+        "url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "元朗西區2024年『童軍獎券銷售比賽』結果 - activity06-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/activity06-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "元朗西區2023年度『童軍獎券銷售比賽』結果 - activity05-2023",
+        "url": "https://www.ylw-scout.org.hk/circular/activity05-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "『小童軍親子賀年利是封花燈設計比賽』結果公佈 - activity05-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity05-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2026.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "『小童軍親子復活蛋填色設計比賽』結果公佈 - activity03-2024",
+        "url": "https://www.ylw-scout.org.hk/circular/activity03-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "『元西飛躍110-世界添美好齊創作 四格漫畫創作比賽』結果公佈 - activity06-2022",
+        "url": "https://www.ylw-scout.org.hk/circular/activity06-2022.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2022.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「地球部落童躍動」填色比賽 - activity07-2023",
+        "url": "https://www.ylw-scout.org.hk/circular/activity07-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity07-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "special03 2024",
+        "url": "https://www.ylw-scout.org.hk/circular/special03-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special03-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "special02 2025",
+        "url": "https://www.ylw-scout.org.hk/circular/special02-2025.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/special02-2025.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "admin01 2024",
+        "url": "https://www.ylw-scout.org.hk/circular/admin01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "admin01 2023",
+        "url": "https://www.ylw-scout.org.hk/circular/admin01-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2024年童軍獎券銷售比賽 - 以下通告",
+        "url": "https://www.ylw-scout.org.hk/circular/activity01-2024.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity01-2024.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2023年童軍獎券銷售比賽 - activity01-2023",
+        "url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity01-2023.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity01-2023.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      }
+    ],
+    "十八鄉區": [
+      {
+        "title": "金 紫荊獎章考驗營",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202303%20(Cub%20GBA%20camp%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202303%20(Cub%20GBA%20camp%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第十屆幼童軍繩結章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201815%20(cub%20knotting%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201815%20(cub%20knotting%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第十四屆幼童軍繩結章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第十二屆幼童軍繩結章訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第十一屆幼童軍繩結章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第三屆幼童軍繩結訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第12 屆露營技能比賽",
+        "url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍騎術( 興趣組) 考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍騎術( 興趣組) 考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍騎術( 興趣組) 考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電腦章訓練班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電腦章訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電子訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電子訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電子章訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍獨木舟訓練班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍獨木舟訓 練 班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍營 藝 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍消防訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍消防章訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍步操章訓練班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201812%20(Scout%20Footdrill%20Badge%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201812%20(Scout%20Footdrill%20Badge%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍機械章訓練班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍樹木護理訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍愛護動物訓 練 班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍愛護動物訓 練 班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍急救訓 練 班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍急救章訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍急救章訓 練 班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍專章考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍地圖閱讀訓練班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201809%20(Scout%20Map%20Reading%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201809%20(Scout%20Map%20Reading%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍原野烹飪訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍初級航空活動訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍初級航空活動訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍公民訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍公民章訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍公民章訓 練 班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201804%20(Scout%20Civics%20Badge%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201804%20(Scout%20Civics%20Badge%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程訓練班( 教導組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程訓練班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程訓 練 班( 教導組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 教導組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 教導組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 技能組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 技能組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童承傳 - 認識本土文化「元朗街坊十年例醮勝會」體驗活動",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程訓練班2023",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程考核",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍會議程序研習班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍先鋒工程( 實踐) 考驗2024",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍先鋒工程( 實踐) 考驗",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章考驗營",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章考驗日營",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章挑戰營2020",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章挑戰營2019",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章挑戰營2018",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍繩結章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍水上安全訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍公園定向章( 初級/ 中級/ 高級) 訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍公園定向初級/ 中級章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小草愛自然填色比賽",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍T - shirt 設計比賽",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "天后誕會景巡遊 – 服務",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201802%20(Tin%20Hau).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201802%20(Tin%20Hau).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "天后誕會景巡遊",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "夜釣墨魚樂消遙2024",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "十八鄉區童軍山野同 行 齊賀110",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "十八鄉區甲辰年新春團拜暨草蜢小狼競技日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "十八鄉區持續社區服務 - 「耆樂童聚文化遊」旅團服務招募",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "初級航空活動章訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "中級航空活動章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童服務」十八鄉區關懷長者探訪服務 - 招募旅團協助",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「小草愛自然填色比賽」結果",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「地球部落童躍動」",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2019 年香港童軍大會操",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201912%20(Scout%20Rally%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201912%20(Scout%20Rally%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2018 深資童軍繩結及先鋒工程訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2018 年香港童軍大會操",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201813%20(Scout%20Rally%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201813%20(Scout%20Rally%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2010 年香港童軍大會操",
+        "url": "https://www.sph-scout.org.hk/Circular/ADM101105_2010%20(Scout%20Rally).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/ADM101105_2010%20(Scout%20Rally).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2010 年 天后寶誕會景巡遊",
+        "url": "https://www.sph-scout.org.hk/Circular/circular%202010-03-30%20(Tin%20Hau).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-03-30%20(Tin%20Hau).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      }
+    ],
     "屯門西區": [],
     "北葵涌區": [
       {
@@ -22622,7 +23731,773 @@
         "region": "新界地域"
       }
     ],
-    "屯門東區": [],
+    "屯門東區": [
+      {
+        "title": "甲辰年聯合新春團拜暨「共融社群賀新歲嘉年華」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "本區各旅旅長",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "屯東童承傳「小童軍親子馬禮遜樓填色比賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "屯東童承傳「小童軍親子馬禮遜樓填色比賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「香港童軍總會新界地域屯門東區區務委員會2025至2026年度周年大會暨2026至2027年度區務委員會就職典禮」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「香港童軍總會新界地域屯門東區區務委員會2024至2025年度周年大會暨2025至2026年度區務委員會就職典禮」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「香港童軍總會新界地域屯門東區區務委員會2023至2024年度周年大會暨2024至2025年度區務委員會就職典禮」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「香港童軍總會新界地域屯門東區區務委員會2023至2024年度周年大會暨2024至2025年度區務委員會就職典禮」請柬",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「香港童軍總會新界地域屯門東區區務委員會2021至2022年度周年會議」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「緣繩下降體驗日」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「第十二屆幼童軍會長盾挑戰賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「第十三屆幼童軍會長盾挑戰賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「第十三屆幼童軍會長盾挑戰賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「第十一屆幼童軍會長盾挑戰賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「第十一屆幼童軍會長盾挑戰賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍露營訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍露營訓練班」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍消防訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍消防訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍消防訓練班」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍消防訓練班」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍多媒體創作訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍多媒體創作訓練班」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍多媒體創作章(技能組)訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍多媒體創作章(技能組)訓練班」 取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍原野烹飪章(技能組)訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍原野烹飪章(技能組)訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍共融章(服務組)訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍共融章 (服務組) 訓練班」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童軍公民章、共融章暨社區參與章訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童行邊城遊鳳凰」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童服務-六色積木義工活動」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童服務-「溝通無障礙」嘉年華」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童服務 - 童軍生活體驗」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「積極公民」獎章系列 -- 第6屆社區應急先鋒訓練班(童軍支部) 取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「白浪島訓練計劃 - 歷險營2022」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「獨木舟訓練班(一星章及二星章)暨獨木舟章(興趣組)訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍聯合集會」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍聯合集會--黑夜探險」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍消防訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍消防訓練班」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍原野生活知識、露營技藝及營務工作考驗工作坊」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍原野生活知識、露營技藝及營務工作考驗工作坊」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍先修章-認知項目工作坊」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍/樂行童軍遠足訓練班 」通告 (香港青年獎勵計劃銀章級野外鍛鍊科訓練班)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「水上活動同樂日」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「旅團活動知會表網上版」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「慶祝香港童軍115 周年 - 屯門東區紀念章設計比賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「幼童軍活動徽章考驗日2024」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「幼童軍水上安全章訓練班暨小航海家計劃」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「幼童軍支部小狼培育工作坊」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「幼童軍支部小狼培育工作坊」 取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「幼童軍創意揮春設計比賽2024」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「幼童軍創意揮春設計比賽2024」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區童軍旅團專訪投稿」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區童軍專章考驗--「堅.要.考章」系列:體育」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區童軍專章考驗 -「堅.要.考章」系列(二)」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區童軍專章考驗 -「堅.要.考章」系列(一)」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區童軍創意揮春設計比賽2024」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區童軍創意揮春設計比賽2024」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區慶祝香港童軍115周年幼童軍新春利是封設計比賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區慶祝香港童軍115周年幼童軍新春利是封設計比賽」成績公布",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區慶祝香港童軍115 周年小童軍親子填色比賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區慶祝香港童軍115 周年小童軍親子填色比賽」成績公布",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區主席盃童軍技能挑戰賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區主席盃童軍技能挑戰賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區主席盃童軍技能挑戰賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區主席盃–童軍技能挑戰賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區–童承傳自選屯東「童活動」」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區 - 童承傳「出類拔萃童軍小組」成員栽培計劃」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「小童軍迎新年親子揮春設計比賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「小、幼童軍‧同行未來@【我的童軍生活】填色比賽」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「小、幼童軍‧同行未來@【我的童軍生活】填色比賽」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「【我的童軍生活】影片創作比賽2024」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「【我的童軍生活】影片創作比賽2024」成績公佈",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「「積極公民」獎章系列 -- 第6屆社區應急先鋒訓練班(童軍支部)」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「2026 年各支部申請童軍最高榮譽獎章提名須知」",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「2025年各支部申請童軍最高榮譽獎章提名須知」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「110與老抗疫-香港童軍110周年認可慶祝活動」 通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "TME 童軍探索獎章 教學資源平台",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "TME 幼童軍獎章考核紀錄冊",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "TME 幼童軍歷奇章考核紀錄冊",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "TME 幼童軍歷奇章考核紀錄冊",
+        "url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+        "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "TME 幼童軍會員章考核紀錄冊",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "(docx格式)",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      }
+    ],
     "荃灣區": [
       {
         "title": "郵件貼上足夠郵資",
@@ -29035,6 +30910,1462 @@
       "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/media/form/1600084232_FORM_SST01.docx",
       "title": "SST01 訓練班 / 活動 / 講座集體報名表",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
+      "title": "甲辰年聯合新春團拜暨「共融社群賀新歲嘉年華」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf",
+      "title": "本區各旅旅長",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01.pdf",
+      "title": "屯東童承傳「小童軍親子馬禮遜樓填色比賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_24_01A.pdf",
+      "title": "屯東童承傳「小童軍親子馬禮遜樓填色比賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_01.pdf",
+      "title": "「香港童軍總會新界地域屯門東區區務委員會2025至2026年度周年大會暨2026至2027年度區務委員會就職典禮」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_25_04.pdf",
+      "title": "「香港童軍總會新界地域屯門東區區務委員會2024至2025年度周年大會暨2025至2026年度區務委員會就職典禮」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_01.pdf",
+      "title": "「香港童軍總會新界地域屯門東區區務委員會2023至2024年度周年大會暨2024至2025年度區務委員會就職典禮」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_Invitation_2324_V2.pdf",
+      "title": "「香港童軍總會新界地域屯門東區區務委員會2023至2024年度周年大會暨2024至2025年度區務委員會就職典禮」請柬",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_22_01.pdf",
+      "title": "「香港童軍總會新界地域屯門東區區務委員會2021至2022年度周年會議」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_02.pdf",
+      "title": "「緣繩下降體驗日」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_02B.pdf",
+      "title": "「第十二屆幼童軍會長盾挑戰賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_01.pdf",
+      "title": "「第十三屆幼童軍會長盾挑戰賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_02A.pdf",
+      "title": "「第十三屆幼童軍會長盾挑戰賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01.pdf",
+      "title": "「第十一屆幼童軍會長盾挑戰賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_22_01A.pdf",
+      "title": "「第十一屆幼童軍會長盾挑戰賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01.pdf",
+      "title": "「童軍露營訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_01A.pdf",
+      "title": "「童軍露營訓練班」取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02.pdf",
+      "title": "「童軍消防訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02(R2).pdf",
+      "title": "「童軍消防訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_02A.pdf",
+      "title": "「童軍消防訓練班」取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_02_admission.pdf",
+      "title": "「童軍消防訓練班」取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04.pdf",
+      "title": "「童軍多媒體創作訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_04_admission.pdf",
+      "title": "「童軍多媒體創作訓練班」取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01.pdf",
+      "title": "「童軍多媒體創作章(技能組)訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_01A.pdf",
+      "title": "「童軍多媒體創作章(技能組)訓練班」 取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_05.pdf",
+      "title": "「童軍原野烹飪章(技能組)訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_02.pdf",
+      "title": "「童軍原野烹飪章(技能組)訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06.pdf",
+      "title": "「童軍共融章(服務組)訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_06A.pdf",
+      "title": "「童軍共融章 (服務組) 訓練班」取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_03.pdf",
+      "title": "「童軍公民章、共融章暨社區參與章訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_03.pdf",
+      "title": "「童行邊城遊鳳凰」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_07.pdf",
+      "title": "「童服務-六色積木義工活動」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_08.pdf",
+      "title": "「童服務-「溝通無障礙」嘉年華」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_02.pdf",
+      "title": "「童服務 - 童軍生活體驗」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03A.pdf",
+      "title": "「積極公民」獎章系列 -- 第6屆社區應急先鋒訓練班(童軍支部) 取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_01.pdf",
+      "title": "「白浪島訓練計劃 - 歷險營2022」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_01.pdf",
+      "title": "「獨木舟訓練班(一星章及二星章)暨獨木舟章(興趣組)訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_03.pdf",
+      "title": "「深資童軍聯合集會」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_04.pdf",
+      "title": "「深資童軍聯合集會--黑夜探險」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01(R2).pdf",
+      "title": "「深資童軍消防訓練班」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_24_01_admission.pdf",
+      "title": "「深資童軍消防訓練班」取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01.pdf",
+      "title": "「深資童軍原野生活知識、露營技藝及營務工作考驗工作坊」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_25_01A.pdf",
+      "title": "「深資童軍原野生活知識、露營技藝及營務工作考驗工作坊」取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_02.pdf",
+      "title": "「深資童軍先修章-認知項目工作坊」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_02.pdf",
+      "title": "「深資童軍/樂行童軍遠足訓練班 」通告 (香港青年獎勵計劃銀章級野外鍛鍊科訓練班)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_03.pdf",
+      "title": "「水上活動同樂日」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_24_02.pdf",
+      "title": "「旅團活動知會表網上版」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01.pdf",
+      "title": "「慶祝香港童軍115 周年 - 屯門東區紀念章設計比賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_24_03.pdf",
+      "title": "「幼童軍活動徽章考驗日2024」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_23_01.pdf",
+      "title": "「幼童軍水上安全章訓練班暨小航海家計劃」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01.pdf",
+      "title": "「幼童軍支部小狼培育工作坊」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_26_01A.pdf",
+      "title": "「幼童軍支部小狼培育工作坊」 取錄名單",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01.pdf",
+      "title": "「幼童軍創意揮春設計比賽2024」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_CS_24_01A.pdf",
+      "title": "「幼童軍創意揮春設計比賽2024」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_04.pdf",
+      "title": "「屯門東區童軍旅團專訪投稿」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_24_03.pdf",
+      "title": "「屯門東區童軍專章考驗--「堅.要.考章」系列:體育」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_03.pdf",
+      "title": "「屯門東區童軍專章考驗 -「堅.要.考章」系列(二)」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_02.pdf",
+      "title": "「屯門東區童軍專章考驗 -「堅.要.考章」系列(一)」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01.pdf",
+      "title": "「屯門東區童軍創意揮春設計比賽2024」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_01A.pdf",
+      "title": "「屯門東區童軍創意揮春設計比賽2024」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01.pdf",
+      "title": "「屯門東區慶祝香港童軍115周年幼童軍新春利是封設計比賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_C_25_01A.pdf",
+      "title": "「屯門東區慶祝香港童軍115周年幼童軍新春利是封設計比賽」成績公布",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01.pdf",
+      "title": "「屯門東區慶祝香港童軍115 周年小童軍親子填色比賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_26_01A.pdf",
+      "title": "「屯門東區慶祝香港童軍115 周年小童軍親子填色比賽」成績公布",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04.pdf",
+      "title": "「屯門東區主席盃童軍技能挑戰賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_23_04A.pdf",
+      "title": "「屯門東區主席盃童軍技能挑戰賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01A.pdf",
+      "title": "「屯門東區主席盃童軍技能挑戰賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_22_01.pdf",
+      "title": "「屯門東區主席盃–童軍技能挑戰賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_03.pdf",
+      "title": "「屯門東區–童承傳自選屯東「童活動」」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_23_02.pdf",
+      "title": "「屯門東區 - 童承傳「出類拔萃童軍小組」成員栽培計劃」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_G_21_01A.pdf",
+      "title": "「小童軍迎新年親子揮春設計比賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05.pdf",
+      "title": "「小、幼童軍‧同行未來@【我的童軍生活】填色比賽」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_05A.pdf",
+      "title": "「小、幼童軍‧同行未來@【我的童軍生活】填色比賽」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06.pdf",
+      "title": "「【我的童軍生活】影片創作比賽2024」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_24_06A.pdf",
+      "title": "「【我的童軍生活】影片創作比賽2024」成績公佈",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_03.pdf",
+      "title": "「「積極公民」獎章系列 -- 第6屆社區應急先鋒訓練班(童軍支部)」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_04.pdf",
+      "title": "「2026 年各支部申請童軍最高榮譽獎章提名須知」",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_25_01.pdf",
+      "title": "「2025年各支部申請童軍最高榮譽獎章提名須知」通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.pdf",
+      "title": "「110與老抗疫-香港童軍110周年認可慶祝活動」 通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_探索獎章_教學資源平台.pdf",
+      "title": "TME 童軍探索獎章 教學資源平台",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍獎章考核紀錄冊.pdf",
+      "title": "TME 幼童軍獎章考核紀錄冊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_幼童軍歷奇章考核紀錄冊.pdf",
+      "title": "TME 幼童軍歷奇章考核紀錄冊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/form/2007_No_2.doc",
+      "title": "TME 幼童軍歷奇章考核紀錄冊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_會員章考核紀錄冊.pdf",
+      "title": "TME 幼童軍會員章考核紀錄冊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_22_03.docx",
+      "title": "(docx格式)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202303%20(Cub%20GBA%20camp%202023).pdf",
+      "title": "金 紫荊獎章考驗營",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201815%20(cub%20knotting%202018).pdf",
+      "title": "第十屆幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
+      "title": "第十四屆幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
+      "title": "第十二屆幼童軍繩結章訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
+      "title": "第十一屆幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
+      "title": "第三屆幼童軍繩結訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
+      "title": "第12 屆露營技能比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
+      "title": "童軍騎術( 興趣組) 考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
+      "title": "童軍騎術( 興趣組) 考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
+      "title": "童軍騎術( 興趣組) 考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
+      "title": "童軍電腦章訓練班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
+      "title": "童軍電腦章訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
+      "title": "童軍電子訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
+      "title": "童軍電子訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
+      "title": "童軍電子章訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
+      "title": "童軍獨木舟訓練班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
+      "title": "童軍獨木舟訓 練 班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
+      "title": "童軍營 藝 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
+      "title": "童軍消防訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
+      "title": "童軍消防章訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201812%20(Scout%20Footdrill%20Badge%202018).pdf",
+      "title": "童軍步操章訓練班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
+      "title": "童軍機械章訓練班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
+      "title": "童軍樹木護理訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
+      "title": "童軍愛護動物訓 練 班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
+      "title": "童軍愛護動物訓 練 班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
+      "title": "童軍急救訓 練 班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
+      "title": "童軍急救章訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
+      "title": "童軍急救章訓 練 班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
+      "title": "童軍專章考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201809%20(Scout%20Map%20Reading%202018).pdf",
+      "title": "童軍地圖閱讀訓練班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
+      "title": "童軍原野烹飪訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
+      "title": "童軍初級航空活動訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
+      "title": "童軍初級航空活動訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
+      "title": "童軍公民訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
+      "title": "童軍公民章訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201804%20(Scout%20Civics%20Badge%202018).pdf",
+      "title": "童軍公民章訓 練 班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
+      "title": "童軍先鋒工程訓練班( 教導組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
+      "title": "童軍先鋒工程訓練班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
+      "title": "童軍先鋒工程訓 練 班( 教導組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
+      "title": "童軍先鋒工程訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+      "title": "童軍先鋒工程章( 教導組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+      "title": "童軍先鋒工程章( 教導組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+      "title": "童軍先鋒工程章( 技能組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+      "title": "童軍先鋒工程章( 技能組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
+      "title": "童承傳 - 認識本土文化「元朗街坊十年例醮勝會」體驗活動",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
+      "title": "深資童軍繩結及先鋒工程訓練班2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
+      "title": "深資童軍繩結及先鋒工程訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
+      "title": "深資童軍繩結及先鋒工程訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
+      "title": "深資童軍繩結及先鋒工程考核",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
+      "title": "深資童軍會議程序研習班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
+      "title": "深資童軍先鋒工程( 實踐) 考驗2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
+      "title": "深資童軍先鋒工程( 實踐) 考驗",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
+      "title": "幼童軍金紫荊獎章考驗營",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
+      "title": "幼童軍金紫荊獎章考驗日營",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
+      "title": "幼童軍金紫荊獎章挑戰營2020",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
+      "title": "幼童軍金紫荊獎章挑戰營2019",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
+      "title": "幼童軍金紫荊獎章挑戰營2018",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
+      "title": "幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
+      "title": "幼童軍水上安全訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
+      "title": "幼童軍公園定向章( 初級/ 中級/ 高級) 訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
+      "title": "幼童軍公園定向初級/ 中級章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
+      "title": "小草愛自然填色比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
+      "title": "小童軍T - shirt 設計比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201802%20(Tin%20Hau).pdf",
+      "title": "天后誕會景巡遊 – 服務",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
+      "title": "天后誕會景巡遊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
+      "title": "夜釣墨魚樂消遙2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
+      "title": "十八鄉區童軍山野同 行 齊賀110",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
+      "title": "十八鄉區甲辰年新春團拜暨草蜢小狼競技日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
+      "title": "十八鄉區持續社區服務 - 「耆樂童聚文化遊」旅團服務招募",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
+      "title": "初級航空活動章訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
+      "title": "中級航空活動章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
+      "title": "「童服務」十八鄉區關懷長者探訪服務 - 招募旅團協助",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
+      "title": "「小草愛自然填色比賽」結果",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
+      "title": "「地球部落童躍動」",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201912%20(Scout%20Rally%202019).pdf",
+      "title": "2019 年香港童軍大會操",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
+      "title": "2018 深資童軍繩結及先鋒工程訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201813%20(Scout%20Rally%202018).pdf",
+      "title": "2018 年香港童軍大會操",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/ADM101105_2010%20(Scout%20Rally).pdf",
+      "title": "2010 年香港童軍大會操",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-03-30%20(Tin%20Hau).pdf",
+      "title": "2010 年 天后寶誕會景巡遊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+      "title": "高級航空活動章訓練班 – 取錄通知 - https://www.scout.org.hk/article attach/29308/AG042018C",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2024.pdf",
+      "title": "鄧永昌主席領袖木章助學金計劃(2024-25年度) - special01-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special01-2023.pdf",
+      "title": "鄧永昌主席領袖木章助學金計劃(2023-24年度) - special01-20231",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024_admission.pdf",
+      "title": "第554屆領導才訓練班-取錄通知 - training03-2024 admission",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2024.pdf",
+      "title": "第554屆領導才訓練班 - training03-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2024.pdf",
+      "title": "童軍支部-深資童軍先修章訓練班 - training02-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2026.pdf",
+      "title": "童軍專章考驗日-取錄通知 - training01-2026",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025_form_appendix1.pdf",
+      "title": "童軍專章考驗日 - 附件一(電子版)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training11-2025.pdf",
+      "title": "童軍專章考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training10-2025.pdf",
+      "title": "童軍射箭章(技能組)訓練班 – 取錄通知",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training07-2025.pdf",
+      "title": "童軍射箭章(技能組)訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training01-2024.pdf",
+      "title": "童軍多媒體創作章(技能組)工作坊及考驗日 - training01-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2023.pdf",
+      "title": "童軍先鋒工程章(技能組)訓練班 - training03-2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2025.pdf",
+      "title": "童服務–聖誕節長者家居探訪義工活動",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training12-2025.pdf",
+      "title": "深資童軍活動金帶A-103 露營技藝及營務工作考驗- 取錄通知",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training08-2025.pdf",
+      "title": "深資童軍活動金帶 – A-103露營技藝及營務工作考驗",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2025v2.pdf",
+      "title": "深資童軍大會及聯誼日(更新) - activity04-2025v2",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2026.pdf",
+      "title": "深資童軍及樂行童軍支部聯合活動 – 高結構繩網歷奇同樂日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/memo01-2026.pdf",
+      "title": "海洋公園贊助免費門票事宜(5月23日前登記) - memo01-2026",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/memo02-2026.pdf",
+      "title": "海洋公園贊助免費門票-分配數目及派發安排 - memo02-2026",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity10-2023.pdf",
+      "title": "新界地域65周年紀念活動 「童承傳各區文化保育故事」 「元朗飲食文化」專題探討 - activity10-2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training03-2026.pdf",
+      "title": "幼童軍金紫荊獎章訓練班(戶外挑戰)暨考驗",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training02-2026.pdf",
+      "title": "幼童軍金紫荊獎章考驗 – 歷險挑戰 (運動攀登)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training09-2025.pdf",
+      "title": "幼童軍公園定向章(初級)訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2024.pdf",
+      "title": "幼童軍主席盾比賽 2024 - activity05-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity08-2023.pdf",
+      "title": "幼童軍主席盾比賽 2023 - activity08-2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2025.pdf",
+      "title": "小童軍親子賀年利是封花燈設計比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2024.pdf",
+      "title": "小童軍親子復活蛋填色設計比賽 - 以下通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity04-2024.pdf",
+      "title": "小童軍綠色生活填色比賽 - activity04-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2026.pdf",
+      "title": "小童軍支部領袖「DIY護手霜」工作坊 - activity06-2026",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2026.pdf",
+      "title": "元朗西區慶祝50週年標語設計比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity02-2026.pdf",
+      "title": "元朗西區慶祝50週年標誌及紀念章設計比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2024.pdf",
+      "title": "元朗西區2024年『童軍獎券銷售比賽』結果 - activity06-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2023.pdf",
+      "title": "元朗西區2023年度『童軍獎券銷售比賽』結果 - activity05-2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity05-2026.pdf",
+      "title": "『小童軍親子賀年利是封花燈設計比賽』結果公佈 - activity05-2026",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity03-2024.pdf",
+      "title": "『小童軍親子復活蛋填色設計比賽』結果公佈 - activity03-2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity06-2022.pdf",
+      "title": "『元西飛躍110-世界添美好齊創作 四格漫畫創作比賽』結果公佈 - activity06-2022",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity07-2023.pdf",
+      "title": "「地球部落童躍動」填色比賽 - activity07-2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special03-2024.pdf",
+      "title": "special03 2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/special02-2025.pdf",
+      "title": "special02 2025",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2024.pdf",
+      "title": "admin01 2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/admin01-2023.pdf",
+      "title": "admin01 2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity01-2024.pdf",
+      "title": "2024年童軍獎券銷售比賽 - 以下通告",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/wp-content/uploads/2023/09/activity01-2023.pdf",
+      "title": "2023年童軍獎券銷售比賽 - activity01-2023",
       "captured_date": "2026-05-30"
     },
     {
@@ -51576,11 +54907,11 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-05-30 14:36:24",
-      "new": 0,
-      "updated": 7,
-      "skipped": 47,
-      "processed": 1,
+      "updated_at": "2026-05-30 14:53:04",
+      "new": 208,
+      "updated": 2191,
+      "skipped": 8,
+      "processed": 40,
       "playwright_used": 0
     }
   }
