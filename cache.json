@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-30 16:24:26",
+  "last_updated": "2026-05-31 04:49:53",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3418,
+    "total_notices": 3419,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -24500,6 +24500,15 @@
     ],
     "荃灣區": [
       {
+        "title": "荃灣區 2025-2026 年度周年大會及 2026-2027 年度就職典禮",
+        "url": "https://www.twdscout.org.hk/documents/notices/A202601.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/A202601.pdf",
+        "date": "2026-05-31",
+        "captured_date": "2026-05-31",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
         "title": "郵件貼上足夠郵資",
         "url": "http://www.twdscout.org.hk/documents/notices/A072018.pdf",
         "pdf_url": "http://www.twdscout.org.hk/documents/notices/A072018.pdf",
@@ -30863,6 +30872,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/A202601.pdf",
+      "title": "荃灣區 2025-2026 年度周年大會及 2026-2027 年度就職典禮",
+      "captured_date": "2026-05-31"
+    },
     {
       "source_site": "沙田南區",
       "region": "新界東地域",
@@ -54907,11 +54923,11 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-05-30 16:24:26",
-      "new": 0,
-      "updated": 12,
-      "skipped": 46,
-      "processed": 2,
+      "updated_at": "2026-05-31 04:49:53",
+      "new": 1,
+      "updated": 161,
+      "skipped": 44,
+      "processed": 4,
       "playwright_used": 0
     }
   }
