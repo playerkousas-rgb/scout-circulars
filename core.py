@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.4 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.5 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
+
+v5.5 核心升級:
+  1. 強化 WP API 分頁參數相容性
+  2. 更新 GENERIC_DOWNLOAD_TITLES 以支援更多免篩選字詞 (如 pdf格式)
+  3. 修復 WP API 的通告名稱合併與覆寫邏輯
 
 v5.4 核心升級:
   1. 不再只抓 PDF，改抓「可下載資產」(downloadable assets)
@@ -1324,7 +1329,7 @@ def process_source(
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.4 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.5 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1341,7 +1346,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.4")
+    print("🦅 全港童軍通告自動化圖書館 v5.5")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
@@ -1461,7 +1466,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.4")
+    print("📊 執行報告 v5.5")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
