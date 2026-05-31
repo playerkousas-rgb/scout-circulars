@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.10 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.11-fix — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
@@ -8,7 +8,8 @@
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
 
-v5.6.10 核心升級:
+v5.6.11-fix 核心修復:
+  1. 恢復 HTTP 錯誤/異常時自動降級 Playwright 的邏輯:
   1. 強化 WP API 分頁參數相容性
   2. 更新 GENERIC_DOWNLOAD_TITLES 以支援更多免篩選字詞 (如 pdf格式)
   3. 修復 WP API 的通告名稱合併與覆寫邏輯
@@ -743,19 +744,14 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         result = fetch_requests(url, config, timeout=30)
         if result.status_code != 200:
             print(f"  [{name}] ⚠️ HTTP 錯誤碼: {result.status_code}")
-            if not use_playwright:
-                return None
         else:
             soup = BeautifulSoup(result.html, "html.parser")
             if has_useful_candidates(soup, config):
                 return result
-            if use_playwright:
-                print(f"  [{name}] requests 結果太空，改用 Playwright")
+            print(f"  [{name}] requests 結果太空，改用 Playwright")
     except Exception as e:
         import traceback; traceback.print_exc()
         print(f"  [{name}] ⚠️ requests: {type(e).__name__}")
-        if not use_playwright:
-            return None
 
     if use_playwright:
         pw_result = fetch_with_playwright(name, config, url=url)
@@ -1375,7 +1371,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.10")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.11-fix")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
