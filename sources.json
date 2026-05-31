@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.6.7",
+    "version": "5.6.10",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 48,
-    "note": "Final fix: Playwright disabled globally except for known JS sites to prevent crash"
+    "note": "Final stable version with pure requests to prevent any Playwright crashes."
   },
   "sources": {
     "總會": {
