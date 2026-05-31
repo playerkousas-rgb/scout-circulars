@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.7 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.10 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
@@ -8,7 +8,7 @@
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
 
-v5.6.7 核心升級:
+v5.6.10 核心升級:
   1. 強化 WP API 分頁參數相容性
   2. 更新 GENERIC_DOWNLOAD_TITLES 以支援更多免篩選字詞 (如 pdf格式)
   3. 修復 WP API 的通告名稱合併與覆寫邏輯
@@ -603,16 +603,23 @@ def has_useful_candidates(soup: BeautifulSoup, config: Dict[str, Any]) -> bool:
 
 def fetch_page(url: str, config: Dict[str, Any], force_playwright: bool = False) -> Optional[FetchResult]:
     use_playwright = force_playwright or config.get('use_playwright', False)
-    result: Optional[FetchResult] = None
+    result = None
     try:
         result = fetch_requests(url, config, timeout=30)
-        soup = BeautifulSoup(result.html, 'html.parser')
-        if has_useful_candidates(soup, config):
-            return result
+        if result.status_code == 200:
+            soup = BeautifulSoup(result.html, 'html.parser')
+            if has_useful_candidates(soup, config):
+                return result
+        else:
+            result = None
     except Exception:
         result = None
+
     if use_playwright:
-        return fetch_with_playwright('subpage', config, url=url)
+        pw_result = fetch_with_playwright('subpage', config, url=url)
+        if pw_result is None:
+            return None
+        return pw_result
     return result
 
 def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
@@ -735,17 +742,20 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     try:
         result = fetch_requests(url, config, timeout=30)
         if result.status_code != 200:
-            print(f"  [{name}] ⚠️ HTTP 錯誤碼: {result.status_code}，自動升級為 Playwright 突破防火牆")
-            use_playwright = True
+            print(f"  [{name}] ⚠️ HTTP 錯誤碼: {result.status_code}")
+            if not use_playwright:
+                return None
         else:
             soup = BeautifulSoup(result.html, "html.parser")
             if has_useful_candidates(soup, config):
                 return result
-            print(f"  [{name}] requests 結果太空，自動升級為 Playwright")
-            use_playwright = True
+            if use_playwright:
+                print(f"  [{name}] requests 結果太空，改用 Playwright")
     except Exception as e:
-        print(f"  [{name}] ⚠️ requests 異常: {type(e).__name__}，自動升級為 Playwright")
-        use_playwright = True
+        import traceback; traceback.print_exc()
+        print(f"  [{name}] ⚠️ requests: {type(e).__name__}")
+        if not use_playwright:
+            return None
 
     if use_playwright:
         pw_result = fetch_with_playwright(name, config, url=url)
@@ -882,19 +892,24 @@ def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str
 
 
 def fetch_detail_page(name: str, detail_url: str, config: Dict[str, Any]) -> Optional[FetchResult]:
+    use_playwright = config.get("use_playwright", False)
     try:
         result = fetch_requests(detail_url, config, timeout=12)
-        soup = BeautifulSoup(result.html, "html.parser")
-        if extract_detail_assets(soup, result.url, config):
-            return result
-        if config.get('allow_page_notice_fallback'):
-            if soup.find('h1') or soup.find('title') or soup.get_text(' ', strip=True):
+        if result.status_code == 200:
+            soup = BeautifulSoup(result.html, "html.parser")
+            if extract_detail_assets(soup, result.url, config):
                 return result
+            if config.get('allow_page_notice_fallback'):
+                if soup.find('h1') or soup.find('title') or soup.get_text(' ', strip=True):
+                    return result
     except Exception:
         pass
 
-    if config.get("use_playwright", False):
-        return fetch_with_playwright(name, config, url=detail_url)
+    if use_playwright:
+        pw_result = fetch_with_playwright(name, config, url=detail_url)
+        if pw_result is None:
+            return None
+        return pw_result
     return None
 
 
@@ -1343,7 +1358,7 @@ def process_source(
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.7 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.10 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1360,7 +1375,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.7")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.10")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
@@ -1480,7 +1495,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.6.7")
+    print("📊 執行報告 v5.6.10")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
