@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-05-31 04:49:53",
+  "last_updated": "2026-06-01 04:52:45",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3419,
+    "total_notices": 3420,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -22475,6 +22475,15 @@
     ],
     "元朗西區": [
       {
+        "title": "第5屆中級航空活動章訓練班 - training04-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/training04-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training04-2026.pdf",
+        "date": "2026-06-01",
+        "captured_date": "2026-06-01",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
         "title": "高級航空活動章訓練班 – 取錄通知 - https://www.scout.org.hk/article attach/29308/AG042018C",
         "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
         "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
@@ -30872,6 +30881,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training04-2026.pdf",
+      "title": "第5屆中級航空活動章訓練班 - training04-2026",
+      "captured_date": "2026-06-01"
+    },
     {
       "source_site": "荃灣區",
       "region": "新界地域",
@@ -54923,11 +54939,11 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-05-31 04:49:53",
+      "updated_at": "2026-06-01 04:52:45",
       "new": 1,
-      "updated": 161,
-      "skipped": 44,
-      "processed": 4,
+      "updated": 51,
+      "skipped": 46,
+      "processed": 2,
       "playwright_used": 0
     }
   }
