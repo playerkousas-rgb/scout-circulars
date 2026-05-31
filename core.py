@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.11-fix — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.12-fix — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
@@ -8,7 +8,9 @@
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
 
-v5.6.11-fix 核心修復:
+v5.6.12-fix 核心修復:
+  1. 無條件在 HTTP 錯誤/異常時自動降級 Playwright
+  2. 解決 GitHub Actions IP 被屏蔽問題:
   1. 恢復 HTTP 錯誤/異常時自動降級 Playwright 的邏輯:
   1. 強化 WP API 分頁參數相容性
   2. 更新 GENERIC_DOWNLOAD_TITLES 以支援更多免篩選字詞 (如 pdf格式)
@@ -753,13 +755,11 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         import traceback; traceback.print_exc()
         print(f"  [{name}] ⚠️ requests: {type(e).__name__}")
 
-    if use_playwright:
-        pw_result = fetch_with_playwright(name, config, url=url)
-        if pw_result is None:
-            return None # Playwright 也失敗才真正報錯
-        return pw_result
-        
-    return result
+    # === 無條件嘗試 Playwright（HTTP錯誤/異常/結果空白時自動降級）===
+    pw_result = fetch_with_playwright(name, config, url=url)
+    if pw_result is None:
+        return None # Playwright 也失敗才真正報錯
+    return pw_result
 
 
 # ─── 資產提取 ─────────────────────────────────────────────
@@ -1371,7 +1371,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.11-fix")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.12-fix")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
