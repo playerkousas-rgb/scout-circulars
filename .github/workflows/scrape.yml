@@ -1,15 +1,16 @@
 # ============================================================
 # 全港童軍通告自動化圖書館 v5.0 — GitHub Actions 定時爬蟲
 # ============================================================
-# 每天 UTC 20:00 (香港時間 04:00) 自動執行
-# 支援雙模式: Supabase (生產) 或 本地 JSON (開發)
+# 自動爬蟲已暫時停用（因為 GitHub IP 被部分網站屏蔽）
+# 手動觸發仍可用
 
 name: Scout Notice Scraper
 
 on:
-  schedule:
-    # 每天 UTC 20:00 = 香港時間 04:00
-    - cron: '0 20 * * *'
+  # 自動爬蟲已停用
+  # schedule:
+  # 每天 UTC 20:00 = 香港時間 04:00
+  # - cron: '0 20 * * *'
   # 手動觸發
   workflow_dispatch:
 
@@ -18,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    timeout-minutes: 15
-    steps:  # 这里保留一个即可
+      timeout-minutes: 15
+    steps:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Setup Python
