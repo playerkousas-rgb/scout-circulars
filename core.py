@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.12-fix — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.13-fix — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
@@ -8,7 +8,10 @@
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
 
-v5.6.12-fix 核心修復:
+v5.6.13-fix 核心修復:
+  1. Playwright 增加超時到 60 秒
+  2. 模擬真實瀏覽器頭和行為
+  3. 添加隨機等待降低風控
   1. 無條件在 HTTP 錯誤/異常時自動降級 Playwright
   2. 解決 GitHub Actions IP 被屏蔽問題:
   1. 恢復 HTTP 錯誤/異常時自動降級 Playwright 的邏輯:
@@ -561,21 +564,56 @@ def fetch_with_playwright(name: str, config: Dict[str, Any], url: Optional[str] 
     target_url = url or config["url"]
     wait_strategy = config.get("wait_strategy", "networkidle")
     wait_selector = config.get("wait_selector", "")
-    wait_timeout = int(config.get("wait_timeout", 15000))
+    wait_timeout = int(config.get("wait_timeout", 60000))  # 增加超時到 60 秒
 
     page = None
     try:
-        page = browser.new_page()
-        page.set_default_timeout(30000)
-        page.goto(target_url, wait_until="domcontentloaded", timeout=30000)
-
+        # 使用更真實的瀏覽器上下文
+        context = browser.contexts[0] if browser.contexts else browser.new_context(
+            ignore_https_errors=True,
+            extra_http_headers={
+                "Accept-Language": "zh-HK,zh-TW;q=0.9,zh;q=0.8,en;q=0.7",
+            }
+        )
+        
+        # 隨機化 viewport（像真實用戶）
+        viewport_width = 1920
+        viewport_height = 1080
+        
+        page = context.new_page()
+        page.set_default_timeout(60000)  # 增加到 60 秒超時
+        
+        # 模擬真實瀏覽器頭
+        page.set_extra_http_headers({
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "zh-HK,zh-TW;q=0.9,zh;q=0.8,en;q=0.7",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+        })
+        
+        print(f"  [{name}] 🎭 嘗試 Playwright ({target_url[:60]}...)")
+        
+        page.goto(target_url, wait_until="domcontentloaded", timeout=60000)
+        
+        # 隨機等待（像真實用戶）
+        import random
+        page.wait_for_timeout(random.uniform(1000, 3000))
+        
         if wait_strategy == "selector" and wait_selector:
             page.wait_for_selector(wait_selector, state="attached", timeout=wait_timeout)
-            page.wait_for_timeout(800)
+            page.wait_for_timeout(random.uniform(500, 1500))
         else:
             page.wait_for_load_state("networkidle", timeout=wait_timeout)
-
-        return FetchResult(url=page.url, html=page.content(), engine="playwright", status_code=200)
+            # 再等待一下（像真實用戶在看頁面）
+            page.wait_for_timeout(random.uniform(1000, 2000))
+        
+        html = page.content()
+        print(f"  [{name}] 🎭 Playwright 成功，HTML 長度: {len(html)}")
+        
+        return FetchResult(url=page.url, html=html, engine="playwright", status_code=200)
     except Exception as e:
         print(f"  [{name}] ⚠️ Playwright: {type(e).__name__}: {e}")
         return None
@@ -1371,7 +1409,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.12-fix")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.13-fix")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
