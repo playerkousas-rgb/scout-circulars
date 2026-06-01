@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-01 07:59:11",
+  "last_updated": "2026-06-01 08:12:11",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
@@ -54939,7 +54939,7 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-01 07:59:11",
+      "updated_at": "2026-06-01 08:12:11",
       "new": 0,
       "updated": 7,
       "skipped": 47,
