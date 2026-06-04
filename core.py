@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.13-fix — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.14 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
 
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
+
+v5.6.14 核心修復 (2026-06):
+  1. 更新 sources.json 針對多個改版網站:
+     - 九龍城區 (klcscout.hk/circular): .datagrid 容器 + 強制PW + 更好標題選擇器
+     - 旺角區: 更新至正確通告及表格下載子頁 + 強制PW + 廣義選擇器
+     - 秀茂坪區: 更新url至首頁最新消息 (含實際PDF)
+     - 港島西區: 更新至 circular2026/ 直接抓最新PDF表格
+     - 大嶼山區 (Wix): 加大超時至90s + fingerprint + 滾動等待
+  2. Playwright 增強: 自動滾動 + 針對Google/Wix/klcscout 額外等待時間，幫助動態載入
+  3. 保留原有所有穩定邏輯
 
 v5.6.13-fix 核心修復:
   1. Playwright 增加超時到 60 秒
@@ -118,7 +128,8 @@ SOCIAL_HOST_PATTERNS = [
 ]
 GENERIC_DOWNLOAD_TITLES = {
     "下載", "download", "檔案下載", "file download", "附件", "attachment",
-    "按此下載", "download here", "here", "click here", "pdf格式", "(pdf格式)", "doc格式", "(doc格式)"
+    "按此下載", "download here", "here", "click here", "pdf格式", "(pdf格式)", "doc格式", "(doc格式)",
+    "通告", "表格", "[通告]", "[表格]", "下載通告", "查看", "詳情", "更多資訊", "read more", "詳閱"
 }
 ARTICLE_SOURCE_TYPES = {
     "home_news", "wordpress", "wordpress_archive", "wordpress_category",
@@ -193,6 +204,9 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
     title = normalize_text(raw_title)
     if not title:
         return None
+
+    # strip common brackets from link texts like [通告]
+    title = re.sub(r'^\[|\]$', '', title).strip()
 
     # URL 解碼
     title = unquote(title)
@@ -609,10 +623,26 @@ def fetch_with_playwright(name: str, config: Dict[str, Any], url: Optional[str] 
             page.wait_for_load_state("networkidle", timeout=wait_timeout)
             # 再等待一下（像真實用戶在看頁面）
             page.wait_for_timeout(random.uniform(1000, 2000))
-        
+
+        # 額外處理動態/重JS網站 (Google Sites, Wix, klcscout 等)：滾動載入更多內容 + 額外等待
+        try:
+            import random
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            page.wait_for_timeout(random.uniform(1000, 2500))
+            page.evaluate("window.scrollTo(0, 0)")
+            page.wait_for_timeout(random.uniform(500, 1500))
+            lowered = target_url.lower()
+            if "google" in lowered or "sites.google" in lowered or "wix" in lowered or "klcscout" in lowered:
+                page.wait_for_timeout(random.uniform(2000, 6000))  # heavy sites extra time
+                # 嘗試再滾一次
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight * 0.7)")
+                page.wait_for_timeout(random.uniform(800, 2000))
+        except Exception:
+            pass
+
         html = page.content()
         print(f"  [{name}] 🎭 Playwright 成功，HTML 長度: {len(html)}")
-        
+
         return FetchResult(url=page.url, html=html, engine="playwright", status_code=200)
     except Exception as e:
         print(f"  [{name}] ⚠️ Playwright: {type(e).__name__}: {e}")
@@ -667,6 +697,13 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     url = config.get("url", "")
     use_playwright = config.get("use_playwright", False)
     result: Optional[FetchResult] = None
+
+    # 如果來源明確要求 Playwright，則直接使用（避免 requests 靜態 shell 誤判有內容導致跳過PW）
+    if use_playwright:
+        pw_result = fetch_with_playwright(name, config, url=url)
+        if pw_result is None:
+            return None
+        return pw_result
 
     # --- WP API Injection ---
     if config.get("type") == "wordpress_api":
@@ -1392,7 +1429,7 @@ def process_source(
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.10 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.14 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1409,7 +1446,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.13-fix")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.14")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
@@ -1529,7 +1566,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.6.10")
+    print("📊 執行報告 v5.6.14")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")

@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.6.10",
+    "version": "5.6.16",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 48,
-    "note": "Final stable version with pure requests to prevent any Playwright crashes."
+    "note": "港島西區改為 wordpress_api (pages?search=circular) 模式，抓取最準確且涵蓋歷史年份。 額外轉 慈雲山區、大埔北區、九龍地域 到 wordpress_api 模式。"
   },
   "sources": {
     "總會": {
@@ -117,23 +117,23 @@
     },
     "港島西區": {
       "region": "港島地域",
-      "url": "https://group.scout.org.hk/hkw/circular/",
-      "type": "simple_list",
+      "url": "https://group.scout.org.hk/hkw/wp-json/wp/v2/pages?search=circular&orderby=date&order=desc",
+      "type": "wordpress_api",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
-      "link_selector": "a[href]",
-      "title_selector": "a[href]",
+      "link_selector": "a[href$=\".pdf\"], a[href*=\"/wp-content/uploads/\"]",
+      "title_selector": "table tr td, a[href]",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "更正為正確的通告目錄",
+      "notes": "使用 WP REST API /pages?search=circular 直接吐 JSON，最準確抓取所有年度通告頁內的 PDF；自動涵蓋 2026、2025... 新年份。比掃 HTML 表格更穩定。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 12000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href]",
+      "asset_link_selector": "a[href$=\".pdf\"]",
       "follow_detail_pages": false
     },
     "柴灣區": {
@@ -221,8 +221,8 @@
     },
     "九龍地域": {
       "region": "九龍地域",
-      "url": "https://krscout.org/通告及表格/",
-      "type": "wordpress_list",
+      "url": "https://krscout.org/wp-json/wp/v2/posts",
+      "type": "wordpress_api",
       "encoding": "utf-8",
       "fingerprint_selector": ".entry-content",
       "link_selector": ".entry-content a[href]",
@@ -232,12 +232,7 @@
         "?t=",
         "?ver="
       ],
-      "exclude_patterns": [
-        "表格",
-        "Form",
-        "form"
-      ],
-      "notes": "全頁面比對所有PDF連結文字; 忽略表格/Form固定關鍵字",
+      "notes": "改為 WP REST API /posts 直接模式，抓取通告及表格相關文章內的 PDF。",
       "use_playwright": false,
       "asset_link_selector": ".entry-content a[href]",
       "follow_detail_pages": false
@@ -291,20 +286,20 @@
       "url": "https://www.klcscout.hk/circular",
       "type": "structured_list",
       "encoding": "utf-8",
-      "fingerprint_selector": "body",
-      "link_selector": "a[href]",
-      "title_selector": "a[href]",
+      "fingerprint_selector": ".datagrid, body",
+      "link_selector": "a[href*=\"cportal/uploads\"], a[href$=\".pdf\"]",
+      "title_selector": ".datagrid, td, div, a[href]",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "分類極細; 全頁所有連結標題比對，任何變動皆視為更新",
-      "use_playwright": false,
+      "notes": "分類極細; 使用.datagrid容器抓取; 強制Playwright確保JS載入; 標題從相鄰文字或datagrid提取; 避免[通告]泛用標題",
+      "use_playwright": true,
       "wait_strategy": "networkidle",
-      "wait_timeout": 12000,
+      "wait_timeout": 30000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href]",
+      "asset_link_selector": "a[href*=\"cportal/uploads\"], a[href$=\".pdf\"]",
       "follow_detail_pages": false
     },
     "九龍塘區": {
@@ -328,24 +323,25 @@
     },
     "旺角區": {
       "region": "九龍地域",
-      "url": "https://sites.google.com/view/hkscoutmkd/",
+      "url": "https://sites.google.com/view/hkscoutmkd/%E9%80%9A%E5%91%8A%E5%8F%8A%E8%A1%A8%E6%A0%BC%E4%B8%8B%E8%BC%89?authuser=0",
       "type": "google_sites",
       "encoding": "utf-8",
-      "fingerprint_selector": "[role='main']",
-      "link_selector": "[role='main'] a[href], [role='main'] a[href]",
-      "title_selector": "[role='main'] a",
+      "fingerprint_selector": "body",
+      "link_selector": "a[href]",
+      "title_selector": "a[href], .C9DxTc, h1, h2, h3",
       "url_sanitize": [
         "?authuser=0",
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "全量比對role=main區域內所有連結文字",
-      "use_playwright": false,
-      "wait_strategy": "selector",
+      "notes": "Google Sites 通告及表格下載頁 (embedded drive folders); 可能因iframe載入需較長時間或手動補; 強制PW; 鎖定特定子頁",
+      "use_playwright": true,
+      "wait_strategy": "networkidle",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "[role='main'] a[href], [role='main'] a[href]",
-      "follow_detail_pages": false
+      "playwright_note": "Google embedded folders may require additional wait/scroll; fallback to requests may miss",
+      "asset_link_selector": "a[href]",
+      "follow_detail_pages": false,
+      "wait_timeout": 30000
     },
     "深旺區": {
       "region": "九龍地域",
@@ -525,7 +521,7 @@
     },
     "秀茂坪區": {
       "region": "東九龍地域",
-      "url": "https://sites.google.com/view/smpscout/通告",
+      "url": "https://sites.google.com/view/smpscout",
       "type": "google_sites",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -541,12 +537,12 @@
         "Report abuse",
         "Google"
       ],
-      "notes": "已更新至正確通告頁面，Google Site需Playwright",
+      "notes": "更新為首頁最新消息頁，包含多支部PDF及報名表；原/通告子頁僅標題分類，無實際檔案連結",
       "use_playwright": false,
       "wait_strategy": "selector",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
       "follow_detail_pages": false,
-      "asset_link_selector": "a"
+      "asset_link_selector": "a[href*=\"drive.google.com\"], a[href$=\".pdf\"], a[href*=\"docs.google.com\"]"
     },
     "將軍澳區": {
       "region": "東九龍地域",
@@ -903,8 +899,8 @@
     },
     "大埔北區": {
       "region": "新界東地域",
-      "url": "https://tpnscout.org/%E9%80%9A%E5%91%8A/",
-      "type": "wordpress_list",
+      "url": "https://tpnscout.org/wp-json/wp/v2/posts",
+      "type": "wordpress_api",
       "encoding": "utf-8",
       "fingerprint_selector": "article, body",
       "link_selector": "a[href]",
@@ -914,7 +910,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "用通告頁取代首頁，45份PDF直接提取",
+      "notes": "改為 WP REST API /posts 直接模式。原通告頁內容已搬到文章。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
@@ -1036,12 +1032,15 @@
       "follow_detail_pages": true,
       "detail_link_selector": "a",
       "asset_link_selector": "a",
-      "notes": "新增大嶼山區Wix網站，需Playwright支援。卡片式點擊。"
+      "notes": "Wix網站 (portfolio)，卡片式結構，經常超時；已加大超時至90s並強制networkidle；目前多舊活動，通告較少或需檢查其他分頁如最新消息",
+      "fingerprint_selector": "body",
+      "wait_timeout": 90000,
+      "detail_max_pages": 5
     },
     "慈雲山區": {
       "region": "東九龍地域",
-      "url": "https://group.scout.org.hk/tws/circular/",
-      "type": "wordpress",
+      "url": "https://group.scout.org.hk/tws/wp-json/wp/v2/posts",
+      "type": "wordpress_api",
       "encoding": "utf-8",
       "follow_detail_pages": true,
       "use_playwright": false,
@@ -1051,12 +1050,7 @@
       "asset_link_selector": "a[href*=\".pdf\"], a[href*=\"/wp-content/\"]",
       "detail_max_pages": 30,
       "detail_link_selector": ".entry-title a[href], article a[href]",
-      "follow_listing_pages": true,
-      "listing_page_urls": [
-        "https://group.scout.org.hk/tws/circular/training/",
-        "https://group.scout.org.hk/tws/circular/activities/",
-        "https://group.scout.org.hk/tws/circular/administrative/"
-      ]
+      "notes": "改為 WP REST API /posts 直接模式，最穩。抓取最新通告文章內 PDF。"
     }
   }
 }
