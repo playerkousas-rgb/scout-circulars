@@ -1,13 +1,49 @@
 {
-  "last_updated": "2026-06-05 05:27:13",
+  "last_updated": "2026-06-06 07:00:32",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3909,
+    "total_notices": 3919,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第20屆初級遠足審核員訓練班(P61/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/24981/P061-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24981/P061-26.pdf",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "無人機足球訓練班(P60/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/24980/P060-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24980/P060-26.pdf",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "沙田東區—香港童軍115 周年 「童藝、童心、齊建未來」嘉年華海報",
+        "url": "https://scout.org.hk/uploads/tc/circulars/24957/24957STE-POSTER.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24957/24957STE-POSTER.pdf",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "儀仗隊隊員招募(P62/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/24982/P062-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24982/P062-26.pdf",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍115周年 — 童心傳愛迎中秋",
         "url": "https://scout.org.hk/uploads/tc/circulars/24987/DEVC032026C__香港童軍115周年—童心傳愛迎中秋.pdf",
@@ -8013,6 +8049,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會 6/6 – 12/6/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A6-6-12-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A6-6-12-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會3/4/2026 – 12/4/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=608%3A3-4-2026-12-4-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -20067,6 +20112,24 @@
     ],
     "九龍城區": [
       {
+        "title": "童軍露營比賽訓練",
+        "url": "https://www.klcscout.hk/cportal/uploads/S04A_童軍露營比賽訓練_通告.pdf",
+        "pdf_url": "https://www.klcscout.hk/cportal/uploads/S04A_童軍露營比賽訓練_通告.pdf",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "九龍城區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "嘉爾頓錦標賽-區選拔賽",
+        "url": "https://www.klcscout.hk/cportal/uploads/S04B_嘉爾頓錦標賽-區選拔賽_通告.pdf",
+        "pdf_url": "https://www.klcscout.hk/cportal/uploads/S04B_嘉爾頓錦標賽-區選拔賽_通告.pdf",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "九龍城區",
+        "region": "九龍地域"
+      },
+      {
         "title": "幼童軍黑夜歷程 螢火蟲觀賞",
         "url": "https://www.klcscout.hk/cportal/uploads/C04_幼童軍黑夜歷程_螢火蟲觀賞_通告.pdf",
         "pdf_url": "https://www.klcscout.hk/cportal/uploads/C04_幼童軍黑夜歷程_螢火蟲觀賞_通告.pdf",
@@ -22138,6 +22201,24 @@
       }
     ],
     "油尖區": [
+      {
+        "title": "深資童軍收音機研習班",
+        "url": "https://drive.google.com/file/d/11zuQ3LlMCv0bqMd_BN0833HtnJ3a4k0A/view",
+        "pdf_url": "https://drive.google.com/file/d/11zuQ3LlMCv0bqMd_BN0833HtnJ3a4k0A/view",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026各支部最高獎章申請",
+        "url": "https://drive.google.com/file/d/1Q55f8UD7rDS9VP2XfgshDrmI9iYV0uCD/view",
+        "pdf_url": "https://drive.google.com/file/d/1Q55f8UD7rDS9VP2XfgshDrmI9iYV0uCD/view",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
       {
         "title": "初級航空活動章訓練班",
         "url": "https://drive.google.com/file/d/1XXySDR0R-asmyrP39wcxBqMfC1o__1uT/view",
@@ -30113,6 +30194,15 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "沙田東區—香港童軍115 周年 「童藝、童心、齊建未來」嘉年華海報",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1BZH9u4vSiWrETusDNC2ed/7ca201d68dafaea0f7815de004bed303/STE_POSTER.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1BZH9u4vSiWrETusDNC2ed/7ca201d68dafaea0f7815de004bed303/STE_POSTER.pdf",
+        "date": "2026-06-06",
+        "captured_date": "2026-06-06",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "香港童軍(新界東)龍舟邀請賽參觀賽事",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5SmEN4ZpL1cdrblwdPCSNe/a26774a1883d04276d211eb8dbad36cc/Spec_cir_15-26.pdf",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5SmEN4ZpL1cdrblwdPCSNe/a26774a1883d04276d211eb8dbad36cc/Spec_cir_15-26.pdf",
@@ -35284,6 +35374,76 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24981/P061-26.pdf",
+      "title": "第20屆初級遠足審核員訓練班(P61/2026)",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24980/P060-26.pdf",
+      "title": "無人機足球訓練班(P60/2026)",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24957/24957STE-POSTER.pdf",
+      "title": "沙田東區—香港童軍115 周年 「童藝、童心、齊建未來」嘉年華海報",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24982/P062-26.pdf",
+      "title": "儀仗隊隊員招募(P62/2026)",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A6-6-12-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 6/6 – 12/6/2026 辦公時間",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/11zuQ3LlMCv0bqMd_BN0833HtnJ3a4k0A/view",
+      "title": "深資童軍收音機研習班",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1Q55f8UD7rDS9VP2XfgshDrmI9iYV0uCD/view",
+      "title": "2026各支部最高獎章申請",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1BZH9u4vSiWrETusDNC2ed/7ca201d68dafaea0f7815de004bed303/STE_POSTER.pdf",
+      "title": "沙田東區—香港童軍115 周年 「童藝、童心、齊建未來」嘉年華海報",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "九龍城區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.klcscout.hk/cportal/uploads/S04A_童軍露營比賽訓練_通告.pdf",
+      "title": "童軍露營比賽訓練",
+      "captured_date": "2026-06-06"
+    },
+    {
+      "source_site": "九龍城區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.klcscout.hk/cportal/uploads/S04B_嘉爾頓錦標賽-區選拔賽_通告.pdf",
+      "title": "嘉爾頓錦標賽-區選拔賽",
+      "captured_date": "2026-06-06"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -62765,9 +62925,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-05 05:27:13",
-      "new": 33,
-      "updated": 3272,
+      "updated_at": "2026-06-06 07:00:32",
+      "new": 10,
+      "updated": 3299,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
