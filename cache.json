@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-07 11:38:10",
+  "last_updated": "2026-06-08 07:49:03",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3930,
+    "total_notices": 3935,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -8177,6 +8177,15 @@
       }
     ],
     "港島西區": [
+      {
+        "title": "通告 Circulars (2026) - 童軍專章考驗日—手藝章(技能組)及體育章(技能組)",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/06/HKW2026SCIR004.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/06/HKW2026SCIR004.pdf",
+        "date": "2026-06-08",
+        "captured_date": "2026-06-08",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
       {
         "title": "通告 Circulars (2026) - 西區童行探險嘉年華-填色比賽-成績公佈",
         "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026DCIR004.pdf",
@@ -27920,6 +27929,33 @@
     ],
     "屯門東區": [
       {
+        "title": "「童軍地圖閱讀訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_03.pdf",
+        "date": "2026-06-08",
+        "captured_date": "2026-06-08",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「慶祝香港童軍115 周年 - 屯門東區紀念章設計比賽」成績公布",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01A.pdf",
+        "date": "2026-06-08",
+        "captured_date": "2026-06-08",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「屯門東區主席盃童軍技能比賽」成績公布",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_25_04A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_04A.pdf",
+        "date": "2026-06-08",
+        "captured_date": "2026-06-08",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
         "title": "甲辰年聯合新春團拜暨「共融社群賀新歲嘉年華」通告",
         "url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/CNYCelebration.pdf",
@@ -28686,6 +28722,15 @@
       }
     ],
     "荃灣區": [
+      {
+        "title": "修正] 童軍支部急救章訓練班",
+        "url": "https://www.twdscout.org.hk/documents/notices/T202606.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202606.pdf",
+        "date": "2026-06-08",
+        "captured_date": "2026-06-08",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
       {
         "title": "荃灣區 2025-2026 年度周年大會及 2026-2027 年度就職典禮",
         "url": "https://www.twdscout.org.hk/documents/notices/A202601.pdf",
@@ -35474,6 +35519,41 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202606.pdf",
+      "title": "修正] 童軍支部急救章訓練班",
+      "captured_date": "2026-06-08"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/06/HKW2026SCIR004.pdf",
+      "title": "通告 Circulars (2026) - 童軍專章考驗日—手藝章(技能組)及體育章(技能組)",
+      "captured_date": "2026-06-08"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_03.pdf",
+      "title": "「童軍地圖閱讀訓練班」通告",
+      "captured_date": "2026-06-08"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_01A.pdf",
+      "title": "「慶祝香港童軍115 周年 - 屯門東區紀念章設計比賽」成績公布",
+      "captured_date": "2026-06-08"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_25_04A.pdf",
+      "title": "「屯門東區主席盃童軍技能比賽」成績公布",
+      "captured_date": "2026-06-08"
+    },
     {
       "source_site": "雙魚區",
       "region": "新界東地域",
@@ -63100,14 +63180,14 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": false,
+    "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-07 11:38:10",
-      "new": 6,
-      "updated": 0,
-      "skipped": 0,
-      "processed": 2,
-      "playwright_used": 1
+      "updated_at": "2026-06-08 07:49:03",
+      "new": 5,
+      "updated": 3273,
+      "skipped": 1,
+      "processed": 47,
+      "playwright_used": 3
     }
   }
 }
