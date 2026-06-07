@@ -43,16 +43,44 @@
     .region > button { width: 100%; border: 0; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; background: transparent; color: var(--text); cursor: pointer; }
     .region > button:hover { background: rgba(255,255,255,.03); }
     .region.open > button { background: var(--brand-2); color: #d9e8ff; }
+    /* 有通告(count>0)的地域：整列高亮底色 + 左側綠邊 */
+    .region.has-updates { border-color: #22c55e; background: rgba(34,197,94,.18); box-shadow: 0 0 0 1px rgba(34,197,94,.35); }
+    .region.has-updates > button { background: rgba(34,197,94,.22); color: #d7ffe6; font-weight: 700; }
+    .region.has-updates.open > button { background: var(--brand-2); }
     .source-list { display: none; padding: 8px; gap: 8px; }
     .region.open .source-list { display: grid; }
-    .source-btn { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #0b1424; color: var(--text); text-align: left; cursor: pointer; }
+    .source-btn { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #0b1424; color: var(--text); text-align: left; cursor: pointer; position: relative; }
     .source-btn:hover { background: #10203a; }
     .source-btn.active { background: linear-gradient(135deg, #173664, #2450a3); border-color: #4d82e7; }
     .source-btn small { display: block; margin-top: 4px; color: var(--muted); }
+    /* 有通告的區會：整列綠底 + 粗左綠邊 */
+    .source-btn.has-updates { background: rgba(34,197,94,.20); border-color: #22c55e; border-left: 5px solid #22c55e; color: #eafff2; font-weight: 600; }
+    .source-btn.has-updates small { color: #7bedab; }
+    .source-btn.has-updates:hover { background: rgba(34,197,94,.30); }
+    .source-btn.has-updates.active { background: linear-gradient(135deg, #15643a, #1f9e5c); border-left: 5px solid #6effa0; }
+    /* 彩色數字 badge */
+    .count-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 8px; border-radius: 999px; font-size: 13px; font-weight: 800; background: rgba(255,255,255,.08); color: var(--muted); }
+    .count-badge.hot { background: #22c55e; color: #04210f; box-shadow: 0 0 12px rgba(34,197,94,.7), 0 0 0 3px rgba(34,197,94,.25); }
     .content { padding: 24px; }
     .hero { padding: 18px; }
     .hero h2 { margin: 0 0 8px; font-size: 28px; line-height: 1.25; }
     .hero .sub { color: var(--muted); font-size: 14px; }
+    /* 區會聯絡 icon bar */
+    .contact-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; }
+    .contact-ico { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #0b1424; color: #cdd9ec; text-decoration: none; transition: .15s; }
+    .contact-ico:hover { background: #16263f; border-color: #3a5a8c; transform: translateY(-2px); }
+    .contact-ico svg { width: 20px; height: 20px; flex: 0 0 20px; }
+    .contact-ico.fb { border-color: rgba(24,119,242,.5); }
+    .contact-ico.fb:hover { background: rgba(24,119,242,.18); }
+    .contact-ico.ig { border-color: rgba(214,41,118,.5); }
+    .contact-ico.ig:hover { background: rgba(214,41,118,.18); }
+    .contact-ico.map { border-color: rgba(34,197,94,.5); }
+    .contact-ico.map:hover { background: rgba(34,197,94,.18); }
+    .contact-ico.yt { border-color: rgba(255,0,0,.5); }
+    .contact-ico.yt:hover { background: rgba(255,0,0,.16); }
+    .contact-ico.email { border-color: rgba(234,179,8,.5); }
+    .contact-ico.email:hover { background: rgba(234,179,8,.16); }
+    .contact-ico.tel { cursor: default; }
     .controls { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
     .controls input[type="search"] { flex: 1; min-width: 240px; border: 1px solid var(--line); background: #09111f; color: var(--text); border-radius: 12px; padding: 12px 14px; outline: none; }
     .toggle { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #0b1424; color: var(--muted); }
@@ -100,6 +128,8 @@
         <h2 id="page-title">載入中…</h2>
         <div class="sub" id="page-subtitle">目前支援分區或全港層級瀏覽。</div>
 
+        <div class="contact-bar" id="contact-bar"></div>
+
         <div class="controls">
           <input id="keyword" type="search" placeholder="搜尋目前分頁標題…">
           <label class="toggle"><input id="explicit-date" type="checkbox"> 只顯示明確日期</label>
@@ -114,7 +144,13 @@
 
       <section id="messages"></section>
       <section class="cards" id="cards"></section>
-      <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 13px;">Copyright &copy; 2026 SKWSCOUT</footer>
+      <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 13px;">
+        <div id="visit-counter" style="margin-bottom: 8px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.04); border: 1px solid var(--line);">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7bb0ff" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="visit-count">累計瀏覽 …</span>
+        </div>
+        <div>Copyright &copy; 2026 SKWSCOUT</div>
+      </footer>
     </main>
   </div>
 
@@ -128,6 +164,9 @@
       { id: '90d', label: '3個月', days: 90 },
       { id: '180d', label: '6個月', days: 180 },
     ];
+
+    // === 各區聯絡資訊（FB/IG/電話/地址/官網）。地址與部分網址待補。 ===
+    var CONTACTS = {"總會":{"fb":"https://www.facebook.com/hkscout","ig":"https://www.instagram.com/hkscouting/","yt":"https://www.youtube.com/channel/UCzWCJnS0wHFMq1rkqzZSXUw","tel":"2377 3300","web":"https://www.scout.org.hk/","address":"九龍柯士甸道童軍徑香港童軍中心","email":"scoutcraft@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83"},"港島地域":{"fb":"https://www.facebook.com/share/18os2xVWeZ/?mibextid=wwXIfr","ig":"https://www.instagram.com/hkirscout/","yt":"https://www.youtube.com/channel/UC3n9PetO64XZ9nGzzZBa5Dw","tel":"2574 4296","web":"https://www.hkirscout.org.hk/tc/home/index.html","address":"香港灣仔日善街23號香港童軍百周年紀念大樓19樓","email":"hkir@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E7%81%A3%E4%BB%94%E6%97%A5%E5%96%84%E8%A1%9723%E8%99%9F%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E7%99%BE%E5%91%A8%E5%B9%B4%E7%B4%80%E5%BF%B5%E5%A4%A7%E6%A8%9319%E6%A8%93"},"柴灣區":{"fb":"https://www.facebook.com/chaiwanscout/","ig":"https://www.instagram.com/chaiwanscout/","yt":"","tel":"","web":"https://chaiwanscout.org.hk/v3/","address":"香港柴灣漁灣邨漁安樓地下 23 號舖","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E6%9F%B4%E7%81%A3%E6%BC%81%E7%81%A3%E9%82%A8%E6%BC%81%E5%AE%89%E6%A8%93%E5%9C%B0%E4%B8%8B%2023%20%E8%99%9F%E8%88%96"},"港島北區":{"fb":"https://www.facebook.com/hknscout","ig":"","yt":"","tel":"25621872","web":"https://www.hknscout.org/","address":"香港北角民新街42號","email":"hknscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E5%8C%97%E8%A7%92%E6%B0%91%E6%96%B0%E8%A1%9742%E8%99%9F"},"港島南區":{"fb":"","ig":"","yt":"","tel":"","web":"https://sites.google.com/hkirscout.org.hk/hks","address":"香港華富邨華基樓616-617室","email":"hks@hkirscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E8%8F%AF%E5%AF%8C%E9%82%A8%E8%8F%AF%E5%9F%BA%E6%A8%93616-617%E5%AE%A4"},"港島西區":{"fb":"https://www.facebook.com/share/1CfrHrrLfp/?mibextid=wwXIfr","ig":"https://www.instagram.com/hkw.scout/","yt":"","tel":"2517 4298","web":"https://group.scout.org.hk/hkw/","address":"香港西營盤西邊街36號A西區社區中心1樓","email":"https://group.scout.org.hk/hkw/","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E8%A5%BF%E7%87%9F%E7%9B%A4%E8%A5%BF%E9%82%8A%E8%A1%9736%E8%99%9FA%E8%A5%BF%E5%8D%80%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%831%E6%A8%93"},"筲箕灣區":{"fb":"https://www.facebook.com/skwscout","ig":"https://www.instagram.com/skwscout","yt":"","tel":"2557 9838","web":"https://www.skwscout.org.hk/","address":"香港筲箕灣愛東邨愛旭樓地下22&27號","email":"in@skwscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E7%AD%B2%E7%AE%95%E7%81%A3%E6%84%9B%E6%9D%B1%E9%82%A8%E6%84%9B%E6%97%AD%E6%A8%93%E5%9C%B0%E4%B8%8B22%2627%E8%99%9F"},"維多利亞城區":{"fb":"https://www.facebook.com/vicscout.org/?locale=zh_HK","ig":"https://www.instagram.com/victoria_city_scout/","yt":"","tel":"2522 2925","web":"待新網址上架","address":"香港中半山波老道12號東翼一樓","email":"vic@hkirscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E4%B8%AD%E5%8D%8A%E5%B1%B1%E6%B3%A2%E8%80%81%E9%81%9312%E8%99%9F%E6%9D%B1%E7%BF%BC%E4%B8%80%E6%A8%93"},"灣仔區":{"fb":"https://www.facebook.com/wanchaiscout/?locale=zh_HK","ig":"https://www.instagram.com/wanchaiscout/","yt":"","tel":"2574 9311","web":"https://www.wanchaiscout.org.hk/index.php?lang=zh-tw","address":"香港灣仔日善街23號 香港童軍百周年紀念大樓1108室","email":"admin@wanchaiscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E7%81%A3%E4%BB%94%E6%97%A5%E5%96%84%E8%A1%9723%E8%99%9F%20%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E7%99%BE%E5%91%A8%E5%B9%B4%E7%B4%80%E5%BF%B5%E5%A4%A7%E6%A8%931108%E5%AE%A4"},"九龍地域":{"fb":"https://www.facebook.com/scout.kr/","ig":"https://www.instagram.com/krscoutpr/","yt":"https://www.youtube.com/channel/UCpdoMF5kawv9z0aPluUWYpg","tel":"+852-2957 6488","web":"https://krscout.org/","address":"九龍柯士甸道童軍徑香港童軍中心 9樓 926室","email":"enquiry@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83%209%E6%A8%93%20926%E5%AE%A4"},"紅磡區":{"fb":"https://www.facebook.com/krhhd/?locale=zh_HK","ig":"","yt":"","tel":"2712 3841","web":"https://hhd.krscout.org/","address":"九龍馬頭圍邨芙蓉樓地下104室","email":"hhd@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E9%A6%AC%E9%A0%AD%E5%9C%8D%E9%82%A8%E8%8A%99%E8%93%89%E6%A8%93%E5%9C%B0%E4%B8%8B104%E5%AE%A4"},"何文田區":{"fb":"","ig":"","yt":"","tel":"","web":"https://hmt.krscout.org/","address":"九龍何文田愛民村嘉民樓614室","email":"hmt@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E4%BD%95%E6%96%87%E7%94%B0%E6%84%9B%E6%B0%91%E6%9D%91%E5%98%89%E6%B0%91%E6%A8%93614%E5%AE%A4"},"九龍城區":{"fb":"https://www.facebook.com/klcscout","ig":"https://www.instagram.com/klcscout1961/","yt":"","tel":"2718 6609","web":"https://www.klcscout.hk/","address":"九龍東頭二村榮東樓地下 1-3 號 王錦輝活動中心","email":"enquiry@klcscout.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9D%B1%E9%A0%AD%E4%BA%8C%E6%9D%91%E6%A6%AE%E6%9D%B1%E6%A8%93%E5%9C%B0%E4%B8%8B%201-3%20%E8%99%9F%20%E7%8E%8B%E9%8C%A6%E8%BC%9D%E6%B4%BB%E5%8B%95%E4%B8%AD%E5%BF%83"},"九龍塘區":{"fb":"https://www.facebook.com/share/g/1K8DYwWSaa/?mibextid=wwXIfr","ig":"","yt":"","tel":"2336 9229","web":"https://www.scout-kowloontong.org/","address":"九龍塘律倫街十一號","email":"klg@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E5%A1%98%E5%BE%8B%E5%80%AB%E8%A1%97%E5%8D%81%E4%B8%80%E8%99%9F"},"旺角區":{"fb":"https://www.facebook.com/p/香港童軍總會-旺角區-100075948442190/","ig":"https://www.instagram.com/mkdscout/","yt":"","tel":"","web":"https://sites.google.com/view/hkscoutmkd/","address":"香港九龍大角咀櫸樹街110号林百欣中心 2樓 香港童軍總會旺角區會","email":"mk@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E4%B9%9D%E9%BE%8D%E5%A4%A7%E8%A7%92%E5%92%80%E6%AB%B8%E6%A8%B9%E8%A1%97110%E5%8F%B7%E6%9E%97%E7%99%BE%E6%AC%A3%E4%B8%AD%E5%BF%83%202%E6%A8%93%20%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E7%B8%BD%E6%9C%83%E6%97%BA%E8%A7%92%E5%8D%80%E6%9C%83"},"深旺區":{"fb":"https://www.facebook.com/p/香港童軍總會深旺區-61571978408046/","ig":"","yt":"","tel":"","web":"https://group.scout.org.hk/smd/","address":"九龍深水埗昌新里1號南昌邨南昌社區中心4樓","email":"info@shammongscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%B7%B1%E6%B0%B4%E5%9F%97%E6%98%8C%E6%96%B0%E9%87%8C1%E8%99%9F%E5%8D%97%E6%98%8C%E9%82%A8%E5%8D%97%E6%98%8C%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%834%E6%A8%93"},"深水埗東區":{"fb":"https://www.facebook.com/scoutsspe/?locale=zh_HK","ig":"","yt":"","tel":"3188 9109","web":"https://sspe.krscout.org/","address":"大坑東社區中心一樓101室 陳其鑣教授會長堂","email":"sspe@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9D%91%E6%9D%B1%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%83%E4%B8%80%E6%A8%93101%E5%AE%A4%20%E9%99%B3%E5%85%B6%E9%91%A3%E6%95%99%E6%8E%88%E6%9C%83%E9%95%B7%E5%A0%82"},"深水埗西區":{"fb":"https://www.facebook.com/share/g/1DNs7w76HQ/?mibextid=wwXIfr","ig":"https://www.instagram.com/sspw_scout/","yt":"","tel":"27201106","web":"https://sspw.krscout.org/","address":"九龍深水埗麗閣邨麗荷樓316-317室","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%B7%B1%E6%B0%B4%E5%9F%97%E9%BA%97%E9%96%A3%E9%82%A8%E9%BA%97%E8%8D%B7%E6%A8%93316-317%E5%AE%A4"},"油尖區":{"fb":"https://www.facebook.com/p/香港童軍總會油尖區-Scout-Association-of-Hong-Kong-Yau-Tsim-District-100079941172382/?locale=zh_HK","ig":"https://www.instagram.com/yau_tsim_scout?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D","yt":"","tel":"","web":"https://ytd.krscout.org/","address":"九龍柯士甸道童軍徑香港童軍中心9樓927室","email":"yt@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%839%E6%A8%93927%E5%AE%A4"},"東九龍地域":{"fb":"https://www.facebook.com/HKScout.EKR/?locale=zh_HK","ig":"https://www.instagram.com/hkscout.ekr","yt":"","tel":"2957 6466","web":"https://hkscout-ekr.org/","address":"九龍柯士甸道童軍徑香港童軍中心9樓923室","email":"ekr@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%839%E6%A8%93923%E5%AE%A4"},"西貢區":{"fb":"https://www.facebook.com/share/g/1DY5GxS2L9/?mibextid=wwXIfr","ig":"","yt":"","tel":"","web":"https://www.hkscout-skd.org/","address":"九龍將軍澳寶林邨寶寧樓313-314室","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E5%B0%87%E8%BB%8D%E6%BE%B3%E5%AF%B6%E6%9E%97%E9%82%A8%E5%AF%B6%E5%AF%A7%E6%A8%93313-314%E5%AE%A4"},"慈雲山區":{"fb":"https://www.facebook.com/twsdscout/?locale=zh_HK","ig":"","yt":"","tel":"2328 3338","web":"https://group.scout.org.hk/tws/","address":"九龍 慈雲山 慈民邨 民裕樓 10 號地下","email":"tws@scouting.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%C2%A0%E6%85%88%E9%9B%B2%E5%B1%B1%20%E6%85%88%E6%B0%91%E9%82%A8%20%E6%B0%91%E8%A3%95%E6%A8%93%C2%A010%20%E8%99%9F%E5%9C%B0%E4%B8%8B"},"黃大仙區":{"fb":"https://www.facebook.com/wtsscout","ig":"https://www.instagram.com/wtsscout?igshid=YmMyMTA2M2Y%3D","yt":"","tel":"2324 1931","web":"https://hkscout-wts.org/","address":"九龍黃大仙下村龍裕樓地下101-103號","email":"wtsdistrict2021@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E9%BB%83%E5%A4%A7%E4%BB%99%E4%B8%8B%E6%9D%91%E9%BE%8D%E8%A3%95%E6%A8%93%E5%9C%B0%E4%B8%8B101-103%E8%99%9F"},"九龍灣區":{"fb":"https://www.facebook.com/KLBD.Scout.HK","ig":"","yt":"","tel":"2344-9543","web":"https://www.hkscout-klb.org/web2017/","address":"九龍啟業邨啟祥樓地下G5及6室","email":"klb_hq@yahoo.com.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E5%95%9F%E6%A5%AD%E9%82%A8%E5%95%9F%E7%A5%A5%E6%A8%93%E5%9C%B0%E4%B8%8BG5%E5%8F%8A6%E5%AE%A4"},"秀茂坪區":{"fb":"https://www.facebook.com/SMP.Scout.HK/","ig":"","yt":"","tel":"","web":"https://sites.google.com/view/smpscout","address":"九龍觀塘和樂邨居安樓六樓","email":"smp.sahk@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E8%A7%80%E5%A1%98%E5%92%8C%E6%A8%82%E9%82%A8%E5%B1%85%E5%AE%89%E6%A8%93%E5%85%AD%E6%A8%93"},"將軍澳區":{"fb":"https://www.facebook.com/share/g/17raVBqaeW/?mibextid=wwXIfr","ig":"https://www.instagram.com/tkoscout/","yt":"","tel":"2704 2988","web":"https://hkscout-tko.org/","address":"香港將軍澳寶林村寶寧樓313-314室","email":"enquiry@tko-scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E5%B0%87%E8%BB%8D%E6%BE%B3%E5%AF%B6%E6%9E%97%E6%9D%91%E5%AF%B6%E5%AF%A7%E6%A8%93313-314%E5%AE%A4"},"觀塘區":{"fb":"","ig":"","yt":"","tel":"23432176","web":"http://hkscout-ktd.org/ktdweb/","address":"香港九龍觀塘和樂村居安樓六樓 觀塘區總部","email":"mail.ktd@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E4%B9%9D%E9%BE%8D%E8%A7%80%E5%A1%98%E5%92%8C%E6%A8%82%E6%9D%91%E5%B1%85%E5%AE%89%E6%A8%93%E5%85%AD%E6%A8%93%20%E8%A7%80%E5%A1%98%E5%8D%80%E7%B8%BD%E9%83%A8"},"鯉魚門區":{"fb":"https://www.facebook.com/share/196PfTeU1b/?mibextid=wwXIfr","ig":"","yt":"","tel":"2389 0837","web":"https://www.hkscout-lym.org/","address":"九龍觀塘和樂邨居安樓六樓","email":"lym@scouting.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E8%A7%80%E5%A1%98%E5%92%8C%E6%A8%82%E9%82%A8%E5%B1%85%E5%AE%89%E6%A8%93%E5%85%AD%E6%A8%93"},"新界地域":{"fb":"","ig":"","yt":"","tel":"2425 5999","web":"https://www.scout-ntr.org.hk/mainweb/big5/global/home.php","address":"新界葵涌和宜合道308號 鄧肇堅男女童軍中心4樓","email":"ntr@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93308%E8%99%9F%20%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%834%E6%A8%93"},"元朗東區":{"fb":"https://www.facebook.com/share/1Ee1oyuyLG/?mibextid=wwXIfr","ig":"","yt":"","tel":"2477 1345","web":"https://yle.scout-ntr.org.hk/","address":"新界元朗青山公路2B號 元朗東區區會中心","email":"eastyuenlong@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E5%85%83%E6%9C%97%E9%9D%92%E5%B1%B1%E5%85%AC%E8%B7%AF2B%E8%99%9F%20%E5%85%83%E6%9C%97%E6%9D%B1%E5%8D%80%E5%8D%80%E6%9C%83%E4%B8%AD%E5%BF%83"},"元朗西區":{"fb":"https://www.facebook.com/HKSTMWD/","ig":"","yt":"","tel":"2478 3633","web":"https://www.ylw-scout.org.hk/","address":"新界元朗公園北路35號","email":"info@ylw-scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E5%85%83%E6%9C%97%E5%85%AC%E5%9C%92%E5%8C%97%E8%B7%AF35%E8%99%9F"},"十八鄉區":{"fb":"https://www.facebook.com/share/1H2oSqjqUQ/?mibextid=wwXIfr","ig":"https://www.instagram.com/sphd_scout/","yt":"","tel":"2476 8010","web":"https://www.sph-scout.org.hk/","address":"元朗凹頭楊屋村104號","email":"sph@sph-scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E5%85%83%E6%9C%97%E5%87%B9%E9%A0%AD%E6%A5%8A%E5%B1%8B%E6%9D%91104%E8%99%9F"},"屯門西區":{"fb":"https://www.facebook.com/share/1EZW2cvj9t/?mibextid=wwXIfr","ig":"","yt":"","tel":"2451 2333","web":"https://tmw.scout-ntr.org.hk/","address":"屯門屯富路27號鑽禧館","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E5%B1%AF%E9%96%80%E5%B1%AF%E5%AF%8C%E8%B7%AF27%E8%99%9F%E9%91%BD%E7%A6%A7%E9%A4%A8"},"北葵涌區":{"fb":"","ig":"","yt":"","tel":"2425 5999","web":"https://www.nkcscout.org/","address":"新界葵涌和宜合道 308 號鄧肇堅男女童軍中心5樓507室","email":"webmaster@nkcscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93%20308%20%E8%99%9F%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%835%E6%A8%93507%E5%AE%A4"},"屯門東區":{"fb":"","ig":"https://www.instagram.com/tmescout/","yt":"","tel":"","web":"http://www.scout.org.hk/TME","address":"屯門虎地屯富路27號 鑽禧紀念館","email":"tmedscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E5%B1%AF%E9%96%80%E8%99%8E%E5%9C%B0%E5%B1%AF%E5%AF%8C%E8%B7%AF27%E8%99%9F%20%E9%91%BD%E7%A6%A7%E7%B4%80%E5%BF%B5%E9%A4%A8"},"荃灣區":{"fb":"https://zh-hk.facebook.com/twdscout/","ig":"","yt":"","tel":"2425 5999","web":"https://www.twdscout.org.hk/","address":"新界葵涌和宜合道308號鄧肇堅男女童軍中心508室","email":"info@twdscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93308%E8%99%9F%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83508%E5%AE%A4"},"南葵涌區":{"fb":"https://www.facebook.com/share/g/1NAedDYQ9z/?mibextid=wwXIfr","ig":"","yt":"","tel":"2425 5999","web":"https://skc.scout-ntr.org.hk/","address":"新界葵涌和宜合道308號 鄧肇堅男女童軍中心5樓506室","email":"skcdist@yahoo.com.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93308%E8%99%9F%20%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%835%E6%A8%93506%E5%AE%A4"},"青衣區":{"fb":"https://www.facebook.com/p/香港童軍總會青衣區-100064358604698/?locale=zh_HK","ig":"","yt":"","tel":"","web":"https://tyd.scout-ntr.org.hk/","address":"青衣長康邨康美樓C301室","email":"tyd.hkscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E8%A1%A3%E9%95%B7%E5%BA%B7%E9%82%A8%E5%BA%B7%E7%BE%8E%E6%A8%93C301%E5%AE%A4"},"離島區":{"fb":"https://www.facebook.com/islands.scout/?locale=zh_HK","ig":"","yt":"","tel":"4655 1984","web":"https://sites.google.com/view/islands-scout","address":"長洲觀音灣路28號","email":"islands.scout＠gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%95%B7%E6%B4%B2%E8%A7%80%E9%9F%B3%E7%81%A3%E8%B7%AF28%E8%99%9F"},"大嶼山區":{"fb":"https://www.facebook.com/lantauscouts/?locale=zh_HK","ig":"https://www.instagram.com/lantau_scout/","yt":"","tel":"","web":"","address":"順東路與赤臘角南路交界處","email":"lantauscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%A0%86%E6%9D%B1%E8%B7%AF%E8%88%87%E8%B5%A4%E8%87%98%E8%A7%92%E5%8D%97%E8%B7%AF%E4%BA%A4%E7%95%8C%E8%99%95"},"新界東地域":{"fb":"https://www.facebook.com/nteryouthscout/?tn-str=k*F","ig":"https://www.instagram.com/nteryouthscout/","yt":"","tel":"2667 9100","web":"https://www.nter-hkscout.org/","address":"大埔運頭角里15號羅定邦童軍中心","email":"nter@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83"},"雙魚區":{"fb":"https://www.facebook.com/sheungyue","ig":"https://www.instagram.com/scout_nter_syd/","yt":"","tel":"","web":"https://www.syd-hkscout.org/","address":"新界粉嶺祥華邨祥禮樓 225 - 227 室","email":"info@syd-hkscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E7%B2%89%E5%B6%BA%E7%A5%A5%E8%8F%AF%E9%82%A8%E7%A5%A5%E7%A6%AE%E6%A8%93%20225%20-%20227%20%E5%AE%A4"},"壁峰區":{"fb":"https://www.facebook.com/scoutpfd/?locale=zh_HK","ig":"","yt":"","tel":"","web":"https://sites.google.com/view/pikfung-district","address":"","email":"","map":""},"大埔北區":{"fb":"https://www.facebook.com/tpnscout","ig":"https://www.instagram.com/tpn.scout","yt":"","tel":"","web":"https://tpnscout.org/","address":"大埔運頭角里15號羅定邦童軍中心19室","email":"INFO@TPNSCOUT.ORG","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%8319%E5%AE%A4"},"大埔南區":{"fb":"https://www.facebook.com/tpsscout/?locale=zh_HK","ig":"https://www.instagram.com/tai_po_south_district/","yt":"","tel":"6371 6821","web":"http://www.tps.org.hk/","address":"大埔運頭角里15號羅定邦童軍中心21室","email":"district@tps.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%8321%E5%AE%A4"},"沙田西區":{"fb":"https://www.facebook.com/stwscout/","ig":"https://www.instagram.com/stwscout/","yt":"","tel":"2692 4542","web":"https://www.stwscout.org/wp/","address":"新界沙田禾輋邨厚和樓平台427-428號","email":"enquiry@stwscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E6%B2%99%E7%94%B0%E7%A6%BE%E8%BC%8B%E9%82%A8%E5%8E%9A%E5%92%8C%E6%A8%93%E5%B9%B3%E5%8F%B0427-428%E8%99%9F"},"沙田南區":{"fb":"https://www.facebook.com/p/香港童軍總會-新界東地域-沙田南區-100064868370588/?locale=zh_HK","ig":"https://www.instagram.com/stsdscout/","yt":"","tel":"2132 9636","web":"https://www.stsd-scout.org/","address":"香港沙田大圍顯和里顯徑鄰里社區中心4樓406室","email":"info@stsd-scout.org","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E6%B2%99%E7%94%B0%E5%A4%A7%E5%9C%8D%E9%A1%AF%E5%92%8C%E9%87%8C%E9%A1%AF%E5%BE%91%E9%84%B0%E9%87%8C%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%834%E6%A8%93406%E5%AE%A4"},"沙田東區":{"fb":"https://www.facebook.com/stescout/","ig":"https://www.instagram.com/ste.scout/","yt":"","tel":"3956 4045","web":"https://www.stescout.org/website/","address":"新界沙田禾輋邨厚和樓 425-426 號","email":"web@stescout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E6%B2%99%E7%94%B0%E7%A6%BE%E8%BC%8B%E9%82%A8%E5%8E%9A%E5%92%8C%E6%A8%93%20425-426%20%E8%99%9F"},"沙田北區":{"fb":"https://www.facebook.com/stnscout/?locale=zh_HK","ig":"","yt":"","tel":"","web":"https://www.stnscout.org/","address":"香港新界大埔運頭角里15號羅定邦童軍中心","email":"info@stnscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E6%96%B0%E7%95%8C%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83"}};
 
     const state = {
       cache: null,
@@ -204,6 +243,10 @@
         regions[region].push(source);
       }
       return regions;
+    }
+
+    function badgeHtml(n) {
+      return `<span class="count-badge ${n > 0 ? 'hot' : ''}">${n}</span>`;
     }
 
     function sourceCount(source) {
@@ -339,7 +382,8 @@
         const totalAll = state.sourceOrder.reduce((sum, src) => sum + sourceCount(src), 0);
         
         const allBtn = document.createElement('button');
-        allBtn.innerHTML = `<span>全港 (所有層級)</span><span>${totalAll}</span>`;
+        allBtn.innerHTML = `<span>全港 (所有層級)</span>${badgeHtml(totalAll)}`;
+        if (totalAll > 0) allEl.classList.add('has-updates');
         if (state.activeSource === 'ALL_SOURCES') allEl.classList.add('open');
         allBtn.onclick = () => {
           state.activeSource = 'ALL_SOURCES';
@@ -365,8 +409,9 @@
         if (shouldOpen) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
+        if (total > 0) regionEl.classList.add('has-updates');
         const header = document.createElement('button');
-        header.innerHTML = `<span>${escapeHtml(regionName)}</span><span>${total}</span>`;
+        header.innerHTML = `<span>${escapeHtml(regionName)}</span>${badgeHtml(total)}`;
         header.onclick = () => regionEl.classList.toggle('open');
         regionEl.appendChild(header);
 
@@ -376,7 +421,7 @@
         // Add "All in this Region" button
         if (filteredSources.length > 1 || true) {
           const allRegionBtn = document.createElement('button');
-          allRegionBtn.className = `source-btn ${isRegionActive ? 'active' : ''}`;
+          allRegionBtn.className = `source-btn ${isRegionActive ? 'active' : ''} ${total > 0 ? 'has-updates' : ''}`;
           allRegionBtn.innerHTML = `<span>全部 (${escapeHtml(regionName)})</span><small>${total} 則</small>`;
           allRegionBtn.onclick = () => {
             state.activeSource = 'REGION:' + regionName;
@@ -388,9 +433,10 @@
         }
 
         for (const source of filteredSources) {
+          const cnt = sourceCount(source);
           const btn = document.createElement('button');
-          btn.className = `source-btn ${state.activeSource === source ? 'active' : ''}`;
-          btn.innerHTML = `<span>${escapeHtml(source)}</span><small>${sourceCount(source)} 則</small>`;
+          btn.className = `source-btn ${state.activeSource === source ? 'active' : ''} ${cnt > 0 ? 'has-updates' : ''}`;
+          btn.innerHTML = `<span>${escapeHtml(source)}</span><small>${cnt} 則</small>`;
           btn.onclick = () => {
             state.activeSource = source;
             renderAccordion();
@@ -408,7 +454,37 @@
       }
     }
 
+    const SVG = {
+      fb: '<svg viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>',
+      ig: '<svg viewBox="0 0 24 24" fill="#d62976"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.66.95 3.33.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.86 5.86 0 0 0 2.12-1.38 5.86 5.86 0 0 0 1.38-2.12c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.86 5.86 0 0 0-1.38-2.12A5.86 5.86 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.4-10.84a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>',
+      web: '<svg viewBox="0 0 24 24" fill="none" stroke="#7bb0ff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>',
+      map: '<svg viewBox="0 0 24 24" fill="#22c55e"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>',
+      tel: '<svg viewBox="0 0 24 24" fill="#cdd9ec"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.24 1.02l-2.2 2.2z"/></svg>',
+      yt: '<svg viewBox="0 0 24 24" fill="#ff0000"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.12C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.53A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.12 2.12c1.88.53 9.38.53 9.38.53s7.5 0 9.38-.53a3 3 0 0 0 2.12-2.12A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>',
+      email: '<svg viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    };
+
+    function renderContactBar() {
+      const bar = $('#contact-bar');
+      if (!bar) return;
+      const src = state.activeSource;
+      // 只在揀單一區會（非全港 / 非整個地域）時顯示
+      if (!src || src === 'ALL_SOURCES' || src.startsWith('REGION:')) { bar.innerHTML = ''; return; }
+      const c = (typeof CONTACTS !== 'undefined' && CONTACTS[src]) || null;
+      if (!c) { bar.innerHTML = ''; return; }
+      const items = [];
+      if (c.fb)  items.push(`<a class="contact-ico fb" href="${c.fb}" target="_blank" rel="noopener" title="Facebook">${SVG.fb}</a>`);
+      if (c.ig)  items.push(`<a class="contact-ico ig" href="${c.ig}" target="_blank" rel="noopener" title="Instagram">${SVG.ig}</a>`);
+      if (c.yt)  items.push(`<a class="contact-ico yt" href="${c.yt}" target="_blank" rel="noopener" title="YouTube">${SVG.yt}</a>`);
+      if (c.web) items.push(`<a class="contact-ico web" href="${c.web}" target="_blank" rel="noopener" title="官網">${SVG.web}</a>`);
+      if (c.map) items.push(`<a class="contact-ico map" href="${c.map}" target="_blank" rel="noopener" title="${escapeHtml(c.address||'地址')}">${SVG.map}</a>`);
+      if (c.tel) items.push(`<a class="contact-ico tel" href="tel:${c.tel.replace(/\s/g,'')}" title="電話：${escapeHtml(c.tel)}">${SVG.tel}</a>`);
+      if (c.email) items.push(`<a class="contact-ico email" href="mailto:${c.email}" title="電郵：${escapeHtml(c.email)}">${SVG.email}</a>`);
+      bar.innerHTML = items.join('');
+    }
+
     function renderHeader() {
+      renderContactBar();
       const total = getBucket(state.activeSource).length;
       const current = getCurrentItems().length;
       $('#page-title').textContent = getSourceTitle(state.activeSource);
@@ -416,9 +492,11 @@
       let subtitle = '請先選擇一個來源。';
       if (state.activeSource === 'ALL_SOURCES') subtitle = '目前顯示全港所有通告。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
-      else if (state.activeSource) subtitle = `目前只讀取 data["${state.activeSource}"]；切換分頁時只排序這個來源的陣列。`;
-      
-      $('#page-subtitle').textContent = subtitle;
+      else if (state.activeSource) subtitle = '';
+
+      const subEl = $('#page-subtitle');
+      subEl.textContent = subtitle;
+      subEl.style.display = subtitle ? '' : 'none';
       $('#status-line').innerHTML = `
         視窗：<code>${escapeHtml(currentWindow().label)}</code>
         ・顯示：<code>${current}</code>
@@ -518,6 +596,32 @@
     });
 
     renderWindowChips();
+    // === 訪客計數器（純靜態頁，用免費 counterapi.dev，無需註冊）===
+    async function loadVisitCounter() {
+      const el = document.getElementById('visit-count');
+      if (!el) return;
+      const NS = 'scout-circulars-hk';   // namespace
+      const KEY = 'visits';              // counter 名
+      // 同一瀏覽器 30 分鐘內只 +1（避免重整狂刷數）
+      const last = Number(localStorage.getItem('scl_visit_ts') || 0);
+      const fresh = (Date.now() - last) > 30 * 60 * 1000;
+      const url = fresh
+        ? `https://api.counterapi.dev/v1/${NS}/${KEY}/up`
+        : `https://api.counterapi.dev/v1/${NS}/${KEY}`;
+      try {
+        const r = await fetch(url, { cache: 'no-store' });
+        const d = await r.json();
+        if (fresh) localStorage.setItem('scl_visit_ts', String(Date.now()));
+        const n = (d && typeof d.count === 'number') ? d.count : null;
+        el.textContent = n != null ? `累計瀏覽 ${n.toLocaleString()} 次` : '累計瀏覽 —';
+      } catch (_) {
+        // 服務掛咗都唔影響個站，隱藏個 badge
+        const box = document.getElementById('visit-counter');
+        if (box) box.style.display = 'none';
+      }
+    }
+    loadVisitCounter();
+
     loadCache();
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff2d8366d1810ac',t:'MTc3OTM1ODc4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>

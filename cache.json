@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-07 09:42:12",
+  "last_updated": "2026-06-07 11:38:10",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3921,
+    "total_notices": 3930,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -13123,6 +13123,33 @@
     ],
     "維多利亞城區": [
       {
+        "title": "第587屆童軍領導才訓練班",
+        "url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
+        "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "維多利亞城區",
+        "region": "港島地域"
+      },
+      {
+        "title": "第22屆童軍初級航空活動章訓練班",
+        "url": "https://vic-web-98f2f.web.app/zh/events",
+        "pdf_url": "https://vic-web-98f2f.web.app/zh/events",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "維多利亞城區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2026年週年大會暨就職典禮",
+        "url": "https://docs.google.com/forms/d/e/1FAIpQLSe9cHhhSS_YWiMzUWZ4zjajgT6V5bG6KIgtWUOZsrN7RoIh5A/viewform",
+        "pdf_url": "https://docs.google.com/forms/d/e/1FAIpQLSe9cHhhSS_YWiMzUWZ4zjajgT6V5bG6KIgtWUOZsrN7RoIh5A/viewform",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "維多利亞城區",
+        "region": "港島地域"
+      },
+      {
         "title": "特別通告 001/23 號「後顧無憂」- 中秋關愛包派發活動",
         "url": "https://drive.google.com/file/d/1D3cQigfmJFmBnjgg-jWweJSLsHlqJrQa/view",
         "pdf_url": "https://drive.google.com/file/d/1D3cQigfmJFmBnjgg-jWweJSLsHlqJrQa/view",
@@ -21401,7 +21428,17 @@
         "region": "九龍地域"
       }
     ],
-    "旺角區": [],
+    "旺角區": [
+      {
+        "title": "2025讀圖探險章通告及報名表",
+        "url": "https://drive.google.com/file/d/1_CAM0UdPoLsB_ne7SJmRVkFLb7CpNKBQ/view",
+        "pdf_url": "https://drive.google.com/file/d/1_CAM0UdPoLsB_ne7SJmRVkFLb7CpNKBQ/view",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "旺角區",
+        "region": "九龍地域"
+      }
+    ],
     "深旺區": [
       {
         "title": "野外定向第一、二階段訓練班 接納通知書",
@@ -31231,6 +31268,51 @@
     ],
     "雙魚區": [
       {
+        "title": "SYD-VS-01-2025",
+        "url": "https://drive.google.com/file/d/1VmWpG90nD3ypZAXOdTv9Xw9gT7VO1PyG/view",
+        "pdf_url": "https://drive.google.com/file/d/1VmWpG90nD3ypZAXOdTv9Xw9gT7VO1PyG/view",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "雙魚區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "5 SYD-Support Funding",
+        "url": "https://drive.google.com/file/d/1Ui5F5zSnpK2aEDZlIKgrUqGu63dMoZhv/view",
+        "pdf_url": "https://drive.google.com/file/d/1Ui5F5zSnpK2aEDZlIKgrUqGu63dMoZhv/view",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "雙魚區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "5 BWB(P)",
+        "url": "https://drive.google.com/file/d/1q0E57L2n41Yp0EpWkMRnx5NLJcN53dUo/view",
+        "pdf_url": "https://drive.google.com/file/d/1q0E57L2n41Yp0EpWkMRnx5NLJcN53dUo/view",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "雙魚區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "5 BWB(I)",
+        "url": "https://drive.google.com/file/d/1vBDlp3xJY_xytDJTidcEe3N8yGQm_CY8/view",
+        "pdf_url": "https://drive.google.com/file/d/1vBDlp3xJY_xytDJTidcEe3N8yGQm_CY8/view",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "雙魚區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2025-GS-2025-05 小童軍工作坊2",
+        "url": "https://drive.google.com/file/d/1U8UAR6P3pYptit7UNbbzcFXSvHC1Bf_s/view",
+        "pdf_url": "https://drive.google.com/file/d/1U8UAR6P3pYptit7UNbbzcFXSvHC1Bf_s/view",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "雙魚區",
+        "region": "新界東地域"
+      },
+      {
         "title": "雙魚區通告",
         "url": "https://drive.google.com/file/d/1U8UAR6P3pYptit7UNbbzcFXSvHC1Bf_s/preview",
         "pdf_url": "https://drive.google.com/file/d/1U8UAR6P3pYptit7UNbbzcFXSvHC1Bf_s/preview",
@@ -35393,6 +35475,41 @@
   },
   "notices": [
     {
+      "source_site": "雙魚區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1VmWpG90nD3ypZAXOdTv9Xw9gT7VO1PyG/view",
+      "title": "SYD-VS-01-2025",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "雙魚區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1Ui5F5zSnpK2aEDZlIKgrUqGu63dMoZhv/view",
+      "title": "5 SYD-Support Funding",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "雙魚區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1q0E57L2n41Yp0EpWkMRnx5NLJcN53dUo/view",
+      "title": "5 BWB(P)",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "雙魚區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1vBDlp3xJY_xytDJTidcEe3N8yGQm_CY8/view",
+      "title": "5 BWB(I)",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "雙魚區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1U8UAR6P3pYptit7UNbbzcFXSvHC1Bf_s/view",
+      "title": "2025-GS-2025-05 小童軍工作坊2",
+      "captured_date": "2026-06-07"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25002/P063-26.pdf",
@@ -35404,6 +35521,34 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25003/P064-26.pdf",
       "title": "2026至2027年度海上活動訓練班、活動及比賽行事曆(P64/2026)",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "維多利亞城區",
+      "region": "港島地域",
+      "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
+      "title": "第587屆童軍領導才訓練班",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "維多利亞城區",
+      "region": "港島地域",
+      "pdf_url": "https://vic-web-98f2f.web.app/zh/events",
+      "title": "第22屆童軍初級航空活動章訓練班",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "維多利亞城區",
+      "region": "港島地域",
+      "pdf_url": "https://docs.google.com/forms/d/e/1FAIpQLSe9cHhhSS_YWiMzUWZ4zjajgT6V5bG6KIgtWUOZsrN7RoIh5A/viewform",
+      "title": "2026年週年大會暨就職典禮",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "旺角區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1_CAM0UdPoLsB_ne7SJmRVkFLb7CpNKBQ/view",
+      "title": "2025讀圖探險章通告及報名表",
       "captured_date": "2026-06-07"
     },
     {
@@ -62955,14 +63100,14 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": true,
+    "has_errors": false,
     "last_run": {
-      "updated_at": "2026-06-07 09:42:12",
-      "new": 2,
-      "updated": 3306,
-      "skipped": 1,
-      "processed": 47,
-      "playwright_used": 3
+      "updated_at": "2026-06-07 11:38:10",
+      "new": 6,
+      "updated": 0,
+      "skipped": 0,
+      "processed": 2,
+      "playwright_used": 1
     }
   }
 }

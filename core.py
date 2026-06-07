@@ -698,12 +698,207 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     use_playwright = config.get("use_playwright", False)
     result: Optional[FetchResult] = None
 
+    # --- Google Sites + Drive folderview Injection (旺角區等：通告放喺 Drive 資料夾) ---
+    if config.get("type") == "gsites_folders":
+        import requests as _rq, re as _re
+        print(f"[{name}] === 抓取 Google Sites Drive 資料夾 ===")
+        try:
+            r = _rq.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+            page_html = r.text
+        except Exception as e:
+            print(f"[{name}] ⚠️ 主頁抓取失敗: {e}")
+            return None
+
+        # 從主頁抽出所有 Drive 資料夾 id
+        folder_ids = set(_re.findall(
+            r"(?:drive|docs)\.google\.com/(?:embedded)?folderview\?id=([\w-]+)", page_html))
+        folder_ids |= set(_re.findall(r"drive\.google\.com/drive/folders/([\w-]+)", page_html))
+        print(f"[{name}] 發現 {len(folder_ids)} 個 Drive 資料夾")
+
+        mock_html = "<html><body>"
+        count = 0
+        seen = set()
+        for fid in folder_ids:
+            try:
+                fr = _rq.get(f"https://drive.google.com/embeddedfolderview?id={fid}#list",
+                             timeout=30, headers={"User-Agent": "Mozilla/5.0"})
+                fsoup = BeautifulSoup(fr.text, "html.parser")
+            except Exception:
+                continue
+            for entry in fsoup.select(".flip-entry"):
+                a = entry.find("a", href=True)
+                if not a:
+                    continue
+                m = _re.search(r"/file/d/([\w-]+)", a.get("href", ""))
+                href = f"https://drive.google.com/file/d/{m.group(1)}/view" if m else a["href"]
+                if href in seen:
+                    continue
+                seen.add(href)
+                tnode = entry.select_one(".flip-entry-title")
+                title = (tnode.get_text(strip=True) if tnode else a.get_text(strip=True)) or f"{name}通告"
+                mock_html += f'<a href="{href}">{title}</a><br/>'
+                count += 1
+                print(f"[{name}] 找到通告 → {title} → {href}")
+        mock_html += "</body></html>"
+        print(f"[{name}] 完成！共 {count} 個 Drive 通告")
+        return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
+    # ---------------------------------
+
+    # --- iframe Drive Injection (雙魚區等：通告以 Google Drive iframe 嵌入) ---
+    # 注意：必須在通用 use_playwright 早退之前處理，否則會被攔截。
+    if config.get("type") == "iframe_drive":
+        import re
+        print(f"[{name}] === 抓取 iframe Drive 嵌入頁 (Playwright render) ===")
+        pw_result = fetch_with_playwright(name, config, url=url)
+        if pw_result is None:
+            print(f"[{name}] ⚠️ Playwright render 失敗")
+            return None
+        soup = BeautifulSoup(pw_result.html, "html.parser")
+        BAD = ("日期", "費用", "集合", "報名", "截止", "下載", "申請",
+               "地點", "時間", "資助", "名額", "備註", "查詢", "內容")
+        iframes = [
+            i for i in soup.find_all("iframe", src=True)
+            if "drive.google" in i.get("src", "") or "docs.google" in i.get("src", "")
+        ]
+        mock_html = "<html><body>"
+        count = 0
+        seen = set()
+        for i in iframes:
+            src = i.get("src", "").strip()
+            # iframe preview 連結 → 還原成可開啟的 Drive 檔案連結
+            m = re.search(r"/file/d/([\w-]+)", src)
+            href = f"https://drive.google.com/file/d/{m.group(1)}/view" if m else src
+            if href in seen:
+                continue
+            seen.add(href)
+            # 標題：向上找最近、長度合理、非欄位標籤開頭的文字
+            title = None
+            node = i
+            for _ in range(60):
+                node = node.find_previous()
+                if node is None:
+                    break
+                if not getattr(node, "name", None):
+                    continue
+                t = node.get_text(" ", strip=True)
+                if t and 5 <= len(t) <= 40 and not t.startswith(BAD) \
+                        and "：" not in t and ":" not in t:
+                    title = t
+                    break
+            if not title:
+                title = f"{name}通告 {count + 1}"
+            mock_html += f'<a href="{href}">{title}</a><br/>'
+            count += 1
+            print(f"[{name}] 找到通告 → {title} → {href}")
+        mock_html += "</body></html>"
+        print(f"[{name}] 完成！共 {count} 個 Drive 通告")
+        # 用 render 後嘅完整頁做指紋，頁面一改即觸發更新
+        return FetchResult(url=pw_result.url, html=mock_html, engine="playwright", status_code=200)
+    # ---------------------------------
+
     # 如果來源明確要求 Playwright，則直接使用（避免 requests 靜態 shell 誤判有內容導致跳過PW）
     if use_playwright:
         pw_result = fetch_with_playwright(name, config, url=url)
         if pw_result is None:
             return None
         return pw_result
+
+    # --- Next.js RSC payload Injection (維多利亞城區 Firebase Hosting) ---
+    if config.get("type") == "nextjs_rsc":
+        import requests, json, re
+
+        base = config.get("base_url") or re.match(r"https?://[^/]+", url).group(0)
+        rsc_url = config.get("rsc_url") or url
+        print(f"[{name}] === 抓取 Next.js RSC payload: {rsc_url} ===")
+        try:
+            r = requests.get(
+                rsc_url,
+                verify=config.get("verify_ssl", True),
+                timeout=30,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                    "RSC": "1",
+                },
+            )
+            print(f"[{name}] Status Code: {r.status_code}")
+            if r.status_code != 200:
+                return None
+            t = r.text
+        except Exception as e:
+            print(f"[{name}] ⚠️ RSC 抓取失敗: {e}")
+            return None
+
+        # 逐個 "event":{...} 物件用括號配對切出，再 json.loads
+        def _slice_objects(text: str):
+            for m in re.finditer(r'"event":\s*\{', text):
+                bstart = text.find("{", m.start() + len('"event":'))
+                depth = 0
+                i = bstart
+                while i < len(text):
+                    c = text[i]
+                    if c == "{":
+                        depth += 1
+                    elif c == "}":
+                        depth -= 1
+                        if depth == 0:
+                            break
+                    elif c == '"':
+                        i += 1
+                        while i < len(text) and text[i] != '"':
+                            if text[i] == "\\":
+                                i += 1
+                            i += 1
+                    i += 1
+                yield text[bstart:i + 1]
+
+        def _localized(v):
+            if isinstance(v, dict):
+                return v.get("zh") or v.get("en") or next(iter(v.values()), "")
+            return v or ""
+
+        mock_html = "<html><body>"
+        count = 0
+        seen = set()
+        for raw in _slice_objects(t):
+            try:
+                obj = json.loads(raw)
+            except Exception:
+                continue
+            title = (_localized(obj.get("title")) or "Unknown").strip()
+
+            # 收集候選連結：actions[].href 內的 PDF 優先，其次 registrationUrl
+            pdf_href = None
+            other_href = None
+            for a in (obj.get("actions") or []):
+                h = (a.get("href") or "").strip()
+                if not h:
+                    continue
+                full = h if h.startswith("http") else base + h
+                if h.lower().endswith(".pdf"):
+                    pdf_href = full
+                elif other_href is None:
+                    other_href = full
+            reg = (obj.get("registrationUrl") or "").strip()
+            if reg and not reg.startswith("http"):
+                reg = base + reg
+
+            href = pdf_href or other_href or reg
+            if not href:
+                # 無附件 fallback：指向該活動內頁
+                slug = obj.get("slug", "")
+                href = f"{base}/zh/events#{slug}" if slug else f"{base}/zh/events"
+
+            if href in seen:
+                continue
+            seen.add(href)
+            mock_html += f'<a href="{href}">{title}</a><br/>'
+            count += 1
+            print(f"[{name}] 找到通告 → {title} → {href}")
+
+        mock_html += "</body></html>"
+        print(f"[{name}] 完成！共 {count} 個通告")
+        return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
+    # ---------------------------------
 
     # --- WP API Injection ---
     if config.get("type") == "wordpress_api":
@@ -1053,10 +1248,15 @@ def extract_assets_from_listing(
     if should_follow_detail_pages(config) and not detail_anchors:
         detail_anchors = list(asset_anchors)
 
+    accept_all = bool(config.get("accept_all_links"))
     for a in asset_anchors:
         href = resolve_url(page_url, a.get("href"))
         href = sanitize_url(href or "", config.get("url_sanitize", []))
-        if not href or not is_download_url(href) or href in seen_assets:
+        if not href or href in seen_assets:
+            continue
+        # accept_all_links: 此來源已在上游(如 nextjs_rsc)精準篩選好連結，
+        # 不需再經 is_download_url 過濾，避免漏掉報名表單/內頁等合法通告。
+        if not accept_all and not is_download_url(href):
             continue
         raw_text = a.get_text(" ", strip=True) or a.get("title") or a.get("aria-label") or ""
         inferred_title = infer_listing_title(a, soup, config) or raw_text
