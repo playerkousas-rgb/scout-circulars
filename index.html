@@ -596,28 +596,26 @@
     });
 
     renderWindowChips();
-    // === 訪客計數器（純靜態頁，用免費 counterapi.dev，無需註冊）===
+    // === 訪客計數器（純靜態頁，用免費 abacus.jasoncameron.dev，無需註冊，穩定 + CORS）===
     async function loadVisitCounter() {
       const el = document.getElementById('visit-count');
       if (!el) return;
-      const NS = 'scout-circulars-hk';   // namespace
-      const KEY = 'visits';              // counter 名
-      // 同一瀏覽器 30 分鐘內只 +1（避免重整狂刷數）
+      const NS = 'scout-circulars-hk';   // namespace（如想換新計數，改呢度）
+      const KEY = 'visits';
+      // 同一瀏覽器 30 分鐘內只 +1（避免重整狂刷）；其餘時間只讀取
       const last = Number(localStorage.getItem('scl_visit_ts') || 0);
       const fresh = (Date.now() - last) > 30 * 60 * 1000;
-      const url = fresh
-        ? `https://api.counterapi.dev/v1/${NS}/${KEY}/up`
-        : `https://api.counterapi.dev/v1/${NS}/${KEY}`;
+      const action = fresh ? 'hit' : 'get';
+      const url = `https://abacus.jasoncameron.dev/${action}/${NS}/${KEY}`;
       try {
         const r = await fetch(url, { cache: 'no-store' });
         const d = await r.json();
         if (fresh) localStorage.setItem('scl_visit_ts', String(Date.now()));
-        const n = (d && typeof d.count === 'number') ? d.count : null;
+        const n = (d && typeof d.value === 'number') ? d.value : null;
         el.textContent = n != null ? `累計瀏覽 ${n.toLocaleString()} 次` : '累計瀏覽 —';
       } catch (_) {
-        // 服務掛咗都唔影響個站，隱藏個 badge
-        const box = document.getElementById('visit-counter');
-        if (box) box.style.display = 'none';
+        // 服務掛咗都唔影響個站，但保留個框並顯示「—」（你話想睇到個位）
+        el.textContent = '累計瀏覽 —';
       }
     }
     loadVisitCounter();
