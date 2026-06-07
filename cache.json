@@ -1,13 +1,31 @@
 {
-  "last_updated": "2026-06-06 07:00:32",
+  "last_updated": "2026-06-07 09:42:12",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3919,
+    "total_notices": 3921,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "2026至2027年度深資童軍支部訓練班、考驗及活動行事曆(P63/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25002/P063-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25002/P063-26.pdf",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2026至2027年度海上活動訓練班、活動及比賽行事曆(P64/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25003/P064-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25003/P064-26.pdf",
+        "date": "2026-06-07",
+        "captured_date": "2026-06-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第20屆初級遠足審核員訓練班(P61/2026)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24981/P061-26.pdf",
@@ -35377,6 +35395,20 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25002/P063-26.pdf",
+      "title": "2026至2027年度深資童軍支部訓練班、考驗及活動行事曆(P63/2026)",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25003/P064-26.pdf",
+      "title": "2026至2027年度海上活動訓練班、活動及比賽行事曆(P64/2026)",
+      "captured_date": "2026-06-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24981/P061-26.pdf",
       "title": "第20屆初級遠足審核員訓練班(P61/2026)",
       "captured_date": "2026-06-06"
@@ -62925,9 +62957,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-06 07:00:32",
-      "new": 10,
-      "updated": 3299,
+      "updated_at": "2026-06-07 09:42:12",
+      "new": 2,
+      "updated": 3306,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
