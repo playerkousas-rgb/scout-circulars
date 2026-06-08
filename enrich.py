@@ -158,7 +158,8 @@ def extract_audience(text):
     scope = locate_label_scope(
         text,
         label_keys=["參加資格", "參加對象", "對象", "資格"],
-        lines_after=3,
+        lines_after=2,
+        stop_keys=["費用", "收費", "名額", "報名", "截止", "日期", "辦法"],
     )
     if not scope:
         return ""
@@ -191,16 +192,23 @@ def extract_audience(text):
     return "、".join(ordered)
 
 
-def locate_label_scope(text, label_keys, lines_after=3):
-    """回傳 label 那行（冒號後）+ 之後 N 行的合併文字。"""
+def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None):
+    """回傳 label 那行（冒號後）+ 之後 N 行的合併文字。
+    若提供 stop_keys：合併後續行時，一遇到含 stop 詞的行就停，
+    避免把下一個欄位（如『報名辦法』）的內容撈進來。"""
+    stop_keys = stop_keys or []
     lines = text.split("\n")
     for i, line in enumerate(lines):
         c = compact(line)
         if any(k in c for k in label_keys):
             m = re.search(r"[:：]\s*(.+)$", line)
             head = (m.group(1) if m else line)
-            tail = " ".join(lines[i + 1:i + 1 + lines_after])
-            return head + " " + tail
+            tail_parts = []
+            for nl in lines[i + 1:i + 1 + lines_after]:
+                if any(k in compact(nl) for k in stop_keys):
+                    break
+                tail_parts.append(nl)
+            return head + " " + " ".join(tail_parts)
     return ""
 
 
@@ -213,9 +221,14 @@ FEE_PATTERNS = [
 ]
 
 def extract_fee(text):
-    """費用：只抽『費用 label』後第一句的金額（即真正要繳的班費）。
-    刻意只看第一句，避免撈到後面段落的代購費／按金／資助說明等無關金額。
-    （例：「活動費用$20。如需代購口琴$50」→ 只取 $20）"""
+    """費用：抽『費用 label』附近的金額。
+    規則（依實際觀察）：
+      - 抽到兩個金額且一個剛好是另一個的一半 → 用細嗰個
+        （童軍通告的『原價 / 半費資助後實價』必為 2 倍關係；
+         未見過 0.7、0.8 折，故 2 倍即可判定為資助原價，取實價）
+      - 否則保留兩個（應付『領袖 $100 / 成員 $50』這類真．身份差價，
+        但身份差價甚少剛好 2 倍，故不會誤殺）
+    """
     scope = locate_label_scope(
         text,
         label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用"],
@@ -224,25 +237,43 @@ def extract_fee(text):
     if not scope:
         return ""
     c = compact(scope)
-    # 「全免/免費」優先
     if re.search(r"全免|免費", c):
         return "全免"
-    # 只取第一句（到第一個句號/分號/換行語氣為止），避免撈到代購、按金等
+    # 只看第一句，避免撈到後段代購費／按金
     first_sentence = re.split(r"[。;；]", c, maxsplit=1)[0]
 
     combined = r"(?:HK\$|HKD|港幣|\$)\s*[\d,]+(?:\.\d+)?\s*元?(?:正)?|[\d,]+\s*元(?:正)?"
     spans = []
-    amounts = []
+    raw = []          # 保留原字串（含「港幣…元正」格式）
+    nums = []         # 對應數值
     for m in re.finditer(combined, first_sentence):
         if any(not (m.end() <= s or m.start() >= e) for s, e in spans):
             continue
         spans.append((m.start(), m.end()))
         a = m.group(0).strip(" ,，.。、")
-        if a not in amounts:
-            amounts.append(a)
-    if amounts:
-        return " / ".join(amounts[:2])  # 同句多價（如「成員$50／非成員$80」）保留
-    return ""
+        digits = re.search(r"[\d,]+", a)
+        if not digits:
+            continue
+        val = int(digits.group(0).replace(",", ""))
+        if val <= 0:
+            continue
+        if a not in raw:
+            raw.append(a)
+            nums.append(val)
+
+    if not raw:
+        return ""
+    if len(raw) == 1:
+        return raw[0]
+
+    # 取前兩個判斷：剛好 2 倍 → 資助原價，用細嗰個
+    a_raw, b_raw = raw[0], raw[1]
+    a_num, b_num = nums[0], nums[1]
+    big, small = (a_raw, b_raw) if a_num >= b_num else (b_raw, a_raw)
+    big_n, small_n = max(a_num, b_num), min(a_num, b_num)
+    if small_n > 0 and big_n == small_n * 2:
+        return small        # 半費資助，取實價
+    return f"{a_raw} / {b_raw}"   # 真．身份差價，兩個都保留
 
 
 def clean_value(v, max_len):
