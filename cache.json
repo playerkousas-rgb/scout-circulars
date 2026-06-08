@@ -1,13 +1,67 @@
 {
-  "last_updated": "2026-06-08 07:49:03",
+  "last_updated": "2026-06-09 06:31:41",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3935,
+    "total_notices": 3942,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "航空訓練中心 航空領航領袖工作坊(P66/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25005/P066-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25005/P066-26.pdf",
+        "date": "2026-06-09",
+        "captured_date": "2026-06-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "航空訓練中心 童軍航空領航章訓練班(P65/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25004/P065-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25004/P065-26.pdf",
+        "date": "2026-06-09",
+        "captured_date": "2026-06-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍捐血活動2026-2027 –「童軍捐血計劃」紀念章(P70/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25011/P070-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25011/P070-26.pdf",
+        "date": "2026-06-09",
+        "captured_date": "2026-06-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍捐血活動2026-2027 –「捐血站遊蹤」(P69/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25009/P069-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25009/P069-26.pdf",
+        "date": "2026-06-09",
+        "captured_date": "2026-06-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "深資童軍海上旅程訓練安排(P67/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25006/P067-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25006/P067-26.pdf",
+        "date": "2026-06-09",
+        "captured_date": "2026-06-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "海上旅程審核員委任(P68/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25007/P068-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25007/P068-26.pdf",
+        "date": "2026-06-09",
+        "captured_date": "2026-06-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "2026至2027年度深資童軍支部訓練班、考驗及活動行事曆(P63/2026)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25002/P063-26.pdf",
@@ -34561,6 +34615,15 @@
     "大嶼山區": [],
     "慈雲山區": [
       {
+        "title": "第 50 屆慈雲山區區務委員會就職典禮 暨 中國文化 - TWS-5292-26-第50屆區務委員會就職典禮暨中國文化 通告",
+        "url": "http://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf",
+        "pdf_url": "http://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf",
+        "date": "2026-06-09",
+        "captured_date": "2026-06-09",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "第588屆童軍領導才訓練班 - PT1005 2026 第588屆童軍領導才訓練班",
         "url": "http://group.scout.org.hk/tws/wp-content/uploads/2026/05/PT1005_2026-第588屆童軍領導才訓練班.pdf",
         "pdf_url": "http://group.scout.org.hk/tws/wp-content/uploads/2026/05/PT1005_2026-第588屆童軍領導才訓練班.pdf",
@@ -35519,6 +35582,55 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25005/P066-26.pdf",
+      "title": "航空訓練中心 航空領航領袖工作坊(P66/2026)",
+      "captured_date": "2026-06-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25004/P065-26.pdf",
+      "title": "航空訓練中心 童軍航空領航章訓練班(P65/2026)",
+      "captured_date": "2026-06-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25011/P070-26.pdf",
+      "title": "童軍捐血活動2026-2027 –「童軍捐血計劃」紀念章(P70/2026)",
+      "captured_date": "2026-06-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25009/P069-26.pdf",
+      "title": "童軍捐血活動2026-2027 –「捐血站遊蹤」(P69/2026)",
+      "captured_date": "2026-06-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25006/P067-26.pdf",
+      "title": "深資童軍海上旅程訓練安排(P67/2026)",
+      "captured_date": "2026-06-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25007/P068-26.pdf",
+      "title": "海上旅程審核員委任(P68/2026)",
+      "captured_date": "2026-06-09"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "http://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf",
+      "title": "第 50 屆慈雲山區區務委員會就職典禮 暨 中國文化 - TWS-5292-26-第50屆區務委員會就職典禮暨中國文化 通告",
+      "captured_date": "2026-06-09"
+    },
     {
       "source_site": "荃灣區",
       "region": "新界地域",
@@ -63182,9 +63294,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-08 07:49:03",
-      "new": 5,
-      "updated": 3273,
+      "updated_at": "2026-06-09 06:31:41",
+      "new": 7,
+      "updated": 3271,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3

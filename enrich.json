@@ -35178,5 +35178,75 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-08 13:20:50"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25005/P066-26.pdf": {
+    "source": "總會",
+    "title": "航空訓練中心 航空領航領袖工作坊(P66/2026)",
+    "deadline": "2026-08-13",
+    "audience": "童軍、領袖",
+    "fee": "$200",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-09 06:48:59"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25004/P065-26.pdf": {
+    "source": "總會",
+    "title": "航空訓練中心 童軍航空領航章訓練班(P65/2026)",
+    "deadline": "2026-08-13",
+    "audience": "童軍",
+    "fee": "$100",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-09 06:49:00"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25011/P070-26.pdf": {
+    "source": "總會",
+    "title": "童軍捐血活動2026-2027 –「童軍捐血計劃」紀念章(P70/2026)",
+    "deadline": "",
+    "audience": "童軍、領袖",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-09 06:49:00"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25009/P069-26.pdf": {
+    "source": "總會",
+    "title": "童軍捐血活動2026-2027 –「捐血站遊蹤」(P69/2026)",
+    "deadline": "",
+    "audience": "領袖、會務委員",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-09 06:49:01"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25006/P067-26.pdf": {
+    "source": "總會",
+    "title": "深資童軍海上旅程訓練安排(P67/2026)",
+    "deadline": "",
+    "audience": "深資童軍、童軍",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-09 06:49:02"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25007/P068-26.pdf": {
+    "source": "總會",
+    "title": "海上旅程審核員委任(P68/2026)",
+    "deadline": "",
+    "audience": "深資童軍、童軍、領袖",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-09 06:49:02"
+  },
+  "http://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf": {
+    "source": "慈雲山區",
+    "title": "第 50 屆慈雲山區區務委員會就職典禮 暨 中國文化 - TWS-5292-26-第50屆區務委員會就職典禮暨中國文化 通告",
+    "deadline": "",
+    "audience": "",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-09 06:49:03"
   }
 }
