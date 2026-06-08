@@ -94,6 +94,11 @@
     .card { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(180deg, rgba(15,23,40,.92), rgba(8,14,26,.95)); box-shadow: var(--shadow); }
     .badge { display: inline-flex; align-items: center; gap: 6px; width: fit-content; font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(59,130,246,.35); background: rgba(29,78,216,.18); color: #b6d4ff; }
     .card h3 { margin: 0; font-size: 18px; line-height: 1.45; }
+    /* enrich 補充資料（截止/對象/費用）*/
+    .ex-box { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 10px; background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.22); }
+    .ex-row { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #d7e6f5; line-height: 1.4; }
+    .ex-ico { flex: 0 0 auto; font-size: 13px; }
+    .ex-row .ex-deadline { color: #f87171; }
     .meta-row { display: flex; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; margin-top: auto; }
     .meta-row .host { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .meta-row .link { color: #cfe3ff; }
@@ -156,6 +161,7 @@
 
   <script>
     const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
+    const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/enrich.json';
     const TIME_WINDOWS = [
       { id: '1d', label: '今天', days: 1 },
       { id: '7d', label: '7天', days: 7 },
@@ -170,6 +176,7 @@
 
     const state = {
       cache: null,
+      enrich: {},
       grouped: {},
       regions: {},
       sourceOrder: [],
@@ -189,6 +196,25 @@
       const params = new URLSearchParams(location.search);
       const raw = params.get('raw') || RAW_CACHE_URL;
       return `${raw}${raw.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    }
+
+    function getEnrichUrl() {
+      const params = new URLSearchParams(location.search);
+      // 若用 ?raw= 覆蓋 cache，enrich 自動取同目錄的 enrich.json；否則用預設
+      let base = params.get('enrich');
+      if (!base) {
+        const rawCache = params.get('raw');
+        base = rawCache ? rawCache.replace(/cache\.json.*$/, 'enrich.json') : RAW_ENRICH_URL;
+      }
+      return `${base}${base.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    }
+
+    // 載入 enrich.json（失敗都唔影響主畫面）
+    async function loadEnrich() {
+      try {
+        const r = await fetch(getEnrichUrl(), { cache: 'no-store' });
+        if (r.ok) state.enrich = await r.json();
+      } catch (_) { state.enrich = {}; }
     }
 
     function parseDate(value) {
@@ -524,6 +550,18 @@
         const href = item.url || item.pdf_url || '#';
         let host = '';
         try { host = new URL(href).hostname; } catch (_) {}
+
+        // 查 enrich 補充資料（截止 / 對象 / 費用）
+        const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+        let extraHtml = '';
+        if (ex) {
+          const rows = [];
+          if (ex.deadline) rows.push(`<div class="ex-row"><span class="ex-ico ex-deadline">⏳</span>截止：${escapeHtml(ex.deadline)}</div>`);
+          if (ex.audience) rows.push(`<div class="ex-row"><span class="ex-ico ex-aud">👤</span>對象：${escapeHtml(ex.audience)}</div>`);
+          if (ex.fee)      rows.push(`<div class="ex-row"><span class="ex-ico ex-fee">💲</span>費用：${escapeHtml(ex.fee)}</div>`);
+          if (rows.length) extraHtml = `<div class="ex-box">${rows.join('')}</div>`;
+        }
+
         const card = document.createElement('article');
         card.className = 'card';
         card.innerHTML = `
@@ -533,6 +571,7 @@
             <span>${escapeHtml(formatDate(item.date || item.captured_date || ''))}</span>
             <span class="host">${escapeHtml(host)}</span>
           </div>
+          ${extraHtml}
           <div class="meta-row">
             <span>${escapeHtml(item.region || '')}</span>
             <a class="link" href="${encodeURI(href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
@@ -553,6 +592,8 @@
         const resp = await fetch(getRawUrl(), { cache: 'no-store' });
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         state.cache = await resp.json();
+
+        await loadEnrich();  // 載入截止/對象/費用補充資料
 
         state.grouped = state.cache.data && Object.keys(state.cache.data).length
           ? state.cache.data
