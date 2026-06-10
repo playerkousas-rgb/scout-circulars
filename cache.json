@@ -1,13 +1,31 @@
 {
-  "last_updated": "2026-06-10 08:15:04",
+  "last_updated": "2026-06-11 04:50:14",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3944,
+    "total_notices": 3947,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "基維爾營地設施收費及表格更新 ( )",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25037/KR07_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25037/KR07_26.pdf",
+        "date": "2026-06-11",
+        "captured_date": "2026-06-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域6月份通告一覽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25038/Summary_2026_06.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25038/Summary_2026_06.pdf",
+        "date": "2026-06-11",
+        "captured_date": "2026-06-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "「童」行勇者體驗日 ( )",
         "url": "https://scout.org.hk/uploads/tc/circulars/25033/SP06_26.pdf",
@@ -18900,18 +18918,18 @@
     ],
     "九龍地域": [
       {
-        "title": "活動/課程之報名須知",
-        "url": "https://krscout.org/wp-content/uploads/2026/01/KR01_26.pdf",
-        "pdf_url": "https://krscout.org/wp-content/uploads/2026/01/KR01_26.pdf",
+        "title": "地域公布 (1/9/2024)",
+        "url": "https://krscout.org/wp-content/uploads/2024/05/R34i3.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2024/05/R34i3.pdf",
         "date": "2026-06-04",
         "captured_date": "2026-06-04",
         "source_site": "九龍地域",
         "region": "九龍地域"
       },
       {
-        "title": "地域公布 (1/9/2024)",
-        "url": "https://krscout.org/wp-content/uploads/2024/05/R34i3.pdf",
-        "pdf_url": "https://krscout.org/wp-content/uploads/2024/05/R34i3.pdf",
+        "title": "地域公布 (1/6/2026)",
+        "url": "https://krscout.org/wp-content/uploads/2026/01/KR01_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/01/KR01_26.pdf",
         "date": "2026-06-04",
         "captured_date": "2026-06-04",
         "source_site": "九龍地域",
@@ -19773,7 +19791,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "九龍地域5月份通告一覽",
+        "title": "九龍地域6月份通告一覽",
         "url": "https://krscout.org/wp-content/uploads/2025/09/summary_2025_09.pdf",
         "pdf_url": "https://krscout.org/wp-content/uploads/2025/09/summary_2025_09.pdf",
         "date": "2026-05-23",
@@ -20037,6 +20055,15 @@
       }
     ],
     "何文田區": [
+      {
+        "title": "2026年4月14",
+        "url": "https://drive.google.com/file/d/1NcaSiGkTx8FuCbu2IQUiN91MHFO-OZ19/view",
+        "pdf_url": "https://drive.google.com/file/d/1NcaSiGkTx8FuCbu2IQUiN91MHFO-OZ19/view",
+        "date": "2026-06-11",
+        "captured_date": "2026-06-11",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
       {
         "title": "越野駕駛救援培訓課程及越野駕駛體驗",
         "url": "https://drive.google.com/file/d/17_O6VS6LSeXjDvDEVuUlwtdFCfRfm9sJ/view",
@@ -35603,6 +35630,27 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25037/KR07_26.pdf",
+      "title": "基維爾營地設施收費及表格更新 ( )",
+      "captured_date": "2026-06-11"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25038/Summary_2026_06.pdf",
+      "title": "九龍地域6月份通告一覽",
+      "captured_date": "2026-06-11"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1NcaSiGkTx8FuCbu2IQUiN91MHFO-OZ19/view",
+      "title": "2026年4月14",
+      "captured_date": "2026-06-11"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25033/SP06_26.pdf",
       "title": "「童」行勇者體驗日 ( )",
       "captured_date": "2026-06-10"
@@ -38109,15 +38157,15 @@
     {
       "source_site": "九龍地域",
       "region": "九龍地域",
-      "pdf_url": "https://krscout.org/wp-content/uploads/2026/01/KR01_26.pdf",
-      "title": "活動/課程之報名須知",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2024/05/R34i3.pdf",
+      "title": "地域公布 (1/9/2024)",
       "captured_date": "2026-06-04"
     },
     {
       "source_site": "九龍地域",
       "region": "九龍地域",
-      "pdf_url": "https://krscout.org/wp-content/uploads/2024/05/R34i3.pdf",
-      "title": "地域公布 (1/9/2024)",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/01/KR01_26.pdf",
+      "title": "地域公布 (1/6/2026)",
       "captured_date": "2026-06-04"
     },
     {
@@ -60958,7 +61006,7 @@
       "source_site": "九龍地域",
       "region": "九龍地域",
       "pdf_url": "https://krscout.org/wp-content/uploads/2025/09/summary_2025_09.pdf",
-      "title": "九龍地域5月份通告一覽",
+      "title": "九龍地域6月份通告一覽",
       "captured_date": "2026-05-23"
     },
     {
@@ -63326,8 +63374,8 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-10 08:15:04",
-      "new": 2,
+      "updated_at": "2026-06-11 04:50:14",
+      "new": 3,
       "updated": 3277,
       "skipped": 1,
       "processed": 47,

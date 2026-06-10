@@ -35268,5 +35268,25 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:13:47"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25037/KR07_26.pdf": {
+    "source": "總會",
+    "title": "基維爾營地設施收費及表格更新 ( )",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-11 04:58:06"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25038/Summary_2026_06.pdf": {
+    "source": "總會",
+    "title": "九龍地域6月份通告一覽",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-11 04:58:07"
   }
 }
