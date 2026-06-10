@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-06-09 06:31:41",
+  "last_updated": "2026-06-10 08:15:04",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3942,
+    "total_notices": 3944,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "「童」行勇者體驗日 ( )",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25033/SP06_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25033/SP06_26.pdf",
+        "date": "2026-06-10",
+        "captured_date": "2026-06-10",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "航空訓練中心 航空領航領袖工作坊(P66/2026)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25005/P066-26.pdf",
@@ -10430,6 +10439,15 @@
     ],
     "柴灣區": [
       {
+        "title": "幼童軍初級獨木舟章訓練班 - 點擊下載",
+        "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-09_幼童軍獨木舟章訓練班初級.pdf",
+        "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-09_幼童軍獨木舟章訓練班初級.pdf",
+        "date": "2026-06-10",
+        "captured_date": "2026-06-10",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
+      {
         "title": "香港童軍115周年紀念活動:『童』守護‧安心社區嘉年華活動設計比賽 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-08-童守護_安心社區嘉年華活動設計比賽.pdf",
         "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-08-童守護_安心社區嘉年華活動設計比賽.pdf",
@@ -12410,6 +12428,33 @@
         "region": "港島地域"
       },
       {
+        "title": "幼童軍初級獨木舟章訓練班 - 總會",
+        "url": "https://www.scout.org.hk/article_attach/31444/acr612018_c_ymis.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/31444/acr612018_c_ymis.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍初級獨木舟章訓練班 - 總會",
+        "url": "https://www.scout.org.hk/uploads/tc/forms/10427/acr202406c_學生隊員訓練資助計劃（由民政及青年事務局資助）.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/10427/acr202406c_學生隊員訓練資助計劃（由民政及青年事務局資助）.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍初級獨木舟章訓練班 - PT/46(家長同意書)",
+        "url": "https://www.scout.org.hk/article_attach/10498/pt46.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/10498/pt46.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
+      {
         "title": "幼童軍共融章訓練班 - CHW-1516-11 幼童軍共融章訓練班",
         "url": "https://chaiwanscout.org.hk/chw2//upload/CHW-1516-11_disabilityawardeness.pdf",
         "pdf_url": "https://chaiwanscout.org.hk/chw2//upload/CHW-1516-11_disabilityawardeness.pdf",
@@ -12467,24 +12512,6 @@
         "title": "幼童軍中級獨木舟章訓練班 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2025/06/CHW-2526-13_幼童軍中級獨木舟章訓練班.pdf",
         "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2025/06/CHW-2526-13_幼童軍中級獨木舟章訓練班.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "柴灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍中級獨木舟章訓練班 - 總會",
-        "url": "https://www.scout.org.hk/article_attach/31444/acr612018_c_ymis.pdf",
-        "pdf_url": "https://www.scout.org.hk/article_attach/31444/acr612018_c_ymis.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "柴灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍中級獨木舟章訓練班 - 總會",
-        "url": "https://www.scout.org.hk/uploads/tc/forms/10427/acr202406c_學生隊員訓練資助計劃（由民政及青年事務局資助）.pdf",
-        "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/10427/acr202406c_學生隊員訓練資助計劃（由民政及青年事務局資助）.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "柴灣區",
@@ -12566,15 +12593,6 @@
         "title": "幼童軍「游泳測試證明書」考驗日 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2024/05/CHW-2425-04幼童軍游泳測試證明書考驗日.pdf",
         "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2024/05/CHW-2425-04幼童軍游泳測試證明書考驗日.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "柴灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍「游泳測試證明書」考驗日 - PT/46 (家長同意書)",
-        "url": "https://www.scout.org.hk/article_attach/10498/pt46.pdf",
-        "pdf_url": "https://www.scout.org.hk/article_attach/10498/pt46.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "柴灣區",
@@ -35585,6 +35603,20 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25033/SP06_26.pdf",
+      "title": "「童」行勇者體驗日 ( )",
+      "captured_date": "2026-06-10"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-09_幼童軍獨木舟章訓練班初級.pdf",
+      "title": "幼童軍初級獨木舟章訓練班 - 點擊下載",
+      "captured_date": "2026-06-10"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25005/P066-26.pdf",
       "title": "航空訓練中心 航空領航領袖工作坊(P66/2026)",
       "captured_date": "2026-06-09"
@@ -56417,6 +56449,27 @@
     {
       "source_site": "柴灣區",
       "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/31444/acr612018_c_ymis.pdf",
+      "title": "幼童軍初級獨木舟章訓練班 - 總會",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/10427/acr202406c_學生隊員訓練資助計劃（由民政及青年事務局資助）.pdf",
+      "title": "幼童軍初級獨木舟章訓練班 - 總會",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/10498/pt46.pdf",
+      "title": "幼童軍初級獨木舟章訓練班 - PT/46(家長同意書)",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
       "pdf_url": "https://chaiwanscout.org.hk/chw2//upload/CHW-1516-11_disabilityawardeness.pdf",
       "title": "幼童軍共融章訓練班 - CHW-1516-11 幼童軍共融章訓練班",
       "captured_date": "2026-05-23"
@@ -56461,20 +56514,6 @@
       "region": "港島地域",
       "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2025/06/CHW-2526-13_幼童軍中級獨木舟章訓練班.pdf",
       "title": "幼童軍中級獨木舟章訓練班 - 點擊下載",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "柴灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.scout.org.hk/article_attach/31444/acr612018_c_ymis.pdf",
-      "title": "幼童軍中級獨木舟章訓練班 - 總會",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "柴灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/10427/acr202406c_學生隊員訓練資助計劃（由民政及青年事務局資助）.pdf",
-      "title": "幼童軍中級獨木舟章訓練班 - 總會",
       "captured_date": "2026-05-23"
     },
     {
@@ -56538,13 +56577,6 @@
       "region": "港島地域",
       "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2024/05/CHW-2425-04幼童軍游泳測試證明書考驗日.pdf",
       "title": "幼童軍「游泳測試證明書」考驗日 - 點擊下載",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "柴灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.scout.org.hk/article_attach/10498/pt46.pdf",
-      "title": "幼童軍「游泳測試證明書」考驗日 - PT/46 (家長同意書)",
       "captured_date": "2026-05-23"
     },
     {
@@ -63294,9 +63326,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-09 06:31:41",
-      "new": 7,
-      "updated": 3271,
+      "updated_at": "2026-06-10 08:15:04",
+      "new": 2,
+      "updated": 3277,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3

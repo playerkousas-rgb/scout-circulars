@@ -35248,5 +35248,25 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-09 06:49:03"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25033/SP06_26.pdf": {
+    "source": "總會",
+    "title": "「童」行勇者體驗日 ( )",
+    "deadline": "2026-07-31",
+    "audience": "童軍、領袖",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-10 08:21:57"
+  },
+  "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-09_幼童軍獨木舟章訓練班初級.pdf": {
+    "source": "柴灣區",
+    "title": "幼童軍初級獨木舟章訓練班 - 點擊下載",
+    "deadline": "2026-07-13",
+    "audience": "幼童軍、童軍、家長",
+    "fee": "港幣200元",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-10 08:21:59"
   }
 }
