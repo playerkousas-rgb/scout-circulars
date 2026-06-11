@@ -35288,5 +35288,15 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-11 04:58:07"
+  },
+  "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf": {
+    "source": "九龍城區",
+    "title": "FORM KLC/ 002/26",
+    "deadline": "2026-07-03",
+    "audience": "小童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-12 06:01:38"
   }
 }

@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-11 04:50:14",
+  "last_updated": "2026-06-12 05:55:08",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3947,
+    "total_notices": 3948,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -20265,6 +20265,15 @@
     ],
     "九龍城區": [
       {
+        "title": "FORM KLC/ 002/26",
+        "url": "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf",
+        "pdf_url": "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf",
+        "date": "2026-06-12",
+        "captured_date": "2026-06-12",
+        "source_site": "九龍城區",
+        "region": "九龍地域"
+      },
+      {
         "title": "童軍露營比賽訓練",
         "url": "https://www.klcscout.hk/cportal/uploads/S04A_童軍露營比賽訓練_通告.pdf",
         "pdf_url": "https://www.klcscout.hk/cportal/uploads/S04A_童軍露營比賽訓練_通告.pdf",
@@ -35627,6 +35636,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "九龍城區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf",
+      "title": "FORM KLC/ 002/26",
+      "captured_date": "2026-06-12"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -63374,9 +63390,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-11 04:50:14",
-      "new": 3,
-      "updated": 3277,
+      "updated_at": "2026-06-12 05:55:08",
+      "new": 1,
+      "updated": 3280,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
