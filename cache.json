@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-12 05:55:08",
+  "last_updated": "2026-06-13 07:32:02",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3948,
+    "total_notices": 3954,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -639,7 +639,7 @@
         "region": "總會"
       },
       {
-        "title": "新界地域公布(2026年06月)",
+        "title": "新界地域公布(2026年06月)(修訂)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24893/Admin07.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24893/Admin07.pdf",
         "date": "2026-06-03",
@@ -1323,16 +1323,7 @@
         "region": "總會"
       },
       {
-        "title": "香港童軍115周年國際賽船大會-海童軍聚會-報名表格",
-        "url": "https://scout.org.hk/uploads/tc/circulars/24357/cir_115aregatta_Sea-Scouts-Gathering_Form_chi.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24357/cir_115aregatta_Sea-Scouts-Gathering_Form_chi.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "香港童軍115周年國際賽船大會-海童軍聚會",
+        "title": "香港童軍115周年國際賽船大會-海童軍聚會【更新】",
         "url": "https://scout.org.hk/uploads/tc/circulars/24356/cir_115aregatta_Sea-Scouts-Gathering_chi.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24356/cir_115aregatta_Sea-Scouts-Gathering_chi.pdf",
         "date": "2026-05-23",
@@ -1341,7 +1332,16 @@
         "region": "總會"
       },
       {
-        "title": "香港童軍115周年國際賽船大會-(比賽項目報名表格)",
+        "title": "香港童軍115周年國際賽船大會-海童軍聚會-報名表格【更新】",
+        "url": "https://scout.org.hk/uploads/tc/circulars/24357/cir_115aregatta_Sea-Scouts-Gathering_Form_chi.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24357/cir_115aregatta_Sea-Scouts-Gathering_Form_chi.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年國際賽船大會-(比賽項目報名表格)【更新】",
         "url": "https://scout.org.hk/uploads/tc/circulars/24353/cir_115aregatta_competition_Form_chi.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24353/cir_115aregatta_competition_Form_chi.pdf",
         "date": "2026-05-23",
@@ -1350,7 +1350,7 @@
         "region": "總會"
       },
       {
-        "title": "香港童軍115周年國際賽船大會-(比賽項目)",
+        "title": "香港童軍115周年國際賽船大會-(比賽項目)【更新】",
         "url": "https://scout.org.hk/uploads/tc/circulars/24352/cir_115aregatta_competition_chi.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24352/cir_115aregatta_competition_chi.pdf",
         "date": "2026-05-23",
@@ -1368,7 +1368,7 @@
         "region": "總會"
       },
       {
-        "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新",
+        "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新 (修訂)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24338/Jam-01.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24338/Jam-01.pdf",
         "date": "2026-05-23",
@@ -8149,6 +8149,15 @@
     ],
     "灣仔區": [
       {
+        "title": "區會13/6 – 22/6/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A13-6-22-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A13-6-22-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-06-13",
+        "captured_date": "2026-06-13",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
         "title": "區會 6/6 – 12/6/2026 辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A6-6-12-6-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A6-6-12-6-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -10456,6 +10465,15 @@
       }
     ],
     "柴灣區": [
+      {
+        "title": "柴灣區小幼童軍大自然生態填色比賽2026結果 - 點擊下載",
+        "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-10_小童軍大自然生態填色比賽2026結果.pdf",
+        "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-10_小童軍大自然生態填色比賽2026結果.pdf",
+        "date": "2026-06-13",
+        "captured_date": "2026-06-13",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
       {
         "title": "幼童軍初級獨木舟章訓練班 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-09_幼童軍獨木舟章訓練班初級.pdf",
@@ -21558,6 +21576,24 @@
     ],
     "深旺區": [
       {
+        "title": "「積極公民」獎章系列 - 環保先鋒章 (先導計劃) 訓練班 報名表",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/06/SMD2601_環保先鋒章訓練班_報名表.xlsx",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/06/SMD2601_環保先鋒章訓練班_報名表.xlsx",
+        "date": "2026-06-13",
+        "captured_date": "2026-06-13",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "「積極公民」獎章系列 - 環保先鋒章 (先導計劃) 訓練班",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/06/SMD2601_環保先鋒章訓練班.pdf",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/06/SMD2601_環保先鋒章訓練班.pdf",
+        "date": "2026-06-13",
+        "captured_date": "2026-06-13",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
         "title": "野外定向第一、二階段訓練班 接納通知書",
         "url": "https://group.scout.org.hk/smd/wp-content/uploads/2025/12/SMD_2507_野外定向第一、二階段訓練班_接納通知書.pdf",
         "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2025/12/SMD_2507_野外定向第一、二階段訓練班_接納通知書.pdf",
@@ -22373,6 +22409,15 @@
       }
     ],
     "油尖區": [
+      {
+        "title": "旅長及領袖座談會",
+        "url": "https://drive.google.com/file/d/1LUF8EiMKMd5dB2mwyCKZB6pJ2_vI5iRf/view",
+        "pdf_url": "https://drive.google.com/file/d/1LUF8EiMKMd5dB2mwyCKZB6pJ2_vI5iRf/view",
+        "date": "2026-06-13",
+        "captured_date": "2026-06-13",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
       {
         "title": "深資童軍收音機研習班",
         "url": "https://drive.google.com/file/d/11zuQ3LlMCv0bqMd_BN0833HtnJ3a4k0A/view",
@@ -25270,6 +25315,15 @@
       }
     ],
     "新界地域": [
+      {
+        "title": "新界地域公布(2026年06月)(修訂)",
+        "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_31131207.pdf",
+        "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_31131207.pdf",
+        "date": "2026-06-13",
+        "captured_date": "2026-06-13",
+        "source_site": "新界地域",
+        "region": "新界地域"
+      },
       {
         "title": "新界地域公布(2026年06月)",
         "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_51386803.pdf",
@@ -35637,6 +35691,48 @@
   },
   "notices": [
     {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A13-6-22-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會13/6 – 22/6/2026辦公時間",
+      "captured_date": "2026-06-13"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/06/SMD2601_環保先鋒章訓練班_報名表.xlsx",
+      "title": "「積極公民」獎章系列 - 環保先鋒章 (先導計劃) 訓練班 報名表",
+      "captured_date": "2026-06-13"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/06/SMD2601_環保先鋒章訓練班.pdf",
+      "title": "「積極公民」獎章系列 - 環保先鋒章 (先導計劃) 訓練班",
+      "captured_date": "2026-06-13"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1LUF8EiMKMd5dB2mwyCKZB6pJ2_vI5iRf/view",
+      "title": "旅長及領袖座談會",
+      "captured_date": "2026-06-13"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-10_小童軍大自然生態填色比賽2026結果.pdf",
+      "title": "柴灣區小幼童軍大自然生態填色比賽2026結果 - 點擊下載",
+      "captured_date": "2026-06-13"
+    },
+    {
+      "source_site": "新界地域",
+      "region": "新界地域",
+      "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_31131207.pdf",
+      "title": "新界地域公布(2026年06月)(修訂)",
+      "captured_date": "2026-06-13"
+    },
+    {
       "source_site": "九龍城區",
       "region": "九龍地域",
       "pdf_url": "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf",
@@ -38293,7 +38389,7 @@
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24893/Admin07.pdf",
-      "title": "新界地域公布(2026年06月)",
+      "title": "新界地域公布(2026年06月)(修訂)",
       "captured_date": "2026-06-03"
     },
     {
@@ -44347,29 +44443,29 @@
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24357/cir_115aregatta_Sea-Scouts-Gathering_Form_chi.pdf",
-      "title": "香港童軍115周年國際賽船大會-海童軍聚會-報名表格",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24356/cir_115aregatta_Sea-Scouts-Gathering_chi.pdf",
+      "title": "香港童軍115周年國際賽船大會-海童軍聚會【更新】",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24356/cir_115aregatta_Sea-Scouts-Gathering_chi.pdf",
-      "title": "香港童軍115周年國際賽船大會-海童軍聚會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24357/cir_115aregatta_Sea-Scouts-Gathering_Form_chi.pdf",
+      "title": "香港童軍115周年國際賽船大會-海童軍聚會-報名表格【更新】",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24353/cir_115aregatta_competition_Form_chi.pdf",
-      "title": "香港童軍115周年國際賽船大會-(比賽項目報名表格)",
+      "title": "香港童軍115周年國際賽船大會-(比賽項目報名表格)【更新】",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24352/cir_115aregatta_competition_chi.pdf",
-      "title": "香港童軍115周年國際賽船大會-(比賽項目)",
+      "title": "香港童軍115周年國際賽船大會-(比賽項目)【更新】",
       "captured_date": "2026-05-23"
     },
     {
@@ -44383,7 +44479,7 @@
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24338/Jam-01.pdf",
-      "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新",
+      "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新 (修訂)",
       "captured_date": "2026-05-23"
     },
     {
@@ -63388,14 +63484,14 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": true,
+    "has_errors": false,
     "last_run": {
-      "updated_at": "2026-06-12 05:55:08",
-      "new": 1,
-      "updated": 3280,
-      "skipped": 1,
-      "processed": 47,
-      "playwright_used": 3
+      "updated_at": "2026-06-13 07:32:02",
+      "new": 6,
+      "updated": 3279,
+      "skipped": 0,
+      "processed": 48,
+      "playwright_used": 4
     }
   }
 }
