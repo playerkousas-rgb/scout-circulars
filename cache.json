@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-06-13 07:32:02",
+  "last_updated": "2026-06-14 05:32:40",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3954,
+    "total_notices": 3961,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "新界地域公布(2026年06月)(修訂)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/24893/Admin07-r.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24893/Admin07-r.pdf",
+        "date": "2026-06-14",
+        "captured_date": "2026-06-14",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "基維爾營地設施收費及表格更新 ( )",
         "url": "https://scout.org.hk/uploads/tc/circulars/25037/KR07_26.pdf",
@@ -20074,6 +20083,24 @@
     ],
     "何文田區": [
       {
+        "title": "會長盃(深資童軍)Pickleball 匹克球 錦標賽 暨 名譽會長盃(樂行童軍)Pickleball 匹克球 錦標賽",
+        "url": "https://drive.google.com/file/d/1YjgHWELww-FtfL1X_s5301iXi_WF3JZL/view",
+        "pdf_url": "https://drive.google.com/file/d/1YjgHWELww-FtfL1X_s5301iXi_WF3JZL/view",
+        "date": "2026-06-14",
+        "captured_date": "2026-06-14",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026年6月26及7月3日晚 深資及樂行童軍支部 Pickle Ball 匹克球 練習體驗日",
+        "url": "https://drive.google.com/file/d/1v5XgE2x05-Y6iOua22AXzaZOIQVIYzbx/view",
+        "pdf_url": "https://drive.google.com/file/d/1v5XgE2x05-Y6iOua22AXzaZOIQVIYzbx/view",
+        "date": "2026-06-14",
+        "captured_date": "2026-06-14",
+        "source_site": "何文田區",
+        "region": "九龍地域"
+      },
+      {
         "title": "2026年4月14",
         "url": "https://drive.google.com/file/d/1NcaSiGkTx8FuCbu2IQUiN91MHFO-OZ19/view",
         "pdf_url": "https://drive.google.com/file/d/1NcaSiGkTx8FuCbu2IQUiN91MHFO-OZ19/view",
@@ -20236,7 +20263,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "2025年8月12-21日獨木舟一星、二星及三星訓練班",
+        "title": "2025年8月12-21日 獨木舟一星、二星及三星訓練班",
         "url": "https://drive.google.com/file/d/1LvJ3I_zMM2K-nwtbI9fxBLENp_m74anU/view",
         "pdf_url": "https://drive.google.com/file/d/1LvJ3I_zMM2K-nwtbI9fxBLENp_m74anU/view",
         "date": "2026-05-23",
@@ -20245,7 +20272,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "2025年6月21, 22及7月12-13, 19-20日童軍露營及原野烹飪章(技能組)訓練班 2025",
+        "title": "2025年6月21, 22及7月12-13, 19-20日 童軍露營及原野烹飪章(技能組)訓練班 2025",
         "url": "https://drive.google.com/file/d/1lY0xa-MoS2BYEFyUhtA5EePFTbZchK8o/view",
         "pdf_url": "https://drive.google.com/file/d/1lY0xa-MoS2BYEFyUhtA5EePFTbZchK8o/view",
         "date": "2026-05-23",
@@ -25315,6 +25342,15 @@
       }
     ],
     "新界地域": [
+      {
+        "title": "新界地域公布(2026年06月)(修訂)",
+        "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_29223144.pdf",
+        "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_29223144.pdf",
+        "date": "2026-06-14",
+        "captured_date": "2026-06-14",
+        "source_site": "新界地域",
+        "region": "新界地域"
+      },
       {
         "title": "新界地域公布(2026年06月)(修訂)",
         "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_31131207.pdf",
@@ -34466,6 +34502,33 @@
     ],
     "沙田東區": [
       {
+        "title": "童軍專科徽章考驗日2026 (更新版)",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07r.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07r.pdf",
+        "date": "2026-06-14",
+        "captured_date": "2026-06-14",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "沙田東區 童藝、童心、齊建未來』嘉年華 童軍紀念章設計比賽 成績公佈",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04A.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04A.pdf",
+        "date": "2026-06-14",
+        "captured_date": "2026-06-14",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "沙田東區 童藝、童心、齊建未來』嘉年華 「積極公民」獎章系列 -幼童軍支部 及 童軍支部 防騙先鋒章考驗",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10.pdf",
+        "date": "2026-06-14",
+        "captured_date": "2026-06-14",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
         "title": "香港童軍 115 周年 暨 沙田東區『童藝、童心、齊建未來』嘉年華 智能手機攝影比賽",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt05.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt05.pdf",
@@ -35690,6 +35753,55 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24893/Admin07-r.pdf",
+      "title": "新界地域公布(2026年06月)(修訂)",
+      "captured_date": "2026-06-14"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07r.pdf",
+      "title": "童軍專科徽章考驗日2026 (更新版)",
+      "captured_date": "2026-06-14"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04A.pdf",
+      "title": "沙田東區 童藝、童心、齊建未來』嘉年華 童軍紀念章設計比賽 成績公佈",
+      "captured_date": "2026-06-14"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10.pdf",
+      "title": "沙田東區 童藝、童心、齊建未來』嘉年華 「積極公民」獎章系列 -幼童軍支部 及 童軍支部 防騙先鋒章考驗",
+      "captured_date": "2026-06-14"
+    },
+    {
+      "source_site": "新界地域",
+      "region": "新界地域",
+      "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_29223144.pdf",
+      "title": "新界地域公布(2026年06月)(修訂)",
+      "captured_date": "2026-06-14"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1YjgHWELww-FtfL1X_s5301iXi_WF3JZL/view",
+      "title": "會長盃(深資童軍)Pickleball 匹克球 錦標賽 暨 名譽會長盃(樂行童軍)Pickleball 匹克球 錦標賽",
+      "captured_date": "2026-06-14"
+    },
+    {
+      "source_site": "何文田區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1v5XgE2x05-Y6iOua22AXzaZOIQVIYzbx/view",
+      "title": "2026年6月26及7月3日晚 深資及樂行童軍支部 Pickle Ball 匹克球 練習體驗日",
+      "captured_date": "2026-06-14"
+    },
     {
       "source_site": "灣仔區",
       "region": "港島地域",
@@ -60404,14 +60516,14 @@
       "source_site": "何文田區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1LvJ3I_zMM2K-nwtbI9fxBLENp_m74anU/view",
-      "title": "2025年8月12-21日獨木舟一星、二星及三星訓練班",
+      "title": "2025年8月12-21日 獨木舟一星、二星及三星訓練班",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "何文田區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1lY0xa-MoS2BYEFyUhtA5EePFTbZchK8o/view",
-      "title": "2025年6月21, 22及7月12-13, 19-20日童軍露營及原野烹飪章(技能組)訓練班 2025",
+      "title": "2025年6月21, 22及7月12-13, 19-20日 童軍露營及原野烹飪章(技能組)訓練班 2025",
       "captured_date": "2026-05-23"
     },
     {
@@ -63486,9 +63598,9 @@
     "total_sources": 48,
     "has_errors": false,
     "last_run": {
-      "updated_at": "2026-06-13 07:32:02",
-      "new": 6,
-      "updated": 3279,
+      "updated_at": "2026-06-14 05:32:40",
+      "new": 7,
+      "updated": 3262,
       "skipped": 0,
       "processed": 48,
       "playwright_used": 4

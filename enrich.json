@@ -35328,5 +35328,55 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-13 07:41:37"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/24893/Admin07-r.pdf": {
+    "source": "總會",
+    "title": "新界地域公布(2026年06月)(修訂)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-14 06:05:59"
+  },
+  "https://www.scout-ntr.org.hk/system/upload/admin/c202661_admin_29223144.pdf": {
+    "source": "新界地域",
+    "title": "新界地域公布(2026年06月)(修訂)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-14 06:06:00"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07r.pdf": {
+    "source": "沙田東區",
+    "title": "童軍專科徽章考驗日2026 (更新版)",
+    "deadline": "2026-06-22",
+    "audience": "童軍",
+    "fee": "港幣20元正",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-14 06:06:00"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_pt04A.pdf": {
+    "source": "沙田東區",
+    "title": "沙田東區 童藝、童心、齊建未來』嘉年華 童軍紀念章設計比賽 成績公佈",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-14 06:06:01"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10.pdf": {
+    "source": "沙田東區",
+    "title": "沙田東區 童藝、童心、齊建未來』嘉年華 「積極公民」獎章系列 -幼童軍支部 及 童軍支部 防騙先鋒章考驗",
+    "deadline": "",
+    "audience": "幼童軍、童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-14 06:06:01"
   }
 }
