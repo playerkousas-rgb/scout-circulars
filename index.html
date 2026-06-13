@@ -103,6 +103,12 @@
     .meta-row .host { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .meta-row .link { color: #cfe3ff; }
     code { background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 8px; }
+    .ss-connect { margin-top: 12px; padding: 12px; border-radius: 14px; border: 1px solid rgba(59,130,246,.35); background: rgba(59,130,246,.08); display: grid; gap: 8px; }
+    .ss-connect-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .ss-connect input { flex: 1; min-width: 260px; border: 1px solid var(--line); background: #09111f; color: var(--text); border-radius: 12px; padding: 10px 12px; outline: none; }
+    .ss-save, .ss-import { border: 1px solid rgba(59,130,246,.45); background: #173664; color: #d9e8ff; border-radius: 12px; padding: 9px 12px; cursor: pointer; font-weight: 700; }
+    .ss-save:hover, .ss-import:hover { background: #2450a3; }
+    .ss-import { width: 100%; }
     @media (max-width: 980px) {
       .app { grid-template-columns: 1fr; }
       .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -145,6 +151,14 @@
         </div>
 
         <div class="status" id="status-line"></div>
+        <div class="ss-connect">
+          <div class="ss-connect-row"><strong>ScoutSystem 接入</strong><span class="sub">設定一次後，每張通告可直接加入你的旅團系統。</span></div>
+          <div class="ss-connect-row">
+            <input id="scoutsystem-url" placeholder="例如：https://scoutsystem.vercel.app">
+            <button class="ss-save" id="save-scoutsystem-url">儲存 ScoutSystem 網址</button>
+          </div>
+          <div class="status" id="scoutsystem-status"></div>
+        </div>
       </section>
 
       <section id="messages"></section>
@@ -240,6 +254,33 @@
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#39;');
+    }
+
+    function getScoutSystemUrl() {
+      return (localStorage.getItem('scoutsystem_import_base_url') || '').replace(/\/$/, '');
+    }
+
+    function makeCircularKey(item) {
+      return item.pdf_url || item.url || `${item.source_site || ''}|${item.title || ''}|${item.captured_date || item.date || ''}`;
+    }
+
+    function buildScoutSystemImportUrl(item, ex) {
+      const base = getScoutSystemUrl();
+      if (!base) return '';
+      const href = item.url || item.pdf_url || '';
+      const params = new URLSearchParams();
+      params.set('title', item.title || '');
+      params.set('sourceSite', item.source_site || state.activeSource || '');
+      params.set('region', item.region || '');
+      params.set('date', item.date || item.captured_date || '');
+      params.set('sourceUrl', href);
+      params.set('attachmentUrl', item.pdf_url || href);
+      params.set('pdf_url', item.pdf_url || href);
+      params.set('key', makeCircularKey(item));
+      if (ex?.deadline) params.set('deadline', ex.deadline);
+      if (ex?.audience) params.set('audience', ex.audience);
+      if (ex?.fee) params.set('fee', ex.fee);
+      return `${base}/library/import?${params.toString()}`;
     }
 
     function buildGroupedFromFlat(notices) {
@@ -576,7 +617,20 @@
             <span>${escapeHtml(item.region || '')}</span>
             <a class="link" href="${encodeURI(href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
           </div>
+          <button class="ss-import" data-ss-url="${escapeHtml(buildScoutSystemImportUrl(item, ex))}">加入 ScoutSystem</button>
         `;
+        const ssBtn = card.querySelector('.ss-import');
+        if (ssBtn) {
+          ssBtn.onclick = () => {
+            const target = ssBtn.getAttribute('data-ss-url') || '';
+            if (!getScoutSystemUrl()) {
+              alert('請先在上方設定你的 ScoutSystem 網址，例如 https://scoutsystem.vercel.app');
+              document.getElementById('scoutsystem-url')?.focus();
+              return;
+            }
+            if (target) window.open(target, '_blank');
+          };
+        }
         cardsEl.appendChild(card);
       }
     }
@@ -636,7 +690,24 @@
       renderAccordion();
     });
 
+    function initScoutSystemConnect() {
+      const input = document.getElementById('scoutsystem-url');
+      const btn = document.getElementById('save-scoutsystem-url');
+      const status = document.getElementById('scoutsystem-status');
+      if (!input || !btn) return;
+      input.value = getScoutSystemUrl();
+      if (status) status.textContent = input.value ? `已設定：${input.value}` : '尚未設定 ScoutSystem 網址。';
+      btn.onclick = () => {
+        const value = String(input.value || '').trim().replace(/\/$/, '');
+        if (!/^https?:\/\//.test(value)) { alert('請輸入完整網址，例如 https://scoutsystem.vercel.app'); return; }
+        localStorage.setItem('scoutsystem_import_base_url', value);
+        if (status) status.textContent = `已設定：${value}`;
+        renderCards();
+      };
+    }
+
     renderWindowChips();
+    initScoutSystemConnect();
     // === 訪客計數器（純靜態頁，用免費 abacus.jasoncameron.dev，無需註冊，穩定 + CORS）===
     async function loadVisitCounter() {
       const el = document.getElementById('visit-count');
