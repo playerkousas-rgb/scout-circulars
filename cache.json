@@ -1,13 +1,31 @@
 {
-  "last_updated": "2026-06-15 04:13:49",
+  "last_updated": "2026-06-16 07:23:01",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3962,
+    "total_notices": 3969,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "皮藝坊 - 貓頭鷹及小提琴皮革製造",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25052/Cir12_2026_皮藝坊--貓頭鷹及小提琴皮革製造.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25052/Cir12_2026_皮藝坊--貓頭鷹及小提琴皮革製造.pdf",
+        "date": "2026-06-16",
+        "captured_date": "2026-06-16",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "和平使者服務計劃 .守護山海生命行動",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25058/CIR_0826_Chi_MoPService2026.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25058/CIR_0826_Chi_MoPService2026.pdf",
+        "date": "2026-06-16",
+        "captured_date": "2026-06-16",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "新界地域公布(2026年06月)(修訂)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24893/Admin07-r.pdf",
@@ -13258,6 +13276,24 @@
     ],
     "維多利亞城區": [
       {
+        "title": "維多利亞城區森林大冒險小幼童軍填色比賽",
+        "url": "https://vic-web-98f2f.web.app/site-assets/notices/維多利亞城區森林大冒險小幼童軍填色比賽通告.pdf",
+        "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/維多利亞城區森林大冒險小幼童軍填色比賽通告.pdf",
+        "date": "2026-06-16",
+        "captured_date": "2026-06-16",
+        "source_site": "維多利亞城區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童FUN嘉年華 1+1:森林大冒險・動物蛋孵化任務",
+        "url": "https://vic-web-98f2f.web.app/site-assets/notices/童FUN嘉年華1+1.pdf",
+        "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/童FUN嘉年華1+1.pdf",
+        "date": "2026-06-16",
+        "captured_date": "2026-06-16",
+        "source_site": "維多利亞城區",
+        "region": "港島地域"
+      },
+      {
         "title": "第587屆童軍領導才訓練班",
         "url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
         "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
@@ -23974,6 +24010,15 @@
     ],
     "九龍灣區": [
       {
+        "title": "童軍技能比賽日",
+        "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-11-26_all.pdf",
+        "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-11-26_all.pdf",
+        "date": "2026-06-16",
+        "captured_date": "2026-06-16",
+        "source_site": "九龍灣區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "風之行 - 南丫島親子生態遊",
         "url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-18-23.pdf",
         "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-18-23.pdf",
@@ -25115,6 +25160,15 @@
       }
     ],
     "鯉魚門區": [
+      {
+        "title": "2026年12月 鯉魚門區45周年 童鯉馬拉遊",
+        "url": "https://drive.google.com/file/d/15j0_hU7sswr0QUezWv_pWzBxscr795uS/view",
+        "pdf_url": "https://drive.google.com/file/d/15j0_hU7sswr0QUezWv_pWzBxscr795uS/view",
+        "date": "2026-06-16",
+        "captured_date": "2026-06-16",
+        "source_site": "鯉魚門區",
+        "region": "東九龍地域"
+      },
       {
         "title": "黃惠貞活動基金",
         "url": "https://drive.google.com/file/d/1X-F-AP2KPWeNRnGOJSJUVY88XWlrDC6B/view",
@@ -33436,6 +33490,15 @@
     ],
     "沙田西區": [
       {
+        "title": "第590屆童軍領導才訓練班",
+        "url": "http://www.stwscout.org/wp/wp-content/uploads/2026/06/STW_prg_cir_06_2026.pdf",
+        "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/06/STW_prg_cir_06_2026.pdf",
+        "date": "2026-06-16",
+        "captured_date": "2026-06-16",
+        "source_site": "沙田西區",
+        "region": "新界東地域"
+      },
+      {
         "title": "香港童軍龍舟邀請賽2026 – 沙田西區龍舟隊成員招募",
         "url": "http://www.stwscout.org/wp/wp-content/uploads/2026/04/STW_prg_cir_05_2026.pdf",
         "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/04/STW_prg_cir_05_2026.pdf",
@@ -35762,6 +35825,55 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "鯉魚門區",
+      "region": "東九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/15j0_hU7sswr0QUezWv_pWzBxscr795uS/view",
+      "title": "2026年12月 鯉魚門區45周年 童鯉馬拉遊",
+      "captured_date": "2026-06-16"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25052/Cir12_2026_皮藝坊--貓頭鷹及小提琴皮革製造.pdf",
+      "title": "皮藝坊 - 貓頭鷹及小提琴皮革製造",
+      "captured_date": "2026-06-16"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25058/CIR_0826_Chi_MoPService2026.pdf",
+      "title": "和平使者服務計劃 .守護山海生命行動",
+      "captured_date": "2026-06-16"
+    },
+    {
+      "source_site": "維多利亞城區",
+      "region": "港島地域",
+      "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/維多利亞城區森林大冒險小幼童軍填色比賽通告.pdf",
+      "title": "維多利亞城區森林大冒險小幼童軍填色比賽",
+      "captured_date": "2026-06-16"
+    },
+    {
+      "source_site": "維多利亞城區",
+      "region": "港島地域",
+      "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/童FUN嘉年華1+1.pdf",
+      "title": "童FUN嘉年華 1+1:森林大冒險・動物蛋孵化任務",
+      "captured_date": "2026-06-16"
+    },
+    {
+      "source_site": "沙田西區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/06/STW_prg_cir_06_2026.pdf",
+      "title": "第590屆童軍領導才訓練班",
+      "captured_date": "2026-06-16"
+    },
+    {
+      "source_site": "九龍灣區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-11-26_all.pdf",
+      "title": "童軍技能比賽日",
+      "captured_date": "2026-06-16"
+    },
     {
       "source_site": "灣仔區",
       "region": "港島地域",
@@ -63614,12 +63726,12 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-15 04:13:49",
-      "new": 1,
-      "updated": 3288,
+      "updated_at": "2026-06-16 07:23:01",
+      "new": 7,
+      "updated": 3156,
       "skipped": 1,
       "processed": 47,
-      "playwright_used": 3
+      "playwright_used": 4
     }
   }
 }

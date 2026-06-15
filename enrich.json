@@ -35378,5 +35378,65 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-14 06:06:01"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25052/Cir12_2026_皮藝坊--貓頭鷹及小提琴皮革製造.pdf": {
+    "source": "總會",
+    "title": "皮藝坊 - 貓頭鷹及小提琴皮革製造",
+    "deadline": "2026-06-25",
+    "audience": "",
+    "fee": "$150 / $170",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-16 07:36:03"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25058/CIR_0826_Chi_MoPService2026.pdf": {
+    "source": "總會",
+    "title": "和平使者服務計劃 .守護山海生命行動",
+    "deadline": "",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-16 07:36:04"
+  },
+  "https://vic-web-98f2f.web.app/site-assets/notices/維多利亞城區森林大冒險小幼童軍填色比賽通告.pdf": {
+    "source": "維多利亞城區",
+    "title": "維多利亞城區森林大冒險小幼童軍填色比賽",
+    "deadline": "2026-08-27",
+    "audience": "幼童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-16 07:36:05"
+  },
+  "https://vic-web-98f2f.web.app/site-assets/notices/童FUN嘉年華1+1.pdf": {
+    "source": "維多利亞城區",
+    "title": "童FUN嘉年華 1+1:森林大冒險・動物蛋孵化任務",
+    "deadline": "2026-08-27",
+    "audience": "小童軍、幼童軍、童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-16 07:36:06"
+  },
+  "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-11-26_all.pdf": {
+    "source": "九龍灣區",
+    "title": "童軍技能比賽日",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "",
+    "error": "download: HTTPError",
+    "enriched_at": "2026-06-16 07:36:07"
+  },
+  "http://www.stwscout.org/wp/wp-content/uploads/2026/06/STW_prg_cir_06_2026.pdf": {
+    "source": "沙田西區",
+    "title": "第590屆童軍領導才訓練班",
+    "deadline": "2026-07-10",
+    "audience": "童軍",
+    "fee": "港幣160元正",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-16 07:36:08"
   }
 }
