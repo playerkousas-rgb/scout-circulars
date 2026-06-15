@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-14 05:32:40",
+  "last_updated": "2026-06-15 04:13:49",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3961,
+    "total_notices": 3962,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -8157,6 +8157,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會13/6 – 22/6/2026辦公時間 (更正)",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A13-6-22-6-2027&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A13-6-22-6-2027&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-06-15",
+        "captured_date": "2026-06-15",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會13/6 – 22/6/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A13-6-22-6-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -35753,6 +35762,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A13-6-22-6-2027&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會13/6 – 22/6/2026辦公時間 (更正)",
+      "captured_date": "2026-06-15"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -63596,14 +63612,14 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": false,
+    "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-14 05:32:40",
-      "new": 7,
-      "updated": 3262,
-      "skipped": 0,
-      "processed": 48,
-      "playwright_used": 4
+      "updated_at": "2026-06-15 04:13:49",
+      "new": 1,
+      "updated": 3288,
+      "skipped": 1,
+      "processed": 47,
+      "playwright_used": 3
     }
   }
 }
