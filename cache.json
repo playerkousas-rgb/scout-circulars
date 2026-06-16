@@ -1,13 +1,85 @@
 {
-  "last_updated": "2026-06-16 07:23:01",
+  "last_updated": "2026-06-17 04:35:13",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3969,
+    "total_notices": 3985,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 隊列比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25060/Spec_cir_19full-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25060/Spec_cir_19full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 步操比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25061/Spec_cir_20full-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25061/Spec_cir_20full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 幼童軍團呼比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25062/Spec_cir_21full-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25062/Spec_cir_21full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 小童軍快樂傘比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25063/Spec_cir_22-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25063/Spec_cir_22-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 升旗比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25064/Spec_cir_23full-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25064/Spec_cir_23full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25059/Spec_cir_18-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25059/Spec_cir_18-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念品訂購",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25071/115Souvenirs_Cir_Chi.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25071/115Souvenirs_Cir_Chi.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026(海報)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25065/Footdrill_poster.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25065/Footdrill_poster.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "皮藝坊 - 貓頭鷹及小提琴皮革製造",
         "url": "https://scout.org.hk/uploads/tc/circulars/25052/Cir12_2026_皮藝坊--貓頭鷹及小提琴皮革製造.pdf",
@@ -13294,18 +13366,18 @@
         "region": "港島地域"
       },
       {
-        "title": "第587屆童軍領導才訓練班",
-        "url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
-        "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
+        "title": "金紫荊申請",
+        "url": "https://vic-web-98f2f.web.app/zh/events",
+        "pdf_url": "https://vic-web-98f2f.web.app/zh/events",
         "date": "2026-06-07",
         "captured_date": "2026-06-07",
         "source_site": "維多利亞城區",
         "region": "港島地域"
       },
       {
-        "title": "第22屆童軍初級航空活動章訓練班",
-        "url": "https://vic-web-98f2f.web.app/zh/events",
-        "pdf_url": "https://vic-web-98f2f.web.app/zh/events",
+        "title": "第587屆童軍領導才訓練班",
+        "url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
+        "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
         "date": "2026-06-07",
         "captured_date": "2026-06-07",
         "source_site": "維多利亞城區",
@@ -22482,6 +22554,15 @@
     ],
     "油尖區": [
       {
+        "title": "區務委員會第三十七屆周年會議",
+        "url": "https://drive.google.com/file/d/1WqMJ5RYE9tErxrHuI64bsDQ21DiHb67C/view",
+        "pdf_url": "https://drive.google.com/file/d/1WqMJ5RYE9tErxrHuI64bsDQ21DiHb67C/view",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
         "title": "旅長及領袖座談會",
         "url": "https://drive.google.com/file/d/1LUF8EiMKMd5dB2mwyCKZB6pJ2_vI5iRf/view",
         "pdf_url": "https://drive.google.com/file/d/1LUF8EiMKMd5dB2mwyCKZB6pJ2_vI5iRf/view",
@@ -30555,6 +30636,69 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026海報",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3Pe44YHWjXPkluI7jYuf29/37a08c9676b94af000eed4482aee4138/Footdrill_poster2.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3Pe44YHWjXPkluI7jYuf29/37a08c9676b94af000eed4482aee4138/Footdrill_poster2.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 隊列比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7LEvWxCej3HZ2MA1WCpksG/4148046c7537b9f838619ea5d2a3cc5e/Spec_cir_19full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7LEvWxCej3HZ2MA1WCpksG/4148046c7537b9f838619ea5d2a3cc5e/Spec_cir_19full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 步操比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7bUgSkBvWwk1jhL5tSGDu3/4d2afe6d438f76096f6aaf85e17e4e1b/Spec_cir_20full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7bUgSkBvWwk1jhL5tSGDu3/4d2afe6d438f76096f6aaf85e17e4e1b/Spec_cir_20full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 幼童軍團呼比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/50ROj1qQ8l6erAuOLHsVyR/bde3eab9f76f2e28c050d8bfc7156a23/Spec_cir_21full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/50ROj1qQ8l6erAuOLHsVyR/bde3eab9f76f2e28c050d8bfc7156a23/Spec_cir_21full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 小童軍快樂傘比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/67zjpfZYNa6XxKnyYHh8zc/3f3a2940b531e4447b2beb443ae18069/Spec_cir_22-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/67zjpfZYNa6XxKnyYHh8zc/3f3a2940b531e4447b2beb443ae18069/Spec_cir_22-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 升旗比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1SWbtMuL1tAKGGAVPKxZKV/28aa602115153d5c3335445cc5bd73a2/Spec_cir_23full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1SWbtMuL1tAKGGAVPKxZKV/28aa602115153d5c3335445cc5bd73a2/Spec_cir_23full-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Svg4t6Q62hKnFNBNQeFJz/421cc5aa00d368705cabb4c4628707e7/Spec_cir_18-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Svg4t6Q62hKnFNBNQeFJz/421cc5aa00d368705cabb4c4628707e7/Spec_cir_18-26.pdf",
+        "date": "2026-06-17",
+        "captured_date": "2026-06-17",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "沙田東區—香港童軍115 周年 「童藝、童心、齊建未來」嘉年華海報",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1BZH9u4vSiWrETusDNC2ed/7ca201d68dafaea0f7815de004bed303/STE_POSTER.pdf",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1BZH9u4vSiWrETusDNC2ed/7ca201d68dafaea0f7815de004bed303/STE_POSTER.pdf",
@@ -35826,6 +35970,118 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25060/Spec_cir_19full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 隊列比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25061/Spec_cir_20full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 步操比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25062/Spec_cir_21full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 幼童軍團呼比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25063/Spec_cir_22-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 小童軍快樂傘比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25064/Spec_cir_23full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 升旗比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25059/Spec_cir_18-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25071/115Souvenirs_Cir_Chi.pdf",
+      "title": "香港童軍115周年紀念品訂購",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25065/Footdrill_poster.pdf",
+      "title": "港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026(海報)",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1WqMJ5RYE9tErxrHuI64bsDQ21DiHb67C/view",
+      "title": "區務委員會第三十七屆周年會議",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3Pe44YHWjXPkluI7jYuf29/37a08c9676b94af000eed4482aee4138/Footdrill_poster2.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026海報",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7LEvWxCej3HZ2MA1WCpksG/4148046c7537b9f838619ea5d2a3cc5e/Spec_cir_19full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 隊列比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7bUgSkBvWwk1jhL5tSGDu3/4d2afe6d438f76096f6aaf85e17e4e1b/Spec_cir_20full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 步操比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/50ROj1qQ8l6erAuOLHsVyR/bde3eab9f76f2e28c050d8bfc7156a23/Spec_cir_21full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 幼童軍團呼比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/67zjpfZYNa6XxKnyYHh8zc/3f3a2940b531e4447b2beb443ae18069/Spec_cir_22-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 小童軍快樂傘比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1SWbtMuL1tAKGGAVPKxZKV/28aa602115153d5c3335445cc5bd73a2/Spec_cir_23full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 升旗比賽",
+      "captured_date": "2026-06-17"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Svg4t6Q62hKnFNBNQeFJz/421cc5aa00d368705cabb4c4628707e7/Spec_cir_18-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026",
+      "captured_date": "2026-06-17"
+    },
+    {
       "source_site": "鯉魚門區",
       "region": "東九龍地域",
       "pdf_url": "https://drive.google.com/file/d/15j0_hU7sswr0QUezWv_pWzBxscr795uS/view",
@@ -36150,15 +36406,15 @@
     {
       "source_site": "維多利亞城區",
       "region": "港島地域",
-      "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
-      "title": "第587屆童軍領導才訓練班",
+      "pdf_url": "https://vic-web-98f2f.web.app/zh/events",
+      "title": "金紫荊申請",
       "captured_date": "2026-06-07"
     },
     {
       "source_site": "維多利亞城區",
       "region": "港島地域",
-      "pdf_url": "https://vic-web-98f2f.web.app/zh/events",
-      "title": "第22屆童軍初級航空活動章訓練班",
+      "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/VIC_S2526_006_童軍領導才訓練班_V4.pdf",
+      "title": "第587屆童軍領導才訓練班",
       "captured_date": "2026-06-07"
     },
     {
@@ -63726,12 +63982,12 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-16 07:23:01",
-      "new": 7,
-      "updated": 3156,
+      "updated_at": "2026-06-17 04:35:13",
+      "new": 16,
+      "updated": 3286,
       "skipped": 1,
       "processed": 47,
-      "playwright_used": 4
+      "playwright_used": 3
     }
   }
 }
