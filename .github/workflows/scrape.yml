@@ -1,47 +1,54 @@
 # ============================================================
-# 全港童軍通告自動化圖書館 v5.0 — GitHub Actions 定時爬蟲
+# 全港童軍通告自動化圖書館 v5.6 — GitHub Actions 自動爬蟲
+# 流程：core.py（抓通告）→ enrich.py（抽文字）→ 自動提交
 # ============================================================
-# 自動爬蟲已暫時停用（因為 GitHub IP 被部分網站屏蔽）
-# 手動觸發仍可用
 
 name: Scout Notice Scraper
 
 on:
-  # 自動爬蟲已停用
-  # schedule:
-  # 每天 UTC 20:00 = 香港時間 04:00
-  # - cron: '0 20 * * *'
   # 手動觸發
   workflow_dispatch:
 
 jobs:
-  scrape:
+  scrape-and-enrich:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      timeout-minutes: 15
+      timeout-minutes: 30
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: |
           pip install requests beautifulsoup4 playwright
+          pip install pdfplumber pdfminer.six pillow
           playwright install chromium
-      - name: Run scraper
+
+      # ── Step 1: 跑 core.py 抓通告 ──
+      - name: Run core scraper
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          python core.py
-      - name: Commit & push updated cache + fingerprints
+          python core.py --verbose
+
+      # ── Step 2: 跑 enrich.py 抽文字（全部未處理過的）──
+      - name: Run enrich scraper
+        run: |
+          python enrich.py --all --verbose
+
+      # ── Step 3: 提交更新 ──
+      - name: Commit & push updated cache + enrich + fingerprints
         if: env.SUPABASE_URL == ''
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cache.json fingerprints.json
-          git diff --staged --quiet || git commit -m "🤖 Daily scrape: $(date +%Y-%m-%d)"
+          git add cache.json enrich.json fingerprints.json
+          git diff --staged --quiet || git commit -m "🤖 Auto scrape + enrich: $(date +%Y-%m-%d\ %H:%M)"
           git push
