@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-06-17 04:35:13",
+  "last_updated": "2026-06-18 13:17:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3985,
+    "total_notices": 3987,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第15屆隊列訓練工作坊(更新)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25074/PT40.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25074/PT40.pdf",
+        "date": "2026-06-18",
+        "captured_date": "2026-06-18",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 隊列比賽",
         "url": "https://scout.org.hk/uploads/tc/circulars/25060/Spec_cir_19full-26.pdf",
@@ -1143,7 +1152,7 @@
         "region": "總會"
       },
       {
-        "title": "海洋公園水上樂園 – 「世界最大游泳課2026」(P59/2026)【額滿】",
+        "title": "海洋公園水上樂園 – 「世界最大游泳課2026」(P59/2026)【更新】",
         "url": "https://scout.org.hk/uploads/tc/circulars/24865/P059-26.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24865/P059-26.pdf",
         "date": "2026-06-01",
@@ -23150,6 +23159,15 @@
     ],
     "東九龍地域": [
       {
+        "title": "第15屆隊列訓練工作坊(更新)",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5552",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5552",
+        "date": "2026-06-18",
+        "captured_date": "2026-06-18",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
         "title": "親子急救體驗工作坊 - 報名表格",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5549",
         "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5549",
@@ -35972,6 +35990,20 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25074/PT40.pdf",
+      "title": "第15屆隊列訓練工作坊(更新)",
+      "captured_date": "2026-06-18"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5552",
+      "title": "第15屆隊列訓練工作坊(更新)",
+      "captured_date": "2026-06-18"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25060/Spec_cir_19full-26.pdf",
       "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 – 隊列比賽",
       "captured_date": "2026-06-17"
@@ -39396,7 +39428,7 @@
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24865/P059-26.pdf",
-      "title": "海洋公園水上樂園 – 「世界最大游泳課2026」(P59/2026)【額滿】",
+      "title": "海洋公園水上樂園 – 「世界最大游泳課2026」(P59/2026)【更新】",
       "captured_date": "2026-06-01"
     },
     {
@@ -63982,9 +64014,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-17 04:35:13",
-      "new": 16,
-      "updated": 3286,
+      "updated_at": "2026-06-18 13:17:06",
+      "new": 2,
+      "updated": 3300,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3

@@ -35588,5 +35588,15 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-17 04:55:37"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25074/PT40.pdf": {
+    "source": "總會",
+    "title": "第15屆隊列訓練工作坊(更新)",
+    "deadline": "2026-06-05",
+    "audience": "深資童軍、樂行童軍、童軍、領袖",
+    "fee": "$25",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-18 13:23:08"
   }
 }
