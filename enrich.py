@@ -13,8 +13,9 @@ enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用）
   - 抽唔到 = 留空（靠固定 label，不亂猜，唔會抽錯）
 
 用法：
-  python enrich.py                 # 抽今日新通告
-  python enrich.py --all           # 抽所有未記錄過的 .pdf
+  python enrich.py                 # 增量：抽今日新通告（預設，最輕量）
+  python enrich.py --backfill      # 補歷史欠帳：抽所有未 enrich 的（不限日期，跳過已做）
+  python enrich.py --all           # 全量重抽（含已抽過的；重！僅離峰用）
   python enrich.py --date 2026-06-07
   python enrich.py --limit 5 --verbose
   python enrich.py --no-ocr        # 停用 OCR
@@ -22,6 +23,7 @@ enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用）
 
 import argparse
 import datetime
+from datetime import timezone, timedelta
 import io
 import json
 import os
@@ -40,6 +42,10 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
+
+# 香港時區：core.py 的 captured_date 是用 HKT 寫的，
+# 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
+HKT = timezone(timedelta(hours=8))
 
 # ─── PDF 文字抽取 ─────────────────────────────────────────
 def nfkc(text):
@@ -334,8 +340,14 @@ def enrich_one(url, use_ocr=True, verbose=False):
 
 
 # ─── 主流程 ───────────────────────────────────────────────
-def collect_targets(cache, target_date, do_all):
-    """回傳要處理的 [(source, title, pdf_url)]"""
+def collect_targets(cache, target_date, do_all, do_backfill):
+    """回傳要處理的 [(source, title, pdf_url)]
+
+    三種模式：
+      - 預設（增量）：只抓 captured_date == target_date 的當天新通告
+      - --backfill：  抓「所有日期」但稍後跳過已 enrich 的，用來補歷史欠帳（如 5/23 批次匯入的舊通告）
+      - --all：       強制全量重抽（連已 enrich 的也重抽；重！極少用）
+    """
     out = []
     data = cache.get("data", {})
     for source, arr in data.items():
@@ -345,7 +357,8 @@ def collect_targets(cache, target_date, do_all):
                 continue
             if "drive.google" in url:
                 continue
-            if not do_all:
+            # 預設模式：只看今日；--all / --backfill 則不分日期全收
+            if not do_all and not do_backfill:
                 cap = it.get("captured_date", "")
                 if cap != target_date:
                     continue
@@ -403,7 +416,8 @@ def check_environment(args):
 def main():
     ap = argparse.ArgumentParser(description="B 補充爬蟲：抽 PDF 截止/對象/費用")
     ap.add_argument("--date", default=None, help="目標 captured_date（預設今日）")
-    ap.add_argument("--all", action="store_true", help="抽所有未記錄過的 .pdf")
+    ap.add_argument("--all", action="store_true", help="全量重抽所有 .pdf（含已抽過的；重！會大量重下載，僅離峰/補歷史欠帳用）")
+    ap.add_argument("--backfill", action="store_true", help="補歷史欠帳：抽所有未 enrich 的 .pdf（不限日期，但跳過已做的）")
     ap.add_argument("--limit", type=int, default=0, help="最多處理幾條（0=不限）")
     ap.add_argument("--no-ocr", action="store_true", help="停用 OCR")
     ap.add_argument("--report", action="store_true", help="行完輸出 enrich_review.md 方便人手核對")
@@ -413,7 +427,7 @@ def main():
     # ── 環境自檢（避免靜靜地全部抽空）──
     check_environment(args)
 
-    today = args.date or datetime.date.today().isoformat()
+    today = args.date or datetime.datetime.now(HKT).date().isoformat()
 
     if not os.path.exists(CACHE_FILE):
         print(f"❌ 找唔到 {CACHE_FILE}")
@@ -424,16 +438,17 @@ def main():
     if os.path.exists(ENRICH_FILE):
         enrich = json.load(open(ENRICH_FILE, encoding="utf-8"))
 
-    targets = collect_targets(cache, today, args.all)
-    # 跳過已抽過（除非 --all 強制重抽）
+    targets = collect_targets(cache, today, args.all, args.backfill)
+    # 跳過已抽過：--all 強制重抽（不跳過）；其餘（預設增量 / --backfill）都跳過已 enrich 的
     if not args.all:
         targets = [t for t in targets if t[2] not in enrich]
 
     if args.limit:
         targets = targets[:args.limit]
 
-    print(f"🔎 目標：{len(targets)} 條 .pdf 通告"
-          + (f"（captured_date={today}）" if not args.all else "（全部未記錄）"))
+    mode = "全量重抽" if args.all else ("補歷史欠帳" if args.backfill else "增量")
+    print(f"🔎 目標：{len(targets)} 條 .pdf 通告（模式={mode}"
+          + (f"，captured_date={today}" if not args.all and not args.backfill else "") + "）")
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
 
     done = ok = 0
