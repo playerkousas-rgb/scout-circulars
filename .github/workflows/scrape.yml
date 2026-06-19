@@ -36,7 +36,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 playwright pdfplumber pdfminer.six pillow
+          # enrich.py 的 OCR fallback 需要 tesseract + poppler（處理圖片型/掃描 PDF）
+          sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra poppler-utils
+          pip install requests beautifulsoup4 playwright pdfplumber pdfminer.six pillow pytesseract pdf2image
           playwright install chromium
 
       # ── Step 1: 跑 core.py 抓通告 ──
