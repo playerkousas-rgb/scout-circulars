@@ -35598,5 +35598,15 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-18 13:23:08"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25079/RCR0126C.pdf": {
+    "source": "總會",
+    "title": "2026 年香港童軍大會操",
+    "deadline": "2026-09-30",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-19 08:29:58"
   }
 }

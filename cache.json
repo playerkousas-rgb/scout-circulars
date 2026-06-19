@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-06-18 13:17:06",
+  "last_updated": "2026-06-19 08:16:17",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3987,
+    "total_notices": 3990,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "2026 年香港童軍大會操",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25079/RCR0126C.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25079/RCR0126C.pdf",
+        "date": "2026-06-19",
+        "captured_date": "2026-06-19",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第15屆隊列訓練工作坊(更新)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25074/PT40.pdf",
@@ -8256,6 +8265,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會23/6 – 28/6/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=620%3A23-6-28-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=620%3A23-6-28-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-06-19",
+        "captured_date": "2026-06-19",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會13/6 – 22/6/2026辦公時間 (更正)",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A13-6-22-6-2027&catid=51&lang=zh-tw&Itemid=1210",
@@ -22563,6 +22581,15 @@
     ],
     "油尖區": [
       {
+        "title": "旱地冰壼工作坊及慈善比賽服務日",
+        "url": "https://drive.google.com/file/d/15fD3t7uwFeaE2YtAxUKZr4g_oA1vV1PM/view",
+        "pdf_url": "https://drive.google.com/file/d/15fD3t7uwFeaE2YtAxUKZr4g_oA1vV1PM/view",
+        "date": "2026-06-19",
+        "captured_date": "2026-06-19",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
         "title": "區務委員會第三十七屆周年會議",
         "url": "https://drive.google.com/file/d/1WqMJ5RYE9tErxrHuI64bsDQ21DiHb67C/view",
         "pdf_url": "https://drive.google.com/file/d/1WqMJ5RYE9tErxrHuI64bsDQ21DiHb67C/view",
@@ -35987,6 +36014,27 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25079/RCR0126C.pdf",
+      "title": "2026 年香港童軍大會操",
+      "captured_date": "2026-06-19"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=620%3A23-6-28-6-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會23/6 – 28/6/2026 辦公時間",
+      "captured_date": "2026-06-19"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/15fD3t7uwFeaE2YtAxUKZr4g_oA1vV1PM/view",
+      "title": "旱地冰壼工作坊及慈善比賽服務日",
+      "captured_date": "2026-06-19"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -64014,8 +64062,8 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-18 13:17:06",
-      "new": 2,
+      "updated_at": "2026-06-19 08:16:17",
+      "new": 3,
       "updated": 3300,
       "skipped": 1,
       "processed": 47,
