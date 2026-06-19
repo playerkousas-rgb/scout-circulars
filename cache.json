@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-19 08:16:17",
+  "last_updated": "2026-06-20 05:21:44",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3990,
+    "total_notices": 3991,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -20180,7 +20180,16 @@
     ],
     "紅磡區": [
       {
-        "title": "認識及體驗童軍支部活動",
+        "title": "G-26-02 - 小童軍親子填色比賽成績公布",
+        "url": "https://drive.google.com/file/d/1X3nHeK0zRuTm7G4VQRKCL4KVyNoBpJAR/view",
+        "pdf_url": "https://drive.google.com/file/d/1X3nHeK0zRuTm7G4VQRKCL4KVyNoBpJAR/view",
+        "date": "2026-06-20",
+        "captured_date": "2026-06-20",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "T-26-01 - 認識及體驗童軍支部活動",
         "url": "https://drive.google.com/file/d/1aVXANhryDDbqVtJhwFPfBEMZgIydsHsc/view",
         "pdf_url": "https://drive.google.com/file/d/1aVXANhryDDbqVtJhwFPfBEMZgIydsHsc/view",
         "date": "2026-05-23",
@@ -20189,7 +20198,16 @@
         "region": "九龍地域"
       },
       {
-        "title": "G-26-01 活動通告 小童軍填色比賽",
+        "title": "S-26-01 - 紅磡區區會長盾-童軍支部比賽 2026",
+        "url": "https://drive.google.com/file/d/1LyrAYp9zuassObkDGCiohAf6lTKBZ0hX/view",
+        "pdf_url": "https://drive.google.com/file/d/1LyrAYp9zuassObkDGCiohAf6lTKBZ0hX/view",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "G-26-01 - 活動通告 - 小童軍填色比賽",
         "url": "https://drive.google.com/file/d/1F_hEsuv4YyGH-9tNgHbxhrFTS9DjOxV0/view",
         "pdf_url": "https://drive.google.com/file/d/1F_hEsuv4YyGH-9tNgHbxhrFTS9DjOxV0/view",
         "date": "2026-05-23",
@@ -20198,7 +20216,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "D-26-0 2 26年 5 月區會公布",
+        "title": "D-26-02 - 26年5月區會公布",
         "url": "https://drive.google.com/file/d/1v514gSXXHmUg5lhcpCv7QefzckYQ5cVp/view",
         "pdf_url": "https://drive.google.com/file/d/1v514gSXXHmUg5lhcpCv7QefzckYQ5cVp/view",
         "date": "2026-05-23",
@@ -20207,18 +20225,9 @@
         "region": "九龍地域"
       },
       {
-        "title": "C-26-01 游泳測試暨幼童軍游泳章考驗",
+        "title": "C-26-01 - 游泳測試暨幼童軍游泳章考驗",
         "url": "https://drive.google.com/file/d/12uoMd7-oim1tjlREtB7BsAocaB8lpguh/view",
         "pdf_url": "https://drive.google.com/file/d/12uoMd7-oim1tjlREtB7BsAocaB8lpguh/view",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "紅磡區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "2026紅磡區會長盾 通告",
-        "url": "https://drive.google.com/file/d/1LyrAYp9zuassObkDGCiohAf6lTKBZ0hX/view",
-        "pdf_url": "https://drive.google.com/file/d/1LyrAYp9zuassObkDGCiohAf6lTKBZ0hX/view",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "紅磡區",
@@ -36015,6 +36024,13 @@
   },
   "notices": [
     {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1X3nHeK0zRuTm7G4VQRKCL4KVyNoBpJAR/view",
+      "title": "G-26-02 - 小童軍親子填色比賽成績公布",
+      "captured_date": "2026-06-20"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25079/RCR0126C.pdf",
@@ -48422,35 +48438,35 @@
       "source_site": "紅磡區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1aVXANhryDDbqVtJhwFPfBEMZgIydsHsc/view",
-      "title": "認識及體驗童軍支部活動",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "紅磡區",
-      "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/1F_hEsuv4YyGH-9tNgHbxhrFTS9DjOxV0/view",
-      "title": "G-26-01 活動通告 小童軍填色比賽",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "紅磡區",
-      "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/1v514gSXXHmUg5lhcpCv7QefzckYQ5cVp/view",
-      "title": "D-26-0 2 26年 5 月區會公布",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "紅磡區",
-      "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/12uoMd7-oim1tjlREtB7BsAocaB8lpguh/view",
-      "title": "C-26-01 游泳測試暨幼童軍游泳章考驗",
+      "title": "T-26-01 - 認識及體驗童軍支部活動",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1LyrAYp9zuassObkDGCiohAf6lTKBZ0hX/view",
-      "title": "2026紅磡區會長盾 通告",
+      "title": "S-26-01 - 紅磡區區會長盾-童軍支部比賽 2026",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1F_hEsuv4YyGH-9tNgHbxhrFTS9DjOxV0/view",
+      "title": "G-26-01 - 活動通告 - 小童軍填色比賽",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1v514gSXXHmUg5lhcpCv7QefzckYQ5cVp/view",
+      "title": "D-26-02 - 26年5月區會公布",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/12uoMd7-oim1tjlREtB7BsAocaB8lpguh/view",
+      "title": "C-26-01 - 游泳測試暨幼童軍游泳章考驗",
       "captured_date": "2026-05-23"
     },
     {
@@ -64062,11 +64078,11 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-19 08:16:17",
-      "new": 3,
-      "updated": 3300,
-      "skipped": 1,
-      "processed": 47,
+      "updated_at": "2026-06-20 05:21:44",
+      "new": 1,
+      "updated": 1134,
+      "skipped": 31,
+      "processed": 17,
       "playwright_used": 3
     }
   }
