@@ -1,12 +1,18 @@
 # ============================================================
-# 全港童軍通告自動化圖書館 v5.6 — GitHub Actions 自動爬蟲
-# 流程：core.py（抓通告）→ enrich.py（抽文字）→ 自動提交
+# 全港童軍通告自動化圖書館 v5.6 — GitHub Actions
+# 流程：core.py（抓通告）→ enrich.py（增量抽當天 PDF 文字）→ 自動提交
+#
+# ⚠️ 重要：enrich 只跑「增量」模式（抽今日新通告）。
+#   - 絕不要把 enrich 改成 --all：會把 3500+ 個已抽過的 PDF 全部重新下載，
+#     大量打各區會站伺服器 → 容易觸發封 runner IP（這是當初 5/23 被封的教訓）。
+#   - 歷史欠帳（如批次匯入的舊通告）請改在本機用 `python enrich.py --backfill` 補，
+#     不要放進這個每日排程。
 # ============================================================
 
 name: Scout Notice Scraper
 
 on:
-  # 手動觸發
+  # 手動觸發（驗證解禁 / 隨時補跑用）
   workflow_dispatch:
 
 jobs:
@@ -14,7 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      timeout-minutes: 30
+      # 避免 runner 上的 urllib / requests 把中文路徑當 latin-1 處理
+      PYTHONUTF8: "1"
+      # 讓 Python 看到香港時區（core.py / enrich.py 都依賴 HKT）
+      TZ: "Asia/Hong_Kong"
+    timeout-minutes: 30
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -26,26 +36,28 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 playwright
-          pip install pdfplumber pdfminer.six pillow
+          pip install requests beautifulsoup4 playwright pdfplumber pdfminer.six pillow
           playwright install chromium
 
       # ── Step 1: 跑 core.py 抓通告 ──
+      # 注意：core.py 預設即為詳細輸出，不支援 --verbose（那是 enrich.py 才有的旗標），
+      #       加 --verbose 會被 argparse 拒絕而 exit 2。保持 `python core.py` 即可。
       - name: Run core scraper
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          python core.py --verbose
+          python core.py
 
-      # ── Step 2: 跑 enrich.py 抽文字（全部未處理過的）──
-      - name: Run enrich scraper
+      # ── Step 2: 跑 enrich.py 增量抽今日新通告的文字 ──
+      # 只抽「今日新抓到」的 PDF（增量），絕不要 --all：
+      # --all 會把 3500+ 個已抽過的 PDF 全部重新下載，是觸發站方封 runner IP 的主因之一。
+      - name: Run enrich scraper (incremental only)
         run: |
-          python enrich.py --all --verbose
+          python enrich.py --verbose
 
       # ── Step 3: 提交更新 ──
       - name: Commit & push updated cache + enrich + fingerprints
-        if: env.SUPABASE_URL == ''
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
