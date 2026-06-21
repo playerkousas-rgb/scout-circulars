@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-20 05:21:44",
+  "last_updated": "2026-06-21 10:15:03",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3991,
+    "total_notices": 3992,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -31882,6 +31882,15 @@
     ],
     "壁峰區": [
       {
+        "title": "2026 深資童軍繩結及先鋒工程訓練班取錄名單",
+        "url": "https://drive.google.com/file/d/1L_eYtcs9GBdRNbaG67uyaVA-VYCQWMM5/view",
+        "pdf_url": "https://drive.google.com/file/d/1L_eYtcs9GBdRNbaG67uyaVA-VYCQWMM5/view",
+        "date": "2026-06-21",
+        "captured_date": "2026-06-21",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
         "title": "電腦(興趣組)、電子、編程(技能組)及網絡安全(服務組)訓練班",
         "url": "https://drive.google.com/file/d/1wu3bZH6hPY252ALvRDN1lVUTFftYw2BH/view",
         "pdf_url": "https://drive.google.com/file/d/1wu3bZH6hPY252ALvRDN1lVUTFftYw2BH/view",
@@ -36023,6 +36032,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1L_eYtcs9GBdRNbaG67uyaVA-VYCQWMM5/view",
+      "title": "2026 深資童軍繩結及先鋒工程訓練班取錄名單",
+      "captured_date": "2026-06-21"
+    },
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
@@ -64078,11 +64094,11 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-20 05:21:44",
+      "updated_at": "2026-06-21 10:15:03",
       "new": 1,
-      "updated": 1134,
-      "skipped": 31,
-      "processed": 17,
+      "updated": 3302,
+      "skipped": 1,
+      "processed": 47,
       "playwright_used": 3
     }
   }
