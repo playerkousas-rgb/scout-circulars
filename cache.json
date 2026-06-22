@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-06-22 05:02:56",
+  "last_updated": "2026-06-23 06:25:41",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3992,
+    "total_notices": 3993,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "儀仗隊隊員招募(Poster)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25083/CF_Poster2026.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25083/CF_Poster2026.pdf",
+        "date": "2026-06-23",
+        "captured_date": "2026-06-23",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "2026 年香港童軍大會操",
         "url": "https://scout.org.hk/uploads/tc/circulars/25079/RCR0126C.pdf",
@@ -36033,6 +36042,13 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25083/CF_Poster2026.pdf",
+      "title": "儀仗隊隊員招募(Poster)",
+      "captured_date": "2026-06-23"
+    },
+    {
       "source_site": "壁峰區",
       "region": "新界東地域",
       "pdf_url": "https://drive.google.com/file/d/1L_eYtcs9GBdRNbaG67uyaVA-VYCQWMM5/view",
@@ -64094,9 +64110,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-22 05:02:56",
-      "new": 0,
-      "updated": 3302,
+      "updated_at": "2026-06-23 06:25:41",
+      "new": 1,
+      "updated": 3301,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
