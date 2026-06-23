@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-06-23 06:25:41",
+  "last_updated": "2026-06-24 05:42:00",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3993,
+    "total_notices": 3995,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "中菜廳慶祝香港回歸29周年 7月份推廣優惠",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25089/2026P01.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25089/2026P01.pdf",
+        "date": "2026-06-24",
+        "captured_date": "2026-06-24",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "儀仗隊隊員招募(Poster)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25083/CF_Poster2026.pdf",
@@ -34790,6 +34799,15 @@
     ],
     "沙田東區": [
       {
+        "title": "沙田東區 童藝、童心、齊建未來』嘉年華 「積極公民」獎章系列 -幼童軍支部 及 童軍支部 防騙先鋒章考驗 取錄名單",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10a.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10a.pdf",
+        "date": "2026-06-24",
+        "captured_date": "2026-06-24",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
         "title": "童軍專科徽章考驗日2026 (更新版)",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07r.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07r.pdf",
@@ -36041,6 +36059,20 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25089/2026P01.pdf",
+      "title": "中菜廳慶祝香港回歸29周年 7月份推廣優惠",
+      "captured_date": "2026-06-24"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10a.pdf",
+      "title": "沙田東區 童藝、童心、齊建未來』嘉年華 「積極公民」獎章系列 -幼童軍支部 及 童軍支部 防騙先鋒章考驗 取錄名單",
+      "captured_date": "2026-06-24"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -64110,8 +64142,8 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-23 06:25:41",
-      "new": 1,
+      "updated_at": "2026-06-24 05:42:00",
+      "new": 2,
       "updated": 3301,
       "skipped": 1,
       "processed": 47,
