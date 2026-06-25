@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-24 05:42:00",
+  "last_updated": "2026-06-25 07:18:22",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3995,
+    "total_notices": 3996,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -1008,7 +1008,7 @@
         "region": "總會"
       },
       {
-        "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026",
+        "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026 (修訂)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24824/Special13-1.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24824/Special13-1.pdf",
         "date": "2026-06-01",
@@ -34799,6 +34799,15 @@
     ],
     "沙田東區": [
       {
+        "title": "童軍專科徽章考驗日2026 取錄名單",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07a.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07a.pdf",
+        "date": "2026-06-25",
+        "captured_date": "2026-06-25",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
         "title": "沙田東區 童藝、童心、齊建未來』嘉年華 「積極公民」獎章系列 -幼童軍支部 及 童軍支部 防騙先鋒章考驗 取錄名單",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10a.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt10a.pdf",
@@ -36059,6 +36068,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07a.pdf",
+      "title": "童軍專科徽章考驗日2026 取錄名單",
+      "captured_date": "2026-06-25"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -39423,7 +39439,7 @@
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24824/Special13-1.pdf",
-      "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026",
+      "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026 (修訂)",
       "captured_date": "2026-06-01"
     },
     {
@@ -64142,9 +64158,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-24 05:42:00",
-      "new": 2,
-      "updated": 3301,
+      "updated_at": "2026-06-25 07:18:22",
+      "new": 1,
+      "updated": 3303,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
