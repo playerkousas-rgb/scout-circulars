@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-06-25 07:18:22",
+  "last_updated": "2026-06-27 05:41:36",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3996,
+    "total_notices": 3997,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "2025-26年度主題撥款計劃—「開心家庭運動2025-26」收支結算表",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25078/Summary_IE_2025-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25078/Summary_IE_2025-26.pdf",
+        "date": "2026-06-27",
+        "captured_date": "2026-06-27",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "中菜廳慶祝香港回歸29周年 7月份推廣優惠",
         "url": "https://scout.org.hk/uploads/tc/circulars/25089/2026P01.pdf",
@@ -36069,6 +36078,13 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25078/Summary_IE_2025-26.pdf",
+      "title": "2025-26年度主題撥款計劃—「開心家庭運動2025-26」收支結算表",
+      "captured_date": "2026-06-27"
+    },
+    {
       "source_site": "沙田東區",
       "region": "新界東地域",
       "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt07a.pdf",
@@ -64158,9 +64174,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-25 07:18:22",
+      "updated_at": "2026-06-27 05:41:36",
       "new": 1,
-      "updated": 3303,
+      "updated": 3295,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
