@@ -35658,5 +35658,15 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-27 07:46:52"
+  },
+  "https://www.twdscout.org.hk/documents/notices/T202607.pdf": {
+    "source": "荃灣區",
+    "title": "童軍氣象章(興趣)訓練班",
+    "deadline": "2026-07-03",
+    "audience": "童軍",
+    "fee": "港幣30元",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-28 07:14:46"
   }
 }

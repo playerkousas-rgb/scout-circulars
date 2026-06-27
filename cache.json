@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-27 05:41:36",
+  "last_updated": "2026-06-28 07:07:31",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3997,
+    "total_notices": 3999,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -8292,6 +8292,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會29/6 – 6/7/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=621%3A29-6-6-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=621%3A29-6-6-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-06-28",
+        "captured_date": "2026-06-28",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會23/6 – 28/6/2026 辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=620%3A23-6-28-6-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -29146,6 +29155,15 @@
     ],
     "荃灣區": [
       {
+        "title": "童軍氣象章(興趣)訓練班",
+        "url": "https://www.twdscout.org.hk/documents/notices/T202607.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202607.pdf",
+        "date": "2026-06-28",
+        "captured_date": "2026-06-28",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
         "title": "修正] 童軍支部急救章訓練班",
         "url": "https://www.twdscout.org.hk/documents/notices/T202606.pdf",
         "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202606.pdf",
@@ -36077,6 +36095,20 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202607.pdf",
+      "title": "童軍氣象章(興趣)訓練班",
+      "captured_date": "2026-06-28"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=621%3A29-6-6-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會29/6 – 6/7/2026辦公時間",
+      "captured_date": "2026-06-28"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -64174,9 +64206,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-27 05:41:36",
-      "new": 1,
-      "updated": 3295,
+      "updated_at": "2026-06-28 07:07:31",
+      "new": 2,
+      "updated": 3292,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
