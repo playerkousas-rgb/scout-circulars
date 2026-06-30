@@ -1,13 +1,166 @@
 {
-  "last_updated": "2026-06-30 05:43:14",
+  "last_updated": "2026-07-01 05:11:31",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4003,
+    "total_notices": 4020,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍貝登堡聯誼會2026/2027年度會務委員會就職典禮暨會員周年晚宴",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25127/Cir13_2026_就職暨周年晚宴.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25127/Cir13_2026_就職暨周年晚宴.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "領取2025至2026年度地域年報 ( )",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25140/KR09_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25140/KR09_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第8屆特殊教育需要訓練班(T43/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25086/T4326_Jult_C_8th_Special_Educational_Needs_Course.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25086/T4326_Jult_C_8th_Special_Educational_Needs_Course.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第70屆遠足訓練班(T41/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25084/T4126_Jul_C_70th_Expedition_Course.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25084/T4126_Jul_C_70th_Expedition_Course.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍成年成員政策",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25136/PolicyCircular_2026_03_AiSPolicy_C.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25136/PolicyCircular_2026_03_AiSPolicy_C.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "深資童軍射箭訓練班 (活動通告第13/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25141/PRG13_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25141/PRG13_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "深資及樂行童軍皮藝訓練班 (活動通告第18/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25146/PRG18_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25146/PRG18_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "民政及青年事務局局長嘉許計劃 2025",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25112/ACR132026C_民政及青年事務局局長嘉許計劃-2025.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25112/ACR132026C_民政及青年事務局局長嘉許計劃-2025.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域公布 ( )",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25139/KR08_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25139/KR08_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "初級射箭訓練班(反曲弓) (活動通告第14/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25142/PRG14_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25142/PRG14_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域潛水會-海岸公園近岸浮潛實習 (活動通告第17/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25145/PRG17_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25145/PRG17_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域潛水會-PADI開放水域潛水員證書課程 (活動通告第15/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25143/PRG15_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25143/PRG15_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域潛水會-PADI保育日2026 (活動通告第16/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25144/PRG16_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25144/PRG16_26.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域2025-2026年度年報",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25138/KRAnnualReport2025-26_L_.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25138/KRAnnualReport2025-26_L_.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "「基礎調解技巧」分享會",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25128/Cir14_2026_基礎調解技巧分享會.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25128/Cir14_2026_基礎調解技巧分享會.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "“Annie JR.”《小安妮》音樂劇門票公開發售",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25133/《小安妮》音樂劇門票公開發售---通告及海報.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25133/《小安妮》音樂劇門票公開發售---通告及海報.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2026年10月童軍技能評審計劃技能考核(T42/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25125/T4226_Jul_C_SAS_Examination_Oct.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25125/T4226_Jul_C_SAS_Examination_Oct.pdf",
+        "date": "2026-07-01",
+        "captured_date": "2026-07-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "2025-26年度主題撥款計劃—「開心家庭運動2025-26」收支結算表",
         "url": "https://scout.org.hk/uploads/tc/circulars/25078/Summary_IE_2025-26.pdf",
@@ -23013,6 +23166,15 @@
         "region": "九龍地域"
       },
       {
+        "title": "油尖區童軍支部技能比賽2026 - 成績公佈",
+        "url": "https://drive.google.com/file/d/1yFBLF7WkpkokVcLuHpwXugv84r8Q5EZB/view",
+        "pdf_url": "https://drive.google.com/file/d/1yFBLF7WkpkokVcLuHpwXugv84r8Q5EZB/view",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
         "title": "油尖區童軍參與童軍隊制比賽資助計劃",
         "url": "https://drive.google.com/file/d/1bVUCmHenybDIsMXXATJa8czUbOvU-E8B/view",
         "pdf_url": "https://drive.google.com/file/d/1bVUCmHenybDIsMXXATJa8czUbOvU-E8B/view",
@@ -23061,15 +23223,6 @@
         "title": "油尖健兒攻防戰",
         "url": "https://drive.google.com/file/d/1wga1z4f78EQ_6X18pZDmqE7DEOYXFiFM/view",
         "pdf_url": "https://drive.google.com/file/d/1wga1z4f78EQ_6X18pZDmqE7DEOYXFiFM/view",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "油尖區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "油 尖區童軍支部技能比賽2026 - 成績公佈",
-        "url": "https://drive.google.com/file/d/1yFBLF7WkpkokVcLuHpwXugv84r8Q5EZB/view",
-        "pdf_url": "https://drive.google.com/file/d/1yFBLF7WkpkokVcLuHpwXugv84r8Q5EZB/view",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "油尖區",
@@ -36131,6 +36284,125 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25127/Cir13_2026_就職暨周年晚宴.pdf",
+      "title": "香港童軍貝登堡聯誼會2026/2027年度會務委員會就職典禮暨會員周年晚宴",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25140/KR09_26.pdf",
+      "title": "領取2025至2026年度地域年報 ( )",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25086/T4326_Jult_C_8th_Special_Educational_Needs_Course.pdf",
+      "title": "第8屆特殊教育需要訓練班(T43/2026)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25084/T4126_Jul_C_70th_Expedition_Course.pdf",
+      "title": "第70屆遠足訓練班(T41/2026)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25136/PolicyCircular_2026_03_AiSPolicy_C.pdf",
+      "title": "童軍成年成員政策",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25141/PRG13_26.pdf",
+      "title": "深資童軍射箭訓練班 (活動通告第13/26號)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25146/PRG18_26.pdf",
+      "title": "深資及樂行童軍皮藝訓練班 (活動通告第18/26號)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25112/ACR132026C_民政及青年事務局局長嘉許計劃-2025.pdf",
+      "title": "民政及青年事務局局長嘉許計劃 2025",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25139/KR08_26.pdf",
+      "title": "地域公布 ( )",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25142/PRG14_26.pdf",
+      "title": "初級射箭訓練班(反曲弓) (活動通告第14/26號)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25145/PRG17_26.pdf",
+      "title": "九龍地域潛水會-海岸公園近岸浮潛實習 (活動通告第17/26號)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25143/PRG15_26.pdf",
+      "title": "九龍地域潛水會-PADI開放水域潛水員證書課程 (活動通告第15/26號)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25144/PRG16_26.pdf",
+      "title": "九龍地域潛水會-PADI保育日2026 (活動通告第16/26號)",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25138/KRAnnualReport2025-26_L_.pdf",
+      "title": "九龍地域2025-2026年度年報",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25128/Cir14_2026_基礎調解技巧分享會.pdf",
+      "title": "「基礎調解技巧」分享會",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25133/《小安妮》音樂劇門票公開發售---通告及海報.pdf",
+      "title": "“Annie JR.”《小安妮》音樂劇門票公開發售",
+      "captured_date": "2026-07-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25125/T4226_Jul_C_SAS_Examination_Oct.pdf",
+      "title": "2026年10月童軍技能評審計劃技能考核(T42/26)",
+      "captured_date": "2026-07-01"
+    },
     {
       "source_site": "鯉魚門區",
       "region": "東九龍地域",
@@ -55398,6 +55670,13 @@
     {
       "source_site": "油尖區",
       "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1yFBLF7WkpkokVcLuHpwXugv84r8Q5EZB/view",
+      "title": "油尖區童軍支部技能比賽2026 - 成績公佈",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1bVUCmHenybDIsMXXATJa8czUbOvU-E8B/view",
       "title": "油尖區童軍參與童軍隊制比賽資助計劃",
       "captured_date": "2026-05-23"
@@ -55435,13 +55714,6 @@
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1wga1z4f78EQ_6X18pZDmqE7DEOYXFiFM/view",
       "title": "油尖健兒攻防戰",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "油尖區",
-      "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/1yFBLF7WkpkokVcLuHpwXugv84r8Q5EZB/view",
-      "title": "油 尖區童軍支部技能比賽2026 - 成績公佈",
       "captured_date": "2026-05-23"
     },
     {
@@ -64270,9 +64542,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-30 05:43:14",
-      "new": 4,
-      "updated": 3288,
+      "updated_at": "2026-07-01 05:11:31",
+      "new": 17,
+      "updated": 3270,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
