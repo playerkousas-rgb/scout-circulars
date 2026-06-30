@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-06-28 07:07:31",
+  "last_updated": "2026-06-30 05:43:14",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 3999,
+    "total_notices": 4003,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -8292,6 +8292,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會 29/6/2025 - 6/7/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A29-6-2025-6-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A29-6-2025-6-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-06-30",
+        "captured_date": "2026-06-30",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會29/6 – 6/7/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=621%3A29-6-6-7-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -20499,6 +20508,15 @@
     ],
     "九龍城區": [
       {
+        "title": "立法會綜合大樓參觀",
+        "url": "https://www.klcscout.hk/cportal/uploads/立法會綜合大樓參觀.pdf",
+        "pdf_url": "https://www.klcscout.hk/cportal/uploads/立法會綜合大樓參觀.pdf",
+        "date": "2026-06-30",
+        "captured_date": "2026-06-30",
+        "source_site": "九龍城區",
+        "region": "九龍地域"
+      },
+      {
         "title": "FORM KLC/ 002/26",
         "url": "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf",
         "pdf_url": "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf",
@@ -25067,6 +25085,15 @@
     ],
     "將軍澳區": [
       {
+        "title": "06-2026 行政通告 - 第25屆區務委員會就職典禮暨積極公民同樂日 (截止: 2026-07-16)",
+        "url": "https://hkscout-tko.org/notice.php#行政通告-06-2026-第25屆區務委員會就職典禮暨積極公民同樂日",
+        "pdf_url": "https://hkscout-tko.org/notice.php#行政通告-06-2026-第25屆區務委員會就職典禮暨積極公民同樂日",
+        "date": "2026-06-30",
+        "captured_date": "2026-06-30",
+        "source_site": "將軍澳區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "12-2024 特別通告 - 未來童夢熱血狂歡2025開放日",
         "url": "https://hkscout-tko.org/notice.php#特別通告-12-2024-未來童夢熱血狂歡2025開放日",
         "pdf_url": "https://hkscout-tko.org/notice.php#特別通告-12-2024-未來童夢熱血狂歡2025開放日",
@@ -25331,6 +25358,15 @@
       }
     ],
     "鯉魚門區": [
+      {
+        "title": "2026年7月 鯉魚門區45周年 填色比賽 結果公布",
+        "url": "https://drive.google.com/file/d/1lgDCaPIBpabjk1FDi7fxywwbIjKJkSMf/view",
+        "pdf_url": "https://drive.google.com/file/d/1lgDCaPIBpabjk1FDi7fxywwbIjKJkSMf/view",
+        "date": "2026-06-30",
+        "captured_date": "2026-06-30",
+        "source_site": "鯉魚門區",
+        "region": "東九龍地域"
+      },
       {
         "title": "2026年12月 鯉魚門區45周年 童鯉馬拉遊",
         "url": "https://drive.google.com/file/d/15j0_hU7sswr0QUezWv_pWzBxscr795uS/view",
@@ -36095,6 +36131,34 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "鯉魚門區",
+      "region": "東九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1lgDCaPIBpabjk1FDi7fxywwbIjKJkSMf/view",
+      "title": "2026年7月 鯉魚門區45周年 填色比賽 結果公布",
+      "captured_date": "2026-06-30"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=617%3A29-6-2025-6-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 29/6/2025 - 6/7/2026 辦公時間",
+      "captured_date": "2026-06-30"
+    },
+    {
+      "source_site": "將軍澳區",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-tko.org/notice.php#行政通告-06-2026-第25屆區務委員會就職典禮暨積極公民同樂日",
+      "title": "06-2026 行政通告 - 第25屆區務委員會就職典禮暨積極公民同樂日 (截止: 2026-07-16)",
+      "captured_date": "2026-06-30"
+    },
+    {
+      "source_site": "九龍城區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.klcscout.hk/cportal/uploads/立法會綜合大樓參觀.pdf",
+      "title": "立法會綜合大樓參觀",
+      "captured_date": "2026-06-30"
+    },
     {
       "source_site": "荃灣區",
       "region": "新界地域",
@@ -64206,9 +64270,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-06-28 07:07:31",
-      "new": 2,
-      "updated": 3292,
+      "updated_at": "2026-06-30 05:43:14",
+      "new": 4,
+      "updated": 3288,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3

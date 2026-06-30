@@ -35668,5 +35668,15 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-28 07:14:46"
+  },
+  "https://www.klcscout.hk/cportal/uploads/立法會綜合大樓參觀.pdf": {
+    "source": "九龍城區",
+    "title": "立法會綜合大樓參觀",
+    "deadline": "2026-07-03",
+    "audience": "幼童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-06-30 10:39:36"
   }
 }
