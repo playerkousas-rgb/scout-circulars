@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-07-04 08:38:03",
+  "last_updated": "2026-07-05 07:21:16",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4118,
+    "total_notices": 4122,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -20909,6 +20909,24 @@
     ],
     "紅磡區": [
       {
+        "title": "T-26-02 - 成員保留及拓展活動 - 認識及體驗童軍生活",
+        "url": "https://drive.google.com/file/d/11TBcfjbvWxYKnHaLYQMppzdkxgeg4Qgr/view",
+        "pdf_url": "https://drive.google.com/file/d/11TBcfjbvWxYKnHaLYQMppzdkxgeg4Qgr/view",
+        "date": "2026-07-05",
+        "captured_date": "2026-07-05",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "D-26-03 - 26年7月區會公布",
+        "url": "https://drive.google.com/file/d/1Oy-MFfm29vS6ZqojwgYgUqxsU0sOSGhl/view",
+        "pdf_url": "https://drive.google.com/file/d/1Oy-MFfm29vS6ZqojwgYgUqxsU0sOSGhl/view",
+        "date": "2026-07-05",
+        "captured_date": "2026-07-05",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
         "title": "G-26-02 - 小童軍親子填色比賽成績公布",
         "url": "https://drive.google.com/file/d/1X3nHeK0zRuTm7G4VQRKCL4KVyNoBpJAR/view",
         "pdf_url": "https://drive.google.com/file/d/1X3nHeK0zRuTm7G4VQRKCL4KVyNoBpJAR/view",
@@ -27444,6 +27462,15 @@
     ],
     "元朗西區": [
       {
+        "title": "深資童軍大會及聯誼日 - activity11-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity11-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity11-2026.pdf",
+        "date": "2026-07-05",
+        "captured_date": "2026-07-05",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
         "title": "小草蜢社區遊樂日 - activity09-2026",
         "url": "https://www.ylw-scout.org.hk/circular/activity09-2026.pdf",
         "pdf_url": "https://www.ylw-scout.org.hk/circular/activity09-2026.pdf",
@@ -29114,6 +29141,15 @@
       }
     ],
     "北葵涌區": [
+      {
+        "title": "【葵】【童】尋鳥蹤·城中鳥普查 地鐵「社區畫廊」打卡換紀念章",
+        "url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
+        "pdf_url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
+        "date": "2026-07-05",
+        "captured_date": "2026-07-05",
+        "source_site": "北葵涌區",
+        "region": "新界地域"
+      },
       {
         "title": "香港童軍115 周年新界地域大露營2026-跨步前行‧童展 - 區會營費津貼",
         "url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
@@ -37166,6 +37202,34 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/11TBcfjbvWxYKnHaLYQMppzdkxgeg4Qgr/view",
+      "title": "T-26-02 - 成員保留及拓展活動 - 認識及體驗童軍生活",
+      "captured_date": "2026-07-05"
+    },
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1Oy-MFfm29vS6ZqojwgYgUqxsU0sOSGhl/view",
+      "title": "D-26-03 - 26年7月區會公布",
+      "captured_date": "2026-07-05"
+    },
+    {
+      "source_site": "北葵涌區",
+      "region": "新界地域",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
+      "title": "【葵】【童】尋鳥蹤·城中鳥普查 地鐵「社區畫廊」打卡換紀念章",
+      "captured_date": "2026-07-05"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity11-2026.pdf",
+      "title": "深資童軍大會及聯誼日 - activity11-2026",
+      "captured_date": "2026-07-05"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -66110,9 +66174,9 @@
     "total_sources": 48,
     "has_errors": true,
     "last_run": {
-      "updated_at": "2026-07-04 08:38:03",
-      "new": 20,
-      "updated": 3282,
+      "updated_at": "2026-07-05 07:21:16",
+      "new": 4,
+      "updated": 3302,
       "skipped": 1,
       "processed": 47,
       "playwright_used": 3
