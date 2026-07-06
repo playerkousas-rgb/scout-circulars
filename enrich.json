@@ -36628,5 +36628,165 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-07-05 07:29:46"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25252/Admin09.pdf": {
+    "source": "總會",
+    "title": "領取2025至2026年度地域年報",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:46:59"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25247/KT53_26.pdf": {
+    "source": "總會",
+    "title": "第55屆幼童軍團度假營及露營訓練班 (KT/53/26)",
+    "deadline": "2026-08-01",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "港幣300元正",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:46:59"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25248/KT55_26.pdf": {
+    "source": "總會",
+    "title": "第10屆中級航空活動章訓練班 (KT/55/26)",
+    "deadline": "2026-08-06",
+    "audience": "童軍",
+    "fee": "港幣115元正",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:00"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25237/Prog47_26_LeathercraftSCCraftsmanCourse.pdf": {
+    "source": "總會",
+    "title": "港島童軍皮藝會-童軍手藝章(技能組)專章訓練班",
+    "deadline": "2026-08-18",
+    "audience": "童軍",
+    "fee": "港幣90元",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:00"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25236/Prog46_26_LeathercraftWorkshop.pdf": {
+    "source": "總會",
+    "title": "港島童軍皮藝會-皮革泡泡染色工作坊(眼鏡套)",
+    "deadline": "2026-08-04",
+    "audience": "領袖、會務委員",
+    "fee": "港幣95元",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:01"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25238/Prog48_26_LeathercraftVSCraftsmanCourse.pdf": {
+    "source": "總會",
+    "title": "港島童軍皮藝會-深資童軍皮藝訓練班",
+    "deadline": "2026-08-18",
+    "audience": "深資童軍",
+    "fee": "港幣130元",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:02"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25235/Prog45_26_EcoTeamNightWalk.pdf": {
+    "source": "總會",
+    "title": "港島童軍生態小組-夜行@暑假之尾巴",
+    "deadline": "2026-08-04",
+    "audience": "領袖、會務委員",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:02"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25254/KT54_26.pdf": {
+    "source": "總會",
+    "title": "九龍地域深資童軍貝雷議會-貝雷爬爬爬 (KT/54/26)",
+    "deadline": "2026-07-28",
+    "audience": "深資童軍、樂行童軍、童軍、領袖",
+    "fee": "港幣120元正",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:03"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25242/Admin10.pdf": {
+    "source": "總會",
+    "title": "2025-2026年度童軍旅賬目資料",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:03"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/25232/adm16_26_annualreport.pdf": {
+    "source": "港島地域",
+    "title": "領取2025/2026年度地域年報",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:04"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/25229/sp12a_26_isd2026_enrollform.pdf": {
+    "source": "港島地域",
+    "title": "港島童軍繽紛日2026 - 報名表格",
+    "deadline": "",
+    "audience": "",
+    "fee": "$10",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:04"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/25226/sp12_26_isd2026.pdf": {
+    "source": "港島地域",
+    "title": "港島童軍繽紛日2026",
+    "deadline": "2026-09-11",
+    "audience": "童軍、領袖、家長、成年成員",
+    "fee": "港幣10元",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:04"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/25148/adm14_26_announcement.pdf": {
+    "source": "港島地域",
+    "title": "地域總部公布(2026年7月)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:05"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/25230/adm15_26_financialreport.pdf": {
+    "source": "港島地域",
+    "title": "呈交2025/2026年度賬目結算表",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:05"
+  },
+  "https://www.scout-ntr.org.hk/system/upload/admin/c202671_admin_59165444.pdf": {
+    "source": "新界地域",
+    "title": "領取2025至2026年度地域年報",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:06"
+  },
+  "https://www.scout-ntr.org.hk/system/upload/admin/c202671_admin_78524358.pdf": {
+    "source": "新界地域",
+    "title": "2025-2026年度童軍旅賬目資料",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-07 05:47:06"
   }
 }
