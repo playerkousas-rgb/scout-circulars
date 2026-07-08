@@ -1,13 +1,94 @@
 {
-  "last_updated": "2026-07-08 07:28:10",
+  "last_updated": "2026-07-09 07:45:37",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4172,
+    "total_notices": 4185,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華海報",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25205/_NEW_Poster1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25205/_NEW_Poster1.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "領取2025/2026年度地域年報",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25280/Adm18.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25280/Adm18.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "總部公告",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25277/ACR152026C.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25277/ACR152026C.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第一屆香港童軍歷史問答比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25284/第一屆香港童軍歷史問答比賽.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25284/第一屆香港童軍歷史問答比賽.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "白沙灣立划板水球友誼賽2026 - 報名表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25250/SA59-form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25250/SA59-form.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "白沙灣立划板水球友誼賽2026",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25249/SA59.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25249/SA59.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "提交2025/2026年度賬目結算表",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25281/Adm16-1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25281/Adm16-1.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "幼童軍知多啲香港童軍歷史",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25286/幼童軍知多啲香港童軍歷史.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25286/幼童軍知多啲香港童軍歷史.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "吳多泰童軍基金",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25182/SP08-2.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25182/SP08-2.pdf",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第5屆世界童軍教育會議",
         "url": "https://scout.org.hk/uploads/tc/circulars/25271/CIR_0926_Chi_5thWorldScoutEducationCongress_SINGAPORE.pdf",
@@ -19690,6 +19771,15 @@
     ],
     "港島北區": [
       {
+        "title": "嘉爾頓錦標區選拔賽2026",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
         "title": "童軍技能比賽2026 報名表",
         "url": "http://www.hknscout.org/wp-content/uploads/2026/07/報名表_童軍技能比賽2026.xlsx",
         "pdf_url": "http://www.hknscout.org/wp-content/uploads/2026/07/報名表_童軍技能比賽2026.xlsx",
@@ -24346,6 +24436,33 @@
       }
     ],
     "東九龍地域": [
+      {
+        "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華海報",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5574",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5574",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "領取2025/2026年度地域年報",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5579",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5579",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "提交2025/2026年度賬目結算表",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5578",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5578",
+        "date": "2026-07-09",
+        "captured_date": "2026-07-09",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
       {
         "title": "白沙灣立划板水球友誼賽2026 - 報名表格",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5576",
@@ -37652,6 +37769,97 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25205/_NEW_Poster1.pdf",
+      "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華海報",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25280/Adm18.pdf",
+      "title": "領取2025/2026年度地域年報",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25277/ACR152026C.pdf",
+      "title": "總部公告",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25284/第一屆香港童軍歷史問答比賽.pdf",
+      "title": "第一屆香港童軍歷史問答比賽",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25250/SA59-form.pdf",
+      "title": "白沙灣立划板水球友誼賽2026 - 報名表格",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25249/SA59.pdf",
+      "title": "白沙灣立划板水球友誼賽2026",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25281/Adm16-1.pdf",
+      "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25286/幼童軍知多啲香港童軍歷史.pdf",
+      "title": "幼童軍知多啲香港童軍歷史",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25182/SP08-2.pdf",
+      "title": "吳多泰童軍基金",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
+      "title": "嘉爾頓錦標區選拔賽2026",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5574",
+      "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華海報",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5579",
+      "title": "領取2025/2026年度地域年報",
+      "captured_date": "2026-07-09"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5578",
+      "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-07-09"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -66974,9 +67182,9 @@
     "total_sources": 48,
     "has_errors": false,
     "last_run": {
-      "updated_at": "2026-07-08 07:28:10",
-      "new": 30,
-      "updated": 3298,
+      "updated_at": "2026-07-09 07:45:37",
+      "new": 13,
+      "updated": 3319,
       "skipped": 0,
       "processed": 48,
       "playwright_used": 4
