@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-07-09 07:45:37",
+  "last_updated": "2026-07-10 07:17:07",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4185,
+    "total_notices": 4186,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -21797,6 +21797,15 @@
     ],
     "九龍塘區": [
       {
+        "title": "深資童軍消防訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03V.pdf",
+        "date": "2026-07-10",
+        "captured_date": "2026-07-10",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
         "title": "馬來西亞霹靂州交流團2025備忘",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
@@ -37769,6 +37778,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03V.pdf",
+      "title": "深資童軍消防訓練班",
+      "captured_date": "2026-07-10"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -67180,14 +67196,14 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": false,
+    "has_errors": true,
     "last_run": {
-      "updated_at": "2026-07-09 07:45:37",
-      "new": 13,
-      "updated": 3319,
-      "skipped": 0,
-      "processed": 48,
-      "playwright_used": 4
+      "updated_at": "2026-07-10 07:17:07",
+      "new": 1,
+      "updated": 3333,
+      "skipped": 1,
+      "processed": 47,
+      "playwright_used": 3
     }
   }
 }

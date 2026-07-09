@@ -37178,5 +37178,15 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-07-09 07:58:14"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-03V.pdf": {
+    "source": "九龍塘區",
+    "title": "深資童軍消防訓練班",
+    "deadline": "2026-08-28",
+    "audience": "深資童軍",
+    "fee": "$150.00",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-10 07:27:20"
   }
 }
