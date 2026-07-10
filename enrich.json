@@ -40907,5 +40907,71 @@
     "error": "",
     "enriched_at": "2026-07-10 07:27:20",
     "enrich_version": "1.0"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25296/SP09-01-app.pdf": {
+    "source": "總會",
+    "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽附件",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-11 06:07:40",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25297/SP09-01-form.pdf": {
+    "source": "總會",
+    "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽報名表格",
+    "deadline": "2026-08-21",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-11 06:07:40",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25299/SP09-03-form.pdf": {
+    "source": "總會",
+    "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 快樂傘比賽報名表格",
+    "deadline": "2026-08-21",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-11 06:07:41",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25298/SP09-02-app.pdf": {
+    "source": "總會",
+    "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽附件",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "",
+    "error": "not_pdf",
+    "enriched_at": "2026-07-11 06:07:42",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25300/SP09-02-form.pdf": {
+    "source": "總會",
+    "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽報名表格",
+    "deadline": "2026-08-21",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-11 06:07:43",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25295/SP09.pdf": {
+    "source": "總會",
+    "title": "東九龍地域步操、團呼及快樂傘比賽2026",
+    "deadline": "2026-08-21",
+    "audience": "",
+    "fee": "HK$10",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-11 06:07:44",
+    "enrich_version": "2.1"
   }
 }

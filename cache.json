@@ -1,13 +1,67 @@
 {
-  "last_updated": "2026-07-10 07:17:07",
+  "last_updated": "2026-07-11 06:02:14",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4186,
+    "total_notices": 4199,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽附件",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25296/SP09-01-app.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25296/SP09-01-app.pdf",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽報名表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25297/SP09-01-form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25297/SP09-01-form.pdf",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 快樂傘比賽報名表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25299/SP09-03-form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25299/SP09-03-form.pdf",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽附件",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25298/SP09-02-app.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25298/SP09-02-app.pdf",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽報名表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25300/SP09-02-form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25300/SP09-02-form.pdf",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25295/SP09.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25295/SP09.pdf",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華海報",
         "url": "https://scout.org.hk/uploads/tc/circulars/25205/_NEW_Poster1.pdf",
@@ -9417,6 +9471,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會13/7 – 17/7/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A13-7-17-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A13-7-17-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會7/7 – 12/7/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A7-7-12-7-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -24446,6 +24509,60 @@
     ],
     "東九龍地域": [
       {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽附件",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5582",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5582",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽報名表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5583",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5583",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 快樂傘比賽報名表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5586",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5586",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽附件",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5584",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5584",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽報名表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5585",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5585",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5581",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5581",
+        "date": "2026-07-11",
+        "captured_date": "2026-07-11",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
         "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華海報",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5574",
         "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5574",
@@ -37778,6 +37895,97 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25296/SP09-01-app.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽附件",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25297/SP09-01-form.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽報名表格",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25299/SP09-03-form.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 快樂傘比賽報名表格",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25298/SP09-02-app.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽附件",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25300/SP09-02-form.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽報名表格",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25295/SP09.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A13-7-17-7-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會13/7 – 17/7/2026辦公時間",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5582",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽附件",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5583",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽報名表格",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5586",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 快樂傘比賽報名表格",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5584",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽附件",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5585",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 團呼比賽報名表格",
+      "captured_date": "2026-07-11"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5581",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026",
+      "captured_date": "2026-07-11"
+    },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
@@ -67196,14 +67404,25 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": true,
+    "has_errors": false,
+    "expected_empty_sources": [
+      "西貢區",
+      "離島區",
+      "大嶼山區"
+    ],
     "last_run": {
-      "updated_at": "2026-07-10 07:17:07",
-      "new": 1,
-      "updated": 3333,
-      "skipped": 1,
-      "processed": 47,
-      "playwright_used": 3
+      "updated_at": "2026-07-11 06:02:14",
+      "new": 13,
+      "updated": 3327,
+      "skipped": 3,
+      "processed": 45,
+      "playwright_used": 2,
+      "error_sources": [],
+      "skipped_sources": [
+        "西貢區 (expected_empty)",
+        "離島區 (expected_empty)",
+        "大嶼山區 (expected_empty)"
+      ]
     }
   }
 }
