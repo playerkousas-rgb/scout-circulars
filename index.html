@@ -148,7 +148,7 @@
         <div class="contact-bar" id="contact-bar"></div>
 
         <div class="controls">
-          <input id="keyword" type="search" placeholder="搜尋名稱 / 成員 / 支部…">
+          <input id="keyword" type="search" placeholder="搜尋名稱 / 成員（精準配對）/ 支部…">
           <div class="scope-chips" id="scope-chips">
             <button class="scope-chip active" data-scope="current">目前分頁</button>
             <button class="scope-chip" data-scope="global">全港搜尋</button>
@@ -159,7 +159,7 @@
           <span class="field-label">搜尋範圍：</span>
           <div class="field-chips" id="field-chips">
             <button class="chip active" data-field="name">名稱</button>
-            <button class="chip active" data-field="member">成員</button>
+            <button class="chip active" data-field="member">成員（精準）</button>
             <button class="chip active" data-field="branch">支部</button>
           </div>
           <label class="toggle"><input id="explicit-date" type="checkbox"> 只顯示明確日期</label>
@@ -204,31 +204,93 @@
       { id: '180d', label: '6個月', days: 180 },
     ];
 
-    // 成員搜尋用精確匹配：避免「童軍」命中「幼童軍 / 深資童軍 / 樂行童軍」
+    // 成員搜尋用精確匹配：避免「童軍」命中「幼童軍 / 深資童軍 / 樂行童軍」。
+    // 較長名稱必須先配對，否則「深資童軍」會被錯拆成「童軍」。
     const KNOWN_MEMBERS = [
       '小童軍', '幼童軍', '童軍', '深資童軍', '樂行童軍',
       '領袖', '家長', '成年成員', '會務委員', '公眾', '親友', '所有成員',
     ];
+    const MEMBER_QUERY_SEPARATOR = /[\s,，、/／;；|｜]+/;
+
+    function normalizeSearchText(value) {
+      return String(value ?? '').normalize('NFKC').toLowerCase().trim();
+    }
+
+    const NORMALIZED_MEMBERS_LONGEST_FIRST = KNOWN_MEMBERS
+      .map(normalizeSearchText)
+      .sort((a, b) => b.length - a.length);
+
+    function splitSearchParts(query) {
+      return normalizeSearchText(query).split(MEMBER_QUERY_SEPARATOR).filter(Boolean);
+    }
 
     function tokenizeMemberQuery(query) {
-      // 精確成員匹配：只認完整已知成員關鍵詞
-      // 搜「童軍」唔會拆出「幼童軍」入面嘅「童軍」
-      const parts = query.toLowerCase().trim().split(/[\s,，、/]+/).filter(Boolean);
+      // 查詢只接受完整成員名稱，不會從「幼童軍」抽出「童軍」。
+      const known = new Set(NORMALIZED_MEMBERS_LONGEST_FIRST);
+      return [...new Set(splitSearchParts(query).filter(part => known.has(part)))];
+    }
+
+    function isMemberOnlyQuery(query) {
+      const parts = splitSearchParts(query);
+      const known = new Set(NORMALIZED_MEMBERS_LONGEST_FIRST);
+      return parts.length > 0 && parts.every(part => known.has(part));
+    }
+
+    function extractMemberTokens(text) {
+      // 對沒有固定分隔符的標題亦採用 longest-match 掃描。
+      const value = normalizeSearchText(text);
       const tokens = [];
-      for (const p of parts) {
-        if (KNOWN_MEMBERS.some(m => m.toLowerCase() === p)) {
-          tokens.push(p);
+      let index = 0;
+      while (index < value.length) {
+        const matched = NORMALIZED_MEMBERS_LONGEST_FIRST.find(member => value.startsWith(member, index));
+        if (matched) {
+          tokens.push(matched);
+          index += matched.length;
+        } else {
+          index += 1;
         }
       }
       return [...new Set(tokens)];
     }
 
+    function exactMemberTextMatches(queryTokens, text) {
+      if (!text || !queryTokens.length) return false;
+      const textTokens = extractMemberTokens(text);
+      return queryTokens.some(token => textTokens.includes(token));
+    }
+
     function audienceMatches(queryTokens, audience) {
-      if (!audience || !queryTokens.length) return false;
-      // 將 audience 字串拆散成獨立項目，再同已知成員做精確匹配
-      const audParts = audience.toLowerCase().split(/[\s,，、/]+/).filter(Boolean);
-      const audTokens = audParts.filter(p => KNOWN_MEMBERS.some(m => m.toLowerCase() === p));
-      return queryTokens.some(qt => audTokens.includes(qt));
+      return exactMemberTextMatches(queryTokens, audience);
+    }
+
+    function matchesSearchQuery(item, enrich, query, searchFields) {
+      const q = normalizeSearchText(query);
+      if (!q) return true;
+
+      const memberTokens = tokenizeMemberQuery(q);
+      const memberOnly = isMemberOnlyQuery(q);
+
+      // 只輸入成員名稱，而「成員」欄位又已開啟時，優先只查結構化 audience。
+      // 這個 early return 很重要：不讓標題內的「幼童軍」再經名稱的 includes()
+      // 錯誤命中「童軍」。精準度優先於沒有 audience 資料的舊通告。
+      if (memberOnly && searchFields.member) {
+        return audienceMatches(memberTokens, enrich?.audience || '');
+      }
+
+      const checks = [];
+      if (searchFields.name) {
+        checks.push(memberOnly
+          ? exactMemberTextMatches(memberTokens, item.title || '')
+          : normalizeSearchText(item.title).includes(q));
+      }
+      if (searchFields.member && enrich?.audience && memberTokens.length) {
+        checks.push(audienceMatches(memberTokens, enrich.audience));
+      }
+      if (searchFields.branch) {
+        checks.push(normalizeSearchText(item.source_site).includes(q));
+        checks.push(normalizeSearchText(item.region).includes(q));
+      }
+      return checks.some(Boolean);
     }
 
     // === 各區聯絡資訊（FB/IG/電話/地址/官網）。地址與部分網址待補。 ===
@@ -428,22 +490,8 @@
         if (state.explicitDateOnly && !parseDate(dateValue)) return false;
         if (!inWindow(dateValue)) return false;
         if (state.keyword) {
-          const q = state.keyword.toLowerCase().trim();
-          const memberTokens = tokenizeMemberQuery(q);
           const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-          const checks = [];
-          if (state.searchFields.name) {
-            checks.push(String(item.title || '').toLowerCase().includes(q));
-          }
-          if (state.searchFields.member && ex?.audience && memberTokens.length) {
-            // 精確成員匹配：搜「童軍」唔會命中「幼童軍 / 深資童軍 / 樂行童軍」
-            checks.push(audienceMatches(memberTokens, ex.audience));
-          }
-          if (state.searchFields.branch) {
-            checks.push(String(item.source_site || '').toLowerCase().includes(q));
-            checks.push(String(item.region || '').toLowerCase().includes(q));
-          }
-          return checks.some(Boolean);
+          return matchesSearchQuery(item, ex, state.keyword, state.searchFields);
         }
         return true;
       });
@@ -504,7 +552,7 @@
       wrap.innerHTML = '';
       const fields = [
         { id: 'name', label: '名稱' },
-        { id: 'member', label: '成員' },
+        { id: 'member', label: '成員（精準）' },
         { id: 'branch', label: '支部' },
       ];
       for (const f of fields) {

@@ -51,6 +51,19 @@ const RAW_CACHE_URL = "https://raw.githubusercontent.com/YOUR_GITHUB_USER/YOUR_R
 index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 ```
 
+## 搜尋規則
+
+- 一般名稱及支部關鍵字採用包含配對。
+- 完整輸入成員名稱（例如「童軍」、「幼童軍」、「深資童軍」）時，會優先精確配對 `enrich.json` 的 `audience` 欄位。
+- 成員名稱採用最長詞優先（longest-match），所以搜尋「童軍」不會誤中「小童軍」、「幼童軍」、「深資童軍」或「樂行童軍」。
+- 可用空格、逗號、頓號或斜線輸入多個成員名稱；多個名稱採用「其中之一」配對。
+
+執行搜尋回歸測試：
+
+```bash
+node test_search_members.js
+```
+
 ## `cache.json` 結構
 
 ```json
