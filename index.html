@@ -87,6 +87,11 @@
     .chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 999px; padding: 9px 13px; cursor: pointer; }
     .chip.active { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
+    .scope-chips { display: flex; gap: 8px; }
+    .scope-chip { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 12px; padding: 10px 14px; cursor: pointer; font-size: 13px; }
+    .scope-chip.active { background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; border-color: #c084fc; }
+    .field-label { color: var(--muted); font-size: 13px; align-self: center; }
+    .field-chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .status { margin-top: 12px; color: var(--muted); font-size: 13px; }
     .msg { margin-top: 18px; padding: 18px; border-radius: var(--radius); border: 1px solid var(--line); background: rgba(255,255,255,.03); }
     .msg.error { border-color: rgba(239,68,68,.4); color: #ffd6d6; background: rgba(127,29,29,.18); }
@@ -120,9 +125,10 @@
 <body>
   <div class="app">
     <aside class="sidebar">
-     <div class="brand">
+      <div class="brand">
   <h1>通告圖書館 v5.6</h1>
   <p>每天自動更新<br>擇要未必完全準確，詳情請開附件參閱詳細通告。</p>
+  <p style="margin-top:10px;"><a href="errors.html" style="color:#93c5fd;font-size:12px;">→ 診斷儀表板</a></p>
 </div>
 
       <div class="panel meta" id="sidebar-meta">
@@ -142,7 +148,20 @@
         <div class="contact-bar" id="contact-bar"></div>
 
         <div class="controls">
-          <input id="keyword" type="search" placeholder="搜尋目前分頁標題…">
+          <input id="keyword" type="search" placeholder="搜尋名稱 / 成員 / 支部…">
+          <div class="scope-chips" id="scope-chips">
+            <button class="scope-chip active" data-scope="current">目前分頁</button>
+            <button class="scope-chip" data-scope="global">全港搜尋</button>
+          </div>
+        </div>
+
+        <div class="controls">
+          <span class="field-label">搜尋範圍：</span>
+          <div class="field-chips" id="field-chips">
+            <button class="chip active" data-field="name">名稱</button>
+            <button class="chip active" data-field="member">成員</button>
+            <button class="chip active" data-field="branch">支部</button>
+          </div>
           <label class="toggle"><input id="explicit-date" type="checkbox"> 只顯示明確日期</label>
         </div>
 
@@ -199,6 +218,8 @@
       explicitDateOnly: false,
       windowId: '1d',
       searchRegionKeyword: '',
+      searchScope: 'current', // 'current' | 'global'
+      searchFields: { name: true, member: true, branch: true },
     };
 
     const $ = (sel) => document.querySelector(sel);
@@ -365,15 +386,35 @@
     }
 
     function getCurrentItems() {
-      const source = state.activeSource;
-      let items = [...getBucket(source)];
+      let items;
+      if (state.searchScope === 'global') {
+        items = [];
+        for (const src of state.sourceOrder) {
+          items = items.concat(state.grouped[src] || []);
+        }
+      } else {
+        items = [...getBucket(state.activeSource)];
+      }
 
       items = items.filter(item => {
         const dateValue = item.date || item.captured_date || '';
         if (state.explicitDateOnly && !parseDate(dateValue)) return false;
         if (!inWindow(dateValue)) return false;
         if (state.keyword) {
-          return String(item.title || '').toLowerCase().includes(state.keyword.toLowerCase());
+          const q = state.keyword.toLowerCase();
+          const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+          const checks = [];
+          if (state.searchFields.name) {
+            checks.push(String(item.title || '').toLowerCase().includes(q));
+          }
+          if (state.searchFields.member && ex?.audience) {
+            checks.push(ex.audience.toLowerCase().includes(q));
+          }
+          if (state.searchFields.branch) {
+            checks.push(String(item.source_site || '').toLowerCase().includes(q));
+            checks.push(String(item.region || '').toLowerCase().includes(q));
+          }
+          return checks.some(Boolean);
         }
         return true;
       });
@@ -400,6 +441,55 @@
           renderWindowChips();
           renderAccordion();
           renderSidebarMeta();
+          renderHeader();
+          renderCards();
+        };
+        wrap.appendChild(btn);
+      }
+    }
+
+    function renderScopeChips() {
+      const wrap = $('#scope-chips');
+      wrap.innerHTML = '';
+      const scopes = [
+        { id: 'current', label: '目前分頁' },
+        { id: 'global', label: '全港搜尋' },
+      ];
+      for (const sc of scopes) {
+        const btn = document.createElement('button');
+        btn.className = `scope-chip ${state.searchScope === sc.id ? 'active' : ''}`;
+        btn.textContent = sc.label;
+        btn.dataset.scope = sc.id;
+        btn.onclick = () => {
+          state.searchScope = sc.id;
+          renderScopeChips();
+          renderHeader();
+          renderCards();
+        };
+        wrap.appendChild(btn);
+      }
+    }
+
+    function renderFieldChips() {
+      const wrap = $('#field-chips');
+      wrap.innerHTML = '';
+      const fields = [
+        { id: 'name', label: '名稱' },
+        { id: 'member', label: '成員' },
+        { id: 'branch', label: '支部' },
+      ];
+      for (const f of fields) {
+        const btn = document.createElement('button');
+        btn.className = `chip ${state.searchFields[f.id] ? 'active' : ''}`;
+        btn.textContent = f.label;
+        btn.dataset.field = f.id;
+        btn.onclick = () => {
+          state.searchFields[f.id] = !state.searchFields[f.id];
+          // 至少保留一個，避免全關導致永遠沒結果
+          if (!Object.values(state.searchFields).some(Boolean)) {
+            state.searchFields[f.id] = true;
+          }
+          renderFieldChips();
           renderHeader();
           renderCards();
         };
@@ -535,8 +625,8 @@
       const bar = $('#contact-bar');
       if (!bar) return;
       const src = state.activeSource;
-      // 只在揀單一區會（非全港 / 非整個地域）時顯示
-      if (!src || src === 'ALL_SOURCES' || src.startsWith('REGION:')) { bar.innerHTML = ''; return; }
+      // 全港搜尋模式或揀全港 / 整個地域時不顯示單一區會聯絡
+      if (state.searchScope === 'global' || !src || src === 'ALL_SOURCES' || src.startsWith('REGION:')) { bar.innerHTML = ''; return; }
       const c = (typeof CONTACTS !== 'undefined' && CONTACTS[src]) || null;
       if (!c) { bar.innerHTML = ''; return; }
       const items = [];
@@ -552,22 +642,30 @@
 
     function renderHeader() {
       renderContactBar();
-      const total = getBucket(state.activeSource).length;
       const current = getCurrentItems().length;
-      $('#page-title').textContent = getSourceTitle(state.activeSource);
-      
+      $('#page-title').textContent = state.searchScope === 'global' ? '全港搜尋' : getSourceTitle(state.activeSource);
+
       let subtitle = '請先選擇一個來源。';
       if (state.activeSource === 'ALL_SOURCES') subtitle = '目前顯示全港所有通告。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
 
+      if (state.searchScope === 'global') {
+        subtitle = `全港搜尋「${escapeHtml(state.keyword || '(未輸入)')}」— 忽略左邊分頁選擇。`;
+      }
+
       const subEl = $('#page-subtitle');
       subEl.textContent = subtitle;
       subEl.style.display = subtitle ? '' : 'none';
+
+      const scopeLabel = state.searchScope === 'global' ? '全港' : '目前分頁';
+      const totalAll = state.sourceOrder.reduce((sum, src) => sum + (state.grouped[src] || []).length, 0);
+      const totalCurrent = state.searchScope === 'global' ? totalAll : getBucket(state.activeSource).length;
       $('#status-line').innerHTML = `
-        視窗：<code>${escapeHtml(currentWindow().label)}</code>
+        模式：<code>${scopeLabel}</code>
+        ・視窗：<code>${escapeHtml(currentWindow().label)}</code>
         ・顯示：<code>${current}</code>
-        ・本來源總數：<code>${total}</code>
+        ・本來源總數：<code>${totalCurrent}</code>
         ・cache：<code>${escapeHtml(state.cache?.meta?.version || state.cache?._meta?.version || 'unknown')}</code>
       `;
     }
@@ -707,6 +805,8 @@
     }
 
     renderWindowChips();
+    renderScopeChips();
+    renderFieldChips();
     initScoutSystemConnect();
     // === 訪客計數器（純靜態頁，用免費 abacus.jasoncameron.dev，無需註冊，穩定 + CORS）===
     async function loadVisitCounter() {

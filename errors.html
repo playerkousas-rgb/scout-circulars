@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>通告圖書館 — 診斷儀表板</title>
+  <style>
+    :root {
+      --bg: #02133e;
+      --panel: #0f1728;
+      --panel-2: #111d32;
+      --line: #243553;
+      --text: #e6eefb;
+      --muted: #8ea2c6;
+      --brand: #3b82f6;
+      --good: #10b981;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 18px 40px rgba(0,0,0,.28);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    .app { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    header { margin-bottom: 24px; }
+    header h1 { margin: 0 0 8px; font-size: 26px; }
+    header p { margin: 0; color: var(--muted); font-size: 14px; }
+    .back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px; color: #93c5fd; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 10px; font-size: 15px; color: var(--muted); font-weight: 600; }
+    .card .num { font-size: 34px; font-weight: 800; margin-bottom: 6px; }
+    .card .num.good { color: var(--good); }
+    .card .num.warn { color: var(--warn); }
+    .card .num.danger { color: var(--danger); }
+    .card .sub { font-size: 13px; color: var(--muted); }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); }
+    .panel h2 { margin: 0 0 14px; font-size: 18px; }
+    .panel h2 small { color: var(--muted); font-size: 13px; font-weight: 400; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; }
+    tr:hover td { background: rgba(255,255,255,.03); }
+    .tag { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+    .tag.good { background: rgba(16,185,129,.18); color: #6ee7b7; }
+    .tag.warn { background: rgba(245,158,11,.18); color: #fcd34d; }
+    .tag.danger { background: rgba(239,68,68,.18); color: #fca5a5; }
+    .status { padding: 14px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid var(--line); color: var(--muted); }
+    .status.error { border-color: rgba(239,68,68,.4); background: rgba(127,29,29,.18); color: #ffd6d6; }
+    ul.compact { margin: 0; padding-left: 18px; }
+    ul.compact li { margin: 6px 0; }
+    code { background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 8px; font-size: 12px; }
+    @media (max-width: 640px) { .app { padding: 16px; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <a class="back" href="index.html">← 返回通告圖書館</a>
+    <header>
+      <h1>通告圖書館 — 診斷儀表板</h1>
+      <p>從 cache.json / enrich.json 自動分析抽取健康狀況</p>
+    </header>
+
+    <div id="loading" class="status">正在從 GitHub Raw 讀取 cache.json…</div>
+
+    <main id="dashboard" style="display:none;">
+      <div class="grid">
+        <div class="card">
+          <h3>最後更新</h3>
+          <div class="num" id="last-updated">—</div>
+          <div class="sub" id="cache-version"></div>
+        </div>
+        <div class="card">
+          <h3>本輪狀態</h3>
+          <div class="num" id="run-status">—</div>
+          <div class="sub" id="run-detail"></div>
+        </div>
+        <div class="card">
+          <h3>零資料來源</h3>
+          <div class="num danger" id="zero-count">—</div>
+          <div class="sub">完全無通告的區會/地域</div>
+        </div>
+        <div class="card">
+          <h3>長期未更新</h3>
+          <div class="num warn" id="stale-count">—</div>
+          <div class="sub">超過 14 日無更新</div>
+        </div>
+        <div class="card">
+          <h3>enrich 覆蓋率</h3>
+          <div class="num" id="enrich-coverage">—</div>
+          <div class="sub" id="enrich-detail"></div>
+        </div>
+        <div class="card">
+          <h3>enrich 錯誤</h3>
+          <div class="num warn" id="enrich-errors">—</div>
+          <div class="sub">下載 / 非 PDF / OCR 失敗</div>
+        </div>
+      </div>
+
+      <section class="panel">
+        <h2>本輪執行摘要 <small>cache._meta.last_run</small></h2>
+        <table id="run-table">
+          <thead><tr><th>項目</th><th>數值</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2>出錯 / 被跳過來源 <small>error_sources / skipped_sources</small></h2>
+        <div id="error-list" class="status">沒有逐來源錯誤記錄。請更新 core.py 以啟用此功能。</div>
+      </section>
+
+      <section class="panel">
+        <h2>零資料來源 <small>已排除標記為 expected_empty 的來源</small></h2>
+        <table id="zero-table">
+          <thead><tr><th>來源</th><th>地區</th><th>建議</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div id="expected-empty-list" style="margin-top:14px; color:var(--muted); font-size:13px;"></div>
+      </section>
+
+      <section class="panel">
+        <h2>長期未更新來源 <small>> 14 日</small></h2>
+        <table id="stale-table">
+          <thead><tr><th>來源</th><th>最後更新</th><th>天數</th><th>通告數</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2>enrich 錯誤樣本 <small>前 30 條</small></h2>
+        <table id="enrich-error-table">
+          <thead><tr><th>來源</th><th>標題</th><th>錯誤</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
+    const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/enrich.json';
+
+    function getRawUrl() {
+      const params = new URLSearchParams(location.search);
+      const raw = params.get('raw') || RAW_CACHE_URL;
+      return `${raw}${raw.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    }
+    function getEnrichUrl() {
+      const params = new URLSearchParams(location.search);
+      let base = params.get('enrich');
+      if (!base) {
+        const rawCache = params.get('raw');
+        base = rawCache ? rawCache.replace(/cache\.json.*$/, 'enrich.json') : RAW_ENRICH_URL;
+      }
+      return `${base}${base.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    }
+
+    function escapeHtml(s) {
+      return String(s ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    }
+
+    function parseDate(v) {
+      const m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      return m ? new Date(`${m[1]}-${m[2]}-${m[3]}T00:00:00+08:00`) : null;
+    }
+
+    async function load() {
+      try {
+        const [cacheResp, enrichResp] = await Promise.all([
+          fetch(getRawUrl(), { cache: 'no-store' }),
+          fetch(getEnrichUrl(), { cache: 'no-store' })
+        ]);
+        if (!cacheResp.ok) throw new Error(`cache.json HTTP ${cacheResp.status}`);
+        const cache = await cacheResp.json();
+        const enrich = enrichResp.ok ? await enrichResp.json() : {};
+        render(cache, enrich);
+      } catch (err) {
+        document.getElementById('loading').className = 'status error';
+        document.getElementById('loading').textContent = `讀取失敗：${err.message}`;
+      }
+    }
+
+    function regionFor(source, cache) {
+      for (const [region, sources] of Object.entries(cache._meta?.regions || {})) {
+        if (sources.includes(source)) return region;
+      }
+      return '';
+    }
+
+    function render(cache, enrich) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('dashboard').style.display = '';
+
+      const data = cache.data || {};
+      const today = new Date();
+
+      // Header cards
+      document.getElementById('last-updated').textContent = cache.last_updated?.split(' ')[0] || '—';
+      document.getElementById('cache-version').textContent = `版本 ${cache.meta?.version || cache._meta?.version || 'unknown'}`;
+
+      const lastRun = cache._meta?.last_run || {};
+      const hasErrors = cache._meta?.has_errors === true;
+      document.getElementById('run-status').textContent = hasErrors ? '有錯誤' : '正常';
+      document.getElementById('run-status').className = `num ${hasErrors ? 'warn' : 'good'}`;
+      document.getElementById('run-detail').textContent =
+        `new=${lastRun.new || 0}, updated=${lastRun.updated || 0}, skipped=${lastRun.skipped || 0}`;
+
+      // Zero-data sources
+      const expectedEmpty = new Set(cache._meta?.expected_empty_sources || []);
+      const zeroSources = Object.entries(data).filter(([src, arr]) => !arr.length && !expectedEmpty.has(src));
+      document.getElementById('zero-count').textContent = zeroSources.length;
+
+      // Stale sources
+      const stale = [];
+      for (const [src, arr] of Object.entries(data)) {
+        if (!arr.length) continue;
+        const latest = arr.map(it => it.captured_date || it.date || '').sort().pop();
+        const d = parseDate(latest);
+        const days = d ? Math.floor((today - d) / (1000*60*60*24)) : 999;
+        if (days > 14) stale.push({ source: src, latest, days, count: arr.length });
+      }
+      stale.sort((a,b) => b.days - a.days);
+      document.getElementById('stale-count').textContent = stale.length;
+
+      // Enrich coverage
+      const totalNotices = cache.meta?.total_notices || Object.values(data).reduce((a,b)=>a+b.length,0);
+      const enrichedCount = Object.keys(enrich).length;
+      const withAny = Object.values(enrich).filter(v => v.deadline || v.audience || v.fee).length;
+      document.getElementById('enrich-coverage').textContent = `${Math.round((enrichedCount/totalNotices)*100)}%`;
+      document.getElementById('enrich-detail').textContent = `${enrichedCount}/${totalNotices} 已抽取，${withAny} 條有內容`;
+
+      const enrichErrs = Object.values(enrich).filter(v => v.error);
+      document.getElementById('enrich-errors').textContent = enrichErrs.length;
+
+      // Run summary table
+      const runBody = document.querySelector('#run-table tbody');
+      const rows = [
+        ['更新時間', lastRun.updated_at || '—'],
+        ['新通告', lastRun.new ?? '—'],
+        ['更新時間戳', lastRun.updated ?? '—'],
+        ['指紋相同跳過', lastRun.skipped ?? '—'],
+        ['指紋變動處理', lastRun.processed ?? '—'],
+        ['Playwright 使用', lastRun.playwright_used ?? '—'],
+        ['錯誤來源數', (lastRun.error_sources || []).length],
+        ['跳過來源數', (lastRun.skipped_sources || []).length],
+      ];
+      runBody.innerHTML = rows.map(r => `<tr><td>${escapeHtml(r[0])}</td><td>${escapeHtml(r[1])}</td></tr>`).join('');
+
+      // Error / skipped sources
+      const errList = document.getElementById('error-list');
+      const errSrc = lastRun.error_sources || [];
+      const skipSrc = lastRun.skipped_sources || [];
+      if (!errSrc.length && !skipSrc.length) {
+        errList.innerHTML = '<span class="tag good">正常</span> 本輪沒有來源回報錯誤或被跳過。';
+      } else {
+        let html = '<ul class="compact">';
+        for (const s of errSrc) html += `<li><span class="tag danger">ERROR</span> ${escapeHtml(s)}</li>`;
+        for (const s of skipSrc) html += `<li><span class="tag warn">SKIP</span> ${escapeHtml(s)}</li>`;
+        html += '</ul>';
+        errList.innerHTML = html;
+      }
+
+      // Zero table
+      const zeroBody = document.querySelector('#zero-table tbody');
+      if (!zeroSources.length) {
+        zeroBody.innerHTML = '<tr><td colspan="3">沒有零資料來源</td></tr>';
+      } else {
+        zeroBody.innerHTML = zeroSources.map(([src]) => {
+          const region = regionFor(src, cache);
+          return `<tr><td>${escapeHtml(src)}</td><td>${escapeHtml(region)}</td><td>請檢查網站是否有新通告或選擇器失效</td></tr>`;
+        }).join('');
+      }
+      const expectedEmptyEl = document.getElementById('expected-empty-list');
+      if (expectedEmpty.size) {
+        expectedEmptyEl.innerHTML = `<strong>已標記為 expected_empty（已知無通告）：</strong> ${escapeHtml(Array.from(expectedEmpty).join('、'))}`;
+      } else {
+        expectedEmptyEl.innerHTML = '';
+      }
+
+      // Stale table
+      const staleBody = document.querySelector('#stale-table tbody');
+      if (!stale.length) {
+        staleBody.innerHTML = '<tr><td colspan="4">沒有長期未更新來源</td></tr>';
+      } else {
+        staleBody.innerHTML = stale.slice(0,50).map(s =>
+          `<tr><td>${escapeHtml(s.source)}</td><td>${escapeHtml(s.latest)}</td><td>${s.days}</td><td>${s.count}</td></tr>`
+        ).join('');
+      }
+
+      // Enrich errors
+      const eeBody = document.querySelector('#enrich-error-table tbody');
+      if (!enrichErrs.length) {
+        eeBody.innerHTML = '<tr><td colspan="3">沒有 enrich 錯誤</td></tr>';
+      } else {
+        eeBody.innerHTML = enrichErrs.slice(0,30).map(v =>
+          `<tr><td>${escapeHtml(v.source)}</td><td>${escapeHtml((v.title || '').slice(0,60))}</td><td>${escapeHtml(v.error)}</td></tr>`
+        ).join('');
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>

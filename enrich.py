@@ -42,6 +42,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
+ENRICH_VERSION = "2.1"  # 費用標準化 + 對象抽取擴大
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -95,26 +96,35 @@ def compact(s):
 CN_NUM = "零一二三四五六七八九十"
 
 def extract_deadline(text):
-    """截止日期：搵所有含『截止』的行，回傳第一個帶有效日期者。
-    （報名類通告通常只有一個截止日期；『報名辦法』行雖含截止二字但無日期，會略過。）"""
+    """截止日期：搵含『截止』的行，回傳第一個帶有效日期者。
+
+    設計原則（非常重要）：
+      - **寧願漏抽，絕不亂抽**
+      - 只認「截止」相關 label，不認「報名日期」等可能係開始日期的字樣
+      - 優先匹配明確 label（截止日期 / 截止報名日期 / 報名截止日期），
+        再 fallback 到任何含截止的行
+    """
     lines = text.split("\n")
     candidate_blocks = []
     for i, line in enumerate(lines):
         c = compact(line)
         if "截止" in c:
-            block = " ".join(lines[i:i + 2])
+            block = " ".join(lines[i:i + 3])
             candidate_blocks.append((c, block))
-    # 優先：含「截止日期」label 的行
+
+    # 優先：含明確截止 label 的行
+    priority_labels = ["截止日期", "截止報名日期", "報名截止日期", "截止報名"]
     for c, block in candidate_blocks:
-        if "截止日期" in c or "截止報名" in c:
+        if any(k in c for k in priority_labels):
             d = find_date(block)
             if d:
                 return d
     # 其次：任何含截止的行
     for c, block in candidate_blocks:
-        d = find_date(block)
-        if d:
-            return d
+        if "截止" in c:
+            d = find_date(block)
+            if d:
+                return d
     # 「已截止」也算明確訊息
     for c, block in candidate_blocks:
         if "已截止" in compact(block):
@@ -129,10 +139,20 @@ def find_date(s):
     if m:
         y, mo, d = m.groups()
         return f"{y}-{int(mo):02d}-{int(d):02d}"
+    # 2026年6月30日（沒有「日」字也接受）
+    m = re.search(r"(20\d{2})年(\d{1,2})月(\d{1,2})(?:日)?", c)
+    if m:
+        y, mo, d = m.groups()
+        return f"{y}-{int(mo):02d}-{int(d):02d}"
     # 2026-06-30 / 2026/6/30
     m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", c)
     if m:
         y, mo, d = m.groups()
+        return f"{y}-{int(mo):02d}-{int(d):02d}"
+    # 30/06/2026 或 30-06-2026
+    m = re.search(r"(\d{1,2})[-/](\d{1,2})[-/](20\d{2})", c)
+    if m:
+        d, mo, y = m.groups()
         return f"{y}-{int(mo):02d}-{int(d):02d}"
     return ""
 
@@ -158,9 +178,21 @@ def extract_after_label(text, label_keys, stop_keys, max_len=120):
 
 
 def extract_audience(text):
-    """對象：唔抽整段，而是從『參加資格/對象』附近文字辨識出包含的支部主體。
-    主體離不開：小童軍/幼童軍/童軍/深資童軍/樂行童軍/領袖/家長/成年成員/公眾。"""
-    # 先鎖定 label 後面一段範圍（資格段通常在 label 後 1-3 行）
+    """對象：只從明確『參加資格/對象』label 附近辨識支部主體。
+    主體離不開：小童軍/幼童軍/童軍/深資童軍/樂行童軍/領袖/家長/成年成員/公眾。
+
+    設計原則（非常重要）：
+      - **寧願漏抽，絕不亂抽**
+      - 無明確 label 時寧願回傳空字串，也不用全段文字 fallback
+      - 因為全段文字可能出現「本活動不適合深資童軍」或附件中引用其他支部，
+        亂抽會導致用戶錯過報名或報錯對象
+
+    v2.1 改動：
+      - label 後掃描範圍維持 2 行（平衡覆蓋率與準確率）
+      - 無 label 時不回傳任何結果
+      - 維持「由窄到闊」匹配，避免「童軍」吃掉「幼童軍/深資童軍」
+    """
+    # 先鎖定 label 後面一段範圍（資格段通常在 label 後 1-2 行）
     scope = locate_label_scope(
         text,
         label_keys=["參加資格", "參加對象", "對象", "資格"],
@@ -168,7 +200,8 @@ def extract_audience(text):
         stop_keys=["費用", "收費", "名額", "報名", "截止", "日期", "辦法"],
     )
     if not scope:
-        return ""
+        return ""  # 無明確 label，寧願漏抽
+
     c = compact(scope)
     # 主體辨識（次序由窄到闊，避免「童軍」吃掉「幼童軍/深資童軍」）
     found = []
@@ -228,22 +261,21 @@ FEE_PATTERNS = [
 
 def extract_fee(text):
     """費用：抽『費用 label』附近的金額。
-    規則（依實際觀察）：
-      - 抽到兩個金額且一個剛好是另一個的一半 → 用細嗰個
-        （童軍通告的『原價 / 半費資助後實價』必為 2 倍關係；
-         未見過 0.7、0.8 折，故 2 倍即可判定為資助原價，取實價）
-      - 否則保留兩個（應付『領袖 $100 / 成員 $50』這類真．身份差價，
-        但身份差價甚少剛好 2 倍，故不會誤殺）
+    v2 改動：
+      - 擴大 label 關鍵詞，包括「費用」「收費」「報名費」「活動費用」「費用全免」等
+      - 優先判斷全免 / 豁免
+      - 抽到兩個金額且一個剛好是另一個的一半 → 用細嗰個（半費資助）
+      - 否則保留兩個（應付身份差價）
     """
     scope = locate_label_scope(
         text,
-        label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用"],
-        lines_after=1,
+        label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用", "報名費用"],
+        lines_after=2,
     )
     if not scope:
         return ""
     c = compact(scope)
-    if re.search(r"全免|免費", c):
+    if re.search(r"費用全免|全免|免費", c):
         return "全免"
     # 只看第一句，避免撈到後段代購費／按金
     first_sentence = re.split(r"[。;；]", c, maxsplit=1)[0]
@@ -270,16 +302,46 @@ def extract_fee(text):
     if not raw:
         return ""
     if len(raw) == 1:
-        return raw[0]
+        return normalize_fee(raw[0])
 
-    # 取前兩個判斷：剛好 2 倍 → 資助原價，用細嗰個
+    # 取前兩個判斷：
+    # 只有在附近文字明確提到「資助 / 半費 / 資助後」且剛好 2 倍時，先至取細價。
+    # 否則寧願顯示兩個金額，避免把真．身份差價誤判為資助。
     a_raw, b_raw = raw[0], raw[1]
     a_num, b_num = nums[0], nums[1]
-    big, small = (a_raw, b_raw) if a_num >= b_num else (b_raw, a_raw)
+    big, small_raw = (a_raw, b_raw) if a_num >= b_num else (b_raw, a_raw)
     big_n, small_n = max(a_num, b_num), min(a_num, b_num)
-    if small_n > 0 and big_n == small_n * 2:
-        return small        # 半費資助，取實價
-    return f"{a_raw} / {b_raw}"   # 真．身份差價，兩個都保留
+    has_subsidy_hint = re.search(r"資助|半費|資助後|減半|資助計劃", compact(scope))
+    if has_subsidy_hint and small_n > 0 and big_n == small_n * 2:
+        return normalize_fee(small_raw)        # 半費資助，取實價
+    return f"{normalize_fee(a_raw)} / {normalize_fee(b_raw)}"   # 真．身份差價，兩個都保留
+
+
+def normalize_fee(fee_str: str) -> str:
+    """統一費用格式：
+      - 全免 / 免費 / 費用全免 → "全免"
+      - 港幣$10 / HK$10 / $10 / 港幣10元 / 10元正 → "HK$10"
+      - 美元 USD$10 / US$10 → "US$10"（國際活動）
+      - 保留小數點（如 HK$12.5）
+
+    注意：此處假設無特別標示貨幣的金額均為港幣，符合香港童軍通告絕大多數情況。
+    """
+    if not fee_str:
+        return ""
+    s = compact(fee_str)
+    if re.search(r"費用全免|全免|免費", s):
+        return "全免"
+    # 美元優先
+    m = re.search(r"(?:USD\$|US\$|美元)\s*([\d,]+(?:\.\d+)?)", s)
+    if m:
+        return f"US${m.group(1)}"
+    m = re.search(r"(?:HK\$|HKD|港幣|\$)\s*([\d,]+(?:\.\d+)?)\s*元?(?:正)?", s)
+    if m:
+        return f"HK${m.group(1)}"
+    m = re.search(r"([\d,]+(?:\.\d+)?)\s*元(?:正)?", s)
+    if m:
+        return f"HK${m.group(1)}"
+    return fee_str.strip()
 
 
 def clean_value(v, max_len):
@@ -460,10 +522,11 @@ def main():
             "title": title,
             "deadline": res.get("deadline", ""),
             "audience": res.get("audience", ""),
-            "fee": res.get("fee", ""),
+            "fee": normalize_fee(res.get("fee", "")),
             "method": res.get("_method", ""),
             "error": res.get("_error", ""),
             "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "enrich_version": ENRICH_VERSION,
         }
         tag = res.get("_error") or res.get("_method")
         got = [k for k in ("deadline", "audience", "fee") if res.get(k)]

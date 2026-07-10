@@ -1700,10 +1700,19 @@ def main(
     processed = 0
     pw_used = 0
     errors = 0
+    error_sources: List[str] = []
+    skipped_sources: List[str] = []
 
     source_items = list(sources.items())
     for i, (name, source_config) in enumerate(source_items, 1):
         print(f"[{i}/{len(source_items)}] {name}")
+        # 標記為 expected_empty 的來源：直接跳過，不計錯誤，節省每日手動跑時間
+        if source_config.get("expected_empty"):
+            print(f"  [{name}] ⏭️ 標記為 expected_empty，直接跳過")
+            skipped += 1
+            skipped_sources.append(f"{name} (expected_empty)")
+            fingerprints[name] = fingerprints.get(name, "expected_empty")
+            continue
         try:
             new_recs, updated, fp, skip, engine, has_err = process_source(
                 name=name,
@@ -1719,10 +1728,12 @@ def main(
                 pw_used += 1
             if skip:
                 skipped += 1
+                skipped_sources.append(name)
             else:
                 processed += 1
             if has_err:
                 errors += 1
+                error_sources.append(name)
             all_new.extend(new_recs)
             all_updated.extend(updated)
         except Exception as e:
@@ -1730,7 +1741,9 @@ def main(
             traceback.print_exc()
             print(f"  [{name}] 🚨 處理過程中發生未預期錯誤跳過: {e}")
             skipped += 1
-            
+            skipped_sources.append(f"{name} (exception: {e})")
+            error_sources.append(f"{name} (exception: {e})")
+
         if i < len(source_items):
             time.sleep(0.4)
 
@@ -1751,6 +1764,9 @@ def main(
             merged_records = list(local_record_map.values())
             grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
             grouped_cache.setdefault("_meta", {})["has_errors"] = (errors > 0)
+            grouped_cache.setdefault("_meta", {})["expected_empty_sources"] = [
+                name for name, cfg in sources.items() if cfg.get("expected_empty")
+            ]
             grouped_cache.setdefault("_meta", {})["last_run"] = {
                 "updated_at": now_str,
                 "new": len(all_new),
@@ -1758,6 +1774,8 @@ def main(
                 "skipped": skipped,
                 "processed": processed,
                 "playwright_used": pw_used,
+                "error_sources": error_sources,
+                "skipped_sources": skipped_sources,
             }
             save_local_cache(grouped_cache)
 

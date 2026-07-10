@@ -469,17 +469,17 @@
       "link_selector": "[role='main'] a[href]",
       "title_selector": "a[href*=\"drive.google.com\"], a[href$=\".pdf\"]",
       "url_sanitize": [
+        "?authuser=0",
+        "?authuser=1",
+        "?usp=sharing",
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "Google Sites 需Playwright渲染",
+      "notes": "Google Sites 只有執行委員會名單，無公開通告。標記為 expected_empty，節省每日手動跑嘅時間。",
       "use_playwright": false,
-      "wait_strategy": "selector",
-      "wait_timeout": 15000,
       "follow_detail_pages": false,
-      "detail_max_pages": 8,
-      "wait_selector": "[role='main'] a, [role='main'] h1, [role='main'] h2, [role='main'] h3"
+      "expected_empty": true
     },
     "黃大仙區": {
       "region": "東九龍地域",
@@ -826,12 +826,10 @@
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "Google Sites 需Playwright渲染",
-      "use_playwright": true,
-      "wait_strategy": "selector",
-      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
+      "notes": "Google Sites 經檢查無公開通告。標記為 expected_empty，避免誤報錯誤。",
+      "use_playwright": false,
       "follow_detail_pages": false,
-      "asset_link_selector": "a"
+      "expected_empty": true
     },
     "新界東地域": {
       "region": "新界東地域",
@@ -1026,18 +1024,15 @@
     },
     "大嶼山區": {
       "region": "新界地域",
-      "url": "https://vincentpun213.wixsite.com/lantauscout/portfolio",
+      "url": "https://vincentpun213.wixsite.com/lantauscout",
       "type": "wix",
       "encoding": "utf-8",
-      "use_playwright": true,
-      "wait_strategy": "networkidle",
-      "follow_detail_pages": true,
-      "detail_link_selector": "a",
-      "asset_link_selector": "a",
-      "notes": "Wix網站 (portfolio)，卡片式結構，經常超時；已加大超時至90s並強制networkidle；目前多舊活動，通告較少或需檢查其他分頁如最新消息",
+      "use_playwright": false,
+      "follow_detail_pages": false,
+      "asset_link_selector": "a[href$='.pdf']",
+      "notes": "Wix免費站；經檢查網站本身無公開通告，只係支部介紹。標記為 expected_empty，避免誤報錯誤。",
       "fingerprint_selector": "body",
-      "wait_timeout": 90000,
-      "detail_max_pages": 5
+      "expected_empty": true
     },
     "慈雲山區": {
       "region": "東九龍地域",
