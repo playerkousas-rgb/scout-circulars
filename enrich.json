@@ -41171,5 +41171,38 @@
     "error": "",
     "enriched_at": "2026-07-21 09:42:11",
     "enrich_version": "2.1"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/15254/acr052024c_%E7%99%BC%E5%B1%95%E7%AD%96%E7%95%A5%E8%A8%88%E5%8A%83-2024-2027.pdf": {
+    "source": "總會",
+    "title": "香港童軍115周年 香港童軍運動宣傳短片 發展策略計劃(2024-2027) 《香港童軍》月刊 童軍資助計劃 保護童軍成員免受傷害政策及活動安全指引通告目錄 旅團支援平台 童軍物品供應社 龍堡國際童軍會員計劃及優惠",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-23 07:46:45",
+    "enrich_version": "2.1"
+  },
+  "https://tmw.scout-ntr.org.hk/files/2026/TMWS2602.pdf": {
+    "source": "屯門西區",
+    "title": "屯西初級航空活動章考驗計劃通告 082026",
+    "deadline": "2026-08-07",
+    "audience": "童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-23 07:46:45",
+    "enrich_version": "2.1"
+  },
+  "https://www.nkcscout.org/media/notice/20260722_041226V.pdf": {
+    "source": "北葵涌區",
+    "title": "【葵】手【童】心・「與照顧者同行」嘉年華",
+    "deadline": "2026-09-11",
+    "audience": "童軍、領袖、家長",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-23 07:46:47",
+    "enrich_version": "2.1"
   }
 }

@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-07-21 09:14:49",
+  "last_updated": "2026-07-23 07:38:39",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4218,
+    "total_notices": 4221,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍115周年 香港童軍運動宣傳短片 發展策略計劃(2024-2027) 《香港童軍》月刊 童軍資助計劃 保護童軍成員免受傷害政策及活動安全指引通告目錄 旅團支援平台 童軍物品供應社 龍堡國際童軍會員計劃及優惠",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/15254/acr052024c_%E7%99%BC%E5%B1%95%E7%AD%96%E7%95%A5%E8%A8%88%E5%8A%83-2024-2027.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/15254/acr052024c_%E7%99%BC%E5%B1%95%E7%AD%96%E7%95%A5%E8%A8%88%E5%8A%83-2024-2027.pdf",
+        "date": "2026-07-23",
+        "captured_date": "2026-07-23",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍總會 第二屆青年事務諮議會(2026∕2028年度)成員名單(P79/2026)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25334/P079-26.pdf",
@@ -29437,6 +29446,15 @@
     ],
     "屯門西區": [
       {
+        "title": "屯西初級航空活動章考驗計劃通告 082026",
+        "url": "https://tmw.scout-ntr.org.hk/files/2026/TMWS2602.pdf",
+        "pdf_url": "https://tmw.scout-ntr.org.hk/files/2026/TMWS2602.pdf",
+        "date": "2026-07-23",
+        "captured_date": "2026-07-23",
+        "source_site": "屯門西區",
+        "region": "新界地域"
+      },
+      {
         "title": "2026領袖工作坊 營燈會體驗及支部訓練綱要簡介",
         "url": "https://tmw.scout-ntr.org.hk/files/2026/2026lws.pdf",
         "pdf_url": "https://tmw.scout-ntr.org.hk/files/2026/2026lws.pdf",
@@ -29951,6 +29969,15 @@
       }
     ],
     "北葵涌區": [
+      {
+        "title": "【葵】手【童】心・「與照顧者同行」嘉年華",
+        "url": "https://www.nkcscout.org/media/notice/20260722_041226V.pdf",
+        "pdf_url": "https://www.nkcscout.org/media/notice/20260722_041226V.pdf",
+        "date": "2026-07-23",
+        "captured_date": "2026-07-23",
+        "source_site": "北葵涌區",
+        "region": "新界地域"
+      },
       {
         "title": "童軍消防訓練班",
         "url": "https://www.nkcscout.org/media/notice/20260714_023322.pdf",
@@ -38066,6 +38093,27 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/15254/acr052024c_%E7%99%BC%E5%B1%95%E7%AD%96%E7%95%A5%E8%A8%88%E5%8A%83-2024-2027.pdf",
+      "title": "香港童軍115周年 香港童軍運動宣傳短片 發展策略計劃(2024-2027) 《香港童軍》月刊 童軍資助計劃 保護童軍成員免受傷害政策及活動安全指引通告目錄 旅團支援平台 童軍物品供應社 龍堡國際童軍會員計劃及優惠",
+      "captured_date": "2026-07-23"
+    },
+    {
+      "source_site": "屯門西區",
+      "region": "新界地域",
+      "pdf_url": "https://tmw.scout-ntr.org.hk/files/2026/TMWS2602.pdf",
+      "title": "屯西初級航空活動章考驗計劃通告 082026",
+      "captured_date": "2026-07-23"
+    },
+    {
+      "source_site": "北葵涌區",
+      "region": "新界地域",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260722_041226V.pdf",
+      "title": "【葵】手【童】心・「與照顧者同行」嘉年華",
+      "captured_date": "2026-07-23"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -67715,9 +67763,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-07-21 09:14:49",
-      "new": 19,
-      "updated": 3315,
+      "updated_at": "2026-07-23 07:38:39",
+      "new": 3,
+      "updated": 2853,
       "skipped": 3,
       "processed": 45,
       "playwright_used": 2,
