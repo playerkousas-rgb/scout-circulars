@@ -41204,5 +41204,16 @@
     "error": "",
     "enriched_at": "2026-07-23 07:46:47",
     "enrich_version": "2.1"
+  },
+  "https://www.skwscout.org.hk/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf": {
+    "source": "筲箕灣區",
+    "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+    "deadline": "2026-08-21",
+    "audience": "童軍",
+    "fee": "HK$800",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-24 07:35:15",
+    "enrich_version": "2.1"
   }
 }

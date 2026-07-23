@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-07-23 07:38:39",
+  "last_updated": "2026-07-24 07:06:18",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4221,
+    "total_notices": 4223,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -15440,6 +15440,15 @@
     ],
     "筲箕灣區": [
       {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
+        "date": "2026-07-24",
+        "captured_date": "2026-07-24",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
         "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2026/07/2607al.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2026/07/2607al.pdf",
@@ -17420,402 +17429,6 @@
         "region": "港島地域"
       },
       {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/Carlton-Preview.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/Carlton-Preview.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/07/1619A-Highest-Award-deadline.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/07/1619A-Highest-Award-deadline.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/10/1824.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/10/1824.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/05/1811.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/05/1811.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/04/18091.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/04/18091.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1808.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1808.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1732pass.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1732pass.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/SKWD_440_LTCpasslist.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/SKWD_440_LTCpasslist.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/02/1731a.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/02/1731a.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/01/1732a.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/01/1732a.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/12/1729.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/12/1729.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/SKW-Cub-Scout-Service-2017-接納名單.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/SKW-Cub-Scout-Service-2017-接納名單.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1713_passlist.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1713_passlist.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1714_passlist.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1714_passlist.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1712b.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1712b.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1723.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1723.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1713a.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1713a.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1714a.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1714a.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1712a.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1712a.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1710B.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1710B.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1713.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1713.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1714.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1714.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1712.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1712.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/06/1709_namelist.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/06/1709_namelist.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1710.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1710.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1709.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1709.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/區專章考驗日-合格.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/區專章考驗日-合格.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1708-41AGMv2.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1708-41AGMv2.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1707.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1707.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1706.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1706.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/ScoutSectionCalender2017-18.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/ScoutSectionCalender2017-18.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1705_專章考驗日.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1705_專章考驗日.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1704_徽章日.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1704_徽章日.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1703-環保馬灣行.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1703-環保馬灣行.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/02/1701讀圖章參加者.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/02/1701讀圖章參加者.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1702_cub_camp2017.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1702_cub_camp2017.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1701_cs_mapreading.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1701_cs_mapreading.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1628_423rd_LTC.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1628_423rd_LTC.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1629-賀新春工作坊.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1629-賀新春工作坊.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/合格名單.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/合格名單.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1626_2016-2017年度第一次深資童軍聚會.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1626_2016-2017年度第一次深資童軍聚會.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1627_2016-2017年度第一次幼童軍支部領袖會議.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1627_2016-2017年度第一次幼童軍支部領袖會議.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1625-公園定向日成績.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1625-公園定向日成績.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
-        "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-        "url": "https://www.skwscout.org.hk/wp-content/uploads/2015/12/09-%E6%8E%A5%E7%B4%8D%E5%90%8D%E5%96%AE.pdf",
-        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2015/12/09-%E6%8E%A5%E7%B4%8D%E5%90%8D%E5%96%AE.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "筲箕灣區",
-        "region": "港島地域"
-      },
-      {
         "title": "社區參與章、公民章暨積極公民獎章系列訓練班",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2026/05/2607.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2026/05/2607.pdf",
@@ -19700,6 +19313,402 @@
         "title": "「國家安全展覽廳」參觀活動 - 活動詳情及通告",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2025/03/2503.pdf",
         "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2025/03/2503.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/Carlton-Preview.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/Carlton-Preview.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/07/1619A-Highest-Award-deadline.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/07/1619A-Highest-Award-deadline.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/10/1824.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/10/1824.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/05/1811.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/05/1811.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/04/18091.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/04/18091.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1808.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1808.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1732pass.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1732pass.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/SKWD_440_LTCpasslist.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/SKWD_440_LTCpasslist.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/02/1731a.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/02/1731a.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2018/01/1732a.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/01/1732a.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/12/1729.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/12/1729.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/SKW-Cub-Scout-Service-2017-接納名單.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/SKW-Cub-Scout-Service-2017-接納名單.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1713_passlist.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1713_passlist.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1714_passlist.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1714_passlist.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1712b.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1712b.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1723.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1723.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1713a.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1713a.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1714a.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1714a.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1712a.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1712a.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1710B.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1710B.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1713.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1713.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1714.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1714.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1712.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1712.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/06/1709_namelist.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/06/1709_namelist.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1710.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1710.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1709.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1709.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/區專章考驗日-合格.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/區專章考驗日-合格.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1708-41AGMv2.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1708-41AGMv2.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1707.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1707.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1706.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1706.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/ScoutSectionCalender2017-18.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/ScoutSectionCalender2017-18.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1705_專章考驗日.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1705_專章考驗日.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1704_徽章日.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1704_徽章日.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1703-環保馬灣行.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1703-環保馬灣行.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/02/1701讀圖章參加者.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/02/1701讀圖章參加者.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1702_cub_camp2017.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1702_cub_camp2017.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1701_cs_mapreading.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1701_cs_mapreading.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1628_423rd_LTC.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1628_423rd_LTC.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1629-賀新春工作坊.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1629-賀新春工作坊.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/合格名單.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/合格名單.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1626_2016-2017年度第一次深資童軍聚會.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1626_2016-2017年度第一次深資童軍聚會.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1627_2016-2017年度第一次幼童軍支部領袖會議.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1627_2016-2017年度第一次幼童軍支部領袖會議.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1625-公園定向日成績.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1625-公園定向日成績.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2015/12/09-%E6%8E%A5%E7%B4%8D%E5%90%8D%E5%96%AE.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2015/12/09-%E6%8E%A5%E7%B4%8D%E5%90%8D%E5%96%AE.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "筲箕灣區",
@@ -26631,6 +26640,15 @@
     ],
     "秀茂坪區": [
       {
+        "title": "定向遊蹤",
+        "url": "https://drive.google.com/file/d/1VOnx1Is0CGImcBGjrab1NOsiNZ3gFp1X/view",
+        "pdf_url": "https://drive.google.com/file/d/1VOnx1Is0CGImcBGjrab1NOsiNZ3gFp1X/view",
+        "date": "2026-07-24",
+        "captured_date": "2026-07-24",
+        "source_site": "秀茂坪區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "考驗內容",
         "url": "https://drive.google.com/file/d/1ooXP7xHYYc9YCUCp8yHNrMTVgkE0fQgP/view",
         "pdf_url": "https://drive.google.com/file/d/1ooXP7xHYYc9YCUCp8yHNrMTVgkE0fQgP/view",
@@ -26685,7 +26703,7 @@
         "region": "東九龍地域"
       },
       {
-        "title": "深資童軍地圖閱讀工作坊",
+        "title": "定向遊蹤",
         "url": "https://drive.google.com/file/d/1WlkRe78QLRUCt_dFZBHAKmW1vd4NqInE/view",
         "pdf_url": "https://drive.google.com/file/d/1WlkRe78QLRUCt_dFZBHAKmW1vd4NqInE/view",
         "date": "2026-06-04",
@@ -26694,7 +26712,7 @@
         "region": "東九龍地域"
       },
       {
-        "title": "深資童軍地圖閱讀工作坊",
+        "title": "定向遊蹤",
         "url": "https://drive.google.com/file/d/1UnMUAXajpnTlaLd14dQeU_RUc5jkqYtU/view",
         "pdf_url": "https://drive.google.com/file/d/1UnMUAXajpnTlaLd14dQeU_RUc5jkqYtU/view",
         "date": "2026-06-04",
@@ -38094,6 +38112,20 @@
   },
   "notices": [
     {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-07-24"
+    },
+    {
+      "source_site": "秀茂坪區",
+      "region": "東九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1VOnx1Is0CGImcBGjrab1NOsiNZ3gFp1X/view",
+      "title": "定向遊蹤",
+      "captured_date": "2026-07-24"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/15254/acr052024c_%E7%99%BC%E5%B1%95%E7%AD%96%E7%95%A5%E8%A8%88%E5%8A%83-2024-2027.pdf",
@@ -40806,14 +40838,14 @@
       "source_site": "秀茂坪區",
       "region": "東九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1WlkRe78QLRUCt_dFZBHAKmW1vd4NqInE/view",
-      "title": "深資童軍地圖閱讀工作坊",
+      "title": "定向遊蹤",
       "captured_date": "2026-06-04"
     },
     {
       "source_site": "秀茂坪區",
       "region": "東九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1UnMUAXajpnTlaLd14dQeU_RUc5jkqYtU/view",
-      "title": "深資童軍地圖閱讀工作坊",
+      "title": "定向遊蹤",
       "captured_date": "2026-06-04"
     },
     {
@@ -53678,314 +53710,6 @@
     {
       "source_site": "筲箕灣區",
       "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/Carlton-Preview.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/07/1619A-Highest-Award-deadline.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/10/1824.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/05/1811.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/04/18091.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1808.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1732pass.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/SKWD_440_LTCpasslist.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/02/1731a.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/01/1732a.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/12/1729.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/SKW-Cub-Scout-Service-2017-接納名單.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1713_passlist.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1714_passlist.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1712b.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1723.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1713a.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1714a.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1712a.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1710B.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1713.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1714.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1712.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/06/1709_namelist.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1710.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1709.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/區專章考驗日-合格.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1708-41AGMv2.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1707.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1706.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/ScoutSectionCalender2017-18.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1705_專章考驗日.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1704_徽章日.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1703-環保馬灣行.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/02/1701讀圖章參加者.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1702_cub_camp2017.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1701_cs_mapreading.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1628_423rd_LTC.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1629-賀新春工作坊.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/合格名單.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1626_2016-2017年度第一次深資童軍聚會.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1627_2016-2017年度第一次幼童軍支部領袖會議.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1625-公園定向日成績.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
-      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2015/12/09-%E6%8E%A5%E7%B4%8D%E5%90%8D%E5%96%AE.pdf",
-      "title": "社區參與章、公民章暨積極公民獎章系列訓練班 – 取錄名單 - 錄取名單",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "筲箕灣區",
-      "region": "港島地域",
       "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2026/05/2607.pdf",
       "title": "社區參與章、公民章暨積極公民獎章系列訓練班",
       "captured_date": "2026-05-23"
@@ -55451,6 +55175,314 @@
       "region": "港島地域",
       "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2025/03/2503.pdf",
       "title": "「國家安全展覽廳」參觀活動 - 活動詳情及通告",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/Carlton-Preview.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/07/1619A-Highest-Award-deadline.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/10/1824.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/05/1811.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/04/18091.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1808.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/1732pass.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/03/SKWD_440_LTCpasslist.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/02/1731a.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2018/01/1732a.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/12/1729.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/SKW-Cub-Scout-Service-2017-接納名單.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1713_passlist.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/11/1714_passlist.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1712b.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1723.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1713a.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/09/1714a.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1712a.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/08/1710B.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1713.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1714.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/07/1712.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/06/1709_namelist.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1710.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1709.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/區專章考驗日-合格.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1708-41AGMv2.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/05/1707.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1706.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/ScoutSectionCalender2017-18.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/04/1705_專章考驗日.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1704_徽章日.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/03/1703-環保馬灣行.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/02/1701讀圖章參加者.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1702_cub_camp2017.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2017/01/1701_cs_mapreading.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1628_423rd_LTC.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/1629-賀新春工作坊.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/12/合格名單.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1626_2016-2017年度第一次深資童軍聚會.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1627_2016-2017年度第一次幼童軍支部領袖會議.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2016/10/1625-公園定向日成績.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2015/12/09-%E6%8E%A5%E7%B4%8D%E5%90%8D%E5%96%AE.pdf",
+      "title": "2027 年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 通告及詳情",
       "captured_date": "2026-05-23"
     },
     {
@@ -67763,9 +67795,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-07-23 07:38:39",
-      "new": 3,
-      "updated": 2853,
+      "updated_at": "2026-07-24 07:06:18",
+      "new": 2,
+      "updated": 3333,
       "skipped": 3,
       "processed": 45,
       "playwright_used": 2,
