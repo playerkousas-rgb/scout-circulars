@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-07-26 09:30:32",
+  "last_updated": "2026-07-27 07:44:46",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4227,
+    "total_notices": 4234,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -15169,6 +15169,42 @@
     "港島南區": [
       {
         "title": "通告下載",
+        "url": "https://drive.google.com/file/d/15P9EAsU2xq5Q8x8RG6tcYcxewzWYgd0G/view",
+        "pdf_url": "https://drive.google.com/file/d/15P9EAsU2xq5Q8x8RG6tcYcxewzWYgd0G/view",
+        "date": "2026-07-27",
+        "captured_date": "2026-07-27",
+        "source_site": "港島南區",
+        "region": "港島地域"
+      },
+      {
+        "title": "通告下載",
+        "url": "https://drive.google.com/file/d/1N7TMIc_KniFaBXB4gutrfNLPOuNKNmZ_/view",
+        "pdf_url": "https://drive.google.com/file/d/1N7TMIc_KniFaBXB4gutrfNLPOuNKNmZ_/view",
+        "date": "2026-07-27",
+        "captured_date": "2026-07-27",
+        "source_site": "港島南區",
+        "region": "港島地域"
+      },
+      {
+        "title": "家長同意書 及 報名表",
+        "url": "https://drive.google.com/file/d/1GNVM2ZVDypyIYTI2fLLiwNCAv3VbVuFu/view",
+        "pdf_url": "https://drive.google.com/file/d/1GNVM2ZVDypyIYTI2fLLiwNCAv3VbVuFu/view",
+        "date": "2026-07-27",
+        "captured_date": "2026-07-27",
+        "source_site": "港島南區",
+        "region": "港島地域"
+      },
+      {
+        "title": "家長同意書",
+        "url": "https://drive.google.com/file/d/1EQ7_O2hNwcirOs_c7qHvAay6QwmoOjSZ/view",
+        "pdf_url": "https://drive.google.com/file/d/1EQ7_O2hNwcirOs_c7qHvAay6QwmoOjSZ/view",
+        "date": "2026-07-27",
+        "captured_date": "2026-07-27",
+        "source_site": "港島南區",
+        "region": "港島地域"
+      },
+      {
+        "title": "通告下載",
         "url": "https://drive.google.com/file/d/1bvOL_SKf-YP9Qaoe2JbZR_dJhz339bzP/view",
         "pdf_url": "https://drive.google.com/file/d/1bvOL_SKf-YP9Qaoe2JbZR_dJhz339bzP/view",
         "date": "2026-05-23",
@@ -21994,6 +22030,15 @@
       }
     ],
     "九龍塘區": [
+      {
+        "title": "22-09-2026<",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
+        "date": "2026-07-27",
+        "captured_date": "2026-07-27",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
       {
         "title": "幼童軍金紫荊獎章考驗營 2026-接納通知書",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01CA.pdf",
@@ -30215,6 +30260,15 @@
     ],
     "屯門東區": [
       {
+        "title": "「深資童軍聯合集會(一):咖啡探索工作坊暨「童行邊城遊鳳凰」交流團分享會」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_26_01.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_26_01.pdf",
+        "date": "2026-07-27",
+        "captured_date": "2026-07-27",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
         "title": "「童軍地圖閱讀訓練班」通告",
         "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_03.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_03.pdf",
@@ -31008,6 +31062,15 @@
       }
     ],
     "荃灣區": [
+      {
+        "title": "荃灣區童軍支部技能比賽 - 成績公布",
+        "url": "https://www.twdscout.org.hk/documents/notices/T202603-Result.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202603-Result.pdf",
+        "date": "2026-07-27",
+        "captured_date": "2026-07-27",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
       {
         "title": "童軍氣象章(興趣)訓練班",
         "url": "https://www.twdscout.org.hk/documents/notices/T202607.pdf",
@@ -38147,6 +38210,55 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202603-Result.pdf",
+      "title": "荃灣區童軍支部技能比賽 - 成績公布",
+      "captured_date": "2026-07-27"
+    },
+    {
+      "source_site": "港島南區",
+      "region": "港島地域",
+      "pdf_url": "https://drive.google.com/file/d/15P9EAsU2xq5Q8x8RG6tcYcxewzWYgd0G/view",
+      "title": "通告下載",
+      "captured_date": "2026-07-27"
+    },
+    {
+      "source_site": "港島南區",
+      "region": "港島地域",
+      "pdf_url": "https://drive.google.com/file/d/1N7TMIc_KniFaBXB4gutrfNLPOuNKNmZ_/view",
+      "title": "通告下載",
+      "captured_date": "2026-07-27"
+    },
+    {
+      "source_site": "港島南區",
+      "region": "港島地域",
+      "pdf_url": "https://drive.google.com/file/d/1GNVM2ZVDypyIYTI2fLLiwNCAv3VbVuFu/view",
+      "title": "家長同意書 及 報名表",
+      "captured_date": "2026-07-27"
+    },
+    {
+      "source_site": "港島南區",
+      "region": "港島地域",
+      "pdf_url": "https://drive.google.com/file/d/1EQ7_O2hNwcirOs_c7qHvAay6QwmoOjSZ/view",
+      "title": "家長同意書",
+      "captured_date": "2026-07-27"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_26_01.pdf",
+      "title": "「深資童軍聯合集會(一):咖啡探索工作坊暨「童行邊城遊鳳凰」交流團分享會」通告",
+      "captured_date": "2026-07-27"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
+      "title": "22-09-2026<",
+      "captured_date": "2026-07-27"
+    },
     {
       "source_site": "灣仔區",
       "region": "港島地域",
@@ -67859,8 +67971,8 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-07-26 09:30:32",
-      "new": 1,
+      "updated_at": "2026-07-27 07:44:46",
+      "new": 0,
       "updated": 3334,
       "skipped": 3,
       "processed": 45,

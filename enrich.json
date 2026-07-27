@@ -41226,5 +41226,38 @@
     "error": "",
     "enriched_at": "2026-07-25 06:14:37",
     "enrich_version": "2.1"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf": {
+    "source": "九龍塘區",
+    "title": "22-09-2026<",
+    "deadline": "2026-09-22",
+    "audience": "童軍",
+    "fee": "HK$80",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-27 09:04:44",
+    "enrich_version": "2.1"
+  },
+  "https://www.tmescout.org.hk/file/notice/TME_V_26_01.pdf": {
+    "source": "屯門東區",
+    "title": "「深資童軍聯合集會(一):咖啡探索工作坊暨「童行邊城遊鳳凰」交流團分享會」通告",
+    "deadline": "2026-08-21",
+    "audience": "深資童軍、樂行童軍、童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-27 09:04:44",
+    "enrich_version": "2.1"
+  },
+  "https://www.twdscout.org.hk/documents/notices/T202603-Result.pdf": {
+    "source": "荃灣區",
+    "title": "荃灣區童軍支部技能比賽 - 成績公布",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-27 09:04:44",
+    "enrich_version": "2.1"
   }
 }
