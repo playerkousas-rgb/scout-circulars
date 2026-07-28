@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-07-28 06:51:58",
+  "last_updated": "2026-07-29 05:18:52",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4235,
+    "total_notices": 4237,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -2115,7 +2115,7 @@
         "region": "總會"
       },
       {
-        "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026 (修訂)",
+        "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026(修訂)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24824/Special13-1.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24824/Special13-1.pdf",
         "date": "2026-06-01",
@@ -2610,7 +2610,7 @@
         "region": "總會"
       },
       {
-        "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新 (修訂)",
+        "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新(修訂)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24338/Jam-01.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24338/Jam-01.pdf",
         "date": "2026-05-23",
@@ -11959,6 +11959,15 @@
       }
     ],
     "柴灣區": [
+      {
+        "title": "2027年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 點擊下載",
+        "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
+        "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
+        "date": "2026-07-29",
+        "captured_date": "2026-07-29",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
       {
         "title": "柴灣區小幼童軍大自然生態填色比賽2026結果 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/06/CHW-2627-10_小童軍大自然生態填色比賽2026結果.pdf",
@@ -24119,6 +24128,15 @@
       }
     ],
     "油尖區": [
+      {
+        "title": "深資童軍收音機製造班",
+        "url": "https://drive.google.com/file/d/1IWdlh0_pg_mZhEnQ7VVMKNEdOdLbmybP/view",
+        "pdf_url": "https://drive.google.com/file/d/1IWdlh0_pg_mZhEnQ7VVMKNEdOdLbmybP/view",
+        "date": "2026-07-29",
+        "captured_date": "2026-07-29",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
       {
         "title": "第13屆童軍消防訓練班",
         "url": "https://drive.google.com/file/d/1HlCyTG8TRSUBlfMdQbA-BEdGkAHeS0eq/view",
@@ -38220,6 +38238,20 @@
   },
   "notices": [
     {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1IWdlh0_pg_mZhEnQ7VVMKNEdOdLbmybP/view",
+      "title": "深資童軍收音機製造班",
+      "captured_date": "2026-07-29"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
+      "title": "2027年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 點擊下載",
+      "captured_date": "2026-07-29"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25370/2026年6月號會訊.pdf",
@@ -43263,7 +43295,7 @@
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24824/Special13-1.pdf",
-      "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026 (修訂)",
+      "title": "香港童軍115周年新界地域「積極公民」同樂日暨步操及升旗比賽2026(修訂)",
       "captured_date": "2026-06-01"
     },
     {
@@ -48975,7 +49007,7 @@
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24338/Jam-01.pdf",
-      "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新 (修訂)",
+      "title": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新(修訂)",
       "captured_date": "2026-05-23"
     },
     {
@@ -67987,8 +68019,8 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-07-28 06:51:58",
-      "new": 1,
+      "updated_at": "2026-07-29 05:18:52",
+      "new": 2,
       "updated": 3333,
       "skipped": 3,
       "processed": 45,
