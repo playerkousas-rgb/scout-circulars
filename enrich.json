@@ -41270,5 +41270,49 @@
     "error": "",
     "enriched_at": "2026-07-29 05:25:13",
     "enrich_version": "2.1"
+  },
+  "https://www.hknscout.org/wp-content/uploads/2026/07/HKN_A2026_03_-%E5%98%89%E7%88%BE%E9%A0%93%E9%8C%A6%E6%A8%99%E5%8D%80%E9%81%B8%E6%8B%94%E8%B3%BD-V2.pdf": {
+    "source": "港島北區",
+    "title": "嘉爾頓錦標區選拔賽 2026",
+    "deadline": "2026-07-31",
+    "audience": "童軍",
+    "fee": "HK$400",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-30 04:53:18",
+    "enrich_version": "2.1"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_A03.pdf": {
+    "source": "沙田東區",
+    "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 『領袖木章訓練班』津貼先導計劃",
+    "deadline": "",
+    "audience": "領袖",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-30 04:53:19",
+    "enrich_version": "2.1"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_A05.pdf": {
+    "source": "沙田東區",
+    "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 2026-2027 沙田東區各支部訓練班津貼",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-30 04:53:19",
+    "enrich_version": "2.1"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_A04.pdf": {
+    "source": "沙田東區",
+    "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 2026-2027 年度各比賽津貼",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-07-30 04:53:19",
+    "enrich_version": "2.1"
   }
 }

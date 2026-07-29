@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-07-29 05:18:52",
+  "last_updated": "2026-07-30 04:48:36",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4237,
+    "total_notices": 4242,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -20023,7 +20023,16 @@
     ],
     "港島北區": [
       {
-        "title": "嘉爾頓錦標區選拔賽2026",
+        "title": "嘉爾頓錦標區選拔賽 2026",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/07/HKN_A2026_03_-%E5%98%89%E7%88%BE%E9%A0%93%E9%8C%A6%E6%A8%99%E5%8D%80%E9%81%B8%E6%8B%94%E8%B3%BD-V2.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/HKN_A2026_03_-%E5%98%89%E7%88%BE%E9%A0%93%E9%8C%A6%E6%A8%99%E5%8D%80%E9%81%B8%E6%8B%94%E8%B3%BD-V2.pdf",
+        "date": "2026-07-30",
+        "captured_date": "2026-07-30",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表 嘉爾頓錦標區選拔賽2026",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
         "date": "2026-07-09",
@@ -23265,6 +23274,15 @@
       }
     ],
     "旺角區": [
+      {
+        "title": "地圖閱讀班通告",
+        "url": "https://drive.google.com/file/d/177fBQIEYZ3P9rJzWVRSCwsSOVknikiAR/view",
+        "pdf_url": "https://drive.google.com/file/d/177fBQIEYZ3P9rJzWVRSCwsSOVknikiAR/view",
+        "date": "2026-07-30",
+        "captured_date": "2026-07-30",
+        "source_site": "旺角區",
+        "region": "九龍地域"
+      },
       {
         "title": "初航班通告",
         "url": "https://drive.google.com/file/d/1hhk6h8Z4RFb7A9aEw19AzYQ9kKQ6gVFV/view",
@@ -36950,6 +36968,33 @@
     ],
     "沙田東區": [
       {
+        "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 『領袖木章訓練班』津貼先導計劃",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A03.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A03.pdf",
+        "date": "2026-07-30",
+        "captured_date": "2026-07-30",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 2026-2027 沙田東區各支部訓練班津貼",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A05.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A05.pdf",
+        "date": "2026-07-30",
+        "captured_date": "2026-07-30",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 2026-2027 年度各比賽津貼",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A04.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A04.pdf",
+        "date": "2026-07-30",
+        "captured_date": "2026-07-30",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
         "title": "2026-27 年海外及內地活動資助計劃",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A02.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A02.pdf",
@@ -38238,6 +38283,41 @@
   },
   "notices": [
     {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/HKN_A2026_03_-%E5%98%89%E7%88%BE%E9%A0%93%E9%8C%A6%E6%A8%99%E5%8D%80%E9%81%B8%E6%8B%94%E8%B3%BD-V2.pdf",
+      "title": "嘉爾頓錦標區選拔賽 2026",
+      "captured_date": "2026-07-30"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A03.pdf",
+      "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 『領袖木章訓練班』津貼先導計劃",
+      "captured_date": "2026-07-30"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A05.pdf",
+      "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 2026-2027 沙田東區各支部訓練班津貼",
+      "captured_date": "2026-07-30"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_A04.pdf",
+      "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 2026-2027 年度各比賽津貼",
+      "captured_date": "2026-07-30"
+    },
+    {
+      "source_site": "旺角區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/177fBQIEYZ3P9rJzWVRSCwsSOVknikiAR/view",
+      "title": "地圖閱讀班通告",
+      "captured_date": "2026-07-30"
+    },
+    {
       "source_site": "油尖區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1IWdlh0_pg_mZhEnQ7VVMKNEdOdLbmybP/view",
@@ -38668,7 +38748,7 @@
       "source_site": "港島北區",
       "region": "港島地域",
       "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
-      "title": "嘉爾頓錦標區選拔賽2026",
+      "title": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表 嘉爾頓錦標區選拔賽2026",
       "captured_date": "2026-07-09"
     },
     {
@@ -68019,9 +68099,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-07-29 05:18:52",
-      "new": 2,
-      "updated": 3333,
+      "updated_at": "2026-07-30 04:48:36",
+      "new": 5,
+      "updated": 3329,
       "skipped": 3,
       "processed": 45,
       "playwright_used": 2,
