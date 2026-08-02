@@ -1,13 +1,103 @@
 {
-  "last_updated": "2026-08-01 10:04:04",
+  "last_updated": "2026-08-02 10:35:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4269,
+    "total_notices": 4279,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第69屆國際電訊日暨第30屆國際互聯網日填色設計比賽【附件】",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25474/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25474/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Form.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第69屆國際電訊日暨第30屆國際互聯網日填色設計比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25473/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Circular.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25473/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Circular.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第69屆國際電訊日暨第30屆國際互聯網日 - 分站註冊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25472/CIR_1226_Chi_JOTA_Substation.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25472/CIR_1226_Chi_JOTA_Substation.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第69屆國際電訊日暨第30屆國際互聯網日",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25471/CIR_1126_Chi_JOTA.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25471/CIR_1126_Chi_JOTA.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第105屆童軍運動基本原則訓練班(單元1A及1B) (KT/60/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25478/KT60_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25478/KT60_26.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍領袖技能工作坊—船舶模擬駕駛 (KT/62/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25479/KT62_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25479/KT62_26.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍單車研習坊 (第20/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25481/PRG20_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25481/PRG20_26.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "立划板水球(一段章及二段章)訓練班 (II) (KT/59/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25477/KT59_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25477/KT59_26.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "幼童軍單車研習坊 (活動通告第19/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25480/PRG19_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25480/PRG19_26.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域深資童軍貝雷議會-一級攀岩訓練班 (KT/58/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25476/KT58_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25476/KT58_26.pdf",
+        "date": "2026-08-02",
+        "captured_date": "2026-08-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍115周年紀念章",
         "url": "https://scout.org.hk/uploads/tc/circulars/25447/CIR_115-Badge_Chi.pdf",
@@ -38528,6 +38618,76 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25474/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Form.pdf",
+      "title": "第69屆國際電訊日暨第30屆國際互聯網日填色設計比賽【附件】",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25473/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Circular.pdf",
+      "title": "第69屆國際電訊日暨第30屆國際互聯網日填色設計比賽",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25472/CIR_1226_Chi_JOTA_Substation.pdf",
+      "title": "第69屆國際電訊日暨第30屆國際互聯網日 - 分站註冊",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25471/CIR_1126_Chi_JOTA.pdf",
+      "title": "第69屆國際電訊日暨第30屆國際互聯網日",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25478/KT60_26.pdf",
+      "title": "第105屆童軍運動基本原則訓練班(單元1A及1B) (KT/60/26)",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25479/KT62_26.pdf",
+      "title": "童軍領袖技能工作坊—船舶模擬駕駛 (KT/62/26)",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25481/PRG20_26.pdf",
+      "title": "童軍單車研習坊 (第20/26號)",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25477/KT59_26.pdf",
+      "title": "立划板水球(一段章及二段章)訓練班 (II) (KT/59/26)",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25480/PRG19_26.pdf",
+      "title": "幼童軍單車研習坊 (活動通告第19/26號)",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25476/KT58_26.pdf",
+      "title": "九龍地域深資童軍貝雷議會-一級攀岩訓練班 (KT/58/26)",
+      "captured_date": "2026-08-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25447/CIR_115-Badge_Chi.pdf",
       "title": "香港童軍115周年紀念章",
       "captured_date": "2026-08-01"
@@ -68531,9 +68691,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-01 10:04:04",
-      "new": 23,
-      "updated": 3313,
+      "updated_at": "2026-08-02 10:35:06",
+      "new": 10,
+      "updated": 3321,
       "skipped": 3,
       "processed": 45,
       "playwright_used": 2,

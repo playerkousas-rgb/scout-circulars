@@ -41600,5 +41600,115 @@
     "error": "",
     "enriched_at": "2026-08-01 10:09:06",
     "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25474/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Form.pdf": {
+    "source": "總會",
+    "title": "第69屆國際電訊日暨第30屆國際互聯網日填色設計比賽【附件】",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:49",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25473/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Circular.pdf": {
+    "source": "總會",
+    "title": "第69屆國際電訊日暨第30屆國際互聯網日填色設計比賽",
+    "deadline": "2026-09-21",
+    "audience": "小童軍、幼童軍",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:50",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25472/CIR_1226_Chi_JOTA_Substation.pdf": {
+    "source": "總會",
+    "title": "第69屆國際電訊日暨第30屆國際互聯網日 - 分站註冊",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:50",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25471/CIR_1126_Chi_JOTA.pdf": {
+    "source": "總會",
+    "title": "第69屆國際電訊日暨第30屆國際互聯網日",
+    "deadline": "2026-09-07",
+    "audience": "小童軍、幼童軍、童軍、領袖、家長",
+    "fee": "HK$40",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:51",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25478/KT60_26.pdf": {
+    "source": "總會",
+    "title": "第105屆童軍運動基本原則訓練班(單元1A及1B) (KT/60/26)",
+    "deadline": "2026-09-24",
+    "audience": "深資童軍、童軍、領袖、會務委員",
+    "fee": "HK$10",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:52",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25479/KT62_26.pdf": {
+    "source": "總會",
+    "title": "童軍領袖技能工作坊—船舶模擬駕駛 (KT/62/26)",
+    "deadline": "2026-09-24",
+    "audience": "深資童軍、樂行童軍、童軍、領袖",
+    "fee": "HK$40",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:52",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25481/PRG20_26.pdf": {
+    "source": "總會",
+    "title": "童軍單車研習坊 (第20/26號)",
+    "deadline": "2026-10-23",
+    "audience": "童軍",
+    "fee": "HK$25",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:53",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25477/KT59_26.pdf": {
+    "source": "總會",
+    "title": "立划板水球(一段章及二段章)訓練班 (II) (KT/59/26)",
+    "deadline": "2026-08-27",
+    "audience": "童軍、領袖",
+    "fee": "HK$80",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:54",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25480/PRG19_26.pdf": {
+    "source": "總會",
+    "title": "幼童軍單車研習坊 (活動通告第19/26號)",
+    "deadline": "2026-10-23",
+    "audience": "幼童軍",
+    "fee": "HK$25",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:54",
+    "enrich_version": "2.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25476/KT58_26.pdf": {
+    "source": "總會",
+    "title": "九龍地域深資童軍貝雷議會-一級攀岩訓練班 (KT/58/26)",
+    "deadline": "2026-09-11",
+    "audience": "深資童軍、樂行童軍、童軍、領袖",
+    "fee": "HK$70",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-02 10:44:55",
+    "enrich_version": "2.1"
   }
 }
