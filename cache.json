@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-02 10:35:06",
+  "last_updated": "2026-08-03 09:38:29",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4279,
+    "total_notices": 4283,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -24460,6 +24460,15 @@
     ],
     "深水埗西區": [
       {
+        "title": "view",
+        "url": "https://drive.google.com/file/d/1lzi7JkEP-L5o_343C8TTR8LNTs7pdV7s/view",
+        "pdf_url": "https://drive.google.com/file/d/1lzi7JkEP-L5o_343C8TTR8LNTs7pdV7s/view",
+        "date": "2026-08-03",
+        "captured_date": "2026-08-03",
+        "source_site": "深水埗西區",
+        "region": "九龍地域"
+      },
+      {
         "title": "使用(租用/使用)場地申請表(SPW-A01)",
         "url": "https://drive.google.com/file/d/1S1IjDJHswuyhIU6-ao-cytHQZlZySGwg/view",
         "pdf_url": "https://drive.google.com/file/d/1S1IjDJHswuyhIU6-ao-cytHQZlZySGwg/view",
@@ -24470,6 +24479,24 @@
       }
     ],
     "油尖區": [
+      {
+        "title": "通訊章(教導組)訓練班",
+        "url": "https://drive.google.com/file/d/16_HlPozLDyockfoxZld6j4qti5pxgIgw/view",
+        "pdf_url": "https://drive.google.com/file/d/16_HlPozLDyockfoxZld6j4qti5pxgIgw/view",
+        "date": "2026-08-03",
+        "captured_date": "2026-08-03",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "通訊章(技能組)訓練班",
+        "url": "https://drive.google.com/file/d/1qDNNQnzigCzeoHacOH9pxIL-_8F2dQxJ/view",
+        "pdf_url": "https://drive.google.com/file/d/1qDNNQnzigCzeoHacOH9pxIL-_8F2dQxJ/view",
+        "date": "2026-08-03",
+        "captured_date": "2026-08-03",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
       {
         "title": "深資童軍收音機製造班",
         "url": "https://drive.google.com/file/d/1IWdlh0_pg_mZhEnQ7VVMKNEdOdLbmybP/view",
@@ -28757,6 +28784,15 @@
       }
     ],
     "元朗西區": [
+      {
+        "title": "第5屆中級航空活動章訓練班-取錄通知 - training05-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/training05-2026.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/training05-2026.pdf",
+        "date": "2026-08-03",
+        "captured_date": "2026-08-03",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
       {
         "title": "深資童軍大會及聯誼日 - activity11-2026",
         "url": "https://www.ylw-scout.org.hk/circular/activity11-2026.pdf",
@@ -38615,6 +38651,34 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "深水埗西區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1lzi7JkEP-L5o_343C8TTR8LNTs7pdV7s/view",
+      "title": "view",
+      "captured_date": "2026-08-03"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/16_HlPozLDyockfoxZld6j4qti5pxgIgw/view",
+      "title": "通訊章(教導組)訓練班",
+      "captured_date": "2026-08-03"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1qDNNQnzigCzeoHacOH9pxIL-_8F2dQxJ/view",
+      "title": "通訊章(技能組)訓練班",
+      "captured_date": "2026-08-03"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/training05-2026.pdf",
+      "title": "第5屆中級航空活動章訓練班-取錄通知 - training05-2026",
+      "captured_date": "2026-08-03"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -68691,9 +68755,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-02 10:35:06",
-      "new": 10,
-      "updated": 3321,
+      "updated_at": "2026-08-03 09:38:29",
+      "new": 4,
+      "updated": 3329,
       "skipped": 3,
       "processed": 45,
       "playwright_used": 2,

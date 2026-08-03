@@ -41710,5 +41710,16 @@
     "error": "",
     "enriched_at": "2026-08-02 10:44:55",
     "enrich_version": "2.1"
+  },
+  "https://www.ylw-scout.org.hk/circular/training05-2026.pdf": {
+    "source": "元朗西區",
+    "title": "第5屆中級航空活動章訓練班-取錄通知 - training05-2026",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-03 09:45:36",
+    "enrich_version": "2.1"
   }
 }
