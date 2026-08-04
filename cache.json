@@ -1,13 +1,175 @@
 {
-  "last_updated": "2026-08-03 09:38:29",
+  "last_updated": "2026-08-04 09:14:49",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4283,
+    "total_notices": 4311,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25506/Trg_cir_12-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25506/Trg_cir_12-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第3屆物資管理工作坊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25496/Adm_cir_16-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25496/Adm_cir_16-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第29屆遠足技能證書 (Certificate in Expedition Skills) 資歷架構第三級課程(為本會成年成員及深資/樂行童軍開辦)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25530/AiS232026_第29屆遠足技能證書.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25530/AiS232026_第29屆遠足技能證書.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第103屆童軍運動基本原則訓練班(單元1A及1B)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25504/Trg_cir_11-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25504/Trg_cir_11-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第10/2026號 童Chill聚Drink.Drink.━Drink",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25487/第10_2026號.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25487/第10_2026號.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第09/2026號 Joyful Drink Night",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25486/第9_2026號.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25486/第9_2026號.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第08/2026號 白浪園之夜",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25485/第08-2026號.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25485/第08-2026號.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第07/2026號 月餅優惠",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25484/第07_2026號.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25484/第07_2026號.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童伴同行遊古蹟(社區導賞舊北區理民府服務)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25499/Dev_cir_07-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25499/Dev_cir_07-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "獎券回款及童軍旅賬目資料",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25501/Adm_cir_15-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25501/Adm_cir_15-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "歷奇體驗同樂日(2026年10月至2027年3月)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25534/AiS272026_歷奇體驗同樂日.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25534/AiS272026_歷奇體驗同樂日.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "新界地域公布(2026年08月)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25500/Admin11.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25500/Admin11.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "新東射擊會-射擊體驗及練習日",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25510/Prg_cir_17-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25510/Prg_cir_17-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "急救及去顫法證書課程",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25533/AiS262026_FAAED_2026_004.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25533/AiS262026_FAAED_2026_004.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "心肺復甦及去顫法啟導課程",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25532/AiS252026_CPRAEDIntro_2026_004.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25532/AiS252026_CPRAEDIntro_2026_004.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域總部公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25492/Adm_cir_14-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25492/Adm_cir_14-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "參觀香港飛行總會",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25509/ST_cir_17-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25509/ST_cir_17-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2026/2027年度地域總監盃小童軍比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25508/ST_cir_16-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25508/ST_cir_16-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第69屆國際電訊日暨第30屆國際互聯網日填色設計比賽【附件】",
         "url": "https://scout.org.hk/uploads/tc/circulars/25474/CIR_1326_Chi_69th-JOTA---30th-JOTI-Coloring-Contest---Form.pdf",
@@ -27774,6 +27936,15 @@
     "新界地域": [
       {
         "title": "新界地域公布(2026年08月)",
+        "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202681_admin_10617319.pdf",
+        "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202681_admin_10617319.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界地域",
+        "region": "新界地域"
+      },
+      {
+        "title": "新界地域公布(2026年08月)",
         "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202681_admin_22721128.pdf",
         "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202681_admin_22721128.pdf",
         "date": "2026-08-01",
@@ -33092,6 +33263,87 @@
     ],
     "離島區": [],
     "新界東地域": [
+      {
+        "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/wA9rTbuBx9pMoErDDybez/f108bad413bf00a2313ed2fdfee8b604/Trg_cir_12-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/wA9rTbuBx9pMoErDDybez/f108bad413bf00a2313ed2fdfee8b604/Trg_cir_12-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第3屆物資管理工作坊",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/19XfYalFb4HWWJI5J8JRqN/25b98d5d5d0c08a36f2fc489ba5b3eb9/Adm_cir_16-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/19XfYalFb4HWWJI5J8JRqN/25b98d5d5d0c08a36f2fc489ba5b3eb9/Adm_cir_16-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第103屆童軍運動基本原則訓練班(單元1A及1B)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/66dOogXfS2KTPmE9o53pUz/161379137cccc4aa7a17aeed80582655/Trg_cir_11-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/66dOogXfS2KTPmE9o53pUz/161379137cccc4aa7a17aeed80582655/Trg_cir_11-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "童伴同行遊古蹟(社區導賞舊北區理民府服務)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/BvhCoc2aYVf9su13Vb9uL/620666062e477531d1404bc1b4ae3421/Dev_cir_07-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/BvhCoc2aYVf9su13Vb9uL/620666062e477531d1404bc1b4ae3421/Dev_cir_07-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "獎券回款及童軍旅賬目資料",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/cWEYw1zMH7gIWVTJnJbdV/393099273f3042285e84f6766ab64519/Adm_cir_15-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/cWEYw1zMH7gIWVTJnJbdV/393099273f3042285e84f6766ab64519/Adm_cir_15-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "新東射擊會-射擊體驗及練習日",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/53QPkpypxPyyB9xlAPLtLe/da4ce56ac8fe88ceda2e8b02ad63a594/Prg_cir_17-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/53QPkpypxPyyB9xlAPLtLe/da4ce56ac8fe88ceda2e8b02ad63a594/Prg_cir_17-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "地域總部公布",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5XQWHBymoj1f8W1OreVDgf/5b8aee890c58f0d836bf33c0e95d1245/Adm_cir_14-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5XQWHBymoj1f8W1OreVDgf/5b8aee890c58f0d836bf33c0e95d1245/Adm_cir_14-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "參觀香港飛行總會",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/58dyG3N1tVwKQpwCR88BCM/d664f84c764264e7124bdeff67d5f585/ST_cir_17-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/58dyG3N1tVwKQpwCR88BCM/d664f84c764264e7124bdeff67d5f585/ST_cir_17-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2026/2027年度地域總監盃小童軍比賽成績公布",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1DBa0B8YG7hid9R3qtuBk1/101c2d975bb015cd31a2b451ecb6efc1/ST_cir_16-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1DBa0B8YG7hid9R3qtuBk1/101c2d975bb015cd31a2b451ecb6efc1/ST_cir_16-26.pdf",
+        "date": "2026-08-04",
+        "captured_date": "2026-08-04",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
       {
         "title": "海外及內地活動津貼計劃",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3Xw9oDGuEtuVNMKNeYA28N/50ad8fd32ceef15f7ad54848e2ee0bce/Spec_cir_02-26_full1_.pdf",
@@ -38651,6 +38903,202 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25506/Trg_cir_12-26.pdf",
+      "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25496/Adm_cir_16-26.pdf",
+      "title": "第3屆物資管理工作坊",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25530/AiS232026_第29屆遠足技能證書.pdf",
+      "title": "第29屆遠足技能證書 (Certificate in Expedition Skills) 資歷架構第三級課程(為本會成年成員及深資/樂行童軍開辦)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25504/Trg_cir_11-26.pdf",
+      "title": "第103屆童軍運動基本原則訓練班(單元1A及1B)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25487/第10_2026號.pdf",
+      "title": "第10/2026號 童Chill聚Drink.Drink.━Drink",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25486/第9_2026號.pdf",
+      "title": "第09/2026號 Joyful Drink Night",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25485/第08-2026號.pdf",
+      "title": "第08/2026號 白浪園之夜",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25484/第07_2026號.pdf",
+      "title": "第07/2026號 月餅優惠",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25499/Dev_cir_07-26.pdf",
+      "title": "童伴同行遊古蹟(社區導賞舊北區理民府服務)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25501/Adm_cir_15-26.pdf",
+      "title": "獎券回款及童軍旅賬目資料",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25534/AiS272026_歷奇體驗同樂日.pdf",
+      "title": "歷奇體驗同樂日(2026年10月至2027年3月)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25500/Admin11.pdf",
+      "title": "新界地域公布(2026年08月)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25510/Prg_cir_17-26.pdf",
+      "title": "新東射擊會-射擊體驗及練習日",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25533/AiS262026_FAAED_2026_004.pdf",
+      "title": "急救及去顫法證書課程",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25532/AiS252026_CPRAEDIntro_2026_004.pdf",
+      "title": "心肺復甦及去顫法啟導課程",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25492/Adm_cir_14-26.pdf",
+      "title": "地域總部公布",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25509/ST_cir_17-26.pdf",
+      "title": "參觀香港飛行總會",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25508/ST_cir_16-26.pdf",
+      "title": "2026/2027年度地域總監盃小童軍比賽成績公布",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/wA9rTbuBx9pMoErDDybez/f108bad413bf00a2313ed2fdfee8b604/Trg_cir_12-26.pdf",
+      "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/19XfYalFb4HWWJI5J8JRqN/25b98d5d5d0c08a36f2fc489ba5b3eb9/Adm_cir_16-26.pdf",
+      "title": "第3屆物資管理工作坊",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/66dOogXfS2KTPmE9o53pUz/161379137cccc4aa7a17aeed80582655/Trg_cir_11-26.pdf",
+      "title": "第103屆童軍運動基本原則訓練班(單元1A及1B)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/BvhCoc2aYVf9su13Vb9uL/620666062e477531d1404bc1b4ae3421/Dev_cir_07-26.pdf",
+      "title": "童伴同行遊古蹟(社區導賞舊北區理民府服務)",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/cWEYw1zMH7gIWVTJnJbdV/393099273f3042285e84f6766ab64519/Adm_cir_15-26.pdf",
+      "title": "獎券回款及童軍旅賬目資料",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/53QPkpypxPyyB9xlAPLtLe/da4ce56ac8fe88ceda2e8b02ad63a594/Prg_cir_17-26.pdf",
+      "title": "新東射擊會-射擊體驗及練習日",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5XQWHBymoj1f8W1OreVDgf/5b8aee890c58f0d836bf33c0e95d1245/Adm_cir_14-26.pdf",
+      "title": "地域總部公布",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/58dyG3N1tVwKQpwCR88BCM/d664f84c764264e7124bdeff67d5f585/ST_cir_17-26.pdf",
+      "title": "參觀香港飛行總會",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1DBa0B8YG7hid9R3qtuBk1/101c2d975bb015cd31a2b451ecb6efc1/ST_cir_16-26.pdf",
+      "title": "2026/2027年度地域總監盃小童軍比賽成績公布",
+      "captured_date": "2026-08-04"
+    },
+    {
+      "source_site": "新界地域",
+      "region": "新界地域",
+      "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202681_admin_10617319.pdf",
+      "title": "新界地域公布(2026年08月)",
+      "captured_date": "2026-08-04"
+    },
     {
       "source_site": "深水埗西區",
       "region": "九龍地域",
@@ -68755,9 +69203,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-03 09:38:29",
-      "new": 4,
-      "updated": 3329,
+      "updated_at": "2026-08-04 09:14:49",
+      "new": 28,
+      "updated": 3314,
       "skipped": 3,
       "processed": 45,
       "playwright_used": 2,
