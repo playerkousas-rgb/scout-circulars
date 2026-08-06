@@ -1,13 +1,364 @@
 {
-  "last_updated": "2026-08-04 09:14:49",
+  "last_updated": "2026-08-06 07:50:54",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4311,
+    "total_notices": 4369,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港聖約翰救護機構 x 港島地域航空活動組-「急救證書」課程(混合教學模式)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港聖約翰救護機構 x 港島地域航空活動組-「壹日急救重溫課程」",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25427/Sec46_26_StJohnODRC.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25427/Sec46_26_StJohnODRC.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-12月)活動與訓練行事曆",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25528/Sea-Activities_Calendar_26-27-Aug-Dec_se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25528/Sea-Activities_Calendar_26-27-Aug-Dec_se.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25529/SING-Activities_Calendar_26-27_Aug---Nov__se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25529/SING-Activities_Calendar_26-27_Aug---Nov__se.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念品訂購【更新】",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25541/115-Souvenirs_Circular_Chi_R.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25541/115-Souvenirs_Circular_Chi_R.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念 新界東隊列、步操、團呼、快樂傘、升旗比賽 朱俊豪盃會操暨地球部落嘉年華2026 地球部落徽章考驗日 (自然守護者徽章、走塑達人徽章)(修訂) - 報名表",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25561/Spec_cir_24-26_R01.08__form.xlsx",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25561/Spec_cir_24-26_R01.08__form.xlsx",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念 新界東隊列、步操、團呼、快樂傘、升旗比賽 朱俊豪盃會操暨地球部落嘉年華2026 地球部落徽章考驗日 (自然守護者徽章、走塑達人徽章)(修訂)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25555/Spec_cir_24-26_R01.08_.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25555/Spec_cir_24-26_R01.08_.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "風帆賽事先修研習班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25525/SA64.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25525/SA64.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "跳傘章工作坊(P86/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25547/P086-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25547/P086-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "賽馬會童「SING」匯航計劃 - 秋季結果和紅葉植物導賞團",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25527/SA65-_2_.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25527/SA65-_2_.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "貝登堡聯誼會港島地域分會-屏山文物徑、流浮山一天遊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25423/Prog49_26_BPClubActivity.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25423/Prog49_26_BPClubActivity.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "花式跳繩訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25519/PT46.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25519/PT46.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "總部公告",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25572/ACR172026C.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25572/ACR172026C.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第71屆步操基本訓練班(P82/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25543/P082-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25543/P082-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第6屆樂磚六色積木領袖工作坊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25589/Trg15_26_6Brick.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25589/Trg15_26_6Brick.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第6屆射箭教練員覆修班(P84/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25545/P084-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25545/P084-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第51屆童軍進度性獎章訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25603/Trg_cir_13-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25603/Trg_cir_13-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第4屆初級射箭教練員訓練班(P83/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25544/P083-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25544/P083-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第23屆童軍步操基本訓練班 (P81/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25540/P081-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25540/P081-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第101屆童軍運動基本原則訓練班(單元 1A 及 單元1B)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25562/PT47.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25562/PT47.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍紀念章交換及銷售活動",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25498/Cir16_2026_交換紀念章2026.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25498/Cir16_2026_交換紀念章2026.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍標準艇維修工作坊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25526/SA63.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25526/SA63.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "皮革工藝組 - 第8屆皮革製作進階工作坊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25521/PT48.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25521/PT48.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "皮藝坊 - 馬蹄形散紙包皮革製造",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25497/Cir15_2026_皮藝坊-馬蹄形散紙包皮革製造.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25497/Cir15_2026_皮藝坊-馬蹄形散紙包皮革製造.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "璧峰區 -【原野生活知識工作坊 A-101】",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25565/PF_cir_03-27-.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25565/PF_cir_03-27-.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "獎劵回款及呈交賬目資料",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25441/Adm18_26_FinancialReport.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25441/Adm18_26_FinancialReport.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "版圖遊戲組 - 派對聚會遊戲",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25523/PT49.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25523/PT49.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)-捐贈表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25435/Sp13a_26_ISD2026_FoodDonation_Form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25435/Sp13a_26_ISD2026_FoodDonation_Form.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25434/Sp13_26_ISD2026_FoodDonation.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25434/Sp13_26_ISD2026_FoodDonation.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)-捐贈表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25437/Sp14a_26_ISD2026_GoodsDonation_Form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25437/Sp14a_26_ISD2026_GoodsDonation_Form.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25436/Sp14_26_ISD2026_GoodsDonation.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25436/Sp14_26_ISD2026_GoodsDonation.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍生態小組-觀鳥工作坊2026",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25424/Prog51_26_EcoTeamWorkshop.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25424/Prog51_26_EcoTeamWorkshop.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍攀爬會-室內攀石體驗及定期練習",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25440/Prog52_26_BoulderingPractice2026Oct-2027Mar.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25440/Prog52_26_BoulderingPractice2026Oct-2027Mar.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍射藝會-青苗射箭培訓計劃暨會員訓練",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25422/Prog50_26_YouthArcheryTrainingScheme_2026Oct-Dec.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25422/Prog50_26_YouthArcheryTrainingScheme_2026Oct-Dec.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島童軍先鋒工程會-浮筏工作坊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25428/Prog53_26_PioneeringWorkshop3.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25428/Prog53_26_PioneeringWorkshop3.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "新界東地域拓展基金 2026/2027年度第3期資助申請",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25552/Spec_cir_28-26_FULL_.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25552/Spec_cir_28-26_FULL_.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "提交2025/2026年度賬目結算表",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25514/Adm19.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25514/Adm19.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "二胡入門班課程",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25560/Cir17_2026_二胡入門班課程.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25560/Cir17_2026_二胡入門班課程.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "「積極公民」獎章系列 – 機電先鋒章(P85/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25546/P085-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25546/P085-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25506/Trg_cir_12-26.pdf",
@@ -12419,6 +12770,15 @@
     ],
     "柴灣區": [
       {
+        "title": "柴灣區會長盃G3爭霸戰 - 點擊下載",
+        "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-12_柴灣區會長盃G3爭霸戰.pdf",
+        "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-12_柴灣區會長盃G3爭霸戰.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
+      {
         "title": "2027年全港嘉爾頓錦標賽 –柴灣、筲箕灣、維多利亞城區選拔賽 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
         "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/07/CHW-SKW-VIC-Carlton-2026.pdf",
@@ -20509,6 +20869,15 @@
     ],
     "港島北區": [
       {
+        "title": "幼童軍宗教章(基督教)訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-幼童軍宗教章基督教訓練班-1.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-幼童軍宗教章基督教訓練班-1.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
         "title": "嘉爾頓錦標區選拔賽 2026",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/07/HKN_A2026_03_-%E5%98%89%E7%88%BE%E9%A0%93%E9%8C%A6%E6%A8%99%E5%8D%80%E9%81%B8%E6%8B%94%E8%B3%BD-V2.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/HKN_A2026_03_-%E5%98%89%E7%88%BE%E9%A0%93%E9%8C%A6%E6%A8%99%E5%8D%80%E9%81%B8%E6%8B%94%E8%B3%BD-V2.pdf",
@@ -25282,6 +25651,105 @@
       }
     ],
     "東九龍地域": [
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-12月)活動與訓練行事曆",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5596",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5596",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5597",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5597",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "香港童軍115周年暨東九龍地域50周年之城市迷蹤 - 競賽組成績公布",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5601",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5601",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "風帆賽事先修研習班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5594",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5594",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "賽馬會童「SING」匯航計劃 - 秋季結果和紅葉植物導賞團",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5595",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5595",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "花式跳繩訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5590",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5590",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第101屆童軍運動基本原則訓練班(單元 1A 及 單元1B)",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5591",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5591",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "童軍標準艇維修工作坊",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5593",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5593",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "皮革工藝組 - 第8屆皮革製作進階工作坊",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5600",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5600",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "版圖遊戲組-派對聚會遊戲",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5592",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5592",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "提交2025/2026年度賬目結算表",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5587",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5587",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
       {
         "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 步操比賽附件",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5582",
@@ -33264,6 +33732,60 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)報名表格",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4F1ytC3dfy8U7yClaPyjfr/a84280c0f0cb9aed90a01ad5a73d3b47/Spec_cir_24-26_R01.08__form.xlsx",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4F1ytC3dfy8U7yClaPyjfr/a84280c0f0cb9aed90a01ad5a73d3b47/Spec_cir_24-26_R01.08__form.xlsx",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)(修訂)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6MPg45BGSx0B7nHdhZ58hD/960c6c8100c0d7fbcd6d57a496ba1b35/Spec_cir_24-26_R01.08_.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6MPg45BGSx0B7nHdhZ58hD/960c6c8100c0d7fbcd6d57a496ba1b35/Spec_cir_24-26_R01.08_.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4EdtfzAXA8MGEy2VAVAj1J/9fac237b7762c5b0bc05ae21c4ad6e82/Trg_cir_12-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4EdtfzAXA8MGEy2VAVAj1J/9fac237b7762c5b0bc05ae21c4ad6e82/Trg_cir_12-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第51屆童軍進度性獎章訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Fh9GV2BefD8ug5RYm372h/7d87314e0006f9c6be98ae844f868d9f/Trg_cir_13-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Fh9GV2BefD8ug5RYm372h/7d87314e0006f9c6be98ae844f868d9f/Trg_cir_13-26.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "璧峰區-原野生活知識工作坊 A-101",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5YeOKvLOyOyqPXQR84vrvf/244226efe9b36857d28c8b51ac1865f7/PF_cir_03-27_.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5YeOKvLOyOyqPXQR84vrvf/244226efe9b36857d28c8b51ac1865f7/PF_cir_03-27_.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "新界東地域拓展基金2026/2027年度第3期資助申請",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3toSHhO6EnvE4fPP6bMfKs/2c0250a7378da68a9307bed8924e3615/Spec_cir_28-26_FULL_.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3toSHhO6EnvE4fPP6bMfKs/2c0250a7378da68a9307bed8924e3615/Spec_cir_28-26_FULL_.pdf",
+        "date": "2026-08-06",
+        "captured_date": "2026-08-06",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/wA9rTbuBx9pMoErDDybez/f108bad413bf00a2313ed2fdfee8b604/Trg_cir_12-26.pdf",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/wA9rTbuBx9pMoErDDybez/f108bad413bf00a2313ed2fdfee8b604/Trg_cir_12-26.pdf",
@@ -38903,6 +39425,412 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
+      "title": "香港聖約翰救護機構 x 港島地域航空活動組-「急救證書」課程(混合教學模式)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25427/Sec46_26_StJohnODRC.pdf",
+      "title": "香港聖約翰救護機構 x 港島地域航空活動組-「壹日急救重溫課程」",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25528/Sea-Activities_Calendar_26-27-Aug-Dec_se.pdf",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-12月)活動與訓練行事曆",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25529/SING-Activities_Calendar_26-27_Aug---Nov__se.pdf",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25541/115-Souvenirs_Circular_Chi_R.pdf",
+      "title": "香港童軍115周年紀念品訂購【更新】",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25561/Spec_cir_24-26_R01.08__form.xlsx",
+      "title": "香港童軍115周年紀念 新界東隊列、步操、團呼、快樂傘、升旗比賽 朱俊豪盃會操暨地球部落嘉年華2026 地球部落徽章考驗日 (自然守護者徽章、走塑達人徽章)(修訂) - 報名表",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25555/Spec_cir_24-26_R01.08_.pdf",
+      "title": "香港童軍115周年紀念 新界東隊列、步操、團呼、快樂傘、升旗比賽 朱俊豪盃會操暨地球部落嘉年華2026 地球部落徽章考驗日 (自然守護者徽章、走塑達人徽章)(修訂)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25525/SA64.pdf",
+      "title": "風帆賽事先修研習班",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25547/P086-26.pdf",
+      "title": "跳傘章工作坊(P86/2026)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25527/SA65-_2_.pdf",
+      "title": "賽馬會童「SING」匯航計劃 - 秋季結果和紅葉植物導賞團",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25423/Prog49_26_BPClubActivity.pdf",
+      "title": "貝登堡聯誼會港島地域分會-屏山文物徑、流浮山一天遊",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25519/PT46.pdf",
+      "title": "花式跳繩訓練班",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25572/ACR172026C.pdf",
+      "title": "總部公告",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25543/P082-26.pdf",
+      "title": "第71屆步操基本訓練班(P82/2026)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25589/Trg15_26_6Brick.pdf",
+      "title": "第6屆樂磚六色積木領袖工作坊",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25545/P084-26.pdf",
+      "title": "第6屆射箭教練員覆修班(P84/2026)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25603/Trg_cir_13-26.pdf",
+      "title": "第51屆童軍進度性獎章訓練班",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25544/P083-26.pdf",
+      "title": "第4屆初級射箭教練員訓練班(P83/2026)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25540/P081-26.pdf",
+      "title": "第23屆童軍步操基本訓練班 (P81/2026)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25562/PT47.pdf",
+      "title": "第101屆童軍運動基本原則訓練班(單元 1A 及 單元1B)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25498/Cir16_2026_交換紀念章2026.pdf",
+      "title": "童軍紀念章交換及銷售活動",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25526/SA63.pdf",
+      "title": "童軍標準艇維修工作坊",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25521/PT48.pdf",
+      "title": "皮革工藝組 - 第8屆皮革製作進階工作坊",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25497/Cir15_2026_皮藝坊-馬蹄形散紙包皮革製造.pdf",
+      "title": "皮藝坊 - 馬蹄形散紙包皮革製造",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25565/PF_cir_03-27-.pdf",
+      "title": "璧峰區 -【原野生活知識工作坊 A-101】",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25441/Adm18_26_FinancialReport.pdf",
+      "title": "獎劵回款及呈交賬目資料",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25523/PT49.pdf",
+      "title": "版圖遊戲組 - 派對聚會遊戲",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25435/Sp13a_26_ISD2026_FoodDonation_Form.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)-捐贈表格",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25434/Sp13_26_ISD2026_FoodDonation.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25437/Sp14a_26_ISD2026_GoodsDonation_Form.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)-捐贈表格",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25436/Sp14_26_ISD2026_GoodsDonation.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25424/Prog51_26_EcoTeamWorkshop.pdf",
+      "title": "港島童軍生態小組-觀鳥工作坊2026",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25440/Prog52_26_BoulderingPractice2026Oct-2027Mar.pdf",
+      "title": "港島童軍攀爬會-室內攀石體驗及定期練習",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25422/Prog50_26_YouthArcheryTrainingScheme_2026Oct-Dec.pdf",
+      "title": "港島童軍射藝會-青苗射箭培訓計劃暨會員訓練",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25428/Prog53_26_PioneeringWorkshop3.pdf",
+      "title": "港島童軍先鋒工程會-浮筏工作坊",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25552/Spec_cir_28-26_FULL_.pdf",
+      "title": "新界東地域拓展基金 2026/2027年度第3期資助申請",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25514/Adm19.pdf",
+      "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25560/Cir17_2026_二胡入門班課程.pdf",
+      "title": "二胡入門班課程",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25546/P085-26.pdf",
+      "title": "「積極公民」獎章系列 – 機電先鋒章(P85/2026)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-幼童軍宗教章基督教訓練班-1.pdf",
+      "title": "幼童軍宗教章(基督教)訓練班",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-12_柴灣區會長盃G3爭霸戰.pdf",
+      "title": "柴灣區會長盃G3爭霸戰 - 點擊下載",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5596",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-12月)活動與訓練行事曆",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5597",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5601",
+      "title": "香港童軍115周年暨東九龍地域50周年之城市迷蹤 - 競賽組成績公布",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5594",
+      "title": "風帆賽事先修研習班",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5595",
+      "title": "賽馬會童「SING」匯航計劃 - 秋季結果和紅葉植物導賞團",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5590",
+      "title": "花式跳繩訓練班",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5591",
+      "title": "第101屆童軍運動基本原則訓練班(單元 1A 及 單元1B)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5593",
+      "title": "童軍標準艇維修工作坊",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5600",
+      "title": "皮革工藝組 - 第8屆皮革製作進階工作坊",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5592",
+      "title": "版圖遊戲組-派對聚會遊戲",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5587",
+      "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4F1ytC3dfy8U7yClaPyjfr/a84280c0f0cb9aed90a01ad5a73d3b47/Spec_cir_24-26_R01.08__form.xlsx",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)報名表格",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6MPg45BGSx0B7nHdhZ58hD/960c6c8100c0d7fbcd6d57a496ba1b35/Spec_cir_24-26_R01.08_.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)(修訂)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4EdtfzAXA8MGEy2VAVAj1J/9fac237b7762c5b0bc05ae21c4ad6e82/Trg_cir_12-26.pdf",
+      "title": "第8屆童軍支部訓練方法訓練班(單元2A及2B)",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Fh9GV2BefD8ug5RYm372h/7d87314e0006f9c6be98ae844f868d9f/Trg_cir_13-26.pdf",
+      "title": "第51屆童軍進度性獎章訓練班",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5YeOKvLOyOyqPXQR84vrvf/244226efe9b36857d28c8b51ac1865f7/PF_cir_03-27_.pdf",
+      "title": "璧峰區-原野生活知識工作坊 A-101",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3toSHhO6EnvE4fPP6bMfKs/2c0250a7378da68a9307bed8924e3615/Spec_cir_28-26_FULL_.pdf",
+      "title": "新界東地域拓展基金2026/2027年度第3期資助申請",
+      "captured_date": "2026-08-06"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -69203,9 +70131,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-04 09:14:49",
-      "new": 28,
-      "updated": 3314,
+      "updated_at": "2026-08-06 07:50:54",
+      "new": 58,
+      "updated": 3272,
       "skipped": 3,
       "processed": 45,
       "playwright_used": 2,
