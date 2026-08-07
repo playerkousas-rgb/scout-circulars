@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.14 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.17 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
 
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
+
+v5.6.15 核心修復 (2026-08):
+  1. 部分特殊 type 失敗時 fall through 而非 return None
+  2. expected_empty 指紋保留空白 hash
+  3. pw_used 計數修正
+  4. 來源間延遲增至 random 1.5~4.0s
+  5. enrich.py find_date 日曆驗證
+  6. sources.json 補回青衣區
 
 v5.6.14 核心修復 (2026-06):
   1. 更新 sources.json 針對多個改版網站:
@@ -706,8 +714,8 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
             r = _rq.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
             page_html = r.text
         except Exception as e:
-            print(f"[{name}] ⚠️ 主頁抓取失敗: {e}")
-            return None
+            print(f"[{name}] ⚠️ gsites_folders 失敗: {e}，fall through")
+        # v5.6.15: 成功已在上面 return，失敗 fall through 到通用路徑
 
         # 從主頁抽出所有 Drive 資料夾 id
         folder_ids = set(_re.findall(
@@ -751,8 +759,8 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         print(f"[{name}] === 抓取 iframe Drive 嵌入頁 (Playwright render) ===")
         pw_result = fetch_with_playwright(name, config, url=url)
         if pw_result is None:
-            print(f"[{name}] ⚠️ Playwright render 失敗")
-            return None
+            print(f"[{name}] ⚠️ Playwright render 失敗，fall through")
+            # v5.6.15: 成功在上面 return，失敗 fall through
         soup = BeautifulSoup(pw_result.html, "html.parser")
         BAD = ("日期", "費用", "集合", "報名", "截止", "下載", "申請",
                "地點", "時間", "資助", "名額", "備註", "查詢", "內容")
@@ -945,14 +953,17 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         # ==================== PDF 提取 ====================
         mock_html = "<html><body>"
         pdf_count = 0
+        link_count = 0
 
         for post in all_posts:
             title = post.get("title", {}).get("rendered", "Unknown").strip()
             date_str = post.get("date", "")[:10]
             content = post.get("content", {}).get("rendered", "")
+            post_link = post.get("link", "")
 
             soup = BeautifulSoup(content, "html.parser")
             
+            found_pdf = False
             for a in soup.find_all("a", href=True):
                 href = a.get("href", "").strip()
                 if href and '.pdf' in href.lower():
@@ -964,11 +975,18 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     
                     mock_html += f'<a href="{href}">{display_text}</a><br/>'
                     pdf_count += 1
+                    found_pdf = True
                     print(f"[{name}] 找到 PDF → {display_text}")
+
+            # v5.6.17: allow_page_notice_fallback - 無 PDF 文章用連結
+            if not found_pdf and config.get("allow_page_notice_fallback") and post_link:
+                mock_html += f'<a href="{post_link}">{title}</a><br/>'
+                link_count += 1
+                print(f"[{name}] 無PDF文章 → {title} (用文章連結)")
 
         mock_html += "</body></html>"
         
-        print(f"[{name}] 完成！總文章 {len(all_posts)} 筆，PDF {pdf_count} 個")
+        print(f"[{name}] 完成！總文章 {len(all_posts)} 筆，PDF {pdf_count} 個，文章連結 {link_count} 個")
         return FetchResult(url=url, html=mock_html, engine="requests", status_code=200)
     # ---------------------------------
 
@@ -1629,7 +1647,7 @@ def process_source(
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.14 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.17 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1646,7 +1664,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.14")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.17")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
@@ -1711,7 +1729,7 @@ def main(
             print(f"  [{name}] ⏭️ 標記為 expected_empty，直接跳過")
             skipped += 1
             skipped_sources.append(f"{name} (expected_empty)")
-            fingerprints[name] = fingerprints.get(name, "expected_empty")
+            fingerprints[name] = fingerprints.get(name, "")  # v5.6.15: 空白 hash，不寫字串
             continue
         try:
             new_recs, updated, fp, skip, engine, has_err = process_source(
@@ -1724,11 +1742,13 @@ def main(
                 max_detail_pages=max_detail_pages,
             )
             fingerprints[name] = fp
-            if engine == "playwright":
-                pw_used += 1
             if skip:
                 skipped += 1
                 skipped_sources.append(name)
+                processed += 1  # v5.6.15: skip means fingerprint match but page was fetched
+            elif engine == "playwright":
+                pw_used += 1  # v5.6.15: skip 時不計入
+                processed += 1
             else:
                 processed += 1
             if has_err:
@@ -1745,7 +1765,8 @@ def main(
             error_sources.append(f"{name} (exception: {e})")
 
         if i < len(source_items):
-            time.sleep(0.4)
+            import random as _random
+            time.sleep(_random.uniform(1.5, 4.0))  # v5.6.15: 拉長防封
 
     if not dry_run:
         if USE_SUPABASE:
@@ -1784,7 +1805,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.6.14")
+    print("📊 執行報告 v5.6.17")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")

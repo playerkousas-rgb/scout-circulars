@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "2.1"  # 費用標準化 + 對象抽取擴大
+ENRICH_VERSION = "2.2"  # 費用標準化 + 對象抽取擴大
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -132,28 +132,42 @@ def extract_deadline(text):
     return ""
 
 
+def _valid_date(y, mo, d):
+    """驗證日期是否真實存在（避免 2026-12-34 等無效日期）"""
+    try:
+        from datetime import date as _date
+        _date(y, mo, d)
+        return True
+    except (ValueError, OverflowError):
+        return False
+
+
 def find_date(s):
     c = compact(s)
     # 2026年6月30日 / 2026 年 6 月 30 日
     m = re.search(r"(20\d{2})年(\d{1,2})月(\d{1,2})日", c)
     if m:
         y, mo, d = m.groups()
-        return f"{y}-{int(mo):02d}-{int(d):02d}"
+        if _valid_date(int(y), int(mo), int(d)):
+            return f"{y}-{int(mo):02d}-{int(d):02d}"
     # 2026年6月30日（沒有「日」字也接受）
     m = re.search(r"(20\d{2})年(\d{1,2})月(\d{1,2})(?:日)?", c)
     if m:
         y, mo, d = m.groups()
-        return f"{y}-{int(mo):02d}-{int(d):02d}"
+        if _valid_date(int(y), int(mo), int(d)):
+            return f"{y}-{int(mo):02d}-{int(d):02d}"
     # 2026-06-30 / 2026/6/30
     m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", c)
     if m:
         y, mo, d = m.groups()
-        return f"{y}-{int(mo):02d}-{int(d):02d}"
+        if _valid_date(int(y), int(mo), int(d)):
+            return f"{y}-{int(mo):02d}-{int(d):02d}"
     # 30/06/2026 或 30-06-2026
     m = re.search(r"(\d{1,2})[-/](\d{1,2})[-/](20\d{2})", c)
     if m:
         d, mo, y = m.groups()
-        return f"{y}-{int(mo):02d}-{int(d):02d}"
+        if _valid_date(int(y), int(mo), int(d)):
+            return f"{y}-{int(mo):02d}-{int(d):02d}"
     return ""
 
 
@@ -186,6 +200,8 @@ def extract_audience(text):
       - 無明確 label 時寧願回傳空字串，也不用全段文字 fallback
       - 因為全段文字可能出現「本活動不適合深資童軍」或附件中引用其他支部，
         亂抽會導致用戶錯過報名或報錯對象
+
+    v2.2 改動 (2026-08): find_date 日曆驗證，拒絕無效日期
 
     v2.1 改動：
       - label 後掃描範圍維持 2 行（平衡覆蓋率與準確率）
