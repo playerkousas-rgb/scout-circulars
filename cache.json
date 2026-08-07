@@ -1,13 +1,112 @@
 {
-  "last_updated": "2026-08-06 07:50:54",
+  "last_updated": "2026-08-07 14:24:31",
   "meta": {
     "version": "5.3.0",
     "total_sources": 48,
-    "total_notices": 4369,
+    "total_notices": 4386,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-攤位遊戲設計比賽(T53/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25613/T5326_115thevent_SfH-Promotion-Day_GameBoothDesignCompetition.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25613/T5326_115thevent_SfH-Promotion-Day_GameBoothDesignCompetition.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-填色比賽【附件2】參賽作品(T52/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25612/T5226_115thevent_SfH-Promotion-Day_ColouringContest-Appendix2.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25612/T5226_115thevent_SfH-Promotion-Day_ColouringContest-Appendix2.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-填色比賽【附件1】報名表(T52/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25611/T5226_115thevent_SfH-Promotion-Day_ColouringContest-Appendix1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25611/T5226_115thevent_SfH-Promotion-Day_ColouringContest-Appendix1.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-填色比賽(T52/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25607/T5226_115thevent_SfH-Promotion-Day_ColouringContest.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25607/T5226_115thevent_SfH-Promotion-Day_ColouringContest.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年暨東九龍地域50周年之城市迷蹤 - 競賽組成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25581/SP11.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25581/SP11.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃申請表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25558/SP10-form1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25558/SP10-form1.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25516/SP10-1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25516/SP10-1.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港故宮文化博物館童軍日2026",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25625/CIR_0626_HKPMScoutDay2026.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25625/CIR_0626_HKPMScoutDay2026.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026(更新)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25295/SP12.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25295/SP12.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域小童軍支部領袖大會2026",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25586/OP06-1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25586/OP06-1.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "「香港童軍總會・香港故宮文化博物館:文化傳承計劃」 第十至十一期初階培訓",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25626/CIR_0726_HKPM_TrainingWorkshop_2026Oct.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25626/CIR_0726_HKPM_TrainingWorkshop_2026Oct.pdf",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港聖約翰救護機構 x 港島地域航空活動組-「急救證書」課程(混合教學模式)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
@@ -10362,6 +10461,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會 8/8 – 14/8/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=623%3A8-8-14-8-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=623%3A8-8-14-8-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會 1/8 – 7/8/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=622%3A1-8-7-8-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -25652,6 +25760,42 @@
     ],
     "東九龍地域": [
       {
+        "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃申請表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5589",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5589",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5588",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5588",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026(更新)",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5605",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5605",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "地域小童軍支部領袖大會2026",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5604",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5604",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
         "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(8-12月)活動與訓練行事曆",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5596",
         "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5596",
@@ -28137,6 +28281,15 @@
       }
     ],
     "觀塘區": [
+      {
+        "title": "1 支部通告-童軍",
+        "url": "http://hkscout-ktd.org/ktdweb/index.php/event-and-program.html#1-支部通告-童軍",
+        "pdf_url": "http://hkscout-ktd.org/ktdweb/index.php/event-and-program.html#1-支部通告-童軍",
+        "date": "2026-08-07",
+        "captured_date": "2026-08-07",
+        "source_site": "觀塘區",
+        "region": "東九龍地域"
+      },
       {
         "title": "1 支部通告-幼童軍",
         "url": "http://hkscout-ktd.org/ktdweb/index.php/event-and-program.html#1-支部通告-幼童軍",
@@ -39425,6 +39578,125 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "觀塘區",
+      "region": "東九龍地域",
+      "pdf_url": "http://hkscout-ktd.org/ktdweb/index.php/event-and-program.html#1-支部通告-童軍",
+      "title": "1 支部通告-童軍",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25613/T5326_115thevent_SfH-Promotion-Day_GameBoothDesignCompetition.pdf",
+      "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-攤位遊戲設計比賽(T53/2026)",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25612/T5226_115thevent_SfH-Promotion-Day_ColouringContest-Appendix2.pdf",
+      "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-填色比賽【附件2】參賽作品(T52/2026)",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25611/T5226_115thevent_SfH-Promotion-Day_ColouringContest-Appendix1.pdf",
+      "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-填色比賽【附件1】報名表(T52/2026)",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25607/T5226_115thevent_SfH-Promotion-Day_ColouringContest.pdf",
+      "title": "香港童軍115周年紀念「守護童心」保護童軍成員免受傷害推廣日-填色比賽(T52/2026)",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25581/SP11.pdf",
+      "title": "香港童軍115周年暨東九龍地域50周年之城市迷蹤 - 競賽組成績公布",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25558/SP10-form1.pdf",
+      "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃申請表格",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25516/SP10-1.pdf",
+      "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25625/CIR_0626_HKPMScoutDay2026.pdf",
+      "title": "香港故宮文化博物館童軍日2026",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25295/SP12.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026(更新)",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25586/OP06-1.pdf",
+      "title": "地域小童軍支部領袖大會2026",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25626/CIR_0726_HKPM_TrainingWorkshop_2026Oct.pdf",
+      "title": "「香港童軍總會・香港故宮文化博物館:文化傳承計劃」 第十至十一期初階培訓",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=623%3A8-8-14-8-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 8/8 – 14/8/2026 辦公時間",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5589",
+      "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃申請表格",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5588",
+      "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5605",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026(更新)",
+      "captured_date": "2026-08-07"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5604",
+      "title": "地域小童軍支部領袖大會2026",
+      "captured_date": "2026-08-07"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -70124,21 +70396,24 @@
       "慈雲山區"
     ],
     "total_sources": 48,
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-06 07:50:54",
-      "new": 58,
-      "updated": 3272,
-      "skipped": 3,
-      "processed": 45,
+      "updated_at": "2026-08-07 14:24:31",
+      "new": 17,
+      "updated": 3182,
+      "skipped": 4,
+      "processed": 44,
       "playwright_used": 2,
-      "error_sources": [],
+      "error_sources": [
+        "九龍塘區"
+      ],
       "skipped_sources": [
+        "九龍塘區",
         "西貢區 (expected_empty)",
         "離島區 (expected_empty)",
         "大嶼山區 (expected_empty)"
