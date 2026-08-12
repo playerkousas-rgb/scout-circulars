@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-07 16:58:20",
+  "last_updated": "2026-08-12 11:15:04",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4416,
+    "total_notices": 4447,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -7552,6 +7552,159 @@
       }
     ],
     "港島地域": [
+      {
+        "title": "香港聖約翰救護機構 x 港島地域航空活動組-「急救證書」課程(混合教學模式)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "香港聖約翰救護機構 x 港島地域航空活動組-「壹日急救重溫課程」",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25427/Sec46_26_StJohnODRC.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25427/Sec46_26_StJohnODRC.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "貝登堡聯誼會港島地域分會-屏山文物徑、流浮山一天遊",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25423/Prog49_26_BPClubActivity.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25423/Prog49_26_BPClubActivity.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "第94屆營藝訓練班",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25408/Trg14_26_94thCampcraftCourse.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25408/Trg14_26_94thCampcraftCourse.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "第6屆樂磚六色積木領袖工作坊",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25589/Trg15_26_6Brick.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25589/Trg15_26_6Brick.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "第104屆童軍運動基本原則訓練班(單元1A及單元1B)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25367/Trg13_26_104thFundamentalsofScoutingCourse.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25367/Trg13_26_104thFundamentalsofScoutingCourse.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "獎劵回款及呈交賬目資料",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25441/Adm18_26_FinancialReport.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25441/Adm18_26_FinancialReport.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)-捐贈表格",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25435/Sp13a_26_ISD2026_FoodDonation_Form.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25435/Sp13a_26_ISD2026_FoodDonation_Form.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25434/Sp13_26_ISD2026_FoodDonation.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25434/Sp13_26_ISD2026_FoodDonation.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)-捐贈表格",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25437/Sp14a_26_ISD2026_GoodsDonation_Form.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25437/Sp14a_26_ISD2026_GoodsDonation_Form.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25436/Sp14_26_ISD2026_GoodsDonation.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25436/Sp14_26_ISD2026_GoodsDonation.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍生態小組-觀鳥工作坊2026",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25424/Prog51_26_EcoTeamWorkshop.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25424/Prog51_26_EcoTeamWorkshop.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍攀爬會-室內攀石體驗及定期練習",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25440/Prog52_26_BoulderingPractice2026Oct-2027Mar.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25440/Prog52_26_BoulderingPractice2026Oct-2027Mar.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍射藝會-青苗射箭培訓計劃暨會員訓練",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25422/Prog50_26_YouthArcheryTrainingScheme_2026Oct-Dec.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25422/Prog50_26_YouthArcheryTrainingScheme_2026Oct-Dec.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍先鋒工程會-浮筏工作坊",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25428/Prog53_26_PioneeringWorkshop3.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25428/Prog53_26_PioneeringWorkshop3.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "攀樹基礎證書課程",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25420/Trg16_26_TreeClimbBasic.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25420/Trg16_26_TreeClimbBasic.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "地域總部公布(2026年8月)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25421/Adm17_26_announcement.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25421/Adm17_26_announcement.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
       {
         "title": "港島童軍皮藝會-童軍手藝章(技能組)專章訓練班",
         "url": "https://www.scout.org.hk/uploads/tc/circulars/25237/Prog47_26_LeathercraftSCCraftsmanCourse.pdf",
@@ -20986,6 +21139,15 @@
     ],
     "港島北區": [
       {
+        "title": "中秋童樂填色比賽",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_A2026_05.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_A2026_05.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
         "title": "幼童軍宗教章(基督教)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-幼童軍宗教章基督教訓練班-1.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-幼童軍宗教章基督教訓練班-1.pdf",
@@ -22825,6 +22987,24 @@
       }
     ],
     "紅磡區": [
+      {
+        "title": "S-26-03 - 會長盾成績公佈",
+        "url": "https://drive.google.com/file/d/19JAeUAbjz-TIArojWTUazApGg2qfyQ8A/view",
+        "pdf_url": "https://drive.google.com/file/d/19JAeUAbjz-TIArojWTUazApGg2qfyQ8A/view",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "S-26-02 - 童軍專章考驗日",
+        "url": "https://drive.google.com/file/d/15YM2XwyCO3B0uD7idK-ixGpEYI8TY8I2/view",
+        "pdf_url": "https://drive.google.com/file/d/15YM2XwyCO3B0uD7idK-ixGpEYI8TY8I2/view",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
       {
         "title": "T-26-02 - 成員保留及拓展活動 - 認識及體驗童軍生活",
         "url": "https://drive.google.com/file/d/11TBcfjbvWxYKnHaLYQMppzdkxgeg4Qgr/view",
@@ -25975,6 +26155,24 @@
       }
     ],
     "東九龍地域": [
+      {
+        "title": "「童」心建家園-東莞巿石龍鎮服務之旅報名表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5607",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5607",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「童」心建家園-東莞巿石龍鎮服務之旅",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5606",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5606",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
       {
         "title": "香港童軍115周年 – 幼童軍度假營2026 東九龍地域資助計劃申請表格",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5589",
@@ -34101,6 +34299,78 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)報名表格",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4YHAUIP10M1USnwrD6YzcM/e9fda13f34482fac234b4a3acc023cd1/b031aa48-b731-43eb-b4cd-01d784011a82.xlsx",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4YHAUIP10M1USnwrD6YzcM/e9fda13f34482fac234b4a3acc023cd1/b031aa48-b731-43eb-b4cd-01d784011a82.xlsx",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)(修訂)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4pr62JZi6mNi54O4ivANRT/270b9d1e669cb09a478676ad80217b74/Spec_cir_24-26_R01.08_.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4pr62JZi6mNi54O4ivANRT/270b9d1e669cb09a478676ad80217b74/Spec_cir_24-26_R01.08_.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 隊列比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5JObkxMNLkrCljlP87f4jf/c725eb92ad5fed6e864833e08459e801/Spec_cir_19full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5JObkxMNLkrCljlP87f4jf/c725eb92ad5fed6e864833e08459e801/Spec_cir_19full-26.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 步操比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1jkDPDpJ3Im1LSaERlBAIa/1a427b1d46a3bd2374cecc4487712a0e/Spec_cir_20full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1jkDPDpJ3Im1LSaERlBAIa/1a427b1d46a3bd2374cecc4487712a0e/Spec_cir_20full-26.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 幼童軍團呼比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/71EUjBDZ243Bvrptm2INkx/e8bc5e811b5553642bcdf4db233d94e5/Spec_cir_21full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/71EUjBDZ243Bvrptm2INkx/e8bc5e811b5553642bcdf4db233d94e5/Spec_cir_21full-26.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 小童軍快樂傘比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5H4c6vEJRpgbWSikVBVOcR/d7b7c4620b6a2cc423d32dee08840cca/Spec_cir_22-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5H4c6vEJRpgbWSikVBVOcR/d7b7c4620b6a2cc423d32dee08840cca/Spec_cir_22-26.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 升旗比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7GmQAYLcHqw1uScH3CT0Ys/d617f09409a0238cd512aa676fecdcc3/Spec_cir_23full-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7GmQAYLcHqw1uScH3CT0Ys/d617f09409a0238cd512aa676fecdcc3/Spec_cir_23full-26.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "香港童軍115周年紀念 新界東隊列、步操、團呼、快樂傘、升旗比賽 會操暨地球部落嘉年華2026",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/77NsHc5YWveYR9gzeUFHXa/620620b63149387d259bad024eec4824/Spec_cir_18-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/77NsHc5YWveYR9gzeUFHXa/620620b63149387d259bad024eec4824/Spec_cir_18-26.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)報名表格",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4F1ytC3dfy8U7yClaPyjfr/a84280c0f0cb9aed90a01ad5a73d3b47/Spec_cir_24-26_R01.08__form.xlsx",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4F1ytC3dfy8U7yClaPyjfr/a84280c0f0cb9aed90a01ad5a73d3b47/Spec_cir_24-26_R01.08__form.xlsx",
@@ -34254,18 +34524,18 @@
         "region": "新界東地域"
       },
       {
-        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026(海報)",
-        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3XbXj46nwFHFLrDQW9rGsN/03856b0e7da1c0b2dd987046f7bdd9a3/db12eb75-0d59-4977-815c-312525a38fa2.pdf",
-        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3XbXj46nwFHFLrDQW9rGsN/03856b0e7da1c0b2dd987046f7bdd9a3/db12eb75-0d59-4977-815c-312525a38fa2.pdf",
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 - 地球部落徽章考驗日",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/XB8CZ5sud2WfERcBeSxkm/831f39ea069fc8729a577e22d4f8bb6d/Spec_cir_24-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/XB8CZ5sud2WfERcBeSxkm/831f39ea069fc8729a577e22d4f8bb6d/Spec_cir_24-26.pdf",
         "date": "2026-07-03",
         "captured_date": "2026-07-03",
         "source_site": "新界東地域",
         "region": "新界東地域"
       },
       {
-        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 - 地球部落徽章考驗日",
-        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/XB8CZ5sud2WfERcBeSxkm/831f39ea069fc8729a577e22d4f8bb6d/Spec_cir_24-26.pdf",
-        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/XB8CZ5sud2WfERcBeSxkm/831f39ea069fc8729a577e22d4f8bb6d/Spec_cir_24-26.pdf",
+        "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026(海報)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3XbXj46nwFHFLrDQW9rGsN/03856b0e7da1c0b2dd987046f7bdd9a3/db12eb75-0d59-4977-815c-312525a38fa2.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3XbXj46nwFHFLrDQW9rGsN/03856b0e7da1c0b2dd987046f7bdd9a3/db12eb75-0d59-4977-815c-312525a38fa2.pdf",
         "date": "2026-07-03",
         "captured_date": "2026-07-03",
         "source_site": "新界東地域",
@@ -38797,6 +39067,15 @@
     ],
     "沙田北區": [
       {
+        "title": "「服務」第10屆沙田節開幕禮暨「沙田共鳴你我相連」煙火光影匯",
+        "url": "https://www.stnscout.org/doc/2026/D/STN2026-A-08.pdf",
+        "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-08.pdf",
+        "date": "2026-08-12",
+        "captured_date": "2026-08-12",
+        "source_site": "沙田北區",
+        "region": "新界東地域"
+      },
+      {
         "title": "沙田區童軍運動五十周年紀念晚宴",
         "url": "https://www.stnscout.org/doc/2026/D/STN2026-A-04.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-04.pdf",
@@ -39848,6 +40127,223 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/19JAeUAbjz-TIArojWTUazApGg2qfyQ8A/view",
+      "title": "S-26-03 - 會長盾成績公佈",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/15YM2XwyCO3B0uD7idK-ixGpEYI8TY8I2/view",
+      "title": "S-26-02 - 童軍專章考驗日",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
+      "title": "香港聖約翰救護機構 x 港島地域航空活動組-「急救證書」課程(混合教學模式)",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25427/Sec46_26_StJohnODRC.pdf",
+      "title": "香港聖約翰救護機構 x 港島地域航空活動組-「壹日急救重溫課程」",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25423/Prog49_26_BPClubActivity.pdf",
+      "title": "貝登堡聯誼會港島地域分會-屏山文物徑、流浮山一天遊",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25408/Trg14_26_94thCampcraftCourse.pdf",
+      "title": "第94屆營藝訓練班",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25589/Trg15_26_6Brick.pdf",
+      "title": "第6屆樂磚六色積木領袖工作坊",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25367/Trg13_26_104thFundamentalsofScoutingCourse.pdf",
+      "title": "第104屆童軍運動基本原則訓練班(單元1A及單元1B)",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25441/Adm18_26_FinancialReport.pdf",
+      "title": "獎劵回款及呈交賬目資料",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25435/Sp13a_26_ISD2026_FoodDonation_Form.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)-捐贈表格",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25434/Sp13_26_ISD2026_FoodDonation.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(食品捐贈)",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25437/Sp14a_26_ISD2026_GoodsDonation_Form.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)-捐贈表格",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25436/Sp14_26_ISD2026_GoodsDonation.pdf",
+      "title": "港島童軍繽紛日2026-童心捐贈大行動(物品捐贈)",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25424/Prog51_26_EcoTeamWorkshop.pdf",
+      "title": "港島童軍生態小組-觀鳥工作坊2026",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25440/Prog52_26_BoulderingPractice2026Oct-2027Mar.pdf",
+      "title": "港島童軍攀爬會-室內攀石體驗及定期練習",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25422/Prog50_26_YouthArcheryTrainingScheme_2026Oct-Dec.pdf",
+      "title": "港島童軍射藝會-青苗射箭培訓計劃暨會員訓練",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25428/Prog53_26_PioneeringWorkshop3.pdf",
+      "title": "港島童軍先鋒工程會-浮筏工作坊",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25420/Trg16_26_TreeClimbBasic.pdf",
+      "title": "攀樹基礎證書課程",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25421/Adm17_26_announcement.pdf",
+      "title": "地域總部公布(2026年8月)",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_A2026_05.pdf",
+      "title": "中秋童樂填色比賽",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-08.pdf",
+      "title": "「服務」第10屆沙田節開幕禮暨「沙田共鳴你我相連」煙火光影匯",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5607",
+      "title": "「童」心建家園-東莞巿石龍鎮服務之旅報名表格",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5606",
+      "title": "「童」心建家園-東莞巿石龍鎮服務之旅",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4YHAUIP10M1USnwrD6YzcM/e9fda13f34482fac234b4a3acc023cd1/b031aa48-b731-43eb-b4cd-01d784011a82.xlsx",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)報名表格",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4pr62JZi6mNi54O4ivANRT/270b9d1e669cb09a478676ad80217b74/Spec_cir_24-26_R01.08_.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026地球部落徽章考驗日(自然守護者徽章、走塑達人徽章)(修訂)",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5JObkxMNLkrCljlP87f4jf/c725eb92ad5fed6e864833e08459e801/Spec_cir_19full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 隊列比賽",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1jkDPDpJ3Im1LSaERlBAIa/1a427b1d46a3bd2374cecc4487712a0e/Spec_cir_20full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 步操比賽",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/71EUjBDZ243Bvrptm2INkx/e8bc5e811b5553642bcdf4db233d94e5/Spec_cir_21full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 幼童軍團呼比賽",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5H4c6vEJRpgbWSikVBVOcR/d7b7c4620b6a2cc423d32dee08840cca/Spec_cir_22-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 小童軍快樂傘比賽",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7GmQAYLcHqw1uScH3CT0Ys/d617f09409a0238cd512aa676fecdcc3/Spec_cir_23full-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026 – 升旗比賽",
+      "captured_date": "2026-08-12"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/77NsHc5YWveYR9gzeUFHXa/620620b63149387d259bad024eec4824/Spec_cir_18-26.pdf",
+      "title": "香港童軍115周年紀念 新界東隊列、步操、團呼、快樂傘、升旗比賽 會操暨地球部落嘉年華2026",
+      "captured_date": "2026-08-12"
+    },
     {
       "source_site": "觀塘區",
       "region": "東九龍地域",
@@ -42504,15 +43000,15 @@
     {
       "source_site": "新界東地域",
       "region": "新界東地域",
-      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3XbXj46nwFHFLrDQW9rGsN/03856b0e7da1c0b2dd987046f7bdd9a3/db12eb75-0d59-4977-815c-312525a38fa2.pdf",
-      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026(海報)",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/XB8CZ5sud2WfERcBeSxkm/831f39ea069fc8729a577e22d4f8bb6d/Spec_cir_24-26.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 - 地球部落徽章考驗日",
       "captured_date": "2026-07-03"
     },
     {
       "source_site": "新界東地域",
       "region": "新界東地域",
-      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/XB8CZ5sud2WfERcBeSxkm/831f39ea069fc8729a577e22d4f8bb6d/Spec_cir_24-26.pdf",
-      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽朱俊豪盃會操暨地球部落嘉年華2026 - 地球部落徽章考驗日",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3XbXj46nwFHFLrDQW9rGsN/03856b0e7da1c0b2dd987046f7bdd9a3/db12eb75-0d59-4977-815c-312525a38fa2.pdf",
+      "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026(海報)",
       "captured_date": "2026-07-03"
     },
     {
@@ -70878,24 +71374,37 @@
       "青衣區"
     ],
     "total_sources": 49,
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-07 16:58:20",
-      "new": 30,
-      "updated": 3392,
-      "skipped": 3,
+      "updated_at": "2026-08-12 11:15:04",
+      "new": 31,
+      "updated": 2073,
+      "skipped": 12,
       "processed": 46,
-      "playwright_used": 4,
-      "error_sources": [],
+      "playwright_used": 9,
+      "error_sources": [
+        "港島西區",
+        "九龍地域",
+        "慈雲山區"
+      ],
       "skipped_sources": [
+        "港島西區",
+        "九龍地域",
+        "何文田區",
         "西貢區 (expected_empty)",
+        "九龍灣區",
+        "將軍澳區",
+        "觀塘區",
+        "十八鄉區",
         "離島區 (expected_empty)",
-        "大嶼山區 (expected_empty)"
+        "沙田西區",
+        "大嶼山區 (expected_empty)",
+        "慈雲山區"
       ]
     }
   }
