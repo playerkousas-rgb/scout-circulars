@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.17 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.19 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
@@ -563,15 +563,30 @@ def compute_fingerprint(soup: BeautifulSoup, selector: str) -> str:
 
 
 # ─── 抓頁引擎 ──────────────────────────────────────────────
-def fetch_requests(url: str, config: Dict[str, Any], timeout: int = 20) -> FetchResult:
+def _requests_get_once(url: str, config: Dict[str, Any], timeout: int) -> requests.Response:
+    """單次 GET：先正常驗證 SSL，SSL 錯誤時降级 verify=False 再試。"""
     try:
-        resp = SESSION.get(url, timeout=timeout, verify=config.get("verify_ssl", True))
+        return SESSION.get(url, timeout=timeout, verify=config.get("verify_ssl", True))
     except requests.exceptions.SSLError:
-        resp = SESSION.get(url, timeout=timeout, verify=False)
-    except Exception as e:
-        raise e
-    encoding_shield_response(resp, config)
-    return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
+        return SESSION.get(url, timeout=timeout, verify=False)
+
+
+def fetch_requests(url: str, config: Dict[str, Any], timeout: int = 20) -> FetchResult:
+    # v5.6.19: 網路層短暫斷線（ConnectionError/Timeout/SSL EOF）自動重試一次，
+    # 避免單一短暫抖動直接把來源標成 error（2026-08-12 三個來源同時誤報的教訓）。
+    last_exc: Optional[Exception] = None
+    for attempt in (1, 2):
+        try:
+            resp = _requests_get_once(url, config, timeout)
+            encoding_shield_response(resp, config)
+            return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            last_exc = e
+        except Exception as e:
+            raise e
+        if attempt == 1:
+            time.sleep(2.0)
+    raise last_exc
 
 
 def fetch_with_playwright(name: str, config: Dict[str, Any], url: Optional[str] = None) -> Optional[FetchResult]:
@@ -1647,7 +1662,7 @@ def process_source(
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.17 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.19 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1664,7 +1679,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.17")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.19")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
@@ -1805,7 +1820,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.6.17")
+    print("📊 執行報告 v5.6.19")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
