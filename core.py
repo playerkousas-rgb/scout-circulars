@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """
-全港童軍通告自動化圖書館 v5.6.17 — 核心爬蟲引擎 (core.py)
+全港童軍通告自動化圖書館 v5.6.20 — 核心爬蟲引擎 (core.py)
 ========================================================
 目標只有一個：未來總會 / 地域 / 區會一有新更新，就能穩定抓回來給成員看到。
 
 
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
+
+v5.6.20 核心修復 (2026-08-13):
+  1. wordpress_api: 第一頁 3 次重試（403/429/5xx/網路異常），改用 SESSION 完整瀏覽器標頭
+  2. wordpress_api: 新增 fallback_urls — API 被擋時改抓 HTML 通告頁，唔再「第一頁 fail 即整站紅」
+     （港島西區 → circular2026/、慈雲山區 → 主頁）
+  3. 九龍地域: 取消強迫 Playwright（HTML 已 server-render），requests 優先、PW 只作 fallback；
+     wait_strategy 由 networkidle 改 selector(table)，避免 analytics 令 networkidle 永遠等唔完
 
 v5.6.15 核心修復 (2026-08):
   1. 部分特殊 type 失敗時 fall through 而非 return None
@@ -57,6 +64,7 @@ import hashlib
 import html as html_lib
 import json
 import os
+import random
 import re
 import sys
 import time
@@ -422,9 +430,21 @@ def sanitize_url(url: str, sanitize_params: Optional[List[str]] = None) -> str:
     if not url:
         return ""
 
+    # v5.6.20: 把 Google Drive open?id= 格式正規化為標準 /file/d/<id>/view
+    # （深水埗東區 2026-27 新通告改用 drive.google.com/open?id=；正規化後
+    # is_download_url / 去重 / enrich 下載全部自動生效）
+    try:
+        _p = urlparse(url)
+        if _p.netloc.lower() == "drive.google.com" and _p.path.rstrip("/").split("/")[-1].lower() == "open":
+            _qs = dict(parse_qsl(_p.query, keep_blank_values=True))
+            if _qs.get("id"):
+                url = f"{_p.scheme or 'https'}://drive.google.com/file/d/{_qs['id']}/view"
+    except Exception:
+        pass
+
     parsed = urlparse(url)
     strip_keys = {
-        "v", "t", "ver", "timestamp", "authuser", "usp",
+        "v", "t", "ver", "timestamp", "authuser", "usp", "fbclid",
         "_", "nocache", "rand", "random"
     }
     for p in sanitize_params or []:
@@ -563,15 +583,30 @@ def compute_fingerprint(soup: BeautifulSoup, selector: str) -> str:
 
 
 # ─── 抓頁引擎 ──────────────────────────────────────────────
-def fetch_requests(url: str, config: Dict[str, Any], timeout: int = 20) -> FetchResult:
+def _requests_get_once(url: str, config: Dict[str, Any], timeout: int) -> requests.Response:
+    """單次 GET：先正常驗證 SSL，SSL 錯誤時降级 verify=False 再試。"""
     try:
-        resp = SESSION.get(url, timeout=timeout, verify=config.get("verify_ssl", True))
+        return SESSION.get(url, timeout=timeout, verify=config.get("verify_ssl", True))
     except requests.exceptions.SSLError:
-        resp = SESSION.get(url, timeout=timeout, verify=False)
-    except Exception as e:
-        raise e
-    encoding_shield_response(resp, config)
-    return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
+        return SESSION.get(url, timeout=timeout, verify=False)
+
+
+def fetch_requests(url: str, config: Dict[str, Any], timeout: int = 20) -> FetchResult:
+    # v5.6.19: 網路層短暫斷線（ConnectionError/Timeout/SSL EOF）自動重試一次，
+    # 避免單一短暫抖動直接把來源標成 error（2026-08-12 三個來源同時誤報的教訓）。
+    last_exc: Optional[Exception] = None
+    for attempt in (1, 2):
+        try:
+            resp = _requests_get_once(url, config, timeout)
+            encoding_shield_response(resp, config)
+            return FetchResult(url=resp.url, html=resp.text, engine="requests", status_code=resp.status_code)
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            last_exc = e
+        except Exception as e:
+            raise e
+        if attempt == 1:
+            time.sleep(2.0)
+    raise last_exc
 
 
 def fetch_with_playwright(name: str, config: Dict[str, Any], url: Optional[str] = None) -> Optional[FetchResult]:
@@ -700,6 +735,21 @@ def fetch_page(url: str, config: Dict[str, Any], force_playwright: bool = False)
             return None
         return pw_result
     return result
+
+def _wp_api_fallback(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
+    """v5.6.20: WP API 被擋/超時時，改抓 fallback_urls 指定嘅 HTML 通告頁，
+    返回後照常行通用抽取流程。全部 fallback 都失敗先回傳 None。"""
+    for fb_url in config.get("fallback_urls") or []:
+        try:
+            result = fetch_page(fb_url, config)
+        except Exception as e:
+            print(f"  [{name}] ⚠️ fallback 抓取異常: {type(e).__name__}: {e}")
+            result = None
+        if result is not None:
+            print(f"  [{name}] ⚠️ WP API 失敗，改用 fallback 頁: {fb_url}")
+            return result
+    return None
+
 
 def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
     url = config.get("url", "")
@@ -920,35 +970,51 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
 
         while page <= max_pages:
             paged_url = f"{url}&per_page=100&page={page}" if "?" in url else f"{url}?per_page=100&page={page}"
-            try:
-                r = requests.get(
-                    paged_url,
-                    verify=config.get("verify_ssl", True),
-                    timeout=30,
-                    headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-                )
-                
-                print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code}")
-                
-                if r.status_code != 200:
-                    if page == 1:
-                        return None # Trigger error if first page fails
+
+            # v5.6.20: 第一頁最多試 3 次（Cloudflare 對 datacenter IP 打 wp-json
+            # 常短暫 403/503）；其餘頁一次。用 SESSION 帶完整瀏覽器標頭。
+            r = None
+            max_attempts = int(config.get("api_max_attempts", 3)) if page == 1 else 1
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    r = SESSION.get(paged_url, verify=config.get("verify_ssl", True), timeout=30)
+                    print(f"[{name}] 第 {page} 頁 Status Code: {r.status_code} (attempt {attempt})")
+                    if r.status_code == 200:
+                        break
+                    if r.status_code in (403, 429, 500, 502, 503, 504) and attempt < max_attempts:
+                        time.sleep(2.0 * attempt + random.uniform(0.0, 1.5))
+                        r = None
+                        continue
                     break
-                    
+                except Exception as e:
+                    print(f"[{name}] 第 {page} 頁網路異常 (attempt {attempt}): {type(e).__name__}: {e}")
+                    r = None
+                    if attempt < max_attempts:
+                        time.sleep(2.0 * attempt + random.uniform(0.0, 1.5))
+
+            if r is None or r.status_code != 200:
+                if page == 1:
+                    # v5.6.20: API 連唔上唔再即死 — 先試 fallback_urls HTML 通告頁
+                    fb_result = _wp_api_fallback(name, config)
+                    if fb_result is not None:
+                        return fb_result
+                    return None # Trigger error if first page fails
+                break
+
+            try:
                 posts = r.json()
                 print(f"[{name}] 第 {page} 頁 返回類型: {type(posts)}, 數量: {len(posts) if isinstance(posts, list) else '非 list'}")  # ← 重要診斷
-                
-                if not isinstance(posts, list) or len(posts) == 0:
-                    print(f"[{name}] 第 {page} 頁沒有文章，停止")
-                    break
-                    
-                all_posts.extend(posts)
-                print(f"[{name}] ✅ 第 {page} 頁成功 | 本頁 {len(posts)} 筆 | 累計 {len(all_posts)} 筆")
-                page += 1
-                
             except Exception as e:
-                print(f"[{name}] 第 {page} 頁異常: {e}")
+                print(f"[{name}] 第 {page} 頁 JSON 解析失敗: {e}")
                 break
+
+            if not isinstance(posts, list) or len(posts) == 0:
+                print(f"[{name}] 第 {page} 頁沒有文章，停止")
+                break
+
+            all_posts.extend(posts)
+            print(f"[{name}] ✅ 第 {page} 頁成功 | 本頁 {len(posts)} 筆 | 累計 {len(all_posts)} 筆")
+            page += 1
 
         # ==================== PDF 提取 ====================
         mock_html = "<html><body>"
@@ -1647,7 +1713,7 @@ def process_source(
 
 # ─── CLI ──────────────────────────────────────────────────
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.17 crawler")
+    parser = argparse.ArgumentParser(description="Scout Notice Library v5.6.20 crawler")
     parser.add_argument("--dry-run", action="store_true", help="只預覽，不寫入 cache / fingerprints")
     parser.add_argument("--dry", action="store_true", help="同 --dry-run")
     parser.add_argument("--source", action="append", help="只跑指定來源，可重複使用")
@@ -1664,7 +1730,7 @@ def main(
     max_detail_pages: int = 12,
 ):
     print("═" * 60)
-    print("🦅 全港童軍通告自動化圖書館 v5.6.17")
+    print("🦅 全港童軍通告自動化圖書館 v5.6.20")
     print("   可下載資產抓取 + 來源隔離 + 多來源分組 cache")
     pw_status = "✅ 已安裝" if _playwright_available else "⚠️ 未安裝 (動態網站將跳過)"
     print(f"   Playwright: {pw_status}")
@@ -1805,7 +1871,7 @@ def main(
     close_browser()
 
     print(f"\n{'═'*60}")
-    print("📊 執行報告 v5.6.17")
+    print("📊 執行報告 v5.6.20")
     print(f"   🆕 新通告:     {len(all_new)}")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
