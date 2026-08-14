@@ -430,9 +430,21 @@ def sanitize_url(url: str, sanitize_params: Optional[List[str]] = None) -> str:
     if not url:
         return ""
 
+    # v5.6.20: 把 Google Drive open?id= 格式正規化為標準 /file/d/<id>/view
+    # （深水埗東區 2026-27 新通告改用 drive.google.com/open?id=；正規化後
+    # is_download_url / 去重 / enrich 下載全部自動生效）
+    try:
+        _p = urlparse(url)
+        if _p.netloc.lower() == "drive.google.com" and _p.path.rstrip("/").split("/")[-1].lower() == "open":
+            _qs = dict(parse_qsl(_p.query, keep_blank_values=True))
+            if _qs.get("id"):
+                url = f"{_p.scheme or 'https'}://drive.google.com/file/d/{_qs['id']}/view"
+    except Exception:
+        pass
+
     parsed = urlparse(url)
     strip_keys = {
-        "v", "t", "ver", "timestamp", "authuser", "usp",
+        "v", "t", "ver", "timestamp", "authuser", "usp", "fbclid",
         "_", "nocache", "rand", "random"
     }
     for p in sanitize_params or []:
