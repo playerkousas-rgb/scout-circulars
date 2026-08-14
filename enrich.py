@@ -27,8 +27,10 @@ from datetime import timezone, timedelta
 import io
 import json
 import os
+import random
 import re
 import sys
+import time
 import unicodedata
 import urllib.parse
 import urllib.request
@@ -42,7 +44,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "2.3"  # backfill 重試短暫下載失敗
+ENRICH_VERSION = "2.4"  # backfill 重試短暫下載失敗 + 下載間隨機延遲防封
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -535,7 +537,11 @@ def main():
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
 
     done = ok = 0
-    for source, title, url in targets:
+    for idx, (source, title, url) in enumerate(targets):
+        if idx > 0:
+            # v2.4: 下載之間加隨機延遲（同 core.py 標準）——
+            # 5/23 教訓：同一 session 連環下載最易觸發站點封鎖
+            time.sleep(random.uniform(1.5, 4.0))
         print(f"[{source}] {title[:36]}")
         res = enrich_one(url, use_ocr=not args.no_ocr, verbose=args.verbose)
         enrich[url] = {
