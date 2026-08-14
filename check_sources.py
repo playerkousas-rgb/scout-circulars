@@ -11,15 +11,20 @@
   PW_ONLY   需要 Playwright 但本環境無瀏覽器（無法驗證）
 
 用法:  python check_sources.py [來源名 ...]   # 不給參數 = 檢查全部
+
+⚠️ 防封提醒（5/23 教訓：同一時段連環全量抓取觸發過封鎖）：
+   - 本腳本與 core.py 睇齊：來源之間 random 1.5~4.0 秒、逐一順序抓取
+   - 全量檢查只係「偶爾」用（例如每週一次），唔好短時間反覆全量跑
+   - 測試單一來源改動，用：python check_sources.py 九龍地域
 """
 from __future__ import annotations
 
 import io
 import json
+import random
 import sys
 import time
 import contextlib
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import core
 from bs4 import BeautifulSoup
@@ -111,14 +116,16 @@ def main():
     names = [n for n in sources if not only or n in only]
 
     results = {}
-    with ThreadPoolExecutor(max_workers=6) as ex:
-        futs = {ex.submit(check_one, n, sources[n], n in expected_empty): n for n in names}
-        for fut in as_completed(futs):
-            r = fut.result()
-            results[r["name"]] = r
-            mark = {"OK": "✅", "EMPTY": "🟡", "FETCH_FAIL": "❌"}.get(r["status"], "?")
-            extra = f" assets={r.get('assets')}" if r["status"] != "FETCH_FAIL" else f" {r.get('error', '')[:60]}"
-            print(f"{mark} {r['name']:<10} {r['status']:<10}{extra} ({r['seconds']}s)", flush=True)
+    # 順序逐個抓 + 來源之間隨機延遲（同 core.py 防封標準）。
+    # 唔用並行：5/23 教訓係「同一時段連環打」觸發封鎖，全量檢查寧願慢少少。
+    for i, n in enumerate(names):
+        if i > 0:
+            time.sleep(random.uniform(1.5, 4.0))
+        r = check_one(n, sources[n], n in expected_empty)
+        results[r["name"]] = r
+        mark = {"OK": "✅", "EMPTY": "🟡", "FETCH_FAIL": "❌"}.get(r["status"], "?")
+        extra = f" assets={r.get('assets')}" if r["status"] != "FETCH_FAIL" else f" {r.get('error', '')[:60]}"
+        print(f"{mark} {r['name']:<10} {r['status']:<10}{extra} ({r['seconds']}s)", flush=True)
 
     print("\n" + "═" * 70)
     ok = [n for n, r in results.items() if r["status"] == "OK"]
