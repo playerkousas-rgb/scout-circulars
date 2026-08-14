@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.6.19",
+    "version": "5.6.20",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 49,
-    "note": "v5.6.19 (2026-08-13 健康檢查): 總會2026分頁 24→29；觀塘區改 https；core.py fetch_requests 加一次網路層重試（防短暫斷線誤報）。"
+    "note": "v5.6.20 (2026-08-13): 港島西區/慈雲山區 WP API 加 3 次重試 + fallback_urls HTML 通告頁；九龍地域取消強迫 Playwright，requests 優先 + selector wait。"
   },
   "sources": {
     "總會": {
@@ -133,13 +133,16 @@
         "?t=",
         "?ver="
       ],
-      "notes": "使用 WP REST API /pages?search=circular 直接吐 JSON，最準確抓取所有年度通告頁內的 PDF；自動涵蓋 2026、2025... 新年份。比掃 HTML 表格更穩定。",
+      "notes": "使用 WP REST API /pages?search=circular 直接吐 JSON，最準確抓取所有年度通告頁內的 PDF；自動涵蓋 2026、2025... 新年份。比掃 HTML 表格更穩定。 v5.6.20: 第一頁 3 次重試；API 被 Cloudflare 擋時 fallback 直抓 circular2026/ HTML 通告頁。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 12000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
       "asset_link_selector": "a[href$=\".pdf\"]",
-      "follow_detail_pages": false
+      "follow_detail_pages": false,
+      "fallback_urls": [
+        "https://group.scout.org.hk/hkw/circular2026/"
+      ]
     },
     "柴灣區": {
       "region": "港島地域",
@@ -239,12 +242,13 @@
         "?t=",
         "?ver="
       ],
-      "notes": "v5.6.18: 九龍地域改版！從 WP API /posts 改為直接爬取 /通告及表格/ 頁面的 HTML 表格。表格欄位：發出日期|Title|截止日期|對象|下載(PDF thumbnail→.pdf link)|報名表。需 Playwright 因為頁面為 Elementor JS 渲染。 2026-08-13: wait_timeout 30s→60s，減少 Elementor 慢載導致短暫誤報。",
-      "use_playwright": true,
+      "notes": "v5.6.18: 九龍地域改版！從 WP API /posts 改為直接爬取 /通告及表格/ 頁面的 HTML 表格。表格欄位：發出日期|Title|截止日期|對象|下載(PDF thumbnail→.pdf link)|報名表。需 Playwright 因為頁面為 Elementor JS 渲染。 2026-08-13: wait_timeout 30s→60s，減少 Elementor 慢載導致短暫誤報。 v5.6.20: 表格確認已 server-render（raw HTML 即有全部 .pdf 連結）→ 取消強迫 PW，requests 失敗/空白先降級 PW；wait_strategy networkidle→selector(table)，避免 Elementor analytics 令 networkidle 等唔完。",
+      "use_playwright": false,
       "asset_link_selector": "table a[href*=\".pdf\"]",
       "follow_detail_pages": false,
-      "wait_strategy": "networkidle",
-      "wait_timeout": 60000
+      "wait_strategy": "selector",
+      "wait_timeout": 60000,
+      "wait_selector": "table"
     },
     "紅磡區": {
       "region": "九龍地域",
@@ -1051,8 +1055,11 @@
       "asset_link_selector": "a[href*=\".pdf\"], a[href*=\"/wp-content/\"]",
       "detail_max_pages": 30,
       "detail_link_selector": ".entry-title a[href], article a[href]",
-      "notes": "v5.6.17: WP API 正常 (最新 post 2026-06-08)。加 allow_page_notice_fallback 兜底。",
-      "allow_page_notice_fallback": true
+      "notes": "v5.6.17: WP API 正常 (最新 post 2026-06-08)。加 allow_page_notice_fallback 兜底。 v5.6.20: 第一頁 3 次重試；API 被擋時 fallback 直抓主頁。區會 2026-06-01 起用 group.scout.org.hk/tws（現行 URL 正確）。",
+      "allow_page_notice_fallback": true,
+      "fallback_urls": [
+        "https://group.scout.org.hk/tws/"
+      ]
     },
     "青衣區": {
       "region": "新界地域",
