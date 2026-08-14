@@ -12,7 +12,12 @@
 name: Scout Notice Scraper
 
 on:
-  # 手動觸發（驗證解禁 / 隨時補跑用）
+  # 每日自動更新（2026-08-14 重新啟用）
+  # 22:15 UTC = 06:15 HKT —— 每天早上抓到前一日所有新通告
+  schedule:
+    - cron: "15 22 * * *"
+
+  # 手動觸發（驗證 / 隨時補跑用）
   workflow_dispatch:
 
 jobs:
