@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "2.2"  # 費用標準化 + 對象抽取擴大
+ENRICH_VERSION = "2.3"  # backfill 重試短暫下載失敗
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -518,8 +518,13 @@ def main():
 
     targets = collect_targets(cache, today, args.all, args.backfill)
     # 跳過已抽過：--all 強制重抽（不跳過）；其餘（預設增量 / --backfill）都跳過已 enrich 的
+    # v1.1: --backfill 會重試「短暫性下載失敗」(download: ...)；
+    #       永久性錯誤（如 not_pdf）唔重試，避免白白重下載。
     if not args.all:
-        targets = [t for t in targets if t[2] not in enrich]
+        def _retryable_error(u):
+            err = ((enrich.get(u) or {}).get("error") or "")
+            return args.backfill and err.startswith("download")
+        targets = [t for t in targets if t[2] not in enrich or _retryable_error(t[2])]
 
     if args.limit:
         targets = targets[:args.limit]
