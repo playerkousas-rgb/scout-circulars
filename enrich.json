@@ -43481,5 +43481,16 @@
     "error": "",
     "enriched_at": "2026-08-15 06:46:42",
     "enrich_version": "2.4"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/1cDpMjFAFD3F6DoVtk14Eg/05ca0e7376bac2fcab178ed1f35f1411/Adm_cir_16-26.pdf": {
+    "source": "新界東地域",
+    "title": "第3屆物資管理工作坊(修訂)",
+    "deadline": "2026-09-25",
+    "audience": "童軍",
+    "fee": "HK$30",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-16 06:41:08",
+    "enrich_version": "2.4"
   }
 }
