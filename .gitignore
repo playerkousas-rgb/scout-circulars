@@ -3,5 +3,7 @@ __pycache__/
 *.pyc
 health_report.json
 cache.json.bak-*
+*.bak
 node_modules/
 package-lock.json
+enrich_review.md

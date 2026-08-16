@@ -1,0 +1,19 @@
+diff --git a/.github/workflows/scrape.yml b/.github/workflows/scrape.yml
+index a540e40..ffa3ac8 100644
+--- a/.github/workflows/scrape.yml
++++ b/.github/workflows/scrape.yml
+@@ -63,6 +63,14 @@ jobs:
+         run: |
+           python enrich.py --verbose
+ 
++      # ── Step 2.5: 靜默失敗健康檢查 ──
++      # 「error_sources 為空」唔等於全部來源健康 —— 觀塘區／深水埗西區
++      # 曾經長期抓錯嘢但從來冇報過錯。呢步印出結果留喺 log，方便回溯。
++      # 刻意用 `|| true`：健康檢查只係報告，唔應該令抓取成果冇得 commit。
++      - name: Health check (report only)
++        run: |
++          python check_stale.py || true
++
+       # ── Step 3: 提交更新 ──
+       - name: Commit & push updated cache + enrich + fingerprints
+         run: |

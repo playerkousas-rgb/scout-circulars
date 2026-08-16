@@ -1,0 +1,91 @@
+# ============================================================
+# 測試：每次 push / PR 都跑
+#
+# 點解要有呢個 workflow：
+#   呢個 repo 出事嘅模式一直都係「靜默失敗」—— 抓錯嘢但唔報錯。
+#   如果測試唔會自動跑，測試本身就變成另一個靜默失敗來源：
+#   改壞咗 core.py 嘅標題邏輯，港島南區 24 筆會靜靜變返 "view"，
+#   冇任何嘢會叫。
+#
+# 全部測試都係離線嘅（用重建 DOM / mock），唔會連外網、
+# 唔會打區會網站，所以可以放心每次 push 都跑。
+# ============================================================
+
+name: Tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONUTF8: "1"
+      TZ: "Asia/Hong_Kong"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 lxml pdfplumber
+          npm i --no-save jsdom
+
+      - name: 語法檢查
+        run: python -m py_compile core.py enrich.py check_stale.py check_sources.py
+
+      # ── Python 測試 ──
+      - name: URL 標題 fallback（防止 "view" 標題復發）
+        run: python test_url_title_fallback.py
+
+      - name: 靜默失敗偵測
+        run: python test_check_stale.py
+
+      - name: 來源修復 v5.6.22（觀塘區／深水埗西區／旺角區）
+        run: python test_source_fixes_v5_6_22.py
+
+      - name: group.scout.org.hk 來源（港島西區／慈雲山區）
+        run: python test_group_scout_sources.py
+
+      - name: enrich 欄位抽取
+        run: python test_enrich.py
+
+      - name: enrich Google Drive 支援（寧願唔抽都唔好抽錯）
+        run: python test_enrich_drive.py
+
+      # ── 前端測試 ──
+      - name: 診斷儀表板 errors.html
+        run: node test_errors_dashboard.js
+
+      - name: 收藏功能 index.html
+        run: node test_bookmarks.js
+
+      # ── 資料完整性（唔會因為改咗邏輯而靜靜污染 cache）──
+      - name: cache.json 完整性檢查
+        run: |
+          python - <<'PY'
+          import json, sys
+          cache = json.load(open('cache.json', encoding='utf-8'))
+          data = cache.get('data', {})
+          bad = [(s, it.get('title')) for s, arr in data.items() if isinstance(arr, list)
+                 for it in arr if str(it.get('title', '')).strip().lower()
+                 in {'view', 'preview', 'edit', 'open'}]
+          if bad:
+              print(f'❌ cache.json 有 {len(bad)} 筆垃圾標題：')
+              for s, t in bad[:20]:
+                  print(f'   {s}: {t}')
+              sys.exit(1)
+          total = sum(len(a) for a in data.values() if isinstance(a, list))
+          print(f'✅ cache.json 乾淨（{len(data)} 個來源，{total} 筆通告）')
+          PY
