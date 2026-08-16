@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.6.21",
+    "version": "5.6.22",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 49,
-    "note": "v5.6.21 (2026-08-16): 港島西區/慈雲山區 由 wordpress_api 改為 legacy_html — 該站 /wp-json 被針對性封鎖，但普通 HTML 頁正常（同網域深旺區一直成功為證）。 移除唔會觸發嘅 fallback_urls。"
+    "note": "v5.6.22 (2026-08-16): 觀塘區改抓 Phoca Download 真通告內頁；深水埗西區由 wordpress 更正為 google_sites；core.py 修正 Google Drive 舊式資料夾 resourcekey 遺失（旺角區漏 2 個 PDF）。"
   },
   "sources": {
     "總會": {
@@ -347,7 +347,7 @@
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "舊式 Google Sites，通告放於 Google Drive 資料夾(folderview)，按支部分類。改用 gsites_folders：抽主頁所有 folder id → 逐個 embeddedfolderview 取 PDF。純 requests。",
+      "notes": "舊式 Google Sites，通告放於 Google Drive 資料夾(folderview)，按支部分類。改用 gsites_folders：抽主頁所有 folder id → 逐個 embeddedfolderview 取 PDF。純 requests。 2026-08-16 (v5.6.22): core.py 修正舊式資料夾 resourcekey 遺失問題 —— 「深資童軍」同「區會/其他文件」兩個 2015 年前建立嘅資料夾缺 key 會回 500，長期漏 2 個 PDF。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
@@ -398,26 +398,32 @@
     },
     "深水埗西區": {
       "region": "九龍地域",
-      "url": "https://sspw.krscout.org/首頁",
-      "type": "wordpress",
+      "url": "https://sspw.krscout.org/%E9%A6%96%E9%A0%81",
+      "type": "google_sites",
       "encoding": "utf-8",
-      "fingerprint_selector": ".entry-title, .post-title, [class*='post']",
-      "link_selector": ".entry-title a[href], .post-title a[href]",
-      "title_selector": ".entry-title:first-of-type, .post-title:first-of-type",
+      "fingerprint_selector": "body",
+      "link_selector": "a[href*=\"drive.google.com\"], a[href$=\".pdf\"], a[href*=\"docs.google.com\"]",
+      "title_selector": ".C9DxTc, h1, h2, h3, [role=\"heading\"]",
       "url_sanitize": [
-        "?v=",
-        "?t=",
-        "?ver="
+        "?authuser=0",
+        "?authuser=1",
+        "?usp=sharing",
+        "?usp=drive_link",
+        "?usp=drive_web"
       ],
-      "notes": "通告以網誌文章發布; 監控首頁最新文章標題",
+      "notes": "2026-08-16: 實際係 Google Sites（sspw.krscout.org 為自訂網域），唔係 WordPress —— 原本 type=wordpress + .entry-title 選擇器全部 match 唔到，只靠兜底抽到「view」等雜項。改為 google_sites，直抓 Drive PDF 連結。",
       "use_playwright": false,
-      "wait_strategy": "networkidle",
-      "wait_timeout": 15000,
+      "wait_strategy": "selector",
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": ".entry-title a[href], .post-title a[href], article a[href]",
-      "follow_detail_pages": true,
-      "detail_max_pages": 8,
-      "detail_link_selector": ".entry-title a[href], .post-title a[href], article h2 a[href]"
+      "asset_link_selector": "a[href*=\"drive.google.com\"], a[href$=\".pdf\"], a[href*=\"docs.google.com\"]",
+      "follow_detail_pages": false,
+      "exclude_patterns": [
+        "舉報濫用行為",
+        "Report abuse",
+        "Search this site",
+        "Embedded Files"
+      ],
+      "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc"
     },
     "油尖區": {
       "region": "九龍地域",
@@ -582,27 +588,30 @@
       "url": "https://hkscout-ktd.org/ktdweb/index.php/event-and-program.html",
       "type": "joomla_archive",
       "encoding": "utf-8",
-      "fingerprint_selector": ".items-row, article, [class*='item']",
-      "link_selector": "a[href*=\"category/\"]",
-      "title_selector": "body",
+      "fingerprint_selector": ".pd-categoriesrow, .pd-category, #phocadownload",
+      "link_selector": "a[href*=\"event-and-program/file/\"]",
+      "title_selector": "h3, .pd-filename, .pd-txt-filename",
       "url_sanitize": [
         "?v=",
         "?t=",
-        "?ver="
+        "?ver=",
+        "?tmpl=component"
       ],
-      "notes": "目前頁面僅見分類與件數，先以分類件數變化作 fallback 監控；後續若找到實際下載頁再切換。 2026-08-13: http 連線被拒，改用 https。",
+      "notes": "2026-08-16: 改為抓真通告。Phoca Download 結構：總頁 → 支部分類頁 (event-and-program/category/*) → 通告內頁 (event-and-program/file/*.html)。內頁本身即為附件下載頁，故用 accept_all_links 收錄 file/*.html。舊設定只抓到分類目錄連結（「支部通告-童軍(1)」），並非真通告。",
       "use_playwright": false,
       "wait_strategy": "selector",
       "wait_selector": ".category, .items-row, article, [class*=\"item\"]",
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href*=\"category/\"]",
-      "follow_detail_pages": false,
-      "detail_max_pages": 8,
-      "detail_link_selector": ".items-row h2 a[href], article h2 a[href]",
-      "text_notice_selector": [
-        "body"
+      "asset_link_selector": "a[href*=\"event-and-program/file/\"]",
+      "follow_detail_pages": true,
+      "detail_max_pages": 40,
+      "detail_link_selector": "a[href*=\"event-and-program/file/\"]",
+      "follow_listing_pages": true,
+      "listing_link_selector": [
+        "a[href*=\"event-and-program/category/\"]"
       ],
-      "text_notice_pattern": "(?P<title>支部通告-[^\\(]+|區會)\\((?P<code>[1-9]\\d*)\\)"
+      "listing_max_pages": 10,
+      "accept_all_links": true
     },
     "鯉魚門區": {
       "region": "東九龍地域",

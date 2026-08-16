@@ -380,6 +380,26 @@ def extract_fields(text):
 
 
 # ─── 下載 ─────────────────────────────────────────────────
+def drive_direct_url(url):
+    """Google Drive 分享連結 → 直接下載連結；認唔出就回 None。
+
+    /file/d/<id>/view 係一個 HTML 檢視頁，直接下載會攞到 HTML 而唔係 PDF。
+    要轉成 uc?export=download&id=<id> 先攞到檔案本身。
+
+    設計原則：**寧願唔抽，都唔好抽錯**。
+    - 認唔出格式 → 回 None（唔猜、唔亂砌 URL）
+    - 就算轉換成功，下載返嚟仍然要過 magic bytes（%PDF）先當數；
+      Drive 有時會回權限頁／病毒掃描中介頁，嗰啲一律當 not_pdf 丟棄，
+      唔會塞半頁 HTML 落去當通告內容。
+    """
+    m = re.search(r"/file/d/([\w-]+)", url)
+    if not m:
+        m = re.search(r"[?&]id=([\w-]+)", url)
+    if not m:
+        return None
+    return f"https://drive.google.com/uc?export=download&id={m.group(1)}"
+
+
 def download(url, timeout=25):
     # URL 含中文 → 需 percent-encode（保留已 encode 的部分）
     safe_url = urllib.parse.quote(url, safe=":/?#[]@!$&'()*+,;=%~")
@@ -392,12 +412,22 @@ def download(url, timeout=25):
 
 def enrich_one(url, use_ocr=True, verbose=False):
     """回傳 dict：{deadline, audience, fee, _method}"""
+    fetch_url = url
+    if "drive.google" in url or "docs.google" in url:
+        direct = drive_direct_url(url)
+        if not direct:
+            # 認唔出格式就唔猜，直接放棄 —— 寧願冇資料，好過抽錯資料
+            return {"_error": "drive_unrecognized", "deadline": "", "audience": "", "fee": ""}
+        fetch_url = direct
+
     try:
-        data = download(url)
+        data = download(fetch_url)
     except Exception as e:
         return {"_error": f"download: {type(e).__name__}", "deadline": "", "audience": "", "fee": ""}
 
-    # magic bytes 檢查是否真 PDF
+    # magic bytes 檢查是否真 PDF。
+    # Drive 回權限頁／病毒掃描中介頁／登入頁時都係 HTML，會喺呢度被擋落嚟，
+    # 唔會當成通告內容抽欄位。
     if not data[:5].startswith(b"%PDF"):
         return {"_error": "not_pdf", "deadline": "", "audience": "", "fee": ""}
 
@@ -433,9 +463,13 @@ def collect_targets(cache, target_date, do_all, do_backfill):
     for source, arr in data.items():
         for it in arr:
             url = it.get("pdf_url") or it.get("url") or ""
-            if not url.lower().endswith(".pdf"):
-                continue
-            if "drive.google" in url:
+            # Google Drive 連結唔會以 .pdf 結尾，但可以轉成直接下載連結，
+            # 下載返嚟仍要過 magic bytes 檢查先當數（見 enrich_one）。
+            is_drive = ("drive.google" in url or "docs.google" in url)
+            if is_drive:
+                if not drive_direct_url(url):
+                    continue          # 認唔出格式就唔猜
+            elif not url.lower().endswith(".pdf"):
                 continue
             # 預設模式：只看今日；--all / --backfill 則不分日期全收
             if not do_all and not do_backfill:
