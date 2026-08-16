@@ -43492,5 +43492,27 @@
     "error": "",
     "enriched_at": "2026-08-16 06:41:08",
     "enrich_version": "2.4"
+  },
+  "https://drive.google.com/file/d/1dV-tgoi3ADphM4apkz5q_cHgEb06XO63/view": {
+    "source": "旺角區",
+    "title": "香港童軍115周年旺角區童里匯聚樂融融嘉年華暨青少年獲獎人士獎典禮通告PT4620251218",
+    "deadline": "2026-01-15",
+    "audience": "童軍、領袖",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-17 06:40:53",
+    "enrich_version": "2.4"
+  },
+  "https://drive.google.com/file/d/1kp7TeRl07lYEcslkCArPsF7hL5cmzpba/view": {
+    "source": "旺角區",
+    "title": "MKD VS&RS比賽2025 通告",
+    "deadline": "2025-11-13",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$50",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-17 06:40:58",
+    "enrich_version": "2.4"
   }
 }
