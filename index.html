@@ -99,6 +99,23 @@
     .card { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(180deg, rgba(15,23,40,.92), rgba(8,14,26,.95)); box-shadow: var(--shadow); }
     .badge { display: inline-flex; align-items: center; gap: 6px; width: fit-content; font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(59,130,246,.35); background: rgba(29,78,216,.18); color: #b6d4ff; }
     .card h3 { margin: 0; font-size: 18px; line-height: 1.45; }
+    /* 書籤（★）——瀏覽器本機儲存，唔會上傳 */
+    .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .star-btn { flex: 0 0 auto; background: transparent; border: 1px solid var(--line); color: #6b7f9e;
+                border-radius: 10px; width: 38px; height: 38px; font-size: 19px; line-height: 1;
+                cursor: pointer; transition: .15s; }
+    .star-btn:hover { border-color: rgba(250,204,21,.6); color: #facc15; background: rgba(250,204,21,.08); }
+    .star-btn.on { border-color: rgba(250,204,21,.7); color: #facc15; background: rgba(250,204,21,.14); }
+    .star-btn:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
+    .bm-note { padding: 10px 12px; border-radius: 10px; margin-bottom: 12px; font-size: 13px;
+               color: #ffe9a8; background: rgba(250,204,21,.08); border: 1px solid rgba(250,204,21,.25); }
+    .bm-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .bm-tools button { border: 1px solid var(--line); background: rgba(255,255,255,.04); color: #cfe3ff;
+                       border-radius: 10px; padding: 7px 12px; cursor: pointer; font-size: 13px; }
+    .bm-tools button:hover { background: rgba(255,255,255,.09); }
+    .bm-tools button.danger:hover { border-color: rgba(239,68,68,.5); color: #fca5a5; }
+    .bm-gone { opacity: .72; }
+    .bm-gone h3::after { content: '　（原站已移除）'; font-size: 12px; color: #fca5a5; font-weight: 400; }
     /* enrich 補充資料（截止/對象/費用）*/
     .ex-box { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 10px; background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.22); }
     .ex-row { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #d7e6f5; line-height: 1.4; }
@@ -309,7 +326,76 @@
       searchRegionKeyword: '',
       searchScope: 'current', // 'current' | 'global'
       searchFields: { name: true, member: true, branch: true },
+      bookmarks: {},   // key -> 收藏快照（見 BOOKMARK_KEY 說明）
     };
+
+    // ── 書籤 ────────────────────────────────────────────────
+    // 存喺瀏覽器 localStorage，唔會上傳、唔會跨裝置同步。
+    // 存嘅係「快照」而唔係淨係一個 key：因為區會網站會清舊通告，
+    // 到時 cache.json 冇咗嗰筆，若只存 key 就會變成一個揾唔返嘅死連結。
+    // 存低標題/日期/連結，就算原站落咗架，用戶起碼知自己收藏過乜。
+    const BOOKMARK_KEY = 'scl_bookmarks_v1';
+
+    function loadBookmarks() {
+      try {
+        const raw = localStorage.getItem(BOOKMARK_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : {};
+      } catch (_) {
+        return {};   // 儲存壞咗／被停用都唔應該令成個頁面掛
+      }
+    }
+
+    function saveBookmarks() {
+      try {
+        localStorage.setItem(BOOKMARK_KEY, JSON.stringify(state.bookmarks));
+        return true;
+      } catch (_) {
+        alert('收藏儲存唔到 —— 可能係瀏覽器停用咗本機儲存，或者無痕模式。');
+        return false;
+      }
+    }
+
+    function isBookmarked(item) {
+      return Object.prototype.hasOwnProperty.call(state.bookmarks, makeCircularKey(item));
+    }
+
+    function toggleBookmark(item) {
+      const key = makeCircularKey(item);
+      if (Object.prototype.hasOwnProperty.call(state.bookmarks, key)) {
+        delete state.bookmarks[key];
+      } else {
+        state.bookmarks[key] = {
+          title: item.title || '',
+          url: item.url || item.pdf_url || '',
+          pdf_url: item.pdf_url || item.url || '',
+          date: item.date || item.captured_date || '',
+          captured_date: item.captured_date || item.date || '',
+          source_site: item.source_site || state.activeSource || '',
+          region: item.region || '',
+          saved_at: new Date().toISOString(),
+        };
+      }
+      saveBookmarks();
+      return isBookmarked(item);
+    }
+
+    function bookmarkCount() {
+      return Object.keys(state.bookmarks).length;
+    }
+
+    // 收藏清單：以 cache 最新資料為準，cache 冇咗就用快照並標示「原站已移除」
+    function getBookmarkItems() {
+      const live = new Map();
+      for (const src of state.sourceOrder) {
+        for (const it of (state.grouped[src] || [])) live.set(makeCircularKey(it), it);
+      }
+      return Object.entries(state.bookmarks).map(([key, snap]) => {
+        const hit = live.get(key);
+        return hit ? { ...hit, _bmSavedAt: snap.saved_at }
+                   : { ...snap, _bmSavedAt: snap.saved_at, _bmGone: true };
+      }).sort((a, b) => String(b._bmSavedAt || '').localeCompare(String(a._bmSavedAt || '')));
+    }
 
     const $ = (sel) => document.querySelector(sel);
     const accordionEl = $('#accordion');
@@ -455,6 +541,7 @@
     }
 
     function getSourceTitle(sourceId) {
+      if (sourceId === 'BOOKMARKS') return '★ 我的收藏';
       if (sourceId === 'ALL_SOURCES') return '全港 (所有層級)';
       if (sourceId && sourceId.startsWith('REGION:')) return sourceId.substring(7) + ' (全部)';
       return sourceId || '未選擇來源';
@@ -476,6 +563,19 @@
 
     function getCurrentItems() {
       let items;
+      // 收藏夾：刻意唔套用時間視窗。用戶三個月前收藏嘅通告，
+      // 唔應該因為「今天」視窗而喺自己收藏夾入面消失 —— 咁就等於揾唔返。
+      if (state.activeSource === 'BOOKMARKS') {
+        items = getBookmarkItems();
+        if (state.keyword) {
+          items = items.filter(item => {
+            const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+            return matchesSearchQuery(item, ex, state.keyword, state.searchFields);
+          });
+        }
+        return items;   // 已按收藏時間排序，唔再依日期重排
+      }
+
       if (state.searchScope === 'global') {
         items = [];
         for (const src of state.sourceOrder) {
@@ -609,6 +709,25 @@
       const q = state.searchRegionKeyword.toLowerCase().trim();
       accordionEl.innerHTML = '';
 
+      // 我的收藏（偽來源，永遠置頂；唔受時間視窗影響）
+      if (!q || '我的收藏'.includes(q) || 'bookmark'.includes(q)) {
+        const bmEl = document.createElement('section');
+        bmEl.className = 'region';
+        const bmBtn = document.createElement('button');
+        const bmTotal = bookmarkCount();
+        bmBtn.innerHTML = `<span>★ 我的收藏</span>${badgeHtml(bmTotal)}`;
+        if (bmTotal > 0) bmEl.classList.add('has-updates');
+        if (state.activeSource === 'BOOKMARKS') bmEl.classList.add('open');
+        bmBtn.onclick = () => {
+          state.activeSource = 'BOOKMARKS';
+          renderAccordion();
+          renderHeader();
+          renderCards();
+        };
+        bmEl.appendChild(bmBtn);
+        accordionEl.appendChild(bmEl);
+      }
+
       // All Levels Pseudo-Region
       if (!q || '全港 (所有層級)'.includes(q)) {
         const allEl = document.createElement('section');
@@ -723,7 +842,8 @@
       $('#page-title').textContent = state.searchScope === 'global' ? '全港搜尋' : getSourceTitle(state.activeSource);
 
       let subtitle = '請先選擇一個來源。';
-      if (state.activeSource === 'ALL_SOURCES') subtitle = '目前顯示全港所有通告。';
+      if (state.activeSource === 'BOOKMARKS') subtitle = '你收藏咗嘅通告，唔受上面時間範圍影響。只存喺呢部機。';
+      else if (state.activeSource === 'ALL_SOURCES') subtitle = '目前顯示全港所有通告。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
 
@@ -757,7 +877,46 @@
       }
 
       const items = getCurrentItems();
-      if (!items.length) {
+
+      if (state.activeSource === 'BOOKMARKS') {
+        if (!items.length) {
+          messagesEl.innerHTML = '<div class="msg">仲未收藏任何通告。喺通告卡片右上角撳 ☆ 就可以加入收藏，' +
+            '慢慢查完自己時間、問完朋友再決定。<br><small>收藏只存喺你部機嘅瀏覽器，唔會上傳，' +
+            '亦唔會喺其他裝置出現。清除瀏覽器資料會一併清走。</small></div>';
+          return;
+        }
+        const goneCount = items.filter(i => i._bmGone).length;
+        let noteHtml = '';
+        if (goneCount) {
+          noteHtml = `<div class="bm-note">當中 ${goneCount} 則通告原站已經冇咗（區會通常會清舊通告）。` +
+            `標題同連結仍然保留，但連結未必仲開得到。</div>`;
+        }
+        messagesEl.innerHTML = noteHtml +
+          `<div class="bm-tools">
+             <button type="button" id="bm-copy">複製清單</button>
+             <button type="button" id="bm-clear" class="danger">清空收藏</button>
+           </div>`;
+        messagesEl.querySelector('#bm-copy').onclick = async () => {
+          const text = items.map(i =>
+            `• ${i.title || '未命名通告'}（${i.source_site || ''}${i.date || i.captured_date ? '，' + (i.date || i.captured_date) : ''}）\n  ${i.pdf_url || i.url || ''}`
+          ).join('\n');
+          try {
+            await navigator.clipboard.writeText(text);
+            alert(`已複製 ${items.length} 則通告，可以直接貼去 WhatsApp 問朋友。`);
+          } catch (_) {
+            // 剪貼簿權限唔一定俾，退而求其次俾用戶自己揀
+            window.prompt('自動複製唔成功，你可以喺下面手動複製：', text);
+          }
+        };
+        messagesEl.querySelector('#bm-clear').onclick = () => {
+          if (!confirm(`確定清空全部 ${items.length} 則收藏？呢個動作復原唔到。`)) return;
+          state.bookmarks = {};
+          saveBookmarks();
+          renderAccordion();
+          renderHeader();
+          renderCards();
+        };
+      } else if (!items.length) {
         messagesEl.innerHTML = '<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。</div>';
         return;
       }
@@ -778,11 +937,18 @@
           if (rows.length) extraHtml = `<div class="ex-box">${rows.join('')}</div>`;
         }
 
+        const starred = isBookmarked(item);
         const card = document.createElement('article');
-        card.className = 'card';
+        card.className = `card${item._bmGone ? ' bm-gone' : ''}`;
         card.innerHTML = `
           <div class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</div>
-          <h3>${escapeHtml(item.title || '未命名通告')}</h3>
+          <div class="card-head">
+            <h3>${escapeHtml(item.title || '未命名通告')}</h3>
+            <button class="star-btn${starred ? ' on' : ''}" type="button"
+              aria-pressed="${starred ? 'true' : 'false'}"
+              title="${starred ? '取消收藏' : '加入收藏'}"
+              aria-label="${starred ? '取消收藏' : '加入收藏'}">${starred ? '★' : '☆'}</button>
+          </div>
           <div class="meta-row">
             <span>${escapeHtml(formatDate(item.date || item.captured_date || ''))}</span>
             <span class="host">${escapeHtml(host)}</span>
@@ -794,6 +960,24 @@
           </div>
           <button class="ss-import" data-ss-url="${escapeHtml(buildScoutSystemImportUrl(item, ex))}">加入 ScoutSystem</button>
         `;
+        const starBtn = card.querySelector('.star-btn');
+        if (starBtn) {
+          starBtn.onclick = () => {
+            const nowOn = toggleBookmark(item);
+            if (state.activeSource === 'BOOKMARKS') {
+              renderCards();          // 喺收藏夾撳 ★ = 移除，即刻消失
+            } else {
+              starBtn.classList.toggle('on', nowOn);
+              starBtn.textContent = nowOn ? '★' : '☆';
+              starBtn.setAttribute('aria-pressed', nowOn ? 'true' : 'false');
+              starBtn.title = nowOn ? '取消收藏' : '加入收藏';
+              starBtn.setAttribute('aria-label', starBtn.title);
+            }
+            renderAccordion();        // 側欄數字即時更新
+            renderHeader();
+          };
+        }
+
         const ssBtn = card.querySelector('.ss-import');
         if (ssBtn) {
           ssBtn.onclick = () => {
@@ -909,6 +1093,7 @@
     }
     loadVisitCounter();
 
+    state.bookmarks = loadBookmarks();
     loadCache();
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff2d8366d1810ac',t:'MTc3OTM1ODc4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
