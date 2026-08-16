@@ -145,7 +145,9 @@ SOCIAL_HOST_PATTERNS = [
 GENERIC_DOWNLOAD_TITLES = {
     "下載", "download", "檔案下載", "file download", "附件", "attachment",
     "按此下載", "download here", "here", "click here", "pdf格式", "(pdf格式)", "doc格式", "(doc格式)",
-    "通告", "表格", "[通告]", "[表格]", "下載通告", "查看", "詳情", "更多資訊", "read more", "詳閱"
+    "通告", "表格", "[通告]", "[表格]", "下載通告", "查看", "詳情", "更多資訊", "read more", "詳閱",
+    # 檔案託管服務嘅操作動詞（Google Drive 連結尾段就係 /view）
+    "view", "preview", "open", "檢視", "開啟", "預覽", "瀏覽", "view file", "open file"
 }
 ARTICLE_SOURCE_TYPES = {
     "home_news", "wordpress", "wordpress_archive", "wordpress_category",
@@ -280,9 +282,59 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
     return title
 
 
+# 檔案託管服務的 URL 尾段唔係檔名，攞嚟做標題只會得出 "view"/"preview" 之類嘅垃圾。
+# 例：https://drive.google.com/file/d/<id>/view → 尾段 "view"
+URL_TAIL_NOT_A_FILENAME = {
+    "view", "preview", "edit", "open", "share", "download", "viewform",
+    "file", "d", "uc", "index", "default", "detail", "details",
+    # Google 服務嘅路徑類型段（/document/d/<id>/edit、/spreadsheets/d/<id>/edit …）
+    "document", "documents", "spreadsheets", "presentation", "forms", "drive",
+    "folder", "folders", "e", "u", "a", "usp", "sharing", "copy", "template",
+}
+
+
+def looks_like_opaque_id(seg: str) -> bool:
+    """判斷一段路徑係咪隨機 ID（Google Drive file id、UUID、hash 等），而非人睇得明嘅檔名。
+
+    Google Drive id 例：1Um6PXr5OXZa5bg4zJIPQIrVJDs-mTdh6（33 字，含 '-' 但無空格／副檔名）
+    真檔名例：2026-07-18_annual-meeting.pdf（有副檔名）、周年大會通告（中文）
+    """
+    if len(seg) < 16:
+        return False
+    if re.search(r"[\u4e00-\u9fff]", seg):        # 有中文 → 係真標題
+        return False
+    if re.search(r"\.[A-Za-z0-9]{2,4}$", seg):    # 有副檔名 → 係真檔名
+        return False
+    if " " in seg:                                 # 有空格 → 係真標題
+        return False
+    # 大小寫混雜且夾雜數字＝典型隨機 ID；真檔名通常靠 - 或 _ 分隔成有意義嘅字
+    words = [w for w in re.split(r"[-_]", seg) if w]
+    has_mixed_case = any(re.search(r"[a-z]", w) and re.search(r"[A-Z]", w) for w in words)
+    has_digit = any(re.search(r"\d", w) for w in words)
+    long_token = max((len(w) for w in words), default=0) >= 12
+    return (has_mixed_case and has_digit) or long_token
+
+
 def fallback_title_from_url(url: str, config: Dict[str, Any]) -> Optional[str]:
     path = unquote(urlparse(url).path)
-    filename = path.rsplit("/", 1)[-1]
+    segments = [s for s in path.split("/") if s]
+    if not segments:
+        return None
+
+    # 由尾向前搵第一段似檔名嘅；跳過 view/preview/edit 等操作動詞同純 ID。
+    # 全部段都唔似檔名就回 None，等上游改用「無標題」而唔係砌個假標題出嚟。
+    filename = None
+    for seg in reversed(segments):
+        if seg.lower() in URL_TAIL_NOT_A_FILENAME:
+            continue
+        if looks_like_opaque_id(seg):
+            continue
+        filename = seg
+        break
+
+    if not filename:
+        return None
+
     filename = re.sub(r"\.(pdf|docx?|xlsx?|pptx?|zip|rar|7z|rtf|csv)$", "", filename, flags=re.I)
     filename = filename.replace("_", " ").replace("-", " ")
     return clean_title(filename, config)
@@ -767,19 +819,45 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
             print(f"[{name}] ⚠️ gsites_folders 失敗: {e}，fall through")
         # v5.6.15: 成功已在上面 return，失敗 fall through 到通用路徑
 
-        # 從主頁抽出所有 Drive 資料夾 id
-        folder_ids = set(_re.findall(
-            r"(?:drive|docs)\.google\.com/(?:embedded)?folderview\?id=([\w-]+)", page_html))
-        folder_ids |= set(_re.findall(r"drive\.google\.com/drive/folders/([\w-]+)", page_html))
-        print(f"[{name}] 發現 {len(folder_ids)} 個 Drive 資料夾")
+        # v5.6.22: 舊式（2015 年前建立）嘅 Drive 資料夾除咗 id 仲要帶 resourcekey，
+        # 否則 embeddedfolderview 會回 500。原本淨係捉 id、將 resourcekey 丟棄，
+        # 導致旺角區「深資童軍」同「區會/其他文件」兩個資料夾長期抽唔到嘢。
+        # 改為連 resourcekey 一齊捉（capture group 2，冇就係 None）。
+        folder_keys: Dict[str, str] = {}
+
+        def _remember(fid: str, rkey: Optional[str]) -> None:
+            # 同一個 id 若曾帶 resourcekey，優先保留有 key 嗰個
+            if fid not in folder_keys or (rkey and not folder_keys[fid]):
+                folder_keys[fid] = rkey or ""
+
+        for fid, rkey in _re.findall(
+            r"(?:drive|docs)\.google\.com/(?:embedded)?folderview\?id=([\w-]+)"
+            r"(?:&(?:amp;)?resourcekey=([\w-]+))?", page_html
+        ):
+            _remember(fid, rkey)
+        for fid, rkey in _re.findall(
+            r"drive\.google\.com/drive/folders/([\w-]+)"
+            r"(?:\?(?:amp;)?resourcekey=([\w-]+))?", page_html
+        ):
+            _remember(fid, rkey)
+
+        n_with_key = sum(1 for v in folder_keys.values() if v)
+        print(f"[{name}] 發現 {len(folder_keys)} 個 Drive 資料夾（其中 {n_with_key} 個帶 resourcekey）")
 
         mock_html = "<html><body>"
         count = 0
         seen = set()
-        for fid in folder_ids:
+        for fid, rkey in folder_keys.items():
+            folder_url = f"https://drive.google.com/embeddedfolderview?id={fid}"
+            if rkey:
+                folder_url += f"&resourcekey={rkey}"
             try:
-                fr = _rq.get(f"https://drive.google.com/embeddedfolderview?id={fid}#list",
+                fr = _rq.get(f"{folder_url}#list",
                              timeout=30, headers={"User-Agent": "Mozilla/5.0"})
+                if fr.status_code != 200:
+                    print(f"[{name}] ⚠️ 資料夾 {fid} 回傳 {fr.status_code}"
+                          f"{'（缺 resourcekey？）' if not rkey else ''}")
+                    continue
                 fsoup = BeautifulSoup(fr.text, "html.parser")
             except Exception:
                 continue
