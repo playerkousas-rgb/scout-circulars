@@ -114,8 +114,7 @@
                        border-radius: 10px; padding: 7px 12px; cursor: pointer; font-size: 13px; }
     .bm-tools button:hover { background: rgba(255,255,255,.09); }
     .bm-tools button.danger:hover { border-color: rgba(239,68,68,.5); color: #fca5a5; }
-    .bm-gone { opacity: .72; }
-    .bm-gone h3::after { content: '　（原站已移除）'; font-size: 12px; color: #fca5a5; font-weight: 400; }
+
     /* enrich 補充資料（截止/對象/費用）*/
     .ex-box { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 10px; background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.22); }
     .ex-row { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #d7e6f5; line-height: 1.4; }
@@ -326,21 +325,30 @@
       searchRegionKeyword: '',
       searchScope: 'current', // 'current' | 'global'
       searchFields: { name: true, member: true, branch: true },
-      bookmarks: {},   // key -> 收藏快照（見 BOOKMARK_KEY 說明）
+      bookmarks: {},   // key -> 收藏時間(ms)（見 BOOKMARK_KEY 說明）
+      bookmarkPruned: 0,   // 今次載入清走咗幾多則已落架收藏
     };
 
     // ── 書籤 ────────────────────────────────────────────────
     // 存喺瀏覽器 localStorage，唔會上傳、唔會跨裝置同步。
-    // 存嘅係「快照」而唔係淨係一個 key：因為區會網站會清舊通告，
-    // 到時 cache.json 冇咗嗰筆，若只存 key 就會變成一個揾唔返嘅死連結。
-    // 存低標題/日期/連結，就算原站落咗架，用戶起碼知自己收藏過乜。
+    //
+    // 只存 key（＋收藏時間用嚟排序），唔存標題/連結快照。
+    // 原因：區會清走通告 = 原檔已經 DELETE = 報唔到 = 對用戶冇用。
+    // 留住一個開唔到嘅死連結只會阻住視線，所以 cache 冇咗就自動清走。
     const BOOKMARK_KEY = 'scl_bookmarks_v1';
 
     function loadBookmarks() {
       try {
         const raw = localStorage.getItem(BOOKMARK_KEY);
         const parsed = raw ? JSON.parse(raw) : {};
-        return (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : {};
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+        // 一律正規化成 key -> 收藏時間(ms)
+        const out = {};
+        for (const [k, v] of Object.entries(parsed)) {
+          const ts = (typeof v === 'number') ? v : Date.parse(v?.saved_at || '') || Date.now();
+          out[k] = ts;
+        }
+        return out;
       } catch (_) {
         return {};   // 儲存壞咗／被停用都唔應該令成個頁面掛
       }
@@ -365,16 +373,7 @@
       if (Object.prototype.hasOwnProperty.call(state.bookmarks, key)) {
         delete state.bookmarks[key];
       } else {
-        state.bookmarks[key] = {
-          title: item.title || '',
-          url: item.url || item.pdf_url || '',
-          pdf_url: item.pdf_url || item.url || '',
-          date: item.date || item.captured_date || '',
-          captured_date: item.captured_date || item.date || '',
-          source_site: item.source_site || state.activeSource || '',
-          region: item.region || '',
-          saved_at: new Date().toISOString(),
-        };
+        state.bookmarks[key] = Date.now();
       }
       saveBookmarks();
       return isBookmarked(item);
@@ -384,17 +383,33 @@
       return Object.keys(state.bookmarks).length;
     }
 
-    // 收藏清單：以 cache 最新資料為準，cache 冇咗就用快照並標示「原站已移除」
-    function getBookmarkItems() {
+    function liveItemsByKey() {
       const live = new Map();
       for (const src of state.sourceOrder) {
         for (const it of (state.grouped[src] || [])) live.set(makeCircularKey(it), it);
       }
-      return Object.entries(state.bookmarks).map(([key, snap]) => {
-        const hit = live.get(key);
-        return hit ? { ...hit, _bmSavedAt: snap.saved_at }
-                   : { ...snap, _bmSavedAt: snap.saved_at, _bmGone: true };
-      }).sort((a, b) => String(b._bmSavedAt || '').localeCompare(String(a._bmSavedAt || '')));
+      return live;
+    }
+
+    // cache 已經冇咗嘅通告 = 原站 DELETE 咗 = 報唔到，直接由收藏移除。
+    // 只喺 cache 成功載入之後先至跑，唔係載入失敗會誤刪晒。
+    function pruneBookmarks() {
+      const live = liveItemsByKey();
+      let removed = 0;
+      for (const key of Object.keys(state.bookmarks)) {
+        if (!live.has(key)) { delete state.bookmarks[key]; removed++; }
+      }
+      if (removed) saveBookmarks();
+      return removed;
+    }
+
+    // 收藏清單：一律用 cache 最新資料，按收藏時間新到舊
+    function getBookmarkItems() {
+      const live = liveItemsByKey();
+      return Object.entries(state.bookmarks)
+        .filter(([key]) => live.has(key))
+        .sort((a, b) => b[1] - a[1])
+        .map(([key]) => live.get(key));
     }
 
     const $ = (sel) => document.querySelector(sel);
@@ -885,11 +900,10 @@
             '亦唔會喺其他裝置出現。清除瀏覽器資料會一併清走。</small></div>';
           return;
         }
-        const goneCount = items.filter(i => i._bmGone).length;
         let noteHtml = '';
-        if (goneCount) {
-          noteHtml = `<div class="bm-note">當中 ${goneCount} 則通告原站已經冇咗（區會通常會清舊通告）。` +
-            `標題同連結仍然保留，但連結未必仲開得到。</div>`;
+        if (state.bookmarkPruned) {
+          noteHtml = `<div class="bm-note">有 ${state.bookmarkPruned} 則收藏嘅通告原站已經落架，` +
+            `已經自動由收藏移除（報唔到嘅通告留住都冇用）。</div>`;
         }
         messagesEl.innerHTML = noteHtml +
           `<div class="bm-tools">
@@ -939,7 +953,7 @@
 
         const starred = isBookmarked(item);
         const card = document.createElement('article');
-        card.className = `card${item._bmGone ? ' bm-gone' : ''}`;
+        card.className = 'card';
         card.innerHTML = `
           <div class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</div>
           <div class="card-head">
@@ -1020,6 +1034,10 @@
         for (const source of Object.keys(state.grouped)) {
           if (!state.sourceOrder.includes(source)) state.sourceOrder.push(source);
         }
+
+        // cache 成功載入之後先清理失效收藏 —— 擺喺 catch 之前，
+        // 載入失敗就唔會行到呢度，避免網絡問題誤刪晒用戶收藏。
+        state.bookmarkPruned = pruneBookmarks();
 
         pickDefaultSource();
         renderSidebarMeta();

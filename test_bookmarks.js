@@ -4,7 +4,8 @@
 // 重點驗證「用戶揾唔返」呢個場景：
 //   1. 收藏之後切換時間視窗（今天/7天…），收藏夾仍然睇得返 —— 呢個係功能存在嘅理由
 //   2. 重新載入頁面（localStorage）收藏仲喺度
-//   3. 區會清走通告之後，收藏唔會人間蒸發，而係標示「原站已移除」
+//   3. 區會清走通告 = 原檔已 DELETE = 報唔到 = 冇用，收藏要自動清走唔好阻住視線
+//   4. 但 cache 載入失敗時唔可以誤刪 —— 網絡問題唔應該炒晒用戶收藏
 const {JSDOM} = require('jsdom');
 const fs = require('fs');
 
@@ -116,23 +117,55 @@ const cards = (d) => $$(d, '#cards .card');
   ok(cards(d).length === 0, '喺收藏夾撳 ★ 即刻移除');
   ok(d.querySelector('#messages').textContent.includes('仲未收藏'), '空狀態有引導文字');
 
-  // ── 場景三：區會清走通告，收藏唔可以人間蒸發 ──
-  const ghost = JSON.stringify({
-    'https://drive.google.com/file/d/GONE/view': {
-      title: '已被區會清走嘅舊通告', url: 'https://drive.google.com/file/d/GONE/view',
-      pdf_url: 'https://drive.google.com/file/d/GONE/view', date: daysAgo(200),
-      captured_date: daysAgo(200), source_site: '港島南區', region: '港島地域',
+  // ── 場景三：區會清走通告 → 報唔到 = 冇用，要自動清走 ──
+  // 一則仲喺 cache（AAA），一則已經落架（GONE）
+  const mixed = JSON.stringify({
+    'https://drive.google.com/file/d/AAA/view': Date.now(),
+    'https://drive.google.com/file/d/GONE/view': Date.now() - 1000,
+  });
+  dom = boot({ scl_bookmarks_v1: mixed });
+  w = dom.window; d = w.document;
+  await wait(700);
+  ok(/1/.test(bmNav(d).textContent),
+     '已落架嗰則自動清走，側欄剩返 1：' + bmNav(d).textContent.trim());
+  bmNav(d).dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
+  await wait(80);
+  ok(cards(d).length === 1, '收藏夾只剩仲報得到嗰則');
+  ok(!cards(d)[0].querySelector('h3').textContent.includes('GONE'), '死連結唔會出現');
+  ok(d.querySelector('#messages').textContent.includes('自動由收藏移除'), '有講低清走咗幾多則');
+  const after3 = JSON.parse(w.localStorage.getItem('scl_bookmarks_v1'));
+  ok(Object.keys(after3).length === 1 && !('https://drive.google.com/file/d/GONE/view' in after3),
+     'localStorage 已經寫返乾淨（死 key 冇再留低）');
+
+  // ── 場景三之二：舊版快照格式要讀得返（向後兼容）──
+  const legacy = JSON.stringify({
+    'https://drive.google.com/file/d/AAA/view': {
+      title: '舊版存嘅快照', pdf_url: 'https://drive.google.com/file/d/AAA/view',
       saved_at: new Date().toISOString(),
     },
   });
-  dom = boot({ scl_bookmarks_v1: ghost });
+  dom = boot({ scl_bookmarks_v1: legacy });
   w = dom.window; d = w.document;
   await wait(700);
   bmNav(d).dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
   await wait(80);
-  ok(cards(d).length === 1, 'cache 已經冇咗嗰則，收藏夾仍然保留（唔會人間蒸發）');
-  ok(cards(d)[0].classList.contains('bm-gone'), '標示為 bm-gone（原站已移除）');
-  ok(d.querySelector('#messages').textContent.includes('原站已經冇咗'), '有提示話原站已移除');
+  ok(cards(d).length === 1, '舊版快照格式仍然讀得返，收藏唔會走失');
+  ok(cards(d)[0].querySelector('h3').textContent.includes('小童軍聖誕老人村'),
+     '標題以 cache 最新資料為準（唔會顯示舊快照嘅過時標題）');
+
+  // ── 場景三之三：cache 載入失敗唔可以誤刪收藏 ──
+  const domFail = new JSDOM(html, {
+    runScripts: 'dangerously', url: 'https://example.org/',
+    beforeParse(win) {
+      win.fetch = () => Promise.reject(new Error('network down'));
+      win.alert = () => {}; win.confirm = () => true;
+      win.localStorage.setItem('scl_bookmarks_v1', mixed);
+    },
+  });
+  await wait(700);
+  const kept = JSON.parse(domFail.window.localStorage.getItem('scl_bookmarks_v1'));
+  ok(Object.keys(kept).length === 2,
+     'cache 載入失敗時唔會清走任何收藏（網絡問題唔應該炒晒用戶收藏）');
 
   // ── 場景四：localStorage 壞資料唔應該搞爛個站 ──
   dom = boot({ scl_bookmarks_v1: '{{{壞掉嘅JSON' });
