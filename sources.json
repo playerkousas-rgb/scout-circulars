@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.6.20",
+    "version": "5.6.21",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 49,
-    "note": "v5.6.20 (2026-08-13): 港島西區/慈雲山區 WP API 加 3 次重試 + fallback_urls HTML 通告頁；九龍地域取消強迫 Playwright，requests 優先 + selector wait。"
+    "note": "v5.6.21 (2026-08-16): 港島西區/慈雲山區 由 wordpress_api 改為 legacy_html — 該站 /wp-json 被針對性封鎖，但普通 HTML 頁正常（同網域深旺區一直成功為證）。 移除唔會觸發嘅 fallback_urls。"
   },
   "sources": {
     "總會": {
@@ -122,27 +122,26 @@
     },
     "港島西區": {
       "region": "港島地域",
-      "url": "https://group.scout.org.hk/hkw/wp-json/wp/v2/pages?search=circular&orderby=date&order=desc",
-      "type": "wordpress_api",
+      "url": "https://group.scout.org.hk/hkw/circular/",
+      "type": "legacy_html",
       "encoding": "utf-8",
-      "fingerprint_selector": "body",
-      "link_selector": "a[href$=\".pdf\"], a[href*=\"/wp-content/uploads/\"]",
-      "title_selector": "table tr td, a[href]",
+      "fingerprint_selector": "table",
+      "link_selector": "table a[href]",
+      "title_selector": "table tr td, table a",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "使用 WP REST API /pages?search=circular 直接吐 JSON，最準確抓取所有年度通告頁內的 PDF；自動涵蓋 2026、2025... 新年份。比掃 HTML 表格更穩定。 v5.6.20: 第一頁 3 次重試；API 被 Cloudflare 擋時 fallback 直抓 circular2026/ HTML 通告頁。",
+      "notes": "2026-08-16: WP REST API (/wp-json) 被站方針對性封鎖（同網域普通 HTML 正常，只有 wp-json 被擋），改抓穩定嘅年度通告索引頁 /hkw/circular/，再由 follow_listing_pages 自動跟入各年度頁（circular2026/ 等）。索引頁多年冇改過結構，新年度會自動出現，唔使每年手改設定。",
       "use_playwright": false,
-      "wait_strategy": "networkidle",
-      "wait_timeout": 12000,
-      "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
-      "asset_link_selector": "a[href$=\".pdf\"]",
+      "asset_link_selector": "table a[href$=\".pdf\"]",
       "follow_detail_pages": false,
-      "fallback_urls": [
-        "https://group.scout.org.hk/hkw/circular2026/"
-      ]
+      "follow_listing_pages": true,
+      "listing_link_selector": [
+        "table a[href*=\"circular\"]"
+      ],
+      "listing_max_pages": 3
     },
     "柴灣區": {
       "region": "港島地域",
@@ -1044,21 +1043,26 @@
     },
     "慈雲山區": {
       "region": "東九龍地域",
-      "url": "https://group.scout.org.hk/tws/wp-json/wp/v2/posts",
-      "type": "wordpress_api",
+      "url": "https://group.scout.org.hk/tws/",
+      "type": "legacy_html",
       "encoding": "utf-8",
-      "follow_detail_pages": true,
+      "follow_detail_pages": false,
       "use_playwright": false,
-      "fingerprint_selector": "main, article",
-      "link_selector": "a[href*=\"/circular/\"]",
-      "title_selector": "h1, h2, h3, .entry-title",
-      "asset_link_selector": "a[href*=\".pdf\"], a[href*=\"/wp-content/\"]",
-      "detail_max_pages": 30,
-      "detail_link_selector": ".entry-title a[href], article a[href]",
-      "notes": "v5.6.17: WP API 正常 (最新 post 2026-06-08)。加 allow_page_notice_fallback 兜底。 v5.6.20: 第一頁 3 次重試；API 被擋時 fallback 直抓主頁。區會 2026-06-01 起用 group.scout.org.hk/tws（現行 URL 正確）。",
-      "allow_page_notice_fallback": true,
-      "fallback_urls": [
-        "https://group.scout.org.hk/tws/"
+      "fingerprint_selector": "main, article, .site-main",
+      "link_selector": "a[href*=\"/wp-content/uploads/\"]",
+      "asset_link_selector": "a[href$=\".pdf\"]",
+      "notes": "2026-08-16: WP REST API (/wp-json) 被站方針對性封鎖，改抓主頁 HTML。主頁已 server-render 全部 post 內容及 PDF 直連（實測共 2 頁，page/3/ 已無內容）。區會 2026-06-01 起用 group.scout.org.hk/tws（通告 TWS-585-26）。",
+      "follow_listing_pages": true,
+      "listing_page_urls": [
+        "https://group.scout.org.hk/tws/page/2/"
+      ],
+      "listing_max_pages": 2,
+      "exclude_patterns": [
+        "詳情如下",
+        "報名方法",
+        "截止日期",
+        "參加資格",
+        "其他事項"
       ]
     },
     "青衣區": {

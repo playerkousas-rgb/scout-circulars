@@ -1,3 +1,19 @@
+> ## ⚠️ 事後更正（2026-08-16）
+>
+> 本報告下方「v5.6.20 已修復 **港島西區** / **慈雲山區**」嘅結論**與事實不符**，特此更正。
+>
+> - 兩者喺 **8/14、8/15、8/16 三次排程繼續報錯**，`cache.json._meta.last_run.error_sources`
+>   由 8/12 起連續每日都有佢哋，從來冇好過。
+> - 當時判斷嘅根因（「Cloudflare 間歇 403/503」）**推論過闊**。實際上係站方
+>   **針對性封鎖 `/wp-json/` REST API 路徑**：同一個 `group.scout.org.hk` 網域嘅
+>   **深旺區**（`legacy_html`）由頭到尾一日都冇失敗過，證明網域層面通行無阻。
+> - 當時加嘅 `fallback_urls` **實際上救唔到**：`_wp_api_fallback()` 內部行
+>   `fetch_page(fb_url, config)`，而兩個來源 `use_playwright: false`，
+>   即係 API 同 fallback 都用同一種抓法，等於冇 fallback。
+>
+> **真正修復見 v5.6.21（2026-08-16）**：兩個來源改用普通 HTML 頁抓取，
+> 詳情見下方〈v5.6.21〉一節。
+
 # 來源網站健康檢查報告 — 2026-08-13
 
 檢查方法：以平台抓取器逐一訪問 `sources.json` 內全部 49 個來源的主頁/列表頁，
@@ -59,8 +75,8 @@ python check_sources.py 觀塘區 總會  # 只檢查指定來源
 
 | 來源 | 根因 | 修復 |
 |---|---|---|
-| 港島西區 | `wp-json` 被 Cloudflare 間歇 403/503；舊邏輯第一頁非 200 即 `return None` 整站報錯；WP 呼叫用獨立 `requests.get` 無瀏覽器標頭 | ① 第一頁 3 次重試（403/429/5xx/網路異常，backoff 遞增）② 改用 SESSION 完整瀏覽器標頭 ③ 新增 `fallback_urls`：API 徹底失敗時改抓 `circular2026/` HTML 通告頁（已驗證：server-render、11 個 PDF） |
-| 慈雲山區 | 同上（同一套死法） | 同上；fallback 為主頁 `group.scout.org.hk/tws/`（已驗證有全部 post + PDF 直連）。另確認區會 2026-06-01 起已遷此網址（通告 TWS-585-26），現行 API URL 正確 |
+| ~~港島西區~~ ❌ **未修好，見 v5.6.21** | ~~`wp-json` 被 Cloudflare 間歇 403/503~~（判斷有誤：實為站方針對性封鎖 `/wp-json/`，非間歇性） | ~~① 第一頁 3 次重試 ② SESSION 瀏覽器標頭 ③ `fallback_urls`~~ — **重試無效**（唔係間歇問題）；**fallback 亦從未生效**（同樣走 requests，一樣被擋） |
+| ~~慈雲山區~~ ❌ **未修好，見 v5.6.21** | 同上 | 同上。唯一成立嘅結論係：區會 2026-06-01 起已遷至 `group.scout.org.hk/tws`（通告 TWS-585-26），網址本身正確 |
 | 九龍地域 | `use_playwright: true` 跳過 requests 只跑 PW；Elementor analytics 令 `networkidle` 永遠等唔完 → PW 回 `None` 整站 ERROR | HTML 已確認 server-render → `use_playwright: false`（requests 優先，失敗/空白先降級 PW）；PW fallback 嘅 `wait_strategy` 由 `networkidle` 改 `selector(table)` |
 
 ## 第二輪全檢額外發現：Google Drive 連結格式轉變（漏抓，非 ERROR）
@@ -77,7 +93,8 @@ python check_sources.py 觀塘區 總會  # 只檢查指定來源
 - ✅ 正常且有新通告：42 個（包括上述已修復路徑）
 - ✅ 正常、expected_empty：西貢區、離島區、大嶼山區
 - ✅ 正常、內容改由新界東地域 feed 覆蓋：壁峰區
-- 🔧 已修復：觀塘區(http→https)、總會(分頁 29)、港島西區、慈雲山區、九龍地域、深水埗東區、油尖區
+- 🔧 已修復：觀塘區(http→https)、總會(分頁 29)、九龍地域、深水埗東區、油尖區
+- ❌ **當日誤報為已修復、實際仍然失敗**：港島西區、慈雲山區（連續錯到 8/16，見文首更正；已於 v5.6.21 真正修好）
 - ❌ 仍無法連接：無（全部來源本日均成功載入至少一次；九龍塘區首次抓取短暫失敗、重試即正常）
 
 ## 測試
@@ -85,3 +102,76 @@ python check_sources.py 觀塘區 總會  # 只檢查指定來源
 - 模擬測試 5 場景：WP 重試成功 / API 全敗→fallback / 無 fallback 全敗→error / 九龍地域 requests 優先 / 九龍地域空白→PW(selector wait) — 全部通過
 - Drive `open?id=` 正規化 + 去重模擬測試通過
 - `test_enrich.py` 14/14 通過；core.py / enrich.py 編譯通過
+
+> ⚠️ 上述「API 全敗→fallback」一項**測試假設有誤**：當時只模擬咗 `wp-json` 被擋、
+> 而 fallback 頁用另一條路徑成功。真實情況係 requests 層被擋，fallback 走同一條路
+> 亦一樣失敗，所以測試綠燈但線上照樣紅。v5.6.21 嘅
+> `test_group_scout_sources.py` 改為直接驗證最終抽到嘅 PDF 與標題，避免同類盲點。
+
+---
+
+# v5.6.21（2026-08-16）— 港島西區 / 慈雲山區 真正修復
+
+## 根因
+
+站方**針對性封鎖 `/wp-json/` REST API 路徑**，而非整個網域或間歇性抖動。證據：
+
+| 來源 | 網域 | 抓取方式 | 近 24 次 run 報錯 |
+|---|---|---|---|
+| 柴灣區 / 筲箕灣區 / 元朗西區 / 大埔北區 | 各自獨立網域 | `wordpress_api` | **0 次**（全部無 `fallback_urls` 都照常成功） |
+| **深旺區** | **group.scout.org.hk** | `legacy_html` | **0 次** ← 同網域對照組 |
+| **港島西區** | **group.scout.org.hk**/hkw | `wordpress_api` | **5 次** |
+| **慈雲山區** | **group.scout.org.hk**/tws | `wordpress_api` | **5 次** |
+
+即係話：**WP REST API 本身冇問題**（其他 4 個區日日成功），
+**`group.scout.org.hk` 網域亦冇問題**（深旺區日日成功），
+出事嘅係「`group.scout.org.hk` + `/wp-json/`」呢個組合。
+8/16 當日 `playwright_used = 0` 而深旺區出現喺 skipped 名單（＝成功抓到並計到指紋），
+進一步證明 runner 用純 requests 打呢個網域嘅普通 HTML 完全冇問題。
+
+## 修復方式：改抓普通 HTML 頁（唔再靠 fallback）
+
+按「童軍區會多屬義務領袖、網站架構好少改動，一次成功通常可用幾年」嘅實情，
+直接把主路徑換成穩定嘅 HTML 頁，而唔係加多層 fallback：
+
+| 來源 | 新 URL | 做法 |
+|---|---|---|
+| 港島西區 | `https://group.scout.org.hk/hkw/circular/` | 年度**索引頁**（2012–2026 全部年度連結，多年冇改過）。`follow_listing_pages` 自動跟入 `circular2026/` 等年度頁 → **2027 年會自動出現，唔使每年手改設定** |
+| 慈雲山區 | `https://group.scout.org.hk/tws/` | 主頁已 server-render 全部 post 內容及 PDF 直連；實測共 2 頁（`page/3/` 已無內容），設 `listing_page_urls` 抓埋第 2 頁 |
+
+兩者同時：`type` 由 `wordpress_api` → `legacy_html`、移除唔會觸發嘅 `fallback_urls`。
+
+## 額外處理：標題污染
+
+慈雲山區有啲 post（例如 `PT996`）冇獨立標題、連結文字得個編號，
+原本 `title_selector: "h1, h2, h3, .entry-title"` 會令 `infer_listing_title`
+退到「全頁揀頭 5 個標題」，結果**錯抄隔壁 post 嘅標題**。
+移除該來源嘅 `title_selector` 後，改為優先用 PDF anchor 自身文字（正正就係通告名），
+`PT996` 會如實顯示為 `PT996`，唔會扮成第二篇通告。
+
+> 註：一度試過喺 `core.py` 加 `max_title_length` 上限，但實測發現本來源
+> 有合法標題長達 70 字（例如「童軍射擊章(技能組)暨 深資童軍射擊(A-304)訓練班 …」），
+> 加長度上限會誤殺真通告，故**放棄該做法，core.py 維持零改動**。
+
+## 影響範圍
+
+- **只改 `sources.json` 兩個來源**，其餘 47 個來源設定逐項比對確認無變動
+- **`core.py` 完全冇改**（`git diff core.py` 為空）
+- 已清空兩者 `fingerprints.json`，下次排程會強制重掃補回
+- 資料完整性：修復前 cache 內兩區通告仍齊全（港島西區 2026 年 11 條、慈雲山區 5 條），
+  即係「未漏通告，但由 8/12 起已停止更新」，一出新通告就會漏 —— 今次修復正好趕喺漏之前
+
+## 測試
+
+新增 `test_group_scout_sources.py`（離線，唔連外網）：
+
+```bash
+python test_group_scout_sources.py
+```
+
+依實測 DOM 重建假頁面，驗證：抓得到頁面、跟到年度頁/分頁、抽到正確 PDF、
+指紋計得出、標題唔係「下載/Download」、標題唔夾雜內文、無重複 URL、
+`PT996` 唔會錯抄隔壁標題、以及唔會再用 `wordpress_api` / 殘留 `fallback_urls`。
+
+- `test_group_scout_sources.py` 全部通過
+- `test_enrich.py` 14/14 通過；core.py / enrich.py / check_sources.py 編譯通過
