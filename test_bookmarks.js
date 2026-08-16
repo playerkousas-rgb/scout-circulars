@@ -4,8 +4,9 @@
 // 重點驗證「用戶揾唔返」呢個場景：
 //   1. 收藏之後切換時間視窗（今天/7天…），收藏夾仍然睇得返 —— 呢個係功能存在嘅理由
 //   2. 重新載入頁面（localStorage）收藏仲喺度
-//   3. 區會清走通告 = 原檔已 DELETE = 報唔到 = 冇用，收藏要自動清走唔好阻住視線
-//   4. 但 cache 載入失敗時唔可以誤刪 —— 網絡問題唔應該炒晒用戶收藏
+//   3. 區會清走通告之後，收藏唔會人間蒸發，而係標示「原站已移除」，
+//      由用戶自己撳 ★ 取消 —— 系統唔會擅自幫佢刪嘢
+//   4. ★ 收藏分頁掣（同「今天/7天」並排）撳得入、撳得返
 const {JSDOM} = require('jsdom');
 const fs = require('fs');
 
@@ -117,43 +118,92 @@ const cards = (d) => $$(d, '#cards .card');
   ok(cards(d).length === 0, '喺收藏夾撳 ★ 即刻移除');
   ok(d.querySelector('#messages').textContent.includes('仲未收藏'), '空狀態有引導文字');
 
-  // ── 場景三：區會清走通告 → 報唔到 = 冇用，要自動清走 ──
+  // ── 場景三：區會清走通告 → 保留 + 標示，由用戶自己取消 ──
   // 一則仲喺 cache（AAA），一則已經落架（GONE）
   const mixed = JSON.stringify({
-    'https://drive.google.com/file/d/AAA/view': Date.now(),
-    'https://drive.google.com/file/d/GONE/view': Date.now() - 1000,
+    'https://drive.google.com/file/d/AAA/view': {
+      title: '小童軍聖誕老人村派對', pdf_url: 'https://drive.google.com/file/d/AAA/view',
+      source_site: '港島南區', saved_at: new Date().toISOString(),
+    },
+    'https://drive.google.com/file/d/GONE/view': {
+      title: '已被區會清走嘅舊通告', pdf_url: 'https://drive.google.com/file/d/GONE/view',
+      date: daysAgo(200), source_site: '港島南區',
+      saved_at: new Date(Date.now() - 1000).toISOString(),
+    },
   });
   dom = boot({ scl_bookmarks_v1: mixed });
   w = dom.window; d = w.document;
   await wait(700);
-  ok(/1/.test(bmNav(d).textContent),
-     '已落架嗰則自動清走，側欄剩返 1：' + bmNav(d).textContent.trim());
+  ok(/2/.test(bmNav(d).textContent),
+     '已落架嗰則唔會被自動清走，側欄仍然 2：' + bmNav(d).textContent.trim());
   bmNav(d).dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
   await wait(80);
-  ok(cards(d).length === 1, '收藏夾只剩仲報得到嗰則');
-  ok(!cards(d)[0].querySelector('h3').textContent.includes('GONE'), '死連結唔會出現');
-  ok(d.querySelector('#messages').textContent.includes('自動由收藏移除'), '有講低清走咗幾多則');
-  const after3 = JSON.parse(w.localStorage.getItem('scl_bookmarks_v1'));
-  ok(Object.keys(after3).length === 1 && !('https://drive.google.com/file/d/GONE/view' in after3),
-     'localStorage 已經寫返乾淨（死 key 冇再留低）');
+  ok(cards(d).length === 2, '收藏夾兩則都仲喺度');
+  const goneCard = cards(d).find(c => c.classList.contains('bm-gone'));
+  ok(!!goneCard, '已落架嗰張標示為 bm-gone');
+  ok(!!goneCard && goneCard.textContent.includes('原站已移除'), '卡片上明示「原站已移除」');
+  ok(d.querySelector('#messages').textContent.includes('報唔到'), '頂部提示講明報唔到');
+  const stillThere = JSON.parse(w.localStorage.getItem('scl_bookmarks_v1'));
+  ok(Object.keys(stillThere).length === 2, 'localStorage 冇被系統擅自刪嘢');
 
-  // ── 場景三之二：舊版快照格式要讀得返（向後兼容）──
-  const legacy = JSON.stringify({
-    'https://drive.google.com/file/d/AAA/view': {
-      title: '舊版存嘅快照', pdf_url: 'https://drive.google.com/file/d/AAA/view',
-      saved_at: new Date().toISOString(),
-    },
-  });
-  dom = boot({ scl_bookmarks_v1: legacy });
+  // 用戶自己撳 ★ 取消已落架嗰則
+  goneCard.querySelector('.star-btn').dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
+  await wait(80);
+  ok(cards(d).length === 1, '用戶撳 ★ 之後，已落架嗰則先至消失');
+  const afterUserRemove = JSON.parse(w.localStorage.getItem('scl_bookmarks_v1'));
+  ok(!('https://drive.google.com/file/d/GONE/view' in afterUserRemove),
+     '用戶取消之後 localStorage 先至寫返乾淨');
+
+  // ── 場景三之二：「清走已移除」一鍵批次清 ──
+  dom = boot({ scl_bookmarks_v1: mixed });
   w = dom.window; d = w.document;
   await wait(700);
   bmNav(d).dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
   await wait(80);
-  ok(cards(d).length === 1, '舊版快照格式仍然讀得返，收藏唔會走失');
-  ok(cards(d)[0].querySelector('h3').textContent.includes('小童軍聖誕老人村'),
-     '標題以 cache 最新資料為準（唔會顯示舊快照嘅過時標題）');
+  const clearGone = d.querySelector('#bm-clear-gone');
+  ok(!!clearGone, '有「清走已移除」掣：' + (clearGone ? clearGone.textContent.trim() : '冇'));
+  clearGone.dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
+  await wait(80);
+  ok(cards(d).length === 1, '一鍵清走之後只剩仲報得到嗰則');
+  ok(!d.querySelector('#bm-clear-gone'), '冇嘢好清時個掣會消失');
 
-  // ── 場景三之三：cache 載入失敗唔可以誤刪收藏 ──
+  // ── 場景三之三：只存過時間戳嗰版要讀得返（向後兼容）──
+  dom = boot({ scl_bookmarks_v1: JSON.stringify({
+    'https://drive.google.com/file/d/AAA/view': Date.now(),
+  }) });
+  w = dom.window; d = w.document;
+  await wait(700);
+  bmNav(d).dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
+  await wait(80);
+  ok(cards(d).length === 1, '舊版「只存時間戳」格式仍然讀得返，收藏唔會走失');
+  ok(cards(d)[0].querySelector('h3').textContent.includes('小童軍聖誕老人村'),
+     '標題以 cache 最新資料為準');
+
+  // ── 場景四：★ 收藏分頁掣（同「今天/7天」並排）──
+  dom = boot(null);
+  w = dom.window; d = w.document;
+  await wait(700);
+  const bmChip = () => [...d.querySelectorAll('#window-chips .chip')]
+    .find(c => c.textContent.includes('收藏'));
+  ok(!!bmChip(), '時間視窗旁邊有「★ 收藏」分頁掣');
+  ok(bmChip().classList.contains('chip-bm'), '★ 收藏掣有獨立樣式（唔會當成時間範圍）');
+
+  // 收藏一則再撳個 chip
+  cards(d)[0].querySelector('.star-btn').dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
+  await wait(60);
+  ok(/1/.test(bmChip().textContent), '★ 收藏掣顯示數目：' + bmChip().textContent.trim());
+  bmChip().dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
+  await wait(80);
+  ok(bmChip().classList.contains('active'), '撳完 ★ 收藏掣會 active');
+  ok(d.querySelector('#page-title').textContent.includes('收藏'), '標題切到收藏夾');
+  ok([...d.querySelectorAll('#window-chips .chip')].filter(c => c.classList.contains('active')).length === 1,
+     '喺收藏夾時，時間視窗掣唔會同時 active');
+  bmChip().dispatchEvent(new w.MouseEvent('click', {bubbles:true}));
+  await wait(80);
+  ok(!bmChip().classList.contains('active'), '再撳一次返返去一般通告');
+  ok(!d.querySelector('#page-title').textContent.includes('收藏'), '標題切返一般來源');
+
+  // ── 場景五：cache 載入失敗唔可以搞爛收藏 ──
   const domFail = new JSDOM(html, {
     runScripts: 'dangerously', url: 'https://example.org/',
     beforeParse(win) {
