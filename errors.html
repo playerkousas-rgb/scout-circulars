@@ -51,6 +51,22 @@
     ul.compact { margin: 0; padding-left: 18px; }
     ul.compact li { margin: 6px 0; }
     code { background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 8px; font-size: 12px; }
+    /* 新鮮度分欄 */
+    .fresh-cols { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 14px; }
+    .fresh-col { background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 12px;
+                 padding: 12px 8px; text-align: center; cursor: pointer; transition: .15s; }
+    .fresh-col:hover { background: rgba(255,255,255,.08); }
+    .fresh-col.active { border-color: #60a5fa; background: rgba(96,165,250,.14); }
+    .fresh-col .fnum { font-size: 24px; font-weight: 800; }
+    .fresh-col .flabel { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .fresh-col.b-danger .fnum { color: #fca5a5; }
+    .fresh-col.b-warn .fnum { color: #fcd34d; }
+    .fresh-col.b-good .fnum { color: #6ee7b7; }
+    .fresh-bar { display: flex; height: 10px; border-radius: 999px; overflow: hidden;
+                 background: rgba(255,255,255,.06); margin-bottom: 12px; }
+    .fresh-bar span { display: block; height: 100%; }
+    .fresh-caption { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+    @media (max-width: 900px) { .fresh-cols { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 640px) { .app { padding: 16px; } }
   </style>
 </head>
@@ -84,7 +100,12 @@
         <div class="card">
           <h3>長期未更新</h3>
           <div class="num warn" id="stale-count">—</div>
-          <div class="sub">超過 14 日無更新</div>
+          <div class="sub">超過 90 日無更新</div>
+        </div>
+        <div class="card">
+          <h3>疑似抓錯內容</h3>
+          <div class="num danger" id="junk-count">—</div>
+          <div class="sub">標題係 view / 分類目錄等垃圾</div>
         </div>
         <div class="card">
           <h3>enrich 覆蓋率</h3>
@@ -121,9 +142,20 @@
       </section>
 
       <section class="panel">
-        <h2>長期未更新來源 <small>> 14 日</small></h2>
+        <h2>疑似抓錯內容 <small>標題冇真內容 —— 唔會出現喺 error_sources，要靠內容型態捉</small></h2>
+        <table id="junk-table">
+          <thead><tr><th>來源</th><th>垃圾標題數</th><th>比例</th><th>樣本</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2>來源新鮮度 <small>撳任何一欄可篩選；再撳一次還原</small></h2>
+        <div class="fresh-cols" id="fresh-cols"></div>
+        <div class="fresh-bar" id="fresh-bar"></div>
+        <p id="fresh-table-caption" class="fresh-caption">全部來源</p>
         <table id="stale-table">
-          <thead><tr><th>來源</th><th>最後更新</th><th>天數</th><th>通告數</th></tr></thead>
+          <thead><tr><th>來源</th><th>最後更新</th><th>天數</th><th>通告數</th><th>狀態</th></tr></thead>
           <tbody></tbody>
         </table>
       </section>
@@ -212,17 +244,62 @@
       const zeroSources = Object.entries(data).filter(([src, arr]) => !arr.length && !expectedEmpty.has(src));
       document.getElementById('zero-count').textContent = zeroSources.length;
 
-      // Stale sources
-      const stale = [];
+      // ── 靜默失敗偵測（邏輯同 check_stale.py 對齊）──
+      // 門檻 90 日：46 個來源歷來最長靜默 81 日，出通告間隔 90 百分位 37 日 → 零誤報。
+      // 舊版用 14 日，暑假淡季會日日列出 26 個其實正常嘅來源，造成警報疲勞。
+      const STALE_DAYS = 90;
+      const JUNK_TITLES = new Set(['view','preview','edit','open','download','下載','檢視',
+        '開啟','預覽','瀏覽','通告','表格','詳情','查看','more','read more']);
+      const CATEGORY_RE = /^\d+\s*支部通告[-－]|^支部通告[-－].*\(\d+\)$|^區會\(\d+\)$/;
+      // ⚠️ 特意唔當「URL 有 #」為垃圾：將軍澳區通告內容寫喺 HTML，用 notice.php#錨點
+      // 指向該則通告，係正常設計。判斷重點係「標題有冇真內容」，唔係 URL 型態。
+      const isJunkTitle = (t) => {
+        const s = (t || '').trim();
+        if (!s) return true;
+        if (JUNK_TITLES.has(s.toLowerCase())) return true;
+        if (CATEGORY_RE.test(s)) return true;
+        if (/^\d{1,4}$/.test(s)) return true;
+        return false;
+      };
+
+      const BUCKETS = ['今天','7 天內','14 天內','1 個月內','3 個月內','超過 3 個月'];
+      const bucketOf = (days) => {
+        if (days === null) return '超過 3 個月';
+        if (days <= 0) return '今天';
+        if (days <= 7) return '7 天內';
+        if (days <= 14) return '14 天內';
+        if (days <= 30) return '1 個月內';
+        if (days <= 90) return '3 個月內';
+        return '超過 3 個月';
+      };
+
+      const stale = [], junk = [], freshRows = [];
+      const freshness = Object.fromEntries(BUCKETS.map(b => [b, 0]));
       for (const [src, arr] of Object.entries(data)) {
+        if (expectedEmpty.has(src)) continue;   // expected_empty 完全跳過
         if (!arr.length) continue;
         const latest = arr.map(it => it.captured_date || it.date || '').sort().pop();
         const d = parseDate(latest);
-        const days = d ? Math.floor((today - d) / (1000*60*60*24)) : 999;
-        if (days > 14) stale.push({ source: src, latest, days, count: arr.length });
+        const days = d ? Math.floor((today - d) / (1000*60*60*24)) : null;
+        const bucket = bucketOf(days);
+
+        const junkItems = arr.filter(it => isJunkTitle(it.title));
+        const ratio = junkItems.length / arr.length;
+        const suspicious = junkItems.length > 0 && (ratio >= 0.5 || arr.length <= 3);
+        if (suspicious) {
+          junk.push({ source: src, count: junkItems.length, total: arr.length, ratio,
+                      samples: junkItems.slice(0,3).map(it => it.title) });
+        }
+        if (days === null || days > STALE_DAYS) {
+          stale.push({ source: src, latest, days: days === null ? 999 : days, count: arr.length });
+        }
+        freshness[bucket] += 1;
+        freshRows.push({ source: src, latest: latest || '—', days, count: arr.length, bucket, suspicious });
       }
       stale.sort((a,b) => b.days - a.days);
+      freshRows.sort((a,b) => (b.days ?? 9999) - (a.days ?? 9999));
       document.getElementById('stale-count').textContent = stale.length;
+      document.getElementById('junk-count').textContent = junk.length;
 
       // Enrich coverage
       const totalNotices = cache.meta?.total_notices || Object.values(data).reduce((a,b)=>a+b.length,0);
@@ -279,15 +356,72 @@
         expectedEmptyEl.innerHTML = '';
       }
 
-      // Stale table
-      const staleBody = document.querySelector('#stale-table tbody');
-      if (!stale.length) {
-        staleBody.innerHTML = '<tr><td colspan="4">沒有長期未更新來源</td></tr>';
+      // 疑似抓錯內容
+      const junkBody = document.querySelector('#junk-table tbody');
+      if (!junk.length) {
+        junkBody.innerHTML = '<tr><td colspan="4">沒有疑似抓錯內容嘅來源</td></tr>';
       } else {
-        staleBody.innerHTML = stale.slice(0,50).map(s =>
-          `<tr><td>${escapeHtml(s.source)}</td><td>${escapeHtml(s.latest)}</td><td>${s.days}</td><td>${s.count}</td></tr>`
+        junkBody.innerHTML = junk.map(j =>
+          `<tr><td>${escapeHtml(j.source)}</td><td>${j.count}/${j.total}</td>` +
+          `<td>${Math.round(j.ratio*100)}%</td>` +
+          `<td>${escapeHtml(j.samples.join('、'))}</td></tr>`
         ).join('');
       }
+
+      // 新鮮度分欄 + 比例橫條
+      const BUCKET_CLASS = { '今天':'b-good', '7 天內':'b-good', '14 天內':'b-good',
+        '1 個月內':'b-warn', '3 個月內':'b-warn', '超過 3 個月':'b-danger' };
+      const BUCKET_COLOR = { '今天':'#34d399', '7 天內':'#6ee7b7', '14 天內':'#a7f3d0',
+        '1 個月內':'#fcd34d', '3 個月內':'#f59e0b', '超過 3 個月':'#ef4444' };
+      const colsEl = document.getElementById('fresh-cols');
+      colsEl.innerHTML = BUCKETS.map(b =>
+        `<div class="fresh-col ${BUCKET_CLASS[b]}" data-bucket="${escapeHtml(b)}">` +
+        `<div class="fnum">${freshness[b]}</div><div class="flabel">${escapeHtml(b)}</div></div>`
+      ).join('');
+      const totalFresh = freshRows.length || 1;
+      document.getElementById('fresh-bar').innerHTML = BUCKETS.map(b =>
+        freshness[b] ? `<span style="width:${(freshness[b]/totalFresh*100).toFixed(2)}%;background:${BUCKET_COLOR[b]}"></span>` : ''
+      ).join('');
+
+      const staleBody = document.querySelector('#stale-table tbody');
+      const caption = document.getElementById('fresh-table-caption');
+      const renderRows = (filter) => {
+        const rows = filter ? freshRows.filter(r => r.bucket === filter) : freshRows;
+        caption.textContent = filter
+          ? `篩選：${filter}（${rows.length} 個來源）`
+          : `全部來源（${freshRows.length} 個，已排除 expected_empty）`;
+        if (!rows.length) {
+          staleBody.innerHTML = '<tr><td colspan="5">沒有符合嘅來源</td></tr>';
+          return;
+        }
+        staleBody.innerHTML = rows.map(r => {
+          let status;
+          if (r.suspicious) status = '<span class="tag danger">疑似抓錯</span>';
+          else if (r.bucket === '超過 3 個月') status = '<span class="tag danger">長期未更新</span>';
+          else if (r.bucket === '3 個月內') status = '<span class="tag warn">淡季靜止</span>';
+          else status = '<span class="tag good">正常</span>';
+          return `<tr><td>${escapeHtml(r.source)}</td><td>${escapeHtml(r.latest)}</td>` +
+                 `<td>${r.days === null ? '—' : r.days}</td><td>${r.count}</td><td>${status}</td></tr>`;
+        }).join('');
+      };
+      renderRows(null);
+
+      let activeBucket = null;
+      colsEl.querySelectorAll('.fresh-col').forEach(col => {
+        col.addEventListener('click', () => {
+          const b = col.dataset.bucket;
+          if (activeBucket === b) {          // 再撳一次還原
+            activeBucket = null;
+            col.classList.remove('active');
+            renderRows(null);
+          } else {
+            activeBucket = b;
+            colsEl.querySelectorAll('.fresh-col').forEach(c => c.classList.remove('active'));
+            col.classList.add('active');
+            renderRows(b);
+          }
+        });
+      });
 
       // Enrich errors
       const eeBody = document.querySelector('#enrich-error-table tbody');
