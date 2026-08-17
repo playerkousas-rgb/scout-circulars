@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-17 06:36:01",
+  "last_updated": "2026-08-18 06:39:35",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4521,
+    "total_notices": 4523,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -23696,7 +23696,25 @@
     ],
     "九龍塘區": [
       {
-        "title": "22-09-2026<",
+        "title": "2026-27年度小童軍支部第一次領袖會議",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf",
+        "date": "2026-08-18",
+        "captured_date": "2026-08-18",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "2026-2027年度童軍支部領袖第一次會議",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-07S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-07S.pdf",
+        "date": "2026-08-18",
+        "captured_date": "2026-08-18",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍消防章訓練班",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
         "date": "2026-07-27",
@@ -40794,6 +40812,20 @@
   },
   "notices": [
     {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf",
+      "title": "2026-27年度小童軍支部第一次領袖會議",
+      "captured_date": "2026-08-18"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-07S.pdf",
+      "title": "2026-2027年度童軍支部領袖第一次會議",
+      "captured_date": "2026-08-18"
+    },
+    {
       "source_site": "觀塘區",
       "region": "東九龍地域",
       "pdf_url": "https://hkscout-ktd.org/ktdweb/index.php/event-and-program/file/21-21.html",
@@ -42848,7 +42880,7 @@
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
-      "title": "22-09-2026<",
+      "title": "童軍消防章訓練班",
       "captured_date": "2026-07-27"
     },
     {
@@ -72565,29 +72597,30 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-17 06:36:01",
-      "new": 3,
-      "updated": 104,
-      "skipped": 43,
+      "updated_at": "2026-08-18 06:39:35",
+      "new": 2,
+      "updated": 345,
+      "skipped": 46,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
         "總會",
         "港島地域",
         "灣仔區",
+        "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
         "港島北區",
-        "九龍地域",
         "紅磡區",
         "何文田區",
         "九龍城區",
-        "九龍塘區",
+        "旺角區",
         "深旺區",
         "深水埗東區",
+        "深水埗西區",
         "油尖區",
         "東九龍地域",
         "西貢區 (expected_empty)",
@@ -72595,6 +72628,7 @@
         "九龍灣區",
         "秀茂坪區",
         "將軍澳區",
+        "觀塘區",
         "鯉魚門區",
         "新界地域",
         "元朗東區",
@@ -72615,6 +72649,7 @@
         "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",
+        "慈雲山區",
         "青衣區"
       ]
     }

@@ -43514,5 +43514,27 @@
     "error": "",
     "enriched_at": "2026-08-17 06:40:58",
     "enrich_version": "2.4"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf": {
+    "source": "九龍塘區",
+    "title": "2026-27年度小童軍支部第一次領袖會議",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-18 06:44:18",
+    "enrich_version": "2.4"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-07S.pdf": {
+    "source": "九龍塘區",
+    "title": "2026-2027年度童軍支部領袖第一次會議",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-18 06:44:24",
+    "enrich_version": "2.4"
   }
 }
