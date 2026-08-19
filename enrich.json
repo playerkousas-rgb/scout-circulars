@@ -43536,5 +43536,16 @@
     "error": "",
     "enriched_at": "2026-08-18 06:44:24",
     "enrich_version": "2.4"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-09V.pdf": {
+    "source": "九龍塘區",
+    "title": "дёӢијү",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-20 06:45:04",
+    "enrich_version": "2.4"
   }
 }
