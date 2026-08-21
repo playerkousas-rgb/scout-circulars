@@ -43547,5 +43547,27 @@
     "error": "",
     "enriched_at": "2026-08-20 06:45:04",
     "enrich_version": "2.4"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-10C.pdf": {
+    "source": "九龍塘區",
+    "title": "22026-2027年度幼童軍支部領袖第一次會議",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-22 06:44:55",
+    "enrich_version": "2.4"
+  },
+  "https://www.tmescout.org.hk/file/notice/TME_P_26_05.pdf": {
+    "source": "屯門東區",
+    "title": "「2026立划板同樂日」通告",
+    "deadline": "2026-09-16",
+    "audience": "領袖",
+    "fee": "HK$180",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-22 06:45:00",
+    "enrich_version": "2.4"
   }
 }

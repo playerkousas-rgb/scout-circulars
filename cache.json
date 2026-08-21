@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-21 06:44:06",
+  "last_updated": "2026-08-22 06:39:53",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4525,
+    "total_notices": 4527,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -23696,7 +23696,16 @@
     ],
     "九龍塘區": [
       {
-        "title": "дёӢијү",
+        "title": "22026-2027年度幼童軍支部領袖第一次會議",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-10C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-10C.pdf",
+        "date": "2026-08-22",
+        "captured_date": "2026-08-22",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "樂行/深童",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-09V.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-09V.pdf",
         "date": "2026-08-20",
@@ -23714,7 +23723,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2026-27年度小童軍支部第一次領袖會議",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf",
         "date": "2026-08-18",
@@ -23723,7 +23732,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2026-2027年度童軍支部領袖第一次會議",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-07S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-07S.pdf",
         "date": "2026-08-18",
@@ -23732,7 +23741,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "童軍消防章訓練班",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
         "date": "2026-07-27",
@@ -23741,7 +23750,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "幼童軍金紫荊獎章考驗營 2026-接納通知書",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01CA.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01CA.pdf",
         "date": "2026-07-21",
@@ -23750,7 +23759,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區第50屆區務委員會就職典禮暨64周年餐舞會-童軍服務",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-05D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-05D.pdf",
         "date": "2026-07-21",
@@ -23759,11 +23768,839 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "深資童軍消防訓練班",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03V.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03V.pdf",
         "date": "2026-07-10",
         "captured_date": "2026-07-10",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "馬來西亞霹靂州交流團2025備忘",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "馬來西亞霹靂州交流團2025",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "香港童軍總會九龍塘區第四十八屆區務委員會就職典禮暨六十二周年餐舞會-童軍服務",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-08D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-08D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "香港童軍總會九龍塘區第四十七屆區務委員會就職典禮暨六十一周年餐舞會–童軍服務",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-07D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-07D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "香港童軍115周年國際賽船大會童軍服務",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-02D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-02D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "航空領航章(技能組)訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "航空 領航章 (技能組) 訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "聖約翰救傷隊 基本急救證書課程 (BFA) - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "聖約翰救傷隊 基本急救證書課程 (BFA)",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "精神健康急救(關懷青少年) 證書課程 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21DA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21DA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "精神健康急救(關懷青少年) 證書課程",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "第556屆童軍領導才訓練班- 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "第556屆 童軍領導才訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "第49屆區務委員會就職典禮暨63周年餐舞會-童軍服務",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-07D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-07D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍露營章 (技能組) 訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍露營章 (技能組) 訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍露營章 (技能組) 訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍消防訓練班 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍消防訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍武術小組(2024-2025年度)修訂版",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-10D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-10D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍武術小組(2023-2024年度)",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-20D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-20D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍武術小組(2023-2024年度)",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-08D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-08D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍支部領袖會議",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-28S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-28S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍支部領袖會議",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-14S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-14S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍支部領袖會議",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-23S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-23S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍支部領袖會議",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-10S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-10S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍愛心聯誼活動2026",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-23D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-23D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍愛心聯誼活動2025",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-26AD.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-26AD.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍愛心聯誼活動2024",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-24AD.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-24AD.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍專章考驗日-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍專章考驗日",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍地圖繪製章 (技能組) 訓練班 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍地圖繪製章 (技能組) 訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍初級航空活動章-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍初級航空活動章 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍共融章訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍共融章訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "立划板一 、 二段章訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-06V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-06V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "皮藝工作坊 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14DA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14DA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "癸卯年團年飯",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-19D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-19D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "留守長者關注計劃 - 長幼運動會",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-07C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-07C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "甲辰年團年飯",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-20D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-20D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "營火 BBQ - 2024",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-17D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-17D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "游泳測試考驗-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "游泳測試考驗 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-05VA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-05VA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "游泳測試考驗 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "游泳測試考驗",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG24-05V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG24-05V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程訓練班暨先鋒工程(實踐)考驗-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26VA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26VA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍絲網印刷班",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-15V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-15V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍皮革班 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12VA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12VA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍皮革班",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍消防訓練班 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG23-30VA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG23-30VA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍消防訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-30V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-30V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍會議程序研習班 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23VA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23VA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍會議程序研習班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍會議程序研習班",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍數碼攝影班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05VA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05VA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍數碼攝影班",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資 KLG/23-11/V 樂行及深資童軍支部領袖會議 下載",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-11V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-11V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深童軍支部領袖會議",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-15V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-15V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "樹木護理章訓練班 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04SA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04SA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "樂行及深資童軍支部領袖會議",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-27G.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-27G.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "樂行/深資",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-25V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-25V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "樂行/深資",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-30V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-30V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "樂行/深資",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-26V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-26V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "樂行/深童",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-10V.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-10V.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊考驗營班 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊考驗營-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊考驗營",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊考驗營",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊考驗營",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章考驗營 2023-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-01CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-01CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍水手章訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍水上安全章訓練班暨小航海家計劃 - 活動取消",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA2a.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA2a.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍水上安全章訓練班暨小航海家計劃 - 接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍水上安全章訓練班暨小航海家計劃",
+        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍水上安全章訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍水上安全章訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍歷史章訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍歷史章訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍攝影章訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍攝影章訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍公園定向訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13CA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13CA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍公園定向訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13C.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13C.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "小童軍復活節填色比賽-附件",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22GA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22GA.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "小童軍復活節填色比賽-成績公佈",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22AG.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22AG.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "小童軍復活節填色比賽",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22G.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22G.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "小童軍「2024 聖誕卡」填色比賽",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-19G.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-19G.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "同行未來—香港童軍大露營",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-12D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-12D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "初級航空活動章訓練班",
+        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24S.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24S.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "保留成員計劃-2025幼童軍澳門文化交流營",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-03D.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-03D.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "九龍塘區田徑賽 2026 - 比賽章程",
+        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D-info.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D-info.pdf",
+        "date": "2026-05-24",
+        "captured_date": "2026-05-24",
         "source_site": "九龍塘區",
         "region": "九龍地域"
       },
@@ -23777,835 +24614,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-08D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-08D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-07D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-07D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-02D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-02D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21DA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21DA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-07D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-07D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-10D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-10D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-20D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-20D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-08D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-08D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-28S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-28S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-14S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-14S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-23S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-23S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-10S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-10S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-23D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-23D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-26AD.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-26AD.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-24AD.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-24AD.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-06V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-06V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14DA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14DA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-19D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-19D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-07C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-07C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-20D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-20D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-17D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-17D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-05VA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-05VA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG24-05V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG24-05V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26VA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26VA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-15V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-15V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12VA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12VA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG23-30VA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG23-30VA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-30V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-30V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23VA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23VA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05VA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05VA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-11V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-11V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-15V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-15V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04SA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04SA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-27G.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-27G.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-25V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-25V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-30V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-30V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-26V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-26V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-10V.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-10V.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-01CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-01CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA2a.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA2a.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13CA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13CA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13C.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13C.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22GA.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22GA.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22AG.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22AG.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22G.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22G.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-19G.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-19G.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-12D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-12D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24S.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24S.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-03D.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-03D.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
-        "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D-info.pdf",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D-info.pdf",
-        "date": "2026-05-24",
-        "captured_date": "2026-05-24",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "дёӢијү",
+        "title": "九龍塘區田徑賽 2026",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D.pdf",
         "date": "2026-05-24",
@@ -24614,7 +24623,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區海外活動 – 台北交流團2024 - 更新",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG24-01aD.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG24-01aD.pdf",
         "date": "2026-05-24",
@@ -24623,7 +24632,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區海外活動 – 台北交流團2024",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-01D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-01D.pdf",
         "date": "2026-05-24",
@@ -24632,7 +24641,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區本地一天遊2025",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-12D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-12D.pdf",
         "date": "2026-05-24",
@@ -24641,7 +24650,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區年報徵稿",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-29D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-29D.pdf",
         "date": "2026-05-24",
@@ -24650,7 +24659,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區-皮藝工作坊-接納通知書",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-06DA.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-06DA.pdf",
         "date": "2026-05-24",
@@ -24659,7 +24668,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區-皮藝工作坊",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-06D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-06D.pdf",
         "date": "2026-05-24",
@@ -24668,7 +24677,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍塘區-皮藝工作坊",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-29D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-29D.pdf",
         "date": "2026-05-24",
@@ -24677,7 +24686,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍地域關愛社區童樂日-活動啟動禮及同樂日 暨 網上參與啟動儀式",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-18D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-18D.pdf",
         "date": "2026-05-24",
@@ -24686,7 +24695,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "九龍地域社區服務日2026–迎春關懷聚社區",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-19D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-19D.pdf",
         "date": "2026-05-24",
@@ -24695,7 +24704,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "乙巳年團年飯",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-17D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-17D.pdf",
         "date": "2026-05-24",
@@ -24704,7 +24713,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "主席盾童軍技能比賽-成績公怖",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-25SR.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-25SR.pdf",
         "date": "2026-05-24",
@@ -24713,7 +24722,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "主席盾童軍技能比賽",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-25S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-25S.pdf",
         "date": "2026-05-24",
@@ -24722,7 +24731,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "「2025 聖誕卡」填色比賽",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-14G.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-14G.pdf",
         "date": "2026-05-24",
@@ -24731,7 +24740,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "SOUL Keeper 精神健康守護者課程 (Level 1)暨童軍精神健康專章(服務組)訓練班",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-04S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-04S.pdf",
         "date": "2026-05-24",
@@ -24740,7 +24749,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "S 童軍露營章(技能組)訓練班 - 接納通知書 下載",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06SA.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06SA.pdf",
         "date": "2026-05-24",
@@ -24749,7 +24758,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "D/td> 10-11-2023 九龍塘區本地遊活動 –童遊沙頭角 下載",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-16D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-16D.pdf",
         "date": "2026-05-24",
@@ -24758,7 +24767,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "D 30-11-2023 九龍塘區-皮藝工作坊 下載",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14D.pdf",
         "date": "2026-05-24",
@@ -24767,7 +24776,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "D 21-10-2023 童軍武術小組「親子武術同樂日2023」 下載",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-13D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-13D.pdf",
         "date": "2026-05-24",
@@ -24776,7 +24785,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "25-03-2026<",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26V.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26V.pdf",
         "date": "2026-05-24",
@@ -24785,7 +24794,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "23-03-2026<",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-24C.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-24C.pdf",
         "date": "2026-05-24",
@@ -24794,7 +24803,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "22-04-2024<",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03C.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03C.pdf",
         "date": "2026-05-24",
@@ -24803,7 +24812,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2025–2026年度區會年報",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-27D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-27D.pdf",
         "date": "2026-05-24",
@@ -24812,7 +24821,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2025-26年度小童軍支部第二次領袖會議",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-29G.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-29G.pdf",
         "date": "2026-05-24",
@@ -24821,7 +24830,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2025-26 年度小童軍支部第一次領袖會議",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-08G.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-08G.pdf",
         "date": "2026-05-24",
@@ -24830,7 +24839,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2025-2026年度童軍支部領袖第二次會議",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-28S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-28S.pdf",
         "date": "2026-05-24",
@@ -24839,7 +24848,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2025-2026年度童軍支部領袖第一次會議",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-11S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-11S.pdf",
         "date": "2026-05-24",
@@ -24848,7 +24857,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2025 - 2026 年度幼童軍支部領袖第一次會議",
         "url": "https://www.scout-kowloontong.org/notice/2025/KLG25-09C.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-09C.pdf",
         "date": "2026-05-24",
@@ -24857,7 +24866,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2024-25年度小童軍支部第二次領袖會議",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-32G.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-32G.pdf",
         "date": "2026-05-24",
@@ -24866,7 +24875,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2024-25 年度幼童軍支部領袖第二次會議",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-27C.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-27C.pdf",
         "date": "2026-05-24",
@@ -24875,7 +24884,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2024-25 年度幼童軍支部領袖第一次會議",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-13C.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-13C.pdf",
         "date": "2026-05-24",
@@ -24884,7 +24893,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2024 – 2025 年度 區會年報",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-33D.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-33D.pdf",
         "date": "2026-05-24",
@@ -24893,7 +24902,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "2023-24 年度幼童軍支部領袖第一次會議",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-25C.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-25C.pdf",
         "date": "2026-05-24",
@@ -24902,7 +24911,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "20-04-2024<",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28C.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28C.pdf",
         "date": "2026-05-24",
@@ -24911,7 +24920,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "16-10-2023<",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23_17G.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23_17G.pdf",
         "date": "2026-05-24",
@@ -24920,7 +24929,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "09-05-2024<",
         "url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04S.pdf",
         "date": "2026-05-24",
@@ -24929,7 +24938,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "08-10-2023<",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15S.pdf",
         "date": "2026-05-24",
@@ -24938,7 +24947,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "дёӢијү",
+        "title": "05-07-2023/td> 游泳測試考驗 下載",
         "url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02S.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02S.pdf",
         "date": "2026-05-24",
@@ -32527,6 +32536,15 @@
       }
     ],
     "屯門東區": [
+      {
+        "title": "「2026立划板同樂日」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_05.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_05.pdf",
+        "date": "2026-08-22",
+        "captured_date": "2026-08-22",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
       {
         "title": "「深資童軍聯合集會(一):咖啡探索工作坊暨「童行邊城遊鳳凰」交流團分享會」通告",
         "url": "https://www.tmescout.org.hk/file/notice/TME_V_26_01.pdf",
@@ -40830,10 +40848,24 @@
   },
   "notices": [
     {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_P_26_05.pdf",
+      "title": "「2026立划板同樂日」通告",
+      "captured_date": "2026-08-22"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-10C.pdf",
+      "title": "22026-2027年度幼童軍支部領袖第一次會議",
+      "captured_date": "2026-08-22"
+    },
+    {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-09V.pdf",
-      "title": "дёӢијү",
+      "title": "樂行/深童",
       "captured_date": "2026-08-20"
     },
     {
@@ -40847,14 +40879,14 @@
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf",
-      "title": "дёӢијү",
+      "title": "2026-27年度小童軍支部第一次領袖會議",
       "captured_date": "2026-08-18"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-07S.pdf",
-      "title": "дёӢијү",
+      "title": "2026-2027年度童軍支部領袖第一次會議",
       "captured_date": "2026-08-18"
     },
     {
@@ -42912,7 +42944,7 @@
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06S.pdf",
-      "title": "дёӢијү",
+      "title": "童軍消防章訓練班",
       "captured_date": "2026-07-27"
     },
     {
@@ -43101,14 +43133,14 @@
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01CA.pdf",
-      "title": "дёӢијү",
+      "title": "幼童軍金紫荊獎章考驗營 2026-接納通知書",
       "captured_date": "2026-07-21"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-05D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區第50屆區務委員會就職典禮暨64周年餐舞會-童軍服務",
       "captured_date": "2026-07-21"
     },
     {
@@ -43206,7 +43238,7 @@
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03V.pdf",
-      "title": "дёӢијү",
+      "title": "深資童軍消防訓練班",
       "captured_date": "2026-07-10"
     },
     {
@@ -51038,6 +51070,650 @@
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
+      "title": "馬來西亞霹靂州交流團2025備忘",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01D.pdf",
+      "title": "馬來西亞霹靂州交流團2025",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-08D.pdf",
+      "title": "香港童軍總會九龍塘區第四十八屆區務委員會就職典禮暨六十二周年餐舞會-童軍服務",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-07D.pdf",
+      "title": "香港童軍總會九龍塘區第四十七屆區務委員會就職典禮暨六十一周年餐舞會–童軍服務",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-02D.pdf",
+      "title": "香港童軍115周年國際賽船大會童軍服務",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20SA.pdf",
+      "title": "航空領航章(技能組)訓練班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20S.pdf",
+      "title": "航空 領航章 (技能組) 訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21SA.pdf",
+      "title": "聖約翰救傷隊 基本急救證書課程 (BFA) - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21S.pdf",
+      "title": "聖約翰救傷隊 基本急救證書課程 (BFA)",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21DA.pdf",
+      "title": "精神健康急救(關懷青少年) 證書課程 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21D.pdf",
+      "title": "精神健康急救(關懷青少年) 證書課程",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11SA.pdf",
+      "title": "第556屆童軍領導才訓練班- 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11S.pdf",
+      "title": "第556屆 童軍領導才訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-07D.pdf",
+      "title": "第49屆區務委員會就職典禮暨63周年餐舞會-童軍服務",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16SA.pdf",
+      "title": "童軍露營章 (技能組) 訓練班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16S.pdf",
+      "title": "童軍露營章 (技能組) 訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06S.pdf",
+      "title": "童軍露營章 (技能組) 訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22SA.pdf",
+      "title": "童軍消防訓練班 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22S.pdf",
+      "title": "童軍消防訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-10D.pdf",
+      "title": "童軍武術小組(2024-2025年度)修訂版",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-20D.pdf",
+      "title": "童軍武術小組(2023-2024年度)",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-08D.pdf",
+      "title": "童軍武術小組(2023-2024年度)",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-28S.pdf",
+      "title": "童軍支部領袖會議",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-14S.pdf",
+      "title": "童軍支部領袖會議",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-23S.pdf",
+      "title": "童軍支部領袖會議",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-10S.pdf",
+      "title": "童軍支部領袖會議",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-23D.pdf",
+      "title": "童軍愛心聯誼活動2026",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-26AD.pdf",
+      "title": "童軍愛心聯誼活動2025",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-24AD.pdf",
+      "title": "童軍愛心聯誼活動2024",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34SA.pdf",
+      "title": "童軍專章考驗日-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34S.pdf",
+      "title": "童軍專章考驗日",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18SA.pdf",
+      "title": "童軍地圖繪製章 (技能組) 訓練班 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18S.pdf",
+      "title": "童軍地圖繪製章 (技能組) 訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24SA.pdf",
+      "title": "童軍初級航空活動章-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15SA.pdf",
+      "title": "童軍初級航空活動章 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03SA.pdf",
+      "title": "童軍共融章訓練班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03S.pdf",
+      "title": "童軍共融章訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-06V.pdf",
+      "title": "立划板一 、 二段章訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14DA.pdf",
+      "title": "皮藝工作坊 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-19D.pdf",
+      "title": "癸卯年團年飯",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-07C.pdf",
+      "title": "留守長者關注計劃 - 長幼運動會",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-20D.pdf",
+      "title": "甲辰年團年飯",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-17D.pdf",
+      "title": "營火 BBQ - 2024",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02SA.pdf",
+      "title": "游泳測試考驗-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-05VA.pdf",
+      "title": "游泳測試考驗 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28CA.pdf",
+      "title": "游泳測試考驗 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG24-05V.pdf",
+      "title": "游泳測試考驗",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26VA.pdf",
+      "title": "深資童軍繩結及先鋒工程訓練班暨先鋒工程(實踐)考驗-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-15V.pdf",
+      "title": "深資童軍絲網印刷班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12VA.pdf",
+      "title": "深資童軍皮革班 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12V.pdf",
+      "title": "深資童軍皮革班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG23-30VA.pdf",
+      "title": "深資童軍消防訓練班 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-30V.pdf",
+      "title": "深資童軍消防訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23VA.pdf",
+      "title": "深資童軍會議程序研習班 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf",
+      "title": "深資童軍會議程序研習班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf",
+      "title": "深資童軍會議程序研習班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05VA.pdf",
+      "title": "深資童軍數碼攝影班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05V.pdf",
+      "title": "深資童軍數碼攝影班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-11V.pdf",
+      "title": "深資 KLG/23-11/V 樂行及深資童軍支部領袖會議 下載",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-15V.pdf",
+      "title": "深童軍支部領袖會議",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04SA.pdf",
+      "title": "樹木護理章訓練班 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-27G.pdf",
+      "title": "樂行及深資童軍支部領袖會議",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-25V.pdf",
+      "title": "樂行/深資",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-30V.pdf",
+      "title": "樂行/深資",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-26V.pdf",
+      "title": "樂行/深資",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-10V.pdf",
+      "title": "樂行/深童",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02CA.pdf",
+      "title": "幼童軍金紫荊考驗營班 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02CA.pdf",
+      "title": "幼童軍金紫荊考驗營-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01C.pdf",
+      "title": "幼童軍金紫荊考驗營",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02C.pdf",
+      "title": "幼童軍金紫荊考驗營",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02C.pdf",
+      "title": "幼童軍金紫荊考驗營",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-01CA.pdf",
+      "title": "幼童軍金紫荊獎章考驗營 2023-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03CA.pdf",
+      "title": "幼童軍水手章訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA2a.pdf",
+      "title": "幼童軍水上安全章訓練班暨小航海家計劃 - 活動取消",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA.pdf",
+      "title": "幼童軍水上安全章訓練班暨小航海家計劃 - 接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09C.pdf",
+      "title": "幼童軍水上安全章訓練班暨小航海家計劃",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31CA.pdf",
+      "title": "幼童軍水上安全章訓練班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31C.pdf",
+      "title": "幼童軍水上安全章訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22CA.pdf",
+      "title": "幼童軍歷史章訓練班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22C.pdf",
+      "title": "幼童軍歷史章訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21CA.pdf",
+      "title": "幼童軍攝影章訓練班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21C.pdf",
+      "title": "幼童軍攝影章訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13CA.pdf",
+      "title": "幼童軍公園定向訓練班-接納通知書",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13C.pdf",
+      "title": "幼童軍公園定向訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22GA.pdf",
+      "title": "小童軍復活節填色比賽-附件",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22AG.pdf",
+      "title": "小童軍復活節填色比賽-成績公佈",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22G.pdf",
+      "title": "小童軍復活節填色比賽",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-19G.pdf",
+      "title": "小童軍「2024 聖誕卡」填色比賽",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-12D.pdf",
+      "title": "同行未來—香港童軍大露營",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24S.pdf",
+      "title": "初級航空活動章訓練班",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-03D.pdf",
+      "title": "保留成員計劃-2025幼童軍澳門文化交流營",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D-info.pdf",
+      "title": "九龍塘區田徑賽 2026 - 比賽章程",
+      "captured_date": "2026-05-24"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/九龍塘區田徑賽_參賽名單表格_九龍第xxxx旅.xlsx",
       "title": "九龍塘區田徑賽 2026 - 參賽名單表格",
       "captured_date": "2026-05-24"
@@ -51045,911 +51721,267 @@
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01DM.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-01D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-08D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-07D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-02D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-20S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-21S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21DA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-21D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-11S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-07D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-16S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-22S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-10D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-20D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-08D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-28S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-14S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-23S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-10S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-23D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-26AD.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-24AD.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-34S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-18S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-03S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-06V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14DA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-19D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-07C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-20D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-17D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-05VA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG24-05V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26VA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-15V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12VA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-12V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG23-30VA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-30V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23VA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05VA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-05V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-11V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-15V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04SA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-27G.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-25V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-30V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-26V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-10V.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-01C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-02C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-02C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-01CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA2a.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-09C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-31C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-22C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-21C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13CA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-13C.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22GA.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22AG.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-22G.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-19G.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-12D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-24S.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-03D.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D-info.pdf",
-      "title": "дёӢијү",
-      "captured_date": "2026-05-24"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-18D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區田徑賽 2026",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG24-01aD.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區海外活動 – 台北交流團2024 - 更新",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-01D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區海外活動 – 台北交流團2024",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-12D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區本地一天遊2025",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-29D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區年報徵稿",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-06DA.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區-皮藝工作坊-接納通知書",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-06D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區-皮藝工作坊",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-29D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍塘區-皮藝工作坊",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-18D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍地域關愛社區童樂日-活動啟動禮及同樂日 暨 網上參與啟動儀式",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-19D.pdf",
-      "title": "дёӢијү",
+      "title": "九龍地域社區服務日2026–迎春關懷聚社區",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-17D.pdf",
-      "title": "дёӢијү",
+      "title": "乙巳年團年飯",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-25SR.pdf",
-      "title": "дёӢијү",
+      "title": "主席盾童軍技能比賽-成績公怖",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-25S.pdf",
-      "title": "дёӢијү",
+      "title": "主席盾童軍技能比賽",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-14G.pdf",
-      "title": "дёӢијү",
+      "title": "「2025 聖誕卡」填色比賽",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-04S.pdf",
-      "title": "дёӢијү",
+      "title": "SOUL Keeper 精神健康守護者課程 (Level 1)暨童軍精神健康專章(服務組)訓練班",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-06SA.pdf",
-      "title": "дёӢијү",
+      "title": "S 童軍露營章(技能組)訓練班 - 接納通知書 下載",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-16D.pdf",
-      "title": "дёӢијү",
+      "title": "D/td> 10-11-2023 九龍塘區本地遊活動 –童遊沙頭角 下載",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-14D.pdf",
-      "title": "дёӢијү",
+      "title": "D 30-11-2023 九龍塘區-皮藝工作坊 下載",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-13D.pdf",
-      "title": "дёӢијү",
+      "title": "D 21-10-2023 童軍武術小組「親子武術同樂日2023」 下載",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-26V.pdf",
-      "title": "дёӢијү",
+      "title": "25-03-2026<",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-24C.pdf",
-      "title": "дёӢијү",
+      "title": "23-03-2026<",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-03C.pdf",
-      "title": "дёӢијү",
+      "title": "22-04-2024<",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-27D.pdf",
-      "title": "дёӢијү",
+      "title": "2025–2026年度區會年報",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-29G.pdf",
-      "title": "дёӢијү",
+      "title": "2025-26年度小童軍支部第二次領袖會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-08G.pdf",
-      "title": "дёӢијү",
+      "title": "2025-26 年度小童軍支部第一次領袖會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-28S.pdf",
-      "title": "дёӢијү",
+      "title": "2025-2026年度童軍支部領袖第二次會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-11S.pdf",
-      "title": "дёӢијү",
+      "title": "2025-2026年度童軍支部領袖第一次會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2025/KLG25-09C.pdf",
-      "title": "дёӢијү",
+      "title": "2025 - 2026 年度幼童軍支部領袖第一次會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-32G.pdf",
-      "title": "дёӢијү",
+      "title": "2024-25年度小童軍支部第二次領袖會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-27C.pdf",
-      "title": "дёӢијү",
+      "title": "2024-25 年度幼童軍支部領袖第二次會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-13C.pdf",
-      "title": "дёӢијү",
+      "title": "2024-25 年度幼童軍支部領袖第一次會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-33D.pdf",
-      "title": "дёӢијү",
+      "title": "2024 – 2025 年度 區會年報",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-25C.pdf",
-      "title": "дёӢијү",
+      "title": "2023-24 年度幼童軍支部領袖第一次會議",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-28C.pdf",
-      "title": "дёӢијү",
+      "title": "20-04-2024<",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23_17G.pdf",
-      "title": "дёӢијү",
+      "title": "16-10-2023<",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2024/KLG24-04S.pdf",
-      "title": "дёӢијү",
+      "title": "09-05-2024<",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-15S.pdf",
-      "title": "дёӢијү",
+      "title": "08-10-2023<",
       "captured_date": "2026-05-24"
     },
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2023/KLG23-02S.pdf",
-      "title": "дёӢијү",
+      "title": "05-07-2023/td> 游泳測試考驗 下載",
       "captured_date": "2026-05-24"
     },
     {
@@ -72629,28 +72661,25 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-21 06:44:06",
-      "new": 0,
-      "updated": 0,
-      "skipped": 49,
+      "updated_at": "2026-08-22 06:39:53",
+      "new": 2,
+      "updated": 348,
+      "skipped": 45,
       "processed": 46,
       "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
         "總會",
         "港島地域",
-        "灣仔區",
         "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
         "港島北區",
-        "九龍地域",
         "紅磡區",
         "何文田區",
         "九龍城區",
-        "九龍塘區",
         "旺角區",
         "深旺區",
         "深水埗東區",
@@ -72670,7 +72699,6 @@
         "十八鄉區",
         "屯門西區",
         "北葵涌區",
-        "屯門東區",
         "荃灣區",
         "南葵涌區",
         "離島區 (expected_empty)",
