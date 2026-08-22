@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-22 06:39:53",
+  "last_updated": "2026-08-23 06:37:09",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4527,
+    "total_notices": 4530,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -10623,6 +10623,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會22/8 – 1/9/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=626%3A22-8-1-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=626%3A22-8-1-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-08-23",
+        "captured_date": "2026-08-23",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會15/8 – 21/8/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=624%3A15-8-21-8-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -25358,6 +25367,15 @@
     ],
     "深水埗東區": [
       {
+        "title": "深東童軍夥伴一帶一玩去露營 D/04/2026",
+        "url": "https://drive.google.com/file/d/1-CFShWYx8nhaekLlLrjPCjfyfrOk5fj4/view",
+        "pdf_url": "https://drive.google.com/file/d/1-CFShWYx8nhaekLlLrjPCjfyfrOk5fj4/view",
+        "date": "2026-08-23",
+        "captured_date": "2026-08-23",
+        "source_site": "深水埗東區",
+        "region": "九龍地域"
+      },
+      {
         "title": "領袖訓練提升計劃",
         "url": "https://drive.google.com/file/d/1-_t7oEbCHaClVapiB-fiyzDtDrB2bnE0/view",
         "pdf_url": "https://drive.google.com/file/d/1-_t7oEbCHaClVapiB-fiyzDtDrB2bnE0/view",
@@ -39488,6 +39506,15 @@
     ],
     "沙田東區": [
       {
+        "title": "運動與健康童軍培訓計劃",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt12.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt12.pdf",
+        "date": "2026-08-23",
+        "captured_date": "2026-08-23",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
         "title": "幼童軍繩結章訓練班-改期通告",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt11A.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt11A.pdf",
@@ -40847,6 +40874,27 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=626%3A22-8-1-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會22/8 – 1/9/2026辦公時間",
+      "captured_date": "2026-08-23"
+    },
+    {
+      "source_site": "深水埗東區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1-CFShWYx8nhaekLlLrjPCjfyfrOk5fj4/view",
+      "title": "深東童軍夥伴一帶一玩去露營 D/04/2026",
+      "captured_date": "2026-08-23"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt12.pdf",
+      "title": "運動與健康童軍培訓計劃",
+      "captured_date": "2026-08-23"
+    },
     {
       "source_site": "屯門東區",
       "region": "新界地域",
@@ -72661,10 +72709,10 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-22 06:39:53",
-      "new": 2,
-      "updated": 348,
-      "skipped": 45,
+      "updated_at": "2026-08-23 06:37:09",
+      "new": 3,
+      "updated": 112,
+      "skipped": 46,
       "processed": 46,
       "playwright_used": 0,
       "error_sources": [],
@@ -72677,12 +72725,13 @@
         "港島南區",
         "筲箕灣區",
         "港島北區",
+        "九龍地域",
         "紅磡區",
         "何文田區",
         "九龍城區",
+        "九龍塘區",
         "旺角區",
         "深旺區",
-        "深水埗東區",
         "深水埗西區",
         "油尖區",
         "東九龍地域",
@@ -72699,6 +72748,7 @@
         "十八鄉區",
         "屯門西區",
         "北葵涌區",
+        "屯門東區",
         "荃灣區",
         "南葵涌區",
         "離島區 (expected_empty)",
@@ -72709,7 +72759,6 @@
         "大埔南區",
         "沙田西區",
         "沙田南區",
-        "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",
         "慈雲山區",

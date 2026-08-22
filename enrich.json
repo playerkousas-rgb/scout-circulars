@@ -43569,5 +43569,27 @@
     "error": "",
     "enriched_at": "2026-08-22 06:45:00",
     "enrich_version": "2.4"
+  },
+  "https://drive.google.com/file/d/1-CFShWYx8nhaekLlLrjPCjfyfrOk5fj4/view": {
+    "source": "深水埗東區",
+    "title": "深東童軍夥伴一帶一玩去露營 D/04/2026",
+    "deadline": "2026-09-28",
+    "audience": "童軍",
+    "fee": "HK$100",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-23 06:42:03",
+    "enrich_version": "2.4"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_pt12.pdf": {
+    "source": "沙田東區",
+    "title": "運動與健康童軍培訓計劃",
+    "deadline": "2026-08-24",
+    "audience": "幼童軍、童軍",
+    "fee": "HK$300",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-23 06:42:09",
+    "enrich_version": "2.4"
   }
 }
