@@ -1076,7 +1076,7 @@
     },
     "青衣區": {
       "region": "新界地域",
-      "url": "https://tyd.scout-ntr.org.hk/",
+      "url": "https://tyd.scout-ntr.org.hk/dist-cir.htm",
       "type": "static_list",
       "encoding": "utf-8",
       "fingerprint_selector": "body",
@@ -1087,7 +1087,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "⚠️ 曾被誤刪，v5.6.15 補回。網站用 Apache 目錄列表 + PDF 直鏈。若網站改版可能需要更新 selector。",
+      "notes": "⚠️ 曾被誤刪，v5.6.15 補回。網站用靜態通告表 + PDF 直鏈。若網站改版可能需要更新 selector。2026-08-25: 發現設定 URL 指緊首頁（純圖片導航、fingerprint 永不變→永遠 skipped），通告實際喺 dist-cir.htm；改抓通告頁。首頁靜默失效期間（2026-05-23 後）漏咗 sc260501 / cs260601 / sc260601 / d260701 等通告，下輪會自動補返。",
       "use_playwright": false,
       "follow_detail_pages": false,
       "asset_link_selector": "a[href*=\".pdf\"]"
