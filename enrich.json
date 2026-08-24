@@ -43591,5 +43591,27 @@
     "error": "",
     "enriched_at": "2026-08-23 06:42:09",
     "enrich_version": "2.4"
+  },
+  "https://drive.google.com/file/d/1fYG4yIhxpD7hnexKQsSojEqAu9KC92Mg/view": {
+    "source": "旺角區",
+    "title": "深資童軍地圖閱讀訓練班 暨 樂行童軍地圖閱讀訓練班 2026 通告",
+    "deadline": "2026-09-05",
+    "audience": "深資童軍、樂行童軍",
+    "fee": "HK$80",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-25 06:48:06",
+    "enrich_version": "2.4"
+  },
+  "https://www.ylw-scout.org.hk/circular/activity12-2026.pdf.pdf": {
+    "source": "元朗西區",
+    "title": "元朗西區50週年紀念填色比賽 - training04-2026",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "",
+    "error": "download: HTTPError",
+    "enriched_at": "2026-08-25 06:48:09",
+    "enrich_version": "2.4"
   }
 }

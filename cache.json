@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-24 06:36:52",
+  "last_updated": "2026-08-25 06:43:23",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4530,
+    "total_notices": 4532,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -24967,6 +24967,15 @@
     ],
     "旺角區": [
       {
+        "title": "深資童軍地圖閱讀訓練班 暨 樂行童軍地圖閱讀訓練班 2026 通告",
+        "url": "https://drive.google.com/file/d/1fYG4yIhxpD7hnexKQsSojEqAu9KC92Mg/view",
+        "pdf_url": "https://drive.google.com/file/d/1fYG4yIhxpD7hnexKQsSojEqAu9KC92Mg/view",
+        "date": "2026-08-25",
+        "captured_date": "2026-08-25",
+        "source_site": "旺角區",
+        "region": "九龍地域"
+      },
+      {
         "title": "香港童軍115周年旺角區童里匯聚樂融融嘉年華暨青少年獲獎人士獎典禮通告PT4620251218",
         "url": "https://drive.google.com/file/d/1dV-tgoi3ADphM4apkz5q_cHgEb06XO63/view",
         "pdf_url": "https://drive.google.com/file/d/1dV-tgoi3ADphM4apkz5q_cHgEb06XO63/view",
@@ -30665,6 +30674,15 @@
       }
     ],
     "元朗西區": [
+      {
+        "title": "元朗西區50週年紀念填色比賽 - training04-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity12-2026.pdf.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity12-2026.pdf.pdf",
+        "date": "2026-08-25",
+        "captured_date": "2026-08-25",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
       {
         "title": "第5屆中級航空活動章訓練班-取錄通知 - training05-2026",
         "url": "https://www.ylw-scout.org.hk/circular/training05-2026.pdf",
@@ -40874,6 +40892,20 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "旺角區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1fYG4yIhxpD7hnexKQsSojEqAu9KC92Mg/view",
+      "title": "深資童軍地圖閱讀訓練班 暨 樂行童軍地圖閱讀訓練班 2026 通告",
+      "captured_date": "2026-08-25"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity12-2026.pdf.pdf",
+      "title": "元朗西區50週年紀念填色比賽 - training04-2026",
+      "captured_date": "2026-08-25"
+    },
     {
       "source_site": "灣仔區",
       "region": "港島地域",
@@ -72709,28 +72741,27 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-24 06:36:52",
-      "new": 0,
-      "updated": 10,
-      "skipped": 48,
+      "updated_at": "2026-08-25 06:43:23",
+      "new": 2,
+      "updated": 262,
+      "skipped": 45,
       "processed": 46,
       "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
         "總會",
         "港島地域",
+        "灣仔區",
         "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
         "港島北區",
-        "九龍地域",
         "紅磡區",
         "何文田區",
         "九龍城區",
         "九龍塘區",
-        "旺角區",
         "深旺區",
         "深水埗東區",
         "深水埗西區",
@@ -72745,7 +72776,6 @@
         "鯉魚門區",
         "新界地域",
         "元朗東區",
-        "元朗西區",
         "十八鄉區",
         "屯門西區",
         "北葵涌區",
@@ -72753,7 +72783,6 @@
         "荃灣區",
         "南葵涌區",
         "離島區 (expected_empty)",
-        "新界東地域",
         "雙魚區",
         "壁峰區",
         "大埔北區",
