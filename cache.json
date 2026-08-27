@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-26 06:44:08",
+  "last_updated": "2026-08-27 11:17:30",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4532,
+    "total_notices": 4533,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -21166,6 +21166,15 @@
     ],
     "港島北區": [
       {
+        "title": "ж·ұиіҮз«Ҙи»ҚзҮҹи—қиЁ“з·ҙзҸӯ",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-08-27",
+        "captured_date": "2026-08-27",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
         "title": "еNoјз«Ҙи»ҚеӢһдҪңз« жҡЁи—қиЎ“з« иЁ“з·ҙзҸӯ",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_е№јз«Ҙи»ҚеӢһдҪңз« жҡЁи—қиЎ“з« .pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_е№јз«Ҙи»ҚеӢһдҪңз« жҡЁи—қиЎ“з« .pdf",
@@ -32382,7 +32391,7 @@
     ],
     "北葵涌區": [
       {
-        "title": "гҖҗи‘өгҖ‘жүӢгҖҗз«ҘгҖ‘еҝғгғ»гҖҢиҲҮз...§йЎ§иҖ...еҗҢиЎҢгҖҚеҳүпҰҺиҸҜ",
+        "title": "【葵】手【童】心・「與照顧者同行」嘉年華",
         "url": "https://www.nkcscout.org/media/notice/20260722_041226V.pdf",
         "pdf_url": "https://www.nkcscout.org/media/notice/20260722_041226V.pdf",
         "date": "2026-07-23",
@@ -32391,7 +32400,7 @@
         "region": "新界地域"
       },
       {
-        "title": "з«Ҙи»Қж¶ҲйҳІиЁ“з·ҙзҸӯ",
+        "title": "童軍消防訓練班",
         "url": "https://www.nkcscout.org/media/notice/20260714_023322.pdf",
         "pdf_url": "https://www.nkcscout.org/media/notice/20260714_023322.pdf",
         "date": "2026-07-21",
@@ -32400,7 +32409,7 @@
         "region": "新界地域"
       },
       {
-        "title": "20260704 091014",
+        "title": "【葵】【童】尋鳥蹤·城中鳥普查 地鐵「社區畫廊」打卡換紀念章",
         "url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
         "pdf_url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
         "date": "2026-07-05",
@@ -32409,18 +32418,18 @@
         "region": "新界地域"
       },
       {
-        "title": "童軍消防訓練班",
-        "url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
-        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
+        "title": "香港童軍115 周年新界地域大露營2026-跨步前行‧童展 - 區會營費津貼",
+        "url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
+        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
         "date": "2026-07-03",
         "captured_date": "2026-07-03",
         "source_site": "北葵涌區",
         "region": "新界地域"
       },
       {
-        "title": "20260702 163428V",
-        "url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
-        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
+        "title": "童軍消防訓練班",
+        "url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
+        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
         "date": "2026-07-03",
         "captured_date": "2026-07-03",
         "source_site": "北葵涌區",
@@ -40893,6 +40902,13 @@
   },
   "notices": [
     {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "ж·ұиіҮз«Ҙи»ҚзҮҹи—қиЁ“з·ҙзҸӯ",
+      "captured_date": "2026-08-27"
+    },
+    {
       "source_site": "旺角區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1fYG4yIhxpD7hnexKQsSojEqAu9KC92Mg/view",
@@ -43087,7 +43103,7 @@
       "source_site": "北葵涌區",
       "region": "新界地域",
       "pdf_url": "https://www.nkcscout.org/media/notice/20260722_041226V.pdf",
-      "title": "гҖҗи‘өгҖ‘жүӢгҖҗз«ҘгҖ‘еҝғгғ»гҖҢиҲҮз...§йЎ§иҖ...еҗҢиЎҢгҖҚеҳүпҰҺиҸҜ",
+      "title": "【葵】手【童】心・「與照顧者同行」嘉年華",
       "captured_date": "2026-07-23"
     },
     {
@@ -43206,7 +43222,7 @@
       "source_site": "北葵涌區",
       "region": "新界地域",
       "pdf_url": "https://www.nkcscout.org/media/notice/20260714_023322.pdf",
-      "title": "з«Ҙи»Қж¶ҲйҳІиЁ“з·ҙзҸӯ",
+      "title": "童軍消防訓練班",
       "captured_date": "2026-07-21"
     },
     {
@@ -43780,7 +43796,7 @@
       "source_site": "北葵涌區",
       "region": "新界地域",
       "pdf_url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
-      "title": "20260704 091014",
+      "title": "【葵】【童】尋鳥蹤·城中鳥普查 地鐵「社區畫廊」打卡換紀念章",
       "captured_date": "2026-07-05"
     },
     {
@@ -44465,15 +44481,15 @@
     {
       "source_site": "北葵涌區",
       "region": "新界地域",
-      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
-      "title": "童軍消防訓練班",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
+      "title": "香港童軍115 周年新界地域大露營2026-跨步前行‧童展 - 區會營費津貼",
       "captured_date": "2026-07-03"
     },
     {
       "source_site": "北葵涌區",
       "region": "新界地域",
-      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
-      "title": "20260702 163428V",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
+      "title": "童軍消防訓練班",
       "captured_date": "2026-07-03"
     },
     {
@@ -72734,20 +72750,22 @@
       "青衣區"
     ],
     "total_sources": 49,
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-26 06:44:08",
-      "new": 0,
-      "updated": 0,
-      "skipped": 48,
+      "updated_at": "2026-08-27 11:17:30",
+      "new": 1,
+      "updated": 72,
+      "skipped": 46,
       "processed": 46,
       "playwright_used": 1,
-      "error_sources": [],
+      "error_sources": [
+        "東九龍地域"
+      ],
       "skipped_sources": [
         "總會",
         "港島地域",
@@ -72780,9 +72798,7 @@
         "元朗西區",
         "十八鄉區",
         "屯門西區",
-        "北葵涌區",
         "屯門東區",
-        "荃灣區",
         "南葵涌區",
         "離島區 (expected_empty)",
         "新界東地域",
