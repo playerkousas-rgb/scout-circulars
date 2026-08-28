@@ -43624,5 +43624,16 @@
     "error": "",
     "enriched_at": "2026-08-27 11:24:08",
     "enrich_version": "2.4"
+  },
+  "https://www.nkcscout.org/media/notice/20260827_131852.pdf": {
+    "source": "北葵涌區",
+    "title": "гҖҗи‘өгҖ‘жүӢгҖҗз«ҘгҖ‘еҝғгғ»гҖҢиҲҮз...§йЎ§иҖ...еҗҢиЎҢгҖҚеҳүпҰҺиҸҜ",
+    "deadline": "2026-09-11",
+    "audience": "童軍、領袖、家長",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-28 14:10:54",
+    "enrich_version": "2.4"
   }
 }
