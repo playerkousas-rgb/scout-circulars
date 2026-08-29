@@ -597,15 +597,47 @@ def broaden_selector(selector: Optional[str]) -> Optional[str]:
     return out
 
 
+# 香港童軍各單位嘅通告，內容只會係中文（UTF-8 / Big5 / GB）或英文（ASCII / Latin-1）。
+# 任何其他編碼（西里爾文、阿拉伯文、日韓文等）都只會係 charset_normalizer 誤判，
+# 一律打回落 UTF-8，避免再出現「UTF-8 中文被當成 Cyrillic」嘅亂碼。
+_ALLOWED_ENCODINGS = {
+    # 中文
+    "utf-8", "utf8", "utf_8",
+    "big5", "cp950", "big5-hkscs", "big5hkscs",
+    "gb2312", "gbk", "gb18030", "gb-2312",
+    # 英文
+    "ascii", "us-ascii",
+    "latin-1", "latin1", "iso-8859-1", "iso8859-1",
+    "cp1252", "windows-1252",
+}
+
+
+def _norm_encoding_name(name: str) -> str:
+    return (name or "").strip().lower().replace("_", "-")
+
+
+def _safe_encoding(name: str, fallback: str = "utf-8") -> str:
+    """只接受中／英文編碼；其餘（Cyrillic 等誤判）一律回 fallback。"""
+    return name if _norm_encoding_name(name) in _ALLOWED_ENCODINGS else fallback
+
+
 def encoding_shield_response(resp: requests.Response, config: Dict[str, Any]) -> None:
     forced = (config.get("encoding") or '').strip().lower()
     apparent = (resp.apparent_encoding or '').strip().lower()
-    if forced in {'big5', 'cp950'} and apparent and apparent not in {'big5', 'cp950'}:
-        resp.encoding = resp.apparent_encoding
-    elif forced in {'big5', 'cp950'}:
-        resp.encoding = 'cp950'
+    if forced in {'big5', 'cp950'}:
+        # 部分網站宣稱 big5 但實際用 utf-8，需要 apparent_encoding 校正；
+        # 否則統一用 cp950（big5 超集，避免 big5 缺罕用字）。校正亦只限中／英文編碼。
+        if apparent and _norm_encoding_name(apparent) in _ALLOWED_ENCODINGS and apparent not in {'big5', 'cp950'}:
+            resp.encoding = apparent
+        else:
+            resp.encoding = 'cp950'
+    elif forced:
+        # 有明確指定 encoding（如 utf-8）就要信 config，唔好用 auto-detect 覆蓋。
+        resp.encoding = forced
     else:
-        resp.encoding = resp.apparent_encoding or forced or 'utf-8'
+        # 冇指定：auto-detect，但只接受中／英文編碼；
+        # charset_normalizer 誤判成西里爾文（ptcp154/cp1251 等）時一律打回落 utf-8。
+        resp.encoding = _safe_encoding(apparent, fallback='utf-8')
 
 
 # ─── 指紋引擎 ──────────────────────────────────────────────
@@ -814,6 +846,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         print(f"[{name}] === 抓取 Google Sites Drive 資料夾 ===")
         try:
             r = _rq.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+            r.encoding = 'utf-8'  # Google Sites 一定係 UTF-8，唔好畀 auto-detect 誤判
             page_html = r.text
         except Exception as e:
             print(f"[{name}] ⚠️ gsites_folders 失敗: {e}，fall through")
@@ -858,6 +891,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     print(f"[{name}] ⚠️ 資料夾 {fid} 回傳 {fr.status_code}"
                           f"{'（缺 resourcekey？）' if not rkey else ''}")
                     continue
+                fr.encoding = 'utf-8'  # Drive embeddedfolderview 一定係 UTF-8
                 fsoup = BeautifulSoup(fr.text, "html.parser")
             except Exception:
                 continue
@@ -959,6 +993,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
             print(f"[{name}] Status Code: {r.status_code}")
             if r.status_code != 200:
                 return None
+            r.encoding = 'utf-8'  # Next.js RSC payload 一定係 UTF-8
             t = r.text
         except Exception as e:
             print(f"[{name}] ⚠️ RSC 抓取失敗: {e}")
@@ -1080,6 +1115,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                 break
 
             try:
+                r.encoding = 'utf-8'  # WordPress REST API JSON 一定係 UTF-8
                 posts = r.json()
                 print(f"[{name}] 第 {page} 頁 返回類型: {type(posts)}, 數量: {len(posts) if isinstance(posts, list) else '非 list'}")  # ← 重要診斷
             except Exception as e:
@@ -1146,6 +1182,7 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
             if r.status_code != 200:
                 print(f"  [{name}] ⚠️ Contentful API 回傳 {r.status_code}")
                 return None
+            r.encoding = 'utf-8'  # Contentful API JSON 一定係 UTF-8
             data = r.json()
             asset_map = {}
             for asset in data.get("includes", {}).get("Asset", []):
@@ -1616,6 +1653,8 @@ def supabase_fetch_all() -> List[Dict[str, Any]]:
     url = f"{SUPABASE_URL}/rest/v1/{SUPABASE_TABLE}?select=*&order=captured_date.desc&limit=10000"
     try:
         resp = SESSION.get(url, headers=headers, timeout=15)
+        if resp.status_code == 200:
+            resp.encoding = 'utf-8'  # Supabase REST JSON 一定係 UTF-8
         return resp.json() if resp.status_code == 200 else []
     except Exception:
         return []

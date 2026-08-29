@@ -21341,14 +21341,14 @@
   },
   "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf": {
     "source": "港島北區",
-    "title": "香港總監挑戰盾-港島北區選拔賽",
-    "deadline": "2023-12-08",
-    "audience": "童軍",
+    "title": "幼童軍",
+    "deadline": "",
+    "audience": "",
     "fee": "",
-    "method": "text",
-    "error": "",
-    "enriched_at": "2026-06-10 11:29:17",
-    "enrich_version": "1.0"
+    "method": "",
+    "error": "download: HTTPError",
+    "enriched_at": "2026-08-15 06:44:37",
+    "enrich_version": "2.4"
   },
   "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf": {
     "source": "港島北區",
@@ -21683,13 +21683,13 @@
   "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf": {
     "source": "港島北區",
     "title": "幼童軍勞作章暨藝術章訓練班",
-    "deadline": "2025-01-17",
-    "audience": "幼童軍",
-    "fee": "HK$60",
-    "method": "text",
-    "error": "",
-    "enriched_at": "2026-06-10 11:29:34",
-    "enrich_version": "1.0"
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "",
+    "error": "download: HTTPError",
+    "enriched_at": "2026-08-15 06:44:30",
+    "enrich_version": "2.4"
   },
   "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_01_gh_%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95.pdf": {
     "source": "港島北區",
@@ -21716,13 +21716,13 @@
   "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf": {
     "source": "港島北區",
     "title": "報名表格",
-    "deadline": "2023-12-08",
+    "deadline": "",
     "audience": "",
     "fee": "",
-    "method": "text",
-    "error": "",
-    "enriched_at": "2026-06-10 11:29:36",
-    "enrich_version": "1.0"
+    "method": "",
+    "error": "download: HTTPError",
+    "enriched_at": "2026-08-15 06:44:40",
+    "enrich_version": "2.4"
   },
   "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf": {
     "source": "港島北區",
@@ -43207,48 +43207,15 @@
     "enriched_at": "2026-08-15 06:44:26",
     "enrich_version": "2.4"
   },
-  "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_е№јз«Ҙи»ҚеӢһдҪңз« жҡЁи—қиЎ“з« .pdf": {
-    "source": "港島北區",
-    "title": "еNoјз«Ҙи»ҚеӢһдҪңз« жҡЁи—қиЎ“з« иЁ“з·ҙзҸӯ",
-    "deadline": "",
-    "audience": "",
-    "fee": "",
-    "method": "",
-    "error": "download: HTTPError",
-    "enriched_at": "2026-08-15 06:44:30",
-    "enrich_version": "2.4"
-  },
   "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E5%AE%97%E6%95%99%E7%AB%A0%E5%9F%BA%E7%9D%A3%E6%95%99%E8%A8%93%E7%B7%B4%E7%8F%ADV3.pdf": {
     "source": "港島北區",
-    "title": "еNoјз«Ҙи»Қе®—ж•ҷз« (еҹәзқЈж•ҷ)иЁ“з·ҙзҸӯ",
+    "title": "幼童軍宗教章(基督教)訓練班",
     "deadline": "2026-10-09",
     "audience": "幼童軍",
     "fee": "HK$10",
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-15 06:44:34",
-    "enrich_version": "2.4"
-  },
-  "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-зёҪзӣЈжҢ‘жҲ°зӣҫ-жёҜеі¶еҢ—еҚҖйҒёжӢ”иіҪйҖҡе‘Ҡ.pdf": {
-    "source": "港島北區",
-    "title": "еNoјз«Ҙи»Қ",
-    "deadline": "",
-    "audience": "",
-    "fee": "",
-    "method": "",
-    "error": "download: HTTPError",
-    "enriched_at": "2026-08-15 06:44:37",
-    "enrich_version": "2.4"
-  },
-  "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-зёҪзӣЈжҢ‘жҲ°зӣҫ-жёҜеі¶еҢ—еҚҖйҒёжӢ”иіҪ-е ұеҗҚиЎЁж ј.pdf": {
-    "source": "港島北區",
-    "title": "е ұеҗҚиЎЁж ј",
-    "deadline": "",
-    "audience": "",
-    "fee": "",
-    "method": "",
-    "error": "download: HTTPError",
-    "enriched_at": "2026-08-15 06:44:40",
     "enrich_version": "2.4"
   },
   "https://krscout.org/wp-content/uploads/2026/08/SP07_26.pdf": {
@@ -43539,7 +43506,7 @@
   },
   "https://www.scout-kowloontong.org/notice/2026/KLG26-09V.pdf": {
     "source": "九龍塘區",
-    "title": "дёӢијү",
+    "title": "下載",
     "deadline": "",
     "audience": "",
     "fee": "",
@@ -43616,7 +43583,7 @@
   },
   "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf": {
     "source": "港島北區",
-    "title": "ж·ұиіҮз«Ҙи»ҚзҮҹи—қиЁ“з·ҙзҸӯ",
+    "title": "深資童軍營藝訓練班",
     "deadline": "2026-10-02",
     "audience": "深資童軍",
     "fee": "HK$75",
@@ -43627,7 +43594,7 @@
   },
   "https://www.nkcscout.org/media/notice/20260827_131852.pdf": {
     "source": "北葵涌區",
-    "title": "гҖҗи‘өгҖ‘жүӢгҖҗз«ҘгҖ‘еҝғгғ»гҖҢиҲҮз...§йЎ§иҖ...еҗҢиЎҢгҖҚеҳүпҰҺиҸҜ",
+    "title": "【葵】手【童】心・「與照顧者同行」嘉年華",
     "deadline": "2026-09-11",
     "audience": "童軍、領袖、家長",
     "fee": "全免",
@@ -43638,7 +43605,7 @@
   },
   "https://www.nkcscout.org/media/notice/20260828_075256VNKCRS.pdf": {
     "source": "北葵涌區",
-    "title": "з¬¬дёҖеұҶйҰҷжёҜз«Ҙи»Қжӯ·еҸІе•Ҹзӯ”жҜ”иіҪвҖ”вҖ”иЁ“з·ҙеҸҠиҒҜиӘјжҙ»еӢ•",
+    "title": "第一屆香港童軍歷史問答比賽——訓練及聯誼活動",
     "deadline": "2026-09-06",
     "audience": "幼童軍、深資童軍、樂行童軍、童軍",
     "fee": "全免",
