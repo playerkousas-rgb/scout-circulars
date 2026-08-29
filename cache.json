@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-28 14:06:20",
+  "last_updated": "2026-08-29 11:43:04",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4534,
+    "total_notices": 4535,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -32391,6 +32391,15 @@
     ],
     "北葵涌區": [
       {
+        "title": "з¬¬дёҖеұҶйҰҷжёҜз«Ҙи»Қжӯ·еҸІе•Ҹзӯ”жҜ”иіҪвҖ”вҖ”иЁ“з·ҙеҸҠиҒҜиӘјжҙ»еӢ•",
+        "url": "https://www.nkcscout.org/media/notice/20260828_075256VNKCRS.pdf",
+        "pdf_url": "https://www.nkcscout.org/media/notice/20260828_075256VNKCRS.pdf",
+        "date": "2026-08-29",
+        "captured_date": "2026-08-29",
+        "source_site": "北葵涌區",
+        "region": "新界地域"
+      },
+      {
         "title": "гҖҗи‘өгҖ‘жүӢгҖҗз«ҘгҖ‘еҝғгғ»гҖҢиҲҮз...§йЎ§иҖ...еҗҢиЎҢгҖҚеҳүпҰҺиҸҜ",
         "url": "https://www.nkcscout.org/media/notice/20260827_131852.pdf",
         "pdf_url": "https://www.nkcscout.org/media/notice/20260827_131852.pdf",
@@ -40910,6 +40919,13 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "北葵涌區",
+      "region": "新界地域",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260828_075256VNKCRS.pdf",
+      "title": "з¬¬дёҖеұҶйҰҷжёҜз«Ҙи»Қжӯ·еҸІе•Ҹзӯ”жҜ”иіҪвҖ”вҖ”иЁ“з·ҙеҸҠиҒҜиӘјжҙ»еӢ•",
+      "captured_date": "2026-08-29"
+    },
     {
       "source_site": "北葵涌區",
       "region": "新界地域",
@@ -72766,24 +72782,25 @@
       "青衣區"
     ],
     "total_sources": 49,
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-28 14:06:20",
+      "updated_at": "2026-08-29 11:43:04",
       "new": 1,
-      "updated": 15,
-      "skipped": 47,
+      "updated": 121,
+      "skipped": 46,
       "processed": 46,
       "playwright_used": 0,
-      "error_sources": [],
+      "error_sources": [
+        "九龍塘區"
+      ],
       "skipped_sources": [
         "總會",
         "港島地域",
-        "灣仔區",
         "港島西區",
         "柴灣區",
         "維多利亞城區",
@@ -72817,8 +72834,8 @@
         "荃灣區",
         "南葵涌區",
         "離島區 (expected_empty)",
-        "新界東地域",
         "雙魚區",
+        "壁峰區",
         "大埔北區",
         "大埔南區",
         "沙田西區",
