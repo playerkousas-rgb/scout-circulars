@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-29 11:43:04",
+  "last_updated": "2026-08-30 08:18:32",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4535,
+    "total_notices": 4522,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -21175,117 +21175,9 @@
         "region": "港島地域"
       },
       {
-        "title": "幼童軍勞作章暨藝術章訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
         "title": "幼童軍宗教章(基督教)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E5%AE%97%E6%95%99%E7%AB%A0%E5%9F%BA%E7%9D%A3%E6%95%99%E8%A8%93%E7%B7%B4%E7%8F%ADV3.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E5%AE%97%E6%95%99%E7%AB%A0%E5%9F%BA%E7%9D%A3%E6%95%99%E8%A8%93%E7%B7%B4%E7%8F%ADV3.pdf",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "http://www.hknscout.org/wp-content/uploads/2026/02/幼童軍攝影章訓練班_報名表_.xlsx",
-        "pdf_url": "http://www.hknscout.org/wp-content/uploads/2026/02/幼童軍攝影章訓練班_報名表_.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/幼童軍戶外歷險暨探險章訓練營_報名表_.xlsx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/幼童軍戶外歷險暨探險章訓練營_報名表_.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_公開組.xlsx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_公開組.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_童軍組.xlsx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_童軍組.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍挑戰組.xlsx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍挑戰組.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍優游組.xlsx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍優游組.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_小童軍組.xlsx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_小童軍組.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
-        "date": "2026-08-15",
-        "captured_date": "2026-08-15",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表",
-        "url": "http://www.hknscout.org/wp-content/uploads/2026/07/報名表_童軍技能比賽2026.xlsx",
-        "pdf_url": "http://www.hknscout.org/wp-content/uploads/2026/07/報名表_童軍技能比賽2026.xlsx",
         "date": "2026-08-15",
         "captured_date": "2026-08-15",
         "source_site": "港島北區",
@@ -21346,6 +21238,33 @@
         "region": "港島地域"
       },
       {
+        "title": "體驗活動系列(四)",
+        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "體驗活動系列 – 銅線花",
+        "url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "體驗活動系列 – 日本書藝粉彩",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
         "title": "香港總監挑戰盾-港島北區選拔賽",
         "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
@@ -21355,18 +21274,207 @@
         "region": "港島地域"
       },
       {
-        "title": "幼童軍勞作章暨藝術章訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
+        "title": "賽馬會青年領袖獎章計劃第 22 屆「童笑同行」大使訓練班 暨 童軍精神健康章(服務組)訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
         "region": "港島地域"
       },
       {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
+        "title": "童軍消防訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍消防訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍手藝章 (皮工) 工作坊及考驗",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍多媒體創作章(技能組)訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍原野烹飪章工作坊及考驗日",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍先修章訓練班 – 原野烹飪體驗",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童繫社區二部曲 之 與眾北童深度遊 童軍組",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童繫社區二部曲 之 與眾北童深度遊 深資童軍段章考驗",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍優游組",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童繫社區二部曲 之 與眾北童深度遊 公開組",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童繫社區三部曲 之 [躍動北區 同創未來",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍消防訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍先鋒工程訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "手藝章 (線裝釘書) 工作坊及考驗",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍藝術章(皮藝)訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍繩結章訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍攝影章訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍戶外歷險暨探險章訓練營",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍急救章訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍夜行活動",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍單車章暨道路安全章訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍勞作章暨藝術章訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
@@ -21436,189 +21544,45 @@
         "region": "港島地域"
       },
       {
-        "title": "體驗活動系列(四)",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
         "region": "港島地域"
       },
       {
-        "title": "體驗活動系列 – 銅線花",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
         "region": "港島地域"
       },
       {
-        "title": "體驗活動系列 – 日本書藝粉彩",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
         "region": "港島地域"
       },
       {
-        "title": "賽馬會青年領袖獎章計劃第 22 屆「童笑同行」大使訓練班 暨 童軍精神健康章（服務組）訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "title": "報名表格",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
         "region": "港島地域"
       },
       {
-        "title": "童軍手藝章 (皮工) 工作坊及考驗",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍消防訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍消防訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍多媒體創作章(技能組)訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍原野烹飪章工作坊及考驗日",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍先修章訓練班 – 原野烹飪體驗",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童軍",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童繫社區二部曲 之 與眾北童深度遊 童軍組",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童繫社區二部曲 之 與眾北童深度遊 深資童軍段章考驗",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍優游組",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童繫社區二部曲 之 與眾北童深度遊 公開組",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "童繫社區三部曲 之 [躍動北區 同創未來",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "手藝章 (線裝釘書) 工作坊及考驗",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "深資童軍消防訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "深資童軍先鋒工程訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
+        "title": "嘉爾頓錦標區選拔賽",
+        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
@@ -21661,135 +21625,9 @@
         "region": "港島地域"
       },
       {
-        "title": "嘉爾頓錦標區選拔賽",
-        "url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
         "title": "初級航空活動章(混合) 暨 模擬飛行章(技能組)訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN-T2025_02_S_%E5%88%9D%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0-V2.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN-T2025_02_S_%E5%88%9D%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0-V2.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍藝術章(皮藝)訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍繩結章訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍攝影章訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍戶外歷險暨探險章訓練營",
-        "url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍急救章訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍單車章暨道路安全章訓練班",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍夜行活動",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "幼童軍",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
-        "date": "2026-05-23",
-        "captured_date": "2026-05-23",
-        "source_site": "港島北區",
-        "region": "港島地域"
-      },
-      {
-        "title": "報名表格",
-        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
-        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
@@ -21808,6 +21646,60 @@
         "title": "中級航空活動章訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2024/01/HKN_T007-%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/01/HKN_T007-%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "HKN T2025 xx 幼童軍氣象章訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "HKN T2025 08 SLTC",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "HKN T2025 07 童軍機械章技能組訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "HKN T2024 03 SLTC",
+        "url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "HKN A2025 08 幼童軍總監挑戰盾 港島北區選拔日",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
+        "date": "2026-05-23",
+        "captured_date": "2026-05-23",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "HKN A2025 05 C Hunt V3",
+        "url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
         "date": "2026-05-23",
         "captured_date": "2026-05-23",
         "source_site": "港島北區",
@@ -23726,15 +23618,6 @@
         "title": "樂行/深童",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-09V.pdf",
         "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-09V.pdf",
-        "date": "2026-08-20",
-        "captured_date": "2026-08-20",
-        "source_site": "九龍塘區",
-        "region": "九龍地域"
-      },
-      {
-        "title": "下載",
-        "url": "https://www.scout-kowloontong.org/notice/2025/九龍塘區田徑賽_參賽名單表格_九龍第xxxx旅.xlsx",
-        "pdf_url": "https://www.scout-kowloontong.org/notice/2025/九龍塘區田徑賽_參賽名單表格_九龍第xxxx旅.xlsx",
         "date": "2026-08-20",
         "captured_date": "2026-08-20",
         "source_site": "九龍塘區",
@@ -31154,79 +31037,7 @@
     ],
     "十八鄉區": [
       {
-        "title": "̨Ä12 ©ˇĹSŔç§ŢŻŕ¤ńÁÉ",
-        "url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "̨` ̧ęμŁ­xĄýľW¤uμ{( ąę ̋î) ¦ŇĹç2024",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "̨` ̧ęμŁ­xĄýľW¤uμ{( ąę ̋î) ¦ŇĹç",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "̨` ̧ęμŁ­xĂ·μ ̨¤ÎĄýľW¤uμ{¦Ň®Ö",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¬DľÔŔç2020",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¬DľÔŔç2019",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¬DľÔŔç2018",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¦ŇĹçŔç",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "Ą®μŁ­x 金 μμŻđĽúłą¦ŇĹçŔç",
+        "title": "金 紫荊獎章考驗營",
         "url": "https://www.sph-scout.org.hk/Circular/circular_PT202303%20(Cub%20GBA%20camp%202023).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202303%20(Cub%20GBA%20camp%202023).pdf",
         "date": "2026-05-30",
@@ -31235,529 +31046,7 @@
         "region": "新界地域"
       },
       {
-        "title": "©]ł ̈ľĄł ̋ĽÖ®ř»»2024",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "¤Ń¦Z ̋Ď·| ́ş ̈μąC",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "¤pμŁ­xT - shirt ł]­p¤ńÁÉ",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "circular 2010 10 03 (CS Knot course)",
-        "url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/14",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/13",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/12",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/10",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/05 R1",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/05",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/02",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2024/01",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/16",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/15",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/14",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/13",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/10",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/09",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/08",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/07",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/06",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/05",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/04",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/02",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2023/01",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/17",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/15",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/13",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/10",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/08",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/07",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/06",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/05",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/04",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/02",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2022/01",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/11",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/10",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/09",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/08",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/07",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/06",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/05",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/04",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/03",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/02",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2021/01",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2020/08",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2020/07",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/17",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/16",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/15",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/13",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/09",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/07",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/05",
-        "url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2019/02",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2018/16",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
-        "date": "2026-05-30",
-        "captured_date": "2026-05-30",
-        "source_site": "十八鄉區",
-        "region": "新界地域"
-      },
-      {
-        "title": "P&T2018/15",
+        "title": "第十屆幼童軍繩結章訓練班",
         "url": "https://www.sph-scout.org.hk/Circular/circular_PT201815%20(cub%20knotting%202018).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201815%20(cub%20knotting%202018).pdf",
         "date": "2026-05-30",
@@ -31766,7 +31055,169 @@
         "region": "新界地域"
       },
       {
-        "title": "P&T2018/12",
+        "title": "第十四屆幼童軍繩結章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第十二屆幼童軍繩結章訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第十一屆幼童軍繩結章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第三屆幼童軍繩結訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第12 屆露營技能比賽",
+        "url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍騎術( 興趣組) 考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍騎術( 興趣組) 考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍騎術( 興趣組) 考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電腦章訓練班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電腦章訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電子訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電子訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍電子章訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍獨木舟訓練班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍獨木舟訓 練 班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍營 藝 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍消防訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍消防章訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍步操章訓練班( 興趣組)",
         "url": "https://www.sph-scout.org.hk/Circular/circular_PT201812%20(Scout%20Footdrill%20Badge%202018).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201812%20(Scout%20Footdrill%20Badge%202018).pdf",
         "date": "2026-05-30",
@@ -31775,16 +31226,79 @@
         "region": "新界地域"
       },
       {
-        "title": "P&T2018/10",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
+        "title": "童軍機械章訓練班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
         "date": "2026-05-30",
         "captured_date": "2026-05-30",
         "source_site": "十八鄉區",
         "region": "新界地域"
       },
       {
-        "title": "P&T2018/09",
+        "title": "童軍樹木護理訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍愛護動物訓 練 班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍愛護動物訓 練 班( 興趣組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍急救訓 練 班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍急救章訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍急救章訓 練 班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍專章考驗日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍地圖閱讀訓練班( 技能組)",
         "url": "https://www.sph-scout.org.hk/Circular/circular_PT201809%20(Scout%20Map%20Reading%202018).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201809%20(Scout%20Map%20Reading%202018).pdf",
         "date": "2026-05-30",
@@ -31793,25 +31307,52 @@
         "region": "新界地域"
       },
       {
-        "title": "P&T2018/07",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
+        "title": "童軍原野烹飪訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
         "date": "2026-05-30",
         "captured_date": "2026-05-30",
         "source_site": "十八鄉區",
         "region": "新界地域"
       },
       {
-        "title": "P&T2018/05",
-        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
-        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
+        "title": "童軍初級航空活動訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
         "date": "2026-05-30",
         "captured_date": "2026-05-30",
         "source_site": "十八鄉區",
         "region": "新界地域"
       },
       {
-        "title": "P&T2018/04",
+        "title": "童軍初級航空活動訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍公民訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍公民章訓練班( 服務組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍公民章訓 練 班( 服務組)",
         "url": "https://www.sph-scout.org.hk/Circular/circular_PT201804%20(Scout%20Civics%20Badge%202018).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201804%20(Scout%20Civics%20Badge%202018).pdf",
         "date": "2026-05-30",
@@ -31820,7 +31361,250 @@
         "region": "新界地域"
       },
       {
-        "title": "ADM2018/02",
+        "title": "童軍先鋒工程訓練班( 教導組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程訓練班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程訓 練 班( 教導組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程訓 練 班( 技能組)",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 教導組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 教導組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 技能組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍先鋒工程章( 技能組) 訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童承傳 - 認識本土文化「元朗街坊十年例醮勝會」體驗活動",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程訓練班2023",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍繩結及先鋒工程考核",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍會議程序研習班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍先鋒工程( 實踐) 考驗2024",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "深資童軍先鋒工程( 實踐) 考驗",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章考驗營",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章考驗日營",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章挑戰營2020",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章挑戰營2019",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍金紫荊獎章挑戰營2018",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍繩結章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍水上安全訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍公園定向章( 初級/ 中級/ 高級) 訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "幼童軍公園定向初級/ 中級章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小草愛自然填色比賽",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "小童軍T - shirt 設計比賽",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "天后誕會景巡遊 – 服務",
         "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201802%20(Tin%20Hau).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201802%20(Tin%20Hau).pdf",
         "date": "2026-05-30",
@@ -31829,7 +31613,97 @@
         "region": "新界地域"
       },
       {
-        "title": "2019 ¦~­» ́äμŁ­x¤j·|ľŢ",
+        "title": "天后誕會景巡遊",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "夜釣墨魚樂消遙2024",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "十八鄉區童軍山野同 行 齊賀110",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "十八鄉區甲辰年新春團拜暨草蜢小狼競技日",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "十八鄉區持續社區服務 - 「耆樂童聚文化遊」旅團服務招募",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "初級航空活動章訓 練 班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "中級航空活動章訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「童服務」十八鄉區關懷長者探訪服務 - 招募旅團協助",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「小草愛自然填色比賽」結果",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「地球部落童躍動」",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2019 年香港童軍大會操",
         "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201912%20(Scout%20Rally%202019).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201912%20(Scout%20Rally%202019).pdf",
         "date": "2026-05-30",
@@ -31838,7 +31712,16 @@
         "region": "新界地域"
       },
       {
-        "title": "2018 ¦~­» ́äμŁ­x¤j·|ľŢ",
+        "title": "2018 深資童軍繩結及先鋒工程訓練班",
+        "url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
+        "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
+        "date": "2026-05-30",
+        "captured_date": "2026-05-30",
+        "source_site": "十八鄉區",
+        "region": "新界地域"
+      },
+      {
+        "title": "2018 年香港童軍大會操",
         "url": "https://www.sph-scout.org.hk/Circular/circular_ADM201813%20(Scout%20Rally%202018).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201813%20(Scout%20Rally%202018).pdf",
         "date": "2026-05-30",
@@ -31847,7 +31730,7 @@
         "region": "新界地域"
       },
       {
-        "title": "2010 ¦~­» ́äμŁ­x¤j·|ľŢ",
+        "title": "2010 年香港童軍大會操",
         "url": "https://www.sph-scout.org.hk/Circular/ADM101105_2010%20(Scout%20Rally).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/ADM101105_2010%20(Scout%20Rally).pdf",
         "date": "2026-05-30",
@@ -31856,7 +31739,7 @@
         "region": "新界地域"
       },
       {
-        "title": "2010 ¦~ ¤Ń¦ZÄ ̋Ď·| ́ş ̈μąC",
+        "title": "2010 年 天后寶誕會景巡遊",
         "url": "https://www.sph-scout.org.hk/Circular/circular%202010-03-30%20(Tin%20Hau).pdf",
         "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-03-30%20(Tin%20Hau).pdf",
         "date": "2026-05-30",
@@ -32427,7 +32310,7 @@
         "region": "新界地域"
       },
       {
-        "title": "20260704 091014",
+        "title": "【葵】【童】尋鳥蹤·城中鳥普查 地鐵「社區畫廊」打卡換紀念章",
         "url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
         "pdf_url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
         "date": "2026-07-05",
@@ -32436,18 +32319,18 @@
         "region": "新界地域"
       },
       {
-        "title": "童軍消防訓練班",
-        "url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
-        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
+        "title": "香港童軍115 周年新界地域大露營2026-跨步前行‧童展 - 區會營費津貼",
+        "url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
+        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
         "date": "2026-07-03",
         "captured_date": "2026-07-03",
         "source_site": "北葵涌區",
         "region": "新界地域"
       },
       {
-        "title": "20260702 163428V",
-        "url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
-        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
+        "title": "童軍消防訓練班",
+        "url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
+        "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
         "date": "2026-07-03",
         "captured_date": "2026-07-03",
         "source_site": "北葵涌區",
@@ -40999,13 +40882,6 @@
     {
       "source_site": "九龍塘區",
       "region": "九龍地域",
-      "pdf_url": "https://www.scout-kowloontong.org/notice/2025/九龍塘區田徑賽_參賽名單表格_九龍第xxxx旅.xlsx",
-      "title": "下載",
-      "captured_date": "2026-08-20"
-    },
-    {
-      "source_site": "九龍塘區",
-      "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-08G.pdf",
       "title": "2026-27年度小童軍支部第一次領袖會議",
       "captured_date": "2026-08-18"
@@ -41076,92 +40952,8 @@
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
-      "title": "幼童軍勞作章暨藝術章訓練班",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
       "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_07_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E5%AE%97%E6%95%99%E7%AB%A0%E5%9F%BA%E7%9D%A3%E6%95%99%E8%A8%93%E7%B7%B4%E7%8F%ADV3.pdf",
       "title": "幼童軍宗教章(基督教)訓練班",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
-      "title": "幼童軍",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "http://www.hknscout.org/wp-content/uploads/2026/02/幼童軍攝影章訓練班_報名表_.xlsx",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/幼童軍戶外歷險暨探險章訓練營_報名表_.xlsx",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_公開組.xlsx",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_童軍組.xlsx",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍挑戰組.xlsx",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_幼童軍優游組.xlsx",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/與眾北童深度遊_報名表_小童軍組.xlsx",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
-      "title": "報名表格",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/07/報名表_嘉爾頓錦標區選拔賽2026.xlsx",
-      "title": "報名表",
-      "captured_date": "2026-08-15"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "http://www.hknscout.org/wp-content/uploads/2026/07/報名表_童軍技能比賽2026.xlsx",
-      "title": "報名表",
       "captured_date": "2026-08-15"
     },
     {
@@ -43828,7 +43620,7 @@
       "source_site": "北葵涌區",
       "region": "新界地域",
       "pdf_url": "https://www.nkcscout.org/media/notice/20260704_091014.pdf",
-      "title": "20260704 091014",
+      "title": "【葵】【童】尋鳥蹤·城中鳥普查 地鐵「社區畫廊」打卡換紀念章",
       "captured_date": "2026-07-05"
     },
     {
@@ -44513,15 +44305,15 @@
     {
       "source_site": "北葵涌區",
       "region": "新界地域",
-      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
-      "title": "童軍消防訓練班",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
+      "title": "香港童軍115 周年新界地域大露營2026-跨步前行‧童展 - 區會營費津貼",
       "captured_date": "2026-07-03"
     },
     {
       "source_site": "北葵涌區",
       "region": "新界地域",
-      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163428V.pdf",
-      "title": "20260702 163428V",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260702_163642.pdf",
+      "title": "童軍消防訓練班",
       "captured_date": "2026-07-03"
     },
     {
@@ -48930,554 +48722,554 @@
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
-      "title": "̨Ä12 ©ˇĹSŔç§ŢŻŕ¤ńÁÉ",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
-      "title": "̨` ̧ęμŁ­xĄýľW¤uμ{( ąę ̋î) ¦ŇĹç2024",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
-      "title": "̨` ̧ęμŁ­xĄýľW¤uμ{( ąę ̋î) ¦ŇĹç",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
-      "title": "̨` ̧ęμŁ­xĂ·μ ̨¤ÎĄýľW¤uμ{¦Ň®Ö",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
-      "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¬DľÔŔç2020",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
-      "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¬DľÔŔç2019",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
-      "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¬DľÔŔç2018",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
-      "title": "Ą®μŁ­xŞ÷μμŻđĽúłą¦ŇĹçŔç",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202303%20(Cub%20GBA%20camp%202023).pdf",
-      "title": "Ą®μŁ­x 金 μμŻđĽúłą¦ŇĹçŔç",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
-      "title": "©]ł ̈ľĄł ̋ĽÖ®ř»»2024",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
-      "title": "¤Ń¦Z ̋Ď·| ́ş ̈μąC",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
-      "title": "¤pμŁ­xT - shirt ł]­p¤ńÁÉ",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
-      "title": "circular 2010 10 03 (CS Knot course)",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
-      "title": "P&T2024/14",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
-      "title": "P&T2024/13",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
-      "title": "P&T2024/12",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
-      "title": "P&T2024/10",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
-      "title": "P&T2024/05 R1",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
-      "title": "P&T2024/05",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
-      "title": "P&T2024/02",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
-      "title": "P&T2024/01",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
-      "title": "P&T2023/16",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
-      "title": "P&T2023/15",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
-      "title": "P&T2023/14",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
-      "title": "P&T2023/13",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
-      "title": "P&T2023/10",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
-      "title": "P&T2023/09",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
-      "title": "P&T2023/08",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
-      "title": "P&T2023/07",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
-      "title": "P&T2023/06",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
-      "title": "P&T2023/05",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
-      "title": "P&T2023/04",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
-      "title": "P&T2023/02",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
-      "title": "P&T2023/01",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
-      "title": "P&T2022/17",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
-      "title": "P&T2022/15",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
-      "title": "P&T2022/13",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
-      "title": "P&T2022/10",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
-      "title": "P&T2022/08",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
-      "title": "P&T2022/07",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
-      "title": "P&T2022/06",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
-      "title": "P&T2022/05",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
-      "title": "P&T2022/04",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
-      "title": "P&T2022/02",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
-      "title": "P&T2022/01",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
-      "title": "P&T2021/11",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
-      "title": "P&T2021/10",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
-      "title": "P&T2021/09",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
-      "title": "P&T2021/08",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
-      "title": "P&T2021/07",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
-      "title": "P&T2021/06",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
-      "title": "P&T2021/05",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
-      "title": "P&T2021/04",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
-      "title": "P&T2021/03",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
-      "title": "P&T2021/02",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
-      "title": "P&T2021/01",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
-      "title": "P&T2020/08",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
-      "title": "P&T2020/07",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
-      "title": "P&T2019/17",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
-      "title": "P&T2019/16",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
-      "title": "P&T2019/15",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
-      "title": "P&T2019/13",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
-      "title": "P&T2019/09",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
-      "title": "P&T2019/07",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
-      "title": "P&T2019/05",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
-      "title": "P&T2019/02",
-      "captured_date": "2026-05-30"
-    },
-    {
-      "source_site": "十八鄉區",
-      "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
-      "title": "P&T2018/16",
+      "title": "金 紫荊獎章考驗營",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201815%20(cub%20knotting%202018).pdf",
-      "title": "P&T2018/15",
+      "title": "第十屆幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202315%20(Cub%20knotting%202024).pdf",
+      "title": "第十四屆幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202111%20(Cub%20knotting%202021).pdf",
+      "title": "第十二屆幼童軍繩結章訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201915%20(Cub%20knotting%202019).pdf",
+      "title": "第十一屆幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-03%20(CS%20Knot%20course).pdf",
+      "title": "第三屆幼童軍繩結訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-10-10%20(S%20Campcraft%20competition).pdf",
+      "title": "第12 屆露營技能比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024)_R1.pdf",
+      "title": "童軍騎術( 興趣組) 考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202405%20(Scout%20Horseman%202024).pdf",
+      "title": "童軍騎術( 興趣組) 考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202207%20(Scout%20Horseman%202022).pdf",
+      "title": "童軍騎術( 興趣組) 考驗日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201902%20(Scout%20Computer%202019).pdf",
+      "title": "童軍電腦章訓練班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202108%20(Scout%20computer%202021).pdf",
+      "title": "童軍電腦章訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202412%20(Scout%20Electronics%202024).pdf",
+      "title": "童軍電子訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202109%20(Scout%20electronics%202022)_R1.pdf",
+      "title": "童軍電子訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202305%20(Scout%20Electronics%202023).pdf",
+      "title": "童軍電子章訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202402%20(Scout%20Canoeist%202024).pdf",
+      "title": "童軍獨木舟訓練班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202301%20(Scout%20Canoeist%202023).pdf",
+      "title": "童軍獨木舟訓 練 班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201907%20(Scout%20camper%202019).pdf",
+      "title": "童軍營 藝 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202210%20(Scout%20Fire%20Fighter%202022).pdf",
+      "title": "童軍消防訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/Circular_PT201905%20(Scout%20Fire%20Fighter%20Badge%202019).pdf",
+      "title": "童軍消防章訓練班( 服務組)",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201812%20(Scout%20Footdrill%20Badge%202018).pdf",
-      "title": "P&T2018/12",
+      "title": "童軍步操章訓練班( 興趣組)",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
-      "title": "P&T2018/10",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202401%20(Scout%20Mechanic%202024).pdf",
+      "title": "童軍機械章訓練班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202102%20(Scout%20Tree%20Carer%202021).pdf",
+      "title": "童軍樹木護理訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202414%20(Scout%20Animal%20Care%202024).pdf",
+      "title": "童軍愛護動物訓 練 班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202217%20(Scout%20Animal%20Care%202023).pdf",
+      "title": "童軍愛護動物訓 練 班( 興趣組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202205%20(Scout%20FA%20course%202022).pdf",
+      "title": "童軍急救訓 練 班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201816%20(Scout%20FA%202018).pdf",
+      "title": "童軍急救章訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202104%20(Scout%20FA%202021).pdf",
+      "title": "童軍急救章訓 練 班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202103%20(Scout%20Badge%20exam%202021).pdf",
+      "title": "童軍專章考驗日",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201809%20(Scout%20Map%20Reading%202018).pdf",
-      "title": "P&T2018/09",
+      "title": "童軍地圖閱讀訓練班( 技能組)",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
-      "title": "P&T2018/07",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202105%20(Scout%20Backwoods%20cook%202021).pdf",
+      "title": "童軍原野烹飪訓 練 班( 技能組)",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
-      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
-      "title": "P&T2018/05",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202206%20(Scout%20Basic%20Air%20Activity%202022).pdf",
+      "title": "童軍初級航空活動訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202106%20(Scout%20Basic%20Air%20Activity%202021).pdf",
+      "title": "童軍初級航空活動訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202213%20(Scout%20Civil%202022).pdf",
+      "title": "童軍公民訓練班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201909%20(Scout%20Civil%20Badge%202019).pdf",
+      "title": "童軍公民章訓練班( 服務組)",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201804%20(Scout%20Civics%20Badge%202018).pdf",
-      "title": "P&T2018/04",
+      "title": "童軍公民章訓 練 班( 服務組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202308%20(Scout%20Pioneering%20(Instructor)%202023).pdf",
+      "title": "童軍先鋒工程訓練班( 教導組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202307%20(Scout%20Pioneering%20(Pursuit)%202023).pdf",
+      "title": "童軍先鋒工程訓練班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202202%20(Scout%20Pioneering%20(Instructor)%202022).pdf",
+      "title": "童軍先鋒工程訓 練 班( 教導組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202201%20(Scout%20Pioneering%20(Pursuit)%202022).pdf",
+      "title": "童軍先鋒工程訓 練 班( 技能組)",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202008%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+      "title": "童軍先鋒工程章( 教導組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201917%20(Scout%20Pioneering%20(Instructor)%202020).pdf",
+      "title": "童軍先鋒工程章( 教導組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202007%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+      "title": "童軍先鋒工程章( 技能組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201916%20(Scout%20Pioneering%20(Pursuit)%202020).pdf",
+      "title": "童軍先鋒工程章( 技能組) 訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202314%20(NTR65_SPHD%20cultural%20inheritance%20activity).pdf",
+      "title": "童承傳 - 認識本土文化「元朗街坊十年例醮勝會」體驗活動",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202309%20(Venture%20Knotting%20and%20Pioneering%202023).pdf",
+      "title": "深資童軍繩結及先鋒工程訓練班2023",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202204%20(Venture%20Knotting%20and%20Pioneering%202022).pdf",
+      "title": "深資童軍繩結及先鋒工程訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201913%20(Venture%20knotting%202019).pdf",
+      "title": "深資童軍繩結及先鋒工程訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201914%20(Venture%20Pioneering%202019).pdf",
+      "title": "深資童軍繩結及先鋒工程考核",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
+      "title": "深資童軍會議程序研習班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf",
+      "title": "深資童軍先鋒工程( 實踐) 考驗2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202209%20(Venture%20Pioneering%202022).pdf",
+      "title": "深資童軍先鋒工程( 實踐) 考驗",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202403%20(Cub%20GBA%20camp%202024).pdf",
+      "title": "幼童軍金紫荊獎章考驗營",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202208%20(Cub%20GBA%20day%20camp%202022).pdf",
+      "title": "幼童軍金紫荊獎章考驗日營",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202006%20(Cub%20pack%20holiday%202020).pdf",
+      "title": "幼童軍金紫荊獎章挑戰營2020",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201901%20(Cub%20pack%20holiday%202019).pdf",
+      "title": "幼童軍金紫荊獎章挑戰營2019",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201806%20(Cub%20pack%20holiday%202018).pdf",
+      "title": "幼童軍金紫荊獎章挑戰營2018",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202215%20(Cub%20Scout%20Knotting%202022).pdf",
+      "title": "幼童軍繩結章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202413%20(Cub%20water%20safety%202024).pdf",
+      "title": "幼童軍水上安全訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202107%20(Cub%20orienteering%202021).pdf",
+      "title": "幼童軍公園定向章( 初級/ 中級/ 高級) 訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202101%20(Cub%20orienteering%202021).pdf",
+      "title": "幼童軍公園定向初級/ 中級章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201805%20(Grasshopper%20painting%20contest%202018).pdf",
+      "title": "小草愛自然填色比賽",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201906%20(Grasshopper%20painting%20contest%202019).pdf",
+      "title": "小童軍T - shirt 設計比賽",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201802%20(Tin%20Hau).pdf",
-      "title": "ADM2018/02",
+      "title": "天后誕會景巡遊 – 服務",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201903%20(Tin%20Hau).pdf",
+      "title": "天后誕會景巡遊",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202409%20(VS%20fishing%20an%20inkfish%202024).pdf",
+      "title": "夜釣墨魚樂消遙2024",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202110%20(SPHD%20activity%20for%20celebrate%20HKScout%20110).pdf",
+      "title": "十八鄉區童軍山野同 行 齊賀110",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202316%20(Lunar%20New%20Year%20Reception%20+%20Game%20Gala%202024).pdf",
+      "title": "十八鄉區甲辰年新春團拜暨草蜢小狼競技日",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202313%20(20231202%20elder%20day%20trip).pdf",
+      "title": "十八鄉區持續社區服務 - 「耆樂童聚文化遊」旅團服務招募",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202304%20(Scout%20Basic%20Air%20Activity%202023).pdf",
+      "title": "初級航空活動章訓 練 班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202410%20(Scout%20Intermediate%20Air%20Activity%202024).pdf",
+      "title": "中級航空活動章訓練班",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202310%20(Scout%20Services_Visit%20Elder%20in%20our%20community).pdf",
+      "title": "「童服務」十八鄉區關懷長者探訪服務 - 招募旅團協助",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201810%20(Result%20of%20Grasshopper%20Painting%20Contest%202018).pdf",
+      "title": "「小草愛自然填色比賽」結果",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT202306%20(SDG%20workshop%202023-07-23).pdf",
+      "title": "「地球部落童躍動」",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201912%20(Scout%20Rally%202019).pdf",
-      "title": "2019 ¦~­» ́äμŁ­x¤j·|ľŢ",
+      "title": "2019 年香港童軍大會操",
+      "captured_date": "2026-05-30"
+    },
+    {
+      "source_site": "十八鄉區",
+      "region": "新界地域",
+      "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_PT201807%20(VS%20Knotting%20&%20Pioneering%202018).pdf",
+      "title": "2018 深資童軍繩結及先鋒工程訓練班",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular_ADM201813%20(Scout%20Rally%202018).pdf",
-      "title": "2018 ¦~­» ́äμŁ­x¤j·|ľŢ",
+      "title": "2018 年香港童軍大會操",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/ADM101105_2010%20(Scout%20Rally).pdf",
-      "title": "2010 ¦~­» ́äμŁ­x¤j·|ľŢ",
+      "title": "2010 年香港童軍大會操",
       "captured_date": "2026-05-30"
     },
     {
       "source_site": "十八鄉區",
       "region": "新界地域",
       "pdf_url": "https://www.sph-scout.org.hk/Circular/circular%202010-03-30%20(Tin%20Hau).pdf",
-      "title": "2010 ¦~ ¤Ń¦ZÄ ̋Ď·| ́ş ̈μąC",
+      "title": "2010 年 天后寶誕會景巡遊",
       "captured_date": "2026-05-30"
     },
     {
@@ -62657,6 +62449,27 @@
     {
       "source_site": "港島北區",
       "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
+      "title": "體驗活動系列(四)",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
+      "title": "體驗活動系列 – 銅線花",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
+      "title": "體驗活動系列 – 日本書藝粉彩",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
       "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽通告.pdf",
       "title": "香港總監挑戰盾-港島北區選拔賽",
       "captured_date": "2026-05-23"
@@ -62664,15 +62477,162 @@
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
-      "title": "幼童軍勞作章暨藝術章訓練班",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "賽馬會青年領袖獎章計劃第 22 屆「童笑同行」大使訓練班 暨 童軍精神健康章(服務組)訓練班",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
-      "title": "報名表格",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "童軍消防訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "童軍消防訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
+      "title": "童軍手藝章 (皮工) 工作坊及考驗",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
+      "title": "童軍多媒體創作章(技能組)訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
+      "title": "童軍原野烹飪章工作坊及考驗日",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
+      "title": "童軍先修章訓練班 – 原野烹飪體驗",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 童軍組",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 深資童軍段章考驗",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍優游組",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
+      "title": "童繫社區二部曲 之 與眾北童深度遊 公開組",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
+      "title": "童繫社區三部曲 之 [躍動北區 同創未來",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
+      "title": "深資童軍消防訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
+      "title": "深資童軍先鋒工程訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
+      "title": "手藝章 (線裝釘書) 工作坊及考驗",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "幼童軍藝術章(皮藝)訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
+      "title": "幼童軍繩結章訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
+      "title": "幼童軍攝影章訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
+      "title": "幼童軍戶外歷險暨探險章訓練營",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "幼童軍急救章訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
+      "title": "幼童軍夜行活動",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "幼童軍單車章暨道路安全章訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/12/HKN_T2024_07_幼童軍勞作章暨藝術章.pdf",
+      "title": "幼童軍勞作章暨藝術章訓練班",
       "captured_date": "2026-05-23"
     },
     {
@@ -62727,148 +62687,36 @@
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_04_%E9%BB%91%E8%89%B2%E7%B2%89%E5%BD%A9.pdf",
-      "title": "體驗活動系列(四)",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_06-總監挑戰盾-港島北區選拔賽-報名表格.pdf",
+      "title": "報名表格",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/%E3%80%8CHKN_A2023_08_%E9%8A%85%E7%B7%9A%E8%8A%B1.pdf",
-      "title": "體驗活動系列 – 銅線花",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
+      "title": "報名表格",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/02/HKN_A2024_02_%E6%97%A5%E6%9C%AC%E6%9B%B8%E8%97%9D%E7%B2%89%E5%BD%A9.pdf",
-      "title": "體驗活動系列 – 日本書藝粉彩",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+      "title": "報名表格",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/10/HKN_T2024_06_-%E7%AB%A5%E8%BB%8D%E7%B2%BE%E7%A5%9E%E5%81%A5%E5%BA%B7%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "賽馬會青年領袖獎章計劃第 22 屆「童笑同行」大使訓練班 暨 童軍精神健康章（服務組）訓練班",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
+      "title": "報名表格",
       "captured_date": "2026-05-23"
     },
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
-      "title": "童軍手藝章 (皮工) 工作坊及考驗",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_01_-%E7%AB%A5%E8%BB%8D%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "童軍消防訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/12/HKN_T008-%E7%AB%A5%E8%BB%8D%E6%94%AF%E9%83%A8%E6%B6%88%E9%98%B2%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "童軍消防訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/03/HKN_T2025_03_Scout_MD.pdf",
-      "title": "童軍多媒體創作章(技能組)訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_T2025_02_S_Backwoods-v2.pdf",
-      "title": "童軍原野烹飪章工作坊及考驗日",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/05/HKN_T2025_05-%E7%AB%A5%E8%BB%8D%E5%85%88%E4%BF%AE%E7%AB%A0%E9%AB%94%E9%A9%97%E6%B4%BB%E5%8B%95.pdf",
-      "title": "童軍先修章訓練班 – 原野烹飪體驗",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
-      "title": "童軍",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
-      "title": "童軍",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "童軍",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_06_S_Hunt-V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 童軍組",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97_%E9%80%9A%E5%91%8A.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 深資童軍段章考驗",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_04_C_PHunt-V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 幼童軍優游組",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_07_Public_Hunt-V3.pdf",
-      "title": "童繫社區二部曲 之 與眾北童深度遊 公開組",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_A202601_%E8%BA%8D%E5%8B%95%E5%8C%97%E5%8D%80-%E5%90%8C%E5%89%B5%E6%9C%AA%E4%BE%86-1.pdf",
-      "title": "童繫社區三部曲 之 [躍動北區 同創未來",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_04_Craftman_thread-binding.pdf",
-      "title": "手藝章 (線裝釘書) 工作坊及考驗",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/06/HKN_T2024_02_V_%E6%B6%88%E9%98%B2%E7%8F%AD.pdf",
-      "title": "深資童軍消防訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/04/HKN_T2025_04_V_%E5%85%88%E9%8B%92%E7%8F%AD.pdf",
-      "title": "深資童軍先鋒工程訓練班",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
+      "title": "嘉爾頓錦標區選拔賽",
       "captured_date": "2026-05-23"
     },
     {
@@ -62902,106 +62750,8 @@
     {
       "source_site": "港島北區",
       "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2023/11/HKN_A2023_05_Carlton-updated.pdf",
-      "title": "嘉爾頓錦標區選拔賽",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
       "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN-T2025_02_S_%E5%88%9D%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0-V2.pdf",
       "title": "初級航空活動章(混合) 暨 模擬飛行章(技能組)訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/04/HKN_T2026_05_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E8%97%9D%E8%A1%93%E7%AB%A0%E7%9A%AE%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍藝術章(皮藝)訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_05_cub%E7%B9%A9%E7%B5%90%E7%AB%A0.pdf",
-      "title": "幼童軍繩結章訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/02/HKN_T2026_04_-%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%94%9D%E5%BD%B1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD-V3.pdf",
-      "title": "幼童軍攝影章訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/01/HKN_T2026_02_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%88%B6%E5%A4%96%E6%8C%91%E6%88%B0%E6%9A%A8%E6%8E%A2%E9%9A%AA%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%87%9F.pdf",
-      "title": "幼童軍戶外歷險暨探險章訓練營",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/03/HKN_T2024_01_Cub_%E6%80%A5%E6%95%91%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍急救章訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/07/HKN_T2025_07_%E5%96%AE%E8%BB%8A%E7%AB%A0%E6%9A%A8%E9%81%93%E8%B7%AF%E5%AE%89%E5%85%A8%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍單車章暨道路安全章訓練班",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_C_night-walk.pdf",
-      "title": "幼童軍夜行活動",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
-      "title": "幼童軍",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
-      "title": "幼童軍",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
-      "title": "幼童軍",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/11/%E8%88%87%E7%9C%BE%E5%8C%97%E7%AB%A5%E6%B7%B1%E5%BA%A6%E9%81%8A_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E8%80%83%E9%A9%97%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf",
-      "title": "報名表格",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_02_cub-night-walk-%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
-      "title": "報名表格",
-      "captured_date": "2026-05-23"
-    },
-    {
-      "source_site": "港島北區",
-      "region": "港島地域",
-      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/%E5%9B%9B%E6%A0%BC%E6%BC%AB%E7%95%AB%E5%90%8C%E6%A8%82%E6%B4%BB%E5%8B%95_%E5%A0%B1%E5%90%8D%E8%A1%A8.docx",
-      "title": "報名表格",
       "captured_date": "2026-05-23"
     },
     {
@@ -63016,6 +62766,48 @@
       "region": "港島地域",
       "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/01/HKN_T007-%E4%B8%AD%E7%B4%9A%E8%88%AA%E7%A9%BA%E6%B4%BB%E5%8B%95%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
       "title": "中級航空活動章訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_xx_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E6%B0%A3%E8%B1%A1%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "HKN T2025 xx 幼童軍氣象章訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_T2025_08_SLTC.pdf",
+      "title": "HKN T2025 08 SLTC",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/06/HKN_T2025_07_%E7%AB%A5%E8%BB%8D%E6%A9%9F%E6%A2%B0%E7%AB%A0%E6%8A%80%E8%83%BD%E7%B5%84%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
+      "title": "HKN T2025 07 童軍機械章技能組訓練班",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2024/09/HKN_T2024_03_SLTC.pdf",
+      "title": "HKN T2024 03 SLTC",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/09/HKN_A2025_08_%E5%B9%BC%E7%AB%A5%E8%BB%8D%E7%B8%BD%E7%9B%A3%E6%8C%91%E6%88%B0%E7%9B%BE-%E6%B8%AF%E5%B3%B6%E5%8C%97%E5%8D%80%E9%81%B8%E6%8B%94%E6%97%A5.pdf",
+      "title": "HKN A2025 08 幼童軍總監挑戰盾 港島北區選拔日",
+      "captured_date": "2026-05-23"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2025/01/HKN_A2025_05_C_Hunt-V3.pdf",
+      "title": "HKN A2025 05 C Hunt V3",
       "captured_date": "2026-05-23"
     },
     {
@@ -72782,31 +72574,29 @@
       "青衣區"
     ],
     "total_sources": 49,
-    "has_errors": true,
+    "has_errors": false,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-29 11:43:04",
-      "new": 1,
-      "updated": 121,
-      "skipped": 46,
+      "updated_at": "2026-08-30 08:18:32",
+      "new": 0,
+      "updated": 103,
+      "skipped": 45,
       "processed": 46,
-      "playwright_used": 0,
-      "error_sources": [
-        "九龍塘區"
-      ],
+      "playwright_used": 1,
+      "error_sources": [],
       "skipped_sources": [
         "總會",
         "港島地域",
+        "灣仔區",
         "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
-        "港島北區",
         "九龍地域",
         "紅磡區",
         "何文田區",
@@ -72828,18 +72618,17 @@
         "新界地域",
         "元朗東區",
         "元朗西區",
-        "十八鄉區",
         "屯門西區",
         "屯門東區",
         "荃灣區",
         "南葵涌區",
         "離島區 (expected_empty)",
+        "新界東地域",
         "雙魚區",
         "壁峰區",
         "大埔北區",
         "大埔南區",
         "沙田西區",
-        "沙田南區",
         "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",
