@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-08-30 08:18:32",
+  "last_updated": "2026-08-31 08:36:23",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4522,
+    "total_notices": 4525,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -10624,6 +10624,24 @@
     ],
     "灣仔區": [
       {
+        "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日填色比賽",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=628%3A115-2&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=628%3A115-2&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-08-31",
+        "captured_date": "2026-08-31",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
+        "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=627%3A115&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=627%3A115&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-08-31",
+        "captured_date": "2026-08-31",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
         "title": "區會22/8 – 1/9/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=626%3A22-8-1-9-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=626%3A22-8-1-9-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -13057,6 +13075,15 @@
       }
     ],
     "柴灣區": [
+      {
+        "title": "柴灣區會長盃爭霸戰 比賽結果 - 點擊下載",
+        "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-15_柴灣區會長盃爭霸戰比賽結果.pdf",
+        "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-15_柴灣區會長盃爭霸戰比賽結果.pdf",
+        "date": "2026-08-31",
+        "captured_date": "2026-08-31",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
       {
         "title": "柴灣區會長盃G3爭霸戰 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-12_柴灣區會長盃G3爭霸戰.pdf",
@@ -21301,7 +21328,7 @@
         "region": "港島地域"
       },
       {
-        "title": "童軍手藝章 (皮工) 工作坊及考驗",
+        "title": "童軍手藝章(皮工)工作坊及考驗",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
         "date": "2026-05-23",
@@ -40802,6 +40829,27 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=628%3A115-2&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日填色比賽",
+      "captured_date": "2026-08-31"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=627%3A115&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日",
+      "captured_date": "2026-08-31"
+    },
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-15_柴灣區會長盃爭霸戰比賽結果.pdf",
+      "title": "柴灣區會長盃爭霸戰 比賽結果 - 點擊下載",
+      "captured_date": "2026-08-31"
+    },
     {
       "source_site": "北葵涌區",
       "region": "新界地域",
@@ -62499,7 +62547,7 @@
       "source_site": "港島北區",
       "region": "港島地域",
       "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/05/HKN_T2026_06_-%E7%AB%A5%E8%BB%8D%E6%89%8B%E8%97%9D%E7%AB%A0-1.pdf",
-      "title": "童軍手藝章 (皮工) 工作坊及考驗",
+      "title": "童軍手藝章(皮工)工作坊及考驗",
       "captured_date": "2026-05-23"
     },
     {
@@ -72581,19 +72629,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-08-30 08:18:32",
-      "new": 0,
-      "updated": 103,
-      "skipped": 45,
+      "updated_at": "2026-08-31 08:36:23",
+      "new": 3,
+      "updated": 321,
+      "skipped": 46,
       "processed": 46,
-      "playwright_used": 1,
+      "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
         "總會",
         "港島地域",
-        "灣仔區",
         "港島西區",
-        "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
@@ -72618,7 +72664,9 @@
         "新界地域",
         "元朗東區",
         "元朗西區",
+        "十八鄉區",
         "屯門西區",
+        "北葵涌區",
         "屯門東區",
         "荃灣區",
         "南葵涌區",
@@ -72629,6 +72677,7 @@
         "大埔北區",
         "大埔南區",
         "沙田西區",
+        "沙田南區",
         "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",

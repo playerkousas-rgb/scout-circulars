@@ -43613,5 +43613,16 @@
     "error": "",
     "enriched_at": "2026-08-29 11:49:35",
     "enrich_version": "2.4"
+  },
+  "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/08/CHW2627-15_柴灣區會長盃爭霸戰比賽結果.pdf": {
+    "source": "柴灣區",
+    "title": "柴灣區會長盃爭霸戰 比賽結果 - 點擊下載",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-08-31 08:41:02",
+    "enrich_version": "2.4"
   }
 }
