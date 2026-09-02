@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-02 15:35:00",
+  "last_updated": "2026-09-02 17:25:08",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4644,
+    "total_notices": 4695,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -93,6 +93,15 @@
         "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026",
         "url": "https://scout.org.hk/uploads/tc/circulars/25059/Spec_cir_18-26REV.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25059/Spec_cir_18-26REV.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25880/Spec_cir_29-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25880/Spec_cir_29-26.pdf",
         "date": "2026-09-02",
         "captured_date": "2026-09-02",
         "source_site": "總會",
@@ -306,6 +315,15 @@
         "region": "總會"
       },
       {
+        "title": "第2屆基本遠足訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25890/St_cir_22-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25890/St_cir_22-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "第29屆遠足技能證書 (Certificate in Expedition Skills) 資歷架構第三級課程(為本會成年成員及深資/樂行童軍開辦)(海報)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25842/poster-02.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25842/poster-02.pdf",
@@ -504,6 +522,51 @@
         "region": "總會"
       },
       {
+        "title": "深資童軍地圖閱讀及遠足訓練班暨樂行童軍地圖閱讀及遠足訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25886/St_cir_19-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25886/St_cir_19-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "深資童軍及樂行童軍遠足旅程",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25887/St_cir_20-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25887/St_cir_20-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "深資童軍原野烹飪及露營技藝及營務工作訓練班暨考驗",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25883/St_cir_18-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25883/St_cir_18-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "沿繩下降章(技能組)訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25891/Prg_cir_18-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25891/Prg_cir_18-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "沙田西區—童軍先鋒工程訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25893/Stw_cir_07-2026.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25893/Stw_cir_07-2026.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "歷奇體驗同樂日(2026年10月至2027年3月)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25534/AiS272026_歷奇體驗同樂日_R.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25534/AiS272026_歷奇體驗同樂日_R.pdf",
@@ -534,6 +597,15 @@
         "title": "李鉅能基金",
         "url": "https://scout.org.hk/uploads/tc/circulars/25745/Adm21_26_LKN.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25745/Adm21_26_LKN.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "新界東地域樂行童軍議會活動系列 圍爐取暖",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25888/St_cir_21-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25888/St_cir_21-26.pdf",
         "date": "2026-09-02",
         "captured_date": "2026-09-02",
         "source_site": "總會",
@@ -576,6 +648,24 @@
         "region": "總會"
       },
       {
+        "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25882/AIT_cir_02-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25882/AIT_cir_02-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "慶賀中華人民共和國成立77周年「童」展公民心– 填色比賽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25881/AIT_cir_01-26_full_REV.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25881/AIT_cir_01-26_full_REV.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "幼童軍水上安全體驗日-報名表格",
         "url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
@@ -612,9 +702,27 @@
         "region": "總會"
       },
       {
+        "title": "地球部落領袖工作坊(「自然守護者挑戰」及「日光善用者挑戰」)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25892/Prg_cir_19-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25892/Prg_cir_19-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "地域總部公布(2026年9月)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25820/Adm19_26_Announcement.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25820/Adm19_26_Announcement.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域總部公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25878/Adm_cir_17-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25878/Adm_cir_17-26.pdf",
         "date": "2026-09-02",
         "captured_date": "2026-09-02",
         "source_site": "總會",
@@ -8381,6 +8489,60 @@
     ],
     "港島地域": [
       {
+        "title": "第4屆初級空勤員章訓練班",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25693/Sec47_26_4thBasicAircrewBadgeCourse.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25693/Sec47_26_4thBasicAircrewBadgeCourse.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍繽紛日2026-深資童軍及樂行童軍積極公民獎章系列-機電先鋒章工作坊",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25710/sp16_26_isd2026_vsrsactivecitizenshipbadgee_m.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25710/sp16_26_isd2026_vsrsactivecitizenshipbadgee_m.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島童軍繽紛日2026-幼童軍及童軍積極公民獎章系列-機電先鋒章考驗",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25709/sp15_26_isd2026_csactivecitizenshipbadgee_m.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25709/sp15_26_isd2026_csactivecitizenshipbadgee_m.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島地域通告便覽(2026年8月)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25711/circularlist-2026-08.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25711/circularlist-2026-08.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍水上安全體驗日-報名表格",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍水上安全體驗日",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
         "title": "香港聖約翰救護機構 x 港島地域航空活動組-「急救證書」課程(混合教學模式)",
         "url": "https://www.scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
         "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25426/Sec45_26_StJohnHybird.pdf",
@@ -11706,7 +11868,7 @@
     ],
     "港島西區": [
       {
-        "title": "通告 Circulars (2026) - 游泳測試",
+        "title": "游泳測試",
         "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/07/HKW2026VCIR005.pdf",
         "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/07/HKW2026VCIR005.pdf",
         "date": "2026-07-21",
@@ -11715,425 +11877,11 @@
         "region": "港島地域"
       },
       {
-        "title": "通告 Circulars (2026) - 童軍專章考驗日—手藝章(技能組)及體育章(技能組)",
+        "title": "童軍專章考驗日—手藝章(技能組)及體育章(技能組)",
         "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/06/HKW2026SCIR004.pdf",
         "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/06/HKW2026SCIR004.pdf",
         "date": "2026-06-08",
         "captured_date": "2026-06-08",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 西區童行探險嘉年華-填色比賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026DCIR004.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026DCIR004.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 西區童行探索嘉年華-填色比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026DCIR003.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026DCIR003.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 西區童行探索嘉年華-公園定向比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 西區童行探索嘉年華",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR001R.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR001R.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 第583屆童軍領導才訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026SCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026SCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 港島西區深資童軍及樂行童軍2025-2026年度支部比賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026VCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026VCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 小童軍支部區總監盃競技比賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 參觀港鐵「安全體驗天地」",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2026) - 動物福利機構探訪活動暨義工服務",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/05/HKW2026VCIR004.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/05/HKW2026VCIR004.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 識「碳」館(前灣仔環境資源中心)導賞團",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025GS002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025GS002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 西區幼童軍模擬飛行體驗活動",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 西區幼童軍太平山夜行活動",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR005.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR005.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 童軍消防訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025SCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025SCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 童軍原野烹飪(教導組)專章訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR009.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR009.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 童軍原野烹飪(技能組)專章訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR008.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR008.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 游泳測試",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025VCIR006.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025VCIR006.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 深資童軍消防訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 深資童軍支部比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 深資童軍及樂行童軍地圖閱讀考驗日",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR005.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR005.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 深資童軍及樂行童軍地圖閱讀工作坊",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR004.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR004.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 深資童軍/樂行童軍遠足訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/08/HKW2025VCIR009.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/08/HKW2025VCIR009.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 幼童軍單車章訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/11/HKW2025CSCIR004.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/11/HKW2025CSCIR004.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 幼童軍2025-2026年度主席盃比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR003.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR003.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 幼童軍2024-2025年度主席盃比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025CSCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025CSCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 小童軍支部區總監盃競技比賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025GSCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025GSCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 小童軍支部區總監盃競技比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/12/HKW2025GSCIR004.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/12/HKW2025GSCIR004.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 參觀嘉道理農場暨植物園",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025GSCIR003.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025GSCIR003.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 2025童軍先修章訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR003.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR003.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2025) - 2024-2025年度深資童軍支部比賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/04/HKW2025VCIR006.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/04/HKW2025VCIR006.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 西區幼童軍(大潭郊野公園)遠足之旅",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/09/HKW2024CSCIR005.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/09/HKW2024CSCIR005.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 綠在西區@源·區(T·PARK)小童軍探險記",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024GSCIR003.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024GSCIR003.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 綠在西區@投入綠綠賞比賽-結果公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/08/HKW2024DCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/08/HKW2024DCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 綠在西區@投入綠綠賞比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024dcir001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024dcir001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 第546屆童軍領導才訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024SCIR004.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024SCIR004.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 第20屆初級航空活動章訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/07/HKW2024SCIR005.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/07/HKW2024SCIR005.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 童軍支部會長盃比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR003.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR003.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 港島西區深資童軍2023-2024年度支部比賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024VCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024VCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 深資童軍支部比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/HKW2024VCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/HKW2024VCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 深資童軍射箭訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR004R.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR004R.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 深資童軍初級龍舟訓練證書班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR003R.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR003R.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 小童軍支部區總監盃競技比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/10/HKW2024GSCIR003.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/10/HKW2024GSCIR003.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 小童軍支部區總監盃-「小童軍向前進」競技比賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024GSCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024GSCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 小童軍支部區總監盃 「小童軍向前進」競技比賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024gscir001-r.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024gscir001-r.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 2024童軍先修章訓練班",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024CSCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024CSCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 2024年童軍嘉爾頓錦標賽港島西區選拔賽-成績公佈",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR001.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR001.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
-        "source_site": "港島西區",
-        "region": "港島地域"
-      },
-      {
-        "title": "通告 Circulars (2024) - 2024年童軍嘉爾頓錦標賽",
-        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR002.pdf",
-        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR002.pdf",
-        "date": "2026-06-04",
-        "captured_date": "2026-06-04",
         "source_site": "港島西區",
         "region": "港島地域"
       },
@@ -13653,6 +13401,420 @@
         "title": "通告 Circulars (2012) - 童軍原野烹飪專章(技能組/教導組)訓練班",
         "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2013/07/HKW2012S013.pdf",
         "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2013/07/HKW2012S013.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "識「碳」館(前灣仔環境資源中心)導賞團",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025GS002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025GS002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "西區童行探險嘉年華-填色比賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026DCIR004.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026DCIR004.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "西區童行探索嘉年華-填色比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026DCIR003.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026DCIR003.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "西區童行探索嘉年華-公園定向比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "西區童行探索嘉年華",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR001R.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR001R.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "西區幼童軍模擬飛行體驗活動",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "西區幼童軍太平山夜行活動",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR005.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR005.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "西區幼童軍(大潭郊野公園)遠足之旅",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/09/HKW2024CSCIR005.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/09/HKW2024CSCIR005.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "綠在西區@源·區(T·PARK)小童軍探險記",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024GSCIR003.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024GSCIR003.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "綠在西區@投入綠綠賞比賽-結果公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/08/HKW2024DCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/08/HKW2024DCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "綠在西區@投入綠綠賞比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024dcir001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024dcir001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "第583屆童軍領導才訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026SCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026SCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "第546屆童軍領導才訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024SCIR004.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024SCIR004.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "第20屆初級航空活動章訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/07/HKW2024SCIR005.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/07/HKW2024SCIR005.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍消防訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025SCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025SCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍支部會長盃比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR003.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR003.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍原野烹飪(教導組)專章訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR009.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR009.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "童軍原野烹飪(技能組)專章訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR008.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR008.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "游泳測試",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025VCIR006.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025VCIR006.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島西區深資童軍及樂行童軍2025-2026年度支部比賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026VCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026VCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島西區深資童軍2023-2024年度支部比賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024VCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024VCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍消防訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍支部比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍支部比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/HKW2024VCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/HKW2024VCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍射箭訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR004R.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR004R.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍及樂行童軍地圖閱讀考驗日",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR005.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR005.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍及樂行童軍地圖閱讀工作坊",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR004.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR004.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍初級龍舟訓練證書班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR003R.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR003R.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍/樂行童軍遠足訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/08/HKW2025VCIR009.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/08/HKW2025VCIR009.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍單車章訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/11/HKW2025CSCIR004.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/11/HKW2025CSCIR004.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍2025-2026年度主席盃比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR003.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR003.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "幼童軍2024-2025年度主席盃比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025CSCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025CSCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "小童軍支部區總監盃競技比賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "小童軍支部區總監盃競技比賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025GSCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025GSCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "小童軍支部區總監盃競技比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/12/HKW2025GSCIR004.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/12/HKW2025GSCIR004.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "小童軍支部區總監盃競技比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/10/HKW2024GSCIR003.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/10/HKW2024GSCIR003.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "小童軍支部區總監盃-「小童軍向前進」競技比賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024GSCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024GSCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "小童軍支部區總監盃 「小童軍向前進」競技比賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024gscir001-r.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024gscir001-r.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "參觀港鐵「安全體驗天地」",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "參觀嘉道理農場暨植物園",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025GSCIR003.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025GSCIR003.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "動物福利機構探訪活動暨義工服務",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/05/HKW2026VCIR004.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/05/HKW2026VCIR004.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2025童軍先修章訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR003.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR003.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2024童軍先修章訓練班",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024CSCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024CSCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2024年童軍嘉爾頓錦標賽港島西區選拔賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR001.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR001.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2024年童軍嘉爾頓錦標賽",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR002.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR002.pdf",
+        "date": "2026-06-04",
+        "captured_date": "2026-06-04",
+        "source_site": "港島西區",
+        "region": "港島地域"
+      },
+      {
+        "title": "2024-2025年度深資童軍支部比賽-成績公佈",
+        "url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/04/HKW2025VCIR006.pdf",
+        "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/04/HKW2025VCIR006.pdf",
         "date": "2026-06-04",
         "captured_date": "2026-06-04",
         "source_site": "港島西區",
@@ -25797,6 +25959,33 @@
     ],
     "深旺區": [
       {
+        "title": "領袖工作坊-幼童軍集會 (二)",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2602_領袖工作坊 幼童軍集會 (二).pdf",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2602_領袖工作坊 幼童軍集會 (二).pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍消防訓練班",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2603_童軍消防訓練班.pdf",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2603_童軍消防訓練班.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "深資童軍消防訓練班",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2604_KRVSFFC022026_深資童軍消防.pdf",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2604_KRVSFFC022026_深資童軍消防.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
         "title": "「積極公民」獎章系列 - 環保先鋒章 (先導計劃) 訓練班 接納通知書",
         "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/07/SMD2601_環保先鋒章訓練班 接納通知書.pdf",
         "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/07/SMD2601_環保先鋒章訓練班 接納通知書.pdf",
@@ -27698,6 +27887,15 @@
         "title": "第110屆歌唱訓練班",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5620",
         "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5620",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第109屆童軍運動基本原則訓練班(單元 1A 及 單元1B)",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5636",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5636",
         "date": "2026-09-02",
         "captured_date": "2026-09-02",
         "source_site": "東九龍地域",
@@ -30626,6 +30824,15 @@
     ],
     "新界地域": [
       {
+        "title": "新界地域公布(2026年09月)",
+        "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202691_admin_74185852.pdf",
+        "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202691_admin_74185852.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界地域",
+        "region": "新界地域"
+      },
+      {
         "title": "新界地域公布(2026年08月)",
         "url": "https://www.scout-ntr.org.hk/system/upload/admin/c202681_admin_10617319.pdf",
         "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202681_admin_10617319.pdf",
@@ -32829,6 +33036,15 @@
       }
     ],
     "屯門西區": [
+      {
+        "title": "SOUL Keeper 精神健康守護者課程 (Level 1)",
+        "url": "https://tmw.scout-ntr.org.hk/files/2026/TMWDV012026.pdf",
+        "pdf_url": "https://tmw.scout-ntr.org.hk/files/2026/TMWDV012026.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "屯門西區",
+        "region": "新界地域"
+      },
       {
         "title": "屯西初級航空活動章考驗計劃通告 082026",
         "url": "https://tmw.scout-ntr.org.hk/files/2026/TMWS2602.pdf",
@@ -36026,6 +36242,114 @@
     ],
     "離島區": [],
     "新界東地域": [
+      {
+        "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2MKEv2e0ffSXsYsrLlgybE/2cd452b403ce6493a8a0532fe561ce57/Spec_cir_29-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2MKEv2e0ffSXsYsrLlgybE/2cd452b403ce6493a8a0532fe561ce57/Spec_cir_29-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第2屆基本遠足訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4zMJgshvzs8j85z3HUU9Db/60ca018dc1db1eaa3a96cb6ea1482bda/St_cir_22-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4zMJgshvzs8j85z3HUU9Db/60ca018dc1db1eaa3a96cb6ea1482bda/St_cir_22-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "深資童軍地圖閱讀及遠足訓練班暨樂行童軍地圖閱讀及遠足訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2oqWns6eA1tWUqUAlGBM0y/1fe6543788fb9025be79d71acadb3e11/St_cir_19-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2oqWns6eA1tWUqUAlGBM0y/1fe6543788fb9025be79d71acadb3e11/St_cir_19-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "深資童軍及樂行童軍遠足旅程",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4baTDwUm3AYKcZK2GQYePg/bfa5d9b262e50bd536f6c7e7fd87d9da/St_cir_20-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4baTDwUm3AYKcZK2GQYePg/bfa5d9b262e50bd536f6c7e7fd87d9da/St_cir_20-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "深資童軍原野烹飪及露營技藝及營務工作訓練班暨考驗",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2MgW0TQHznxV7q9tUTosO2/de7e154d2f402e9d562830be74204498/St_cir_18-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2MgW0TQHznxV7q9tUTosO2/de7e154d2f402e9d562830be74204498/St_cir_18-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "沿繩下降章(技能組)訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5gTV1c1IrBUda2UdpLjFxi/138f8fef4ae25bcea5f1e95ca73b05a2/Prg_cir_18-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5gTV1c1IrBUda2UdpLjFxi/138f8fef4ae25bcea5f1e95ca73b05a2/Prg_cir_18-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "沙田西區—童軍先鋒工程訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/72hNewpSOVeIlmeWhKQy2k/7fc47e556ff9ae15fcd61ff3bd9a5e80/f1b236f9-d91c-4e6c-81e6-f0e15adb3bd5.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/72hNewpSOVeIlmeWhKQy2k/7fc47e556ff9ae15fcd61ff3bd9a5e80/f1b236f9-d91c-4e6c-81e6-f0e15adb3bd5.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "新界東地域樂行童軍議會活動系列 圍爐取暖",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6pkW8ML5FU4oNjwYGOPIMf/aa708b061ccc16ea7d02c2742afea82c/St_cir_21-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6pkW8ML5FU4oNjwYGOPIMf/aa708b061ccc16ea7d02c2742afea82c/St_cir_21-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/fZ233JlYRtbZAqpXA9aYZ/f6f0a906ae6a02593b32b09b42ebea02/AIT_cir_02-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/fZ233JlYRtbZAqpXA9aYZ/f6f0a906ae6a02593b32b09b42ebea02/AIT_cir_02-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "慶賀中華人民共和國成立77周年「童」展公民心– 填色比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/nHMnnyUNwo1nhfNx8qimJ/37d254120f60076023c8c308c04c5259/AIT_cir_01-26_full_.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/nHMnnyUNwo1nhfNx8qimJ/37d254120f60076023c8c308c04c5259/AIT_cir_01-26_full_.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "地球部落領袖工作坊(「自然守護者挑戰」及「日光善用者挑戰」)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/47HhCRP9PIY3rkx0p5x7TG/779c8f5dd95b6fd475a453b1ed3a6ae0/Prg_cir_19-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/47HhCRP9PIY3rkx0p5x7TG/779c8f5dd95b6fd475a453b1ed3a6ae0/Prg_cir_19-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "地域總部公布",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3yF4d5WLUZgE59lCVrRA7d/fdd29e8f4f0a09a7052269f99046d994/Adm_cir_17-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3yF4d5WLUZgE59lCVrRA7d/fdd29e8f4f0a09a7052269f99046d994/Adm_cir_17-26.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
       {
         "title": "第3屆物資管理工作坊(修訂)",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/1cDpMjFAFD3F6DoVtk14Eg/05ca0e7376bac2fcab178ed1f35f1411/Adm_cir_16-26.pdf",
@@ -39448,6 +39772,24 @@
     ],
     "沙田西區": [
       {
+        "title": "童軍先鋒工程訓練班",
+        "url": "http://www.stwscout.org/wp/wp-content/uploads/2026/09/STW_prg_cir_07_2026.pdf",
+        "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/09/STW_prg_cir_07_2026.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "沙田西區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "沙田西區30周年-填色創作比賽",
+        "url": "http://www.stwscout.org/wp/wp-content/uploads/2026/09/STW_prg_cir_08_2026.pdf",
+        "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/09/STW_prg_cir_08_2026.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "沙田西區",
+        "region": "新界東地域"
+      },
+      {
         "title": "第590屆童軍領導才訓練班",
         "url": "http://www.stwscout.org/wp/wp-content/uploads/2026/06/STW_prg_cir_06_2026.pdf",
         "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/06/STW_prg_cir_06_2026.pdf",
@@ -40924,6 +41266,42 @@
     "大嶼山區": [],
     "慈雲山區": [
       {
+        "title": "第50屆區務委員會就職典禮暨中國文化 通告",
+        "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf",
+        "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "更新區會網址及聯絡電郵通告",
+        "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/05/TWS-585-26-更新區會網址及聯絡電郵通告.pdf",
+        "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/05/TWS-585-26-更新區會網址及聯絡電郵通告.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT1007-26 慈雲山區 65 周年紀念之「童」你玩轉 115 派對(通告)",
+        "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/08/PT1007-26-慈雲山區-65-周年紀念之「童」你玩轉-115-派對（通告.pdf",
+        "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/08/PT1007-26-慈雲山區-65-周年紀念之「童」你玩轉-115-派對（通告.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "PT1007-26 慈雲山區 65 周年紀念之「童」你玩轉 115 派對(報名表)",
+        "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/08/TWS_115_Form.xlsx",
+        "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/08/TWS_115_Form.xlsx",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "表格下載區",
         "url": "https://group.scout.org.hk/tws/download/",
         "pdf_url": "https://group.scout.org.hk/tws/download/",
@@ -41005,36 +41383,9 @@
         "region": "東九龍地域"
       },
       {
-        "title": "香港童軍總會 慈雲山區",
-        "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1004-1.pdf",
-        "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1004-1.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "慈雲山區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "第588屆童軍領導才訓練班 - 青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
+        "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
         "url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
         "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "慈雲山區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "第588屆童軍領導才訓練班 - 總會",
-        "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
-        "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
-        "date": "2026-05-20",
-        "captured_date": "2026-05-20",
-        "source_site": "慈雲山區",
-        "region": "東九龍地域"
-      },
-      {
-        "title": "第584屆童軍領導才訓練班 - 學生隊員訓練資助計劃(由民政及青年事務局資助)",
-        "url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
-        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
         "date": "2026-05-20",
         "captured_date": "2026-05-20",
         "source_site": "慈雲山區",
@@ -41044,6 +41395,15 @@
         "title": "小童軍親子競技比賽(小童軍支部)",
         "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/05/PT1001_2026-小童軍親子競技比賽（小童軍支部）.pdf",
         "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/05/PT1001_2026-小童軍親子競技比賽（小童軍支部）.pdf",
+        "date": "2026-05-20",
+        "captured_date": "2026-05-20",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
         "date": "2026-05-20",
         "captured_date": "2026-05-20",
         "source_site": "慈雲山區",
@@ -41077,6 +41437,15 @@
         "region": "東九龍地域"
       },
       {
+        "title": "PT1004 1",
+        "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1004-1.pdf",
+        "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1004-1.pdf",
+        "date": "2026-05-20",
+        "captured_date": "2026-05-20",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "PT1002 2026 童軍射擊章(技能組)暨深資童軍射擊(A-304)訓練班",
         "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1002_2026-童軍射擊章（技能組）暨深資童軍射擊（A-304）訓練班.pdf",
         "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1002_2026-童軍射擊章（技能組）暨深資童軍射擊（A-304）訓練班.pdf",
@@ -41084,9 +41453,99 @@
         "captured_date": "2026-05-20",
         "source_site": "慈雲山區",
         "region": "東九龍地域"
+      },
+      {
+        "title": "3) 有關「惡劣天氣及空氣污染應變措施」指引請參閱 總會 內容。",
+        "url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+        "date": "2026-05-20",
+        "captured_date": "2026-05-20",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
       }
     ],
     "青衣區": [
+      {
+        "title": "香港童軍115周年–青衣區親子原烹燒烤樂悠遊",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260901.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260901.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "香港童軍115周年–童聚青衣樂繽紛",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260901.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260901.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "青衣區2025至2026年度週年會議暨2026至2027年度區務委員會就職典禮",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_admin/d-260601.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_admin/d-260601.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第28屆社區應急先鋒訓練班(童軍支部)",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260601.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260601.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "第27屆社區應急先鋒訓練班(幼童軍支部)",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260601.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260601.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "童軍射擊章(技能組)訓練班",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260501.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260501.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "游泳測試考驗日",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "取錄通知",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260601-1.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260601-1.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
+        "title": "取錄通知",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260501-1.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260501-1.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
       {
         "title": "青衣區童軍支部比賽–區總監挑戰盃2024",
         "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc240601.pdf",
@@ -41901,6 +42360,69 @@
   },
   "notices": [
     {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260901.pdf",
+      "title": "香港童軍115周年–青衣區親子原烹燒烤樂悠遊",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260901.pdf",
+      "title": "香港童軍115周年–童聚青衣樂繽紛",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_admin/d-260601.pdf",
+      "title": "青衣區2025至2026年度週年會議暨2026至2027年度區務委員會就職典禮",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260601.pdf",
+      "title": "第28屆社區應急先鋒訓練班(童軍支部)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260601.pdf",
+      "title": "第27屆社區應急先鋒訓練班(幼童軍支部)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260501.pdf",
+      "title": "童軍射擊章(技能組)訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701.pdf",
+      "title": "游泳測試考驗日",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260601-1.pdf",
+      "title": "取錄通知",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260501-1.pdf",
+      "title": "取錄通知",
+      "captured_date": "2026-09-02"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25856/Youth56.pdf",
@@ -41968,6 +42490,13 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25059/Spec_cir_18-26REV.pdf",
       "title": "香港童軍115周年紀念新界東隊列、步操、團呼、快樂傘、升旗比賽會操暨地球部落嘉年華2026",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25880/Spec_cir_29-26.pdf",
+      "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
       "captured_date": "2026-09-02"
     },
     {
@@ -42134,6 +42663,13 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25890/St_cir_22-26.pdf",
+      "title": "第2屆基本遠足訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25842/poster-02.pdf",
       "title": "第29屆遠足技能證書 (Certificate in Expedition Skills) 資歷架構第三級課程(為本會成年成員及深資/樂行童軍開辦)(海報)",
       "captured_date": "2026-09-02"
@@ -42288,6 +42824,41 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25886/St_cir_19-26.pdf",
+      "title": "深資童軍地圖閱讀及遠足訓練班暨樂行童軍地圖閱讀及遠足訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25887/St_cir_20-26.pdf",
+      "title": "深資童軍及樂行童軍遠足旅程",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25883/St_cir_18-26.pdf",
+      "title": "深資童軍原野烹飪及露營技藝及營務工作訓練班暨考驗",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25891/Prg_cir_18-26.pdf",
+      "title": "沿繩下降章(技能組)訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25893/Stw_cir_07-2026.pdf",
+      "title": "沙田西區—童軍先鋒工程訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25534/AiS272026_歷奇體驗同樂日_R.pdf",
       "title": "歷奇體驗同樂日(2026年10月至2027年3月)",
       "captured_date": "2026-09-02"
@@ -42311,6 +42882,13 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25745/Adm21_26_LKN.pdf",
       "title": "李鉅能基金",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25888/St_cir_21-26.pdf",
+      "title": "新界東地域樂行童軍議會活動系列 圍爐取暖",
       "captured_date": "2026-09-02"
     },
     {
@@ -42344,6 +42922,20 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25882/AIT_cir_02-26.pdf",
+      "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25881/AIT_cir_01-26_full_REV.pdf",
+      "title": "慶賀中華人民共和國成立77周年「童」展公民心– 填色比賽",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
       "title": "幼童軍水上安全體驗日-報名表格",
       "captured_date": "2026-09-02"
@@ -42372,8 +42964,22 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25892/Prg_cir_19-26.pdf",
+      "title": "地球部落領袖工作坊(「自然守護者挑戰」及「日光善用者挑戰」)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25820/Adm19_26_Announcement.pdf",
       "title": "地域總部公布(2026年9月)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25878/Adm_cir_17-26.pdf",
+      "title": "地域總部公布",
       "captured_date": "2026-09-02"
     },
     {
@@ -42559,6 +43165,83 @@
       "captured_date": "2026-09-02"
     },
     {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25693/Sec47_26_4thBasicAircrewBadgeCourse.pdf",
+      "title": "第4屆初級空勤員章訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25710/sp16_26_isd2026_vsrsactivecitizenshipbadgee_m.pdf",
+      "title": "港島童軍繽紛日2026-深資童軍及樂行童軍積極公民獎章系列-機電先鋒章工作坊",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25709/sp15_26_isd2026_csactivecitizenshipbadgee_m.pdf",
+      "title": "港島童軍繽紛日2026-幼童軍及童軍積極公民獎章系列-機電先鋒章考驗",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25711/circularlist-2026-08.pdf",
+      "title": "港島地域通告便覽(2026年8月)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
+      "title": "幼童軍水上安全體驗日-報名表格",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
+      "title": "幼童軍水上安全體驗日",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2602_領袖工作坊 幼童軍集會 (二).pdf",
+      "title": "領袖工作坊-幼童軍集會 (二)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2603_童軍消防訓練班.pdf",
+      "title": "童軍消防訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/08/SMD2604_KRVSFFC022026_深資童軍消防.pdf",
+      "title": "深資童軍消防訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "沙田西區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/09/STW_prg_cir_07_2026.pdf",
+      "title": "童軍先鋒工程訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "沙田西區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stwscout.org/wp/wp-content/uploads/2026/09/STW_prg_cir_08_2026.pdf",
+      "title": "沙田西區30周年-填色創作比賽",
+      "captured_date": "2026-09-02"
+    },
+    {
       "source_site": "東九龍地域",
       "region": "東九龍地域",
       "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5634",
@@ -42638,6 +43321,13 @@
     {
       "source_site": "東九龍地域",
       "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5636",
+      "title": "第109屆童軍運動基本原則訓練班(單元 1A 及 單元1B)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
       "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5630",
       "title": "第 6屆童軍模擬飛行章(技能組)",
       "captured_date": "2026-09-02"
@@ -42710,6 +43400,132 @@
       "region": "東九龍地域",
       "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5616",
       "title": "2026年旅團獎勵計劃獲獎名單",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2MKEv2e0ffSXsYsrLlgybE/2cd452b403ce6493a8a0532fe561ce57/Spec_cir_29-26.pdf",
+      "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4zMJgshvzs8j85z3HUU9Db/60ca018dc1db1eaa3a96cb6ea1482bda/St_cir_22-26.pdf",
+      "title": "第2屆基本遠足訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2oqWns6eA1tWUqUAlGBM0y/1fe6543788fb9025be79d71acadb3e11/St_cir_19-26.pdf",
+      "title": "深資童軍地圖閱讀及遠足訓練班暨樂行童軍地圖閱讀及遠足訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4baTDwUm3AYKcZK2GQYePg/bfa5d9b262e50bd536f6c7e7fd87d9da/St_cir_20-26.pdf",
+      "title": "深資童軍及樂行童軍遠足旅程",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2MgW0TQHznxV7q9tUTosO2/de7e154d2f402e9d562830be74204498/St_cir_18-26.pdf",
+      "title": "深資童軍原野烹飪及露營技藝及營務工作訓練班暨考驗",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5gTV1c1IrBUda2UdpLjFxi/138f8fef4ae25bcea5f1e95ca73b05a2/Prg_cir_18-26.pdf",
+      "title": "沿繩下降章(技能組)訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/72hNewpSOVeIlmeWhKQy2k/7fc47e556ff9ae15fcd61ff3bd9a5e80/f1b236f9-d91c-4e6c-81e6-f0e15adb3bd5.pdf",
+      "title": "沙田西區—童軍先鋒工程訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6pkW8ML5FU4oNjwYGOPIMf/aa708b061ccc16ea7d02c2742afea82c/St_cir_21-26.pdf",
+      "title": "新界東地域樂行童軍議會活動系列 圍爐取暖",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/fZ233JlYRtbZAqpXA9aYZ/f6f0a906ae6a02593b32b09b42ebea02/AIT_cir_02-26.pdf",
+      "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/nHMnnyUNwo1nhfNx8qimJ/37d254120f60076023c8c308c04c5259/AIT_cir_01-26_full_.pdf",
+      "title": "慶賀中華人民共和國成立77周年「童」展公民心– 填色比賽",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/47HhCRP9PIY3rkx0p5x7TG/779c8f5dd95b6fd475a453b1ed3a6ae0/Prg_cir_19-26.pdf",
+      "title": "地球部落領袖工作坊(「自然守護者挑戰」及「日光善用者挑戰」)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3yF4d5WLUZgE59lCVrRA7d/fdd29e8f4f0a09a7052269f99046d994/Adm_cir_17-26.pdf",
+      "title": "地域總部公布",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "新界地域",
+      "region": "新界地域",
+      "pdf_url": "https://www.scout-ntr.org.hk/system/upload/admin/c202691_admin_74185852.pdf",
+      "title": "新界地域公布(2026年09月)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf",
+      "title": "第50屆區務委員會就職典禮暨中國文化 通告",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/05/TWS-585-26-更新區會網址及聯絡電郵通告.pdf",
+      "title": "更新區會網址及聯絡電郵通告",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/08/PT1007-26-慈雲山區-65-周年紀念之「童」你玩轉-115-派對（通告.pdf",
+      "title": "PT1007-26 慈雲山區 65 周年紀念之「童」你玩轉 115 派對(通告)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/08/TWS_115_Form.xlsx",
+      "title": "PT1007-26 慈雲山區 65 周年紀念之「童」你玩轉 115 派對(報名表)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "屯門西區",
+      "region": "新界地域",
+      "pdf_url": "https://tmw.scout-ntr.org.hk/files/2026/TMWDV012026.pdf",
+      "title": "SOUL Keeper 精神健康守護者課程 (Level 1)",
       "captured_date": "2026-09-02"
     },
     {
@@ -44956,7 +45772,7 @@
       "source_site": "港島西區",
       "region": "港島地域",
       "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/07/HKW2026VCIR005.pdf",
-      "title": "通告 Circulars (2026) - 游泳測試",
+      "title": "游泳測試",
       "captured_date": "2026-07-21"
     },
     {
@@ -46874,7 +47690,7 @@
       "source_site": "港島西區",
       "region": "港島地域",
       "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/06/HKW2026SCIR004.pdf",
-      "title": "通告 Circulars (2026) - 童軍專章考驗日—手藝章(技能組)及體育章(技能組)",
+      "title": "童軍專章考驗日—手藝章(技能組)及體育章(技能組)",
       "captured_date": "2026-06-08"
     },
     {
@@ -47582,328 +48398,6 @@
       "region": "東九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1UnMUAXajpnTlaLd14dQeU_RUc5jkqYtU/view",
       "title": "定向遊蹤",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026DCIR004.pdf",
-      "title": "通告 Circulars (2026) - 西區童行探險嘉年華-填色比賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026DCIR003.pdf",
-      "title": "通告 Circulars (2026) - 西區童行探索嘉年華-填色比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR002.pdf",
-      "title": "通告 Circulars (2026) - 西區童行探索嘉年華-公園定向比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR001R.pdf",
-      "title": "通告 Circulars (2026) - 西區童行探索嘉年華",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026SCIR001.pdf",
-      "title": "通告 Circulars (2026) - 第583屆童軍領導才訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026VCIR002.pdf",
-      "title": "通告 Circulars (2026) - 港島西區深資童軍及樂行童軍2025-2026年度支部比賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR001.pdf",
-      "title": "通告 Circulars (2026) - 小童軍支部區總監盃競技比賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR002.pdf",
-      "title": "通告 Circulars (2026) - 參觀港鐵「安全體驗天地」",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/05/HKW2026VCIR004.pdf",
-      "title": "通告 Circulars (2026) - 動物福利機構探訪活動暨義工服務",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025GS002.pdf",
-      "title": "通告 Circulars (2025) - 識「碳」館(前灣仔環境資源中心)導賞團",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR002.pdf",
-      "title": "通告 Circulars (2025) - 西區幼童軍模擬飛行體驗活動",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR005.pdf",
-      "title": "通告 Circulars (2025) - 西區幼童軍太平山夜行活動",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025SCIR001.pdf",
-      "title": "通告 Circulars (2025) - 童軍消防訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR009.pdf",
-      "title": "通告 Circulars (2025) - 童軍原野烹飪(教導組)專章訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR008.pdf",
-      "title": "通告 Circulars (2025) - 童軍原野烹飪(技能組)專章訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025VCIR006.pdf",
-      "title": "通告 Circulars (2025) - 游泳測試",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR001.pdf",
-      "title": "通告 Circulars (2025) - 深資童軍消防訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR002.pdf",
-      "title": "通告 Circulars (2025) - 深資童軍支部比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR005.pdf",
-      "title": "通告 Circulars (2025) - 深資童軍及樂行童軍地圖閱讀考驗日",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR004.pdf",
-      "title": "通告 Circulars (2025) - 深資童軍及樂行童軍地圖閱讀工作坊",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/08/HKW2025VCIR009.pdf",
-      "title": "通告 Circulars (2025) - 深資童軍/樂行童軍遠足訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/11/HKW2025CSCIR004.pdf",
-      "title": "通告 Circulars (2025) - 幼童軍單車章訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR003.pdf",
-      "title": "通告 Circulars (2025) - 幼童軍2025-2026年度主席盃比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025CSCIR001.pdf",
-      "title": "通告 Circulars (2025) - 幼童軍2024-2025年度主席盃比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025GSCIR001.pdf",
-      "title": "通告 Circulars (2025) - 小童軍支部區總監盃競技比賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/12/HKW2025GSCIR004.pdf",
-      "title": "通告 Circulars (2025) - 小童軍支部區總監盃競技比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025GSCIR003.pdf",
-      "title": "通告 Circulars (2025) - 參觀嘉道理農場暨植物園",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR003.pdf",
-      "title": "通告 Circulars (2025) - 2025童軍先修章訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/04/HKW2025VCIR006.pdf",
-      "title": "通告 Circulars (2025) - 2024-2025年度深資童軍支部比賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/09/HKW2024CSCIR005.pdf",
-      "title": "通告 Circulars (2024) - 西區幼童軍(大潭郊野公園)遠足之旅",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024GSCIR003.pdf",
-      "title": "通告 Circulars (2024) - 綠在西區@源·區(T·PARK)小童軍探險記",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/08/HKW2024DCIR002.pdf",
-      "title": "通告 Circulars (2024) - 綠在西區@投入綠綠賞比賽-結果公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024dcir001.pdf",
-      "title": "通告 Circulars (2024) - 綠在西區@投入綠綠賞比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024SCIR004.pdf",
-      "title": "通告 Circulars (2024) - 第546屆童軍領導才訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/07/HKW2024SCIR005.pdf",
-      "title": "通告 Circulars (2024) - 第20屆初級航空活動章訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR003.pdf",
-      "title": "通告 Circulars (2024) - 童軍支部會長盃比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024VCIR002.pdf",
-      "title": "通告 Circulars (2024) - 港島西區深資童軍2023-2024年度支部比賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/HKW2024VCIR001.pdf",
-      "title": "通告 Circulars (2024) - 深資童軍支部比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR004R.pdf",
-      "title": "通告 Circulars (2024) - 深資童軍射箭訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR003R.pdf",
-      "title": "通告 Circulars (2024) - 深資童軍初級龍舟訓練證書班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/10/HKW2024GSCIR003.pdf",
-      "title": "通告 Circulars (2024) - 小童軍支部區總監盃競技比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024GSCIR002.pdf",
-      "title": "通告 Circulars (2024) - 小童軍支部區總監盃-「小童軍向前進」競技比賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024gscir001-r.pdf",
-      "title": "通告 Circulars (2024) - 小童軍支部區總監盃 「小童軍向前進」競技比賽",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024CSCIR002.pdf",
-      "title": "通告 Circulars (2024) - 2024童軍先修章訓練班",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR001.pdf",
-      "title": "通告 Circulars (2024) - 2024年童軍嘉爾頓錦標賽港島西區選拔賽-成績公佈",
-      "captured_date": "2026-06-04"
-    },
-    {
-      "source_site": "港島西區",
-      "region": "港島地域",
-      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR002.pdf",
-      "title": "通告 Circulars (2024) - 2024年童軍嘉爾頓錦標賽",
       "captured_date": "2026-06-04"
     },
     {
@@ -49087,6 +49581,328 @@
       "region": "港島地域",
       "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2013/07/HKW2012S013.pdf",
       "title": "通告 Circulars (2012) - 童軍原野烹飪專章(技能組/教導組)訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025GS002.pdf",
+      "title": "識「碳」館(前灣仔環境資源中心)導賞團",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026DCIR004.pdf",
+      "title": "西區童行探險嘉年華-填色比賽-成績公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026DCIR003.pdf",
+      "title": "西區童行探索嘉年華-填色比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR002.pdf",
+      "title": "西區童行探索嘉年華-公園定向比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026DCIR001R.pdf",
+      "title": "西區童行探索嘉年華",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR002.pdf",
+      "title": "西區幼童軍模擬飛行體驗活動",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR005.pdf",
+      "title": "西區幼童軍太平山夜行活動",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/09/HKW2024CSCIR005.pdf",
+      "title": "西區幼童軍(大潭郊野公園)遠足之旅",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024GSCIR003.pdf",
+      "title": "綠在西區@源·區(T·PARK)小童軍探險記",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/08/HKW2024DCIR002.pdf",
+      "title": "綠在西區@投入綠綠賞比賽-結果公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024dcir001.pdf",
+      "title": "綠在西區@投入綠綠賞比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/01/HKW2026SCIR001.pdf",
+      "title": "第583屆童軍領導才訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024SCIR004.pdf",
+      "title": "第546屆童軍領導才訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/07/HKW2024SCIR005.pdf",
+      "title": "第20屆初級航空活動章訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025SCIR001.pdf",
+      "title": "童軍消防訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR003.pdf",
+      "title": "童軍支部會長盃比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR009.pdf",
+      "title": "童軍原野烹飪(教導組)專章訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025SCIR008.pdf",
+      "title": "童軍原野烹飪(技能組)專章訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025VCIR006.pdf",
+      "title": "游泳測試",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/03/HKW2026VCIR002.pdf",
+      "title": "港島西區深資童軍及樂行童軍2025-2026年度支部比賽-成績公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024VCIR002.pdf",
+      "title": "港島西區深資童軍2023-2024年度支部比賽-成績公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR001.pdf",
+      "title": "深資童軍消防訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025VCIR002.pdf",
+      "title": "深資童軍支部比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/HKW2024VCIR001.pdf",
+      "title": "深資童軍支部比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR004R.pdf",
+      "title": "深資童軍射箭訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR005.pdf",
+      "title": "深資童軍及樂行童軍地圖閱讀考驗日",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/03/HKW2025VCIR004.pdf",
+      "title": "深資童軍及樂行童軍地圖閱讀工作坊",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/05/HKW2024VCIR003R.pdf",
+      "title": "深資童軍初級龍舟訓練證書班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/08/HKW2025VCIR009.pdf",
+      "title": "深資童軍/樂行童軍遠足訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/11/HKW2025CSCIR004.pdf",
+      "title": "幼童軍單車章訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025CSCIR003.pdf",
+      "title": "幼童軍2025-2026年度主席盃比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025CSCIR001.pdf",
+      "title": "幼童軍2024-2025年度主席盃比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR001.pdf",
+      "title": "小童軍支部區總監盃競技比賽-成績公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/01/HKW2025GSCIR001.pdf",
+      "title": "小童軍支部區總監盃競技比賽-成績公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/12/HKW2025GSCIR004.pdf",
+      "title": "小童軍支部區總監盃競技比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/10/HKW2024GSCIR003.pdf",
+      "title": "小童軍支部區總監盃競技比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/03/HKW2024GSCIR002.pdf",
+      "title": "小童軍支部區總監盃-「小童軍向前進」競技比賽-成績公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/01/hkw2024gscir001-r.pdf",
+      "title": "小童軍支部區總監盃 「小童軍向前進」競技比賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/02/HKW2026GSCIR002.pdf",
+      "title": "參觀港鐵「安全體驗天地」",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/10/HKW2025GSCIR003.pdf",
+      "title": "參觀嘉道理農場暨植物園",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2026/05/HKW2026VCIR004.pdf",
+      "title": "動物福利機構探訪活動暨義工服務",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/05/HKW2025CSCIR003.pdf",
+      "title": "2025童軍先修章訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/04/HKW2024CSCIR002.pdf",
+      "title": "2024童軍先修章訓練班",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR001.pdf",
+      "title": "2024年童軍嘉爾頓錦標賽港島西區選拔賽-成績公佈",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2024/02/HKW2024SCIR002.pdf",
+      "title": "2024年童軍嘉爾頓錦標賽",
+      "captured_date": "2026-06-04"
+    },
+    {
+      "source_site": "港島西區",
+      "region": "港島地域",
+      "pdf_url": "https://group.scout.org.hk/hkw/wp-content/uploads/2025/04/HKW2025VCIR006.pdf",
+      "title": "2024-2025年度深資童軍支部比賽-成績公佈",
       "captured_date": "2026-06-04"
     },
     {
@@ -73956,29 +74772,8 @@
     {
       "source_site": "慈雲山區",
       "region": "東九龍地域",
-      "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1004-1.pdf",
-      "title": "香港童軍總會 慈雲山區",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "慈雲山區",
-      "region": "東九龍地域",
       "pdf_url": "https://www.scout.org.hk/uploads/tc/forms/18537/PT03.pdf",
-      "title": "第588屆童軍領導才訓練班 - 青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "慈雲山區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
-      "title": "第588屆童軍領導才訓練班 - 總會",
-      "captured_date": "2026-05-20"
-    },
-    {
-      "source_site": "慈雲山區",
-      "region": "東九龍地域",
-      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
-      "title": "第584屆童軍領導才訓練班 - 學生隊員訓練資助計劃(由民政及青年事務局資助)",
+      "title": "青少年活動署活動/訓練班報名表及家長同意書(PT/03)",
       "captured_date": "2026-05-20"
     },
     {
@@ -73986,6 +74781,13 @@
       "region": "東九龍地域",
       "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/05/PT1001_2026-小童軍親子競技比賽（小童軍支部）.pdf",
       "title": "小童軍親子競技比賽(小童軍支部)",
+      "captured_date": "2026-05-20"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/17268/ACR202406C_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf",
+      "title": "學生隊員訓練資助計劃(由民政及青年事務局資助)",
       "captured_date": "2026-05-20"
     },
     {
@@ -74012,8 +74814,22 @@
     {
       "source_site": "慈雲山區",
       "region": "東九龍地域",
+      "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1004-1.pdf",
+      "title": "PT1004 1",
+      "captured_date": "2026-05-20"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
       "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/04/PT1002_2026-童軍射擊章（技能組）暨深資童軍射擊（A-304）訓練班.pdf",
       "title": "PT1002 2026 童軍射擊章(技能組)暨深資童軍射擊(A-304)訓練班",
+      "captured_date": "2026-05-20"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://www.scout.org.hk/article_attach/29308/AG042018C.pdf",
+      "title": "3) 有關「惡劣天氣及空氣污染應變措施」指引請參閱 總會 內容。",
       "captured_date": "2026-05-20"
     },
     {
@@ -74527,16 +75343,24 @@
     ],
     "total_sources": 49,
     "has_errors": false,
-    "expected_empty_sources": [],
+    "expected_empty_sources": [
+      "西貢區",
+      "離島區",
+      "大嶼山區"
+    ],
     "last_run": {
-      "updated_at": "2026-09-02 15:35:00",
-      "new": 92,
-      "updated": 468,
-      "skipped": 0,
-      "processed": 1,
-      "playwright_used": 0,
+      "updated_at": "2026-09-02 17:25:08",
+      "new": 51,
+      "updated": 3432,
+      "skipped": 3,
+      "processed": 46,
+      "playwright_used": 2,
       "error_sources": [],
-      "skipped_sources": []
+      "skipped_sources": [
+        "西貢區 (expected_empty)",
+        "離島區 (expected_empty)",
+        "大嶼山區 (expected_empty)"
+      ]
     }
   }
 }
