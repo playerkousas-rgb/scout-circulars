@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-01 09:17:14",
+  "last_updated": "2026-09-02 08:11:42",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4525,
+    "total_notices": 4552,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -10623,6 +10623,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會2/9 – 6/9/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=629%3A2-9-6-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=629%3A2-9-6-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日填色比賽",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=628%3A115-2&catid=51&lang=zh-tw&Itemid=1210",
@@ -23204,6 +23213,15 @@
     ],
     "紅磡區": [
       {
+        "title": "S-26-04 - 童軍沿繩下降章(技能組)訓練班 【New】",
+        "url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
+        "pdf_url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
         "title": "S-26-03 - 會長盾成績公佈",
         "url": "https://drive.google.com/file/d/19JAeUAbjz-TIArojWTUazApGg2qfyQ8A/view",
         "pdf_url": "https://drive.google.com/file/d/19JAeUAbjz-TIArojWTUazApGg2qfyQ8A/view",
@@ -23632,6 +23650,15 @@
       }
     ],
     "九龍塘區": [
+      {
+        "title": "深資童軍消防訓練班-接納通知書",
+        "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03VA.pdf",
+        "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03VA.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "九龍塘區",
+        "region": "九龍地域"
+      },
       {
         "title": "22026-2027年度幼童軍支部領袖第一次會議",
         "url": "https://www.scout-kowloontong.org/notice/2026/KLG26-10C.pdf",
@@ -26749,6 +26776,204 @@
       }
     ],
     "東九龍地域": [
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(9-1月)活動與訓練行事曆",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5634",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5634",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(9-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5635",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5635",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "風帆教練入學考核訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5632",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5632",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "跆拳道組 - 跆拳道齊齊學(12-3月)",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5627",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5627",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "賽馬會童「SING」匯航計劃 - 清理郊野公園山徑排水道及封堵捷徑活動",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5631",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5631",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "賽馬會童「SING」匯航計劃 - 「GeoMaster」可持續遠足山徑服務計劃",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5633",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5633",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "航空活動組 - 模擬飛行進階班 (波音787及747-8簡易操作)",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5629",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5629",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第4屆初級空勤員章訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5623",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5623",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第37屆幼童軍團遠足訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5619",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5619",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第112屆地圖閱讀訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5628",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5628",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第110屆歌唱訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5620",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5620",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "第 6屆童軍模擬飛行章(技能組)",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5630",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5630",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "歷奇小組 - 低結構繩網術證書及教練證書課程",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5618",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5618",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域總部公布",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5614",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5614",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "提交2025/2026年度賬目結算表",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5615",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5615",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "小童軍活動 - 扮鬼扮馬派對 報名表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5622",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5622",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "小童軍活動 - 扮鬼扮馬派對",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5621",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5621",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「積極公民」獎章系列 – 社區應急先鋒訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5624",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5624",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「以手製溫柔‧以心伴長者」香薰舒壓潤手霜共融活動",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5617",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5617",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "2026年東九龍地域會長盾體驗賽 - 參賽表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5626",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5626",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "2026年東九龍地域會長盾體驗賽",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5625",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5625",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "2026年旅團獎勵計劃獲獎名單",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5616",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5616",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
       {
         "title": "「童」心建家園-東莞巿石龍鎮服務之旅報名表格",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5607",
@@ -32509,6 +32734,24 @@
       }
     ],
     "屯門東區": [
+      {
+        "title": "「童軍消防訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
+        "title": "「深資童軍消防訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_V_26_02.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_26_02.pdf",
+        "date": "2026-09-02",
+        "captured_date": "2026-09-02",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
       {
         "title": "「2026立划板同樂日」通告",
         "url": "https://www.tmescout.org.hk/file/notice/TME_P_26_05.pdf",
@@ -40829,6 +41072,195 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
+      "title": "S-26-04 - 童軍沿繩下降章(技能組)訓練班 【New】",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=629%3A2-9-6-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會2/9 – 6/9/2026 辦公時間",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5634",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(9-1月)活動與訓練行事曆",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5635",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(9-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5632",
+      "title": "風帆教練入學考核訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5627",
+      "title": "跆拳道組 - 跆拳道齊齊學(12-3月)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5631",
+      "title": "賽馬會童「SING」匯航計劃 - 清理郊野公園山徑排水道及封堵捷徑活動",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5633",
+      "title": "賽馬會童「SING」匯航計劃 - 「GeoMaster」可持續遠足山徑服務計劃",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5629",
+      "title": "航空活動組 - 模擬飛行進階班 (波音787及747-8簡易操作)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5623",
+      "title": "第4屆初級空勤員章訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5619",
+      "title": "第37屆幼童軍團遠足訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5628",
+      "title": "第112屆地圖閱讀訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5620",
+      "title": "第110屆歌唱訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5630",
+      "title": "第 6屆童軍模擬飛行章(技能組)",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5618",
+      "title": "歷奇小組 - 低結構繩網術證書及教練證書課程",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5614",
+      "title": "東九龍地域總部公布",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5615",
+      "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5622",
+      "title": "小童軍活動 - 扮鬼扮馬派對 報名表格",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5621",
+      "title": "小童軍活動 - 扮鬼扮馬派對",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5624",
+      "title": "「積極公民」獎章系列 – 社區應急先鋒訓練班",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5617",
+      "title": "「以手製溫柔‧以心伴長者」香薰舒壓潤手霜共融活動",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5626",
+      "title": "2026年東九龍地域會長盾體驗賽 - 參賽表格",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5625",
+      "title": "2026年東九龍地域會長盾體驗賽",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5616",
+      "title": "2026年旅團獎勵計劃獲獎名單",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04.pdf",
+      "title": "「童軍消防訓練班」通告",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_V_26_02.pdf",
+      "title": "「深資童軍消防訓練班」通告",
+      "captured_date": "2026-09-02"
+    },
+    {
+      "source_site": "九龍塘區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-03VA.pdf",
+      "title": "深資童軍消防訓練班-接納通知書",
+      "captured_date": "2026-09-02"
+    },
     {
       "source_site": "灣仔區",
       "region": "港島地域",
@@ -72622,42 +73054,36 @@
       "青衣區"
     ],
     "total_sources": 49,
-    "has_errors": true,
+    "has_errors": false,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-01 09:17:14",
-      "new": 0,
-      "updated": 203,
-      "skipped": 47,
+      "updated_at": "2026-09-02 08:11:42",
+      "new": 27,
+      "updated": 451,
+      "skipped": 41,
       "processed": 46,
       "playwright_used": 0,
-      "error_sources": [
-        "九龍塘區"
-      ],
+      "error_sources": [],
       "skipped_sources": [
         "總會",
         "港島地域",
-        "灣仔區",
         "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
         "港島北區",
-        "紅磡區",
         "何文田區",
         "九龍城區",
-        "九龍塘區",
         "旺角區",
         "深旺區",
         "深水埗東區",
         "深水埗西區",
         "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
         "黃大仙區",
         "九龍灣區",
@@ -72671,7 +73097,6 @@
         "十八鄉區",
         "屯門西區",
         "北葵涌區",
-        "屯門東區",
         "荃灣區",
         "南葵涌區",
         "離島區 (expected_empty)",
@@ -72680,7 +73105,6 @@
         "大埔北區",
         "大埔南區",
         "沙田西區",
-        "沙田南區",
         "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",

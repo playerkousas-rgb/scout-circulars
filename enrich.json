@@ -43624,5 +43624,49 @@
     "error": "",
     "enriched_at": "2026-08-31 08:41:02",
     "enrich_version": "2.4"
+  },
+  "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view": {
+    "source": "紅磡區",
+    "title": "S-26-04 - 童軍沿繩下降章(技能組)訓練班 【New】",
+    "deadline": "2026-09-30",
+    "audience": "童軍",
+    "fee": "HK$350",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-02 08:17:44",
+    "enrich_version": "2.4"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-03VA.pdf": {
+    "source": "九龍塘區",
+    "title": "深資童軍消防訓練班-接納通知書",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-02 08:17:47",
+    "enrich_version": "2.4"
+  },
+  "https://www.tmescout.org.hk/file/notice/TME_S_26_04.pdf": {
+    "source": "屯門東區",
+    "title": "「童軍消防訓練班」通告",
+    "deadline": "2026-10-14",
+    "audience": "童軍",
+    "fee": "HK$150",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-02 08:17:53",
+    "enrich_version": "2.4"
+  },
+  "https://www.tmescout.org.hk/file/notice/TME_V_26_02.pdf": {
+    "source": "屯門東區",
+    "title": "「深資童軍消防訓練班」通告",
+    "deadline": "2026-10-14",
+    "audience": "深資童軍",
+    "fee": "HK$150",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-02 08:17:57",
+    "enrich_version": "2.4"
   }
 }
