@@ -45208,5 +45208,16 @@
     "error": "",
     "enriched_at": "2026-09-02 17:34:54",
     "enrich_version": "2.4"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/7tPMoFfIuZy4XOi7AboXDA/c6ca6f6fde142fc76c1dc0eedbc45bac/Spec_cir_29-26.pdf": {
+    "source": "新界東地域",
+    "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
+    "deadline": "2026-10-10",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-03 08:19:41",
+    "enrich_version": "2.4"
   }
 }
