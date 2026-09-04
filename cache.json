@@ -1,13 +1,76 @@
 {
-  "last_updated": "2026-09-04 08:04:43",
+  "last_updated": "2026-09-04 18:00:05",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4723,
+    "total_notices": 4735,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第41屆人際關係訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第170屆繩結訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25939/Training16.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25939/Training16.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童關注3 之 「文化保育 x 減碳人生」-「點心工作坊」- 報名表",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25948/Youth58-2.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25948/Youth58-2.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童關注3 之 「文化保育 x 減碳人生」-「點心工作坊」",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25945/Youth58-1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25945/Youth58-1.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "港島地域通告便覽(2026年9月)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域50周年紀念特刊公開徵稿",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25788/SP14-1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25788/SP14-1.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "幼童軍比賽(地域主席錦標)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25942/Youth57.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25942/Youth57.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
         "url": "https://scout.org.hk/uploads/tc/circulars/25880/Spec_cir_29-26R.pdf",
@@ -747,18 +810,18 @@
         "region": "總會"
       },
       {
-        "title": "幼童軍水上安全體驗日-報名表格",
-        "url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
+        "title": "幼童軍水上安全體驗日【修訂】",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
         "date": "2026-09-02",
         "captured_date": "2026-09-02",
         "source_site": "總會",
         "region": "總會"
       },
       {
-        "title": "幼童軍水上安全體驗日",
-        "url": "https://scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
+        "title": "幼童軍水上安全體驗日-報名表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
         "date": "2026-09-02",
         "captured_date": "2026-09-02",
         "source_site": "總會",
@@ -8570,6 +8633,24 @@
     ],
     "港島地域": [
       {
+        "title": "第41屆人際關係訓練班",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "港島地域通告便覽(2026年9月)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
         "title": "精神健康急救標準證書課程-關懷青少年版",
         "url": "https://www.scout.org.hk/uploads/tc/circulars/25822/Trg17_26_YouthMentalHealthFirstAidCourse.pdf",
         "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25822/Trg17_26_YouthMentalHealthFirstAidCourse.pdf",
@@ -11847,6 +11928,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會 5/9 – 11/9/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=630%3A5-9-11-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=630%3A5-9-11-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會2/9 – 6/9/2026 辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=629%3A2-9-6-9-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -22427,6 +22517,15 @@
     "港島北區": [
       {
         "title": "深資童軍營藝訓練班",
+        "url": "https://www.hknscout.org/wp-content/uploads/2026/09/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD-1.pdf",
+        "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/09/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD-1.pdf",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "港島北區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資童軍營藝訓練班",
         "url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/08/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD.pdf",
         "date": "2026-08-27",
@@ -28027,6 +28126,15 @@
       }
     ],
     "東九龍地域": [
+      {
+        "title": "東九龍地域50周年紀念特刊公開徵稿",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5637",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5637",
+        "date": "2026-09-04",
+        "captured_date": "2026-09-04",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
       {
         "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(9-1月)活動與訓練行事曆",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5634",
@@ -42614,6 +42722,90 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
+      "title": "第41屆人際關係訓練班",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25939/Training16.pdf",
+      "title": "第170屆繩結訓練班",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25948/Youth58-2.pdf",
+      "title": "童關注3 之 「文化保育 x 減碳人生」-「點心工作坊」- 報名表",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25945/Youth58-1.pdf",
+      "title": "童關注3 之 「文化保育 x 減碳人生」-「點心工作坊」",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf",
+      "title": "港島地域通告便覽(2026年9月)",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25788/SP14-1.pdf",
+      "title": "東九龍地域50周年紀念特刊公開徵稿",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25942/Youth57.pdf",
+      "title": "幼童軍比賽(地域主席錦標)",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=630%3A5-9-11-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 5/9 – 11/9/2026辦公時間",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
+      "title": "第41屆人際關係訓練班",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf",
+      "title": "港島地域通告便覽(2026年9月)",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "港島北區",
+      "region": "港島地域",
+      "pdf_url": "https://www.hknscout.org/wp-content/uploads/2026/09/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD-1.pdf",
+      "title": "深資童軍營藝訓練班",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5637",
+      "title": "東九龍地域50周年紀念特刊公開徵稿",
+      "captured_date": "2026-09-04"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25880/Spec_cir_29-26R.pdf",
       "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
       "captured_date": "2026-09-03"
@@ -43384,15 +43576,15 @@
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
-      "title": "幼童軍水上安全體驗日-報名表格",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
+      "title": "幼童軍水上安全體驗日【修訂】",
       "captured_date": "2026-09-02"
     },
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25438/Sec48_26_CSWaterSatetyDay.pdf",
-      "title": "幼童軍水上安全體驗日",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf",
+      "title": "幼童軍水上安全體驗日-報名表格",
       "captured_date": "2026-09-02"
     },
     {
@@ -75797,52 +75989,16 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-04 08:04:43",
-      "new": 0,
-      "updated": 0,
-      "skipped": 39,
+      "updated_at": "2026-09-04 18:00:05",
+      "new": 12,
+      "updated": 3497,
+      "skipped": 3,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)"
       ]
     }

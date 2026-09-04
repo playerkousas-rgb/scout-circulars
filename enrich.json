@@ -45516,5 +45516,115 @@
     "error": "",
     "enriched_at": "2026-09-03 18:08:51",
     "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf": {
+    "source": "總會",
+    "title": "第41屆人際關係訓練班",
+    "deadline": "2026-11-06",
+    "audience": "領袖、會務委員",
+    "fee": "HK$200",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:06:55",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25939/Training16.pdf": {
+    "source": "總會",
+    "title": "第170屆繩結訓練班",
+    "deadline": "2026-10-16",
+    "audience": "",
+    "fee": "HK$160",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:06:59",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25948/Youth58-2.pdf": {
+    "source": "總會",
+    "title": "童關注3 之 「文化保育 x 減碳人生」-「點心工作坊」- 報名表",
+    "deadline": "2026-10-23",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:02",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25945/Youth58-1.pdf": {
+    "source": "總會",
+    "title": "童關注3 之 「文化保育 x 減碳人生」-「點心工作坊」",
+    "deadline": "2026-10-23",
+    "audience": "小童軍、幼童軍、家長",
+    "fee": "HK$10",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:06",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf": {
+    "source": "總會",
+    "title": "港島地域通告便覽(2026年9月)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:08",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25788/SP14-1.pdf": {
+    "source": "總會",
+    "title": "東九龍地域50周年紀念特刊公開徵稿",
+    "deadline": "2026-12-31",
+    "audience": "領袖、會務委員",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:11",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25942/Youth57.pdf": {
+    "source": "總會",
+    "title": "幼童軍比賽(地域主席錦標)",
+    "deadline": "2026-10-09",
+    "audience": "幼童軍",
+    "fee": "HK$80",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:15",
+    "enrich_version": "2.4"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf": {
+    "source": "港島地域",
+    "title": "第41屆人際關係訓練班",
+    "deadline": "2026-11-06",
+    "audience": "領袖、會務委員",
+    "fee": "HK$200",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:18",
+    "enrich_version": "2.4"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/25943/CircularList-2026-09.pdf": {
+    "source": "港島地域",
+    "title": "港島地域通告便覽(2026年9月)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:22",
+    "enrich_version": "2.4"
+  },
+  "https://www.hknscout.org/wp-content/uploads/2026/09/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD-1.pdf": {
+    "source": "港島北區",
+    "title": "深資童軍營藝訓練班",
+    "deadline": "2026-10-02",
+    "audience": "深資童軍",
+    "fee": "HK$75",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-04 18:07:25",
+    "enrich_version": "2.4"
   }
 }
