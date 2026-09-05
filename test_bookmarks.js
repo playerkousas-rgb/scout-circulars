@@ -12,9 +12,12 @@ const fs = require('fs');
 
 const html = fs.readFileSync('index.html', 'utf8');
 
+// 「今天」視窗以香港時間計：測試資料日期要用 HKT，否則 UTC 16:00 後跑會全部跌出視窗
+const HKT_OFFSET = 8 * 3600 * 1000;
+const isoHKT = (ms) => new Date(ms + HKT_OFFSET).toISOString().slice(0, 10);
 const today = new Date();
-const iso = (d) => d.toISOString().slice(0, 10);
-const daysAgo = (n) => iso(new Date(today.getTime() - n * 86400000));
+const iso = (d) => isoHKT(d.getTime());
+const daysAgo = (n) => isoHKT(today.getTime() - n * 86400000);
 
 // 一則今日、一則 60 日前 —— 用嚟測時間視窗
 const cache = {

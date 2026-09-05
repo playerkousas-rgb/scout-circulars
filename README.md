@@ -15,7 +15,9 @@
 - `core.py`：Python 爬蟲主程式
 - `sources.json`：49 個來源映射設定
 - `cache.json`：輸出資料與內部狀態
-- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 只顯示明確日期）
+- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享）
+- `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
+- `serve_local.py`：本機同時提供靜態頁 + `/api/render`
 - `.github/workflows/update-cache.yml`：每日自動更新
 
 ## 快速開始
@@ -51,17 +53,41 @@ const RAW_CACHE_URL = "https://raw.githubusercontent.com/YOUR_GITHUB_USER/YOUR_R
 index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 ```
 
-## 搜尋規則
+## 搜尋與支部篩選
 
-- 一般名稱及支部關鍵字採用包含配對。
-- 完整輸入成員名稱（例如「童軍」、「幼童軍」、「深資童軍」）時，會優先精確配對 `enrich.json` 的 `audience` 欄位。
-- 成員名稱採用最長詞優先（longest-match），所以搜尋「童軍」不會誤中「小童軍」、「幼童軍」、「深資童軍」或「樂行童軍」。
-- 可用空格、逗號、頓號或斜線輸入多個成員名稱；多個名稱採用「其中之一」配對。
+- 關鍵字欄只搜通告**名稱**（包含配對，NFKC 正規化，全形半形通用）。
+- 支部用一排標籤篩選：**全部／小童軍／幼童軍／童軍／深資童軍／樂行童軍／領袖／家長／會務委員**（單選，再撳一次取消）。
+- 判斷一張通告屬於邊個支部：
+  1. `enrich.json` 有 `audience`（由 PDF 內文抽出）→ 以佢為準；
+  2. 冇 `audience`（舊通告／抽唔到）→ 退而求其次睇標題。
+- 兩者都用最長詞優先（longest-match），所以「童軍」不會誤中「小童軍」「幼童軍」「深資童軍」「樂行童軍」；「所有成員」當作全部支部命中。
 
-執行搜尋回歸測試：
+執行回歸測試：
 
 ```bash
-node test_search_members.js
+node test_search_members.js     # 支部配對邏輯（直接由 index.html 抽出，唔係複製一份）
+node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需要 jsdom）
+```
+
+## 分享通告
+
+每張卡片有「分享」掣，彈出面板提供：
+
+- **分享連結**：WhatsApp／Telegram／Facebook／X／LINE／電郵、系統分享（手機）、複製網址、複製文字（標題 + 截止／對象／費用 + 網址）。
+  分享嘅網址係**附件直連（PDF）**，朋友一撳即開。
+- **分享圖片**：把 PDF 頁面轉做 JPG，可以成張貼落 IG／WhatsApp。多頁通告可逐頁產生；支援直接分享（手機）、複製圖片、下載圖片。
+
+圖片由 `api/render.py`（Vercel Python Function）產生：`GET /api/render?url=<pdf>&page=1&dpi=130` → `image/jpeg`，
+header `X-Pdf-Pages` 係總頁數。依賴 PyMuPDF（`api/requirements.txt`），內建 CJK 後備字型，Word 出嘅冇內嵌字型通告都畫得正。
+成功結果由 Vercel CDN 快取一日，同一張通告無論幾多人分享都唔會重複打區會網站。
+只回傳畫出嚟嘅圖片（唔係開放代理），內網／loopback／link-local 位址一律拒絕。
+
+本機測試（`python -m http.server` 冇呢個 API）：
+
+```bash
+pip install -r api/requirements.txt
+python serve_local.py            # http://localhost:8000/index.html，/api/render 已掛載
+python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉圖、錯誤碼、完整 HTTP 流程
 ```
 
 ## `cache.json` 結構

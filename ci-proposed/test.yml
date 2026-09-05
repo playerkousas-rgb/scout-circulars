@@ -39,11 +39,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 lxml pdfplumber
+          pip install requests beautifulsoup4 lxml pdfplumber pymupdf
           npm i --no-save jsdom
 
       - name: 語法檢查
-        run: python -m py_compile core.py enrich.py check_stale.py check_sources.py
+        run: python -m py_compile core.py enrich.py check_stale.py check_sources.py api/render.py serve_local.py api/render.py serve_local.py
 
       # ── Python 測試 ──
       - name: URL 標題 fallback（防止 "view" 標題復發）
@@ -70,6 +70,15 @@ jobs:
 
       - name: 收藏功能 index.html
         run: node test_bookmarks.js
+
+      - name: 支部標籤 + 分享面板 index.html
+        run: node test_share_branch.js
+
+      - name: 支部配對邏輯（由 index.html 抽出）
+        run: node test_search_members.js
+
+      - name: /api/render PDF → 圖片（離線）
+        run: python test_render_api.py
 
       # ── 資料完整性（唔會因為改咗邏輯而靜靜污染 cache）──
       - name: cache.json 完整性檢查
