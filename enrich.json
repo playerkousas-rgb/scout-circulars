@@ -45659,5 +45659,16 @@
     "error": "",
     "enriched_at": "2026-09-05 08:07:44",
     "enrich_version": "2.4"
+  },
+  "https://www.klcscout.hk/cportal/uploads/V01_肩章考驗2026_通告.pdf": {
+    "source": "九龍城區",
+    "title": "深資童軍肩章考驗營 2026",
+    "deadline": "2026-09-30",
+    "audience": "深資童軍",
+    "fee": "HK$140",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-05 18:08:01",
+    "enrich_version": "2.4"
   }
 }

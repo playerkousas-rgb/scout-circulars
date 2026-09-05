@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-05 08:02:46",
+  "last_updated": "2026-09-05 18:00:05",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4738,
+    "total_notices": 4739,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -24864,6 +24864,15 @@
     ],
     "九龍城區": [
       {
+        "title": "深資童軍肩章考驗營 2026",
+        "url": "https://www.klcscout.hk/cportal/uploads/V01_肩章考驗2026_通告.pdf",
+        "pdf_url": "https://www.klcscout.hk/cportal/uploads/V01_肩章考驗2026_通告.pdf",
+        "date": "2026-09-05",
+        "captured_date": "2026-09-05",
+        "source_site": "九龍城區",
+        "region": "九龍地域"
+      },
+      {
         "title": "立法會綜合大樓參觀",
         "url": "https://www.klcscout.hk/cportal/uploads/立法會綜合大樓參觀.pdf",
         "pdf_url": "https://www.klcscout.hk/cportal/uploads/立法會綜合大樓參觀.pdf",
@@ -42765,6 +42774,13 @@
       "region": "東九龍地域",
       "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/DOC-20260826-WA0005.pdf",
       "title": "2026年全區領袖會議",
+      "captured_date": "2026-09-05"
+    },
+    {
+      "source_site": "九龍城區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.klcscout.hk/cportal/uploads/V01_肩章考驗2026_通告.pdf",
+      "title": "深資童軍肩章考驗營 2026",
       "captured_date": "2026-09-05"
     },
     {
@@ -76037,50 +76053,16 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-05 08:02:46",
-      "new": 3,
-      "updated": 62,
-      "skipped": 37,
+      "updated_at": "2026-09-05 18:00:05",
+      "new": 1,
+      "updated": 3511,
+      "skipped": 3,
       "processed": 46,
-      "playwright_used": 11,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)"
       ]
     }
