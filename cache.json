@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-04 18:00:05",
+  "last_updated": "2026-09-05 08:02:46",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4735,
+    "total_notices": 4738,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -29237,6 +29237,33 @@
     "西貢區": [],
     "黃大仙區": [
       {
+        "title": "「耆」樂「童」行五十載(服務)",
+        "url": "https://hkscout-wts.org/wp-content/uploads/2026/09/「耆」樂「童」行五十載通告V1.pdf",
+        "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/「耆」樂「童」行五十載通告V1.pdf",
+        "date": "2026-09-05",
+        "captured_date": "2026-09-05",
+        "source_site": "黃大仙區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "Game Night 系列活動",
+        "url": "https://hkscout-wts.org/wp-content/uploads/2026/09/GAME-NIGHT活動通告.pdf",
+        "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/GAME-NIGHT活動通告.pdf",
+        "date": "2026-09-05",
+        "captured_date": "2026-09-05",
+        "source_site": "黃大仙區",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "2026年全區領袖會議",
+        "url": "https://hkscout-wts.org/wp-content/uploads/2026/09/DOC-20260826-WA0005.pdf",
+        "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/DOC-20260826-WA0005.pdf",
+        "date": "2026-09-05",
+        "captured_date": "2026-09-05",
+        "source_site": "黃大仙區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "香港童軍110周年系列 – 運動與健康推廣計劃 「童」運動 、齊健康 全區智能運動大賽",
         "url": "https://hkscout-wts.org/wp-content/uploads/2022/12/黃大仙區「童」運動-齊健康-智能運動大賽-1.pdf",
         "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2022/12/黃大仙區「童」運動-齊健康-智能運動大賽-1.pdf",
@@ -42719,6 +42746,27 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "黃大仙區",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/「耆」樂「童」行五十載通告V1.pdf",
+      "title": "「耆」樂「童」行五十載(服務)",
+      "captured_date": "2026-09-05"
+    },
+    {
+      "source_site": "黃大仙區",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/GAME-NIGHT活動通告.pdf",
+      "title": "Game Night 系列活動",
+      "captured_date": "2026-09-05"
+    },
+    {
+      "source_site": "黃大仙區",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/DOC-20260826-WA0005.pdf",
+      "title": "2026年全區領袖會議",
+      "captured_date": "2026-09-05"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -75989,16 +76037,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-04 18:00:05",
-      "new": 12,
-      "updated": 3497,
-      "skipped": 3,
+      "updated_at": "2026-09-05 08:02:46",
+      "new": 3,
+      "updated": 62,
+      "skipped": 37,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 11,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)"
       ]
     }

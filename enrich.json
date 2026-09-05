@@ -45626,5 +45626,38 @@
     "error": "",
     "enriched_at": "2026-09-04 18:07:25",
     "enrich_version": "2.4"
+  },
+  "https://hkscout-wts.org/wp-content/uploads/2026/09/「耆」樂「童」行五十載通告V1.pdf": {
+    "source": "黃大仙區",
+    "title": "「耆」樂「童」行五十載(服務)",
+    "deadline": "2026-10-28",
+    "audience": "領袖",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-05 08:07:34",
+    "enrich_version": "2.4"
+  },
+  "https://hkscout-wts.org/wp-content/uploads/2026/09/GAME-NIGHT活動通告.pdf": {
+    "source": "黃大仙區",
+    "title": "Game Night 系列活動",
+    "deadline": "2026-09-14",
+    "audience": "深資童軍、樂行童軍、童軍、家長",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-05 08:07:38",
+    "enrich_version": "2.4"
+  },
+  "https://hkscout-wts.org/wp-content/uploads/2026/09/DOC-20260826-WA0005.pdf": {
+    "source": "黃大仙區",
+    "title": "2026年全區領袖會議",
+    "deadline": "2026-09-16",
+    "audience": "",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-05 08:07:44",
+    "enrich_version": "2.4"
   }
 }
