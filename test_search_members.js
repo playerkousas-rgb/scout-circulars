@@ -21,9 +21,9 @@ const src = html.slice(start, end);
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(src + `
-  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery };
+  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory };
 `, ctx);
-const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery } = ctx.__exports;
+const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory } = ctx.__exports;
 
 let pass = 0;
 let fail = 0;
@@ -86,6 +86,24 @@ check('關鍵字唔會搜區會名', matchesKeyword({ title: '射箭訓練班', 
 check('關鍵字 NFKC：全形數字都搵到', matchesKeyword({ title: '第４１屆訓練班' }, '41'), true);
 check('關鍵字 + 支部 同時生效', matchesSearchQuery({ title: '深資童軍射箭訓練班' }, { audience: '深資童軍' }, '射箭', '深資童軍'), true);
 check('關鍵字中但支部唔中 → 唔顯示', matchesSearchQuery({ title: '深資童軍射箭訓練班' }, { audience: '深資童軍' }, '射箭', '幼童軍'), false);
+
+// 5.5 分類：由 enrich.py 抽出嚟嘅 categories 決定，唔係靠標題字眼。
+checkArray('分類標籤 = 全部 + 訓練班/服務/比賽/其他',
+  CATEGORY_TAGS.map(t => t.label),
+  ['全部', '訓練班', '服務', '比賽', '其他']);
+check('分類：enrich categories 有训练 → training',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training', label: '訓練班' }] }, 'training'), true);
+check('分類：enrich categories 有服务 → service',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'service', label: '服務' }] }, 'service'), true);
+check('分類：enrich categories 有比赛 → competition',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'competition', label: '比賽' }] }, 'competition'), true);
+check('分類：一隻通告可以同時屬訓練 + 服務',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training' }, { id: 'service' }] }, 'training') &&
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training' }, { id: 'service' }] }, 'service'), true);
+check('分類：標題有「訓練班」但 enrich 未分類 → 唔會靠標題誤判',
+  matchesCategory({ title: '童軍繩結訓練班' }, null, 'training'), false);
+check('分類：enrich 冇 categories → other', matchesCategory({ title: '旅團註冊須知' }, {}, 'other'), true);
+check('分類：ALL 永遠命中', matchesCategory({ title: '乜都冇' }, null, 'ALL'), true);
 
 // 6. 使用 repo 真實資料作回歸測試：所有「童軍」結果都必須有精確 token（audience 或標題）。
 const cache = JSON.parse(fs.readFileSync(path.join(base, 'cache.json'), 'utf8'));
