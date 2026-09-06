@@ -1,13 +1,67 @@
 {
-  "last_updated": "2026-09-06 07:53:10",
+  "last_updated": "2026-09-06 18:00:05",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4739,
+    "total_notices": 4745,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第111屆先鋒工程訓練班(領袖技能訓練班) (KT/70/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25957/KT70_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25957/KT70_26.pdf",
+        "date": "2026-09-06",
+        "captured_date": "2026-09-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "幼童軍領袖工作坊(新修訂訓練綱要) (KT/68/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25955/KT68_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25955/KT68_26.pdf",
+        "date": "2026-09-06",
+        "captured_date": "2026-09-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "幼童軍防騙先鋒章 (KT/67/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25954/KT67_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25954/KT67_26.pdf",
+        "date": "2026-09-06",
+        "captured_date": "2026-09-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "寰宇童軍計劃「探索」課程 (KT/66/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25953/KT66_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25953/KT66_26.pdf",
+        "date": "2026-09-06",
+        "captured_date": "2026-09-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域深資童軍貝雷議會-茶藝工作坊 (KT/69/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25956/KT69_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25956/KT69_26.pdf",
+        "date": "2026-09-06",
+        "captured_date": "2026-09-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "PPP 2026 #4(Pre-Pilot Program)(KT/64/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25952/KT64_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25952/KT64_26.pdf",
+        "date": "2026-09-06",
+        "captured_date": "2026-09-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第41屆人際關係訓練班",
         "url": "https://scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
@@ -42756,6 +42810,48 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25957/KT70_26.pdf",
+      "title": "第111屆先鋒工程訓練班(領袖技能訓練班) (KT/70/26)",
+      "captured_date": "2026-09-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25955/KT68_26.pdf",
+      "title": "幼童軍領袖工作坊(新修訂訓練綱要) (KT/68/26)",
+      "captured_date": "2026-09-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25954/KT67_26.pdf",
+      "title": "幼童軍防騙先鋒章 (KT/67/26)",
+      "captured_date": "2026-09-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25953/KT66_26.pdf",
+      "title": "寰宇童軍計劃「探索」課程 (KT/66/26)",
+      "captured_date": "2026-09-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25956/KT69_26.pdf",
+      "title": "九龍地域深資童軍貝雷議會-茶藝工作坊 (KT/69/26)",
+      "captured_date": "2026-09-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25952/KT64_26.pdf",
+      "title": "PPP 2026 #4(Pre-Pilot Program)(KT/64/26)",
+      "captured_date": "2026-09-06"
+    },
+    {
       "source_site": "黃大仙區",
       "region": "東九龍地域",
       "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/「耆」樂「童」行五十載通告V1.pdf",
@@ -76053,51 +76149,16 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-06 07:53:10",
-      "new": 0,
-      "updated": 41,
-      "skipped": 38,
+      "updated_at": "2026-09-06 18:00:05",
+      "new": 6,
+      "updated": 3506,
+      "skipped": 3,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)"
       ]
     }

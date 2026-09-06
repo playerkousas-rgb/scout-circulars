@@ -45670,5 +45670,71 @@
     "error": "",
     "enriched_at": "2026-09-05 18:08:01",
     "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25957/KT70_26.pdf": {
+    "source": "總會",
+    "title": "第111屆先鋒工程訓練班(領袖技能訓練班) (KT/70/26)",
+    "deadline": "2026-11-08",
+    "audience": "樂行童軍、領袖、會務委員",
+    "fee": "HK$225",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-06 18:06:48",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25955/KT68_26.pdf": {
+    "source": "總會",
+    "title": "幼童軍領袖工作坊(新修訂訓練綱要) (KT/68/26)",
+    "deadline": "2026-09-28",
+    "audience": "幼童軍、領袖",
+    "fee": "全免",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-06 18:06:51",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25954/KT67_26.pdf": {
+    "source": "總會",
+    "title": "幼童軍防騙先鋒章 (KT/67/26)",
+    "deadline": "2026-10-19",
+    "audience": "幼童軍",
+    "fee": "HK$20",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-06 18:06:55",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25953/KT66_26.pdf": {
+    "source": "總會",
+    "title": "寰宇童軍計劃「探索」課程 (KT/66/26)",
+    "deadline": "2026-10-22",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$30",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-06 18:06:58",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25956/KT69_26.pdf": {
+    "source": "總會",
+    "title": "九龍地域深資童軍貝雷議會-茶藝工作坊 (KT/69/26)",
+    "deadline": "2026-09-28",
+    "audience": "深資童軍",
+    "fee": "HK$100",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-06 18:07:02",
+    "enrich_version": "2.4"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25952/KT64_26.pdf": {
+    "source": "總會",
+    "title": "PPP 2026 #4(Pre-Pilot Program)(KT/64/26)",
+    "deadline": "2026-10-12",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$30",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-06 18:07:05",
+    "enrich_version": "2.4"
   }
 }
