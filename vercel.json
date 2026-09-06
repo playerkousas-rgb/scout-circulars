@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/render.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{cache.json,enrich.json,fingerprints.json,sources.json,*.bak,test_*.py,test_*.js,*.md,ci-proposed/**,node_modules/**}"
+    }
+  }
+}

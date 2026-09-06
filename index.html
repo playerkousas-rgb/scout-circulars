@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>通告圖書館 v5.6</title>
+  <title>通告圖書館 v5.7</title>
   <style>
     :root {
       --bg: #02133e;
@@ -97,6 +97,9 @@
     .scope-chip.active { background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; border-color: #c084fc; }
     .field-label { color: var(--muted); font-size: 13px; align-self: center; }
     .field-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    /* 支部標籤（單選）：綠色系，同時間視窗（藍）／收藏（金）分開 */
+    .chip.chip-branch.active { background: linear-gradient(135deg, #15803d, #22c55e); color: #03200f; border-color: #4ade80; font-weight: 700; }
+    .chip.chip-branch.chip-all.active { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
     .status { margin-top: 12px; color: var(--muted); font-size: 13px; }
     .msg { margin-top: 18px; padding: 18px; border-radius: var(--radius); border: 1px solid var(--line); background: rgba(255,255,255,.03); }
     .msg.error { border-color: rgba(239,68,68,.4); color: #ffd6d6; background: rgba(127,29,29,.18); }
@@ -140,6 +143,55 @@
     .ss-save, .ss-import { border: 1px solid rgba(59,130,246,.45); background: #173664; color: #d9e8ff; border-radius: 12px; padding: 9px 12px; cursor: pointer; font-weight: 700; }
     .ss-save:hover, .ss-import:hover { background: #2450a3; }
     .ss-import { width: 100%; }
+
+    /* ── 分享 ─────────────────────────────────────────────── */
+    .card-actions { display: flex; gap: 8px; }
+    .card-actions .ss-import { flex: 1; }
+    .share-btn { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line);
+                 background: #0b1424; color: #cfe3ff; border-radius: 12px; padding: 9px 12px; cursor: pointer; font-weight: 700; }
+    .share-btn:hover { background: #16263f; border-color: #3a5a8c; }
+    .share-btn svg { width: 16px; height: 16px; }
+    .share-btn:focus-visible, .share-opt:focus-visible, .share-close:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
+
+    .share-backdrop { position: fixed; inset: 0; z-index: 50; background: rgba(2,8,23,.66); backdrop-filter: blur(3px);
+                      display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .share-sheet { width: min(560px, 100%); max-height: calc(100vh - 32px); overflow: auto; border-radius: 20px;
+                   border: 1px solid var(--line); background: linear-gradient(180deg, #111d32, #0b1424); box-shadow: var(--shadow); padding: 18px; }
+    .share-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .share-head h3 { margin: 0; font-size: 17px; line-height: 1.4; }
+    .share-head .sub { margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .share-close { flex: 0 0 auto; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 10px; width: 34px; height: 34px; cursor: pointer; font-size: 18px; line-height: 1; }
+    .share-close:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .share-section { margin-top: 16px; }
+    .share-section h4 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
+    .share-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+    .share-opt { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 12px 6px;
+                 border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); cursor: pointer; font-size: 12px; text-decoration: none; transition: .15s; }
+    .share-opt:hover { background: rgba(255,255,255,.08); transform: translateY(-1px); }
+    .share-opt svg { width: 26px; height: 26px; }
+    .share-opt.wa svg { fill: #25d366; } .share-opt.tg svg { fill: #29a9eb; } .share-opt.fb svg { fill: #1877f2; }
+    .share-opt.x svg { fill: #e7e9ea; } .share-opt.line svg { fill: #06c755; } .share-opt.mail svg { stroke: #eab308; fill: none; stroke-width: 2; }
+    .share-opt.sys svg, .share-opt.copy svg, .share-opt.dl svg { stroke: #93c5fd; fill: none; stroke-width: 2; }
+    .share-opt[disabled], .share-opt.disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+    /* 圖片預覽 */
+    .share-img-box { margin-top: 8px; border: 1px solid var(--line); border-radius: 14px; background: #0a1120; padding: 10px; }
+    .share-img-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+    .share-img-toolbar select { font: inherit; background: #0b1424; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 4px 8px; }
+    .share-preview { display: block; width: 100%; max-height: 46vh; object-fit: contain; border-radius: 8px; margin-top: 8px; background: #fff; }
+    .share-img-status { margin-top: 8px; font-size: 12px; color: var(--muted); min-height: 16px; }
+    .share-img-status.err { color: #fca5a5; }
+    .share-img-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .share-img-actions button { flex: 1; min-width: 120px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid rgba(59,130,246,.45); background: #173664; color: #d9e8ff; border-radius: 12px; padding: 10px 12px; cursor: pointer; font-weight: 700; }
+    .share-img-actions button:hover { background: #2450a3; }
+    .share-img-actions button[disabled] { opacity: .5; cursor: not-allowed; }
+    .share-img-actions button svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .share-hint { margin-top: 8px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .share-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; background: #0f172a; color: #e6eefb;
+                   border: 1px solid #3a5a8c; padding: 10px 16px; border-radius: 999px; font-size: 13px; box-shadow: var(--shadow); pointer-events: none; opacity: 0; transition: opacity .2s; }
+    .share-toast.show { opacity: 1; }
+    .spin { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.25); border-top-color: #93c5fd; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; margin-right: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     @media (max-width: 980px) {
       .app { grid-template-columns: 1fr; }
       .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -152,7 +204,7 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-  <h1>通告圖書館 v5.6</h1>
+  <h1>通告圖書館 v5.7</h1>
   <p>每天自動更新<br>擇要未必完全準確，詳情請開附件參閱詳細通告。</p>
   <p style="margin-top:10px;"><a href="errors.html" style="color:#93c5fd;font-size:12px;">→ 診斷儀表板</a></p>
 </div>
@@ -174,7 +226,7 @@
         <div class="contact-bar" id="contact-bar"></div>
 
         <div class="controls">
-          <input id="keyword" type="search" placeholder="搜尋名稱 / 成員（精準配對）/ 支部…">
+          <input id="keyword" type="search" placeholder="搜尋通告名稱…">
           <div class="scope-chips" id="scope-chips">
             <button class="scope-chip active" data-scope="current">目前分頁</button>
             <button class="scope-chip" data-scope="global">全港搜尋</button>
@@ -182,13 +234,8 @@
         </div>
 
         <div class="controls">
-          <span class="field-label">搜尋範圍：</span>
-          <div class="field-chips" id="field-chips">
-            <button class="chip active" data-field="name">名稱</button>
-            <button class="chip active" data-field="member">成員（精準）</button>
-            <button class="chip active" data-field="branch">支部</button>
-          </div>
-          <label class="toggle"><input id="explicit-date" type="checkbox"> 只顯示明確日期</label>
+          <span class="field-label">支部：</span>
+          <div class="field-chips" id="branch-chips"></div>
         </div>
 
         <div class="controls">
@@ -199,7 +246,7 @@
         <div class="ss-connect">
           <div class="ss-connect-row"><strong>ScoutSystem 接入</strong><span class="sub">設定一次後，每張通告可直接加入你的旅團系統。</span></div>
           <div class="ss-connect-row">
-            <input id="scoutsystem-url" placeholder="例如：https://scoutsystem.vercel.app">
+            <input id="scoutsystem-url" placeholder="例如：https://troop-portal.vercel.app">
             <button class="ss-save" id="save-scoutsystem-url">儲存 ScoutSystem 網址</button>
           </div>
           <div class="status" id="scoutsystem-status"></div>
@@ -230,13 +277,27 @@
       { id: '180d', label: '6個月', days: 180 },
     ];
 
-    // 成員搜尋用精確匹配：避免「童軍」命中「幼童軍 / 深資童軍 / 樂行童軍」。
-    // 較長名稱必須先配對，否則「深資童軍」會被錯拆成「童軍」。
+    // ── 支部篩選 ──────────────────────────────────────────────
+    // 用戶唔使再打字揀成員：一排支部標籤，撳一個即刻過濾。
+    // 「童軍」唔可以命中「幼童軍 / 深資童軍 / 樂行童軍」，所以標題同 audience
+    // 都用 longest-match 掃描，較長名稱先配對。
+    const BRANCH_TAGS = [
+      { id: 'ALL', label: '全部' },
+      { id: '小童軍', label: '小童軍' },
+      { id: '幼童軍', label: '幼童軍' },
+      { id: '童軍', label: '童軍' },
+      { id: '深資童軍', label: '深資童軍' },
+      { id: '樂行童軍', label: '樂行童軍' },
+      { id: '領袖', label: '領袖' },
+      { id: '家長', label: '家長' },
+      { id: '會務委員', label: '會務委員' },
+    ];
+    // 掃描標題 / audience 用嘅詞表：包埋唔係標籤嘅成員詞（成年成員、公眾…），
+    // 咁樣「成年成員」先唔會被錯拆成「成員」，「所有成員」都唔會漏。
     const KNOWN_MEMBERS = [
       '小童軍', '幼童軍', '童軍', '深資童軍', '樂行童軍',
       '領袖', '家長', '成年成員', '會務委員', '公眾', '親友', '所有成員',
     ];
-    const MEMBER_QUERY_SEPARATOR = /[\s,，、/／;；|｜]+/;
 
     function normalizeSearchText(value) {
       return String(value ?? '').normalize('NFKC').toLowerCase().trim();
@@ -246,24 +307,8 @@
       .map(normalizeSearchText)
       .sort((a, b) => b.length - a.length);
 
-    function splitSearchParts(query) {
-      return normalizeSearchText(query).split(MEMBER_QUERY_SEPARATOR).filter(Boolean);
-    }
-
-    function tokenizeMemberQuery(query) {
-      // 查詢只接受完整成員名稱，不會從「幼童軍」抽出「童軍」。
-      const known = new Set(NORMALIZED_MEMBERS_LONGEST_FIRST);
-      return [...new Set(splitSearchParts(query).filter(part => known.has(part)))];
-    }
-
-    function isMemberOnlyQuery(query) {
-      const parts = splitSearchParts(query);
-      const known = new Set(NORMALIZED_MEMBERS_LONGEST_FIRST);
-      return parts.length > 0 && parts.every(part => known.has(part));
-    }
-
     function extractMemberTokens(text) {
-      // 對沒有固定分隔符的標題亦採用 longest-match 掃描。
+      // 對沒有固定分隔符的文字採用 longest-match 掃描：「深資童軍」唔會拆成「童軍」。
       const value = normalizeSearchText(text);
       const tokens = [];
       let index = 0;
@@ -279,44 +324,36 @@
       return [...new Set(tokens)];
     }
 
-    function exactMemberTextMatches(queryTokens, text) {
-      if (!text || !queryTokens.length) return false;
-      const textTokens = extractMemberTokens(text);
-      return queryTokens.some(token => textTokens.includes(token));
+    // 決定一張通告屬於邊啲支部：
+    //   1. enrich.json 有 audience（PDF 內文抽出嚟）→ 以佢為準，最可靠
+    //   2. 冇 audience（舊通告 / 抽唔到）→ 退而求其次睇標題
+    // 「所有成員」當作所有支部都命中。
+    // 標題入面「香港童軍總會」嗰類機構名唔特別處理 —— 用戶要精細啲可以配合關鍵字搜尋。
+    function itemBranches(item, enrich) {
+      const audience = enrich?.audience || '';
+      const tokens = audience
+        ? extractMemberTokens(audience)
+        : extractMemberTokens(item.title || '');
+      if (tokens.includes('所有成員')) {
+        return new Set(BRANCH_TAGS.filter(t => t.id !== 'ALL').map(t => normalizeSearchText(t.id)));
+      }
+      return new Set(tokens);
     }
 
-    function audienceMatches(queryTokens, audience) {
-      return exactMemberTextMatches(queryTokens, audience);
+    function matchesBranch(item, enrich, branchId) {
+      if (!branchId || branchId === 'ALL') return true;
+      return itemBranches(item, enrich).has(normalizeSearchText(branchId));
     }
 
-    function matchesSearchQuery(item, enrich, query, searchFields) {
+    // 關鍵字：淨係搜通告名稱（包含配對）。支部由標籤負責，唔再撈埋一齊。
+    function matchesKeyword(item, query) {
       const q = normalizeSearchText(query);
       if (!q) return true;
+      return normalizeSearchText(item.title).includes(q);
+    }
 
-      const memberTokens = tokenizeMemberQuery(q);
-      const memberOnly = isMemberOnlyQuery(q);
-
-      // 只輸入成員名稱，而「成員」欄位又已開啟時，優先只查結構化 audience。
-      // 這個 early return 很重要：不讓標題內的「幼童軍」再經名稱的 includes()
-      // 錯誤命中「童軍」。精準度優先於沒有 audience 資料的舊通告。
-      if (memberOnly && searchFields.member) {
-        return audienceMatches(memberTokens, enrich?.audience || '');
-      }
-
-      const checks = [];
-      if (searchFields.name) {
-        checks.push(memberOnly
-          ? exactMemberTextMatches(memberTokens, item.title || '')
-          : normalizeSearchText(item.title).includes(q));
-      }
-      if (searchFields.member && enrich?.audience && memberTokens.length) {
-        checks.push(audienceMatches(memberTokens, enrich.audience));
-      }
-      if (searchFields.branch) {
-        checks.push(normalizeSearchText(item.source_site).includes(q));
-        checks.push(normalizeSearchText(item.region).includes(q));
-      }
-      return checks.some(Boolean);
+    function matchesSearchQuery(item, enrich, query, branchId) {
+      return matchesKeyword(item, query) && matchesBranch(item, enrich, branchId);
     }
 
     // === 各區聯絡資訊（FB/IG/電話/地址/官網）。地址與部分網址待補。 ===
@@ -330,11 +367,10 @@
       sourceOrder: [],
       activeSource: null,
       keyword: '',
-      explicitDateOnly: false,
       windowId: '1d',
       searchRegionKeyword: '',
       searchScope: 'current', // 'current' | 'global'
-      searchFields: { name: true, member: true, branch: true },
+      branch: 'ALL',     // 支部標籤（單選）：'ALL' | '小童軍' | '幼童軍' | …
       bookmarks: {},     // key -> 收藏快照（見 BOOKMARK_KEY 說明）
       lastSource: null,  // 撳 ★ 分頁之前喺邊個來源，用嚟返返去
     };
@@ -593,10 +629,10 @@
       // 唔應該因為「今天」視窗而喺自己收藏夾入面消失 —— 咁就等於揾唔返。
       if (state.activeSource === 'BOOKMARKS') {
         items = getBookmarkItems();
-        if (state.keyword) {
+        if (state.keyword || state.branch !== 'ALL') {
           items = items.filter(item => {
             const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-            return matchesSearchQuery(item, ex, state.keyword, state.searchFields);
+            return matchesSearchQuery(item, ex, state.keyword, state.branch);
           });
         }
         return items;   // 已按收藏時間排序，唔再依日期重排
@@ -613,11 +649,10 @@
 
       items = items.filter(item => {
         const dateValue = item.date || item.captured_date || '';
-        if (state.explicitDateOnly && !parseDate(dateValue)) return false;
         if (!inWindow(dateValue)) return false;
-        if (state.keyword) {
+        if (state.keyword || state.branch !== 'ALL') {
           const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-          return matchesSearchQuery(item, ex, state.keyword, state.searchFields);
+          return matchesSearchQuery(item, ex, state.keyword, state.branch);
         }
         return true;
       });
@@ -699,26 +734,22 @@
       }
     }
 
-    function renderFieldChips() {
-      const wrap = $('#field-chips');
+    // 支部標籤：一排掣，撳一個即刻只睇嗰個支部。唔顯示數字 —— 用戶係童軍就淨係想睇童軍。
+    function renderBranchChips() {
+      const wrap = $('#branch-chips');
+      if (!wrap) return;
       wrap.innerHTML = '';
-      const fields = [
-        { id: 'name', label: '名稱' },
-        { id: 'member', label: '成員（精準）' },
-        { id: 'branch', label: '支部' },
-      ];
-      for (const f of fields) {
+      for (const tag of BRANCH_TAGS) {
         const btn = document.createElement('button');
-        btn.className = `chip ${state.searchFields[f.id] ? 'active' : ''}`;
-        btn.textContent = f.label;
-        btn.dataset.field = f.id;
+        btn.type = 'button';
+        btn.className = `chip chip-branch${tag.id === 'ALL' ? ' chip-all' : ''}${state.branch === tag.id ? ' active' : ''}`;
+        btn.dataset.branch = tag.id;
+        btn.textContent = tag.label;
+        btn.setAttribute('aria-pressed', state.branch === tag.id ? 'true' : 'false');
         btn.onclick = () => {
-          state.searchFields[f.id] = !state.searchFields[f.id];
-          // 至少保留一個，避免全關導致永遠沒結果
-          if (!Object.values(state.searchFields).some(Boolean)) {
-            state.searchFields[f.id] = true;
-          }
-          renderFieldChips();
+          // 再撳一次已選中嘅支部 = 取消，返回「全部」
+          state.branch = (state.branch === tag.id && tag.id !== 'ALL') ? 'ALL' : tag.id;
+          renderBranchChips();
           renderHeader();
           renderCards();
         };
@@ -869,6 +900,285 @@
       email: '<svg viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
     };
 
+    // ── 分享 ──────────────────────────────────────────────────
+    // 分享嘅「通告網址」= 附件直連（PDF）：朋友一撳即開，唔使經圖書館。
+    // 「分享圖片」= 經 /api/render 將 PDF 頁面轉做 JPG，可以成張貼落 IG / WhatsApp。
+    const SHARE_SVG = {
+      share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>',
+      wa: '<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>',
+      tg: '<svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>',
+      fb: '<svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>',
+      x: '<svg viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg>',
+      line: '<svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>',
+      mail: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+      copy: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+      sys: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>',
+      dl: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>',
+      img: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>',
+    };
+
+    // /api/render 同 index.html 同一個 origin（Vercel 或 serve_local.py）。
+    // 用 file:// 或純靜態伺服器開時冇呢個 API，可以用 ?render=https://scout-circulars.vercel.app/api/render 指去正式站。
+    function getRenderEndpoint() {
+      const params = new URLSearchParams(location.search);
+      const override = params.get('render');
+      if (override) return override.replace(/\/$/, '');
+      if (location.protocol === 'file:') return 'https://scout-circulars.vercel.app/api/render';
+      return '/api/render';
+    }
+
+    function buildRenderUrl(pdfUrl, page, dpi) {
+      const p = new URLSearchParams({ url: pdfUrl, page: String(page || 1) });
+      if (dpi) p.set('dpi', String(dpi));
+      return `${getRenderEndpoint()}?${p.toString()}`;
+    }
+
+    // 分享用嘅連結：附件直連。編碼一次即可（已有 %XX 嘅唔會 double-encode）。
+    function shareUrlFor(item) {
+      const raw = item.pdf_url || item.url || '';
+      try { return new URL(raw).href; } catch (_) { return raw; }
+    }
+
+    function shareTextFor(item, withUrl = true) {
+      const date = item.date || item.captured_date || '';
+      const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+      const lines = [
+        `【${item.source_site || ''}】${item.title || '未命名通告'}`,
+      ];
+      const meta = [];
+      if (date) meta.push(`發佈 ${date}`);
+      if (ex?.deadline) meta.push(`截止 ${ex.deadline}`);
+      if (ex?.audience) meta.push(`對象 ${ex.audience}`);
+      if (ex?.fee) meta.push(`費用 ${ex.fee}`);
+      if (meta.length) lines.push(meta.join('・'));
+      if (withUrl) lines.push(shareUrlFor(item));
+      return lines.join('\n');
+    }
+
+    function safeFileName(title, suffix) {
+      const base = String(title || '通告').replace(/[\\/:*?"<>|\u0000-\u001f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60) || '通告';
+      return `${base}${suffix}`;
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      let el = document.querySelector('.share-toast');
+      if (!el) { el = document.createElement('div'); el.className = 'share-toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+      el.textContent = message;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (_) {
+        // 舊瀏覽器 / 非 HTTPS：退而求其次用 execCommand
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          const ok = document.execCommand('copy');
+          ta.remove();
+          if (ok) return true;
+        } catch (__) {}
+        window.prompt('自動複製唔成功，請手動複製：', text);
+        return false;
+      }
+    }
+
+    function socialLinks(item) {
+      const url = shareUrlFor(item);
+      const text = shareTextFor(item, false);
+      const eu = encodeURIComponent(url);
+      const et = encodeURIComponent(text);
+      const eboth = encodeURIComponent(`${text}\n${url}`);
+      return [
+        { id: 'wa', label: 'WhatsApp', href: `https://api.whatsapp.com/send?text=${eboth}` },
+        { id: 'tg', label: 'Telegram', href: `https://t.me/share/url?url=${eu}&text=${et}` },
+        { id: 'fb', label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${eu}` },
+        { id: 'x', label: 'X', href: `https://twitter.com/intent/tweet?text=${et}&url=${eu}` },
+        { id: 'line', label: 'LINE', href: `https://social-plugins.line.me/lineit/share?url=${eu}&text=${et}` },
+        { id: 'mail', label: '電郵', href: `mailto:?subject=${encodeURIComponent(`${item.source_site || ''} ${item.title || '通告'}`.trim())}&body=${eboth}` },
+      ];
+    }
+
+    let activeShare = null;   // { backdrop, cleanup }
+    function closeShare() {
+      if (!activeShare) return;
+      try { activeShare.cleanup(); } catch (_) {}
+      activeShare.backdrop.remove();
+      activeShare = null;
+    }
+
+    function openShare(item) {
+      closeShare();
+      const url = shareUrlFor(item);
+      const canWebShare = typeof navigator.share === 'function';
+      const links = socialLinks(item);
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'share-backdrop';
+      backdrop.innerHTML = `
+        <div class="share-sheet" role="dialog" aria-modal="true" aria-labelledby="share-title">
+          <div class="share-head">
+            <div>
+              <h3 id="share-title">${escapeHtml(item.title || '未命名通告')}</h3>
+              <div class="sub">${escapeHtml(item.source_site || '')}${item.date || item.captured_date ? '・' + escapeHtml(item.date || item.captured_date) : ''}</div>
+            </div>
+            <button type="button" class="share-close" aria-label="關閉">×</button>
+          </div>
+
+          <div class="share-section">
+            <h4>分享連結</h4>
+            <div class="share-grid" data-role="links">
+              ${canWebShare ? `<button type="button" class="share-opt sys" data-act="sys">${SHARE_SVG.sys}<span>更多…</span></button>` : ''}
+              ${links.map(l => `<a class="share-opt ${l.id}" data-act="link" href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${SHARE_SVG[l.id]}<span>${escapeHtml(l.label)}</span></a>`).join('')}
+              <button type="button" class="share-opt copy" data-act="copy-url">${SHARE_SVG.copy}<span>複製網址</span></button>
+              <button type="button" class="share-opt copy" data-act="copy-text">${SHARE_SVG.copy}<span>複製文字</span></button>
+            </div>
+          </div>
+
+          <div class="share-section">
+            <h4>分享圖片（成張通告貼上去）</h4>
+            <div class="share-grid">
+              <button type="button" class="share-opt dl" data-act="img">${SHARE_SVG.img}<span>產生圖片</span></button>
+            </div>
+            <div class="share-img-box" data-role="imgbox" hidden>
+              <div class="share-img-toolbar">
+                <span data-role="pageinfo"></span>
+                <label>頁數 <select data-role="pagesel"></select></label>
+              </div>
+              <img class="share-preview" data-role="preview" alt="通告預覽" hidden>
+              <div class="share-img-status" data-role="imgstatus"></div>
+              <div class="share-img-actions">
+                <button type="button" data-act="img-share" hidden>${SHARE_SVG.sys}分享圖片</button>
+                <button type="button" data-act="img-copy">${SHARE_SVG.copy}複製圖片</button>
+                <button type="button" data-act="img-dl">${SHARE_SVG.dl}下載圖片</button>
+              </div>
+              <div class="share-hint">Instagram 唔接受網頁直接發帖：下載／分享圖片後，喺 IG 揀相上載即可。多頁通告可以逐頁產生。</div>
+            </div>
+          </div>
+        </div>`;
+
+      const sheet = backdrop.querySelector('.share-sheet');
+      const imgbox = backdrop.querySelector('[data-role="imgbox"]');
+      const preview = backdrop.querySelector('[data-role="preview"]');
+      const imgstatus = backdrop.querySelector('[data-role="imgstatus"]');
+      const pagesel = backdrop.querySelector('[data-role="pagesel"]');
+      const pageinfo = backdrop.querySelector('[data-role="pageinfo"]');
+      const btnImgShare = backdrop.querySelector('[data-act="img-share"]');
+      const btnImgCopy = backdrop.querySelector('[data-act="img-copy"]');
+      const btnImgDl = backdrop.querySelector('[data-act="img-dl"]');
+
+      const img = { blob: null, page: 1, pages: 0, objectUrl: null, loading: false };
+      const setStatus = (text, isErr = false) => { imgstatus.innerHTML = text; imgstatus.classList.toggle('err', isErr); };
+      const setBusy = (busy) => { [btnImgShare, btnImgCopy, btnImgDl].forEach(b => b.disabled = busy || !img.blob); pagesel.disabled = busy; };
+
+      async function loadPage(page) {
+        img.loading = true; img.blob = null;
+        setBusy(true);
+        imgbox.hidden = false;
+        setStatus(`<span class="spin"></span>正在把第 ${page} 頁轉做圖片…（原站慢嘅話可能要等十幾秒）`);
+        try {
+          const resp = await fetch(buildRenderUrl(url, page), { cache: 'default' });
+          if (!resp.ok) {
+            let msg = `HTTP ${resp.status}`;
+            let code = '';
+            try { const j = await resp.json(); msg = j.message || msg; code = j.error || ''; } catch (_) {}
+            const friendly = {
+              not_pdf: '呢個連結唔係 PDF（可能係網頁或 Google 表格），只能分享連結。',
+              too_large: 'PDF 太大，唔轉圖了，請分享連結。',
+              encrypted: 'PDF 有密碼保護，轉唔到圖。',
+              fetch_timeout: '原站回應太慢，遲啲再試。',
+              fetch_failed: '連唔到原站（可能已移除或暫時死咗）。',
+              renderer_unavailable: '伺服器未設定圖片轉換（本機請用 serve_local.py）。',
+            }[code] || msg;
+            throw new Error(friendly);
+          }
+          const blob = await resp.blob();
+          if (!blob.type.startsWith('image/')) throw new Error('伺服器回覆唔係圖片');
+          img.blob = blob; img.page = page;
+          img.pages = Number(resp.headers.get('X-Pdf-Pages')) || img.pages || 1;
+          if (img.objectUrl) URL.revokeObjectURL(img.objectUrl);
+          img.objectUrl = URL.createObjectURL(blob);
+          preview.src = img.objectUrl; preview.hidden = false;
+          // 頁數選單
+          pagesel.innerHTML = '';
+          for (let i = 1; i <= img.pages; i++) {
+            const o = document.createElement('option'); o.value = String(i); o.textContent = `第 ${i} 頁`; if (i === page) o.selected = true; pagesel.appendChild(o);
+          }
+          pagesel.parentElement.style.display = img.pages > 1 ? '' : 'none';
+          pageinfo.textContent = img.pages > 1 ? `共 ${img.pages} 頁，目前第 ${page} 頁` : '共 1 頁';
+          const canShareFile = typeof navigator.canShare === 'function' && navigator.canShare({ files: [new File([blob], 'x.jpg', { type: blob.type })] });
+          btnImgShare.hidden = !canShareFile;
+          setStatus(`圖片已準備好（${Math.round(blob.size / 1024)} KB）。`);
+        } catch (err) {
+          preview.hidden = true; preview.removeAttribute('src');
+          setStatus(`❌ ${escapeHtml(err.message || String(err))}`, true);
+        } finally {
+          img.loading = false;
+          setBusy(false);
+        }
+      }
+
+      const currentFile = () => new File([img.blob], safeFileName(item.title, img.pages > 1 ? `_p${img.page}.jpg` : '.jpg'), { type: img.blob.type || 'image/jpeg' });
+
+      backdrop.addEventListener('click', async (e) => {
+        if (e.target === backdrop) { closeShare(); return; }
+        const el = e.target.closest('[data-act]');
+        if (!el) return;
+        const act = el.dataset.act;
+        if (act === 'sys') {
+          try { await navigator.share({ title: item.title || '通告', text: shareTextFor(item, false), url }); }
+          catch (err) { if (err && err.name !== 'AbortError') showToast('系統分享失敗，可以改用複製網址。'); }
+        } else if (act === 'copy-url') {
+          if (await copyText(url)) showToast('已複製通告網址');
+        } else if (act === 'copy-text') {
+          if (await copyText(shareTextFor(item, true))) showToast('已複製通告文字 + 網址');
+        } else if (act === 'img') {
+          if (!img.loading) loadPage(img.page || 1);
+        } else if (act === 'img-share') {
+          if (!img.blob) return;
+          try { await navigator.share({ files: [currentFile()], title: item.title || '通告', text: shareTextFor(item, false) }); }
+          catch (err) { if (err && err.name !== 'AbortError') showToast('分享失敗，可以改用下載圖片。'); }
+        } else if (act === 'img-copy') {
+          if (!img.blob) return;
+          try {
+            if (!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('unsupported');
+            // 大部分瀏覽器剪貼簿只收 PNG，JPG 要先轉一轉
+            let blob = img.blob;
+            if (blob.type !== 'image/png') {
+              const bmp = await createImageBitmap(blob);
+              const cv = document.createElement('canvas'); cv.width = bmp.width; cv.height = bmp.height;
+              cv.getContext('2d').drawImage(bmp, 0, 0);
+              blob = await new Promise(res => cv.toBlob(res, 'image/png'));
+            }
+            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+            showToast('已複製圖片，可以直接貼落 WhatsApp / Telegram');
+          } catch (_) {
+            showToast('呢個瀏覽器唔支援複製圖片，請用「下載圖片」。');
+          }
+        } else if (act === 'img-dl') {
+          if (!img.blob) return;
+          const a = document.createElement('a');
+          a.href = img.objectUrl; a.download = currentFile().name; document.body.appendChild(a); a.click(); a.remove();
+          showToast('已開始下載圖片');
+        }
+      });
+      backdrop.querySelector('.share-close').onclick = closeShare;
+      pagesel.onchange = () => { const p = Number(pagesel.value) || 1; if (!img.loading && p !== img.page) loadPage(p); };
+      const onKey = (e) => { if (e.key === 'Escape') closeShare(); };
+      document.addEventListener('keydown', onKey);
+
+      document.body.appendChild(backdrop);
+      activeShare = { backdrop, cleanup: () => { document.removeEventListener('keydown', onKey); if (img.objectUrl) URL.revokeObjectURL(img.objectUrl); } };
+      setBusy(false);
+      sheet.querySelector('.share-close').focus();
+    }
+
     function renderContactBar() {
       const bar = $('#contact-bar');
       if (!bar) return;
@@ -913,6 +1223,7 @@
       $('#status-line').innerHTML = `
         模式：<code>${scopeLabel}</code>
         ・視窗：<code>${escapeHtml(currentWindow().label)}</code>
+        ${state.branch !== 'ALL' ? `・支部：<code>${escapeHtml(state.branch)}</code>` : ''}
         ・顯示：<code>${current}</code>
         ・本來源總數：<code>${totalCurrent}</code>
         ・cache：<code>${escapeHtml(state.cache?.meta?.version || state.cache?._meta?.version || 'unknown')}</code>
@@ -985,7 +1296,10 @@
           renderCards();
         };
       } else if (!items.length) {
-        messagesEl.innerHTML = '<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。</div>';
+        const branchHint = state.branch !== 'ALL'
+          ? `<br><small>目前只顯示「${escapeHtml(state.branch)}」支部。冇 PDF 內文資料嘅舊通告只能靠標題判斷支部，可以撳「全部」再睇。</small>`
+          : '';
+        messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}</div>`;
         return;
       }
 
@@ -1025,10 +1339,15 @@
           ${extraHtml}
           <div class="meta-row">
             <span>${escapeHtml(item.region || '')}</span>
-            <a class="link" href="${encodeURI(href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
+            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
           </div>
-          <button class="ss-import" data-ss-url="${escapeHtml(buildScoutSystemImportUrl(item, ex))}">加入 ScoutSystem</button>
+          <div class="card-actions">
+            <button class="ss-import" data-ss-url="${escapeHtml(buildScoutSystemImportUrl(item, ex))}">加入 ScoutSystem</button>
+            <button class="share-btn" type="button" title="分享呢張通告" aria-label="分享呢張通告">${SHARE_SVG.share}<span>分享</span></button>
+          </div>
         `;
+        const shareBtn = card.querySelector('.share-btn');
+        if (shareBtn) shareBtn.onclick = () => openShare(item);
         const starBtn = card.querySelector('.star-btn');
         if (starBtn) {
           starBtn.onclick = () => {
@@ -1053,7 +1372,7 @@
           ssBtn.onclick = () => {
             const target = ssBtn.getAttribute('data-ss-url') || '';
             if (!getScoutSystemUrl()) {
-              alert('請先在上方設定你的 ScoutSystem 網址，例如 https://scoutsystem.vercel.app');
+              alert('請先在上方設定你的 ScoutSystem 網址，例如 https://troop-portal.vercel.app');
               document.getElementById('scoutsystem-url')?.focus();
               return;
             }
@@ -1108,12 +1427,6 @@
       renderCards();
     });
 
-    $('#explicit-date').addEventListener('change', (e) => {
-      state.explicitDateOnly = e.target.checked;
-      renderHeader();
-      renderCards();
-    });
-
     $('#district-search').addEventListener('input', (e) => {
       state.searchRegionKeyword = e.target.value || '';
       renderAccordion();
@@ -1128,7 +1441,7 @@
       if (status) status.textContent = input.value ? `已設定：${input.value}` : '尚未設定 ScoutSystem 網址。';
       btn.onclick = () => {
         const value = String(input.value || '').trim().replace(/\/$/, '');
-        if (!/^https?:\/\//.test(value)) { alert('請輸入完整網址，例如 https://scoutsystem.vercel.app'); return; }
+        if (!/^https?:\/\//.test(value)) { alert('請輸入完整網址，例如 https://troop-portal.vercel.app'); return; }
         localStorage.setItem('scoutsystem_import_base_url', value);
         if (status) status.textContent = `已設定：${value}`;
         renderCards();
@@ -1137,7 +1450,7 @@
 
     renderWindowChips();
     renderScopeChips();
-    renderFieldChips();
+    renderBranchChips();
     initScoutSystemConnect();
     // === 訪客計數器（純靜態頁，用免費 abacus.jasoncameron.dev，無需註冊，穩定 + CORS）===
     async function loadVisitCounter() {

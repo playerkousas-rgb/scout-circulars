@@ -1,0 +1,2 @@
+# /api/render.py 用：PDF → 圖片（內建 CJK 後備字型，唔使另裝 poppler / 系統字型）
+pymupdf==1.28.2
