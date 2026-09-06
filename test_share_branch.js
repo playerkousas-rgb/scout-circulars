@@ -113,6 +113,18 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(d.querySelector('#keyword').placeholder.includes('名稱'), '關鍵字欄提示只搜名稱：' + d.querySelector('#keyword').placeholder);
   ok(d.querySelector('#scoutsystem-url').placeholder.includes('troop-portal.vercel.app'), 'ScoutSystem 例子網址改成 troop-portal.vercel.app');
 
+  // ── 1.5 分類標籤 ──
+  const catLabels = $$(d, '#category-chips .chip').map(c => c.textContent.trim());
+  ok(JSON.stringify(catLabels) === JSON.stringify(['全部', '訓練班', '服務', '比賽', '其他']),
+     '分類標籤次序正確：' + catLabels.join(' '));
+  ok(cards(d).length === 5, `分類標籤未影響預設「今天」5 張（實際 ${cards(d).length}）`);
+  click(w, $$(d, '#category-chips .chip').find(c => c.textContent.trim() === '訓練班')); await wait(50);
+  ok(titles(d).length === 2 && titles(d).includes('幼童軍繩結章訓練班') && titles(d).includes('童軍技能訓練班'),
+     '分類「訓練班」過濾出訓練班：' + titles(d).join(' | '));
+  ok(cards(d).every(c => c.querySelector('.cat-tags')), '卡片顯示分類標籤');
+  click(w, $$(d, '#category-chips .chip').find(c => c.textContent.trim() === '全部')); await wait(50);
+  ok(cards(d).length === 5, '分類切返「全部」恢復 5 張');
+
   // ── 2. 支部標籤 ──
   const labels = $$(d, '#branch-chips .chip').map(c => c.textContent.trim());
   ok(JSON.stringify(labels) === JSON.stringify(['全部', '小童軍', '幼童軍', '童軍', '深資童軍', '樂行童軍', '領袖', '家長', '會務委員']),
@@ -183,6 +195,8 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   const pagesel = sheet.querySelector('[data-role="pagesel"]');
   ok(pagesel.options.length === 2, `兩頁 PDF → 頁數選單有 2 頁（實際 ${pagesel.options.length}）`);
   ok(!sheet.querySelector('[data-act="img-dl"]').disabled, '下載圖片掣可用');
+  ok(sheet.querySelector('[data-act="img-share"]').hidden, '桌面／非觸控隱藏「分享圖片」掣（電腦冇穩定系統分享入口）');
+  ok(!sheet.querySelector('[data-act="img-copy"]').disabled, '預先轉 PNG 後「複製圖片」掣可用');
   pagesel.value = '2'; pagesel.dispatchEvent(new w.Event('change', { bubbles: true })); await wait(120);
   ok(renderCalls.length === 2 && new w.URL(renderCalls[1], 'https://example.org').searchParams.get('page') === '2', '揀第 2 頁 → 再打 /api/render page=2');
   ok(sheet.querySelector('[data-role="pageinfo"]').textContent.includes('第 2 頁'), '頁數資訊更新：' + sheet.querySelector('[data-role="pageinfo"]').textContent);

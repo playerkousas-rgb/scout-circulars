@@ -21,9 +21,9 @@ const src = html.slice(start, end);
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(src + `
-  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery };
+  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory };
 `, ctx);
-const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery } = ctx.__exports;
+const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory } = ctx.__exports;
 
 let pass = 0;
 let fail = 0;
@@ -86,6 +86,20 @@ check('關鍵字唔會搜區會名', matchesKeyword({ title: '射箭訓練班', 
 check('關鍵字 NFKC：全形數字都搵到', matchesKeyword({ title: '第４１屆訓練班' }, '41'), true);
 check('關鍵字 + 支部 同時生效', matchesSearchQuery({ title: '深資童軍射箭訓練班' }, { audience: '深資童軍' }, '射箭', '深資童軍'), true);
 check('關鍵字中但支部唔中 → 唔顯示', matchesSearchQuery({ title: '深資童軍射箭訓練班' }, { audience: '深資童軍' }, '射箭', '幼童軍'), false);
+
+// 5.5 分類：訓練班 / 服務 / 比賽。
+checkArray('分類標籤 = 全部 + 訓練班/服務/比賽/其他',
+  CATEGORY_TAGS.map(t => t.label),
+  ['全部', '訓練班', '服務', '比賽', '其他']);
+check('分類：標題有「訓練班」→ training', matchesCategory({ title: '童軍繩結訓練班' }, null, 'training'), true);
+check('分類：標題有「服務」→ service', matchesCategory({ title: '社區服務日' }, null, 'service'), true);
+check('分類：標題有「比賽」→ competition', matchesCategory({ title: '射箭邀請賽' }, null, 'competition'), true);
+check('分類：可以同時屬於訓練 + 服務', matchesCategory({ title: '敬老關愛服務暨手工工作坊' }, null, 'training') && matchesCategory({ title: '敬老關愛服務暨手工工作坊' }, null, 'service'), true);
+check('分類：富 enrich title 都計（cache 標題較短）',
+  matchesCategory({ title: '活動' }, { title: '心靈工作坊' }, 'training'), true);
+check('分類：行事曆唔會因為有「訓練」而變訓練班', matchesCategory({ title: '活動與訓練行事曆' }, null, 'training'), false);
+check('分類：冇關鍵字 → other', matchesCategory({ title: '旅團註冊須知' }, null, 'other'), true);
+check('分類：ALL 永遠命中', matchesCategory({ title: '乜都冇' }, null, 'ALL'), true);
 
 // 6. 使用 repo 真實資料作回歸測試：所有「童軍」結果都必須有精確 token（audience 或標題）。
 const cache = JSON.parse(fs.readFileSync(path.join(base, 'cache.json'), 'utf8'));

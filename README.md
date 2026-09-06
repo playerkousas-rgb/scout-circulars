@@ -62,10 +62,20 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   2. 冇 `audience`（舊通告／抽唔到）→ 退而求其次睇標題。
 - 兩者都用最長詞優先（longest-match），所以「童軍」不會誤中「小童軍」「幼童軍」「深資童軍」「樂行童軍」；「所有成員」當作全部支部命中。
 
+## 通告分類
+
+搜尋列仲有一排**分類**標籤：**全部／訓練班／服務／比賽／其他**。
+
+- 純前端規則分類，**不改爬蟲、不改 cache**，每日抓取照常。
+- 用通告標題 + `enrich.json` 標題做關鍵字判斷；一隻通告可以同時屬於多個類別（例如「社區服務計劃暨義工訓練」→ 服務 + 訓練班）。
+- 「行事曆／一覽／名單／章程」嗰類會當「其他」，避免「活動與訓練行事曆」因為有「訓練」兩字而變成訓練通告。
+- 卡片本身都會顯示分類標籤，想調整分類規則改 `index.html` 入面 `CATEGORY_KEYWORDS` / `CATEGORY_EXCLUDE` 即可。
+- 分類係標題級猜想，唔一定 100% 準；重要通告請開附件確認。
+
 執行回歸測試：
 
 ```bash
-node test_search_members.js     # 支部配對邏輯（直接由 index.html 抽出，唔係複製一份）
+node test_search_members.js     # 支部 + 分類配對邏輯（直接由 index.html 抽出，唔係複製一份）
 node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需要 jsdom）
 ```
 
@@ -76,6 +86,8 @@ node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需�
 - **分享連結**：WhatsApp／Telegram／Facebook／X／LINE／電郵、系統分享（手機）、複製網址、複製文字（標題 + 截止／對象／費用 + 網址）。
   分享嘅網址係**附件直連（PDF）**，朋友一撳即開。
 - **分享圖片**：把 PDF 頁面轉做 JPG，可以成張貼落 IG／WhatsApp。多頁通告可逐頁產生；支援直接分享（手機）、複製圖片、下載圖片。
+  - **電腦**：系統「分享檔案去其他 app」唔穩定，所以「分享圖片／更多…」喺電腦會收埋，改用**複製圖片**或**下載圖片**。
+  - **複製圖片**：產生圖片之後會預先用 canvas 轉好 PNG，撳「複製圖片」嗰刻直接寫剪貼簿，唔會有「撳完先 await 轉圖」嘅時序問題。
 
 圖片由 `api/render.py`（Vercel Python Function）產生：`GET /api/render?url=<pdf>&page=1&dpi=130` → `image/jpeg`，
 header `X-Pdf-Pages` 係總頁數。依賴 PyMuPDF（`api/requirements.txt`），內建 CJK 後備字型，Word 出嘅冇內嵌字型通告都畫得正。

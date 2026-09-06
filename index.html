@@ -87,6 +87,19 @@
     .chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 999px; padding: 9px 13px; cursor: pointer; }
     .chip.active { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
+    /* 分類：訓練班（藍）、服務（綠）、比賽（橙）、其他（灰） */
+    .chip.chip-category.active[data-cat="training"] { background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: #fff; border-color: #60a5fa; }
+    .chip.chip-category.active[data-cat="service"] { background: linear-gradient(135deg, #15803d, #22c55e); color: #03200f; border-color: #4ade80; }
+    .chip.chip-category.active[data-cat="competition"] { background: linear-gradient(135deg, #b45309, #f59e0b); color: #140800; border-color: #fbbf24; }
+    .chip.chip-category.active[data-cat="other"] { background: linear-gradient(135deg, #334155, #64748b); color: #0b1220; border-color: #94a3b8; }
+    .chip.chip-category.active[data-cat="ALL"] { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
+    /* 卡片上的分類小標籤 */
+    .cat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cat-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: #cfe3ff; }
+    .cat-tag.training { border-color: rgba(59,130,246,.45); background: rgba(29,78,216,.18); color: #b6d4ff; }
+    .cat-tag.service { border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.14); color: #bbf7d0; }
+    .cat-tag.competition { border-color: rgba(245,158,11,.45); background: rgba(180,83,9,.16); color: #fde68a; }
+    .cat-tag.other { border-color: rgba(148,163,184,.4); background: rgba(100,116,139,.15); color: #e2e8f0; }
     /* ★ 收藏分頁：同時間視窗並排，但用金色區分「唔係時間範圍」*/
     .chip-bm { border-color: rgba(250,204,21,.4); color: #facc15; margin-left: 6px; }
     .chip-bm:hover { background: rgba(250,204,21,.1); }
@@ -239,6 +252,11 @@
         </div>
 
         <div class="controls">
+          <span class="field-label">分類：</span>
+          <div class="field-chips" id="category-chips"></div>
+        </div>
+
+        <div class="controls">
           <div class="chips" id="window-chips"></div>
         </div>
 
@@ -356,6 +374,42 @@
       return matchesKeyword(item, query) && matchesBranch(item, enrich, branchId);
     }
 
+    // ── 通告分類：訓練班 / 服務 / 比賽 ────────────────────────────
+    // 用標題 + enrich 標題做關鍵字分類（不改爬蟲、不改 cache，前端即時生效）。
+    // 一隻通告可以同時屬於多個類別（例如「社區服務計劃暨義工訓練」→ 服務 + 訓練班）。
+    // 「樣板／一覽／名單」嗰類唔係活動本身，強制落「其他」，避免「活動與訓練行事曆」
+    // 因為有「訓練」兩隻字而變成訓練通告。
+    const CATEGORY_TAGS = [
+      { id: 'ALL', label: '全部' },
+      { id: 'training', label: '訓練班' },
+      { id: 'service', label: '服務' },
+      { id: 'competition', label: '比賽' },
+      { id: 'other', label: '其他' },
+    ];
+    const CATEGORY_KEYWORDS = {
+      training: ['訓練班', '訓練', '課程', '工作坊', '研習班', '研討會', '講座', '進修', '集訓', '培訓', '專章', '考驗'],
+      service: ['服務', '義工', '慈善', '公益', '探訪', '敬老', '捐', '籌款', '義賣', '義診', '扶貧', '清潔', '環保', '大掃除', '社區'],
+      competition: ['比賽', '競賽', '競技', '錦標賽', '公開賽', '邀請賽', '聯賽', '挑戰賽', '選拔賽', '練習賽', '賽事', '決賽', '初賽', '準決賽', '友誼賽', '大賽', '隊際賽', '分區賽', '地區賽', '會操', '盃'],
+    };
+    const CATEGORY_EXCLUDE = ['行事曆', '通告便覽', '通告一覽', '一覽', '獲獎名單', '名單', '章程', '指引'];
+
+    function itemCategories(item, enrich) {
+      const text = normalizeSearchText(`${item.title || ''} ${enrich?.title || ''}`);
+      if (!text) return new Set(['other']);
+      if (CATEGORY_EXCLUDE.some(k => text.includes(k))) return new Set(['other']);
+      const cats = new Set();
+      for (const id of Object.keys(CATEGORY_KEYWORDS)) {
+        if (CATEGORY_KEYWORDS[id].some(k => text.includes(k))) cats.add(id);
+      }
+      if (!cats.size) cats.add('other');
+      return cats;
+    }
+
+    function matchesCategory(item, enrich, categoryId) {
+      if (!categoryId || categoryId === 'ALL') return true;
+      return itemCategories(item, enrich).has(categoryId);
+    }
+
     // === 各區聯絡資訊（FB/IG/電話/地址/官網）。地址與部分網址待補。 ===
     var CONTACTS = {"總會":{"fb":"https://www.facebook.com/hkscout","ig":"https://www.instagram.com/hkscouting/","yt":"https://www.youtube.com/channel/UCzWCJnS0wHFMq1rkqzZSXUw","tel":"2377 3300","web":"https://www.scout.org.hk/","address":"九龍柯士甸道童軍徑香港童軍中心","email":"scoutcraft@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83"},"港島地域":{"fb":"https://www.facebook.com/share/18os2xVWeZ/?mibextid=wwXIfr","ig":"https://www.instagram.com/hkirscout/","yt":"https://www.youtube.com/channel/UC3n9PetO64XZ9nGzzZBa5Dw","tel":"2574 4296","web":"https://www.hkirscout.org.hk/tc/home/index.html","address":"香港灣仔日善街23號香港童軍百周年紀念大樓19樓","email":"hkir@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E7%81%A3%E4%BB%94%E6%97%A5%E5%96%84%E8%A1%9723%E8%99%9F%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E7%99%BE%E5%91%A8%E5%B9%B4%E7%B4%80%E5%BF%B5%E5%A4%A7%E6%A8%9319%E6%A8%93"},"柴灣區":{"fb":"https://www.facebook.com/chaiwanscout/","ig":"https://www.instagram.com/chaiwanscout/","yt":"","tel":"","web":"https://chaiwanscout.org.hk/v3/","address":"香港柴灣漁灣邨漁安樓地下 23 號舖","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E6%9F%B4%E7%81%A3%E6%BC%81%E7%81%A3%E9%82%A8%E6%BC%81%E5%AE%89%E6%A8%93%E5%9C%B0%E4%B8%8B%2023%20%E8%99%9F%E8%88%96"},"港島北區":{"fb":"https://www.facebook.com/hknscout","ig":"","yt":"","tel":"25621872","web":"https://www.hknscout.org/","address":"香港北角民新街42號","email":"hknscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E5%8C%97%E8%A7%92%E6%B0%91%E6%96%B0%E8%A1%9742%E8%99%9F"},"港島南區":{"fb":"","ig":"","yt":"","tel":"","web":"https://sites.google.com/hkirscout.org.hk/hks","address":"香港華富邨華基樓616-617室","email":"hks@hkirscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E8%8F%AF%E5%AF%8C%E9%82%A8%E8%8F%AF%E5%9F%BA%E6%A8%93616-617%E5%AE%A4"},"港島西區":{"fb":"https://www.facebook.com/share/1CfrHrrLfp/?mibextid=wwXIfr","ig":"https://www.instagram.com/hkw.scout/","yt":"","tel":"2517 4298","web":"https://group.scout.org.hk/hkw/","address":"香港西營盤西邊街36號A西區社區中心1樓","email":"https://group.scout.org.hk/hkw/","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E8%A5%BF%E7%87%9F%E7%9B%A4%E8%A5%BF%E9%82%8A%E8%A1%9736%E8%99%9FA%E8%A5%BF%E5%8D%80%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%831%E6%A8%93"},"筲箕灣區":{"fb":"https://www.facebook.com/skwscout","ig":"https://www.instagram.com/skwscout","yt":"","tel":"2557 9838","web":"https://www.skwscout.org.hk/","address":"香港筲箕灣愛東邨愛旭樓地下22&27號","email":"in@skwscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E7%AD%B2%E7%AE%95%E7%81%A3%E6%84%9B%E6%9D%B1%E9%82%A8%E6%84%9B%E6%97%AD%E6%A8%93%E5%9C%B0%E4%B8%8B22%2627%E8%99%9F"},"維多利亞城區":{"fb":"https://www.facebook.com/vicscout.org/?locale=zh_HK","ig":"https://www.instagram.com/victoria_city_scout/","yt":"","tel":"2522 2925","web":"待新網址上架","address":"香港中半山波老道12號東翼一樓","email":"vic@hkirscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E4%B8%AD%E5%8D%8A%E5%B1%B1%E6%B3%A2%E8%80%81%E9%81%9312%E8%99%9F%E6%9D%B1%E7%BF%BC%E4%B8%80%E6%A8%93"},"灣仔區":{"fb":"https://www.facebook.com/wanchaiscout/?locale=zh_HK","ig":"https://www.instagram.com/wanchaiscout/","yt":"","tel":"2574 9311","web":"https://www.wanchaiscout.org.hk/index.php?lang=zh-tw","address":"香港灣仔日善街23號 香港童軍百周年紀念大樓1108室","email":"admin@wanchaiscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E7%81%A3%E4%BB%94%E6%97%A5%E5%96%84%E8%A1%9723%E8%99%9F%20%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E7%99%BE%E5%91%A8%E5%B9%B4%E7%B4%80%E5%BF%B5%E5%A4%A7%E6%A8%931108%E5%AE%A4"},"九龍地域":{"fb":"https://www.facebook.com/scout.kr/","ig":"https://www.instagram.com/krscoutpr/","yt":"https://www.youtube.com/channel/UCpdoMF5kawv9z0aPluUWYpg","tel":"+852-2957 6488","web":"https://krscout.org/","address":"九龍柯士甸道童軍徑香港童軍中心 9樓 926室","email":"enquiry@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83%209%E6%A8%93%20926%E5%AE%A4"},"紅磡區":{"fb":"https://www.facebook.com/krhhd/?locale=zh_HK","ig":"","yt":"","tel":"2712 3841","web":"https://hhd.krscout.org/","address":"九龍馬頭圍邨芙蓉樓地下104室","email":"hhd@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E9%A6%AC%E9%A0%AD%E5%9C%8D%E9%82%A8%E8%8A%99%E8%93%89%E6%A8%93%E5%9C%B0%E4%B8%8B104%E5%AE%A4"},"何文田區":{"fb":"","ig":"","yt":"","tel":"","web":"https://hmt.krscout.org/","address":"九龍何文田愛民村嘉民樓614室","email":"hmt@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E4%BD%95%E6%96%87%E7%94%B0%E6%84%9B%E6%B0%91%E6%9D%91%E5%98%89%E6%B0%91%E6%A8%93614%E5%AE%A4"},"九龍城區":{"fb":"https://www.facebook.com/klcscout","ig":"https://www.instagram.com/klcscout1961/","yt":"","tel":"2718 6609","web":"https://www.klcscout.hk/","address":"九龍東頭二村榮東樓地下 1-3 號 王錦輝活動中心","email":"enquiry@klcscout.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9D%B1%E9%A0%AD%E4%BA%8C%E6%9D%91%E6%A6%AE%E6%9D%B1%E6%A8%93%E5%9C%B0%E4%B8%8B%201-3%20%E8%99%9F%20%E7%8E%8B%E9%8C%A6%E8%BC%9D%E6%B4%BB%E5%8B%95%E4%B8%AD%E5%BF%83"},"九龍塘區":{"fb":"https://www.facebook.com/share/g/1K8DYwWSaa/?mibextid=wwXIfr","ig":"","yt":"","tel":"2336 9229","web":"https://www.scout-kowloontong.org/","address":"九龍塘律倫街十一號","email":"klg@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E5%A1%98%E5%BE%8B%E5%80%AB%E8%A1%97%E5%8D%81%E4%B8%80%E8%99%9F"},"旺角區":{"fb":"https://www.facebook.com/p/香港童軍總會-旺角區-100075948442190/","ig":"https://www.instagram.com/mkdscout/","yt":"","tel":"","web":"https://sites.google.com/view/hkscoutmkd/","address":"香港九龍大角咀櫸樹街110号林百欣中心 2樓 香港童軍總會旺角區會","email":"mk@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E4%B9%9D%E9%BE%8D%E5%A4%A7%E8%A7%92%E5%92%80%E6%AB%B8%E6%A8%B9%E8%A1%97110%E5%8F%B7%E6%9E%97%E7%99%BE%E6%AC%A3%E4%B8%AD%E5%BF%83%202%E6%A8%93%20%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E7%B8%BD%E6%9C%83%E6%97%BA%E8%A7%92%E5%8D%80%E6%9C%83"},"深旺區":{"fb":"https://www.facebook.com/p/香港童軍總會深旺區-61571978408046/","ig":"","yt":"","tel":"","web":"https://group.scout.org.hk/smd/","address":"九龍深水埗昌新里1號南昌邨南昌社區中心4樓","email":"info@shammongscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%B7%B1%E6%B0%B4%E5%9F%97%E6%98%8C%E6%96%B0%E9%87%8C1%E8%99%9F%E5%8D%97%E6%98%8C%E9%82%A8%E5%8D%97%E6%98%8C%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%834%E6%A8%93"},"深水埗東區":{"fb":"https://www.facebook.com/scoutsspe/?locale=zh_HK","ig":"","yt":"","tel":"3188 9109","web":"https://sspe.krscout.org/","address":"大坑東社區中心一樓101室 陳其鑣教授會長堂","email":"sspe@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9D%91%E6%9D%B1%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%83%E4%B8%80%E6%A8%93101%E5%AE%A4%20%E9%99%B3%E5%85%B6%E9%91%A3%E6%95%99%E6%8E%88%E6%9C%83%E9%95%B7%E5%A0%82"},"深水埗西區":{"fb":"https://www.facebook.com/share/g/1DNs7w76HQ/?mibextid=wwXIfr","ig":"https://www.instagram.com/sspw_scout/","yt":"","tel":"27201106","web":"https://sspw.krscout.org/","address":"九龍深水埗麗閣邨麗荷樓316-317室","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%B7%B1%E6%B0%B4%E5%9F%97%E9%BA%97%E9%96%A3%E9%82%A8%E9%BA%97%E8%8D%B7%E6%A8%93316-317%E5%AE%A4"},"油尖區":{"fb":"https://www.facebook.com/p/香港童軍總會油尖區-Scout-Association-of-Hong-Kong-Yau-Tsim-District-100079941172382/?locale=zh_HK","ig":"https://www.instagram.com/yau_tsim_scout?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D","yt":"","tel":"","web":"https://ytd.krscout.org/","address":"九龍柯士甸道童軍徑香港童軍中心9樓927室","email":"yt@krscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%839%E6%A8%93927%E5%AE%A4"},"東九龍地域":{"fb":"https://www.facebook.com/HKScout.EKR/?locale=zh_HK","ig":"https://www.instagram.com/hkscout.ekr","yt":"","tel":"2957 6466","web":"https://hkscout-ekr.org/","address":"九龍柯士甸道童軍徑香港童軍中心9樓923室","email":"ekr@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E6%9F%AF%E5%A3%AB%E7%94%B8%E9%81%93%E7%AB%A5%E8%BB%8D%E5%BE%91%E9%A6%99%E6%B8%AF%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%839%E6%A8%93923%E5%AE%A4"},"西貢區":{"fb":"https://www.facebook.com/share/g/1DY5GxS2L9/?mibextid=wwXIfr","ig":"","yt":"","tel":"","web":"https://www.hkscout-skd.org/","address":"九龍將軍澳寶林邨寶寧樓313-314室","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E5%B0%87%E8%BB%8D%E6%BE%B3%E5%AF%B6%E6%9E%97%E9%82%A8%E5%AF%B6%E5%AF%A7%E6%A8%93313-314%E5%AE%A4"},"慈雲山區":{"fb":"https://www.facebook.com/twsdscout/?locale=zh_HK","ig":"","yt":"","tel":"2328 3338","web":"https://group.scout.org.hk/tws/","address":"九龍 慈雲山 慈民邨 民裕樓 10 號地下","email":"tws@scouting.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%C2%A0%E6%85%88%E9%9B%B2%E5%B1%B1%20%E6%85%88%E6%B0%91%E9%82%A8%20%E6%B0%91%E8%A3%95%E6%A8%93%C2%A010%20%E8%99%9F%E5%9C%B0%E4%B8%8B"},"黃大仙區":{"fb":"https://www.facebook.com/wtsscout","ig":"https://www.instagram.com/wtsscout?igshid=YmMyMTA2M2Y%3D","yt":"","tel":"2324 1931","web":"https://hkscout-wts.org/","address":"九龍黃大仙下村龍裕樓地下101-103號","email":"wtsdistrict2021@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E9%BB%83%E5%A4%A7%E4%BB%99%E4%B8%8B%E6%9D%91%E9%BE%8D%E8%A3%95%E6%A8%93%E5%9C%B0%E4%B8%8B101-103%E8%99%9F"},"九龍灣區":{"fb":"https://www.facebook.com/KLBD.Scout.HK","ig":"","yt":"","tel":"2344-9543","web":"https://www.hkscout-klb.org/web2017/","address":"九龍啟業邨啟祥樓地下G5及6室","email":"klb_hq@yahoo.com.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E5%95%9F%E6%A5%AD%E9%82%A8%E5%95%9F%E7%A5%A5%E6%A8%93%E5%9C%B0%E4%B8%8BG5%E5%8F%8A6%E5%AE%A4"},"秀茂坪區":{"fb":"https://www.facebook.com/SMP.Scout.HK/","ig":"","yt":"","tel":"","web":"https://sites.google.com/view/smpscout","address":"九龍觀塘和樂邨居安樓六樓","email":"smp.sahk@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E8%A7%80%E5%A1%98%E5%92%8C%E6%A8%82%E9%82%A8%E5%B1%85%E5%AE%89%E6%A8%93%E5%85%AD%E6%A8%93"},"將軍澳區":{"fb":"https://www.facebook.com/share/g/17raVBqaeW/?mibextid=wwXIfr","ig":"https://www.instagram.com/tkoscout/","yt":"","tel":"2704 2988","web":"https://hkscout-tko.org/","address":"香港將軍澳寶林村寶寧樓313-314室","email":"enquiry@tko-scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E5%B0%87%E8%BB%8D%E6%BE%B3%E5%AF%B6%E6%9E%97%E6%9D%91%E5%AF%B6%E5%AF%A7%E6%A8%93313-314%E5%AE%A4"},"觀塘區":{"fb":"","ig":"","yt":"","tel":"23432176","web":"http://hkscout-ktd.org/ktdweb/","address":"香港九龍觀塘和樂村居安樓六樓 觀塘區總部","email":"mail.ktd@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E4%B9%9D%E9%BE%8D%E8%A7%80%E5%A1%98%E5%92%8C%E6%A8%82%E6%9D%91%E5%B1%85%E5%AE%89%E6%A8%93%E5%85%AD%E6%A8%93%20%E8%A7%80%E5%A1%98%E5%8D%80%E7%B8%BD%E9%83%A8"},"鯉魚門區":{"fb":"https://www.facebook.com/share/196PfTeU1b/?mibextid=wwXIfr","ig":"","yt":"","tel":"2389 0837","web":"https://www.hkscout-lym.org/","address":"九龍觀塘和樂邨居安樓六樓","email":"lym@scouting.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E9%BE%8D%E8%A7%80%E5%A1%98%E5%92%8C%E6%A8%82%E9%82%A8%E5%B1%85%E5%AE%89%E6%A8%93%E5%85%AD%E6%A8%93"},"新界地域":{"fb":"","ig":"","yt":"","tel":"2425 5999","web":"https://www.scout-ntr.org.hk/mainweb/big5/global/home.php","address":"新界葵涌和宜合道308號 鄧肇堅男女童軍中心4樓","email":"ntr@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93308%E8%99%9F%20%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%834%E6%A8%93"},"元朗東區":{"fb":"https://www.facebook.com/share/1Ee1oyuyLG/?mibextid=wwXIfr","ig":"","yt":"","tel":"2477 1345","web":"https://yle.scout-ntr.org.hk/","address":"新界元朗青山公路2B號 元朗東區區會中心","email":"eastyuenlong@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E5%85%83%E6%9C%97%E9%9D%92%E5%B1%B1%E5%85%AC%E8%B7%AF2B%E8%99%9F%20%E5%85%83%E6%9C%97%E6%9D%B1%E5%8D%80%E5%8D%80%E6%9C%83%E4%B8%AD%E5%BF%83"},"元朗西區":{"fb":"https://www.facebook.com/HKSTMWD/","ig":"","yt":"","tel":"2478 3633","web":"https://www.ylw-scout.org.hk/","address":"新界元朗公園北路35號","email":"info@ylw-scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E5%85%83%E6%9C%97%E5%85%AC%E5%9C%92%E5%8C%97%E8%B7%AF35%E8%99%9F"},"十八鄉區":{"fb":"https://www.facebook.com/share/1H2oSqjqUQ/?mibextid=wwXIfr","ig":"https://www.instagram.com/sphd_scout/","yt":"","tel":"2476 8010","web":"https://www.sph-scout.org.hk/","address":"元朗凹頭楊屋村104號","email":"sph@sph-scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E5%85%83%E6%9C%97%E5%87%B9%E9%A0%AD%E6%A5%8A%E5%B1%8B%E6%9D%91104%E8%99%9F"},"屯門西區":{"fb":"https://www.facebook.com/share/1EZW2cvj9t/?mibextid=wwXIfr","ig":"","yt":"","tel":"2451 2333","web":"https://tmw.scout-ntr.org.hk/","address":"屯門屯富路27號鑽禧館","email":"","map":"https://www.google.com/maps/search/?api=1&query=%E5%B1%AF%E9%96%80%E5%B1%AF%E5%AF%8C%E8%B7%AF27%E8%99%9F%E9%91%BD%E7%A6%A7%E9%A4%A8"},"北葵涌區":{"fb":"","ig":"","yt":"","tel":"2425 5999","web":"https://www.nkcscout.org/","address":"新界葵涌和宜合道 308 號鄧肇堅男女童軍中心5樓507室","email":"webmaster@nkcscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93%20308%20%E8%99%9F%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%835%E6%A8%93507%E5%AE%A4"},"屯門東區":{"fb":"","ig":"https://www.instagram.com/tmescout/","yt":"","tel":"","web":"http://www.scout.org.hk/TME","address":"屯門虎地屯富路27號 鑽禧紀念館","email":"tmedscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E5%B1%AF%E9%96%80%E8%99%8E%E5%9C%B0%E5%B1%AF%E5%AF%8C%E8%B7%AF27%E8%99%9F%20%E9%91%BD%E7%A6%A7%E7%B4%80%E5%BF%B5%E9%A4%A8"},"荃灣區":{"fb":"https://zh-hk.facebook.com/twdscout/","ig":"","yt":"","tel":"2425 5999","web":"https://www.twdscout.org.hk/","address":"新界葵涌和宜合道308號鄧肇堅男女童軍中心508室","email":"info@twdscout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93308%E8%99%9F%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83508%E5%AE%A4"},"南葵涌區":{"fb":"https://www.facebook.com/share/g/1NAedDYQ9z/?mibextid=wwXIfr","ig":"","yt":"","tel":"2425 5999","web":"https://skc.scout-ntr.org.hk/","address":"新界葵涌和宜合道308號 鄧肇堅男女童軍中心5樓506室","email":"skcdist@yahoo.com.hk","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E8%91%B5%E6%B6%8C%E5%92%8C%E5%AE%9C%E5%90%88%E9%81%93308%E8%99%9F%20%E9%84%A7%E8%82%87%E5%A0%85%E7%94%B7%E5%A5%B3%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%835%E6%A8%93506%E5%AE%A4"},"青衣區":{"fb":"https://www.facebook.com/p/香港童軍總會青衣區-100064358604698/?locale=zh_HK","ig":"","yt":"","tel":"","web":"https://tyd.scout-ntr.org.hk/","address":"青衣長康邨康美樓C301室","email":"tyd.hkscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E8%A1%A3%E9%95%B7%E5%BA%B7%E9%82%A8%E5%BA%B7%E7%BE%8E%E6%A8%93C301%E5%AE%A4"},"離島區":{"fb":"https://www.facebook.com/islands.scout/?locale=zh_HK","ig":"","yt":"","tel":"4655 1984","web":"https://sites.google.com/view/islands-scout","address":"長洲觀音灣路28號","email":"islands.scout＠gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%95%B7%E6%B4%B2%E8%A7%80%E9%9F%B3%E7%81%A3%E8%B7%AF28%E8%99%9F"},"大嶼山區":{"fb":"https://www.facebook.com/lantauscouts/?locale=zh_HK","ig":"https://www.instagram.com/lantau_scout/","yt":"","tel":"","web":"","address":"順東路與赤臘角南路交界處","email":"lantauscout@gmail.com","map":"https://www.google.com/maps/search/?api=1&query=%E9%A0%86%E6%9D%B1%E8%B7%AF%E8%88%87%E8%B5%A4%E8%87%98%E8%A7%92%E5%8D%97%E8%B7%AF%E4%BA%A4%E7%95%8C%E8%99%95"},"新界東地域":{"fb":"https://www.facebook.com/nteryouthscout/?tn-str=k*F","ig":"https://www.instagram.com/nteryouthscout/","yt":"","tel":"2667 9100","web":"https://www.nter-hkscout.org/","address":"大埔運頭角里15號羅定邦童軍中心","email":"nter@scout.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83"},"雙魚區":{"fb":"https://www.facebook.com/sheungyue","ig":"https://www.instagram.com/scout_nter_syd/","yt":"","tel":"","web":"https://www.syd-hkscout.org/","address":"新界粉嶺祥華邨祥禮樓 225 - 227 室","email":"info@syd-hkscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E7%B2%89%E5%B6%BA%E7%A5%A5%E8%8F%AF%E9%82%A8%E7%A5%A5%E7%A6%AE%E6%A8%93%20225%20-%20227%20%E5%AE%A4"},"壁峰區":{"fb":"https://www.facebook.com/scoutpfd/?locale=zh_HK","ig":"","yt":"","tel":"","web":"https://sites.google.com/view/pikfung-district","address":"","email":"","map":""},"大埔北區":{"fb":"https://www.facebook.com/tpnscout","ig":"https://www.instagram.com/tpn.scout","yt":"","tel":"","web":"https://tpnscout.org/","address":"大埔運頭角里15號羅定邦童軍中心19室","email":"INFO@TPNSCOUT.ORG","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%8319%E5%AE%A4"},"大埔南區":{"fb":"https://www.facebook.com/tpsscout/?locale=zh_HK","ig":"https://www.instagram.com/tai_po_south_district/","yt":"","tel":"6371 6821","web":"http://www.tps.org.hk/","address":"大埔運頭角里15號羅定邦童軍中心21室","email":"district@tps.org.hk","map":"https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%8321%E5%AE%A4"},"沙田西區":{"fb":"https://www.facebook.com/stwscout/","ig":"https://www.instagram.com/stwscout/","yt":"","tel":"2692 4542","web":"https://www.stwscout.org/wp/","address":"新界沙田禾輋邨厚和樓平台427-428號","email":"enquiry@stwscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E6%B2%99%E7%94%B0%E7%A6%BE%E8%BC%8B%E9%82%A8%E5%8E%9A%E5%92%8C%E6%A8%93%E5%B9%B3%E5%8F%B0427-428%E8%99%9F"},"沙田南區":{"fb":"https://www.facebook.com/p/香港童軍總會-新界東地域-沙田南區-100064868370588/?locale=zh_HK","ig":"https://www.instagram.com/stsdscout/","yt":"","tel":"2132 9636","web":"https://www.stsd-scout.org/","address":"香港沙田大圍顯和里顯徑鄰里社區中心4樓406室","email":"info@stsd-scout.org","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E6%B2%99%E7%94%B0%E5%A4%A7%E5%9C%8D%E9%A1%AF%E5%92%8C%E9%87%8C%E9%A1%AF%E5%BE%91%E9%84%B0%E9%87%8C%E7%A4%BE%E5%8D%80%E4%B8%AD%E5%BF%834%E6%A8%93406%E5%AE%A4"},"沙田東區":{"fb":"https://www.facebook.com/stescout/","ig":"https://www.instagram.com/ste.scout/","yt":"","tel":"3956 4045","web":"https://www.stescout.org/website/","address":"新界沙田禾輋邨厚和樓 425-426 號","email":"web@stescout.org","map":"https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%95%8C%E6%B2%99%E7%94%B0%E7%A6%BE%E8%BC%8B%E9%82%A8%E5%8E%9A%E5%92%8C%E6%A8%93%20425-426%20%E8%99%9F"},"沙田北區":{"fb":"https://www.facebook.com/stnscout/?locale=zh_HK","ig":"","yt":"","tel":"","web":"https://www.stnscout.org/","address":"香港新界大埔運頭角里15號羅定邦童軍中心","email":"info@stnscout.org","map":"https://www.google.com/maps/search/?api=1&query=%E9%A6%99%E6%B8%AF%E6%96%B0%E7%95%8C%E5%A4%A7%E5%9F%94%E9%81%8B%E9%A0%AD%E8%A7%92%E9%87%8C15%E8%99%9F%E7%BE%85%E5%AE%9A%E9%82%A6%E7%AB%A5%E8%BB%8D%E4%B8%AD%E5%BF%83"}};
 
@@ -371,6 +425,7 @@
       searchRegionKeyword: '',
       searchScope: 'current', // 'current' | 'global'
       branch: 'ALL',     // 支部標籤（單選）：'ALL' | '小童軍' | '幼童軍' | …
+      category: 'ALL',   // 分類標籤（單選）：'ALL' | 'training' | 'service' | 'competition' | 'other'
       bookmarks: {},     // key -> 收藏快照（見 BOOKMARK_KEY 說明）
       lastSource: null,  // 撳 ★ 分頁之前喺邊個來源，用嚟返返去
     };
@@ -629,10 +684,10 @@
       // 唔應該因為「今天」視窗而喺自己收藏夾入面消失 —— 咁就等於揾唔返。
       if (state.activeSource === 'BOOKMARKS') {
         items = getBookmarkItems();
-        if (state.keyword || state.branch !== 'ALL') {
+        if (state.keyword || state.branch !== 'ALL' || state.category !== 'ALL') {
           items = items.filter(item => {
             const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-            return matchesSearchQuery(item, ex, state.keyword, state.branch);
+            return matchesSearchQuery(item, ex, state.keyword, state.branch) && matchesCategory(item, ex, state.category);
           });
         }
         return items;   // 已按收藏時間排序，唔再依日期重排
@@ -650,9 +705,9 @@
       items = items.filter(item => {
         const dateValue = item.date || item.captured_date || '';
         if (!inWindow(dateValue)) return false;
-        if (state.keyword || state.branch !== 'ALL') {
+        if (state.keyword || state.branch !== 'ALL' || state.category !== 'ALL') {
           const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-          return matchesSearchQuery(item, ex, state.keyword, state.branch);
+          return matchesSearchQuery(item, ex, state.keyword, state.branch) && matchesCategory(item, ex, state.category);
         }
         return true;
       });
@@ -750,6 +805,28 @@
           // 再撳一次已選中嘅支部 = 取消，返回「全部」
           state.branch = (state.branch === tag.id && tag.id !== 'ALL') ? 'ALL' : tag.id;
           renderBranchChips();
+          renderHeader();
+          renderCards();
+        };
+        wrap.appendChild(btn);
+      }
+    }
+
+    // 分類標籤：單選，同支部一樣。揀完會同時過濾卡片 + 收藏夾。
+    function renderCategoryChips() {
+      const wrap = $('#category-chips');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      for (const tag of CATEGORY_TAGS) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `chip chip-category${state.category === tag.id ? ' active' : ''}`;
+        btn.dataset.cat = tag.id;
+        btn.textContent = tag.label;
+        btn.setAttribute('aria-pressed', state.category === tag.id ? 'true' : 'false');
+        btn.onclick = () => {
+          state.category = tag.id;
+          renderCategoryChips();
           renderHeader();
           renderCards();
         };
@@ -1005,6 +1082,47 @@
       ];
     }
 
+    // 電腦（Mouse / Trackpad）本身冇「分享檔案去其他 app」嘅穩定入口，
+    // 就算 navigator.share 存在，撳落去都好容易 AbortError／無反應。
+    // 所以系統分享（連結 + 檔案）淨係喺手機／觸控裝置先顯示，電腦就用「複製圖片／下載圖片」。
+    function isTouchLikeDevice() {
+      try {
+        if (navigator.userAgentData && navigator.userAgentData.mobile) return true;
+      } catch (_) {}
+      if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return true;
+      if ('ontouchstart' in window || (typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints > 0)) return true;
+      return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '');
+    }
+
+    function canUseSystemShare() {
+      return typeof navigator.share === 'function' && isTouchLikeDevice();
+    }
+
+    function canShareFilesNow() {
+      if (!isTouchLikeDevice() || typeof navigator.share !== 'function' || typeof navigator.canShare !== 'function') return false;
+      try {
+        const probe = new File([new Blob(['probe'], { type: 'image/jpeg' })], 'x.jpg', { type: 'image/jpeg' });
+        return !!navigator.canShare({ files: [probe] });
+      } catch (_) {
+        return false;
+      }
+    }
+
+    // 預先轉成 PNG：複製圖片嘅 clipboard.write 要喺用戶手勢同一刻同步開始，
+    // 唔可以撳完掣先慢慢 createImageBitmap / toBlob（Safari／部分桌面瀏覽器會因此拒絕）。
+    async function makePngBlob(blob) {
+      if (typeof createImageBitmap !== 'function') return blob;
+      try {
+        const bmp = await createImageBitmap(blob);
+        const cv = document.createElement('canvas');
+        cv.width = bmp.width; cv.height = bmp.height;
+        cv.getContext('2d').drawImage(bmp, 0, 0);
+        return await new Promise(res => cv.toBlob(res, 'image/png'));
+      } catch (_) {
+        return blob;
+      }
+    }
+
     let activeShare = null;   // { backdrop, cleanup }
     function closeShare() {
       if (!activeShare) return;
@@ -1016,7 +1134,7 @@
     function openShare(item) {
       closeShare();
       const url = shareUrlFor(item);
-      const canWebShare = typeof navigator.share === 'function';
+      const canWebShare = canUseSystemShare();
       const links = socialLinks(item);
 
       const backdrop = document.createElement('div');
@@ -1073,12 +1191,18 @@
       const btnImgCopy = backdrop.querySelector('[data-act="img-copy"]');
       const btnImgDl = backdrop.querySelector('[data-act="img-dl"]');
 
-      const img = { blob: null, page: 1, pages: 0, objectUrl: null, loading: false };
+      const img = { blob: null, pngBlob: null, pngReady: false, page: 1, pages: 0, objectUrl: null, loading: false };
       const setStatus = (text, isErr = false) => { imgstatus.innerHTML = text; imgstatus.classList.toggle('err', isErr); };
-      const setBusy = (busy) => { [btnImgShare, btnImgCopy, btnImgDl].forEach(b => b.disabled = busy || !img.blob); pagesel.disabled = busy; };
+      const setBusy = (busy) => {
+        btnImgShare.disabled = busy || !img.blob;
+        btnImgDl.disabled = busy || !img.blob;
+        // 複製圖片要 PNG 已預先轉好先允許，唔好撳完先開始 await。
+        btnImgCopy.disabled = busy || !img.pngReady;
+        pagesel.disabled = busy;
+      };
 
       async function loadPage(page) {
-        img.loading = true; img.blob = null;
+        img.loading = true; img.blob = null; img.pngBlob = null; img.pngReady = false;
         setBusy(true);
         imgbox.hidden = false;
         setStatus(`<span class="spin"></span>正在把第 ${page} 頁轉做圖片…（原站慢嘅話可能要等十幾秒）`);
@@ -1112,9 +1236,24 @@
           }
           pagesel.parentElement.style.display = img.pages > 1 ? '' : 'none';
           pageinfo.textContent = img.pages > 1 ? `共 ${img.pages} 頁，目前第 ${page} 頁` : '共 1 頁';
-          const canShareFile = typeof navigator.canShare === 'function' && navigator.canShare({ files: [new File([blob], 'x.jpg', { type: blob.type })] });
+          const canShareFile = canShareFilesNow();
           btnImgShare.hidden = !canShareFile;
-          setStatus(`圖片已準備好（${Math.round(blob.size / 1024)} KB）。`);
+          btnImgShare.disabled = !canShareFile || !img.blob;
+          // 先顯示成圖，再喺背景準備 PNG（剪貼簿用）。準備好先准撳「複製圖片」。
+          setStatus(`<span class="spin"></span>圖片已產生（${Math.round(blob.size / 1024)} KB），準備緊「複製圖片」…`);
+          makePngBlob(blob).then(png => {
+            if (img.blob !== blob) return;   // 用戶已轉去另一頁
+            img.pngBlob = png;
+            img.pngReady = true;
+            setBusy(false);
+            setStatus(`圖片已準備好（${Math.round(blob.size / 1024)} KB），可以複製／下載。`);
+          }).catch(() => {
+            if (img.blob !== blob) return;
+            img.pngBlob = blob;
+            img.pngReady = true;
+            setBusy(false);
+            setStatus(`圖片已準備好（${Math.round(blob.size / 1024)} KB），可以複製／下載。`);
+          });
         } catch (err) {
           preview.hidden = true; preview.removeAttribute('src');
           setStatus(`❌ ${escapeHtml(err.message || String(err))}`, true);
@@ -1142,21 +1281,19 @@
           if (!img.loading) loadPage(img.page || 1);
         } else if (act === 'img-share') {
           if (!img.blob) return;
-          try { await navigator.share({ files: [currentFile()], title: item.title || '通告', text: shareTextFor(item, false) }); }
-          catch (err) { if (err && err.name !== 'AbortError') showToast('分享失敗，可以改用下載圖片。'); }
+          // 淨係傳檔案、唔夾文字：WhatsApp / IG 見「圖 + 文字」會優先揀文字，朋友就收唔到圖。
+          try { await navigator.share({ files: [currentFile()], title: item.title || '通告' }); }
+          catch (err) {
+            if (!err || err.name !== 'AbortError') {
+              showToast('分享選單開唔到。電腦請改用「複製圖片」或「下載圖片」。');
+            }
+          }
         } else if (act === 'img-copy') {
-          if (!img.blob) return;
+          if (!img.pngReady || !img.pngBlob) { showToast('圖片仲未準備好，請等一陣再試。'); return; }
           try {
             if (!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('unsupported');
-            // 大部分瀏覽器剪貼簿只收 PNG，JPG 要先轉一轉
-            let blob = img.blob;
-            if (blob.type !== 'image/png') {
-              const bmp = await createImageBitmap(blob);
-              const cv = document.createElement('canvas'); cv.width = bmp.width; cv.height = bmp.height;
-              cv.getContext('2d').drawImage(bmp, 0, 0);
-              blob = await new Promise(res => cv.toBlob(res, 'image/png'));
-            }
-            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+            // PNG 喺產生圖片嗰陣已經預先轉好，撳掣嗰一刻直接寫剪貼簿，唔會因為 await 而失效。
+            await navigator.clipboard.write([new ClipboardItem({ 'image/png': img.pngBlob })]);
             showToast('已複製圖片，可以直接貼落 WhatsApp / Telegram');
           } catch (_) {
             showToast('呢個瀏覽器唔支援複製圖片，請用「下載圖片」。');
@@ -1220,10 +1357,12 @@
       const scopeLabel = state.searchScope === 'global' ? '全港' : '目前分頁';
       const totalAll = state.sourceOrder.reduce((sum, src) => sum + (state.grouped[src] || []).length, 0);
       const totalCurrent = state.searchScope === 'global' ? totalAll : getBucket(state.activeSource).length;
+      const currentCat = CATEGORY_TAGS.find(c => c.id === state.category);
       $('#status-line').innerHTML = `
         模式：<code>${scopeLabel}</code>
         ・視窗：<code>${escapeHtml(currentWindow().label)}</code>
         ${state.branch !== 'ALL' ? `・支部：<code>${escapeHtml(state.branch)}</code>` : ''}
+        ${state.category !== 'ALL' ? `・分類：<code>${escapeHtml(currentCat?.label || state.category)}</code>` : ''}
         ・顯示：<code>${current}</code>
         ・本來源總數：<code>${totalCurrent}</code>
         ・cache：<code>${escapeHtml(state.cache?.meta?.version || state.cache?._meta?.version || 'unknown')}</code>
@@ -1299,7 +1438,10 @@
         const branchHint = state.branch !== 'ALL'
           ? `<br><small>目前只顯示「${escapeHtml(state.branch)}」支部。冇 PDF 內文資料嘅舊通告只能靠標題判斷支部，可以撳「全部」再睇。</small>`
           : '';
-        messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}</div>`;
+        const catHint = state.category !== 'ALL'
+          ? `<br><small>目前只顯示「${escapeHtml(CATEGORY_TAGS.find(c => c.id === state.category)?.label || state.category)}」分類。分類係用標題關鍵字判斷，唔一定 100% 準；可以撳「全部」再睇。</small>`
+          : '';
+        messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}${catHint}</div>`;
         return;
       }
 
@@ -1320,11 +1462,17 @@
         }
 
         const starred = isBookmarked(item);
+        const cats = itemCategories(item, ex);
+        const catLabels = {
+          training: '訓練班', service: '服務', competition: '比賽', other: '其他'
+        };
+        const catHtml = [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('');
         const card = document.createElement('article');
         card.className = `card${item._bmGone ? ' bm-gone' : ''}`;
         card.innerHTML = `
           <div class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</div>
           ${item._bmGone ? '<div class="gone-tag">⚠️ 原站已移除（報唔到，可撳 ★ 取消收藏）</div>' : ''}
+          <div class="cat-tags">${catHtml}</div>
           <div class="card-head">
             <h3>${escapeHtml(item.title || '未命名通告')}</h3>
             <button class="star-btn${starred ? ' on' : ''}" type="button"
@@ -1451,6 +1599,7 @@
     renderWindowChips();
     renderScopeChips();
     renderBranchChips();
+    renderCategoryChips();
     initScoutSystemConnect();
     // === 訪客計數器（純靜態頁，用免費 abacus.jasoncameron.dev，無需註冊，穩定 + CORS）===
     async function loadVisitCounter() {
