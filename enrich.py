@@ -101,83 +101,108 @@ CN_NUM = "零一二三四五六七八九十"
 
 
 # ─── 分類（由 PDF 內文判斷）─────────────────────────────
-# 呢度唔係靠標題字眼（標題搜尋已經做到），而係好似 audience / fee 咁，
-# 由 PDF 內文 label 範圍 + 關鍵詞 + 排除詞一齊判斷。
-# 一只通告可以同時屬於多類（例如「社區服務計劃暨義工訓練」→ service + training）。
+# 判斷次序（重要）：
+#   1. 先睇「標題」—— 標題通常最直接講明係訓練班 / 服務 / 比賽
+#   2. 標題有強證據 → 直接分類
+#   3. 標題得弱證據 / 冇證據 / 標題係排程名單 → 先至用 PDF 內文補判斷
+#   4. 內文都唔確定 → 回空（前端顯示「其他」）
 CATE_VER = "1.0"
 
 
-def extract_categories(text):
-    """由 PDF 內文回傳 [{id,label,score,national}...]。
+def _category_result(name, hits):
+    if not hits:
+        return None
+    return {
+        "id": name,
+        "label": {"training": "訓練班", "service": "服務", "competition": "比賽"}[name],
+        "score": max(h["score"] for h in hits),
+        "evidence": sorted({h["label"] for h in hits}, reverse=True)[:4],
+    }
+
+
+def extract_categories(title, text):
+    """由「標題優先、內文補強」判斷回傳 [{id,label,score,evidence}...]。
 
     id: training | service | competition
-    規則：
-      - 唔會因為標題有「訓練」兩字就判做訓練班
-      - 會去區分「訓練班/課程/工作坊」= training，「服務/義工/捐」= service，
-        「比賽/競賽/錦標」= competition
-      - 抽唔到任何 label 就回空（由前端顯示「其他」）
+    設計：
+      - 標題係最快 path，如果有強證據（明確字眼）就當作決定（例如『童軍繩結訓練班』）。
+      - 標題唔夠肯定（只係『訓練日』『服務』『盃』呢類弱字眼，或者根本睇唔出）
+        先至用 PDF 頭幾頁內文。
+      - 內文都確認唔到 → 回空。
     """
-    if not text:
+    title = compact(title or "")
+    text = compact(text or "")
+
+    # 若標題出現排除詞（行事曆 / 一覽 / 名單 / 章程…），標題已經講明唔係活動本身，
+    # 直接唔分類，唔會因為內文有「訓練班」而變成訓練班。
+    if title and any(k in title for k in _CATEGORY_EXCLUDE_ALL):
         return []
 
-    c = compact(text)
-    if not c:
-        return []
+    # ── 先試標題：只有強證據先算呀？唔係，標題弱證據都唔當決定，
+    #    要分開處理（下面）。
+    title_results = []
+    for name, rules in _CATEGORY_RULES.items():
+        strong = _category_hits(title, rules["score_labels"], [], rules["exclude_labels"])
+        if strong:
+            r = _category_result(name, strong)
+            if r:
+                title_results.append(r)
 
-    # ── 訓練班 ────────────────────────────────────────────
-    # 內文常見 label + 內容關鍵詞
-    training_hits = _category_hits(
-        c,
-        score_labels=[
-            "訓練班", "訓練課程", "培訓班", "進修班", "訓練課程", "團長訓練",
-            "領袖訓練", "技能訓練", "專章訓練", "考驗研習", "探路考驗",
-            "課程", "工作坊", "研習班", "研討會", "講座", "進修", "集訓", "培訓",
+    # 標題有強證據 → 用標題結果（一隻可以多類）
+    if title_results:
+        title_results.sort(key=lambda x: -x["score"])
+        return title_results
+
+    # 標題冇強證據 → 睇內文。內文仍要過排除詞。
+    if text:
+        results = []
+        for name, rules in _CATEGORY_RULES.items():
+            strong = _category_hits(text, rules["score_labels"], [], rules["exclude_labels"])
+            if strong:
+                r = _category_result(name, strong)
+                if r:
+                    results.append(r)
+        if results:
+            results.sort(key=lambda x: -x["score"])
+            return results
+
+    return []
+
+
+_CATEGORY_RULES = {
+    "training": {
+        "score_labels": [
+            "訓練班", "訓練課程", "培訓班", "進修班", "團長訓練", "領袖訓練",
+            "技能訓練", "專章訓練", "考驗研習", "探路考驗", "課程", "工作坊",
+            "研習班", "研討會", "講座", "進修", "集訓", "培訓",
         ],
-        weak_labels=["訓練", "專章", "考驗", "課程", "班"],
-        exclude_labels=[
+        "weak_labels": ["訓練", "專章", "考驗", "課程", "班"],
+        "exclude_labels": [
             "訓練行事曆", "訓練日程", "訓練計劃", "訓練綱要", "訓練概覽",
             "訓練大綱", "訓練指引", "訓練簡介", "訓練攻略", "一覽", "名單",
         ],
-    )
+    },
+    "service": {
+        "score_labels": [
+            "社區服務", "服務計劃", "義工服務", "公益服務", "義工招募", "社會服務",
+            "志願服務", "慈善活動", "慈善", "公益", "籌款", "捐贈", "捐血", "探訪",
+            "敬老", "清潔", "環保行動", "服務日", "服務隊", "服務團", "服務之旅", "服務活動",
+        ],
+        "weak_labels": ["服務", "義工", "志工", "捐", "探訪", "籌款", "慈善", "公益", "愛心"],
+        "exclude_labels": ["服務指引", "服務範圍", "服務章程", "服務名單", "服務安排", "服務時間表"],
+    },
+    "competition": {
+        "score_labels": [
+            "比賽", "競賽", "錦標賽", "公開賽", "邀請賽", "決賽", "初賽", "準決賽",
+            "友誼賽", "聯賽", "挑戰賽", "選拔賽", "賽事", "隊列比賽", "步操比賽",
+            "團呼比賽", "會操", "競技", "大賽",
+        ],
+        "weak_labels": ["盃", "賽"],
+        "exclude_labels": ["比賽章程", "比賽規則", "比賽時間表", "比賽名單", "比賽安排", "賽前", "賽後"],
+    },
+}
 
-    # ── 服務 ──────────────────────────────────────────────
-    service_hits = _category_hits(
-        c,
-        score_labels=["社區服務", "服務計劃", "義工服務", "公益服務", "義工招募",
-                      "社會服務", "志願服務", "慈善活動", "慈善", "公益", "籌款",
-                      "捐贈", "捐血", "探訪", "敬老", "清潔", "環保行動", "服務日",
-                      "服務隊", "服務團", "服務之旅", "服務活動"],
-        weak_labels=["服務", "義工", "志工", "捐", "探訪", "籌款", "慈善", "公益", "愛心"],
-        exclude_labels=["服務指引", "服務範圍", "服務章程", "服務名單", "服務安排", "服務時間表"],
-    )
-
-    # ── 比賽 ──────────────────────────────────────────────
-    competition_hits = _category_hits(
-        c,
-        score_labels=["比賽", "競賽", "錦標賽", "公開賽", "邀請賽", "決賽", "初賽",
-                      "準決賽", "友誼賽", "聯賽", "挑戰賽", "選拔賽", "賽事",
-                      "隊列比賽", "步操比賽", "團呼比賽", "會操", "競技", "大賽"],
-        weak_labels=["盃", "賽"],
-        exclude_labels=["比賽章程", "比賽規則", "比賽時間表", "比賽名單", "比賽安排", "賽前", "賽後"],
-    )
-
-    out = []
-    # 用 score 分高 → set 去重
-    for name, hits in [
-        ("training", training_hits),
-        ("service", service_hits),
-        ("competition", competition_hits),
-    ]:
-        if hits:
-            out.append({
-                "id": name,
-                "label": {"training": "訓練班", "service": "服務", "competition": "比賽"}[name],
-                "score": max(h["score"] for h in hits),
-                "evidence": sorted({h["label"] for h in hits}, reverse=True)[:4],
-            })
-
-    out.sort(key=lambda x: -x["score"])
-    return out
+_CATEGORY_EXCLUDE_ALL = sorted({k for rules in _CATEGORY_RULES.values() for k in rules["exclude_labels"]})
 
 
 def _category_hits(text, score_labels, weak_labels, exclude_labels):
@@ -476,12 +501,12 @@ def clean_value(v, max_len):
     return v
 
 
-def extract_fields(text):
+def extract_fields(text, title=""):
     return {
         "deadline": extract_deadline(text),
         "audience": extract_audience(text),
         "fee": extract_fee(text),
-        "categories": extract_categories(text),
+        "categories": extract_categories(title, text),
     }
 
 
@@ -516,7 +541,7 @@ def download(url, timeout=25):
         return r.read()
 
 
-def enrich_one(url, use_ocr=True, verbose=False):
+def enrich_one(url, title="", use_ocr=True, verbose=False):
     """回傳 dict：{deadline, audience, fee, categories, _method}"""
     fetch_url = url
     if "drive.google" in url or "docs.google" in url:
@@ -539,7 +564,7 @@ def enrich_one(url, use_ocr=True, verbose=False):
 
     text = pdf_text_via_pdfplumber(data)
     method = "text"
-    fields = extract_fields(text)
+    fields = extract_fields(text, title)
 
     # 文字抽唔到任何欄位 + 文字本身太少 → 可能圖片型 → OCR
     has_any = any(fields[k] for k in ("deadline", "audience", "fee"))
@@ -549,7 +574,7 @@ def enrich_one(url, use_ocr=True, verbose=False):
         ocr_text = pdf_text_via_ocr(data)
         if ocr_text.strip():
             method = "ocr"
-            fields = extract_fields(ocr_text)
+            fields = extract_fields(ocr_text, title)
 
     fields["_method"] = method
     return fields
@@ -699,7 +724,7 @@ def main():
             # 5/23 教訓：同一 session 連環下載最易觸發站點封鎖
             time.sleep(random.uniform(1.5, 4.0))
         print(f"[{source}] {title[:36]}")
-        res = enrich_one(url, use_ocr=not args.no_ocr, verbose=args.verbose)
+        res = enrich_one(url, title=title, use_ocr=not args.no_ocr, verbose=args.verbose)
         enrich[url] = {
             "source": source,
             "title": title,
