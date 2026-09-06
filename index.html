@@ -375,10 +375,9 @@
     }
 
     // ── 通告分類：訓練班 / 服務 / 比賽 ────────────────────────────
-    // 用標題 + enrich 標題做關鍵字分類（不改爬蟲、不改 cache，前端即時生效）。
-    // 一隻通告可以同時屬於多個類別（例如「社區服務計劃暨義工訓練」→ 服務 + 訓練班）。
-    // 「樣板／一覽／名單」嗰類唔係活動本身，強制落「其他」，避免「活動與訓練行事曆」
-    // 因為有「訓練」兩隻字而變成訓練通告。
+    // 分類唔係靠標題字眼（標題搜尋已經做到）。
+    // 呢度用 enrich.py 由 PDF 內文判斷出嚟嘅 `enrich.categories`，同 deadline／audience／fee 一樣。
+    // enrich.json 冇該項（舊資料／未補跑）→ 一律「其他」，等 backfill-categories 補上。
     const CATEGORY_TAGS = [
       { id: 'ALL', label: '全部' },
       { id: 'training', label: '訓練班' },
@@ -386,23 +385,17 @@
       { id: 'competition', label: '比賽' },
       { id: 'other', label: '其他' },
     ];
-    const CATEGORY_KEYWORDS = {
-      training: ['訓練班', '訓練', '課程', '工作坊', '研習班', '研討會', '講座', '進修', '集訓', '培訓', '專章', '考驗'],
-      service: ['服務', '義工', '慈善', '公益', '探訪', '敬老', '捐', '籌款', '義賣', '義診', '扶貧', '清潔', '環保', '大掃除', '社區'],
-      competition: ['比賽', '競賽', '競技', '錦標賽', '公開賽', '邀請賽', '聯賽', '挑戰賽', '選拔賽', '練習賽', '賽事', '決賽', '初賽', '準決賽', '友誼賽', '大賽', '隊際賽', '分區賽', '地區賽', '會操', '盃'],
-    };
-    const CATEGORY_EXCLUDE = ['行事曆', '通告便覽', '通告一覽', '一覽', '獲獎名單', '名單', '章程', '指引'];
+    const CATEGORY_IDS = new Set(['training', 'service', 'competition']);
 
     function itemCategories(item, enrich) {
-      const text = normalizeSearchText(`${item.title || ''} ${enrich?.title || ''}`);
-      if (!text) return new Set(['other']);
-      if (CATEGORY_EXCLUDE.some(k => text.includes(k))) return new Set(['other']);
+      // enrich.py 寫入嘅格式：categories: [{ id, label, score, evidence }...]
+      const raw = enrich?.categories;
+      if (!Array.isArray(raw) || !raw.length) return new Set(['other']);
       const cats = new Set();
-      for (const id of Object.keys(CATEGORY_KEYWORDS)) {
-        if (CATEGORY_KEYWORDS[id].some(k => text.includes(k))) cats.add(id);
+      for (const c of raw) {
+        if (c && CATEGORY_IDS.has(c.id)) cats.add(c.id);
       }
-      if (!cats.size) cats.add('other');
-      return cats;
+      return cats.size ? cats : new Set(['other']);
     }
 
     function matchesCategory(item, enrich, categoryId) {
@@ -1095,7 +1088,9 @@
     }
 
     function canUseSystemShare() {
-      return typeof navigator.share === 'function' && isTouchLikeDevice();
+      // 觸控裝置先顯示「更多…」。就算個別 mobile WebView 冇 navigator.share，
+      // 撳落去都會有後備（複製網址），唔會靜靜地失敗。
+      return isTouchLikeDevice();
     }
 
     function canShareFilesNow() {
@@ -1271,8 +1266,22 @@
         if (!el) return;
         const act = el.dataset.act;
         if (act === 'sys') {
-          try { await navigator.share({ title: item.title || '通告', text: shareTextFor(item, false), url }); }
-          catch (err) { if (err && err.name !== 'AbortError') showToast('系統分享失敗，可以改用複製網址。'); }
+          if (typeof navigator.share !== 'function') {
+            // in-app browser / 舊 WebView：冇系統分享，但唔好俾用戶靜靜失敗
+            if (await copyText(url)) showToast('呢個瀏覽器冇系統分享，已幫你複製網址。');
+            return;
+          }
+          try {
+            await navigator.share({ title: item.title || '通告', text: shareTextFor(item, false), url });
+          } catch (err) {
+            if (err && err.name === 'AbortError') {
+              showToast('已取消系統分享');
+            } else if (await copyText(url)) {
+              showToast('系統分享開啟唔到，已幫你複製網址。');
+            } else {
+              showToast('系統分享開啟唔到，請用下面嘅 WhatsApp／複製網址。');
+            }
+          }
         } else if (act === 'copy-url') {
           if (await copyText(url)) showToast('已複製通告網址');
         } else if (act === 'copy-text') {
@@ -1439,7 +1448,7 @@
           ? `<br><small>目前只顯示「${escapeHtml(state.branch)}」支部。冇 PDF 內文資料嘅舊通告只能靠標題判斷支部，可以撳「全部」再睇。</small>`
           : '';
         const catHint = state.category !== 'ALL'
-          ? `<br><small>目前只顯示「${escapeHtml(CATEGORY_TAGS.find(c => c.id === state.category)?.label || state.category)}」分類。分類係用標題關鍵字判斷，唔一定 100% 準；可以撳「全部」再睇。</small>`
+          ? `<br><small>目前只顯示「${escapeHtml(CATEGORY_TAGS.find(c => c.id === state.category)?.label || state.category)}」分類。分類由 enrich.py 嘅 PDF 內文判斷；如果全部係「其他」，可能 enrich.json 仲未補 categories（跑 python enrich.py --backfill-categories）。</small>`
           : '';
         messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}${catHint}</div>`;
         return;

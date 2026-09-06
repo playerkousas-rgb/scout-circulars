@@ -66,11 +66,17 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 
 搜尋列仲有一排**分類**標籤：**全部／訓練班／服務／比賽／其他**。
 
-- 純前端規則分類，**不改爬蟲、不改 cache**，每日抓取照常。
-- 用通告標題 + `enrich.json` 標題做關鍵字判斷；一隻通告可以同時屬於多個類別（例如「社區服務計劃暨義工訓練」→ 服務 + 訓練班）。
-- 「行事曆／一覽／名單／章程」嗰類會當「其他」，避免「活動與訓練行事曆」因為有「訓練」兩字而變成訓練通告。
-- 卡片本身都會顯示分類標籤，想調整分類規則改 `index.html` 入面 `CATEGORY_KEYWORDS` / `CATEGORY_EXCLUDE` 即可。
-- 分類係標題級猜想，唔一定 100% 準；重要通告請開附件確認。
+- **由 `enrich.py` 由 PDF 內文抽取**（同截止／對象／費用同一條流程），唔係靠標題字眼。
+- `enrich.json` 每條會多一個 `categories` 欄：`[{id, label, score, evidence}...]`；前端直接用呢個欄位過濾／排序。
+- 一隻通告可以同時屬於多個類別（例如「社區服務計劃暨義工訓練」→ 服務 + 訓練班）。
+- 每日 GitHub Action / 本機 `python enrich.py` 會自動為**新通告**填 `categories`。
+- 舊通告未有 `categories`（`enrich.json` 之前未儲呢個欄）→ 前端會顯示「其他」。要補歷史分類，本機跑：
+  ```bash
+  python enrich.py --backfill-categories --limit 500
+  ```
+  （呢個會再下載未分類嘅 PDF，量大時請分批／夜晚跑，避免觸發站方封鎖。）
+- 想調整分類規則改 `enrich.py` 入面 `extract_categories()` 嘅 `score_labels / weak_labels / exclude_labels`。
+- 分類係 PDF 內文級估算，唔一定 100% 準；重要通告請開附件確認。
 
 執行回歸測試：
 

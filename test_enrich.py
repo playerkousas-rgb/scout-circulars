@@ -9,7 +9,7 @@ test_enrich.py — enrich.py 準確性單元測試
 import sys
 sys.path.insert(0, ".")
 
-from enrich import extract_audience, extract_deadline, extract_fee, normalize_fee
+from enrich import extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories
 
 
 def test(name, got, want):
@@ -85,6 +85,33 @@ def main():
         "費用：豁免唔等於全免，寧願空",
         extract_fee("費用：可向主辦單位申請豁免"),
         "",
+    )
+
+    # ── 分類：由內文判斷，唔係靠標題 ──
+    passed += test(
+        "分類：內文有訓練班 → training",
+        [c["id"] for c in extract_categories("參加資格：童軍\n訓練班：繩結訓練班\n費用：HK$50")],
+        ["training"],
+    )
+    passed += test(
+        "分類：內文有社區服務 → service",
+        [c["id"] for c in extract_categories("活動性質：社區服務\n服務日：2026-09-20")],
+        ["service"],
+    )
+    passed += test(
+        "分類：內文有公開賽 → competition",
+        [c["id"] for c in extract_categories("全港公開賽\n日期：2026-09-20")],
+        ["competition"],
+    )
+    passed += test(
+        "分類：無清楚活動字眼 → 空",
+        [c["id"] for c in extract_categories("只係一般通告\n下載附件")],
+        [],
+    )
+    passed += test(
+        "分類：有「訓練行事曆」唔當訓練班",
+        [c["id"] for c in extract_categories("活動與訓練行事曆\n一覽表")],
+        [],
     )
 
     # ── 格式正規化 ──

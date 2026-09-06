@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用）
+enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 分類）
 ========================================================
 設計原則：
   - 完全獨立於主爬蟲 core.py，不讀寫 cache.json 內部結構
@@ -11,10 +11,12 @@ enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用）
               文字型抽唔到 → 用 OCR (tesseract chi_tra) fallback
   - 結果寫去 enrich.json（獨立檔），key = pdf_url
   - 抽唔到 = 留空（靠固定 label，不亂猜，唔會抽錯）
+  - 分類亦由 PDF 內文判斷（categories），唔係靠標題字眼
 
 用法：
   python enrich.py                 # 增量：抽今日新通告（預設，最輕量）
   python enrich.py --backfill      # 補歷史欠帳：抽所有未 enrich 的（不限日期，跳過已做）
+  python enrich.py --backfill-categories   # 補分類欠帳：只處理仲未有 categories 的（會重新下載）
   python enrich.py --all           # 全量重抽（含已抽過的；重！僅離峰用）
   python enrich.py --date 2026-06-07
   python enrich.py --limit 5 --verbose
@@ -44,7 +46,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "2.4"  # backfill 重試短暫下載失敗 + 下載間隨機延遲防封
+ENRICH_VERSION = "2.5"  # 新增 categories（由 PDF 內文判斷訓練班/服務/比賽）+ backfill-categories
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -96,6 +98,109 @@ def compact(s):
 
 # ─── 欄位抽取 ─────────────────────────────────────────────
 CN_NUM = "零一二三四五六七八九十"
+
+
+# ─── 分類（由 PDF 內文判斷）─────────────────────────────
+# 呢度唔係靠標題字眼（標題搜尋已經做到），而係好似 audience / fee 咁，
+# 由 PDF 內文 label 範圍 + 關鍵詞 + 排除詞一齊判斷。
+# 一只通告可以同時屬於多類（例如「社區服務計劃暨義工訓練」→ service + training）。
+CATE_VER = "1.0"
+
+
+def extract_categories(text):
+    """由 PDF 內文回傳 [{id,label,score,national}...]。
+
+    id: training | service | competition
+    規則：
+      - 唔會因為標題有「訓練」兩字就判做訓練班
+      - 會去區分「訓練班/課程/工作坊」= training，「服務/義工/捐」= service，
+        「比賽/競賽/錦標」= competition
+      - 抽唔到任何 label 就回空（由前端顯示「其他」）
+    """
+    if not text:
+        return []
+
+    c = compact(text)
+    if not c:
+        return []
+
+    # ── 訓練班 ────────────────────────────────────────────
+    # 內文常見 label + 內容關鍵詞
+    training_hits = _category_hits(
+        c,
+        score_labels=[
+            "訓練班", "訓練課程", "培訓班", "進修班", "訓練課程", "團長訓練",
+            "領袖訓練", "技能訓練", "專章訓練", "考驗研習", "探路考驗",
+            "課程", "工作坊", "研習班", "研討會", "講座", "進修", "集訓", "培訓",
+        ],
+        weak_labels=["訓練", "專章", "考驗", "課程", "班"],
+        exclude_labels=[
+            "訓練行事曆", "訓練日程", "訓練計劃", "訓練綱要", "訓練概覽",
+            "訓練大綱", "訓練指引", "訓練簡介", "訓練攻略", "一覽", "名單",
+        ],
+    )
+
+    # ── 服務 ──────────────────────────────────────────────
+    service_hits = _category_hits(
+        c,
+        score_labels=["社區服務", "服務計劃", "義工服務", "公益服務", "義工招募",
+                      "社會服務", "志願服務", "慈善活動", "慈善", "公益", "籌款",
+                      "捐贈", "捐血", "探訪", "敬老", "清潔", "環保行動", "服務日",
+                      "服務隊", "服務團", "服務之旅", "服務活動"],
+        weak_labels=["服務", "義工", "志工", "捐", "探訪", "籌款", "慈善", "公益", "愛心"],
+        exclude_labels=["服務指引", "服務範圍", "服務章程", "服務名單", "服務安排", "服務時間表"],
+    )
+
+    # ── 比賽 ──────────────────────────────────────────────
+    competition_hits = _category_hits(
+        c,
+        score_labels=["比賽", "競賽", "錦標賽", "公開賽", "邀請賽", "決賽", "初賽",
+                      "準決賽", "友誼賽", "聯賽", "挑戰賽", "選拔賽", "賽事",
+                      "隊列比賽", "步操比賽", "團呼比賽", "會操", "競技", "大賽"],
+        weak_labels=["盃", "賽"],
+        exclude_labels=["比賽章程", "比賽規則", "比賽時間表", "比賽名單", "比賽安排", "賽前", "賽後"],
+    )
+
+    out = []
+    # 用 score 分高 → set 去重
+    for name, hits in [
+        ("training", training_hits),
+        ("service", service_hits),
+        ("competition", competition_hits),
+    ]:
+        if hits:
+            out.append({
+                "id": name,
+                "label": {"training": "訓練班", "service": "服務", "competition": "比賽"}[name],
+                "score": max(h["score"] for h in hits),
+                "evidence": sorted({h["label"] for h in hits}, reverse=True)[:4],
+            })
+
+    out.sort(key=lambda x: -x["score"])
+    return out
+
+
+def _category_hits(text, score_labels, weak_labels, exclude_labels):
+    """回傳 [{label, score}]，score 表示證據強度。"""
+    strong = []
+    for needle in score_labels:
+        if needle in text:
+            # 越長嘅 label 越唔會誤判
+            strong.append({"label": needle, "score": 3 + len(needle) * 0.1})
+
+    weak = []
+    for needle in weak_labels:
+        if needle in text:
+            # 例如「童軍訓練」→ 有「訓練」但冇明確「訓練班」時，只作 weak
+            weak.append({"label": needle, "score": 1.0})
+
+    # 排除詞（章程/名單/時間表等）：如果只有 weak 證據，唔當活動本身；
+    # 如果有強證據（例：內文真係寫「公開賽」），即使引用咗章程都照計。
+    if any(k in text for k in exclude_labels):
+        return strong or []
+
+    return strong or weak or []
+
 
 def extract_deadline(text):
     """截止日期：搵含『截止』的行，回傳第一個帶有效日期者。
@@ -376,6 +481,7 @@ def extract_fields(text):
         "deadline": extract_deadline(text),
         "audience": extract_audience(text),
         "fee": extract_fee(text),
+        "categories": extract_categories(text),
     }
 
 
@@ -411,32 +517,32 @@ def download(url, timeout=25):
 
 
 def enrich_one(url, use_ocr=True, verbose=False):
-    """回傳 dict：{deadline, audience, fee, _method}"""
+    """回傳 dict：{deadline, audience, fee, categories, _method}"""
     fetch_url = url
     if "drive.google" in url or "docs.google" in url:
         direct = drive_direct_url(url)
         if not direct:
             # 認唔出格式就唔猜，直接放棄 —— 寧願冇資料，好過抽錯資料
-            return {"_error": "drive_unrecognized", "deadline": "", "audience": "", "fee": ""}
+            return {"_error": "drive_unrecognized", "deadline": "", "audience": "", "fee": "", "categories": []}
         fetch_url = direct
 
     try:
         data = download(fetch_url)
     except Exception as e:
-        return {"_error": f"download: {type(e).__name__}", "deadline": "", "audience": "", "fee": ""}
+        return {"_error": f"download: {type(e).__name__}", "deadline": "", "audience": "", "fee": "", "categories": []}
 
     # magic bytes 檢查是否真 PDF。
     # Drive 回權限頁／病毒掃描中介頁／登入頁時都係 HTML，會喺呢度被擋落嚟，
     # 唔會當成通告內容抽欄位。
     if not data[:5].startswith(b"%PDF"):
-        return {"_error": "not_pdf", "deadline": "", "audience": "", "fee": ""}
+        return {"_error": "not_pdf", "deadline": "", "audience": "", "fee": "", "categories": []}
 
     text = pdf_text_via_pdfplumber(data)
     method = "text"
     fields = extract_fields(text)
 
     # 文字抽唔到任何欄位 + 文字本身太少 → 可能圖片型 → OCR
-    has_any = any(fields.values())
+    has_any = any(fields[k] for k in ("deadline", "audience", "fee"))
     if (not has_any and len(compact(text)) < 40) and use_ocr:
         if verbose:
             print("    → 文字型抽唔到，改用 OCR")
@@ -450,12 +556,13 @@ def enrich_one(url, use_ocr=True, verbose=False):
 
 
 # ─── 主流程 ───────────────────────────────────────────────
-def collect_targets(cache, target_date, do_all, do_backfill):
+def collect_targets(cache, target_date, do_all, do_backfill, do_backfill_categories=False):
     """回傳要處理的 [(source, title, pdf_url)]
 
-    三種模式：
+    四種模式：
       - 預設（增量）：只抓 captured_date == target_date 的當天新通告
       - --backfill：  抓「所有日期」但稍後跳過已 enrich 的，用來補歷史欠帳（如 5/23 批次匯入的舊通告）
+      - --backfill-categories： 抓「所有日期」但只處理仲未有 categories 嘅
       - --all：       強制全量重抽（連已 enrich 的也重抽；重！極少用）
     """
     out = []
@@ -471,8 +578,8 @@ def collect_targets(cache, target_date, do_all, do_backfill):
                     continue          # 認唔出格式就唔猜
             elif not url.lower().endswith(".pdf"):
                 continue
-            # 預設模式：只看今日；--all / --backfill 則不分日期全收
-            if not do_all and not do_backfill:
+            # 預設模式：只看今日；--all / --backfill / --backfill-categories 則不分日期全收
+            if not do_all and not do_backfill and not do_backfill_categories:
                 cap = it.get("captured_date", "")
                 if cap != target_date:
                     continue
@@ -532,6 +639,7 @@ def main():
     ap.add_argument("--date", default=None, help="目標 captured_date（預設今日）")
     ap.add_argument("--all", action="store_true", help="全量重抽所有 .pdf（含已抽過的；重！會大量重下載，僅離峰/補歷史欠帳用）")
     ap.add_argument("--backfill", action="store_true", help="補歷史欠帳：抽所有未 enrich 的 .pdf（不限日期，但跳過已做的）")
+    ap.add_argument("--backfill-categories", action="store_true", help="補分類欠帳：只處理仲未有 categories 嘅 .pdf（會重新下載，量較大）")
     ap.add_argument("--limit", type=int, default=0, help="最多處理幾條（0=不限）")
     ap.add_argument("--no-ocr", action="store_true", help="停用 OCR")
     ap.add_argument("--report", action="store_true", help="行完輸出 enrich_review.md 方便人手核對")
@@ -552,20 +660,34 @@ def main():
     if os.path.exists(ENRICH_FILE):
         enrich = json.load(open(ENRICH_FILE, encoding="utf-8"))
 
-    targets = collect_targets(cache, today, args.all, args.backfill)
-    # 跳過已抽過：--all 強制重抽（不跳過）；其餘（預設增量 / --backfill）都跳過已 enrich 的
-    # v1.1: --backfill 會重試「短暫性下載失敗」(download: ...)；
-    #       永久性錯誤（如 not_pdf）唔重試，避免白白重下載。
+    targets = collect_targets(cache, today, args.all, args.backfill, args.backfill_categories)
+    # 跳過已抽過：--all 強制重抽（不跳過）
+    # - 預設增量：若已 enriched 但仲未有 categories，會仍然處理，用來補分類（每日新通告數量好少）
+    # - --backfill：跳過已 enrich，但重試「短暫性下載失敗」(download: ...)
+    # - --backfill-categories：跳過已有 categories 的，只補欠帳
+    # - 永久性錯誤（如 not_pdf）唔重試，避免白白重下載。
     if not args.all:
         def _retryable_error(u):
             err = ((enrich.get(u) or {}).get("error") or "")
             return args.backfill and err.startswith("download")
-        targets = [t for t in targets if t[2] not in enrich or _retryable_error(t[2])]
+
+        def _already_enriched_with_categories(u):
+            entry = enrich.get(u) or {}
+            cats = entry.get("categories") or []
+            return bool(cats)
+
+        if args.backfill_categories:
+            targets = [t for t in targets if not _already_enriched_with_categories(t[2])]
+        elif args.backfill:
+            targets = [t for t in targets if t[2] not in enrich or _retryable_error(t[2])]
+        else:
+            # 增量：新目標 or 今日已抽過但缺分類
+            targets = [t for t in targets if t[2] not in enrich or not _already_enriched_with_categories(t[2])]
 
     if args.limit:
         targets = targets[:args.limit]
 
-    mode = "全量重抽" if args.all else ("補歷史欠帳" if args.backfill else "增量")
+    mode = "全量重抽" if args.all else ("補分類欠帳" if args.backfill_categories else ("補歷史欠帳" if args.backfill else "增量"))
     print(f"🔎 目標：{len(targets)} 條 .pdf 通告（模式={mode}"
           + (f"，captured_date={today}" if not args.all and not args.backfill else "") + "）")
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
@@ -584,15 +706,18 @@ def main():
             "deadline": res.get("deadline", ""),
             "audience": res.get("audience", ""),
             "fee": normalize_fee(res.get("fee", "")),
+            "categories": res.get("categories") or [],
             "method": res.get("_method", ""),
             "error": res.get("_error", ""),
             "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "enrich_version": ENRICH_VERSION,
         }
         tag = res.get("_error") or res.get("_method")
-        got = [k for k in ("deadline", "audience", "fee") if res.get(k)]
+        got = [k for k in ("deadline", "audience", "fee", "categories") if res.get(k)]
+        cats = "、".join(c.get("label", "") for c in (res.get("categories") or []))
         print(f"   [{tag}] 截止={res.get('deadline') or '—'} | "
-              f"對象={(res.get('audience') or '—')[:20]} | 費用={(res.get('fee') or '—')[:20]}")
+              f"對象={(res.get('audience') or '—')[:20]} | 費用={(res.get('fee') or '—')[:20]} | "
+              f"分類={cats or '—'}")
         done += 1
         if got:
             ok += 1

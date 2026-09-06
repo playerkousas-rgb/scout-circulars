@@ -87,18 +87,22 @@ check('關鍵字 NFKC：全形數字都搵到', matchesKeyword({ title: '第４�
 check('關鍵字 + 支部 同時生效', matchesSearchQuery({ title: '深資童軍射箭訓練班' }, { audience: '深資童軍' }, '射箭', '深資童軍'), true);
 check('關鍵字中但支部唔中 → 唔顯示', matchesSearchQuery({ title: '深資童軍射箭訓練班' }, { audience: '深資童軍' }, '射箭', '幼童軍'), false);
 
-// 5.5 分類：訓練班 / 服務 / 比賽。
+// 5.5 分類：由 enrich.py 抽出嚟嘅 categories 決定，唔係靠標題字眼。
 checkArray('分類標籤 = 全部 + 訓練班/服務/比賽/其他',
   CATEGORY_TAGS.map(t => t.label),
   ['全部', '訓練班', '服務', '比賽', '其他']);
-check('分類：標題有「訓練班」→ training', matchesCategory({ title: '童軍繩結訓練班' }, null, 'training'), true);
-check('分類：標題有「服務」→ service', matchesCategory({ title: '社區服務日' }, null, 'service'), true);
-check('分類：標題有「比賽」→ competition', matchesCategory({ title: '射箭邀請賽' }, null, 'competition'), true);
-check('分類：可以同時屬於訓練 + 服務', matchesCategory({ title: '敬老關愛服務暨手工工作坊' }, null, 'training') && matchesCategory({ title: '敬老關愛服務暨手工工作坊' }, null, 'service'), true);
-check('分類：富 enrich title 都計（cache 標題較短）',
-  matchesCategory({ title: '活動' }, { title: '心靈工作坊' }, 'training'), true);
-check('分類：行事曆唔會因為有「訓練」而變訓練班', matchesCategory({ title: '活動與訓練行事曆' }, null, 'training'), false);
-check('分類：冇關鍵字 → other', matchesCategory({ title: '旅團註冊須知' }, null, 'other'), true);
+check('分類：enrich categories 有训练 → training',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training', label: '訓練班' }] }, 'training'), true);
+check('分類：enrich categories 有服务 → service',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'service', label: '服務' }] }, 'service'), true);
+check('分類：enrich categories 有比赛 → competition',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'competition', label: '比賽' }] }, 'competition'), true);
+check('分類：一隻通告可以同時屬訓練 + 服務',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training' }, { id: 'service' }] }, 'training') &&
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training' }, { id: 'service' }] }, 'service'), true);
+check('分類：標題有「訓練班」但 enrich 未分類 → 唔會靠標題誤判',
+  matchesCategory({ title: '童軍繩結訓練班' }, null, 'training'), false);
+check('分類：enrich 冇 categories → other', matchesCategory({ title: '旅團註冊須知' }, {}, 'other'), true);
 check('分類：ALL 永遠命中', matchesCategory({ title: '乜都冇' }, null, 'ALL'), true);
 
 // 6. 使用 repo 真實資料作回歸測試：所有「童軍」結果都必須有精確 token（audience 或標題）。

@@ -44,9 +44,9 @@ const cache = {
   _meta: { expected_empty_sources: [], last_run: { error_sources: [] } },
 };
 const enrich = {
-  [PDF_A]: { audience: '幼童軍', deadline: '2026-09-20', fee: 'HK$50' },
-  [PDF_B]: { audience: '童軍、領袖', deadline: '', fee: '' },
-  [PDF_E]: { audience: '所有成員', deadline: '', fee: '' },
+  [PDF_A]: { audience: '幼童軍', deadline: '2026-09-20', fee: 'HK$50', categories: [{ id: 'training', label: '訓練班' }] },
+  [PDF_B]: { audience: '童軍、領袖', deadline: '', fee: '', categories: [{ id: 'training', label: '訓練班' }] },
+  [PDF_E]: { audience: '所有成員', deadline: '', fee: '', categories: [{ id: 'service', label: '服務' }] },
 };
 
 let fail = 0;
