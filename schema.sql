@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS push_subscriptions (
     updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     last_seen_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT push_subscriptions_branch_count CHECK (cardinality(branch_ids) BETWEEN 1 AND 8),
-    CONSTRAINT push_subscriptions_topic_count CHECK (cardinality(topic_ids) BETWEEN 1 AND 24)
+    CONSTRAINT push_subscriptions_topic_count CHECK (cardinality(topic_ids) BETWEEN 1 AND 60)
 );
 
 -- 若日後在測試環境已建立過舊版表，這些 ALTER 可安全補欄位。
@@ -149,6 +149,12 @@ ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS enabled           BOOLEA
 ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW();
 ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW();
 ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS last_seen_at      TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+-- 字典 2.0.0 起訓練項目按支部細分，單一訂閱可選項目由 24 放寬至 60
+-- （與 api/push_common.py 的 MAX_TOPICS 同步）。已建表者重跑本段即可升級。
+ALTER TABLE push_subscriptions DROP CONSTRAINT IF EXISTS push_subscriptions_topic_count;
+ALTER TABLE push_subscriptions ADD CONSTRAINT push_subscriptions_topic_count
+    CHECK (cardinality(topic_ids) BETWEEN 1 AND 60);
 
 CREATE UNIQUE INDEX IF NOT EXISTS uq_push_subscriptions_endpoint_hash
     ON push_subscriptions(endpoint_hash);

@@ -43,7 +43,7 @@ const dom = new JSDOM(html, {
     };
     // Deliberately conflicting settings prove that `n` selects this push batch
     // without exposing or depending on a user's local preference in the URL.
-    win.localStorage.setItem('scl_push_preferences_v1', JSON.stringify({ branches: ['領袖'], topics: ['category:service'], catalogVersion: '1.1.0' }));
+    win.localStorage.setItem('scl_push_preferences_v1', JSON.stringify({ branches: ['領袖'], topics: ['category:service'], catalogVersion: '2.0.0' }));
     win.alert = () => {}; win.confirm = () => true;
   },
 });
@@ -55,13 +55,56 @@ setTimeout(() => {
     const titles = [...d.querySelectorAll('#cards h3')].map(el => el.textContent);
     assert.deepStrictEqual(titles, ['童軍繩結訓練班']);
     assert(d.querySelector('#messages').textContent.includes('這次通知只顯示'), 'exact notification result banner is shown');
-    assert.strictEqual(d.querySelectorAll('#push-settings input').length, 0, 'notification settings must have no free-text input');
-    assert.strictEqual(d.querySelectorAll('#push-branches option').length, 8);
-    assert(d.querySelectorAll('#push-topics optgroup').length >= 4, 'topics should be grouped into four controlled interests');
-    assert(d.querySelector('#push-branches').multiple && d.querySelector('#push-topics').multiple);
+    // 🔔 通知設定：由搜尋列／收藏旁的掣開啟，唔再係獨立大區塊。
+    assert(!d.querySelector('#push-section-wrap'), 'old standalone push block is gone');
+    const opener = d.querySelector('#window-chips #open-push-settings');
+    assert(opener && opener.previousElementSibling.classList.contains('chip-bm'), 'notification chip sits right after the 收藏 chip');
+    assert.strictEqual(d.querySelector('#push-backdrop').hidden, true, 'settings sheet starts closed');
+    opener.click();
+    assert.strictEqual(d.querySelector('#push-backdrop').hidden, false, 'settings sheet opens from the chip');
+    assert.strictEqual(d.querySelectorAll('#push-settings input:not([type="checkbox"])').length, 0, 'notification settings must have no free-text input');
+    assert(!d.querySelector('#push-settings select'), 'no <select multiple>: every option is a click-to-tick checkbox');
+    const branchInputs = d.querySelectorAll('#push-branches input[type="checkbox"]');
+    assert.strictEqual(branchInputs.length, 8);
+    assert.deepStrictEqual([...branchInputs].filter(i => i.checked).map(i => i.value), ['領袖'], 'saved branch is pre-ticked');
+    const generalLabels = [...d.querySelectorAll('#push-general .pick-chip')].map(el => el.textContent.replace('✓', '').trim());
+    assert.deepStrictEqual(generalLabels, ['服務', '活動：大露營', '活動：營火會', '活動：其他活動', '所有比賽'], '服務／活動／比賽 stay as they were');
+    assert(d.querySelector('#push-general input[value="category:service"]').checked, 'saved topic is pre-ticked');
+    // 訓練：先按支部；領袖分木章／非木章。
+    const leaderBlock = d.querySelector('#push-topics .push-branch-block[data-branch="領袖"]');
+    assert(leaderBlock, 'training list is grouped by the ticked branch');
+    assert.deepStrictEqual([...leaderBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['木章訓練班', '非木章訓練班'], '領袖 training is split into wood badge / non-wood badge');
+    assert(leaderBlock.querySelector('input[value="training:領袖:木章"]') && leaderBlock.querySelector('input[value="training:領袖:非木章"]'), 'each 領袖 section has an "all" tick');
+    const leaderOptions = [...leaderBlock.querySelectorAll('.pick-chip')].map(el => el.textContent.replace('✓', '').trim());
+    assert(leaderOptions.includes('地圖閱讀'), 'base item label is visible');
+    assert(!leaderOptions.includes('地圖閱讀訓練'), 'formal suffix is not a separate visible option');
+    assert(leaderOptions.includes('童軍運動基本原則（單元1A／1B）'), 'wood badge module is listed');
+    assert(!d.querySelector('#push-topics .push-branch-block[data-branch="童軍"]'), 'unticked branch has no training block yet');
+    // 點一下即剔（唔使 Ctrl／Shift），而且揀多個支部時保留已剔項目。
+    const scoutBranch = d.querySelector('#push-branches input[value="童軍"]');
+    scoutBranch.click();
+    assert(scoutBranch.checked && d.querySelector('#push-branches input[value="領袖"]').checked, 'plain click adds a second branch without deselecting the first');
+    const scoutBlock = d.querySelector('#push-topics .push-branch-block[data-branch="童軍"]');
+    assert(scoutBlock, 'ticking 童軍 adds its own training block');
+    assert(scoutBlock.querySelector('input[value="training:童軍"]'), '童軍 has an "all 童軍 training" tick');
+    const scoutLabels = [...scoutBlock.querySelectorAll('.pick-chip')].map(el => el.textContent.replace('✓', '').trim());
+    for (const label of ['童軍領導才', '急救章', '初級航空活動章', '地圖閱讀章']) assert(scoutLabels.includes(label), `${label} is a 童軍 option`);
+    for (const label of ['探索獎章', '標準獎章', '高級獎章', '總領袖獎章']) assert(!scoutLabels.includes(label), `${label} (進度性) must not be offered`);
+    const subgroupNames = [...scoutBlock.querySelectorAll('.push-subgroup summary > span:first-child')].map(el => el.textContent.replace(/（\d+）$/, ''));
+    for (const name of ['興趣組', '技能組', '服務組']) assert(subgroupNames.includes(name), `${name} subgroup exists for 童軍`);
+    const firstAid = scoutBlock.querySelector('input[value="course:scout-first-aid-badge"]');
+    firstAid.click();
+    const leadership = scoutBlock.querySelector('input[value="course:scout-leadership"]');
+    leadership.click();
+    assert(firstAid.checked && leadership.checked, 'two plain clicks tick two items (no modifier key needed)');
+    assert(firstAid.closest('.pick-chip').classList.contains('checked'), 'ticked chip is visibly highlighted');
+    assert(d.querySelector('#push-count').textContent.includes('3 個項目'), 'live counter reflects 服務 + 2 ticked courses');
+    d.querySelector('#push-branches input[value="領袖"]').click();
+    assert(!d.querySelector('#push-topics .push-branch-block[data-branch="領袖"]'), 'unticking a branch removes its block');
+    assert(d.querySelector('#push-topics input[value="course:scout-first-aid-badge"]').checked, 'ticks in remaining branches survive a branch change');
+    d.querySelector('#push-close').click();
+    assert.strictEqual(d.querySelector('#push-backdrop').hidden, true, 'settings sheet closes');
     assert(d.querySelector('#push-settings').textContent.includes('不收集姓名'));
-    assert([...d.querySelectorAll('#push-topics option')].some(option => option.textContent === '地圖閱讀'), 'base item label is visible');
-    assert(![...d.querySelectorAll('#push-topics option')].some(option => option.textContent === '地圖閱讀訓練'), 'formal suffix is not a separate visible option');
     assert(d.querySelector('#open-library-menu'), 'mobile region drawer opener exists');
     const maintenance = d.querySelector('#site-maintenance');
     assert(maintenance && !maintenance.open, 'low-frequency site diagnostics start collapsed');
@@ -76,11 +119,12 @@ setTimeout(() => {
     d.querySelector('#close-library-menu').click();
     assert(!d.body.classList.contains('library-drawer-open'), 'mobile drawer closes');
     assert.strictEqual(d.querySelector('#mobile-drawer-backdrop').hidden, true, 'drawer backdrop is hidden again');
-    console.log('🎉 controlled dropdowns, compact mobile controls, and exact notification result view passed');
+    console.log('🎉 click-to-tick notification sheet, branch-first training list, compact mobile controls, and exact notification result view passed');
   } catch (error) {
     console.error(error);
     process.exitCode = 1;
   } finally {
-    dom.window.close();
+    // Opening the sheet kicks off an async status refresh; let it settle before tearing the window down.
+    setTimeout(() => dom.window.close(), 100);
   }
 }, 700);

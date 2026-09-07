@@ -112,6 +112,37 @@ def _term_hits(value: Any, terms: Iterable[str]) -> List[str]:
     return hits
 
 
+def _badge_stem(label: str) -> str:
+    """「模擬飛行章」→「模擬飛行」; anything that is not a badge name → ''."""
+    label = str(label or "").strip()
+    return label[:-1] if label.endswith("章") and len(label) >= 3 else ""
+
+
+def _badge_variants(label: str) -> List[str]:
+    """Official course titles rarely spell a badge as 「X章」.
+
+    HKSA notices write 「童軍模擬飛行(教導組)專章訓練班」, 「童軍露營訓練班」 or
+    「射擊專章考驗」.  Generate those forms from the controlled badge label so a
+    badge stays a single subscription item.
+    """
+    stem = _badge_stem(label)
+    if not stem:
+        return []
+    return [
+        f"{stem}專章",
+        f"{stem}(興趣組)專章", f"{stem}(技能組)專章", f"{stem}(服務組)專章", f"{stem}(教導組)專章",
+        f"{stem}(興趣組)章", f"{stem}(技能組)章", f"{stem}(服務組)章", f"{stem}(教導組)章",
+        f"{stem}訓練班", f"{stem}工作坊", f"{stem}考驗",
+    ]
+
+
+def _mask_term(value: Any, term: str) -> str:
+    """Remove every occurrence of a normalised term from normalised text."""
+    haystack = normalize(value)
+    needle = normalize(term)
+    return haystack.replace(needle, "\u2400") if needle else haystack
+
+
 def _make_category(tag_id: str, label: str, evidence: Iterable[str], subtype: str = "") -> Dict[str, Any]:
     result = {
         "id": tag_id,
@@ -122,6 +153,13 @@ def _make_category(tag_id: str, label: str, evidence: Iterable[str], subtype: st
     if subtype:
         result["subtype"] = subtype
     return result
+
+
+def is_reference_document(title: Any, text: Any = "") -> bool:
+    """A timetable / rule book / result list is not itself something to enrol in."""
+    if _term_hits(title, REFERENCE_TITLE_TERMS):
+        return True
+    return not normalize(title) and bool(_term_hits(text, REFERENCE_TITLE_TERMS))
 
 
 def extract_categories(title: Any, text: Any = "") -> List[Dict[str, Any]]:
@@ -152,12 +190,11 @@ def extract_categories(title: Any, text: Any = "") -> List[Dict[str, Any]]:
         "campfire": _term_hits(text, CAMPFIRE_TERMS),
         "other": _term_hits(text, OTHER_ACTIVITY_TERMS),
     }
-    title_is_reference = bool(_term_hits(title, REFERENCE_TITLE_TERMS))
-    text_is_reference = not normalize(title) and bool(_term_hits(text, REFERENCE_TITLE_TERMS))
+    title_is_reference = is_reference_document(title, text)
     # Calendars, rules and lists are not a new course/service/event themselves.
     # Returning no category also prevents "all training" from being notified for
     # a quarterly timetable rather than a registration opportunity.
-    if title_is_reference or text_is_reference:
+    if title_is_reference:
         return []
 
     result: List[Dict[str, Any]] = []
@@ -280,8 +317,9 @@ def extract_subscription_metadata(
             details.append(_topic_detail(entry, category.get("evidence", [])))
 
     course_entries: List[Tuple[Mapping[str, Any], List[str]]] = []
+    reference = is_reference_document(title, text)
     for topic in catalog.get("topics", []):
-        if topic.get("kind") != "course":
+        if topic.get("kind") != "course" or reference:
             continue
         # The controlled label is the user-facing base item (for example
         # 「地圖閱讀」), while aliases retain official full titles. Generate only
@@ -293,11 +331,18 @@ def extract_subscription_metadata(
             for suffix in ("訓練班", "工作坊", "課程", "訓練課程", "訓練", "研習班", "培訓", "進修班")
             if base
         ]
-        hits = _term_hits(combined, [*(topic.get("aliases", []) or []), *variants])
+        variants.extend(_badge_variants(base))
+        # ``exclude`` lists longer official names that merely contain this item
+        # (「滑浪風帆章」 contains 「風帆章」; 「…章教練員訓練班」 is a leader
+        # course, not the youth badge).  Mask them before matching.
+        haystack = combined
+        for blocked in topic.get("exclude", []) or []:
+            haystack = _mask_term(haystack, blocked)
+            if _badge_stem(blocked):
+                haystack = _mask_term(haystack, _badge_stem(blocked))
+        hits = _term_hits(haystack, [*(topic.get("aliases", []) or []), *variants])
         if hits:
-            topic_ids.add(str(topic["id"]))
             course_entries.append((topic, hits))
-            details.append(_topic_detail(topic, [f"標題／內文：{hit}" for hit in hits]))
 
     branch_ids = extract_branch_ids(title, audience, catalog=catalog)
     # A verified course provides a safe fallback scope only when the PDF has no
@@ -305,6 +350,48 @@ def extract_subscription_metadata(
     if not branch_ids:
         for course, _hits in course_entries:
             branch_ids.update(str(x) for x in course.get("branches", []) if x != "*")
+
+    # Several branches share a badge name (幼童軍／童軍／深資童軍 all have an
+    # 急救章).  Keep only the branch-specific items the audience can enrol in so
+    # a 幼童軍 subscriber is not pushed the 童軍 version.
+    for course, hits in course_entries:
+        scope = {str(x) for x in course.get("branches", [])}
+        if branch_ids and "*" not in scope and not scope.intersection(branch_ids):
+            continue
+        topic_ids.add(str(course["id"]))
+        details.append(_topic_detail(course, [f"標題／內文：{hit}" for hit in hits]))
+
+    # Per-branch "all training" items (訓練:童軍, 訓練:領袖:木章, …) so a user
+    # can follow every 童軍 course while only following 木章 classes as a 領袖.
+    if any(c.get("id") == "training" for c in categories):
+        matched_sections = {
+            str(course.get("section", "")) for course, _hits in course_entries if str(course["id"]) in topic_ids
+        }
+        for topic in catalog.get("topics", []):
+            if topic.get("kind") != "training":
+                continue
+            scope = {str(x) for x in topic.get("branches", [])}
+            if not scope.intersection(branch_ids):
+                continue
+            evidence = [f"支部：{x}" for x in sorted(scope.intersection(branch_ids))]
+            section = str(topic.get("section", "") or "")
+            aliases = topic.get("aliases", []) or []
+            if section and section in matched_sections:
+                evidence = [f"類別：{section}"]
+            elif aliases:
+                # 木章: only a training notice that names a wood badge module.
+                haystack = combined
+                for blocked in topic.get("exclude", []) or []:
+                    haystack = _mask_term(haystack, blocked)
+                hits = _term_hits(haystack, aliases)
+                if not hits:
+                    continue
+                evidence = [f"標題／內文：{hit}" for hit in hits]
+            blocked_by = topic.get("excludes_topic")
+            if blocked_by and str(blocked_by) in topic_ids:
+                continue
+            topic_ids.add(str(topic["id"]))
+            details.append(_topic_detail(topic, evidence))
 
     # Stable, de-duplicated display values.
     detail_map = {str(item["id"]): item for item in details}

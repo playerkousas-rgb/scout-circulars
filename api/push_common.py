@@ -26,7 +26,7 @@ CATALOG_PATH = ROOT / "subscription_catalog.json"
 MAX_REQUEST_BYTES = 24 * 1024
 MAX_ENDPOINT_LENGTH = 2048
 MAX_CLIENT_TOKEN_LENGTH = 128
-MAX_TOPICS = 24
+MAX_TOPICS = 60
 
 # Web Push endpoints are later contacted by GitHub Actions.  Restricting them
 # to browser push providers prevents the subscription endpoint from becoming
