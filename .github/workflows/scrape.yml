@@ -1,6 +1,7 @@
 # ============================================================
 # 全港童軍通告自動化圖書館 v5.6 — GitHub Actions
-# 流程：core.py（抓通告）→ enrich.py（增量抽當天 PDF 文字）→ 自動提交
+# 流程：core.py（抓通告）→ enrich.py（增量抽當天 PDF 文字）→
+#       notify.py（每位匿名訂閱者最多一則合併 Web Push）→ 自動提交
 #
 # ⚠️ 重要：enrich 只跑「增量」模式（抽今日新通告）。
 #   - 絕不要把 enrich 改成 --all：會把 3500+ 個已抽過的 PDF 全部重新下載，
@@ -20,6 +21,11 @@ on:
   # 手動觸發（驗證 / 隨時補跑用）
   workflow_dispatch:
 
+# 防止手動補跑與每日排程同時查閱／寫入 delivery 紀錄，避免同一裝置出現競態重推。
+concurrency:
+  group: scout-circulars-scrape-and-push
+  cancel-in-progress: false
+
 jobs:
   scrape-and-enrich:
     runs-on: ubuntu-latest
@@ -29,6 +35,8 @@ jobs:
       PYTHONUTF8: "1"
       # 讓 Python 看到香港時區（core.py / enrich.py 都依賴 HKT）
       TZ: "Asia/Hong_Kong"
+      # GitHub 不容許在 if: 直接讀 secret；只暴露布林開關給其他 steps。
+      PUSH_DISPATCH_ENABLED: ${{ secrets.VAPID_PRIVATE_KEY != '' }}
     timeout-minutes: 30
     steps:
       - name: Checkout repo
@@ -43,7 +51,7 @@ jobs:
         run: |
           # enrich.py 的 OCR fallback 需要 tesseract + poppler（處理圖片型/掃描 PDF）
           sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra poppler-utils
-          pip install requests beautifulsoup4 playwright pdfplumber pdfminer.six pillow pytesseract pdf2image
+          pip install -r requirements.txt pdfplumber pdfminer.six pillow pytesseract pdf2image
           playwright install chromium
 
       # ── Step 1: 跑 core.py 抓通告 ──
@@ -63,7 +71,22 @@ jobs:
         run: |
           python enrich.py --verbose
 
-      # ── Step 3: 提交更新 ──
+      # ── Step 3: 聚合同一訂閱者的命中，再發一則 Web Push ──
+      # 沒有 VAPID_PRIVATE_KEY 時刻意跳過：通知尚未部署不應中斷既有爬蟲。
+      # 設定後，notify.py 會以前一個 HEAD:cache.json 為基準，並以資料庫
+      # unique delivery key 去重，所以重跑 workflow 不會重響。
+      - name: Send personalized Web Push summaries
+        if: env.PUSH_DISPATCH_ENABLED == 'true'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_SUBJECT: ${{ secrets.VAPID_SUBJECT }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://scout-circulars.vercel.app' }}
+        run: |
+          python notify.py
+
+      # ── Step 4: 提交更新 ──
       - name: Commit & push updated cache + enrich + fingerprints
         run: |
           git config user.name "github-actions[bot]"
