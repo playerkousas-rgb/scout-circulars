@@ -3,7 +3,7 @@
 
 from http.server import BaseHTTPRequestHandler
 
-from push_common import configuration, send_json, subscriptions_enabled
+from api.push_common import configuration, send_json, subscriptions_enabled
 
 
 class handler(BaseHTTPRequestHandler):  # noqa: N801 - Vercel function convention
