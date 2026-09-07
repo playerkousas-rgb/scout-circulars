@@ -8,3 +8,7 @@ node_modules/
 package-lock.json
 enrich_review.md
 .vercel/
+# Local deployment secrets — never commit browser push / Supabase credentials.
+.env
+.env.*
+!.env.example

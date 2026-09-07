@@ -88,15 +88,22 @@ check('關鍵字 + 支部 同時生效', matchesSearchQuery({ title: '深資童�
 check('關鍵字中但支部唔中 → 唔顯示', matchesSearchQuery({ title: '深資童軍射箭訓練班' }, { audience: '深資童軍' }, '射箭', '幼童軍'), false);
 
 // 5.5 分類：由 enrich.py 抽出嚟嘅 categories 決定，唔係靠標題字眼。
-checkArray('分類標籤 = 全部 + 訓練班/服務/比賽/其他',
+// 個人化 taxonomy 固定為訓練／服務／活動／比賽；舊 competition 資料映射到獨立比賽。
+checkArray('分類標籤 = 全部 + 訓練/服務/活動/比賽/未分類',
   CATEGORY_TAGS.map(t => t.label),
-  ['全部', '訓練班', '服務', '比賽', '其他']);
+  ['全部', '訓練', '服務', '活動', '比賽', '未分類']);
 check('分類：enrich categories 有训练 → training',
   matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training', label: '訓練班' }] }, 'training'), true);
 check('分類：enrich categories 有服务 → service',
   matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'service', label: '服務' }] }, 'service'), true);
-check('分類：enrich categories 有比赛 → competition',
+check('分類：歷史 direct competition categories 映射為獨立 competition',
   matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'competition', label: '比賽' }] }, 'competition'), true);
+check('分類：舊 activity:competition 也映射為獨立 competition',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'activity', subtype: 'competition', label: '活動' }] }, 'competition'), true);
+check('分類：比賽不會混入活動',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'competition', label: '比賽' }] }, 'activity'), false);
+check('分類：新活動 categories → activity',
+  matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'activity', subtype: 'campfire', label: '活動' }] }, 'activity'), true);
 check('分類：一隻通告可以同時屬訓練 + 服務',
   matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training' }, { id: 'service' }] }, 'training') &&
   matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training' }, { id: 'service' }] }, 'service'), true);

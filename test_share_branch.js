@@ -115,12 +115,12 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
 
   // ── 1.5 分類標籤 ──
   const catLabels = $$(d, '#category-chips .chip').map(c => c.textContent.trim());
-  ok(JSON.stringify(catLabels) === JSON.stringify(['全部', '訓練班', '服務', '比賽', '其他']),
+  ok(JSON.stringify(catLabels) === JSON.stringify(['全部', '訓練', '服務', '活動', '比賽', '未分類']),
      '分類標籤次序正確：' + catLabels.join(' '));
   ok(cards(d).length === 5, `分類標籤未影響預設「今天」5 張（實際 ${cards(d).length}）`);
-  click(w, $$(d, '#category-chips .chip').find(c => c.textContent.trim() === '訓練班')); await wait(50);
+  click(w, $$(d, '#category-chips .chip').find(c => c.textContent.trim() === '訓練')); await wait(50);
   ok(titles(d).length === 2 && titles(d).includes('幼童軍繩結章訓練班') && titles(d).includes('童軍技能訓練班'),
-     '分類「訓練班」過濾出訓練班：' + titles(d).join(' | '));
+     '分類「訓練」過濾出訓練班：' + titles(d).join(' | '));
   ok(cards(d).every(c => c.querySelector('.cat-tags')), '卡片顯示分類標籤');
   click(w, $$(d, '#category-chips .chip').find(c => c.textContent.trim() === '全部')); await wait(50);
   ok(cards(d).length === 5, '分類切返「全部」恢復 5 張');

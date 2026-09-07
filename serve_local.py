@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-serve_local.py — 本機一次過開 index.html + /api/render
-============================================================
-Vercel 上面 /api/render.py 係 Python Function，本機用 `python -m http.server`
-淨係得靜態檔，測試唔到「分享圖片」。呢個小伺服器模仿 Vercel 路由：
+serve_local.py — 本機一次過開 index.html + Vercel API
+========================================================
+Vercel 上面嘅 Python Function 用 `python -m http.server` 測唔到。呢個小
+伺服器模仿需要的路由：
 
-  /api/render?url=...   → 交畀 api/render.py 嘅 handler
-  其他路徑              → 當靜態檔（index.html / errors.html / cache.json …）
+  /api/render?url=...       → api/render.py（PDF 圖片）
+  /api/push-config           → api/push_config.py（公開 VAPID 狀態）
+  /api/push-subscriptions    → api/push_subscriptions.py（匿名訂閱）
+  其他路徑                   → 靜態檔（index.html / cache.json …）
 
 用法：
   pip install pymupdf            # 或 pip install -r api/requirements.txt
@@ -27,20 +29,35 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(ROOT, "api"))
 
 
-def build_handler(render_handler):
-    # 多重繼承：/api/render 行 render.handler 嘅 do_GET；其他路徑行 SimpleHTTPRequestHandler
+def build_handler(render_handler, push_config_handler, push_subscriptions_handler):
+    # 多重繼承：需要的 /api/* 路由直接借用 Vercel handler；其他路徑行靜態檔。
     class LocalHandler(render_handler, SimpleHTTPRequestHandler):
         def __init__(self, *a, **kw):
             SimpleHTTPRequestHandler.__init__(self, *a, directory=ROOT, **kw)
 
+        def _api_path(self):
+            return urlparse(self.path).path.rstrip("/")
+
         def _is_render(self):
-            path = urlparse(self.path).path.rstrip("/")
-            return path in ("/api/render", "/api/render.py")
+            return self._api_path() in ("/api/render", "/api/render.py")
+
+        def _is_push_config(self):
+            return self._api_path() in ("/api/push-config", "/api/push_config", "/api/push_config.py")
+
+        def _is_push_subscriptions(self):
+            return self._api_path() in ("/api/push-subscriptions", "/api/push_subscriptions", "/api/push_subscriptions.py")
 
         def do_GET(self):   # noqa: N802
             if self._is_render():
                 return render_handler.do_GET(self)
+            if self._is_push_config():
+                return push_config_handler.do_GET(self)
             return SimpleHTTPRequestHandler.do_GET(self)
+
+        def do_POST(self):  # noqa: N802
+            if self._is_push_subscriptions():
+                return push_subscriptions_handler.do_POST(self)
+            self.send_error(404, "Not found")
 
         def do_HEAD(self):   # noqa: N802
             return SimpleHTTPRequestHandler.do_HEAD(self)
@@ -48,12 +65,16 @@ def build_handler(render_handler):
         def do_OPTIONS(self):   # noqa: N802
             if self._is_render():
                 return render_handler.do_OPTIONS(self)
+            if self._is_push_config():
+                return push_config_handler.do_OPTIONS(self)
+            if self._is_push_subscriptions():
+                return push_subscriptions_handler.do_OPTIONS(self)
             self.send_response(204)
             self.end_headers()
 
         def end_headers(self):
             # 本機開發：靜態檔唔好俾瀏覽器 cache 住舊 index.html
-            if not self._is_render():
+            if not (self._is_render() or self._is_push_config() or self._is_push_subscriptions()):
                 self.send_header("Cache-Control", "no-store")
             SimpleHTTPRequestHandler.end_headers(self)
 
@@ -75,13 +96,18 @@ def main():
         os.environ["RENDER_ALLOW_PRIVATE"] = "1"
 
     import render   # api/render.py（要喺設定完環境變數之後先 import）
+    import push_config
+    import push_subscriptions
     if args.allow_private:
         render.ALLOW_PRIVATE = True
 
-    # render.handler 係 BaseHTTPRequestHandler 子類；我哋借用佢嘅 do_GET / do_OPTIONS，
-    # self 會係 LocalHandler 實例（同樣係 BaseHTTPRequestHandler），方法簽名相容。
-    server = ThreadingHTTPServer((args.host, args.port), build_handler(render.handler))
-    print(f"▶ http://localhost:{args.port}/index.html   （/api/render 已掛載"
+    # 各 handler 都係 BaseHTTPRequestHandler 子類；我哋借用其 do_* 方法，
+    # self 會係 LocalHandler 實例，方法簽名相容。
+    server = ThreadingHTTPServer(
+        (args.host, args.port),
+        build_handler(render.handler, push_config.handler, push_subscriptions.handler),
+    )
+    print(f"▶ http://localhost:{args.port}/index.html   （/api/render + /api/push-* 已掛載"
           f"{'，允許內網' if args.allow_private else ''}）")
     try:
         server.serve_forever()

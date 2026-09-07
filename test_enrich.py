@@ -10,21 +10,28 @@ import sys
 sys.path.insert(0, ".")
 
 from enrich import extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories
+from subscription_tagging import extract_subscription_metadata, load_catalog
+
+
+# Keep results independently from the arithmetic used by callers.  ``False``
+# adds zero to an integer, so the old harness printed a misleading all-pass
+# result even after a failed assertion.
+TEST_RESULTS = []
 
 
 def test(name, got, want):
     ok = got == want
+    TEST_RESULTS.append(ok)
     tag = "✅" if ok else "❌"
     print(f"{tag} {name}")
     if not ok:
         print(f"   期望: {want!r}")
         print(f"   實際: {got!r}")
-    return ok
+    return int(ok)
 
 
 def main():
     passed = 0
-    failed = 0
 
     # ── 對象：必須有明確 label，否則寧願空 ──
     passed += test(
@@ -99,8 +106,13 @@ def main():
         ["service"],
     )
     passed += test(
-        "標題：有「公開賽」直接判 competition",
-        [c["id"] for c in extract_categories("射箭公開賽2026", "")],
+        "標題：有「公開賽」歸獨立 competition",
+        [(c["id"], c.get("subtype")) for c in extract_categories("射箭公開賽2026", "")],
+        [("competition", None)],
+    )
+    passed += test(
+        "比賽不會因大露營字眼混入活動",
+        [c["id"] for c in extract_categories("童軍大露營比賽", "")],
         ["competition"],
     )
     passed += test(
@@ -126,9 +138,9 @@ def main():
         ["service"],
     )
     passed += test(
-        "內文：標題空但有公開賽 → competition",
-        [c["id"] for c in extract_categories("", "全港公開賽\n日期：2026-09-20")],
-        ["competition"],
+        "內文：標題空但有公開賽 → 獨立 competition",
+        [(c["id"], c.get("subtype")) for c in extract_categories("", "全港公開賽\n日期：2026-09-20")],
+        [("competition", None)],
     )
     passed += test(
         "內文：標題及內文都冇清楚字眼 → 空",
@@ -138,6 +150,64 @@ def main():
     passed += test(
         "內文：有「訓練行事曆」唔當訓練班",
         [c["id"] for c in extract_categories("", "活動與訓練行事曆\n一覽表")],
+        [],
+    )
+
+    # ── 個人化受控 tag：核心名稱／正式變體而非後綴逐字比較 ──
+    aircrew_workshop = extract_subscription_metadata("童軍初級空勤章工作坊")
+    passed += test(
+        "受控課程：初級空勤章工作坊命中初級空勤員章 + 訓練",
+        (aircrew_workshop["branch_tags"], aircrew_workshop["subscription_tags"]),
+        (["童軍"], ["category:training", "course:scout-basic-aircrew-badge"]),
+    )
+    aircrew_class = extract_subscription_metadata("童軍初級空勤員章訓練班")
+    passed += test(
+        "受控課程：初級空勤員章訓練班命中相同核心項目",
+        aircrew_class["subscription_tags"],
+        ["category:training", "course:scout-basic-aircrew-badge"],
+    )
+    passed += test(
+        "服務不因泛稱活動同時命中其他活動",
+        extract_subscription_metadata("童軍社區服務活動")["subscription_tags"],
+        ["category:service"],
+    )
+    passed += test(
+        "營火會只命中活動 campfire 子類",
+        extract_subscription_metadata("童軍營火會")["subscription_tags"],
+        ["activity:campfire"],
+    )
+    passed += test(
+        "比賽只命中獨立比賽 tag，不混入活動",
+        extract_subscription_metadata("童軍射箭公開賽")["subscription_tags"],
+        ["category:competition"],
+    )
+    catalog = load_catalog()
+    labels = {entry["id"]: entry["label"] for entry in catalog["topics"]}
+    passed += test(
+        "受控選單只顯示基礎項目名稱",
+        (labels["course:leader-map-reading"], labels["course:scout-basic-aircrew-badge"]),
+        ("地圖閱讀", "初級空勤章"),
+    )
+    passed += test(
+        "受控課程選項沒有訓練班／工作坊／課程後綴",
+        all(not str(entry["label"]).endswith(("訓練班", "工作坊", "課程", "訓練"))
+            for entry in catalog["topics"] if entry.get("kind") == "course"),
+        True,
+    )
+    passed += test(
+        "地圖閱讀訓練班與工作坊自動命中同一基礎項目",
+        (
+            extract_subscription_metadata("領袖地圖閱讀訓練班")["subscription_tags"],
+            extract_subscription_metadata("領袖地圖閱讀工作坊")["subscription_tags"],
+        ),
+        (
+            ["category:training", "course:leader-map-reading"],
+            ["category:training", "course:leader-map-reading"],
+        ),
+    )
+    passed += test(
+        "訓練行事曆不產生任何訂閱 tag",
+        extract_subscription_metadata("童軍訓練班一覽表")["subscription_tags"],
         [],
     )
 
@@ -158,7 +228,8 @@ def main():
         "US$50",
     )
 
-    total = passed + failed
+    total = len(TEST_RESULTS)
+    failed = total - passed
     print(f"\n結果：{passed}/{total} 通過")
     sys.exit(0 if failed == 0 else 1)
 

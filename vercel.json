@@ -4,6 +4,18 @@
     "api/render.py": {
       "maxDuration": 30,
       "excludeFiles": "{cache.json,enrich.json,fingerprints.json,sources.json,*.bak,test_*.py,test_*.js,*.md,ci-proposed/**,node_modules/**}"
+    },
+    "api/push_config.py": {
+      "maxDuration": 10,
+      "includeFiles": "subscription_catalog.json"
+    },
+    "api/push_subscriptions.py": {
+      "maxDuration": 10,
+      "includeFiles": "subscription_catalog.json"
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/api/push-config", "destination": "/api/push_config" },
+    { "source": "/api/push-subscriptions", "destination": "/api/push_subscriptions" }
+  ]
 }
