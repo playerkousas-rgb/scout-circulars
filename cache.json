@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-07 07:52:11",
+  "last_updated": "2026-09-07 15:36:01",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4745,
+    "total_notices": 4747,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -24590,7 +24590,16 @@
     ],
     "紅磡區": [
       {
-        "title": "S-26-04 - 童軍沿繩下降章(技能組)訓練班 【New】",
+        "title": "D-26-04 - 26年9月區會公布",
+        "url": "https://drive.google.com/file/d/1teJTA8atSfLAQ0d1l9hNcuclxwWb-Zbp/view",
+        "pdf_url": "https://drive.google.com/file/d/1teJTA8atSfLAQ0d1l9hNcuclxwWb-Zbp/view",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "【New】",
         "url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
         "pdf_url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
         "date": "2026-09-02",
@@ -27521,6 +27530,15 @@
       }
     ],
     "油尖區": [
+      {
+        "title": "雙節棍武術入門",
+        "url": "https://drive.google.com/file/d/1OL57y7vUFVvBrFTy-gD0bwTTNdpGukmV/view",
+        "pdf_url": "https://drive.google.com/file/d/1OL57y7vUFVvBrFTy-gD0bwTTNdpGukmV/view",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
       {
         "title": "第六屆通訊章(技能組)訓練班",
         "url": "https://drive.google.com/file/d/1hZsfpcUc1r8iQOgVxQEGJkwv3IVjwgSS/view",
@@ -42810,6 +42828,20 @@
   },
   "notices": [
     {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1teJTA8atSfLAQ0d1l9hNcuclxwWb-Zbp/view",
+      "title": "D-26-04 - 26年9月區會公布",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1OL57y7vUFVvBrFTy-gD0bwTTNdpGukmV/view",
+      "title": "雙節棍武術入門",
+      "captured_date": "2026-09-07"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25957/KT70_26.pdf",
@@ -43954,7 +43986,7 @@
       "source_site": "紅磡區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
-      "title": "S-26-04 - 童軍沿繩下降章(技能組)訓練班 【New】",
+      "title": "【New】",
       "captured_date": "2026-09-02"
     },
     {
@@ -76149,27 +76181,31 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-07 07:52:11",
-      "new": 0,
-      "updated": 112,
-      "skipped": 37,
+      "updated_at": "2026-09-07 15:36:01",
+      "new": 2,
+      "updated": 185,
+      "skipped": 46,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
+        "總會",
         "港島地域",
+        "灣仔區",
+        "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
         "港島北區",
-        "紅磡區",
+        "九龍地域",
         "何文田區",
+        "九龍城區",
         "九龍塘區",
         "旺角區",
+        "深旺區",
         "深水埗東區",
         "深水埗西區",
-        "油尖區",
         "東九龍地域",
         "西貢區 (expected_empty)",
         "黃大仙區",
@@ -76178,13 +76214,16 @@
         "將軍澳區",
         "觀塘區",
         "鯉魚門區",
+        "新界地域",
+        "元朗東區",
         "元朗西區",
         "十八鄉區",
+        "屯門西區",
         "北葵涌區",
         "屯門東區",
         "荃灣區",
+        "南葵涌區",
         "離島區 (expected_empty)",
-        "新界東地域",
         "雙魚區",
         "壁峰區",
         "大埔北區",
@@ -76193,7 +76232,9 @@
         "沙田南區",
         "沙田東區",
         "沙田北區",
-        "大嶼山區 (expected_empty)"
+        "大嶼山區 (expected_empty)",
+        "慈雲山區",
+        "青衣區"
       ]
     }
   }

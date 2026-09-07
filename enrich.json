@@ -45736,5 +45736,37 @@
     "error": "",
     "enriched_at": "2026-09-06 18:07:05",
     "enrich_version": "2.4"
+  },
+  "https://drive.google.com/file/d/1teJTA8atSfLAQ0d1l9hNcuclxwWb-Zbp/view": {
+    "source": "紅磡區",
+    "title": "D-26-04 - 26年9月區會公布",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "1.1.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-07 15:40:51",
+    "enrich_version": "3.1"
+  },
+  "https://drive.google.com/file/d/1OL57y7vUFVvBrFTy-gD0bwTTNdpGukmV/view": {
+    "source": "油尖區",
+    "title": "雙節棍武術入門",
+    "deadline": "2026-10-03",
+    "audience": "",
+    "fee": "HK$160",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "1.1.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-07 15:40:55",
+    "enrich_version": "3.1"
   }
 }
