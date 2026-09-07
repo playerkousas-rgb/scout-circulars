@@ -3,7 +3,7 @@
 
 from http.server import BaseHTTPRequestHandler
 
-from push_common import (
+from api.push_common import (
     ApiError,
     SupabaseError,
     client_token_hash,
