@@ -1,6 +1,13 @@
 # 匿名個人化 Web Push：部署與驗收
 
-本功能讓使用者預先選擇**支部**和受控的**訓練／服務／活動／比賽**項目；系統只在兩者都命中的真正新增通告出現時發送通知。活動只分大露營、營火會、其他；比賽獨立。
+本功能讓使用者預先選擇**支部**和受控的**訓練／服務／活動／比賽**項目；系統只在兩者都命中的真正新增通告出現時發送通知。活動只分大露營、營火會、其他；比賽獨立。訓練項目自字典 2.0.0 起**按支部劃分**（每個支部有「所有 X 訓練」＋該支部訓練綱要內的非進度性徽章／特別訓練班；領袖分木章／非木章），單一訂閱最多可選 60 個項目。
+
+## 字典升級（catalog 1.x → 2.0.0）
+
+- `subscription_catalog.json` 的訓練項目全部重整（新增 `training:<支部>`、`training:領袖:木章`、`training:領袖:非木章`，以及各支部 `course:*`；`section`／`subgroup` 只供前端分組）。`category:training`、`category:service`、`category:competition` 與三個 `activity:*` ID 維持不變，舊訂閱仍可繼續收到通知。
+- 舊版 `course:*` ID 全部保留（只有 `course:scout-parachuting-badge` 因 2026 綱要把跳傘章列入深資／樂行而改為 `course:shared-parachuting-badge`）。字典內不存在的舊 ID 會在使用者下次開啟面板時自動略過，並於重新儲存時以新選項取代。
+- `MAX_TOPICS` 由 24 提高到 60：`api/push_common.py` 與 `schema.sql` 的 `push_subscriptions_topic_count` 必須一起改。**已建表的 Supabase 專案請重新執行 `schema.sql`**（內含 `DROP CONSTRAINT IF EXISTS` + `ADD CONSTRAINT`），否則超過 24 項的儲存會被資料庫拒絕。
+- `enrich.py` 以 catalog `version` 判斷 metadata 是否過期；每日 workflow 只會替新通告寫入 2.0.0 標籤。要讓歷史通告在個人化結果頁也能配對新 ID，可在本機執行一次 `python enrich.py --backfill-categories`（會重新下載 PDF，量較大）。
 
 > **私隱界線**：不設登入，沒有姓名、電郵、電話、旅團、地域或區會推播欄位。地域／區會仍只保留作網站左欄瀏覽。瀏覽器啟用後，資料庫只保存 Web Push 協定必需的匿名 endpoint、加密金鑰、endpoint 雜湊、隨機本機 token 的雜湊，以及受控支部／項目 ID。
 

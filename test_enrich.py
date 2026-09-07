@@ -158,13 +158,57 @@ def main():
     passed += test(
         "受控課程：初級空勤章工作坊命中初級空勤員章 + 訓練",
         (aircrew_workshop["branch_tags"], aircrew_workshop["subscription_tags"]),
-        (["童軍"], ["category:training", "course:scout-basic-aircrew-badge"]),
+        (["童軍"], ["category:training", "course:scout-basic-aircrew-badge", "training:童軍"]),
     )
     aircrew_class = extract_subscription_metadata("童軍初級空勤員章訓練班")
     passed += test(
         "受控課程：初級空勤員章訓練班命中相同核心項目",
         aircrew_class["subscription_tags"],
-        ["category:training", "course:scout-basic-aircrew-badge"],
+        ["category:training", "course:scout-basic-aircrew-badge", "training:童軍"],
+    )
+    venture_aircrew = extract_subscription_metadata("第1屆初級空勤員章訓練班", "", "深資童軍")
+    passed += test(
+        "同名徽章按對象支部分流：深資空勤員章不會標成童軍所有訓練",
+        (venture_aircrew["branch_tags"], venture_aircrew["subscription_tags"]),
+        (["深資童軍"], ["category:training", "course:scout-basic-aircrew-badge", "training:深資童軍"]),
+    )
+    cub_first_aid = extract_subscription_metadata("幼童軍急救章訓練班")
+    passed += test(
+        "同名徽章只命中該支部版本（幼童軍急救章≠童軍急救章）",
+        cub_first_aid["subscription_tags"],
+        ["category:training", "course:cub-first-aid-badge", "training:幼童軍"],
+    )
+    passed += test(
+        "較長官方名稱不誤中較短徽章（滑浪風帆章≠風帆章、教練員班≠青少年徽章）",
+        (
+            extract_subscription_metadata("童軍滑浪風帆章訓練班")["subscription_tags"],
+            extract_subscription_metadata("第16屆中級航空活動章教練員訓練班", "", "領袖")["subscription_tags"],
+        ),
+        (
+            ["category:training", "course:scout-windsurfing-badge", "training:童軍"],
+            ["category:training", "course:leader-air-activity-instructor", "training:領袖:非木章"],
+        ),
+    )
+    wood = extract_subscription_metadata("第109屆童軍運動基本原則訓練班(單元 1A 及 單元1B)", "", "童軍、領袖")
+    passed += test(
+        "木章單元命中木章訓練班，而非非木章",
+        wood["subscription_tags"],
+        ["category:training", "course:wood-module-1", "training:童軍", "training:領袖:木章"],
+    )
+    passed += test(
+        "支部訓練方法只命中該支部單元",
+        extract_subscription_metadata("第8屆幼童軍支部訓練方法訓練班(單元2A及單元2B)", "", "領袖")["subscription_tags"],
+        ["category:training", "course:wood-module-2-cub", "training:領袖:木章"],
+    )
+    passed += test(
+        "領袖技能訓練班命中非木章，不命中木章",
+        extract_subscription_metadata("第48屆行動主導領導才訓練班", "", "領袖")["subscription_tags"],
+        ["category:training", "course:leader-action-centred-leadership", "training:領袖:非木章"],
+    )
+    passed += test(
+        "童軍領導才訓練班是童軍特別項目",
+        extract_subscription_metadata("沙田西區 - 第590屆童軍領導才訓練班", "", "童軍")["subscription_tags"],
+        ["category:training", "course:scout-leadership", "training:童軍"],
     )
     passed += test(
         "服務不因泛稱活動同時命中其他活動",
@@ -186,7 +230,7 @@ def main():
     passed += test(
         "受控選單只顯示基礎項目名稱",
         (labels["course:leader-map-reading"], labels["course:scout-basic-aircrew-badge"]),
-        ("地圖閱讀", "初級空勤章"),
+        ("地圖閱讀", "初級空勤員章"),
     )
     passed += test(
         "受控課程選項沒有訓練班／工作坊／課程後綴",
@@ -201,8 +245,8 @@ def main():
             extract_subscription_metadata("領袖地圖閱讀工作坊")["subscription_tags"],
         ),
         (
-            ["category:training", "course:leader-map-reading"],
-            ["category:training", "course:leader-map-reading"],
+            ["category:training", "course:leader-map-reading", "training:領袖:非木章"],
+            ["category:training", "course:leader-map-reading", "training:領袖:非木章"],
         ),
     )
     passed += test(

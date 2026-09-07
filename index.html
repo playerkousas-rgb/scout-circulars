@@ -166,19 +166,59 @@
     .ss-save:hover, .ss-import:hover { background: #2450a3; }
     .ss-import { width: 100%; }
 
-    /* ── 匿名個人化 Web Push ───────────────────────────────── */
-    .push-settings { margin-top: 16px; padding: 15px; border-radius: 14px; border: 1px solid rgba(59,130,246,.42); background: rgba(30,64,175,.12); }
+    /* ── 匿名個人化 Web Push：搜尋列旁的 🔔 掣 + 點選式選單 ───────── */
+    .chip-push { border-color: rgba(96,165,250,.45); color: #93c5fd; }
+    .chip-push:hover { background: rgba(96,165,250,.12); }
+    .chip-push.active { background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: #fff; border-color: #60a5fa; font-weight: 700; }
+    .mobile-push-btn { display: none; }
+    .push-backdrop { position: fixed; inset: 0; z-index: 50; background: rgba(2,8,23,.66); backdrop-filter: blur(3px);
+                     display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .push-backdrop[hidden] { display: none !important; }
+    body.push-sheet-open { overflow: hidden; }
+    .push-sheet { width: min(880px, 100%); max-height: calc(100vh - 32px); overflow: auto; border-radius: 20px; padding: 18px;
+                  border: 1px solid rgba(59,130,246,.42); background: linear-gradient(180deg, #111d32, #0b1424); box-shadow: var(--shadow); }
     .push-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .push-heading h3 { margin: 0; font-size: 16px; }
+    .push-heading h3 { margin: 0; font-size: 17px; }
     .push-heading p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
-    .push-grid { display: grid; grid-template-columns: minmax(170px, .72fr) minmax(220px, 1.28fr); gap: 12px; margin-top: 12px; }
-    .push-field { display: grid; gap: 6px; min-width: 0; }
-    .push-field label { color: #d9e8ff; font-size: 13px; font-weight: 700; }
-    .push-field small { color: var(--muted); font-size: 11px; line-height: 1.45; }
-    .push-select { width: 100%; min-height: 118px; color: var(--text); background: #09111f; border: 1px solid var(--line); border-radius: 10px; padding: 6px; outline: none; }
-    .push-select:focus { border-color: #60a5fa; box-shadow: 0 0 0 2px rgba(96,165,250,.18); }
-    .push-select option, .push-select optgroup { background: #09111f; color: var(--text); }
-    .push-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; align-items: center; }
+    .push-close { flex: 0 0 auto; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 10px; width: 34px; height: 34px; cursor: pointer; font-size: 18px; line-height: 1; }
+    .push-close:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .push-block { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(59,130,246,.2); }
+    .push-block-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: #d9e8ff; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .push-block-title small { color: var(--muted); font-weight: 400; font-size: 11.5px; }
+    .push-step { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #1d4ed8; color: #fff; font-size: 11px; }
+    .push-help { display: block; margin-top: 8px; color: var(--muted); font-size: 11.5px; line-height: 1.5; }
+    /* 點選式選項：一下即剔，唔使 Ctrl／Shift */
+    .pick-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pick-chip { position: relative; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); background: #0b1424; color: #b9c9e3;
+                 border-radius: 999px; padding: 6px 11px 6px 8px; cursor: pointer; font-size: 12.5px; line-height: 1.3; user-select: none; -webkit-tap-highlight-color: transparent; }
+    .pick-chip input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+    .pick-chip .tick { flex: 0 0 auto; width: 15px; height: 15px; border-radius: 4px; border: 1px solid #4b6a99; display: inline-grid; place-items: center; font-size: 10px; line-height: 1; color: transparent; background: #09111f; }
+    .pick-chip:hover { border-color: #3a5a8c; color: #e6eefb; }
+    .pick-chip:focus-within { outline: 2px solid #60a5fa; outline-offset: 1px; }
+    .pick-chip.checked { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
+    .pick-chip.checked .tick { background: #fff; color: #1d4ed8; border-color: #fff; }
+    .pick-branch.checked { background: linear-gradient(135deg, #15803d, #22c55e); color: #03200f; border-color: #4ade80; font-weight: 700; }
+    .pick-branch.checked .tick { color: #15803d; }
+    .pick-all { border-style: dashed; font-weight: 700; }
+    .pick-all.checked { background: linear-gradient(135deg, #b45309, #f59e0b); color: #140800; border-color: #fbbf24; border-style: solid; }
+    .pick-all.checked .tick { color: #b45309; }
+    .push-branch-block { margin-top: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
+    .push-branch-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .push-branch-head strong { color: #d9e8ff; font-size: 14px; }
+    .push-branch-head .push-picked { color: var(--muted); font-size: 11.5px; }
+    .push-section-block { margin-top: 10px; padding-top: 8px; border-top: 1px dashed rgba(59,130,246,.3); }
+    .push-section-block > .push-section-title { color: #93c5fd; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .push-subgroup { margin-top: 8px; }
+    .push-subgroup summary { cursor: pointer; color: #cfe3ff; font-size: 12.5px; font-weight: 600; padding: 4px 0; list-style: none; display: flex; align-items: center; gap: 6px; }
+    .push-subgroup summary::-webkit-details-marker { display: none; }
+    .push-subgroup summary::before { content: '▸'; color: var(--muted); font-size: 11px; transition: transform .15s ease; }
+    .push-subgroup[open] summary::before { transform: rotate(90deg); }
+    .push-subgroup summary .push-picked { color: var(--muted); font-weight: 400; font-size: 11px; }
+    .push-subgroup .pick-chips { padding: 4px 0 2px 14px; }
+    .push-all-hint { margin-top: 6px; color: #fcd34d; font-size: 11.5px; }
+    .push-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+    .push-count { flex: 1 1 auto; color: var(--muted); font-size: 12px; }
+    .push-count.over { color: #fca5a5; font-weight: 700; }
     .push-primary, .push-secondary, .push-danger { border-radius: 10px; padding: 9px 12px; cursor: pointer; font-weight: 700; }
     .push-primary { border: 1px solid #60a5fa; color: #fff; background: linear-gradient(135deg,#1d4ed8,#3b82f6); }
     .push-primary:hover { filter: brightness(1.1); }
@@ -271,11 +311,16 @@
       .mobile-section-toggle { display: flex; width: 100%; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 11px; padding: 10px 12px; background: #0b1424; color: #d9e8ff; cursor: pointer; font-weight: 700; font-size: 13px; }
       .mobile-section-toggle span { color: var(--muted); transition: transform .16s ease; }
       .mobile-section.is-open > .mobile-section-toggle span { transform: rotate(180deg); }
-      .mobile-section-body, .mobile-section > .push-settings, .mobile-section > .ss-connect { display: none; }
+      .mobile-section-body, .mobile-section > .ss-connect { display: none; }
       .mobile-section.is-open > .mobile-section-body { display: block; }
-      .mobile-section.is-open > .push-settings, .mobile-section.is-open > .ss-connect { display: grid; }
+      .mobile-section.is-open > .ss-connect { display: grid; }
       .filters-section .mobile-section-body { padding-top: 2px; }
-      .push-section .push-settings, .scoutsystem-section .ss-connect { margin-top: 8px; }
+      .scoutsystem-section .ss-connect { margin-top: 8px; }
+      .mobile-library-bar > .mobile-push-btn { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 38px; height: 34px; border: 1px solid rgba(96,165,250,.45); border-radius: 10px; background: #0b1424; color: #93c5fd; font-size: 15px; cursor: pointer; }
+      .mobile-library-bar > .mobile-push-btn.active { background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: #fff; border-color: #60a5fa; }
+      .push-backdrop { padding: 0; align-items: flex-end; }
+      .push-sheet { width: 100%; max-height: 92dvh; border-radius: 18px 18px 0 0; padding: 14px; }
+      .pick-chip { padding: 8px 12px 8px 9px; font-size: 13px; }
       .controls { margin-top: 10px; gap: 8px; }
       .controls input[type="search"] { min-width: 0; width: 100%; flex-basis: 100%; }
       .scope-chips { width: 100%; }
@@ -283,7 +328,6 @@
       .field-label { width: 100%; }
       .chip { padding: 8px 11px; }
       .status { font-size: 12px; }
-      .push-grid { grid-template-columns: 1fr; }
       .ss-connect input { min-width: 0; width: 100%; }
       .cards { margin-top: 12px; grid-template-columns: 1fr; gap: 12px; }
       .card { min-width: 0; }
@@ -319,6 +363,7 @@
     <main class="content">
       <div class="mobile-library-bar" aria-label="通告圖書館資訊">
         <button type="button" id="open-library-menu" aria-controls="library-sidebar" aria-expanded="false">☰ 地域／區會</button>
+        <button type="button" id="open-push-mobile" class="mobile-push-btn" aria-controls="push-settings" aria-label="個人化通知設定">🔔</button>
         <div class="mobile-library-meta">
           <strong id="mobile-library-version">通告圖書館 v5.8</strong>
           <span id="mobile-last-updated">最後更新：讀取中…</span>
@@ -359,37 +404,6 @@
           </div>
         </div>
 
-        <div class="mobile-section push-section" id="push-section-wrap">
-          <button type="button" class="mobile-section-toggle" aria-expanded="false" aria-controls="push-settings">個人化通知設定 <span>⌄</span></button>
-          <section class="push-settings" id="push-settings" aria-labelledby="push-settings-title">
-          <div class="push-heading">
-            <div>
-              <h3 id="push-settings-title">個人化通告通知</h3>
-              <p>先在這個瀏覽器選支部和關注項目；只在真正有交集的新通告時才推送。</p>
-            </div>
-          </div>
-          <div class="push-grid">
-            <div class="push-field">
-              <label for="push-branches">我的支部（可多選）</label>
-              <select id="push-branches" class="push-select" multiple size="5" aria-describedby="push-branches-help"></select>
-              <small id="push-branches-help">電腦可按 Ctrl／⌘ 多選；手機可逐項點選。</small>
-            </div>
-            <div class="push-field">
-              <label for="push-topics">關注訓練、服務、活動或比賽（可多選）</label>
-              <select id="push-topics" class="push-select" multiple size="7" aria-describedby="push-topics-help"></select>
-              <small id="push-topics-help">只顯示項目基礎名稱；訓練班、工作坊及課程等正式變體會自動配對，不設自由文字標籤。</small>
-            </div>
-          </div>
-          <div class="push-actions">
-            <button type="button" class="push-secondary" id="push-save">只儲存選項</button>
-            <button type="button" class="push-primary" id="push-enable">啟用通知</button>
-            <button type="button" class="push-danger" id="push-disable" hidden>停止這部裝置通知</button>
-          </div>
-          <div class="push-state" id="push-status" role="status" aria-live="polite">正在載入通知選項…</div>
-          <div class="push-privacy">私隱：設定先留在本機 LocalStorage。啟用後，伺服器只保存瀏覽器產生的匿名推送地址／加密金鑰及所選受控 ID；不收集姓名、電郵、電話、旅團或地域資料。</div>
-          </section>
-        </div>
-
         <div class="mobile-section scoutsystem-section" id="scoutsystem-section">
           <button type="button" class="mobile-section-toggle" aria-expanded="false" aria-controls="scoutsystem-connect">ScoutSystem 接入 <span>⌄</span></button>
         <div class="ss-connect" id="scoutsystem-connect">
@@ -413,6 +427,44 @@
         <div>Copyright &copy; 2026 SCOUT SYSTEM</div>
       </footer>
     </main>
+  </div>
+
+  <!-- 🔔 個人化通知：由搜尋列旁邊的「通知」掣開啟；先揀支部，再逐項點選 -->
+  <div class="push-backdrop" id="push-backdrop" hidden>
+    <section class="push-sheet" id="push-settings" role="dialog" aria-modal="true" aria-labelledby="push-settings-title">
+      <div class="push-heading">
+        <div>
+          <h3 id="push-settings-title">🔔 個人化通告通知</h3>
+          <p>先揀支部，再逐項點選關注的訓練、服務、活動或比賽；只在真正有交集的新通告時才推送。</p>
+        </div>
+        <button type="button" class="push-close" id="push-close" aria-label="關閉通知設定">×</button>
+      </div>
+
+      <div class="push-block">
+        <div class="push-block-title"><span class="push-step">1</span> 我的支部 <small>可多選，點一下即選取</small></div>
+        <div class="pick-chips" id="push-branches" role="group" aria-label="我的支部"></div>
+      </div>
+
+      <div class="push-block">
+        <div class="push-block-title"><span class="push-step">2</span> 服務、活動及比賽 <small>適用於所有支部</small></div>
+        <div class="pick-chips" id="push-general" role="group" aria-label="服務、活動及比賽"></div>
+      </div>
+
+      <div class="push-block">
+        <div class="push-block-title"><span class="push-step">3</span> 訓練 <small>按支部列出訓練綱要內的徽章及訓練班（不含進度性獎章）</small></div>
+        <div id="push-topics" role="group" aria-label="訓練項目"></div>
+        <small class="push-help" id="push-topics-help">請先在上方選擇至少一個支部。</small>
+      </div>
+
+      <div class="push-actions">
+        <span class="push-count" id="push-count" aria-live="polite"></span>
+        <button type="button" class="push-secondary" id="push-save">只儲存選項</button>
+        <button type="button" class="push-primary" id="push-enable">啟用通知</button>
+        <button type="button" class="push-danger" id="push-disable" hidden>停止這部裝置通知</button>
+      </div>
+      <div class="push-state" id="push-status" role="status" aria-live="polite">正在載入通知選項…</div>
+      <div class="push-privacy">私隱：設定先留在本機 LocalStorage。啟用後，伺服器只保存瀏覽器產生的匿名推送地址／加密金鑰及所選受控 ID；不收集姓名、電郵、電話、旅團或地域資料。訓練班、工作坊及課程等正式變體會自動配對，不設自由文字標籤。</div>
+    </section>
   </div>
 
   <script src="push-client.js"></script>
@@ -1019,6 +1071,21 @@
         renderCards();
       };
       wrap.appendChild(bmBtn);
+
+      // 🔔 個人化通知：放喺「收藏」隔籬，一撳開設定面板（先揀支部，再點選項目）。
+      const pushBtn = document.createElement('button');
+      const summary = pushSummaryLabel();
+      pushBtn.type = 'button';
+      pushBtn.id = 'open-push-settings';
+      pushBtn.className = `chip chip-push ${summary.active ? 'active' : ''}`;
+      pushBtn.innerHTML = summary.text;
+      pushBtn.title = summary.title;
+      pushBtn.setAttribute('aria-controls', 'push-settings');
+      pushBtn.setAttribute('aria-haspopup', 'dialog');
+      pushBtn.onclick = () => setPushSheet(true);
+      wrap.appendChild(pushBtn);
+      const mobileBtn = $('#open-push-mobile');
+      if (mobileBtn) { mobileBtn.classList.toggle('active', summary.active); mobileBtn.title = summary.title; }
     }
 
     function renderScopeChips() {
@@ -1883,7 +1950,12 @@
     });
 
     // ── 受控個人化通知設定 ─────────────────────────────────────
-    const PUSH_GROUP_ORDER = ['訓練', '服務', '活動', '比賽'];
+    // 選單由 subscription_catalog.json 驅動：kind = category/activity（全支部）、
+    // training（某支部所有訓練；領袖再分木章／非木章 section）、course（該支部
+    // 訓練綱要內的徽章／訓練班，subgroup 為綱要分組）。全部都係點一下即剔。
+    const PUSH_MAX_TOPICS = 60; // 與 api/push_common.py MAX_TOPICS 及 schema.sql 同步
+    const PUSH_GENERAL_ORDER = ['服務', '活動', '比賽'];
+    const PUSH_LEADER_SECTION_ORDER = ['木章訓練班', '非木章訓練班'];
 
     function getCatalogUrl() {
       const params = new URLSearchParams(location.search);
@@ -1895,8 +1967,10 @@
       return `${base}${base.includes('?') ? '&' : '?'}t=${Date.now()}`;
     }
 
-    function selectedValues(select) {
-      return select ? [...select.selectedOptions].map(option => option.value).filter(Boolean) : [];
+    // 點選式（checkbox）選項的已剔值；容器內每個 input[type=checkbox] 一個值。
+    function selectedValues(container) {
+      if (!container) return [];
+      return [...container.querySelectorAll('input[type="checkbox"]:checked')].map(input => input.value).filter(Boolean);
     }
 
     function setPushStatus(text, tone = '') {
@@ -1911,73 +1985,256 @@
       return topic.branches.includes('*') || topic.branches.some(branch => branches.includes(branch));
     }
 
-    function renderPushTopicOptions(selectedTopics = []) {
-      const select = $('#push-topics');
-      const branches = selectedValues($('#push-branches'));
-      if (!select || !state.pushCatalog) return;
-      const allowed = (state.pushCatalog.topics || []).filter(topic => isTopicForBranches(topic, branches));
-      const allowedIds = new Set(allowed.map(topic => topic.id));
-      const wanted = new Set(selectedTopics.filter(id => allowedIds.has(id)));
-      select.replaceChildren();
+    // 一個「點一下即剔」嘅選項。checkbox 本身隱藏，label 整個係可撳範圍；
+    // 桌面唔使 Ctrl／Shift，手機逐個點。
+    function makePickChip(value, text, checked, extraClass = '', onChange = null) {
+      const label = document.createElement('label');
+      label.className = `pick-chip ${extraClass}`.trim();
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.value = value;
+      input.checked = !!checked;
+      const tick = document.createElement('span');
+      tick.className = 'tick';
+      tick.textContent = '✓';
+      tick.setAttribute('aria-hidden', 'true');
+      const span = document.createElement('span');
+      span.textContent = text;
+      label.append(input, tick, span);
+      label.classList.toggle('checked', input.checked);
+      input.addEventListener('change', () => {
+        label.classList.toggle('checked', input.checked);
+        if (onChange) onChange(input.checked, input);
+      });
+      return label;
+    }
+
+    function pushSelectionState() {
+      return {
+        branches: selectedValues($('#push-branches')),
+        topics: [...selectedValues($('#push-general')), ...selectedValues($('#push-topics'))],
+      };
+    }
+
+    function updatePushCount() {
+      const el = $('#push-count');
+      if (!el) return;
+      const { branches, topics } = pushSelectionState();
+      const over = topics.length > PUSH_MAX_TOPICS;
+      el.textContent = `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
+      el.classList.toggle('over', over);
+      const save = $('#push-save'), enable = $('#push-enable');
+      const invalid = !branches.length || !topics.length || over;
+      if (save) save.disabled = invalid;
+      if (enable) enable.disabled = invalid || enable.dataset.unsupported === '1';
+    }
+
+    // 服務／活動／比賽：三類原封不動，永遠適用於所有支部。
+    function renderPushGeneralOptions(selectedTopics = []) {
+      const wrap = $('#push-general');
+      if (!wrap || !state.pushCatalog) return;
+      const wanted = new Set(selectedTopics);
+      wrap.replaceChildren();
+      const general = (state.pushCatalog.topics || []).filter(topic =>
+        topic.kind !== 'course' && topic.kind !== 'training' && PUSH_GENERAL_ORDER.includes(topic.group) && isTopicForBranches(topic, ['*']));
+      general.sort((a, b) => PUSH_GENERAL_ORDER.indexOf(a.group) - PUSH_GENERAL_ORDER.indexOf(b.group));
+      for (const topic of general) {
+        const text = topic.group === '活動' ? `活動：${topic.label}` : topic.label;
+        wrap.appendChild(makePickChip(topic.id, text, wanted.has(topic.id), '', updatePushCount));
+      }
+    }
+
+    function pushSubgroupsFor(topics) {
       const groups = new Map();
-      for (const topic of allowed) {
-        const name = PUSH_GROUP_ORDER.includes(topic.group) ? topic.group : '其他';
+      for (const topic of topics) {
+        const name = topic.subgroup || '其他';
         if (!groups.has(name)) groups.set(name, []);
         groups.get(name).push(topic);
       }
-      for (const groupName of [...PUSH_GROUP_ORDER, '其他']) {
-        const topics = groups.get(groupName);
-        if (!topics?.length) continue;
-        const optgroup = document.createElement('optgroup');
-        optgroup.label = groupName;
-        for (const topic of topics) {
-          const option = document.createElement('option');
-          option.value = topic.id;
-          option.textContent = topic.label;
-          option.selected = wanted.has(topic.id);
-          optgroup.appendChild(option);
+      return groups;
+    }
+
+    // 「所有 X 訓練」係一個 training 項目；一剔就會提示下面嘅細項可以唔使揀。
+    function renderPushTrainingList(container, allTopic, courses, wanted) {
+      const hint = document.createElement('div');
+      hint.className = 'push-all-hint';
+      hint.hidden = true;
+      hint.textContent = '已選「所有訓練」：這個支部／類別的每張新訓練通告都會通知，下面細項可留空。';
+      const refreshHint = () => {
+        const allInput = container.querySelector('input[data-all="1"]');
+        hint.hidden = !(allInput && allInput.checked);
+      };
+      if (allTopic) {
+        const allRow = document.createElement('div');
+        allRow.className = 'pick-chips';
+        const chip = makePickChip(allTopic.id, allTopic.label, wanted.has(allTopic.id), 'pick-all', () => { refreshHint(); updatePushCount(); });
+        chip.querySelector('input').dataset.all = '1';
+        allRow.appendChild(chip);
+        container.appendChild(allRow);
+        container.appendChild(hint);
+      }
+      for (const [name, list] of pushSubgroupsFor(courses)) {
+        const details = document.createElement('details');
+        details.className = 'push-subgroup';
+        const picked = list.filter(topic => wanted.has(topic.id)).length;
+        details.open = picked > 0;
+        const summary = document.createElement('summary');
+        const title = document.createElement('span');
+        title.textContent = `${name}（${list.length}）`;
+        const count = document.createElement('span');
+        count.className = 'push-picked';
+        count.textContent = picked ? `已選 ${picked}` : '';
+        summary.append(title, count);
+        const chips = document.createElement('div');
+        chips.className = 'pick-chips';
+        for (const topic of list) {
+          chips.appendChild(makePickChip(topic.id, topic.label, wanted.has(topic.id), '', () => {
+            const n = chips.querySelectorAll('input:checked').length;
+            count.textContent = n ? `已選 ${n}` : '';
+            updatePushCount();
+          }));
         }
-        select.appendChild(optgroup);
+        details.append(summary, chips);
+        container.appendChild(details);
       }
+      refreshHint();
+    }
+
+    // 訓練：先按已選支部分區塊；每個區塊有「所有 X 訓練」＋綱要分組嘅徽章／訓練班。
+    // 領袖再分「木章訓練班」／「非木章訓練班」兩個 section。
+    function renderPushTopicOptions(selectedTopics = []) {
+      const wrap = $('#push-topics');
+      const help = $('#push-topics-help');
+      if (!wrap || !state.pushCatalog) return;
+      const branches = selectedValues($('#push-branches'));
+      const wanted = new Set(selectedTopics);
+      wrap.replaceChildren();
       if (!branches.length) {
-        select.disabled = true;
-        $('#push-topics-help').textContent = '請先選擇至少一個支部，才顯示適用的受控項目。';
-      } else {
-        select.disabled = false;
-        $('#push-topics-help').textContent = '只顯示項目基礎名稱；訓練班、工作坊及課程等正式變體會自動配對，不設自由文字標籤。';
+        if (help) help.textContent = '請先在上方選擇至少一個支部，才顯示該支部的訓練項目。';
+        updatePushCount();
+        return;
       }
+      if (help) help.textContent = '每個支部只列出現行訓練綱要內的非進度性徽章及特別訓練班；剔「所有訓練」則不必逐項揀。';
+      const topics = state.pushCatalog.topics || [];
+      const branchOrder = (state.pushCatalog.branches || []).map(branch => branch.id).filter(id => branches.includes(id));
+      for (const branchId of branchOrder) {
+        const block = document.createElement('div');
+        block.className = 'push-branch-block';
+        block.dataset.branch = branchId;
+        const head = document.createElement('div');
+        head.className = 'push-branch-head';
+        const strong = document.createElement('strong');
+        strong.textContent = `${branchId}訓練`;
+        head.appendChild(strong);
+        block.appendChild(head);
+
+        // 只屬呢個支部（或首個已選支部）嘅項目，避免共用徽章重複出現。
+        const owned = topic => Array.isArray(topic.branches) && !topic.branches.includes('*')
+          && topic.branches.includes(branchId)
+          && topic.branches.filter(b => branches.includes(b))[0] === branchId;
+        const trainingAll = topics.filter(topic => topic.kind === 'training' && owned(topic));
+        const courses = topics.filter(topic => topic.kind === 'course' && owned(topic));
+        const sections = new Set([...trainingAll, ...courses].map(topic => topic.section || ''));
+        const sectionNames = [...sections].sort((a, b) => {
+          const ia = PUSH_LEADER_SECTION_ORDER.indexOf(a), ib = PUSH_LEADER_SECTION_ORDER.indexOf(b);
+          return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        });
+        if (!trainingAll.length && !courses.length) {
+          const none = document.createElement('div');
+          none.className = 'push-help';
+          none.textContent = '這個支部暫時沒有受控訓練項目；請改用「所有訓練」以外的服務、活動或比賽。';
+          block.appendChild(none);
+        }
+        for (const sectionName of sectionNames) {
+          let container = block;
+          if (sectionName) {
+            container = document.createElement('div');
+            container.className = 'push-section-block';
+            const title = document.createElement('div');
+            title.className = 'push-section-title';
+            title.textContent = sectionName;
+            container.appendChild(title);
+            block.appendChild(container);
+          }
+          const allTopic = trainingAll.find(topic => (topic.section || '') === sectionName) || null;
+          const list = courses.filter(topic => (topic.section || '') === sectionName);
+          renderPushTrainingList(container, allTopic, list, wanted);
+        }
+        wrap.appendChild(block);
+      }
+      updatePushCount();
     }
 
     function renderPushOptions(preferences = null) {
-      const branchSelect = $('#push-branches');
-      if (!branchSelect || !state.pushCatalog) return;
+      const branchWrap = $('#push-branches');
+      if (!branchWrap || !state.pushCatalog) return;
       const saved = preferences || state.personalPreferences || loadPersonalPreferences() || { branches: [], topics: [] };
       const wantedBranches = new Set(saved.branches || []);
-      branchSelect.replaceChildren();
+      const allowedTopicIds = new Set((state.pushCatalog.topics || []).map(topic => topic.id));
+      const savedTopics = (saved.topics || []).filter(id => allowedTopicIds.has(id));
+      branchWrap.replaceChildren();
       for (const branch of state.pushCatalog.branches || []) {
-        const option = document.createElement('option');
-        option.value = branch.id;
-        option.textContent = branch.label;
-        option.selected = wantedBranches.has(branch.id);
-        branchSelect.appendChild(option);
+        branchWrap.appendChild(makePickChip(branch.id, branch.label, wantedBranches.has(branch.id), 'pick-branch', () => {
+          // 改支部時保留已剔嘅訓練細項（仍適用者），唔會突然清空。
+          renderPushTopicOptions(selectedValues($('#push-topics')));
+        }));
       }
-      renderPushTopicOptions(saved.topics || []);
+      renderPushGeneralOptions(savedTopics);
+      renderPushTopicOptions(savedTopics);
     }
 
     function currentPushPreferences() {
-      return {
-        branches: selectedValues($('#push-branches')),
-        topics: selectedValues($('#push-topics')),
-        catalogVersion: String(state.pushCatalog?.version || ''),
-      };
+      const { branches, topics } = pushSelectionState();
+      return { branches, topics, catalogVersion: String(state.pushCatalog?.version || '') };
     }
 
     function updatePersonalResultsAfterPreferenceChange(preferences) {
       state.personalPreferences = preferences;
+      renderWindowChips();
       if (state.personalMode && state.cache) {
         renderHeader();
         renderCards();
       }
+    }
+
+    // 🔔 面板：桌面由搜尋列旁邊嘅「通知」掣開；手機由頂欄 🔔 開。
+    let pushSheetLastFocus = null;
+    function setPushSheet(open) {
+      const backdrop = $('#push-backdrop');
+      if (!backdrop) return;
+      const isOpen = !backdrop.hidden;
+      if (open === isOpen) return;
+      backdrop.hidden = !open;
+      document.body.classList.toggle('push-sheet-open', open);
+      if (open) {
+        pushSheetLastFocus = document.activeElement;
+        // 首次開啟（或字典載入前就開咗）先由已儲存設定砌一次；之後保留未儲存嘅剔選。
+        if (state.pushCatalog && !$('#push-branches')?.children.length) renderPushOptions();
+        if (state.pushCatalog) refreshPushStatus();
+        $('#push-close')?.focus();
+      } else if (pushSheetLastFocus && typeof pushSheetLastFocus.focus === 'function') {
+        pushSheetLastFocus.focus();
+      }
+    }
+
+    function initPushSheet() {
+      $('#push-close')?.addEventListener('click', () => setPushSheet(false));
+      $('#push-backdrop')?.addEventListener('click', event => { if (event.target === event.currentTarget) setPushSheet(false); });
+      $('#open-push-mobile')?.addEventListener('click', () => setPushSheet(true));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !$('#push-backdrop')?.hidden) setPushSheet(false);
+      });
+    }
+
+    function pushSummaryLabel() {
+      const prefs = state.personalPreferences || loadPersonalPreferences();
+      const enabled = (() => { try { return localStorage.getItem('scl_push_enabled_v1') === '1'; } catch (_) { return false; } })();
+      if (!prefs?.branches?.length || !prefs?.topics?.length) return { text: '🔔 通知', active: false, title: '設定個人化通告通知：先揀支部，再點選關注項目' };
+      return {
+        text: `🔔 通知 <span class="chip-n">${prefs.topics.length}</span>`,
+        active: enabled,
+        title: `${enabled ? '已啟用' : '已儲存（未啟用）'}：${prefs.branches.join('、')}・${prefs.topics.length} 個項目。按此修改`,
+      };
     }
 
     async function refreshPushStatus() {
@@ -1992,7 +2249,7 @@
         return;
       }
       const info = await window.ScoutPushClient.status();
-      if (enable) enable.disabled = !info.supported;
+      if (enable) enable.dataset.unsupported = info.supported ? '0' : '1';
       if (save) save.disabled = false;
       if (disable) disable.hidden = !info.subscribed;
       if (!info.supported) {
@@ -2007,6 +2264,8 @@
         setPushStatus('尚未啟用通知。可先只儲存設定，準備好才按「啟用通知」。');
         if (enable) enable.textContent = '啟用通知';
       }
+      updatePushCount();
+      renderWindowChips();
     }
 
     async function savePushPreferences() {
@@ -2071,7 +2330,6 @@
         state.pushCatalog = catalog;
         state.personalPreferences = loadPersonalPreferences();
         renderPushOptions(state.personalPreferences);
-        $('#push-branches').addEventListener('change', () => renderPushTopicOptions(selectedValues($('#push-topics'))));
         $('#push-save').onclick = () => savePushPreferences().catch(error => setPushStatus(error?.message || '未能儲存選項。', 'error'));
         $('#push-enable').onclick = enablePushNotifications;
         $('#push-disable').onclick = disablePushNotifications;
@@ -2091,7 +2349,7 @@
           renderCards();
         }
       } catch (_) {
-        const controls = ['#push-branches', '#push-topics', '#push-save', '#push-enable'];
+        const controls = ['#push-save', '#push-enable'];
         controls.forEach(selector => { const el = $(selector); if (el) el.disabled = true; });
         setPushStatus('通知選項暫時無法讀取，請重新整理後再試。', 'error');
       }
@@ -2114,6 +2372,7 @@
     }
 
     initCompactMobileControls();
+    initPushSheet();
     renderWindowChips();
     renderScopeChips();
     renderBranchChips();
