@@ -48,7 +48,7 @@ const dom = new JSDOM(html, {
   },
 });
 
-setTimeout(() => {
+setTimeout(async () => {
   try {
     const d = dom.window.document;
     assert.strictEqual(d.querySelector('#page-title').textContent, '通知中的通告');
@@ -67,13 +67,13 @@ setTimeout(() => {
     const branchInputs = d.querySelectorAll('#push-branches input[type="checkbox"]');
     assert.strictEqual(branchInputs.length, 8);
     assert.deepStrictEqual([...branchInputs].filter(i => i.checked).map(i => i.value), ['領袖'], 'saved branch is pre-ticked');
-    const generalLabels = [...d.querySelectorAll('#push-general .pick-chip')].map(el => el.textContent.replace('✓', '').trim());
-    assert.deepStrictEqual(generalLabels, ['服務', '活動：大露營', '活動：營火會', '活動：其他活動', '所有比賽'], '服務／活動／比賽 stay as they were');
-    assert(d.querySelector('#push-general input[value="category:service"]').checked, 'saved topic is pre-ticked');
+    const generalLabels = [...d.querySelectorAll('[data-branch="領袖"] .push-general-section .pick-chip')].map(el => el.textContent.replace('✓', '').trim());
+    assert.deepStrictEqual(generalLabels, ['服務', '大露營', '營火會', '其他活動', '所有比賽'], '服務／活動／比賽 stay as they were');
+    assert(d.querySelector('#push-topics input[value="branch:領袖:category:service"]').checked, 'saved topic is pre-ticked');
     // 訓練：先按支部；領袖分木章／非木章。
     const leaderBlock = d.querySelector('#push-topics .push-branch-block[data-branch="領袖"]');
     assert(leaderBlock, 'training list is grouped by the ticked branch');
-    assert.deepStrictEqual([...leaderBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['木章訓練班', '非木章訓練班'], '領袖 training is split into wood badge / non-wood badge');
+    assert.deepStrictEqual([...leaderBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['服務', '活動', '比賽', '訓練', '木章訓練班', '非木章訓練班'], '領袖 training is split into wood badge / non-wood badge');
     assert(leaderBlock.querySelector('input[value="training:領袖:木章"]') && leaderBlock.querySelector('input[value="training:領袖:非木章"]'), 'each 領袖 section has an "all" tick');
     const leaderOptions = [...leaderBlock.querySelectorAll('.pick-chip')].map(el => el.textContent.replace('✓', '').trim());
     assert(leaderOptions.includes('地圖閱讀'), 'base item label is visible');
@@ -102,6 +102,126 @@ setTimeout(() => {
     d.querySelector('#push-branches input[value="領袖"]').click();
     assert(!d.querySelector('#push-topics .push-branch-block[data-branch="領袖"]'), 'unticking a branch removes its block');
     assert(d.querySelector('#push-topics input[value="course:scout-first-aid-badge"]').checked, 'ticks in remaining branches survive a branch change');
+    // All categories live inside their branch; selecting parents must not
+    // remove another branch's training/service choices.
+    const parentBranch = d.querySelector('#push-branches input[value="家長"]');
+    parentBranch.click();
+    const parentBlock = d.querySelector('#push-topics [data-branch="家長"]');
+    assert.deepStrictEqual([...parentBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['活動', '比賽']);
+    assert(!parentBlock.querySelector('input[value*="service"]'));
+    assert(!parentBlock.querySelector('input[value^="training:"]'));
+    assert(d.querySelector('input[value="course:scout-first-aid-badge"]').checked, 'other branch training is retained');
+    assert(d.querySelector('input[value="branch:童軍:category:service"]'));
+    d.querySelector('input[value="branch:家長:activity:other"]').click();
+    const childBranch = d.querySelector('#push-branches input[value="小童軍"]');
+    childBranch.click();
+    scoutBranch.click();
+    assert(d.querySelector('input[value="branch:家長:activity:other"]').checked);
+    assert(!d.querySelector('input[value="branch:小童軍:activity:other"]').checked, 'new branch must not inherit another branch activity');
+    d.querySelector('input[value="branch:小童軍:category:competition"]').click();
+    const prefs = dom.window.currentPushPreferences();
+    assert.deepStrictEqual([...prefs.topics].sort(), ['branch:家長:activity:other', 'branch:小童軍:category:competition'].sort());
+    const matches = (branches, tags) => dom.window.matchesPersonalPreferences({}, { branch_tags: branches, subscription_tags: tags }, prefs);
+    assert(matches(['家長'], ['activity:other']));
+    assert(matches(['小童軍'], ['category:competition']));
+    assert(!matches(['小童軍'], ['activity:other']), 'must not cross-match parent activity with child branch');
+    assert(!matches(['家長'], ['category:competition']), 'must not cross-match child competition with parent branch');
+    assert(!matches(['童軍'], ['activity:other']));
+    assert(!matches([], ['activity:other']));
+    assert(!matches(['家長'], []));
+    const bothActivities = { branches: ['家長', '小童軍'], topics: ['branch:家長:activity:other', 'branch:小童軍:activity:other'] };
+    for (const branches of [['家長'], ['小童軍'], ['家長', '小童軍']]) {
+      assert(dom.window.matchesPersonalPreferences({}, { branch_tags: branches, subscription_tags: ['activity:other'] }, bothActivities));
+    }
+    const all = d.querySelector('#push-all input');
+    all.click();
+    assert(d.querySelector('#push-custom-options').hidden);
+    assert(!d.querySelector('#push-save').disabled);
+    assert.strictEqual(dom.window.currentPushPreferences().topics[0], 'all:new');
+    assert.strictEqual(dom.window.currentPushPreferences().topics.length, 1);
+    assert.strictEqual(dom.window.currentPushPreferences().branches.length, 8);
+    assert(dom.window.matchesPersonalPreferences({}, null, dom.window.currentPushPreferences()), 'all includes untagged notices');
+    all.click();
+    assert(!d.querySelector('#push-custom-options').hidden);
+    assert.deepStrictEqual([...dom.window.currentPushPreferences().topics].sort(), [...prefs.topics].sort(), 'turning all off restores unsaved specific choices');
+    childBranch.click();
+    assert(d.querySelector('input[value="branch:家長:activity:other"]').checked);
+    parentBranch.click();
+    assert.strictEqual(d.querySelectorAll('#push-topics input').length, 0);
+    assert(d.querySelector('#push-save').disabled);
+    all.click();
+    assert(!d.querySelector('#push-save').disabled, 'all works with no individual branches selected');
+    const savedAll = dom.window.ScoutPushClient.savePreferences(dom.window.currentPushPreferences());
+    dom.window.renderPushOptions(savedAll);
+    assert(d.querySelector('#push-all input').checked, 'all survives preference reload');
+    assert(d.querySelector('#push-custom-options').hidden);
+    // Legacy shared activity choices migrate only to originally selected branches.
+    dom.window.renderPushOptions({ branches: ['家長', '小童軍'], topics: ['activity:other'] });
+    assert(d.querySelector('input[value="branch:家長:activity:other"]').checked);
+    assert(d.querySelector('input[value="branch:小童軍:activity:other"]').checked);
+    assert.strictEqual(dom.window.currentPushPreferences().topics.length, 2);
+    assert(!d.querySelector('#push-general'), 'no global activity/service/competition panel remains');
+    // Add a sibling without resetting; all existing cub choices survive and
+    // the same subscription is synced, rather than creating a second one.
+    const realClient = dom.window.ScoutPushClient;
+    const synced = [];
+    let disables = 0;
+    dom.window.ScoutPushClient = {
+      ...realClient,
+      status: async () => ({ supported: true, subscribed: true, permission: 'granted' }),
+      sync: async preferences => { synced.push(JSON.parse(JSON.stringify(preferences))); return { status: 'synced' }; },
+      disable: async () => { disables++; },
+    };
+    const cubTopics = catalog.topics.filter(topic => ['branch-topic', 'training'].includes(topic.kind) && topic.branches.includes('幼童軍')).map(topic => topic.id);
+    const original = realClient.savePreferences({ branches: ['幼童軍'], topics: cubTopics });
+    dom.window.updatePersonalResultsAfterPreferenceChange(original);
+    dom.window.renderPushOptions(original);
+    d.querySelector('#push-branches input[value="小童軍"]').click();
+    assert(cubTopics.every(id => dom.window.currentPushPreferences().topics.includes(id)), 'adding another child preserves every cub choice');
+    assert(!d.querySelector('input[value="branch:小童軍:activity:other"]').checked, 'new child choices are explicit, not inherited');
+    d.querySelector('input[value="branch:小童軍:activity:other"]').click();
+    await dom.window.savePushPreferences();
+    assert.strictEqual(synced.length, 1);
+    assert.deepStrictEqual(synced[0].branches, ['小童軍', '幼童軍']);
+    assert.deepStrictEqual([...synced[0].topics].sort(), [...cubTopics, 'branch:小童軍:activity:other'].sort());
+
+    const beforeReset = dom.window.localStorage.getItem('scl_push_preferences_v1');
+    dom.window.localStorage.setItem('scl_push_enabled_v1', '1');
+    dom.window.localStorage.setItem('scl_push_client_token_v1', 'existing-token');
+    d.querySelector('#push-all input').click();
+    dom.window.confirm = () => false;
+    d.querySelector('#push-reset').click();
+    assert(d.querySelector('#push-all input').checked, 'cancelled reset leaves draft intact');
+    dom.window.confirm = () => true;
+    d.querySelector('#push-reset').click();
+    assert.strictEqual(d.querySelectorAll('#push-settings input:checked').length, 0, 'reset clears all mode, branches and topics');
+    assert(!d.querySelector('#push-custom-options').hidden);
+    assert(d.querySelector('#push-save').disabled && d.querySelector('#push-enable').disabled, 'cannot apply empty reset draft');
+    assert.strictEqual(dom.window.localStorage.getItem('scl_push_preferences_v1'), beforeReset, 'reset does not overwrite stored preferences');
+    assert.strictEqual(dom.window.localStorage.getItem('scl_push_enabled_v1'), '1');
+    assert.strictEqual(dom.window.localStorage.getItem('scl_push_client_token_v1'), 'existing-token');
+    assert.strictEqual(synced.length, 1, 'reset does not sync an empty subscription');
+    assert.strictEqual(disables, 0, 'reset does not unsubscribe');
+    assert(d.querySelector('#push-edit-help').textContent.includes('原有選項會保留'));
+    assert(d.querySelector('#push-status').textContent.includes('尚未改動'));
+
+    // Applying a replacement after resetting removes old branch selections.
+    d.querySelector('#push-branches input[value="童軍"]').click();
+    d.querySelector('input[value="branch:童軍:activity:other"]').click();
+    d.querySelector('input[value="training:童軍"]').click();
+    await dom.window.savePushPreferences();
+    assert.strictEqual(synced.length, 2);
+    assert.deepStrictEqual(synced[1].branches, ['童軍']);
+    assert.deepStrictEqual(synced[1].topics, ['branch:童軍:activity:other', 'training:童軍']);
+    assert.strictEqual(disables, 0);
+    dom.window.ScoutPushClient = realClient;
+
+    assert(d.querySelector('#push-testing-notice').textContent.includes('通知系統仍在測試中'));
+    assert(d.querySelector('#push-testing-notice').textContent.includes('建議每天到圖書館'));
+    const help = d.querySelector('#push-notification-help').textContent;
+    for (const text of ['加入主畫面', 'Safari', 'Android', '電腦', '系統設定', '3 日（72 小時）', '訂閱不會因此取消']) assert(help.includes(text), `notification help includes ${text}`);
+    assert(!d.querySelector('#push-settings').textContent.includes('適用於所有支部'));
+    assert(d.querySelector('link[rel="manifest"]'), 'home-screen standalone manifest is linked');
     d.querySelector('#push-close').click();
     assert.strictEqual(d.querySelector('#push-backdrop').hidden, true, 'settings sheet closes');
     assert(d.querySelector('#push-settings').textContent.includes('不收集姓名'));

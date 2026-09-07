@@ -67,9 +67,18 @@
     return value;
   }
 
+  function installationStatus() {
+    const nav = global.navigator || {};
+    const ios = /iPad|iPhone|iPod/.test(nav.userAgent || '')
+      || (nav.platform === 'MacIntel' && nav.maxTouchPoints > 1);
+    const standalone = Boolean(nav.standalone || global.matchMedia?.('(display-mode: standalone)').matches);
+    return { standalone, needsHomeScreen: ios && !standalone };
+  }
+
   function isSupported() {
     return Boolean(
-      global.isSecureContext
+      !installationStatus().needsHomeScreen
+      && global.isSecureContext
       && global.navigator
       && global.navigator.serviceWorker
       && global.PushManager
@@ -194,15 +203,18 @@
   function validatePreferences(preferences) {
     const branches = uniqueStrings(preferences && preferences.branches);
     const topics = uniqueStrings(preferences && preferences.topics);
-    if (!branches.length) throw new PushClientError('請至少選擇一個支部。', 'missing_branch');
+    if (!branches.length && !topics.includes('all:new')) throw new PushClientError('請至少選擇一個支部。', 'missing_branch');
     if (!topics.length) throw new PushClientError('請至少選擇一個關注項目。', 'missing_topic');
     return { ...preferences, branches, topics };
   }
 
   async function enable(preferences) {
     const saved = savePreferences(validatePreferences(preferences));
-    const config = await fetchConfig();
-    const reg = await registration();
+    if (installationStatus().needsHomeScreen) {
+      throw new PushClientError('請先用 Safari 將本站「加入主畫面」，再從主畫面圖示開啟，才可啟用通知（iOS／iPadOS 16.4 或以上）。', 'home_screen_required');
+    }
+    if (!isSupported()) throw new PushClientError('這個瀏覽器或目前的非 HTTPS 連線不支援網頁通知。', 'unsupported');
+    // Request permission directly within the user's click, before network awaits.
     let permission = global.Notification.permission;
     if (permission === 'default') {
       permission = await global.Notification.requestPermission();
@@ -210,6 +222,9 @@
     if (permission !== 'granted') {
       throw new PushClientError('尚未獲得通知權限；設定已只保存在這個瀏覽器。', 'permission_denied');
     }
+    const config = await fetchConfig();
+    const reg = await registration();
+    await global.navigator.serviceWorker.ready;
     const subscription = await ensureSubscription(reg, config.vapidPublicKey, true);
     await persistSubscription(subscription, saved);
     safeStorageSet(ENABLED_KEY, '1');
@@ -263,6 +278,7 @@
   async function status() {
     const preferences = loadPreferences();
     const result = {
+      ...installationStatus(),
       supported: isSupported(),
       permission: global.Notification ? global.Notification.permission : 'unsupported',
       subscribed: false,

@@ -137,6 +137,10 @@ def validate_preferences(body: Mapping[str, Any]) -> Tuple[List[str], List[str],
     catalog = load_catalog()
     branches = _normalise_choice_list(body.get("branches"), catalog["_branch_ids"], "支部", len(catalog["_branch_ids"]))
     topics = _normalise_choice_list(body.get("topics"), catalog["_topic_ids"], "關注項目", MAX_TOPICS)
+    if "all:new" in topics:
+        # Keep the existing database 1..8 branch constraint; all:new controls
+        # matching, including untagged audiences, not this compatibility array.
+        return [entry["id"] for entry in catalog["branches"]], ["all:new"], str(catalog.get("version", ""))
     if not branches:
         raise ApiError(400, "missing_branch", "請至少選擇一個支部")
     if not topics:
@@ -149,7 +153,7 @@ def validate_preferences(body: Mapping[str, Any]) -> Tuple[List[str], List[str],
     for topic_id in topics:
         scope = {str(value) for value in (topic_by_id.get(topic_id, {}).get("branches") or [])}
         if "*" not in scope and not scope.intersection(branches):
-            raise ApiError(400, "incompatible_choice", "所選訓練項目不適用於已選支部")
+            raise ApiError(400, "incompatible_choice", "所選項目不適用於已選支部")
     return branches, topics, str(catalog.get("version", ""))
 
 
