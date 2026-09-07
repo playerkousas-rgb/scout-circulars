@@ -15,10 +15,15 @@
 - `core.py`：Python 爬蟲主程式
 - `sources.json`：49 個來源映射設定
 - `cache.json`：輸出資料與內部狀態
-- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享）
+- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享 / 匿名通知設定）
+- `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
+- `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
+- `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
+- `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
+- `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
 - `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
 - `serve_local.py`：本機同時提供靜態頁 + `/api/render`
-- `.github/workflows/update-cache.yml`：每日自動更新
+- `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
 
 ## 快速開始
 
@@ -64,7 +69,7 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 
 ## 通告分類
 
-搜尋列仲有一排**分類**標籤：**全部／訓練班／服務／比賽／其他**。
+搜尋列仲有一排**分類**標籤：**全部／訓練／服務／活動／比賽／未分類**。活動只涵蓋大露營、營火會及其他活動；比賽是獨立分類。舊資料的 direct `competition`（或舊 `activity:competition`）會向後相容顯示為「比賽」。
 
 - **分類次序：先睇標題，標題唔肯定先至加 PDF 內文**。標題通常最多關鍵資訊（例如「童軍繩結訓練班」「射箭公開賽」「社區服務隊招募」）。
   - 標題有強證據（明確字眼）→ 直接分類。
@@ -73,12 +78,12 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 - `enrich.json` 每條會多一個 `categories` 欄：`[{id, label, score, evidence}...]`；前端直接用呢個欄位過濾／排序。
 - 一隻通告可以同時屬於多個類別（例如「社區服務計劃暨義工訓練」→ 服務 + 訓練班）。
 - 每日 GitHub Action / 本機 `python enrich.py` 會自動為**新通告**填 `categories`。
-- 舊通告未有 `categories`（`enrich.json` 之前未儲呢個欄）→ 前端會顯示「其他」。要補歷史分類，本機跑：
+- 舊通告未有 `categories` 或仍使用較舊 taxonomy → 前端會顯示「其他」或保留相容映射。要補歷史分類，本機跑：
   ```bash
   python enrich.py --backfill-categories --limit 500
   ```
   （呢個會再下載未分類嘅 PDF，量大時請分批／夜晚跑，避免觸發站方封鎖。）
-- 想調整分類規則改 `enrich.py` 入面 `extract_categories()` 嘅 `score_labels / weak_labels / exclude_labels`。
+- 想調整分類規則，改 `subscription_tagging.py` 的受控分類詞表；不要為罕見／不可靠的名稱加推播匹配。
 - 分類係 PDF 內文級估算，唔一定 100% 準；重要通告請開附件確認。
 
 執行回歸測試：
@@ -86,7 +91,26 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 ```bash
 node test_search_members.js     # 支部 + 分類配對邏輯（直接由 index.html 抽出，唔係複製一份）
 node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需要 jsdom）
+python test_notify.py           # Push 去重、交集和合併通知邏輯（不會發網絡請求）
+python test_push_common.py      # API 受控 ID 與 endpoint SSRF 防護
+node test_push_client.js        # LocalStorage／匿名 subscription lifecycle（不需 jsdom）
+node test_sw.js                 # Service Worker 只接受同源精確圖書館結果 URL
+node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／手機收合 UI（需要 jsdom）
 ```
+
+## 匿名個人化 Web Push
+
+通知功能採取**零個資、零成本優先**的設計：沒有登入、帳戶、姓名、電郵、電話、旅團或地域推播條件。地域／區會資料仍只用於左欄瀏覽。
+
+1. 使用者在頁面上的**受控多選下拉選單**選支部，以及官方訓練、服務、活動或比賽項目。設定先寫入該瀏覽器的 LocalStorage，不會上傳自由文字。選單只顯示「地圖閱讀」等項目基礎名稱；訓練班、工作坊、課程等正式題名變體會自動配對。
+2. 啟用通知時，瀏覽器才產生標準 Web Push subscription。後端只保存該協定必要的匿名 endpoint／加密金鑰，以及已選受控 ID；endpoint 以雜湊作唯一鍵，LocalStorage 的隨機 token 只以雜湊保存。
+3. `enrich.py` 用標題、PDF 文字與既有參加對象寫出 `branch_tags` 和 `subscription_tags`。不可靠的名稱不會硬猜；「初級空勤章」「初級空勤員章訓練班／工作坊」等官方別名共用同一受控項目。
+4. `notify.py` 比較本輪 cache 與 `HEAD:cache.json`，只處理真正新增 URL（來源 + URL 共同識別）。每個訂閱要同時命中**支部 AND 關注項目**，同一人所有命中先合併，因此 10 個命中只送 1 則通知。
+5. 同日後續執行會用相同通知 tag 搭配 `renotify: false` 及明確 `silent: true` 更新／取代彙總；`push_deliveries` 的唯一鍵也會阻止 workflow 重跑重送同一通告。通知只用極簡標題／行動文字，**一律開啟圖書館**而非 PDF；URL 的 `?n=` 只含本批公開通告的短雜湊 ID，因此恰好顯示本次 1／N 項，不讀取或暴露用戶設定。
+
+手機版會把地域／區會改為側滑抽屜，並把篩選、個人化通知設定與 ScoutSystem 接入收合；頂部只保留通告圖書館版號和最後更新，讓卡片先出現。「每天自動更新」說明、免責提示、來源／資料／資產統計和診斷入口則收進桌面側欄最底部、預設關閉的「網站資料及診斷」，手機不顯示。桌面仍可按需要查看。
+
+完整的 Supabase、Vercel、GitHub Actions secret 與驗收步驟見 **[`PUSH_SETUP.md`](PUSH_SETUP.md)**。VAPID 私鑰只放 GitHub Actions，絕不可放到 Vercel 或瀏覽器。
 
 ## 分享通告
 
@@ -189,9 +213,10 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 
 工作流會：
 
-1. 每日定時執行 `core.py`
-2. 自動提交 `cache.json`
-3. 讓前端從 GitHub Raw 直接讀最新資料
+1. 每日定時執行 `core.py`；不論是否使用 Supabase，都會重建公開的 `cache.json`。
+2. 執行 `enrich.py` 的增量標籤／欄位抽取。
+3. 如已設定 `VAPID_PRIVATE_KEY`，執行 `notify.py`，先做每位匿名訂閱者的支部＋興趣交集和合併，再發送 Web Push。
+4. 自動提交 `cache.json`、`enrich.json` 和 `fingerprints.json`，讓前端從 GitHub Raw 讀取最新資料。
 
 ## 下一步建議
 

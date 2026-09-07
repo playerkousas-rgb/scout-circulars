@@ -105,3 +105,91 @@ CREATE POLICY "Allow service update"
 -- SELECT source_site, pdf_url, captured_date
 -- FROM scout_notices
 -- WHERE pdf_url = 'https://example.com/file.pdf';
+
+-- ============================================================
+-- v6.0 — 匿名個人化 Web Push 訂閱（支部 + 官方課程／服務／活動）
+-- ============================================================
+-- 前端不可直接讀取這兩張表；只有 Vercel 窄 API 及 GitHub Actions 的
+-- service_role 會存取。請與上方 schema 一次在 Supabase SQL Editor 執行。
+--
+-- 私隱：沒有姓名、電郵、電話、帳戶、旅團或地域欄位。endpoint / p256dh /
+-- auth 是瀏覽器 Web Push 協定必需的匿名收件和加密資料，使用者取消通知或
+-- endpoint 失效後會移除。
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+CREATE TABLE IF NOT EXISTS push_subscriptions (
+    id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    endpoint_hash     TEXT NOT NULL UNIQUE,
+    endpoint          TEXT NOT NULL,
+    p256dh            TEXT NOT NULL,
+    auth              TEXT NOT NULL,
+    client_token_hash TEXT NOT NULL,
+    branch_ids        TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[],
+    topic_ids         TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[],
+    catalog_version   TEXT NOT NULL DEFAULT '',
+    enabled           BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_seen_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT push_subscriptions_branch_count CHECK (cardinality(branch_ids) BETWEEN 1 AND 8),
+    CONSTRAINT push_subscriptions_topic_count CHECK (cardinality(topic_ids) BETWEEN 1 AND 24)
+);
+
+-- 若日後在測試環境已建立過舊版表，這些 ALTER 可安全補欄位。
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS endpoint_hash     TEXT;
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS endpoint          TEXT;
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS p256dh            TEXT;
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS auth              TEXT;
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS client_token_hash TEXT;
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS branch_ids        TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[];
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS topic_ids         TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[];
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS catalog_version   TEXT NOT NULL DEFAULT '';
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS enabled           BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW();
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW();
+ALTER TABLE push_subscriptions ADD COLUMN IF NOT EXISTS last_seen_at      TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_push_subscriptions_endpoint_hash
+    ON push_subscriptions(endpoint_hash);
+CREATE INDEX IF NOT EXISTS idx_push_subscriptions_enabled
+    ON push_subscriptions(enabled) WHERE enabled = TRUE;
+CREATE INDEX IF NOT EXISTS idx_push_subscriptions_branch_ids
+    ON push_subscriptions USING GIN(branch_ids);
+CREATE INDEX IF NOT EXISTS idx_push_subscriptions_topic_ids
+    ON push_subscriptions USING GIN(topic_ids);
+
+DROP TRIGGER IF EXISTS trg_push_subscriptions_updated_at ON push_subscriptions;
+CREATE TRIGGER trg_push_subscriptions_updated_at
+    BEFORE UPDATE ON push_subscriptions
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at();
+
+-- 一項通告即使配對多個興趣，也只會留下同一個 delivery key。通知程式會先
+-- 對每位使用者合併所有新通告，然後最多送出一則 Web Push。
+CREATE TABLE IF NOT EXISTS push_deliveries (
+    id              BIGSERIAL PRIMARY KEY,
+    subscription_id UUID NOT NULL REFERENCES push_subscriptions(id) ON DELETE CASCADE,
+    notice_key      TEXT NOT NULL,
+    batch_date      DATE NOT NULL,
+    sent_at         TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT uq_push_deliveries_subscription_notice UNIQUE(subscription_id, notice_key)
+);
+
+CREATE INDEX IF NOT EXISTS idx_push_deliveries_notice_key ON push_deliveries(notice_key);
+CREATE INDEX IF NOT EXISTS idx_push_deliveries_batch_date ON push_deliveries(batch_date DESC);
+
+-- 沒有 anon / authenticated policy = 瀏覽器不能直接讀取任何訂閱或發送紀錄。
+ALTER TABLE push_subscriptions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE push_deliveries ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Public push subscription access" ON push_subscriptions;
+DROP POLICY IF EXISTS "Public push delivery access" ON push_deliveries;
+DROP POLICY IF EXISTS "Service push subscription access" ON push_subscriptions;
+DROP POLICY IF EXISTS "Service push delivery access" ON push_deliveries;
+
+REVOKE ALL ON TABLE push_subscriptions FROM anon, authenticated;
+REVOKE ALL ON TABLE push_deliveries FROM anon, authenticated;
+REVOKE ALL ON SEQUENCE push_deliveries_id_seq FROM anon, authenticated;
+GRANT ALL ON TABLE push_subscriptions TO service_role;
+GRANT ALL ON TABLE push_deliveries TO service_role;
+GRANT USAGE, SELECT ON SEQUENCE push_deliveries_id_seq TO service_role;

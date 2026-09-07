@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 分類）
-========================================================
+enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 個人化標籤）
+====================================================================
 設計原則：
   - 完全獨立於主爬蟲 core.py，不讀寫 cache.json 內部結構
   - 只讀 cache.json 篩「captured_date = 今日」的新通告
-  - 只抽 .pdf 直鏈（Drive 暫不處理）
   - 抽取方式：先用 pdfplumber 文字 + label 定位 regex；
               文字型抽唔到 → 用 OCR (tesseract chi_tra) fallback
   - 結果寫去 enrich.json（獨立檔），key = pdf_url
   - 抽唔到 = 留空（靠固定 label，不亂猜，唔會抽錯）
-  - 分類亦由 PDF 內文判斷（categories），唔係靠標題字眼
+  - 個人化只使用「支部＋官方課程／服務／活動／比賽」標籤，不按地域或旅團推論。
+  - 訓練班及工作坊同屬「訓練」；活動只分大露營、營火會、其他；比賽獨立。
 
 用法：
   python enrich.py                 # 增量：抽今日新通告（預設，最輕量）
   python enrich.py --backfill      # 補歷史欠帳：抽所有未 enrich 的（不限日期，跳過已做）
-  python enrich.py --backfill-categories   # 補分類欠帳：只處理仲未有 categories 的（會重新下載）
+  python enrich.py --backfill-categories   # 補分類／舊 taxonomy 欠帳（會重新下載）
   python enrich.py --all           # 全量重抽（含已抽過的；重！僅離峰用）
   python enrich.py --date 2026-06-07
   python enrich.py --limit 5 --verbose
@@ -39,6 +39,9 @@ import urllib.request
 import logging
 import warnings
 
+from subscription_tagging import extract_categories as classify_subscription_categories
+from subscription_tagging import extract_subscription_metadata, load_catalog
+
 # 靜音 pdfminer/pdfplumber 嘈雜的 FontBBox 等警告
 logging.getLogger("pdfminer").setLevel(logging.ERROR)
 logging.getLogger("pdfplumber").setLevel(logging.ERROR)
@@ -46,7 +49,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "2.5"  # 新增 categories（由 PDF 內文判斷訓練班/服務/比賽）+ backfill-categories
+ENRICH_VERSION = "3.1"  # 個人化：支部 + 官方課程／服務／活動／比賽標籤
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -100,131 +103,21 @@ def compact(s):
 CN_NUM = "零一二三四五六七八九十"
 
 
-# ─── 分類（由 PDF 內文判斷）─────────────────────────────
-# 判斷次序（重要）：
-#   1. 先睇「標題」—— 標題通常最直接講明係訓練班 / 服務 / 比賽
-#   2. 標題有強證據 → 直接分類
-#   3. 標題得弱證據 / 冇證據 / 標題係排程名單 → 先至用 PDF 內文補判斷
-#   4. 內文都唔確定 → 回空（前端顯示「其他」）
-CATE_VER = "1.0"
-
-
-def _category_result(name, hits):
-    if not hits:
-        return None
-    return {
-        "id": name,
-        "label": {"training": "訓練班", "service": "服務", "competition": "比賽"}[name],
-        "score": max(h["score"] for h in hits),
-        "evidence": sorted({h["label"] for h in hits}, reverse=True)[:4],
-    }
+# ─── 個人化分類（訓練 / 服務 / 活動 / 比賽）──────────────────────
+# 這個網站的推播分類刻意只有四大類：
+#   1. 訓練：訓練班和工作坊都算入；
+#   2. 服務；
+#   3. 活動：只細分大露營、營火會、其他；
+#   4. 比賽：獨立，絕不混入其他活動。
+# 詳細的受控課程／徽章別名放在 subscription_catalog.json，由
+# subscription_tagging.py 和前端共用，不讓臨時或難辨識課程進入訂閱選項。
+CATE_VER = "3.0"
+CURRENT_SUBSCRIPTION_CATALOG_VERSION = str(load_catalog().get("version", ""))
 
 
 def extract_categories(title, text):
-    """由「標題優先、內文補強」判斷回傳 [{id,label,score,evidence}...]。
-
-    id: training | service | competition
-    設計：
-      - 標題係最快 path，如果有強證據（明確字眼）就當作決定（例如『童軍繩結訓練班』）。
-      - 標題唔夠肯定（只係『訓練日』『服務』『盃』呢類弱字眼，或者根本睇唔出）
-        先至用 PDF 頭幾頁內文。
-      - 內文都確認唔到 → 回空。
-    """
-    title = compact(title or "")
-    text = compact(text or "")
-
-    # 若標題出現排除詞（行事曆 / 一覽 / 名單 / 章程…），標題已經講明唔係活動本身，
-    # 直接唔分類，唔會因為內文有「訓練班」而變成訓練班。
-    if title and any(k in title for k in _CATEGORY_EXCLUDE_ALL):
-        return []
-
-    # ── 先試標題：只有強證據先算呀？唔係，標題弱證據都唔當決定，
-    #    要分開處理（下面）。
-    title_results = []
-    for name, rules in _CATEGORY_RULES.items():
-        strong = _category_hits(title, rules["score_labels"], [], rules["exclude_labels"])
-        if strong:
-            r = _category_result(name, strong)
-            if r:
-                title_results.append(r)
-
-    # 標題有強證據 → 用標題結果（一隻可以多類）
-    if title_results:
-        title_results.sort(key=lambda x: -x["score"])
-        return title_results
-
-    # 標題冇強證據 → 睇內文。內文仍要過排除詞。
-    if text:
-        results = []
-        for name, rules in _CATEGORY_RULES.items():
-            strong = _category_hits(text, rules["score_labels"], [], rules["exclude_labels"])
-            if strong:
-                r = _category_result(name, strong)
-                if r:
-                    results.append(r)
-        if results:
-            results.sort(key=lambda x: -x["score"])
-            return results
-
-    return []
-
-
-_CATEGORY_RULES = {
-    "training": {
-        "score_labels": [
-            "訓練班", "訓練課程", "培訓班", "進修班", "團長訓練", "領袖訓練",
-            "技能訓練", "專章訓練", "考驗研習", "探路考驗", "課程", "工作坊",
-            "研習班", "研討會", "講座", "進修", "集訓", "培訓",
-        ],
-        "weak_labels": ["訓練", "專章", "考驗", "課程", "班"],
-        "exclude_labels": [
-            "訓練行事曆", "訓練日程", "訓練計劃", "訓練綱要", "訓練概覽",
-            "訓練大綱", "訓練指引", "訓練簡介", "訓練攻略", "一覽", "名單",
-        ],
-    },
-    "service": {
-        "score_labels": [
-            "社區服務", "服務計劃", "義工服務", "公益服務", "義工招募", "社會服務",
-            "志願服務", "慈善活動", "慈善", "公益", "籌款", "捐贈", "捐血", "探訪",
-            "敬老", "清潔", "環保行動", "服務日", "服務隊", "服務團", "服務之旅", "服務活動",
-        ],
-        "weak_labels": ["服務", "義工", "志工", "捐", "探訪", "籌款", "慈善", "公益", "愛心"],
-        "exclude_labels": ["服務指引", "服務範圍", "服務章程", "服務名單", "服務安排", "服務時間表"],
-    },
-    "competition": {
-        "score_labels": [
-            "比賽", "競賽", "錦標賽", "公開賽", "邀請賽", "決賽", "初賽", "準決賽",
-            "友誼賽", "聯賽", "挑戰賽", "選拔賽", "賽事", "隊列比賽", "步操比賽",
-            "團呼比賽", "會操", "競技", "大賽",
-        ],
-        "weak_labels": ["盃", "賽"],
-        "exclude_labels": ["比賽章程", "比賽規則", "比賽時間表", "比賽名單", "比賽安排", "賽前", "賽後"],
-    },
-}
-
-_CATEGORY_EXCLUDE_ALL = sorted({k for rules in _CATEGORY_RULES.values() for k in rules["exclude_labels"]})
-
-
-def _category_hits(text, score_labels, weak_labels, exclude_labels):
-    """回傳 [{label, score}]，score 表示證據強度。"""
-    strong = []
-    for needle in score_labels:
-        if needle in text:
-            # 越長嘅 label 越唔會誤判
-            strong.append({"label": needle, "score": 3 + len(needle) * 0.1})
-
-    weak = []
-    for needle in weak_labels:
-        if needle in text:
-            # 例如「童軍訓練」→ 有「訓練」但冇明確「訓練班」時，只作 weak
-            weak.append({"label": needle, "score": 1.0})
-
-    # 排除詞（章程/名單/時間表等）：如果只有 weak 證據，唔當活動本身；
-    # 如果有強證據（例：內文真係寫「公開賽」），即使引用咗章程都照計。
-    if any(k in text for k in exclude_labels):
-        return strong or []
-
-    return strong or weak or []
+    """Compatibility wrapper for the shared personal-subscription taxonomy."""
+    return classify_subscription_categories(title, text)
 
 
 def extract_deadline(text):
@@ -502,11 +395,18 @@ def clean_value(v, max_len):
 
 
 def extract_fields(text, title=""):
+    """Extract display fields and the stable IDs used for personalised push."""
+    audience = extract_audience(text)
+    subscription = extract_subscription_metadata(title, text, audience)
     return {
         "deadline": extract_deadline(text),
-        "audience": extract_audience(text),
+        "audience": audience,
         "fee": extract_fee(text),
-        "categories": extract_categories(title, text),
+        "categories": subscription["categories"],
+        "branch_tags": subscription["branch_tags"],
+        "subscription_tags": subscription["subscription_tags"],
+        "subscription_tag_details": subscription["subscription_tag_details"],
+        "subscription_catalog_version": subscription["catalog_version"],
     }
 
 
@@ -541,26 +441,33 @@ def download(url, timeout=25):
         return r.read()
 
 
+def _empty_enrichment(title, error):
+    """Retain title-based subscription tags even when the PDF is unavailable."""
+    fields = extract_fields("", title)
+    fields["_error"] = error
+    return fields
+
+
 def enrich_one(url, title="", use_ocr=True, verbose=False):
-    """回傳 dict：{deadline, audience, fee, categories, _method}"""
+    """回傳 dict：截止／對象／費用／分類／個人化標籤。"""
     fetch_url = url
     if "drive.google" in url or "docs.google" in url:
         direct = drive_direct_url(url)
         if not direct:
             # 認唔出格式就唔猜，直接放棄 —— 寧願冇資料，好過抽錯資料
-            return {"_error": "drive_unrecognized", "deadline": "", "audience": "", "fee": "", "categories": []}
+            return _empty_enrichment(title, "drive_unrecognized")
         fetch_url = direct
 
     try:
         data = download(fetch_url)
     except Exception as e:
-        return {"_error": f"download: {type(e).__name__}", "deadline": "", "audience": "", "fee": "", "categories": []}
+        return _empty_enrichment(title, f"download: {type(e).__name__}")
 
     # magic bytes 檢查是否真 PDF。
     # Drive 回權限頁／病毒掃描中介頁／登入頁時都係 HTML，會喺呢度被擋落嚟，
     # 唔會當成通告內容抽欄位。
     if not data[:5].startswith(b"%PDF"):
-        return {"_error": "not_pdf", "deadline": "", "audience": "", "fee": "", "categories": []}
+        return _empty_enrichment(title, "not_pdf")
 
     text = pdf_text_via_pdfplumber(data)
     method = "text"
@@ -587,7 +494,7 @@ def collect_targets(cache, target_date, do_all, do_backfill, do_backfill_categor
     四種模式：
       - 預設（增量）：只抓 captured_date == target_date 的當天新通告
       - --backfill：  抓「所有日期」但稍後跳過已 enrich 的，用來補歷史欠帳（如 5/23 批次匯入的舊通告）
-      - --backfill-categories： 抓「所有日期」但只處理仲未有 categories 嘅
+      - --backfill-categories：抓「所有日期」但只處理缺 categories 或舊 taxonomy 嘅
       - --all：       強制全量重抽（連已 enrich 的也重抽；重！極少用）
     """
     out = []
@@ -664,7 +571,7 @@ def main():
     ap.add_argument("--date", default=None, help="目標 captured_date（預設今日）")
     ap.add_argument("--all", action="store_true", help="全量重抽所有 .pdf（含已抽過的；重！會大量重下載，僅離峰/補歷史欠帳用）")
     ap.add_argument("--backfill", action="store_true", help="補歷史欠帳：抽所有未 enrich 的 .pdf（不限日期，但跳過已做的）")
-    ap.add_argument("--backfill-categories", action="store_true", help="補分類欠帳：只處理仲未有 categories 嘅 .pdf（會重新下載，量較大）")
+    ap.add_argument("--backfill-categories", action="store_true", help="補分類／舊 taxonomy 欠帳的 .pdf（會重新下載，量較大）")
     ap.add_argument("--limit", type=int, default=0, help="最多處理幾條（0=不限）")
     ap.add_argument("--no-ocr", action="store_true", help="停用 OCR")
     ap.add_argument("--report", action="store_true", help="行完輸出 enrich_review.md 方便人手核對")
@@ -687,32 +594,42 @@ def main():
 
     targets = collect_targets(cache, today, args.all, args.backfill, args.backfill_categories)
     # 跳過已抽過：--all 強制重抽（不跳過）
-    # - 預設增量：若已 enriched 但仲未有 categories，會仍然處理，用來補分類（每日新通告數量好少）
-    # - --backfill：跳過已 enrich，但重試「短暫性下載失敗」(download: ...)
-    # - --backfill-categories：跳過已有 categories 的，只補欠帳
+    # - 預設增量：新通告或仍未有個人化標籤的今日通告才處理；
+    # - --backfill：跳過已 enrich，但重試暫時性下載失敗；
+    # - --backfill-categories：保留舊旗標，補 categories／subscription_tags 欠帳；
     # - 永久性錯誤（如 not_pdf）唔重試，避免白白重下載。
     if not args.all:
+        def _entry(u):
+            value = enrich.get(u)
+            return value if isinstance(value, dict) else {}
+
         def _retryable_error(u):
-            err = ((enrich.get(u) or {}).get("error") or "")
+            err = (_entry(u).get("error") or "")
             return args.backfill and err.startswith("download")
 
-        def _already_enriched_with_categories(u):
-            entry = enrich.get(u) or {}
-            cats = entry.get("categories") or []
-            return bool(cats)
+        def _has_current_tags(u):
+            entry = _entry(u)
+            # 空 array 也是已判斷結果；以欄位存在＋目前 catalog version 為準，
+            # 否則一張不屬四類的通告會被每天重下載。升級 taxonomy（例如新增
+            # 獨立比賽）時，--backfill-categories 也會重建舊版本 metadata。
+            return (
+                "categories" in entry
+                and "branch_tags" in entry
+                and "subscription_tags" in entry
+                and entry.get("subscription_catalog_version") == CURRENT_SUBSCRIPTION_CATALOG_VERSION
+            )
 
         if args.backfill_categories:
-            targets = [t for t in targets if not _already_enriched_with_categories(t[2])]
+            targets = [t for t in targets if not _has_current_tags(t[2])]
         elif args.backfill:
             targets = [t for t in targets if t[2] not in enrich or _retryable_error(t[2])]
         else:
-            # 增量：新目標 or 今日已抽過但缺分類
-            targets = [t for t in targets if t[2] not in enrich or not _already_enriched_with_categories(t[2])]
+            targets = [t for t in targets if t[2] not in enrich or not _has_current_tags(t[2])]
 
     if args.limit:
         targets = targets[:args.limit]
 
-    mode = "全量重抽" if args.all else ("補分類欠帳" if args.backfill_categories else ("補歷史欠帳" if args.backfill else "增量"))
+    mode = "全量重抽" if args.all else ("補分類／舊 taxonomy 欠帳" if args.backfill_categories else ("補歷史欠帳" if args.backfill else "增量"))
     print(f"🔎 目標：{len(targets)} 條 .pdf 通告（模式={mode}"
           + (f"，captured_date={today}" if not args.all and not args.backfill else "") + "）")
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
@@ -732,17 +649,22 @@ def main():
             "audience": res.get("audience", ""),
             "fee": normalize_fee(res.get("fee", "")),
             "categories": res.get("categories") or [],
+            "branch_tags": res.get("branch_tags") or [],
+            "subscription_tags": res.get("subscription_tags") or [],
+            "subscription_tag_details": res.get("subscription_tag_details") or [],
+            "subscription_catalog_version": res.get("subscription_catalog_version", ""),
             "method": res.get("_method", ""),
             "error": res.get("_error", ""),
             "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "enrich_version": ENRICH_VERSION,
         }
         tag = res.get("_error") or res.get("_method")
-        got = [k for k in ("deadline", "audience", "fee", "categories") if res.get(k)]
+        got = [k for k in ("deadline", "audience", "fee", "categories", "subscription_tags") if res.get(k)]
         cats = "、".join(c.get("label", "") for c in (res.get("categories") or []))
+        sub_tags = "、".join(res.get("subscription_tags") or [])
         print(f"   [{tag}] 截止={res.get('deadline') or '—'} | "
               f"對象={(res.get('audience') or '—')[:20]} | 費用={(res.get('fee') or '—')[:20]} | "
-              f"分類={cats or '—'}")
+              f"分類={cats or '—'} | 訂閱={sub_tags or '—'}")
         done += 1
         if got:
             ok += 1

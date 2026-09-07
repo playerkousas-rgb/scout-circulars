@@ -1,0 +1,557 @@
+{
+  "version": "1.1.0",
+  "title": "香港童軍通告雷達個人化訂閱字典",
+  "policy": "只收錄可由官方訓練綱要或訓練署正式資料核對的課程／徽章，以及受控的服務、活動和比賽分類。選單只顯示項目基礎名稱；正式題名中的訓練班、工作坊、課程等變體會自動配對，不會另成一個選項。未收錄的臨時、地方或名稱不穩定項目（例如 PPP 訓練）不會出現在選單，亦不會成為精準推播標籤。",
+  "sources": [
+    {
+      "label": "香港童軍總會－訓練班詳情（領袖持續進修）",
+      "url": "https://www.scout.org.hk/tc/adult-members/leaders-training/leaders-continuing-training/course-detail.html"
+    },
+    {
+      "label": "青少年活動署第 13/2026 號－童軍支部專科徽章更新",
+      "url": "https://www.scout.org.hk/uploads/tc/circulars/23262/p013-26.pdf"
+    }
+  ],
+  "branches": [
+    { "id": "小童軍", "label": "小童軍", "aliases": ["小童軍"] },
+    { "id": "幼童軍", "label": "幼童軍", "aliases": ["幼童軍"] },
+    { "id": "童軍", "label": "童軍", "aliases": ["童軍"] },
+    { "id": "深資童軍", "label": "深資童軍", "aliases": ["深資童軍"] },
+    { "id": "樂行童軍", "label": "樂行童軍", "aliases": ["樂行童軍"] },
+    { "id": "領袖", "label": "領袖", "aliases": ["領袖", "童軍領袖", "成年成員"] },
+    { "id": "家長", "label": "家長", "aliases": ["家長"] },
+    { "id": "會務委員", "label": "會務委員", "aliases": ["會務委員"] }
+  ],
+  "topics": [
+    {
+      "id": "category:training",
+      "label": "所有訓練",
+      "group": "訓練",
+      "kind": "category",
+      "branches": ["*"],
+      "aliases": ["訓練班", "工作坊", "訓練課程", "研習班", "課程"]
+    },
+    {
+      "id": "category:service",
+      "label": "服務",
+      "group": "服務",
+      "kind": "category",
+      "branches": ["*"],
+      "aliases": ["社區服務", "服務計劃", "義工服務", "服務活動", "義工"]
+    },
+    {
+      "id": "category:competition",
+      "label": "所有比賽",
+      "group": "比賽",
+      "kind": "category",
+      "branches": ["*"],
+      "aliases": ["比賽", "競賽", "公開賽", "錦標賽", "邀請賽", "挑戰賽", "會操"]
+    },
+    {
+      "id": "activity:big-camp",
+      "label": "大露營",
+      "group": "活動",
+      "kind": "activity",
+      "branches": ["*"],
+      "aliases": ["大露營", "大型露營", "童軍大露營"]
+    },
+    {
+      "id": "activity:campfire",
+      "label": "營火會",
+      "group": "活動",
+      "kind": "activity",
+      "branches": ["*"],
+      "aliases": ["營火會", "campfire"]
+    },
+    {
+      "id": "activity:other",
+      "label": "其他活動",
+      "group": "活動",
+      "kind": "activity",
+      "branches": ["*"],
+      "aliases": ["活動", "嘉年華", "旅程", "參觀", "典禮", "日營", "露營"]
+    },
+
+    {
+      "id": "course:scout-basic-aircrew-badge",
+      "label": "初級空勤章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["初級空勤員章", "初級空勤章", "basic aircrew badge"]
+    },
+    {
+      "id": "course:scout-birdwatching-badge",
+      "label": "觀鳥章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["觀鳥章"]
+    },
+    {
+      "id": "course:scout-bouldering-badge",
+      "label": "抱石章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["抱石章"]
+    },
+    {
+      "id": "course:scout-campfire-badge",
+      "label": "營火章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["營火章"]
+    },
+    {
+      "id": "course:scout-animal-care-badge",
+      "label": "動物飼養章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["動物飼養章"]
+    },
+    {
+      "id": "course:scout-stand-up-paddle-badge",
+      "label": "立划板章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["立划板章", "立槳板章"]
+    },
+    {
+      "id": "course:scout-stand-up-paddle-polo-badge",
+      "label": "立划板水球章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["立划板水球章", "立槳板水球章"]
+    },
+    {
+      "id": "course:scout-3d-printing-badge",
+      "label": "立體打印章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["立體打印章", "3d打印章", "3d 列印章"]
+    },
+    {
+      "id": "course:scout-abseiling-badge",
+      "label": "沿繩下降章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["沿繩下降章"]
+    },
+    {
+      "id": "course:scout-climbing-badge",
+      "label": "攀登章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["攀登章"]
+    },
+    {
+      "id": "course:scout-data-analysis-badge",
+      "label": "數據分析章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["數據分析章"]
+    },
+    {
+      "id": "course:scout-animal-welfare-badge",
+      "label": "愛護動物章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["愛護動物章"]
+    },
+    {
+      "id": "course:scout-cybersecurity-badge",
+      "label": "網絡安全章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["網絡安全章", "網路安全章"]
+    },
+    {
+      "id": "course:scout-international-friendship-badge",
+      "label": "國際友誼章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["國際友誼章"]
+    },
+    {
+      "id": "course:scout-fishing-badge",
+      "label": "釣魚章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["釣魚章"]
+    },
+    {
+      "id": "course:scout-model-making-badge",
+      "label": "模型製作章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["模型製作章"]
+    },
+    {
+      "id": "course:scout-handicraft-badge",
+      "label": "手藝章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["手藝章"]
+    },
+    {
+      "id": "course:scout-map-reading-badge",
+      "label": "地圖閱讀章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["地圖閱讀章"]
+    },
+    {
+      "id": "course:scout-programming-badge",
+      "label": "編程章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["編程章", "程式設計章"]
+    },
+    {
+      "id": "course:scout-orienteering-badge",
+      "label": "野外定向專章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["野外定向", "野外定向專章"]
+    },
+    {
+      "id": "course:scout-parachuting-badge",
+      "label": "跳傘章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["童軍"],
+      "aliases": ["跳傘章"]
+    },
+
+    {
+      "id": "course:leader-first-aid-certificate",
+      "label": "急救證書",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["急救證書課程", "急救實務證書"]
+    },
+    {
+      "id": "course:leader-art-handcraft",
+      "label": "美勞創作",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["美勞創作"]
+    },
+    {
+      "id": "course:leader-campcraft",
+      "label": "營藝",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["營藝訓練", "營藝"]
+    },
+    {
+      "id": "course:leader-campfire-leader",
+      "label": "營火領袖",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["營火領袖"]
+    },
+    {
+      "id": "course:leader-cub-progressive-badges",
+      "label": "幼童軍進度性獎章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["幼童軍進度性獎章"]
+    },
+    {
+      "id": "course:leader-venture-executive-committee",
+      "label": "深資童軍執行委員會",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["深資童軍執行委員會"]
+    },
+    {
+      "id": "course:leader-expedition",
+      "label": "遠足",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["遠足訓練", "遠足技能"]
+    },
+    {
+      "id": "course:leader-games",
+      "label": "遊戲",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["遊戲訓練"]
+    },
+    {
+      "id": "course:leader-pack-hiking",
+      "label": "幼童軍團遠足",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["幼童軍團遠足"]
+    },
+    {
+      "id": "course:leader-knotting",
+      "label": "繩結",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["繩結訓練"]
+    },
+    {
+      "id": "course:leader-lightweight-cooking",
+      "label": "輕便炊事",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["輕便炊事"]
+    },
+    {
+      "id": "course:leader-life-saving",
+      "label": "拯溺",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["拯溺訓練"]
+    },
+    {
+      "id": "course:leader-map-reading",
+      "label": "地圖閱讀",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["地圖閱讀訓練"]
+    },
+    {
+      "id": "course:leader-music-movement",
+      "label": "音樂律動",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["音樂律動"]
+    },
+    {
+      "id": "course:leader-pack-holiday-camping",
+      "label": "幼童軍團度假營及露營",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["幼童軍團度假營", "幼童軍團露營"]
+    },
+    {
+      "id": "course:leader-pioneering",
+      "label": "先鋒工程",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["先鋒工程訓練", "先鋒工程"]
+    },
+    {
+      "id": "course:leader-scout-progressive-badges",
+      "label": "童軍進度性獎章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["童軍進度性獎章"]
+    },
+    {
+      "id": "course:leader-seamanship",
+      "label": "船藝",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["船藝訓練", "船藝"]
+    },
+    {
+      "id": "course:leader-sing-song",
+      "label": "歌唱",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["歌唱訓練"]
+    },
+    {
+      "id": "course:leader-venture-progressive-badges",
+      "label": "深資童軍進度性獎章",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["深資童軍進度性獎章"]
+    },
+    {
+      "id": "course:leader-jungle-dance",
+      "label": "森林舞蹈",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["森林舞蹈"]
+    },
+    {
+      "id": "course:leader-action-centred-leadership",
+      "label": "行動主導領導才",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["行動主導領導才"]
+    },
+    {
+      "id": "course:leader-decision-planning",
+      "label": "決定與策劃",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["決定與策劃"]
+    },
+    {
+      "id": "course:leader-human-relations",
+      "label": "人際關係",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["人際關係訓練"]
+    },
+    {
+      "id": "course:leader-transactional-analysis",
+      "label": "交感分析",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["交感分析"]
+    },
+    {
+      "id": "course:leader-event-management",
+      "label": "活動統籌",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["活動統籌"]
+    },
+    {
+      "id": "course:leader-change-management",
+      "label": "變革管理",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["變革管理"]
+    },
+    {
+      "id": "course:leader-effective-meetings",
+      "label": "會議技巧",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["會議技巧"]
+    },
+    {
+      "id": "course:leader-creative-thinking",
+      "label": "創意思考",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["創意思考"]
+    },
+    {
+      "id": "course:leader-negotiation",
+      "label": "談判技巧",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["談判技巧"]
+    },
+    {
+      "id": "course:leader-time-management",
+      "label": "時間管理",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["時間管理"]
+    },
+    {
+      "id": "course:leader-trainer-basic",
+      "label": "領袖訓練員基本",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["領袖訓練員基本訓練"]
+    },
+    {
+      "id": "course:leader-assistant-leader-trainer",
+      "label": "助理領袖訓練主任",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["助理領袖訓練主任"]
+    },
+    {
+      "id": "course:leader-leader-trainer",
+      "label": "領袖訓練主任",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["領袖訓練主任"]
+    },
+    {
+      "id": "course:leader-basic-operations",
+      "label": "常務基本",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["常務基本訓練"]
+    },
+    {
+      "id": "course:leader-camping-skill",
+      "label": "露營技能",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["露營技能"]
+    },
+    {
+      "id": "course:leader-campfire-skill",
+      "label": "營火領袖技能",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["營火領袖技能"]
+    },
+    {
+      "id": "course:leader-ropework-skill",
+      "label": "繩藝技能",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["繩藝"]
+    },
+    {
+      "id": "course:leader-mountaineering-skill",
+      "label": "登山技能",
+      "group": "訓練",
+      "kind": "course",
+      "branches": ["領袖"],
+      "aliases": ["登山技能"]
+    }
+  ]
+}

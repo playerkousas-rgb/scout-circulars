@@ -1955,34 +1955,47 @@ def main(
         if USE_SUPABASE:
             supabase_upsert(all_new)
             supabase_update_records(all_updated)
-        else:
-            for record in all_new:
-                key = (record["source_site"], record["pdf_url"])
-                local_record_map[key] = record
-            for rec in all_updated:
-                key = (rec.get("source_site", ""), rec.get("pdf_url", ""))
-                if key in local_record_map:
-                    # ⚠️ 保留舊 captured_date：只更新標題/分區，不覆寫入庫日期
-                    local_record_map[key]["title"] = rec.get("title", local_record_map[key].get("title", ""))
-                    local_record_map[key]["region"] = rec.get("region", local_record_map[key].get("region", ""))
-            merged_records = list(local_record_map.values())
-            grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
-            grouped_cache.setdefault("_meta", {})["has_errors"] = (errors > 0)
-            grouped_cache.setdefault("_meta", {})["expected_empty_sources"] = [
-                name for name, cfg in sources.items() if cfg.get("expected_empty")
-            ]
-            grouped_cache.setdefault("_meta", {})["last_run"] = {
-                "updated_at": now_str,
-                "new": len(all_new),
-                "updated": len(all_updated),
-                "skipped": skipped,
-                "processed": processed,
-                "playwright_used": pw_used,
-                "error_sources": error_sources,
-                "skipped_sources": skipped_sources,
-            }
-            save_local_cache(grouped_cache)
 
+        # cache.json is the public CDN contract and must be rebuilt in *both*
+        # local and Supabase modes.  Previously Supabase mode wrote only the
+        # database, which made a newly-added anonymous Push setup appear to
+        # stop cache.json (and therefore notification candidate) updates.
+        for record in all_new:
+            key = (record["source_site"], record["pdf_url"])
+            local_record_map[key] = record
+        for rec in all_updated:
+            key = (rec.get("source_site", ""), rec.get("pdf_url", ""))
+            if key in local_record_map:
+                # ⚠️ 保留舊 captured_date：只更新標題/分區，不覆寫入庫日期
+                local_record_map[key]["title"] = rec.get("title", local_record_map[key].get("title", ""))
+                local_record_map[key]["region"] = rec.get("region", local_record_map[key].get("region", ""))
+
+        # When Supabase is healthy, it is the complete persistent source of
+        # truth.  If its read path is briefly unavailable, preserve the local
+        # cache plus this run's changes rather than replacing the public feed
+        # with an empty file.
+        merged_records = list(local_record_map.values())
+        if USE_SUPABASE:
+            remote_records = supabase_fetch_all()
+            if remote_records:
+                merged_records = remote_records
+
+        grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
+        grouped_cache.setdefault("_meta", {})["has_errors"] = (errors > 0)
+        grouped_cache.setdefault("_meta", {})["expected_empty_sources"] = [
+            name for name, cfg in sources.items() if cfg.get("expected_empty")
+        ]
+        grouped_cache.setdefault("_meta", {})["last_run"] = {
+            "updated_at": now_str,
+            "new": len(all_new),
+            "updated": len(all_updated),
+            "skipped": skipped,
+            "processed": processed,
+            "playwright_used": pw_used,
+            "error_sources": error_sources,
+            "skipped_sources": skipped_sources,
+        }
+        save_local_cache(grouped_cache)
         save_fingerprints(fingerprints)
 
     close_browser()

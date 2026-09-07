@@ -2,3 +2,5 @@ requests>=2.32.0
 beautifulsoup4>=4.12.3
 lxml>=5.2.2
 playwright>=1.52.0
+# GitHub Actions dispatcher only: standards-compliant VAPID Web Push encryption.
+pywebpush>=2.0.0
