@@ -27,12 +27,13 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
-from subscription_tagging import extract_subscription_metadata
+from subscription_tagging import extract_subscription_metadata, load_catalog
 
 ROOT = Path(__file__).resolve().parent
 CACHE_PATH = ROOT / "cache.json"
 ENRICH_PATH = ROOT / "enrich.json"
 HKT = ZoneInfo("Asia/Hong_Kong")
+PUSH_TTL_SECONDS = 3 * 24 * 60 * 60  # Per-message offline retention, not subscription expiry.
 DEFAULT_SITE_URL = "https://scout-circulars.vercel.app"
 
 
@@ -173,10 +174,30 @@ def notice_metadata(item: Mapping[str, Any], enrich: Mapping[str, Any]) -> Dict[
 
 
 def subscription_matches(subscription: Mapping[str, Any], metadata: Mapping[str, Any]) -> bool:
-    """Branch AND topic are required; each multi-select group is OR-ed internally."""
-    branches = {str(x) for x in subscription.get("branch_ids", []) or [] if isinstance(x, str)}
-    topics = {str(x) for x in subscription.get("topic_ids", []) or [] if isinstance(x, str)}
-    return bool(branches & set(metadata.get("branch_tags", set()))) and bool(topics & set(metadata.get("topic_tags", set())))
+    """OR across selected branch/topic pairs; never cross-match two pairs.
+
+    Legacy generic IDs remain supported using their catalog scope. The explicit
+    all:new mode includes notices without tags, but discovery/delivery deduping
+    still happens in matching_groups and find_new_notices.
+    """
+    branches = set(subscription.get("branch_ids") or [])
+    topics = set(subscription.get("topic_ids") or [])
+    if "all:new" in topics:
+        return True
+    notice_branches = set(metadata.get("branch_tags") or [])
+    notice_topics = set(metadata.get("topic_tags") or [])
+    by_id = load_catalog()["_topic_by_id"]
+    for topic_id in topics:
+        topic = by_id.get(topic_id)
+        if not topic:
+            continue
+        scope = set(topic.get("branches") or [])
+        eligible = branches & notice_branches
+        if "*" not in scope:
+            eligible &= scope
+        if eligible and topic.get("match_topic", topic_id) in notice_topics:
+            return True
+    return False
 
 
 def trim(value: Any, limit: int) -> str:
@@ -409,7 +430,7 @@ def send_web_push(subscription: Mapping[str, Any], payload: Mapping[str, Any], c
         data=json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
         vapid_private_key=config["private_key"],
         vapid_claims={"sub": config["subject"]},
-        ttl=86400,
+        ttl=PUSH_TTL_SECONDS,
         timeout=12,
     )
 

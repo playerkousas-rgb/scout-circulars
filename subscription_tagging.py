@@ -35,7 +35,7 @@ COMPETITION_TERMS = ["比賽", "競賽", "公開賽", "錦標賽", "邀請賽", 
 BIG_CAMP_TERMS = ["大露營", "大型露營", "童軍大露營"]
 CAMPFIRE_TERMS = ["營火會", "campfire"]
 OTHER_ACTIVITY_TERMS = [
-    "活動", "嘉年華", "旅程", "參觀", "典禮", "日營", "露營", "遠足", "交流日", "旅行", "開放日",
+    "活動", "嘉年華", "繽紛日", "旅程", "參觀", "典禮", "日營", "露營", "遠足", "交流日", "旅行", "開放日",
 ]
 # A calendar/guide is useful to browse, but is not itself a newly-open training
 # course.  It must not trigger someone subscribed to "all training".
@@ -414,6 +414,8 @@ def matching_topics_for_branches(
     result: List[Dict[str, Any]] = []
     for topic in catalog.get("topics", []):
         scope = {str(x) for x in topic.get("branches", [])}
-        if "*" in scope or not selected or scope.intersection(selected):
+        if topic.get("legacy") or topic.get("id") == "category:training":
+            continue
+        if selected and ("*" in scope or scope.intersection(selected)):
             result.append(dict(topic))
     return result

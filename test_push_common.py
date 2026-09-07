@@ -25,6 +25,24 @@ class PushCommonTests(unittest.TestCase):
             validate_preferences({"branches": ["領袖"], "topics": ["course:scout-basic-aircrew-badge"]})
         self.assertEqual(caught.exception.code, "incompatible_choice")
 
+    def test_branch_scoped_preferences_and_parent_options(self):
+        for topic in ("training:家長", "category:service", "category:training", "training:童軍", "course:scout-first-aid-badge", "branch:童軍:category:service"):
+            with self.subTest(topic=topic), self.assertRaises(ApiError):
+                validate_preferences({"branches": ["家長"], "topics": [topic]})
+        topics = ["branch:家長:activity:other", "branch:童軍:category:service", "training:童軍"]
+        self.assertEqual(validate_preferences({"branches": ["家長", "童軍"], "topics": topics})[1], topics)
+        with self.assertRaises(ApiError):
+            validate_preferences({"branches": ["家長"], "topics": ["branch:家長:category:service"]})
+
+    def test_all_new_normalizes_to_one_topic_and_database_compatible_branches(self):
+        branches, topics, _ = validate_preferences({"branches": [], "topics": ["all:new", "activity:other"]})
+        self.assertEqual(topics, ["all:new"])
+        self.assertEqual(len(branches), 8)
+        with self.assertRaises(ApiError):
+            validate_preferences({"branches": [], "topics": ["activity:other"]})
+        with self.assertRaises(ApiError):
+            validate_preferences({"branches": [], "topics": ["all:new", "forged"]})
+
     def test_rejects_free_text_tag(self):
         with self.assertRaises(ApiError) as caught:
             validate_preferences({"branches": ["童軍"], "topics": ["my custom tag"]})

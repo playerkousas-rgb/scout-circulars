@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>通告圖書館 v5.8</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="theme-color" content="#02133e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <style>
     :root {
       --bg: #02133e;
@@ -204,6 +208,7 @@
     .pick-all.checked .tick { color: #b45309; }
     .push-branch-block { margin-top: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
     .push-branch-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .push-branch-block > .push-section-title { margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(59,130,246,.3); color: #93c5fd; font-size: 13px; font-weight: 700; }
     .push-branch-head strong { color: #d9e8ff; font-size: 14px; }
     .push-branch-head .push-picked { color: var(--muted); font-size: 11.5px; }
     .push-section-block { margin-top: 10px; padding-top: 8px; border-top: 1px dashed rgba(59,130,246,.3); }
@@ -440,28 +445,40 @@
         <button type="button" class="push-close" id="push-close" aria-label="關閉通知設定">×</button>
       </div>
 
-      <div class="push-block">
-        <div class="push-block-title"><span class="push-step">1</span> 我的支部 <small>可多選，點一下即選取</small></div>
-        <div class="pick-chips" id="push-branches" role="group" aria-label="我的支部"></div>
-      </div>
+      <p class="push-state warn" id="push-testing-notice"><strong>通知系統仍在測試中：</strong>推送可能延遲或遺漏，建議每天到圖書館瀏覽有沒有通告更新，不要只依賴通知。</p>
 
       <div class="push-block">
-        <div class="push-block-title"><span class="push-step">2</span> 服務、活動及比賽 <small>適用於所有支部</small></div>
-        <div class="pick-chips" id="push-general" role="group" aria-label="服務、活動及比賽"></div>
+        <div class="pick-chips" id="push-all" role="group" aria-label="通知所有新通告"></div>
+        <small class="push-help">全選＝當日有任何新通告就通知，不限支部及分類，未分類亦包括；同批合併通知，不會為每張通告逐一響。取消全選可自行按支部選項目。</small>
+      </div>
+      <div id="push-custom-options">
+        <div class="push-block">
+          <div class="push-block-title"><span class="push-step">1</span> 我的支部 <small>可多選，點一下即選取</small></div>
+          <div class="pick-chips" id="push-branches" role="group" aria-label="我的支部"></div>
+          <small class="push-help">先選支部，再在各支部內選項目。例如「家長的活動」或「小童軍的活動」，命中其中一組就通知；同一通告只計一次。家長只有活動及比賽，不影響其他支部的服務及訓練選項。</small>
+        </div>
+        <div class="push-block">
+          <div class="push-block-title"><span class="push-step">2</span> 各支部關注項目 <small>活動、服務、比賽及訓練均按支部獨立選擇</small></div>
+          <div id="push-topics" role="group" aria-label="各支部關注項目"></div>
+          <small class="push-help" id="push-topics-help">請先在上方選擇至少一個支部。</small>
+        </div>
       </div>
 
-      <div class="push-block">
-        <div class="push-block-title"><span class="push-step">3</span> 訓練 <small>按支部列出訓練綱要內的徽章及訓練班（不含進度性獎章）</small></div>
-        <div id="push-topics" role="group" aria-label="訓練項目"></div>
-        <small class="push-help" id="push-topics-help">請先在上方選擇至少一個支部。</small>
+      <div class="push-block" id="push-notification-help">
+        <div class="push-block-title">如何收到通知</div>
+        <p class="push-help" id="push-install-hint" role="status"></p>
+        <p class="push-help"><strong>手機：</strong>請先將本站加入手機主畫面，再從主畫面圖示開啟及按「啟用通知」。iPhone／iPad（iOS／iPadOS 16.4 或以上）：用 Safari 開啟 → 分享 →「加入主畫面」。Android：用 Chrome 選單 ⋮ →「加到主畫面」或「安裝應用程式」。Android 支援的瀏覽器亦可直接啟用通知。</p>
+        <p class="push-help"><strong>電腦：</strong>使用支援 Web Push 的瀏覽器，按「啟用通知」並選「允許」；亦要在電腦系統設定容許該瀏覽器傳送通知。請保持網絡連線，並開啟瀏覽器或允許它在背景執行；毋須一直開着本站分頁。勿擾模式及省電設定可能延遲或隱藏通知。</p>
+        <p class="push-help"><strong>離線通知最多保留 3 日（72 小時）。</strong>如瀏覽器完全關閉、未能在背景接收或裝置離線超過 3 日，較早的通知可能過期、不再補發。通知系統仍在測試中，建議每天開啟瀏覽器（手機請開啟主畫面 App）並到圖書館查看更新；實際送達仍受瀏覽器及系統限制。訂閱不會因此取消，最新通告仍可回本站查看。</p>
       </div>
-
       <div class="push-actions">
         <span class="push-count" id="push-count" aria-live="polite"></span>
+        <button type="button" class="push-secondary" id="push-reset" disabled>重新設定</button>
         <button type="button" class="push-secondary" id="push-save">只儲存選項</button>
         <button type="button" class="push-primary" id="push-enable">啟用通知</button>
         <button type="button" class="push-danger" id="push-disable" hidden>停止這部裝置通知</button>
       </div>
+      <small class="push-help" id="push-edit-help">增加小朋友：直接加選支部及項目，原有選項會保留。升團：取消舊支部，再選新支部及項目。想全部重揀才按「重新設定」；只會清空面板，儲存／更新前不會改動原有通知訂閱。</small>
       <div class="push-state" id="push-status" role="status" aria-live="polite">正在載入通知選項…</div>
       <div class="push-privacy">私隱：設定先留在本機 LocalStorage。啟用後，伺服器只保存瀏覽器產生的匿名推送地址／加密金鑰及所選受控 ID；不收集姓名、電郵、電話、旅團或地域資料。訓練班、工作坊及課程等正式變體會自動配對，不設自由文字標籤。</div>
     </section>
@@ -630,10 +647,17 @@
     }
 
     function matchesPersonalPreferences(item, enrich, preferences) {
-      if (!preferences || !Array.isArray(enrich?.branch_tags) || !Array.isArray(enrich?.subscription_tags)) return false;
+      if (!preferences) return false;
+      if (preferences.topics?.includes('all:new')) return true;
+      if (!Array.isArray(enrich?.branch_tags) || !Array.isArray(enrich?.subscription_tags)) return false;
       const branches = new Set(preferences.branches || []);
-      const topics = new Set(preferences.topics || []);
-      return enrich.branch_tags.some(id => branches.has(id)) && enrich.subscription_tags.some(id => topics.has(id));
+      return (preferences.topics || []).some(id => {
+        const topic = state.pushCatalog?.topics?.find(topic => topic.id === id);
+        if (!topic) return false;
+        const scope = topic.branches || [];
+        return enrich.branch_tags.some(branch => branches.has(branch) && (scope.includes('*') || scope.includes(branch)))
+          && enrich.subscription_tags.includes(topic.match_topic || id);
+      });
     }
 
     function getNotificationItems() {
@@ -657,7 +681,7 @@
 
     function getPersonalItems() {
       const prefs = state.personalPreferences || loadPersonalPreferences();
-      if (!prefs?.branches?.length || !prefs?.topics?.length) return [];
+      if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length) return [];
       const date = validPersonalDate(state.personalDate);
       let items = [];
       for (const source of state.sourceOrder) items = items.concat(state.grouped[source] || []);
@@ -1734,7 +1758,7 @@
       } else if (state.personalMode) {
         const prefs = state.personalPreferences || loadPersonalPreferences();
         const when = validPersonalDate(state.personalDate);
-        const chosen = prefs?.branches?.length && prefs?.topics?.length;
+        const chosen = prefs?.topics?.includes('all:new') || (prefs?.branches?.length && prefs?.topics?.length);
         messagesEl.innerHTML = `<div class="personal-banner">🔔 ${when ? `${escapeHtml(when)} 的` : ''}個人化結果只使用本機儲存的受控設定。${chosen ? '' : '找不到本機設定；請在下方重新選擇支部和項目。'} <a href="/" style="text-decoration:underline;">返回一般瀏覽</a></div>`;
         if (!items.length) {
           messagesEl.innerHTML += '<div class="msg">這個通知批次沒有仍可可靠配對的通告。通告可能已移除，或你已在這部裝置更改了通知設定。</div>';
@@ -1950,7 +1974,7 @@
     });
 
     // ── 受控個人化通知設定 ─────────────────────────────────────
-    // 選單由 subscription_catalog.json 驅動：kind = category/activity（全支部）、
+    // 選單由 subscription_catalog.json 驅動：kind = branch-topic（支部＋活動／服務／比賽；match_topic 對應分類）、
     // training（某支部所有訓練；領袖再分木章／非木章 section）、course（該支部
     // 訓練綱要內的徽章／訓練班，subgroup 為綱要分組）。全部都係點一下即剔。
     const PUSH_MAX_TOPICS = 60; // 與 api/push_common.py MAX_TOPICS 及 schema.sql 同步
@@ -2010,10 +2034,10 @@
     }
 
     function pushSelectionState() {
-      return {
-        branches: selectedValues($('#push-branches')),
-        topics: [...selectedValues($('#push-general')), ...selectedValues($('#push-topics'))],
-      };
+      if (selectedValues($('#push-all')).includes('all:new')) {
+        return { branches: (state.pushCatalog?.branches || []).map(branch => branch.id), topics: ['all:new'] };
+      }
+      return { branches: selectedValues($('#push-branches')), topics: selectedValues($('#push-topics')) };
     }
 
     function updatePushCount() {
@@ -2021,7 +2045,8 @@
       if (!el) return;
       const { branches, topics } = pushSelectionState();
       const over = topics.length > PUSH_MAX_TOPICS;
-      el.textContent = `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
+      $('#push-custom-options').hidden = topics.includes('all:new');
+      el.textContent = topics.includes('all:new') ? '全選：有新通告就通知（包括未分類）' : `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
       el.classList.toggle('over', over);
       const save = $('#push-save'), enable = $('#push-enable');
       const invalid = !branches.length || !topics.length || over;
@@ -2029,19 +2054,32 @@
       if (enable) enable.disabled = invalid || enable.dataset.unsupported === '1';
     }
 
-    // 服務／活動／比賽：三類原封不動，永遠適用於所有支部。
-    function renderPushGeneralOptions(selectedTopics = []) {
-      const wrap = $('#push-general');
-      if (!wrap || !state.pushCatalog) return;
-      const wanted = new Set(selectedTopics);
-      wrap.replaceChildren();
-      const general = (state.pushCatalog.topics || []).filter(topic =>
-        topic.kind !== 'course' && topic.kind !== 'training' && PUSH_GENERAL_ORDER.includes(topic.group) && isTopicForBranches(topic, ['*']));
-      general.sort((a, b) => PUSH_GENERAL_ORDER.indexOf(a.group) - PUSH_GENERAL_ORDER.indexOf(b.group));
-      for (const topic of general) {
-        const text = topic.group === '活動' ? `活動：${topic.label}` : topic.label;
-        wrap.appendChild(makePickChip(topic.id, text, wanted.has(topic.id), '', updatePushCount));
+    function renderPushGeneralOptions(container, branchId, wanted) {
+      for (const group of PUSH_GENERAL_ORDER) {
+        const topics = (state.pushCatalog.topics || []).filter(topic => topic.kind === 'branch-topic'
+          && topic.group === group && topic.branches.includes(branchId));
+        if (!topics.length) continue;
+        const section = document.createElement('div');
+        section.className = 'push-section-block push-general-section';
+        const title = document.createElement('div');
+        title.className = 'push-section-title';
+        title.textContent = group;
+        const chips = document.createElement('div');
+        chips.className = 'pick-chips';
+        for (const topic of topics) chips.appendChild(makePickChip(topic.id, topic.label, wanted.has(topic.id), '', updatePushCount));
+        section.append(title, chips);
+        container.appendChild(section);
       }
+    }
+
+    function migratePushTopics(topics, branches) {
+      const wanted = new Set(topics);
+      // Expand old shared choices only for the originally selected branches.
+      for (const topic of state.pushCatalog.topics || []) {
+        if (topic.kind === 'branch-topic' && wanted.has(topic.match_topic) && isTopicForBranches(topic, branches)) wanted.add(topic.id);
+        if (topic.kind === 'training' && wanted.has('category:training') && isTopicForBranches(topic, branches)) wanted.add(topic.id);
+      }
+      return [...wanted];
     }
 
     function pushSubgroupsFor(topics) {
@@ -2107,14 +2145,14 @@
       const help = $('#push-topics-help');
       if (!wrap || !state.pushCatalog) return;
       const branches = selectedValues($('#push-branches'));
-      const wanted = new Set(selectedTopics);
+      const wanted = new Set(migratePushTopics(selectedTopics, branches));
       wrap.replaceChildren();
       if (!branches.length) {
-        if (help) help.textContent = '請先在上方選擇至少一個支部，才顯示該支部的訓練項目。';
+        if (help) help.textContent = '請先在上方選擇至少一個支部，才顯示該支部的活動、服務、比賽及訓練。';
         updatePushCount();
         return;
       }
-      if (help) help.textContent = '每個支部只列出現行訓練綱要內的非進度性徽章及特別訓練班；剔「所有訓練」則不必逐項揀。';
+      if (help) help.textContent = '每個項目只屬於所在支部；不同支部可選不同項目。訓練另列現行綱要內徽章及訓練班。';
       const topics = state.pushCatalog.topics || [];
       const branchOrder = (state.pushCatalog.branches || []).map(branch => branch.id).filter(id => branches.includes(id));
       for (const branchId of branchOrder) {
@@ -2124,9 +2162,15 @@
         const head = document.createElement('div');
         head.className = 'push-branch-head';
         const strong = document.createElement('strong');
-        strong.textContent = `${branchId}訓練`;
+        strong.textContent = branchId;
         head.appendChild(strong);
         block.appendChild(head);
+        renderPushGeneralOptions(block, branchId, wanted);
+        if (branchId === '家長') { wrap.appendChild(block); continue; }
+        const trainingTitle = document.createElement('div');
+        trainingTitle.className = 'push-section-title';
+        trainingTitle.textContent = '訓練';
+        block.appendChild(trainingTitle);
 
         // 只屬呢個支部（或首個已選支部）嘅項目，避免共用徽章重複出現。
         const owned = topic => Array.isArray(topic.branches) && !topic.branches.includes('*')
@@ -2142,7 +2186,7 @@
         if (!trainingAll.length && !courses.length) {
           const none = document.createElement('div');
           none.className = 'push-help';
-          none.textContent = '這個支部暫時沒有受控訓練項目；請改用「所有訓練」以外的服務、活動或比賽。';
+          none.textContent = '這個支部暫時沒有受控訓練項目；可選上方活動、服務或比賽。';
           block.appendChild(none);
         }
         for (const sectionName of sectionNames) {
@@ -2175,12 +2219,22 @@
       branchWrap.replaceChildren();
       for (const branch of state.pushCatalog.branches || []) {
         branchWrap.appendChild(makePickChip(branch.id, branch.label, wantedBranches.has(branch.id), 'pick-branch', () => {
-          // 改支部時保留已剔嘅訓練細項（仍適用者），唔會突然清空。
+          // Preserve only surviving branch/topic pairs, not a cross-product.
           renderPushTopicOptions(selectedValues($('#push-topics')));
         }));
       }
-      renderPushGeneralOptions(savedTopics);
+      $('#push-all').replaceChildren(makePickChip('all:new', '全選：所有新通告', savedTopics.includes('all:new'), 'pick-all', updatePushCount));
       renderPushTopicOptions(savedTopics);
+    }
+
+    function resetPushPreferences() {
+      if (!state.pushCatalog) return;
+      if (!confirm('清空面板內全部支部及項目，重新選擇？這不會停止通知，也不會刪除已儲存設定；按儲存／更新後才會套用新選項。')) return;
+      // Draft only: leave localStorage, active personal results and the remote
+      // subscription untouched until the user explicitly saves new choices.
+      renderPushOptions({ branches: [], topics: [] });
+      setPushStatus('已清空面板，請重新選擇支部及項目，再按儲存／更新。正在使用的通知設定尚未改動。', 'warn');
+      $('#push-branches input')?.focus();
     }
 
     function currentPushPreferences() {
@@ -2229,11 +2283,11 @@
     function pushSummaryLabel() {
       const prefs = state.personalPreferences || loadPersonalPreferences();
       const enabled = (() => { try { return localStorage.getItem('scl_push_enabled_v1') === '1'; } catch (_) { return false; } })();
-      if (!prefs?.branches?.length || !prefs?.topics?.length) return { text: '🔔 通知', active: false, title: '設定個人化通告通知：先揀支部，再點選關注項目' };
+      if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length) return { text: '🔔 通知', active: false, title: '設定個人化通告通知：先揀支部，再點選關注項目' };
       return {
         text: `🔔 通知 <span class="chip-n">${prefs.topics.length}</span>`,
         active: enabled,
-        title: `${enabled ? '已啟用' : '已儲存（未啟用）'}：${prefs.branches.join('、')}・${prefs.topics.length} 個項目。按此修改`,
+        title: `${enabled ? '已啟用' : '已儲存（未啟用）'}：${prefs.topics.includes('all:new') ? '全選：所有新通告' : prefs.branches.join('、') + '・' + prefs.topics.length + ' 個項目'}。按此修改`,
       };
     }
 
@@ -2249,11 +2303,15 @@
         return;
       }
       const info = await window.ScoutPushClient.status();
+      const installHint = $('#push-install-hint');
+      if (installHint) installHint.textContent = info.needsHomeScreen
+        ? '此 iPhone／iPad 尚未從主畫面開啟。請先用 Safari 將本站「加入主畫面」，再從圖示開啟，才可啟用通知。'
+        : info.standalone ? '已從主畫面 App 開啟，可在下方啟用通知。' : '';
       if (enable) enable.dataset.unsupported = info.supported ? '0' : '1';
       if (save) save.disabled = false;
       if (disable) disable.hidden = !info.subscribed;
       if (!info.supported) {
-        setPushStatus('這個瀏覽器或目前的連線不支援網頁通知；你仍可只儲存篩選設定。', 'warn');
+        setPushStatus(info.needsHomeScreen ? '請先加入主畫面並從圖示開啟，才可啟用通知；目前仍可只儲存篩選設定。' : '這個瀏覽器或目前的連線不支援網頁通知；請參考上方說明，你仍可只儲存篩選設定。', 'warn');
       } else if (info.subscribed && info.permission === 'granted') {
         setPushStatus('這部裝置已啟用匿名通知；更改選項後會同步更新。', 'good');
         if (enable) enable.textContent = '更新通知設定';
@@ -2299,7 +2357,7 @@
         const preferences = currentPushPreferences();
         const result = await window.ScoutPushClient.enable(preferences);
         updatePersonalResultsAfterPreferenceChange(result.preferences);
-        setPushStatus('已啟用：只有支部和關注項目同時命中的新通告才會通知。', 'good');
+        setPushStatus(result.preferences.topics.includes('all:new') ? '已啟用全選：有任何新通告就通知，包括未分類通告。' : '已啟用：符合任何一組支部及項目的新通告就會通知。', 'good');
       } catch (error) {
         const tone = error?.code === 'permission_denied' ? 'warn' : 'error';
         setPushStatus(error?.message || '未能啟用通知。', tone);
@@ -2331,13 +2389,15 @@
         state.personalPreferences = loadPersonalPreferences();
         renderPushOptions(state.personalPreferences);
         $('#push-save').onclick = () => savePushPreferences().catch(error => setPushStatus(error?.message || '未能儲存選項。', 'error'));
+        $('#push-reset').onclick = resetPushPreferences;
+        $('#push-reset').disabled = false;
         $('#push-enable').onclick = enablePushNotifications;
         $('#push-disable').onclick = disablePushNotifications;
         if (navigator.serviceWorker) {
           navigator.serviceWorker.addEventListener('message', event => {
             if (event.data?.type !== 'scout-push-subscription-change') return;
             const prefs = loadPersonalPreferences();
-            if (!prefs?.branches?.length || !prefs?.topics?.length || !window.ScoutPushClient) return;
+            if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length || !window.ScoutPushClient) return;
             window.ScoutPushClient.sync(prefs, { resubscribe: true })
               .then(() => refreshPushStatus())
               .catch(() => setPushStatus('瀏覽器通知地址已改變；請按「更新通知設定」重新同步。', 'warn'));
@@ -2349,7 +2409,7 @@
           renderCards();
         }
       } catch (_) {
-        const controls = ['#push-save', '#push-enable'];
+        const controls = ['#push-save', '#push-enable', '#push-reset'];
         controls.forEach(selector => { const el = $(selector); if (el) el.disabled = true; });
         setPushStatus('通知選項暫時無法讀取，請重新整理後再試。', 'error');
       }

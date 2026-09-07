@@ -2,8 +2,13 @@
 """Pure-unit checks for the anonymous Web Push dispatcher (no network needed)."""
 
 import unittest
+import sys
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 
-from notify import build_push_payload, find_new_notices, matching_groups, notice_id, notice_key
+from subscription_tagging import matching_topics_for_branches
+
+from notify import build_push_payload, find_new_notices, matching_groups, notice_id, notice_key, subscription_matches, notice_metadata, send_web_push, PUSH_TTL_SECONDS
 
 
 class NotifyMatchingTests(unittest.TestCase):
@@ -36,6 +41,120 @@ class NotifyMatchingTests(unittest.TestCase):
             "branch_ids": ["童軍", "深資童軍"],
             "topic_ids": ["category:training", "activity:campfire"],
         }
+
+    def test_general_topics_still_require_exact_branch(self):
+        for topic, title in (("activity:other", "參觀活動"), ("activity:big-camp", "大露營"),
+                             ("activity:campfire", "營火會"), ("category:competition", "比賽"),
+                             ("category:service", "社區服務日")):
+            sub = {"branch_ids": ["小童軍"], "topic_ids": [topic]}
+            for branch in ("小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"):
+                with self.subTest(topic=topic, branch=branch):
+                    meta = notice_metadata({"title": branch + title}, {})
+                    self.assertEqual(subscription_matches(sub, meta), branch == "小童軍")
+            self.assertFalse(subscription_matches(sub, {"branch_tags": [], "topic_tags": [topic]}))
+            self.assertFalse(subscription_matches(sub, {"branch_tags": ["小童軍"], "topic_tags": []}))
+
+    def test_legacy_parent_and_child_choices_use_each_topics_branch_scope(self):
+        sub = {"branch_ids": ["家長", "小童軍"], "topic_ids": ["activity:other", "category:competition", "category:training", "category:service"]}
+        for branches, tags, expected in (
+            (["小童軍"], ["activity:other"], True),
+            (["小童軍"], ["category:competition"], True),
+            (["家長", "小童軍"], ["activity:other"], True),
+            (["童軍"], ["activity:other"], False),
+            (["家長"], [], False),
+            (["家長"], ["category:training"], False),
+            (["家長"], ["category:service"], False),
+            (["童軍", "家長"], ["activity:other"], True),
+            (["家長"], ["activity:other"], True),
+            (["小童軍"], ["category:training"], True),
+            (["小童軍"], ["category:service"], True),
+            (["小童軍"], ["category:service", "activity:other"], True),
+            (["小童軍"], ["course:scout-first-aid-badge", "activity:other"], True),
+        ):
+            with self.subTest(branches=branches, tags=tags):
+                self.assertEqual(subscription_matches(sub, {"branch_tags": branches, "topic_tags": tags}), expected)
+        parent_only = {"branch_ids": ["家長"], "topic_ids": ["activity:other"]}
+        self.assertTrue(subscription_matches(parent_only, {"branch_tags": ["家長"], "topic_tags": ["activity:other"]}))
+        self.assertFalse(subscription_matches(parent_only, {"branch_tags": ["童軍"], "topic_tags": ["activity:other"]}))
+        sub["branch_ids"].append("幼童軍")
+        self.assertTrue(subscription_matches(sub, {"branch_tags": ["幼童軍"], "topic_tags": ["activity:other"]}))
+
+    def test_parent_and_child_match_aggregates_each_notice_once(self):
+        sub = {"id": "parent-child", "branch_ids": ["家長", "小童軍"], "topic_ids": ["branch:家長:activity:other", "branch:小童軍:activity:other"]}
+        notices, enrich = [], {}
+        for index, branches in enumerate((["家長"], ["小童軍"], ["家長", "小童軍"], ["童軍"])):
+            item = {"title": "參觀活動", "source_site": "總會", "pdf_url": f"https://example.test/activity-{index}.pdf"}
+            notices.append(item)
+            enrich[item["pdf_url"]] = {"branch_tags": branches, "subscription_tags": ["activity:other"]}
+        groups = matching_groups([sub], notices, notices, enrich, set())
+        self.assertEqual(list(groups), [sub["id"]])
+        _, newly, summary = groups[sub["id"]]
+        self.assertEqual(newly, notices[:3])
+        self.assertEqual(summary, notices[:3])
+        payload = build_push_payload(summary, enrich, "https://example.test", "2026-09-08")
+        self.assertEqual(payload["count"], 3)
+        self.assertEqual(len(set(payload["noticeIds"])), 3)
+
+    def test_parent_activity_requires_parent_audience_and_activity_type(self):
+        sub = {"branch_ids": ["家長"], "topic_ids": ["activity:other"]}
+        item = {"title": "港島童軍繽紛日2026", "pdf_url": "https://example.test/fun-day.pdf"}
+        # Example from the stored circular's audience; title alone is not proof
+        # that parents may participate. Use fresh tagging / old-record fallback.
+        for audience, expected in (("童軍、領袖、家長、成年成員", True),
+                                   ("童軍、領袖", False), ("", False)):
+            meta = notice_metadata(item, {item["pdf_url"]: {"audience": audience}})
+            self.assertIn("activity:other", meta["topic_tags"])
+            self.assertEqual(subscription_matches(sub, meta), expected)
+        self.assertFalse(subscription_matches(sub, {"branch_tags": ["家長"], "topic_tags": []}))
+        self.assertFalse(subscription_matches(sub, {"branch_tags": ["家長"], "topic_tags": ["category:competition"]}))
+
+    def test_catalog_parent_options_and_branch_first_choices(self):
+        self.assertEqual(matching_topics_for_branches([]), [])
+        choices = [t for t in matching_topics_for_branches(["家長"]) if t["kind"] != "all"]
+        self.assertTrue(choices)
+        self.assertTrue(all(t["group"] in {"活動", "比賽"} for t in choices))
+        choices = {t["id"] for t in matching_topics_for_branches(["家長", "童軍"])}
+        self.assertIn("training:童軍", choices)
+        self.assertIn("branch:童軍:category:service", choices)
+        self.assertNotIn("branch:家長:category:service", choices)
+        self.assertNotIn("category:service", choices)
+
+    def test_branch_scoped_pairs_cannot_cross_match(self):
+        sub = {"branch_ids": ["家長", "小童軍"], "topic_ids": ["branch:家長:activity:other", "branch:小童軍:category:competition"]}
+        for branch, topic, expected in (
+            ("家長", "activity:other", True), ("小童軍", "category:competition", True),
+            ("家長", "category:competition", False), ("小童軍", "activity:other", False),
+            ("童軍", "activity:other", False), ("童軍", "category:competition", False),
+        ):
+            with self.subTest(branch=branch, topic=topic):
+                self.assertEqual(subscription_matches(sub, {"branch_tags": [branch], "topic_tags": [topic]}), expected)
+        sub["topic_ids"].append("branch:小童軍:category:service")
+        self.assertTrue(subscription_matches(sub, {"branch_tags": ["小童軍"], "topic_tags": ["category:service"]}))
+        self.assertFalse(subscription_matches(sub, {"branch_tags": ["家長"], "topic_tags": ["category:service"]}))
+        sub["branch_ids"] = ["家長"]
+        self.assertFalse(subscription_matches(sub, {"branch_tags": ["小童軍"], "topic_tags": ["category:competition"]}))
+
+    def test_all_new_includes_untagged_but_only_new_undelivered_items(self):
+        sub = {"id": "all", "branch_ids": [], "topic_ids": ["all:new"]}
+        self.assertTrue(subscription_matches(sub, {}))
+        old = {"title": "舊通告", "source_site": "總會", "pdf_url": "https://example.test/old.pdf"}
+        new = {"title": "未分類新通告", "source_site": "總會", "pdf_url": "https://example.test/new.pdf"}
+        found = find_new_notices({"notices": [old, new]}, {"notices": [old]})
+        groups = matching_groups([sub], found, found, {}, set())
+        self.assertEqual(groups["all"][1], [new])
+        self.assertEqual(groups["all"][2], [new])
+        self.assertEqual(matching_groups([sub], found, found, {}, {("all", notice_key(new))}), {})
+        self.assertEqual(matching_groups([sub], [], [], {}, set()), {})
+        scoped = {"branch_ids": ["家長"], "topic_ids": ["branch:家長:activity:other"]}
+        self.assertFalse(subscription_matches(scoped, {}))
+
+    def test_webpush_retains_each_message_for_three_days(self):
+        webpush = Mock()
+        with patch.dict(sys.modules, {"pywebpush": SimpleNamespace(webpush=webpush)}):
+            send_web_push({"endpoint": "https://example.test", "p256dh": "key", "auth": "auth"},
+                          {"title": "測試"}, {"private_key": "private", "subject": "https://example.test"})
+        self.assertEqual(PUSH_TTL_SECONDS, 259200)
+        self.assertEqual(webpush.call_args.kwargs["ttl"], 259200)
 
     def test_source_qualified_cache_comparison(self):
         same_url = "https://example.test/shared.pdf"
