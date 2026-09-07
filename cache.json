@@ -1,13 +1,94 @@
 {
-  "last_updated": "2026-09-07 15:36:01",
+  "last_updated": "2026-09-07 18:00:04",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4747,
+    "total_notices": 4756,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港青年獎勵計劃更新安排(P95/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25989/P095-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25989/P095-26.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第4屆深資童軍支部訓練方法訓練班(單元2A及單元2B)(KT/65/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25971/KT65_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25971/KT65_26.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第16屆氣象基礎課程訓練班(P94/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25986/P094-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25986/P094-26.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "新修訂支部訓練綱要正式實施及發布安排(P96/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25990/P096-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25990/P096-26.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域服務獎勵計劃 - 附件(二)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25979/Special15-2.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25979/Special15-2.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域服務獎勵計劃 - 附件(一)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25976/Special15-1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25976/Special15-1.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域服務獎勵計劃",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25974/Special15.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25974/Special15.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "九龍地域9月份通告一覽",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25983/Summary_2026_09.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25983/Summary_2026_09.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "「積極公民」獎章系列 – 環保先鋒章(P93/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25985/P093-26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25985/P093-26.pdf",
+        "date": "2026-09-07",
+        "captured_date": "2026-09-07",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第111屆先鋒工程訓練班(領袖技能訓練班) (KT/70/26)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25957/KT70_26.pdf",
@@ -42828,6 +42909,69 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25989/P095-26.pdf",
+      "title": "香港青年獎勵計劃更新安排(P95/2026)",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25971/KT65_26.pdf",
+      "title": "第4屆深資童軍支部訓練方法訓練班(單元2A及單元2B)(KT/65/26)",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25986/P094-26.pdf",
+      "title": "第16屆氣象基礎課程訓練班(P94/2026)",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25990/P096-26.pdf",
+      "title": "新修訂支部訓練綱要正式實施及發布安排(P96/2026)",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25979/Special15-2.pdf",
+      "title": "地域服務獎勵計劃 - 附件(二)",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25976/Special15-1.pdf",
+      "title": "地域服務獎勵計劃 - 附件(一)",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25974/Special15.pdf",
+      "title": "地域服務獎勵計劃",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25983/Summary_2026_09.pdf",
+      "title": "九龍地域9月份通告一覽",
+      "captured_date": "2026-09-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25985/P093-26.pdf",
+      "title": "「積極公民」獎章系列 – 環保先鋒章(P93/2026)",
+      "captured_date": "2026-09-07"
+    },
+    {
       "source_site": "紅磡區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1teJTA8atSfLAQ0d1l9hNcuclxwWb-Zbp/view",
@@ -76181,60 +76325,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-07 15:36:01",
-      "new": 2,
-      "updated": 185,
-      "skipped": 46,
+      "updated_at": "2026-09-07 18:00:04",
+      "new": 9,
+      "updated": 3502,
+      "skipped": 3,
       "processed": 46,
-      "playwright_used": 0,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "總會",
-        "港島地域",
-        "灣仔區",
-        "港島西區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "何文田區",
-        "九龍城區",
-        "九龍塘區",
-        "旺角區",
-        "深旺區",
-        "深水埗東區",
-        "深水埗西區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "新界地域",
-        "元朗東區",
-        "元朗西區",
-        "十八鄉區",
-        "屯門西區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
-        "南葵涌區",
         "離島區 (expected_empty)",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
-        "大嶼山區 (expected_empty)",
-        "慈雲山區",
-        "青衣區"
+        "大嶼山區 (expected_empty)"
       ]
     }
   }
