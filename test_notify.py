@@ -8,7 +8,7 @@ from unittest.mock import Mock, patch
 
 from subscription_tagging import matching_topics_for_branches
 
-from notify import build_push_payload, find_new_notices, matching_groups, notice_id, notice_key, subscription_matches, notice_metadata, send_web_push, PUSH_TTL_SECONDS
+from notify import build_push_payload, find_catchup_notices, find_new_notices, matching_groups, notice_id, notice_key, subscription_matches, notice_metadata, send_web_push, PUSH_TTL_SECONDS
 
 
 class NotifyMatchingTests(unittest.TestCase):
@@ -164,6 +164,37 @@ class NotifyMatchingTests(unittest.TestCase):
         self.assertEqual(len(found), 1)
         self.assertEqual(found[0]["source_site"], "乙區")
         self.assertNotEqual(notice_key(found[0]), notice_key(baseline["data"]["甲區"][0]))
+
+    def test_catchup_covers_local_first_same_day_items(self):
+        # 本機後備先寫入：通告已喺 baseline 入面，HEAD diff 係空，
+        # 但 captured_date 係今日 → 補發要納入。
+        local_first = dict(self.training_one, captured_date="2026-09-08")
+        current = {"notices": [local_first]}
+        baseline = {"notices": [local_first]}
+        self.assertEqual(find_new_notices(current, baseline), [])
+        found = find_catchup_notices(current, [], "2026-09-08")
+        self.assertEqual(found, [local_first])
+
+    def test_catchup_ignores_other_days_and_missing_dates(self):
+        yesterday = dict(self.training_one, captured_date="2026-09-07")
+        no_date = {"source_site": "總會", "pdf_url": "https://example.test/nodate.pdf", "title": "無日期"}
+        current = {"notices": [yesterday, no_date]}
+        self.assertEqual(find_catchup_notices(current, [], "2026-09-08"), [])
+
+    def test_catchup_never_duplicates_baseline_diff(self):
+        # Action 跑先嘅正常情況：diff 已發現今日項目，補發唔可以重複加。
+        discovered = dict(self.training_two, captured_date="2026-09-08")
+        current = {"notices": [discovered]}
+        self.assertEqual(find_catchup_notices(current, [discovered], "2026-09-08"), [])
+
+    def test_catchup_item_still_filtered_by_delivery_record(self):
+        # 補發納入後，每訂閱者嘅 delivered 紀錄仍然擋重複：同日重跑保持靜默。
+        sub = {"id": "all", "branch_ids": [], "topic_ids": ["all:new"]}
+        item = dict(self.training_one, captured_date="2026-09-08")
+        found = find_catchup_notices({"notices": [item]}, [], "2026-09-08")
+        self.assertEqual(len(found), 1)
+        self.assertEqual(matching_groups([sub], found, found, self.enrich, set())["all"][1], [item])
+        self.assertEqual(matching_groups([sub], found, found, self.enrich, {("all", notice_key(item))}), {})
 
     def test_branch_and_topic_intersection_then_aggregate(self):
         groups = matching_groups(

@@ -4,7 +4,10 @@
 
 Run this after ``core.py`` and ``enrich.py``, before committing cache.json.
 It compares the working cache to ``HEAD:cache.json`` so a normal re-scrape
-never re-notifies historical notices.  For each anonymous browser subscription
+never re-notifies historical notices.  If another writer (the local backup PC)
+committed today's notices before this checkout, a same-day catch-up still
+covers never-delivered items; delivery records keep reruns silent.
+For each anonymous browser subscription
 all matching new notices are aggregated first: 10 matches means one push, not
 10 notification sounds.
 """
@@ -142,6 +145,32 @@ def find_new_notices(current: Mapping[str, Any], baseline: Mapping[str, Any]) ->
     for item in iter_notices(current):
         key = notice_key(item)
         if key in previous_keys or key in seen:
+            continue
+        seen.add(key)
+        result.append(item)
+    return result
+
+
+def find_catchup_notices(
+    current: Mapping[str, Any],
+    already_found: Sequence[Dict[str, Any]],
+    batch_date: str,
+) -> List[Dict[str, Any]]:
+    """Return same-day cached notices that the baseline diff did not discover.
+
+    Covers the local-backup-first ordering: the home PC committed today's
+    notices before this checkout, so the ``HEAD`` diff is empty even though
+    nobody has notified them yet.  Only items captured exactly on
+    ``batch_date`` qualify, and per-subscription delivery records still filter
+    out anything already sent — a same-day rerun stays silent.
+    """
+    seen = {notice_key(item) for item in already_found}
+    result: List[Dict[str, Any]] = []
+    for item in iter_notices(current):
+        key = notice_key(item)
+        if key in seen:
+            continue
+        if str(item.get("captured_date") or item.get("date") or "")[:10] != batch_date:
             continue
         seen.add(key)
         result.append(item)
@@ -518,18 +547,25 @@ def main() -> int:
 
     current = read_json(CACHE_PATH)
     enrich = read_json(ENRICH_PATH) if ENRICH_PATH.exists() else {}
-    notices = find_new_notices(current, baseline)
-    if not notices:
-        print("🔔 推播：今次沒有真正新增通告，0 次發送。")
-        return 0
-    print(f"🔔 推播：偵測到 {len(notices)} 則真正新增通告。")
-
     batch_date = args.batch_date or datetime.now(HKT).date().isoformat()
     try:
         datetime.strptime(batch_date, "%Y-%m-%d")
     except ValueError:
         print("❌ --batch-date 必須是 YYYY-MM-DD", file=sys.stderr)
         return 2
+
+    notices = find_new_notices(current, baseline)
+    # 同日補發安全網：本機後備可能喺呢次 checkout 之前已寫入今日通告，
+    # 令上面嘅 HEAD diff 係空 —— 但從來未有人通知過佢哋。只納入 captured_date
+    # 係今日嘅項目；下面每訂閱者嘅 delivered 紀錄仍然會擋走已發送嘅，唔會重複響。
+    catchup = find_catchup_notices(current, notices, batch_date)
+    if catchup:
+        print(f"🔔 推播：發現 {len(catchup)} 則今日已入庫但未經此批次發現嘅通告，一併納入。")
+    notices = notices + catchup
+    if not notices:
+        print("🔔 推播：今次沒有真正新增通告，0 次發送。")
+        return 0
+    print(f"🔔 推播：偵測到 {len(notices)} 則真正新增通告。")
 
     # A later same-day run may discover more notices after an earlier summary
     # has already been delivered. Include every matching notice captured today
