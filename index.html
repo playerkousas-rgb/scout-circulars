@@ -109,8 +109,8 @@
     .chip.chip-category.active[data-cat="competition"] { background: linear-gradient(135deg, #7e22ce, #c026d3); color: #fff; border-color: #e879f9; }
     .chip.chip-category.active[data-cat="other"] { background: linear-gradient(135deg, #334155, #64748b); color: #0b1220; border-color: #94a3b8; }
     .chip.chip-category.active[data-cat="ALL"] { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
-    /* 卡片上的分類小標籤 */
-    .cat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    /* 卡片上的分類小標籤（同來源 badge、通告名排同一行，慳行數） */
+    .cat-tags { display: inline-flex; flex-wrap: wrap; gap: 6px; }
     .cat-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: #cfe3ff; }
     .cat-tag.training { border-color: rgba(59,130,246,.45); background: rgba(29,78,216,.18); color: #b6d4ff; }
     .cat-tag.service { border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.14); color: #bbf7d0; }
@@ -137,6 +137,12 @@
     .card { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(180deg, rgba(15,23,40,.92), rgba(8,14,26,.95)); box-shadow: var(--shadow); }
     .badge { display: inline-flex; align-items: center; gap: 6px; width: fit-content; font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(59,130,246,.35); background: rgba(29,78,216,.18); color: #b6d4ff; }
     .card h3 { margin: 0; font-size: 18px; line-height: 1.45; }
+    /* 來源 badge + 分類標籤 + 通告名排埋一齊，唔再分三行 */
+    .card-title-wrap { flex: 1 1 auto; min-width: 0; }
+    .card-title-wrap .badge { margin-right: 6px; vertical-align: 2px; }
+    .card-title-wrap .cat-tags { margin-right: 6px; vertical-align: 2px; }
+    .card-title-wrap h3 { display: inline; }
+    .card-icons { flex: 0 0 auto; display: flex; gap: 8px; align-items: flex-start; }
     /* 書籤（★）——瀏覽器本機儲存，唔會上傳 */
     .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
     .star-btn { flex: 0 0 auto; background: transparent; border: 1px solid var(--line); color: #6b7f9e;
@@ -253,8 +259,9 @@
     /* ── 分享 ─────────────────────────────────────────────── */
     .card-actions { display: flex; gap: 8px; }
     .card-actions .ss-import { flex: 1; }
-    .share-btn { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line);
-                 background: #0b1424; color: #cfe3ff; border-radius: 12px; padding: 9px 12px; cursor: pointer; font-weight: 700; }
+    /* 分享掣得返 icon（同收藏 ★ 一樣放卡片右上角），文字靠 title/aria-label */
+    .share-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+                 border: 1px solid var(--line); background: #0b1424; color: #cfe3ff; border-radius: 10px; padding: 0; cursor: pointer; }
     .share-btn:hover { background: #16263f; border-color: #3a5a8c; }
     .share-btn svg { width: 16px; height: 16px; }
     .share-btn:focus-visible, .share-opt:focus-visible, .share-close:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
@@ -315,8 +322,12 @@
       .brand { padding: 4px 6px 8px; }
       .brand h1 { font-size: 17px; }
       .sidebar-update, .site-maintenance { display: none; }
-      .mobile-library-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 2px 2px 12px; }
-      .mobile-library-bar > button { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #0b1424; color: #d9e8ff; font-weight: 700; cursor: pointer; font-size: 12px; }
+      /* 頂欄長期置頂：碌到最底都撳到 ☰／★／🔔，唔使碌返上頂 */
+      .mobile-library-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        position: sticky; top: 0; z-index: 30; background: var(--bg);
+        margin: 0 -12px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+      .mobile-top-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+      .mobile-top-actions > button { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #0b1424; color: #d9e8ff; font-weight: 700; cursor: pointer; font-size: 12px; }
       .mobile-library-meta { display: grid; justify-items: end; gap: 2px; min-width: 0; font-size: 11px; color: var(--muted); text-align: right; }
       .mobile-library-meta strong { color: #d9e8ff; font-size: 12px; }
       .mobile-library-meta span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
@@ -330,22 +341,55 @@
       .mobile-section.is-open > .mobile-section-body { display: block; }
       .mobile-section.is-open > .ss-connect { display: grid; }
       .filters-section .mobile-section-body { padding-top: 2px; }
-      .scoutsystem-section .ss-connect { margin-top: 8px; }
-      .mobile-library-bar > .mobile-push-btn { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 38px; height: 34px; border: 1px solid rgba(96,165,250,.45); border-radius: 10px; background: #0b1424; color: #93c5fd; font-size: 15px; cursor: pointer; }
-      .mobile-library-bar > .mobile-push-btn.active { background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: #fff; border-color: #60a5fa; }
+      /* ScoutSystem 接入只喺電腦出現，手機唔顯示 */
+      .scoutsystem-section { display: none !important; }
+      .mobile-top-actions > .mobile-push-btn { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 38px; height: 34px; border: 1px solid rgba(96,165,250,.45); border-radius: 10px; background: #0b1424; color: #93c5fd; font-size: 15px; cursor: pointer; padding: 0; }
+      .mobile-top-actions > .mobile-push-btn.active { background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: #fff; border-color: #60a5fa; }
+      /* 頂欄收藏 icon：金色，同天數旁邊嗰粒作用一樣（手機唔再喺天數旁邊重複放） */
+      .mobile-top-actions > .mobile-bm-btn { display: inline-flex; position: relative; align-items: center; justify-content: center; flex: 0 0 auto; width: 38px; height: 34px; border: 1px solid rgba(250,204,21,.4); border-radius: 10px; background: #0b1424; color: #facc15; font-size: 16px; cursor: pointer; padding: 0; }
+      .mobile-top-actions > .mobile-bm-btn.active { background: linear-gradient(135deg, #a16207, #facc15); color: #1a1205; border-color: #facc15; }
+      .mobile-bm-count { position: absolute; top: -7px; right: -7px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px;
+        background: #facc15; color: #1a1205; font-size: 10px; font-weight: 800; line-height: 18px; text-align: center; }
+      .mobile-bm-count[hidden] { display: none; }
       .push-backdrop { padding: 0; align-items: flex-end; }
       .push-sheet { width: 100%; max-height: 92dvh; border-radius: 18px 18px 0 0; padding: 14px; }
       .pick-chip { padding: 8px 12px 8px 9px; font-size: 13px; }
-      .controls { margin-top: 10px; gap: 8px; }
-      .controls input[type="search"] { min-width: 0; width: 100%; flex-basis: 100%; }
-      .scope-chips { width: 100%; }
-      .scope-chip { flex: 1; padding: 9px 8px; }
-      .field-label { width: 100%; }
+      .controls { margin-top: 8px; gap: 6px; }
+      /* 搜尋 + 範圍同一行，慳一行 */
+      #filters-section-body > .controls:first-child { flex-wrap: nowrap; }
+      #filters-section-body #keyword { flex: 1 1 auto; width: auto; flex-basis: auto; min-width: 0; padding: 9px 10px; font-size: 13px; }
+      #filters-section-body .scope-chips { width: auto; flex: 0 0 auto; gap: 6px; }
+      #filters-section-body .scope-chip { flex: 0 0 auto; padding: 9px 8px; font-size: 12px; white-space: nowrap; }
+      .field-label { display: none; }
+      /* 支部：9 粒掣固定兩行睇晒；分類／天數：各一行睇晒 */
+      #branch-chips { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; }
+      #category-chips, #window-chips { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; width: 100%; }
+      #branch-chips .chip, #category-chips .chip, #window-chips .chip {
+        min-width: 0; padding: 7px 2px; font-size: 12px; text-align: center;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      /* 通知同收藏已經喺頂欄有 icon，唔再喺天數旁邊重複佔位 */
+      #window-chips .chip-bm, #window-chips #open-push-settings { display: none; }
       .chip { padding: 8px 11px; }
       .status { font-size: 12px; }
       .ss-connect input { min-width: 0; width: 100%; }
-      .cards { margin-top: 12px; grid-template-columns: 1fr; gap: 12px; }
-      .card { min-width: 0; }
+      /* 手機兩欄卡片：iPhone 一版大約見到 6–8 張 */
+      .cards { margin-top: 12px; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .card { min-width: 0; padding: 10px; gap: 8px; border-radius: 12px; }
+      .card-title-wrap h3 { font-size: 13px; line-height: 1.35; }
+      .card .badge { font-size: 10px; padding: 3px 7px; }
+      .card .cat-tag { font-size: 10px; padding: 2px 6px; }
+      .card-icons { gap: 6px; }
+      .card .star-btn, .card .share-btn { width: 32px; height: 32px; font-size: 16px; border-radius: 8px; }
+      .card .share-btn svg { width: 15px; height: 15px; }
+      .card .meta-row { font-size: 11px; padding-top: 6px; gap: 6px; }
+      .card .meta-row .host { display: none; }
+      .card .meta-row .link { white-space: nowrap; }
+      .card .ex-box { padding: 6px 8px; gap: 3px; }
+      .card .ex-row { font-size: 11px; gap: 5px; }
+      .card .ex-ico { font-size: 11px; }
+      .card .gone-tag { font-size: 11px; }
+      /* 加入 ScoutSystem 只喺電腦出現：手機卡片唔留呢行 */
+      .card-actions { display: none; }
       .content > footer { display: none; }
     }
   </style>
@@ -377,8 +421,11 @@
 
     <main class="content">
       <div class="mobile-library-bar" aria-label="通告圖書館資訊">
-        <button type="button" id="open-library-menu" aria-controls="library-sidebar" aria-expanded="false">☰ 地域／區會</button>
-        <button type="button" id="open-push-mobile" class="mobile-push-btn" aria-controls="push-settings" aria-label="個人化通知設定">🔔</button>
+        <div class="mobile-top-actions">
+          <button type="button" id="open-library-menu" aria-controls="library-sidebar" aria-expanded="false">☰ 區會</button>
+          <button type="button" id="open-bookmarks-mobile" class="mobile-bm-btn" aria-label="我的收藏">★<span class="mobile-bm-count" id="mobile-bm-count" hidden></span></button>
+          <button type="button" id="open-push-mobile" class="mobile-push-btn" aria-controls="push-settings" aria-label="個人化通知設定">🔔</button>
+        </div>
         <div class="mobile-library-meta">
           <strong id="mobile-library-version">通告圖書館 v5.8</strong>
           <span id="mobile-last-updated">最後更新：讀取中…</span>
@@ -848,6 +895,7 @@
 
     function initCompactMobileControls() {
       $('#open-library-menu')?.addEventListener('click', () => setLibraryDrawer(true));
+      $('#open-bookmarks-mobile')?.addEventListener('click', toggleBookmarksView);
       $('#close-library-menu')?.addEventListener('click', closeLibraryDrawer);
       $('#mobile-drawer-backdrop')?.addEventListener('click', closeLibraryDrawer);
       document.addEventListener('keydown', event => {
@@ -1069,6 +1117,21 @@
       return items;
     }
 
+    // ★ 收藏分頁切換：桌面「天數旁邊嗰粒」同手機「頂欄 ★」共用同一個邏輯。
+    function toggleBookmarksView() {
+      if (state.activeSource === 'BOOKMARKS') {
+        state.activeSource = state.lastSource || 'ALL_SOURCES';   // 再撳一次返返去
+      } else {
+        state.lastSource = state.activeSource;
+        state.activeSource = 'BOOKMARKS';
+      }
+      renderWindowChips();
+      renderAccordion();
+      renderSidebarMeta();
+      renderHeader();
+      renderCards();
+    }
+
     function renderWindowChips() {
       const wrap = $('#window-chips');
       wrap.innerHTML = '';
@@ -1098,19 +1161,7 @@
       bmBtn.className = `chip chip-bm ${state.activeSource === 'BOOKMARKS' ? 'active' : ''}`;
       bmBtn.innerHTML = `★ 收藏${n ? ` <span class="chip-n">${n}</span>` : ''}`;
       bmBtn.title = '睇返你收藏咗嘅通告（唔受上面時間範圍影響）';
-      bmBtn.onclick = () => {
-        if (state.activeSource === 'BOOKMARKS') {
-          state.activeSource = state.lastSource || 'ALL_SOURCES';   // 再撳一次返返去
-        } else {
-          state.lastSource = state.activeSource;
-          state.activeSource = 'BOOKMARKS';
-        }
-        renderWindowChips();
-        renderAccordion();
-        renderSidebarMeta();
-        renderHeader();
-        renderCards();
-      };
+      bmBtn.onclick = toggleBookmarksView;
       wrap.appendChild(bmBtn);
 
       // 🔔 個人化通知：放喺「收藏」隔籬，一撳開設定面板（先揀支部，再點選項目）。
@@ -1127,6 +1178,15 @@
       wrap.appendChild(pushBtn);
       const mobileBtn = $('#open-push-mobile');
       if (mobileBtn) { mobileBtn.classList.toggle('active', summary.active); mobileBtn.title = summary.title; }
+      // 手機頂欄 ★：同桌面收藏掣同步（高亮＋數字）
+      const bmMobile = $('#open-bookmarks-mobile');
+      if (bmMobile) {
+        bmMobile.classList.toggle('active', state.activeSource === 'BOOKMARKS');
+        bmMobile.title = n ? `我的收藏（${n}）` : '我的收藏';
+        bmMobile.setAttribute('aria-label', bmMobile.title);
+        const bmCount = $('#mobile-bm-count');
+        if (bmCount) { bmCount.textContent = n > 99 ? '99+' : String(n); bmCount.hidden = !n; }
+      }
     }
 
     function renderScopeChips() {
@@ -1237,6 +1297,7 @@
 
     function chooseSource(source) {
       state.activeSource = source;
+      renderWindowChips();   // 頂欄 ★／收藏掣高亮要跟住郁
       renderAccordion();
       renderHeader();
       renderCards();
@@ -1873,15 +1934,20 @@
         const card = document.createElement('article');
         card.className = `card${item._bmGone ? ' bm-gone' : ''}`;
         card.innerHTML = `
-          <div class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</div>
           ${item._bmGone ? '<div class="gone-tag">⚠️ 原站已移除（報唔到，可撳 ★ 取消收藏）</div>' : ''}
-          <div class="cat-tags">${catHtml}</div>
           <div class="card-head">
-            <h3>${escapeHtml(item.title || '未命名通告')}</h3>
-            <button class="star-btn${starred ? ' on' : ''}" type="button"
-              aria-pressed="${starred ? 'true' : 'false'}"
-              title="${starred ? '取消收藏' : '加入收藏'}"
-              aria-label="${starred ? '取消收藏' : '加入收藏'}">${starred ? '★' : '☆'}</button>
+            <div class="card-title-wrap">
+              <span class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</span>
+              <span class="cat-tags">${catHtml}</span>
+              <h3>${escapeHtml(item.title || '未命名通告')}</h3>
+            </div>
+            <div class="card-icons">
+              <button class="star-btn${starred ? ' on' : ''}" type="button"
+                aria-pressed="${starred ? 'true' : 'false'}"
+                title="${starred ? '取消收藏' : '加入收藏'}"
+                aria-label="${starred ? '取消收藏' : '加入收藏'}">${starred ? '★' : '☆'}</button>
+              <button class="share-btn" type="button" title="分享呢張通告" aria-label="分享呢張通告">${SHARE_SVG.share}</button>
+            </div>
           </div>
           <div class="meta-row">
             <span>${escapeHtml(formatDate(item.date || item.captured_date || ''))}</span>
@@ -1894,7 +1960,6 @@
           </div>
           <div class="card-actions">
             <button class="ss-import" data-ss-url="${escapeHtml(buildScoutSystemImportUrl(item, ex))}">加入 ScoutSystem</button>
-            <button class="share-btn" type="button" title="分享呢張通告" aria-label="分享呢張通告">${SHARE_SVG.share}<span>分享</span></button>
           </div>
         `;
         const shareBtn = card.querySelector('.share-btn');
