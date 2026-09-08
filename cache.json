@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-07 18:00:04",
+  "last_updated": "2026-09-08 08:00:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
@@ -76318,21 +76318,24 @@
       "青衣區"
     ],
     "total_sources": 49,
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-07 18:00:04",
-      "new": 9,
-      "updated": 3502,
-      "skipped": 3,
+      "updated_at": "2026-09-08 08:00:06",
+      "new": 0,
+      "updated": 3509,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 2,
-      "error_sources": [],
+      "playwright_used": 1,
+      "error_sources": [
+        "九龍城區"
+      ],
       "skipped_sources": [
+        "九龍城區",
         "西貢區 (expected_empty)",
         "離島區 (expected_empty)",
         "大嶼山區 (expected_empty)"
