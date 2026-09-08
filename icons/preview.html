@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>圖示預覽 — 童軍通告圖書館</title>
+<link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+<style>
+  body { margin:0; background:#0f1728; color:#e6eefb; font-family: ui-sans-serif,-apple-system,"PingFang TC","Noto Sans TC",sans-serif; padding:28px; }
+  h1 { font-size:20px; margin:0 0 4px; } p.sub { color:#8ea2c6; margin:0 0 24px; font-size:13px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:22px; }
+  .card { background:#111d32; border:1px solid #243553; border-radius:16px; padding:18px; }
+  .card h2 { font-size:14px; margin:0 0 14px; color:#bfd2ef; font-weight:600; }
+  .row { display:flex; gap:22px; align-items:flex-end; flex-wrap:wrap; }
+  .app { text-align:center; width:76px; font-size:11px; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.6); }
+  .app img { display:block; margin:0 auto 6px; width:60px; height:60px; }
+  .ios img { border-radius:13.5px; }
+  .android-circle img { border-radius:50%; }
+  .android-squircle img { border-radius:18px; }
+  .wall { border-radius:14px; padding:22px 16px 14px; }
+  .wall.ios-wall { background: linear-gradient(160deg,#ff9a8b,#ff6a88 40%,#5b6cff); }
+  .wall.android-wall { background: linear-gradient(160deg,#1f2937,#0b1220); }
+  .wall.light-wall { background: linear-gradient(160deg,#f8fafc,#dbe4f0); }
+  .light-wall .app { color:#0f172a; text-shadow:none; }
+  .notif { background:#fff; color:#111; border-radius:14px; padding:12px 14px; display:flex; gap:12px; align-items:flex-start; max-width:420px; box-shadow:0 8px 24px rgba(0,0,0,.35); }
+  .notif img.icon { width:40px; height:40px; border-radius:9px; }
+  .notif .t { font-weight:600; font-size:14px; } .notif .b { font-size:13px; color:#444; margin-top:2px; }
+  .notif .meta { font-size:11px; color:#777; display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+  .notif .meta img { width:14px; height:14px; filter: invert(45%); }
+  .statusbar { background:#000; color:#fff; border-radius:10px; padding:8px 14px; font-size:12px; display:flex; align-items:center; gap:10px; max-width:420px; margin-bottom:10px; }
+  .statusbar img { width:16px; height:16px; }
+  .tab { display:inline-flex; align-items:center; gap:8px; background:#e2e8f0; color:#111; border-radius:8px 8px 0 0; padding:8px 14px; font-size:13px; }
+  .tab img { width:16px; height:16px; }
+  .big { display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .big img { width:128px; height:128px; }
+  code { color:#93c5fd; font-size:12px; }
+</style>
+</head>
+<body>
+<h1>新圖示預覽</h1>
+<p class="sub">「童軍之火」：燃燒的金色百合花徽 ＋ 攤開的書；母圖 <code>icons/src/</code>，badge 來源 <code>icons/badge.svg</code>。</p>
+<div class="grid">
+  <div class="card">
+    <h2>iPhone 主畫面（apple-touch-icon 180px，iOS 自行裁圓角）</h2>
+    <div class="wall ios-wall row ios">
+      <div class="app"><img src="/icons/apple-touch-icon.png" alt="">童軍通告</div>
+      <div class="app"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect width='60' height='60' fill='%2334c759'/></svg>" alt="">訊息</div>
+      <div class="app"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect width='60' height='60' fill='%23fff'/></svg>" alt="">Safari</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Android 主畫面（maskable：圓形／squircle 裁切）</h2>
+    <div class="wall android-wall row">
+      <div class="app android-circle"><img src="/icons/icon-maskable-192.png" alt="">童軍通告</div>
+      <div class="app android-squircle"><img src="/icons/icon-maskable-192.png" alt="">童軍通告</div>
+      <div class="app ios"><img src="/icons/icon-192.png" alt="">any 版本</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>淺色桌布</h2>
+    <div class="wall light-wall row">
+      <div class="app ios"><img src="/icons/icon-192.png" alt="">童軍通告</div>
+      <div class="app android-circle"><img src="/icons/icon-maskable-192.png" alt="">童軍通告</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Android 推送通知（icon 彩色 ＋ badge 單色）</h2>
+    <div class="statusbar"><img src="/icons/badge-96.png" alt="">12:30 &nbsp;·&nbsp; 狀態列只顯示 badge 剪影</div>
+    <div class="notif">
+      <img class="icon" src="/icons/notification-192.png" alt="">
+      <div>
+        <div class="meta"><img src="/icons/badge-96.png" alt="">童軍通告 · 剛剛</div>
+        <div class="t">🔔 香港童軍通告：3 則新通告</div>
+        <div class="b">點擊查看通告</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>瀏覽器分頁 favicon（PNG 16／32／192）</h2>
+    <div class="tab"><img src="/icons/favicon-32.png" alt="">通告圖書館 v5.8</div>
+    <span class="tab" style="margin-left:6px"><img src="/icons/favicon-16.png" alt="">16px PNG</span>
+  </div>
+  <div class="card">
+    <h2>母圖（icons/src/）</h2>
+    <div class="big">
+      <img src="/icons/src/icon-any-1024.png" alt="any 母圖" style="border-radius:29px">
+      <img src="/icons/src/icon-maskable-1024.png" alt="maskable 母圖">
+      <img src="/icons/badge.svg" alt="badge" style="background:#334155;border-radius:16px">
+    </div>
+  </div>
+</div>
+</body>
+</html>

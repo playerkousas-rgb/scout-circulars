@@ -77,6 +77,9 @@ jobs:
       - name: 支部配對邏輯（由 index.html 抽出）
         run: node test_search_members.js
 
+      - name: PWA 圖示／manifest／通知 badge 一致性
+        run: node test_icons.js
+
       - name: /api/render PDF → 圖片（離線）
         run: python test_render_api.py
 

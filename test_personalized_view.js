@@ -220,6 +220,15 @@ setTimeout(async () => {
     assert(d.querySelector('#push-testing-notice').textContent.includes('建議每天到圖書館'));
     const help = d.querySelector('#push-notification-help').textContent;
     for (const text of ['加入主畫面', 'Safari', 'Android', '電腦', '系統設定', '3 日（72 小時）', '訂閱不會因此取消']) assert(help.includes(text), `notification help includes ${text}`);
+    // 說明文字要短：列點、每點一句，唔好重複面板本身已經睇得出嘅嘢。
+    assert(d.querySelectorAll('#push-notification-help .push-help-list > li').length === 3, 'receive-help is a 3-point list');
+    for (const li of d.querySelectorAll('#push-notification-help li, .push-privacy li')) {
+      const own = [...li.childNodes].filter(n => n.nodeType !== 1 || n.tagName !== 'UL').map(n => n.textContent).join('').trim();
+      assert(own.length <= 60, `help bullet stays short: ${own}`);
+    }
+    const sheetText = d.querySelector('#push-settings').textContent;
+    for (const removed of ['全選＝', '家長只有活動及比賽', '均按支部獨立選擇', '請先在上方選擇', '增加小朋友', '不設自由文字標籤']) assert(!sheetText.includes(removed), `verbose copy removed: ${removed}`);
+    assert(d.querySelector('#push-topics-help').hidden, 'topics help stays hidden – picking a branch reveals its items without a prompt');
     assert(!d.querySelector('#push-settings').textContent.includes('適用於所有支部'));
     assert(d.querySelector('link[rel="manifest"]'), 'home-screen standalone manifest is linked');
     d.querySelector('#push-close').click();

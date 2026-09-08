@@ -1,6 +1,10 @@
 /* Anonymous Web Push service worker for Scout Circulars. */
 'use strict';
 
+// Kept in sync with manifest.webmanifest / icons/. See README「圖示」.
+const NOTIFICATION_ICON = '/icons/notification-192.png';
+const NOTIFICATION_BADGE = '/icons/badge-96.png';
+
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', event => event.waitUntil(self.clients.claim()));
 
@@ -59,8 +63,11 @@ self.addEventListener('push', event => {
     // if the user dismissed the earlier OS notification.
     silent: payload.silent,
     data: { url: payload.url, count: payload.count, batchDate: payload.batchDate },
-    badge: '/icon.svg',
-    icon: '/icon.svg',
+    // PNG, not SVG: Android/Chrome only reliably raster PNG notification art.
+    // `badge` is the monochrome fleur-de-lis shown in the Android status bar
+    // (alpha only), `icon` is the full-colour app icon beside the message.
+    badge: NOTIFICATION_BADGE,
+    icon: NOTIFICATION_ICON,
     ...(payload.silent ? {} : { vibrate: [100, 40, 100] }),
   };
   event.waitUntil(self.registration.showNotification(payload.title, options));

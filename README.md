@@ -23,7 +23,48 @@
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
 - `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
 - `serve_local.py`：本機同時提供靜態頁 + `/api/render`
+- `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）
 - `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
+
+## 圖示
+
+主畫面圖示係「童軍之火」：燃燒中的金色紋章式百合花徽，火焰由中葉燒上去、兩旁渦卷亦着火，
+下方係一本攤開嘅書同金色底座，背景係昏暗嘅舊圖書館——象徵童軍之火長燃，努力參加活動同訓練。
+圖係繪畫風格點陣圖（AI 生成後裁切、置中、補邊、加暗角），**母圖放喺 `icons/src/`，所有尺寸由母圖輸出**：
+
+| 檔案 | 用途 |
+|---|---|
+| `icons/src/icon-any-1024.png` | 母圖（方形，圖案約佔 82% 高度）→ `icon-192/512.png`、`notification-192.png`、`favicon-16/32.png`（加透明圓角）、`apple-touch-icon.png`（180px，不加圓角，iOS 自己裁） |
+| `icons/src/icon-maskable-1024.png` | 母圖（圖案收在 80% 安全區內，量度後最遠亮點距中心 175px／上限 205px）→ `icon-maskable-192/512.png` |
+| `icon.svg`、`icons/icon-maskable.svg` | 只係包住對應 192 PNG 嘅 SVG 外殼，畀 manifest 引用；**唔好手改** |
+| `icons/badge.svg` → `icons/badge-96.png` | 單色白百合花剪影；Android 狀態列只取 alpha，所以唔可以用彩色圖 |
+
+`sw.js` 推送通知用 `notification-192.png`（彩色）＋ `badge-96.png`（單色）——Android/Chrome 唔會穩定 raster SVG 通知圖，所以一定要 PNG。
+`icons/preview.html` 模擬 iOS／Android 主畫面、通知同分頁 favicon 效果，本機開 `http://localhost:8000/icons/preview.html` 即可對照。
+
+換圖流程（ImageMagick）：
+
+```bash
+cd icons
+# 1) 圓角版（any）
+convert src/icon-any-1024.png -alpha set \( -size 1024x1024 xc:black -fill white -draw "roundrectangle 0,0 1023,1023 232,232" \) -alpha off -compose CopyOpacity -composite /tmp/any-rounded.png
+for s in 512 192 32 16; do convert /tmp/any-rounded.png -resize ${s}x${s} -strip icon-$s.png; done
+mv icon-32.png favicon-32.png; mv icon-16.png favicon-16.png; cp icon-192.png notification-192.png
+# 2) iOS 同 maskable（全出血）
+convert src/icon-any-1024.png -resize 180x180 -strip apple-touch-icon.png
+for s in 512 192; do convert src/icon-maskable-1024.png -resize ${s}x${s} -strip icon-maskable-$s.png; done
+# 3) SVG 外殼（base64 包住 192 PNG）
+python3 - <<'PY'
+import base64
+for png,svg in (('icon-192.png','../icon.svg'),('icon-maskable-192.png','icon-maskable.svg')):
+    b=base64.b64encode(open(png,'rb').read()).decode()
+    open(svg,'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 192 192" role="img" aria-label="香港童軍通告圖書館"><image width="192" height="192" xlink:href="data:image/png;base64,%s"/></svg>\n'%b)
+PY
+cd .. && node test_icons.js   # 確認 manifest / <head> / sw.js 引用嘅檔案全部存在且尺寸正確
+```
+
+`manifest.webmanifest` 嘅 `background_color`（安裝啟動畫面底色）係 `#0a0603`，同圖示近黑背景一致；`theme_color` 保留網站深藍，因為佢影響嘅係瀏覽器 UI 色。
+iOS 會快取 apple-touch-icon：換圖後要刪除舊主畫面 App 再重新「加入主畫面」先見到新圖。
 
 ## 快速開始
 
@@ -95,6 +136,7 @@ python test_notify.py           # Push 去重、交集和合併通知邏輯（�
 python test_push_common.py      # API 受控 ID 與 endpoint SSRF 防護
 node test_push_client.js        # LocalStorage／匿名 subscription lifecycle（不需 jsdom）
 node test_sw.js                 # Service Worker 只接受同源精確圖書館結果 URL
+node test_icons.js              # manifest／<head>／sw.js 引用嘅圖示檔案存在、PNG 尺寸正確、badge 係單色 PNG
 node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／手機收合 UI（需要 jsdom）
 ```
 

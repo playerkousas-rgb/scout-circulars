@@ -202,7 +202,9 @@ python notify.py --dry-run
 - 通知面板會一直顯示手機／電腦接收步驟，而不只在權限失敗時顯示。
   iPhone／iPad 需 iOS／iPadOS 16.4+，在 Safari「分享 → 加入主畫面」後，
   從圖示開啟並允許通知；未安裝時不會嘗試訂閱。Android 建議加入主畫面，
-  支援的瀏覽器亦可直接啟用。`manifest.webmanifest` 及 PNG 圖示提供 standalone 安裝設定。
+  支援的瀏覽器亦可直接啟用。`manifest.webmanifest` 及 PNG 圖示提供 standalone 安裝設定
+  （`any` ＋ `maskable` 兩套、180px `apple-touch-icon`）；通知本身用 `icons/notification-192.png`
+  ＋ 單色 `icons/badge-96.png`，來源 SVG 與重新輸出方法見 README「圖示」一節。
 - 電腦需允許網站及作業系統通知、保持連線，並讓瀏覽器開啟或在背景接收。
   不需一直開着本站分頁；省電／勿擾／瀏覽器限制仍可能影響送達。
 - `notify.py` 的 `PUSH_TTL_SECONDS = 259200`（72 小時／3 日）是**每則推送的離線保留時間**，

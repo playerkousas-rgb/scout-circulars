@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>通告圖書館 v5.8</title>
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
   <meta name="theme-color" content="#02133e">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="童軍通告">
   <style>
     :root {
       --bg: #02133e;
@@ -191,6 +195,12 @@
     .push-block-title small { color: var(--muted); font-weight: 400; font-size: 11.5px; }
     .push-step { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #1d4ed8; color: #fff; font-size: 11px; }
     .push-help { display: block; margin-top: 8px; color: var(--muted); font-size: 11.5px; line-height: 1.5; }
+    .push-help[hidden] { display: none; }
+    /* 說明改為列點：每點一句，重點行頭加粗 */
+    .push-help-list, .push-privacy { padding-left: 18px; }
+    .push-help-list li, .push-privacy li { margin: 4px 0; }
+    .push-help-list ul { padding-left: 16px; margin: 2px 0 0; }
+    .push-help-list li::marker, .push-privacy li::marker { color: #3b82f6; }
     /* 點選式選項：一下即剔，唔使 Ctrl／Shift */
     .pick-chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .pick-chip { position: relative; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); background: #0b1424; color: #b9c9e3;
@@ -234,7 +244,7 @@
     .push-primary[disabled], .push-secondary[disabled], .push-danger[disabled] { opacity: .55; cursor: not-allowed; }
     .push-state { margin-top: 10px; color: var(--muted); font-size: 12px; line-height: 1.55; }
     .push-state.good { color: #86efac; } .push-state.warn { color: #fcd34d; } .push-state.error { color: #fca5a5; }
-    .push-privacy { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(59,130,246,.24); color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .push-privacy { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid rgba(59,130,246,.24); color: var(--muted); font-size: 11px; line-height: 1.55; }
     .personal-banner { margin-top: 12px; padding: 10px 12px; border-radius: 10px; color: #dbeafe; background: rgba(37,99,235,.18); border: 1px solid rgba(96,165,250,.45); font-size: 13px; }
 
     /* 手機才使用的收合控制；桌面保留原來所有便利操作。 */
@@ -449,27 +459,33 @@
 
       <div class="push-block">
         <div class="pick-chips" id="push-all" role="group" aria-label="通知所有新通告"></div>
-        <small class="push-help">全選＝當日有任何新通告就通知，不限支部及分類，未分類亦包括；同批合併通知，不會為每張通告逐一響。取消全選可自行按支部選項目。</small>
       </div>
       <div id="push-custom-options">
         <div class="push-block">
           <div class="push-block-title"><span class="push-step">1</span> 我的支部 <small>可多選，點一下即選取</small></div>
           <div class="pick-chips" id="push-branches" role="group" aria-label="我的支部"></div>
-          <small class="push-help">先選支部，再在各支部內選項目。例如「家長的活動」或「小童軍的活動」，命中其中一組就通知；同一通告只計一次。家長只有活動及比賽，不影響其他支部的服務及訓練選項。</small>
+          <small class="push-help">命中任何一組就通知；同一通告只計一次。</small>
         </div>
         <div class="push-block">
-          <div class="push-block-title"><span class="push-step">2</span> 各支部關注項目 <small>活動、服務、比賽及訓練均按支部獨立選擇</small></div>
+          <div class="push-block-title"><span class="push-step">2</span> 各支部關注項目</div>
           <div id="push-topics" role="group" aria-label="各支部關注項目"></div>
-          <small class="push-help" id="push-topics-help">請先在上方選擇至少一個支部。</small>
+          <small class="push-help" id="push-topics-help" hidden></small>
         </div>
       </div>
 
       <div class="push-block" id="push-notification-help">
         <div class="push-block-title">如何收到通知</div>
         <p class="push-help" id="push-install-hint" role="status"></p>
-        <p class="push-help"><strong>手機：</strong>請先將本站加入手機主畫面，再從主畫面圖示開啟及按「啟用通知」。iPhone／iPad（iOS／iPadOS 16.4 或以上）：用 Safari 開啟 → 分享 →「加入主畫面」。Android：用 Chrome 選單 ⋮ →「加到主畫面」或「安裝應用程式」。Android 支援的瀏覽器亦可直接啟用通知。</p>
-        <p class="push-help"><strong>電腦：</strong>使用支援 Web Push 的瀏覽器，按「啟用通知」並選「允許」；亦要在電腦系統設定容許該瀏覽器傳送通知。請保持網絡連線，並開啟瀏覽器或允許它在背景執行；毋須一直開着本站分頁。勿擾模式及省電設定可能延遲或隱藏通知。</p>
-        <p class="push-help"><strong>離線通知最多保留 3 日（72 小時）。</strong>如瀏覽器完全關閉、未能在背景接收或裝置離線超過 3 日，較早的通知可能過期、不再補發。通知系統仍在測試中，建議每天開啟瀏覽器（手機請開啟主畫面 App）並到圖書館查看更新；實際送達仍受瀏覽器及系統限制。訂閱不會因此取消，最新通告仍可回本站查看。</p>
+        <ul class="push-help push-help-list">
+          <li><strong>手機：</strong>先加入主畫面，再從圖示開啟按「啟用通知」。
+            <ul>
+              <li>iPhone／iPad：Safari → 分享 →「加入主畫面」（iOS 16.4+）</li>
+              <li>Android：Chrome ⋮ →「加到主畫面」</li>
+            </ul>
+          </li>
+          <li><strong>電腦：</strong>按「啟用通知」選「允許」，並在系統設定容許瀏覽器通知；毋須一直開着本站。</li>
+          <li><strong>離線最多保留 3 日（72 小時）</strong>，逾期通知不補發，訂閱不會因此取消。</li>
+        </ul>
       </div>
       <div class="push-actions">
         <span class="push-count" id="push-count" aria-live="polite"></span>
@@ -478,9 +494,12 @@
         <button type="button" class="push-primary" id="push-enable">啟用通知</button>
         <button type="button" class="push-danger" id="push-disable" hidden>停止這部裝置通知</button>
       </div>
-      <small class="push-help" id="push-edit-help">增加小朋友：直接加選支部及項目，原有選項會保留。升團：取消舊支部，再選新支部及項目。想全部重揀才按「重新設定」；只會清空面板，儲存／更新前不會改動原有通知訂閱。</small>
+      <small class="push-help" id="push-edit-help">加選或取消支部後儲存即可，原有選項會保留；「重新設定」只清空面板，儲存前不會改動訂閱。</small>
       <div class="push-state" id="push-status" role="status" aria-live="polite">正在載入通知選項…</div>
-      <div class="push-privacy">私隱：設定先留在本機 LocalStorage。啟用後，伺服器只保存瀏覽器產生的匿名推送地址／加密金鑰及所選受控 ID；不收集姓名、電郵、電話、旅團或地域資料。訓練班、工作坊及課程等正式變體會自動配對，不設自由文字標籤。</div>
+      <ul class="push-privacy">
+        <li>私隱：設定先留在本機 LocalStorage。</li>
+        <li>啟用後伺服器只保存匿名推送地址及所選 ID；不收集姓名、電郵、電話、旅團或地域資料。</li>
+      </ul>
     </section>
   </div>
 
@@ -2147,12 +2166,12 @@
       const branches = selectedValues($('#push-branches'));
       const wanted = new Set(migratePushTopics(selectedTopics, branches));
       wrap.replaceChildren();
+      // 未揀支部就乜都唔顯示——揀咗自然會見到項目，唔使多講。
+      if (help) { help.textContent = ''; help.hidden = true; }
       if (!branches.length) {
-        if (help) help.textContent = '請先在上方選擇至少一個支部，才顯示該支部的活動、服務、比賽及訓練。';
         updatePushCount();
         return;
       }
-      if (help) help.textContent = '每個項目只屬於所在支部；不同支部可選不同項目。訓練另列現行綱要內徽章及訓練班。';
       const topics = state.pushCatalog.topics || [];
       const branchOrder = (state.pushCatalog.branches || []).map(branch => branch.id).filter(id => branches.includes(id));
       for (const branchId of branchOrder) {
@@ -2319,7 +2338,7 @@
         setPushStatus('瀏覽器已封鎖通知。請在網址列的網站設定中改為「允許」後再試。', 'warn');
         if (enable) enable.textContent = '重新嘗試啟用通知';
       } else {
-        setPushStatus('尚未啟用通知。可先只儲存設定，準備好才按「啟用通知」。');
+        setPushStatus('尚未啟用通知。');
         if (enable) enable.textContent = '啟用通知';
       }
       updatePushCount();
