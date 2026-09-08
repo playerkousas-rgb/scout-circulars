@@ -23,7 +23,40 @@
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
 - `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
 - `serve_local.py`：本機同時提供靜態頁 + `/api/render`
+- `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）
 - `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
+
+## 圖示
+
+主畫面圖示係「童軍百合花徽 ＋ 攤開的通告書」，配色沿用網站品牌藍（`#3b82f6` → `#02133e`）。
+所有 PNG 都由三個 SVG 來源檔產生，**改圖示時只改 SVG，再重新輸出 PNG**：
+
+| 來源 | 用途 | 輸出 |
+|---|---|---|
+| `icon.svg` | 圓角方形版（`purpose: any`）；亦係瀏覽器 favicon | `icons/icon-192.png`、`icons/icon-512.png`、`icons/notification-192.png`、`icons/favicon-16/32.png` |
+| `icons/icon-maskable.svg` | 全出血版，圖案收在 80% 安全區內，畀 Android 裁圓形／squircle，iOS 亦用此版（iOS 自行裁圓角） | `icons/icon-maskable-192/512.png`、`icons/apple-touch-icon.png`（180px） |
+| `icons/badge.svg` | 單色白剪影；Android 狀態列只取 alpha | `icons/badge-96.png` |
+
+`sw.js` 推送通知用 `notification-192.png`（彩色）＋ `badge-96.png`（單色）——Android/Chrome 唔會穩定 raster SVG 通知圖，所以一定要 PNG。
+`icons/preview.html` 模擬 iOS／Android 主畫面、通知同分頁 favicon 效果，本機開 `http://localhost:8000/icons/preview.html` 即可對照。
+
+重新輸出 PNG（任何可 raster SVG 嘅工具都得，例如 `@resvg/resvg-js` 或 `rsvg-convert`）：
+
+```bash
+npx --yes -p @resvg/resvg-js node -e '
+const fs=require("fs");const {Resvg}=require("@resvg/resvg-js");
+const png=(f,s)=>new Resvg(fs.readFileSync(f,"utf8"),{fitTo:{mode:"width",value:s}}).render().asPng();
+const w=(o,b)=>fs.writeFileSync(o,b);
+w("icons/icon-192.png",png("icon.svg",192)); w("icons/icon-512.png",png("icon.svg",512));
+w("icons/notification-192.png",png("icon.svg",192));
+w("icons/favicon-32.png",png("icon.svg",32)); w("icons/favicon-16.png",png("icon.svg",16));
+w("icons/icon-maskable-192.png",png("icons/icon-maskable.svg",192)); w("icons/icon-maskable-512.png",png("icons/icon-maskable.svg",512));
+w("icons/apple-touch-icon.png",png("icons/icon-maskable.svg",180));
+w("icons/badge-96.png",png("icons/badge.svg",96));'
+node test_icons.js   # 確認 manifest / <head> / sw.js 引用嘅檔案全部存在且尺寸正確
+```
+
+iOS 會快取 apple-touch-icon：換圖後要刪除舊主畫面 App 再重新「加入主畫面」先見到新圖。
 
 ## 快速開始
 
@@ -95,6 +128,7 @@ python test_notify.py           # Push 去重、交集和合併通知邏輯（�
 python test_push_common.py      # API 受控 ID 與 endpoint SSRF 防護
 node test_push_client.js        # LocalStorage／匿名 subscription lifecycle（不需 jsdom）
 node test_sw.js                 # Service Worker 只接受同源精確圖書館結果 URL
+node test_icons.js              # manifest／<head>／sw.js 引用嘅圖示檔案存在、PNG 尺寸正確、badge 係單色 PNG
 node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／手機收合 UI（需要 jsdom）
 ```
 

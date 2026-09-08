@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 香港童軍通告圖書館 app icon — 童軍百合花徽 + 攤開的書。Rounded-square "any" icon; also used as the favicon. -->
+<!-- Maskable variant — full-bleed plate, artwork kept inside the 80% safe zone so Android may crop to circle/squircle. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="香港童軍通告圖書館">
   <defs>
     <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1">
@@ -23,24 +23,25 @@
       <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#020b2a" flood-opacity="0.5"/>
     </filter>
   </defs>
-  <rect width="512" height="512" rx="116" fill="url(#plate)"/>
-  <rect width="512" height="512" rx="116" fill="url(#glow)"/>
-  <circle cx="256" cy="168" r="150" fill="url(#halo)"/>
+  <rect width="512" height="512" fill="url(#plate)"/>
+  <rect width="512" height="512" fill="url(#glow)"/>
+  <g transform="translate(256 256) scale(0.76) translate(-256 -256)">
+  <circle cx="256" cy="160" r="150" fill="url(#halo)"/>
   <g filter="url(#shadow)">
-    <path d="M256 320 C194.4 293.6 96 296 66 302 L66 424 C96 418 194.4 420 256 450 C317.6 420 416 418 446 424 L446 302 C416 296 317.6 293.6 256 320Z" fill="#0a1a4d"/>
-    <path d="M256 306 C194.4 279.6 110 282 80 288 L80 410 C110 404 194.4 406 256 434Z" fill="url(#page)"/>
-    <path d="M256 306 C317.6 279.6 402 282 432 288 L432 410 C402 404 317.6 406 256 434Z" fill="url(#page)"/>
-    <path d="M256 306 L256 434" stroke="#94a3b8" stroke-opacity="0.55" stroke-width="3"/>
+    <path d="M256 312 C194.4 285.6 96 288 66 294 L66 416 C96 410 194.4 412 256 442 C317.6 412 416 410 446 416 L446 294 C416 288 317.6 285.6 256 312Z" fill="#0a1a4d"/>
+    <path d="M256 298 C194.4 271.6 110 274 80 280 L80 402 C110 396 194.4 398 256 426Z" fill="url(#page)"/>
+    <path d="M256 298 C317.6 271.6 402 274 432 280 L432 402 C402 396 317.6 398 256 426Z" fill="url(#page)"/>
+    <path d="M256 298 L256 426" stroke="#94a3b8" stroke-opacity="0.55" stroke-width="3"/>
   </g>
   <g stroke="#94a3b8" stroke-opacity="0.6" stroke-width="10" stroke-linecap="round">
-      <path d="M114 330 L230 323"/>
-      <path d="M282 323 L398 330"/>
-      <path d="M114 360 L230 353"/>
-      <path d="M282 353 L398 360"/>
-      <path d="M114 390 L200 383"/>
-      <path d="M282 383 L368 390"/>
+      <path d="M114 322 L230 315"/>
+      <path d="M282 315 L398 322"/>
+      <path d="M114 352 L230 345"/>
+      <path d="M282 345 L398 352"/>
+      <path d="M114 382 L200 375"/>
+      <path d="M282 375 L368 382"/>
   </g>
-  <g transform="translate(150 78) scale(1.06)" filter="url(#shadow)">
+  <g transform="translate(150 70) scale(1.06)" filter="url(#shadow)">
     <g fill="#ffffff">
       <path d="M100 6C108 34 130 66 130 100C130 116 120 124 115 136L85 136C80 124 70 116 70 100C70 66 92 34 100 6Z"/>
       <path d="M117 136C118 100 132 78 156 70C182 62 200 84 194 108C190 122 182 132 174 136C182 122 186 104 172 96C154 86 141 104 139 136Z"/>
@@ -50,5 +51,6 @@
       <path d="M108 144C110 164 124 178 138 172C148 168 150 156 142 152C142 162 132 164 126 158C121 153 119 148 119 144Z"/>
       <path d="M108 144C110 164 124 178 138 172C148 168 150 156 142 152C142 162 132 164 126 158C121 153 119 148 119 144Z" transform="matrix(-1 0 0 1 200 0)"/>
     </g>
+  </g>
   </g>
 </svg>

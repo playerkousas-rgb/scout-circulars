@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Notification badge — Android status bar renders alpha only, so keep it a single white silhouette. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="童軍通告">
+  <g transform="translate(6 4) scale(0.42)">
+    <g fill="#ffffff"><path d="M100 6C108 34 130 66 130 100C130 116 120 124 115 136L85 136C80 124 70 116 70 100C70 66 92 34 100 6Z"/><path d="M117 136C118 100 132 78 156 70C182 62 200 84 194 108C190 122 182 132 174 136C182 122 186 104 172 96C154 86 141 104 139 136Z"/><path d="M117 136C118 100 132 78 156 70C182 62 200 84 194 108C190 122 182 132 174 136C182 122 186 104 172 96C154 86 141 104 139 136Z" transform="matrix(-1 0 0 1 200 0)"/><path d="M60 128h80a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H60a6 6 0 0 1-6-6v-8a6 6 0 0 1 6-6Z"/><path d="M100 198C105 182 114 168 111 144L89 144C86 168 95 182 100 198Z"/><path d="M108 144C110 164 124 178 138 172C148 168 150 156 142 152C142 162 132 164 126 158C121 153 119 148 119 144Z"/><path d="M108 144C110 164 124 178 138 172C148 168 150 156 142 152C142 162 132 164 126 158C121 153 119 148 119 144Z" transform="matrix(-1 0 0 1 200 0)"/></g>
+  </g>
+</svg>
