@@ -46,7 +46,11 @@ const head = html.slice(0, html.indexOf('</head>'));
 const linkHrefs = [...head.matchAll(/<link[^>]+rel="(?:icon|apple-touch-icon|manifest)"[^>]*href="([^"]+)"/g)].map(m => m[1]);
 assert.ok(linkHrefs.includes('/manifest.webmanifest'), 'index.html must link the manifest');
 assert.ok(linkHrefs.includes('/icons/apple-touch-icon.png'), 'index.html must link apple-touch-icon');
-assert.ok(linkHrefs.includes('/icon.svg'), 'index.html should use the SVG favicon');
+// The artwork is a painted raster; icon.svg is only a base64 wrapper for the manifest,
+// so the tab favicon should be the small PNGs (fast) rather than the 60 KB SVG.
+assert.ok(linkHrefs.includes('/icons/favicon-32.png'), 'index.html should link the 32px PNG favicon');
+assert.ok(linkHrefs.includes('/icons/favicon-16.png'), 'index.html should link the 16px PNG favicon');
+assert.ok(!linkHrefs.includes('/icon.svg'), 'do not use the heavy SVG wrapper as the tab favicon');
 for (const href of linkHrefs) assert.ok(exists(href), `index.html links a missing file: ${href}`);
 const apple = pngSize('/icons/apple-touch-icon.png');
 assert.strictEqual(apple.width, 180, 'apple-touch-icon should be 180x180');
