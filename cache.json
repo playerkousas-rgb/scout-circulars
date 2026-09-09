@@ -1,13 +1,94 @@
 {
-  "last_updated": "2026-09-08 08:45:56",
+  "last_updated": "2026-09-09 10:15:07",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4756,
+    "total_notices": 4768,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華 - 報名表格",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26016/SP15-form.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26016/SP15-form.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26015/SP15.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26015/SP15.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域總部公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25780/Adm20-1.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25780/Adm20-1.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "喝采115 – 樂動舞台",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26017/喝采115-樂動舞台---通告.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26017/喝采115-樂動舞台---通告.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "參與2026年香港童軍大會操暨午宴活動",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26007/Cir18_2026_香港童軍大會操暨午宴活動.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26007/Cir18_2026_香港童軍大會操暨午宴活動.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "「2026年度模範童軍選舉」簡介會及答問會",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26014/SOY2026-Selection-Briefing-Circular_final.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26014/SOY2026-Selection-Briefing-Circular_final.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2026年香港童軍大會操(二)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26008/RCR0226C.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26008/RCR0226C.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2026年香港童軍大會操(三)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26009/RCR0326C.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26009/RCR0326C.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2026年度模範童軍選舉",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26018/SOY2026_final.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26018/SOY2026_final.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港青年獎勵計劃更新安排(P95/2026)",
         "url": "https://scout.org.hk/uploads/tc/circulars/25989/P095-26.pdf",
@@ -28289,6 +28370,24 @@
     ],
     "東九龍地域": [
       {
+        "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華 - 報名表格",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5639",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5639",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5638",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5638",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
         "title": "東九龍地域50周年紀念特刊公開徵稿",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5637",
         "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5637",
@@ -35601,6 +35700,15 @@
     ],
     "南葵涌區": [
       {
+        "title": "比賽結果",
+        "url": "https://skc.scout-ntr.org.hk/pdf/2026Circular/SKC_2026_TA01_Grasshopper_motherday painting_results.pdf",
+        "pdf_url": "https://skc.scout-ntr.org.hk/pdf/2026Circular/SKC_2026_TA01_Grasshopper_motherday painting_results.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "南葵涌區",
+        "region": "新界地域"
+      },
+      {
         "title": "會長盃–童軍技能比賽2026 - 分營營章設計比賽",
         "url": "https://skc.scout-ntr.org.hk/pdf/2026Circular/SKC_2026_TA04_Scout_SKC campsite badge design competition.pdf",
         "pdf_url": "https://skc.scout-ntr.org.hk/pdf/2026Circular/SKC_2026_TA04_Scout_SKC campsite badge design competition.pdf",
@@ -42908,6 +43016,90 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26016/SP15-form.pdf",
+      "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華 - 報名表格",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26015/SP15.pdf",
+      "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25780/Adm20-1.pdf",
+      "title": "東九龍地域總部公布",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26017/喝采115-樂動舞台---通告.pdf",
+      "title": "喝采115 – 樂動舞台",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26007/Cir18_2026_香港童軍大會操暨午宴活動.pdf",
+      "title": "參與2026年香港童軍大會操暨午宴活動",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26014/SOY2026-Selection-Briefing-Circular_final.pdf",
+      "title": "「2026年度模範童軍選舉」簡介會及答問會",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26008/RCR0226C.pdf",
+      "title": "2026年香港童軍大會操(二)",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26009/RCR0326C.pdf",
+      "title": "2026年香港童軍大會操(三)",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26018/SOY2026_final.pdf",
+      "title": "2026年度模範童軍選舉",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5639",
+      "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華 - 報名表格",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5638",
+      "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "南葵涌區",
+      "region": "新界地域",
+      "pdf_url": "https://skc.scout-ntr.org.hk/pdf/2026Circular/SKC_2026_TA01_Grasshopper_motherday painting_results.pdf",
+      "title": "比賽結果",
+      "captured_date": "2026-09-09"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -76318,24 +76510,21 @@
       "青衣區"
     ],
     "total_sources": 49,
-    "has_errors": true,
+    "has_errors": false,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-08 08:45:56",
-      "new": 0,
-      "updated": 3509,
-      "skipped": 4,
+      "updated_at": "2026-09-09 10:15:07",
+      "new": 12,
+      "updated": 3501,
+      "skipped": 3,
       "processed": 46,
-      "playwright_used": 1,
-      "error_sources": [
-        "九龍城區"
-      ],
+      "playwright_used": 2,
+      "error_sources": [],
       "skipped_sources": [
-        "九龍城區",
         "西貢區 (expected_empty)",
         "離島區 (expected_empty)",
         "大嶼山區 (expected_empty)"
