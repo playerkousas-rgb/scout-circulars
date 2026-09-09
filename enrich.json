@@ -46462,5 +46462,789 @@
     "error": "",
     "enriched_at": "2026-09-09 10:22:30",
     "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KT65_26.pdf": {
+    "source": "九龍地域",
+    "title": "第4屆深資童軍支部訓練方法訓練班(單元2A及2B)(KT/65/26)",
+    "deadline": "2026-10-01",
+    "audience": "深資童軍、童軍、領袖",
+    "fee": "HK$350",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-basic-training",
+      "course:wood-module-1",
+      "course:wood-module-2-venture",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-basic-training",
+        "label": "領袖基本",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：領袖基本訓練班",
+          "標題／內文：領袖初級訓練班",
+          "標題／內文：領袖基本訓練"
+        ]
+      },
+      {
+        "id": "course:wood-module-1",
+        "label": "童軍運動基本原則（單元1A／1B）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍運動基本原則",
+          "標題／內文：單元1a",
+          "標題／內文：單元1b"
+        ]
+      },
+      {
+        "id": "course:wood-module-2-venture",
+        "label": "深資童軍支部訓練方法（單元2A／2B）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍支部訓練方法"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:木章",
+        "label": "所有木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:07",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KT70_26.pdf": {
+    "source": "九龍地域",
+    "title": "第111屆先鋒工程訓練班(領袖技能訓練班)(KT/70/26)",
+    "deadline": "2026-11-08",
+    "audience": "樂行童軍、領袖、會務委員",
+    "fee": "HK$225",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班",
+          "技能訓練"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-basic-training",
+      "course:leader-knotting",
+      "course:leader-pioneering",
+      "course:leader-ropework-skill",
+      "training:會務委員",
+      "training:樂行童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班",
+          "技能訓練"
+        ]
+      },
+      {
+        "id": "course:leader-basic-training",
+        "label": "領袖基本",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：領袖初級訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-knotting",
+        "label": "繩結",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：繩結訓練班",
+          "標題／內文：繩結訓練"
+        ]
+      },
+      {
+        "id": "course:leader-pioneering",
+        "label": "先鋒工程",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：先鋒工程訓練",
+          "標題／內文：先鋒工程訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-ropework-skill",
+        "label": "繩藝技能",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：繩藝"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:12",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KT68_26.pdf": {
+    "source": "九龍地域",
+    "title": "幼童軍領袖工作坊",
+    "deadline": "2026-09-28",
+    "audience": "幼童軍、領袖",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:幼童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:17",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KT67_26.pdf": {
+    "source": "九龍地域",
+    "title": "幼童軍防騙先鋒章",
+    "deadline": "2026-10-19",
+    "audience": "幼童軍",
+    "fee": "HK$20",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:shared-active-citizen",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:shared-active-citizen",
+        "label": "「積極公民」獎章系列",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：積極公民",
+          "標題／內文：防騙先鋒章"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:21",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KT66_26.pdf": {
+    "source": "九龍地域",
+    "title": "寰宇童軍計劃「探索」課程",
+    "deadline": "2026-10-22",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$30",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "社區服務",
+          "社會服務"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service",
+      "category:training",
+      "course:shared-scouts-of-the-world",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "社區服務",
+          "社會服務"
+        ]
+      },
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:shared-scouts-of-the-world",
+        "label": "寰宇童軍章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：寰宇童軍"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:25",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KR11_26.pdf": {
+    "source": "九龍地域",
+    "title": "地域公布 (1/9/2026)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:31",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KT69_26.pdf": {
+    "source": "九龍地域",
+    "title": "九龍地域深資童軍貝雷議會-「得閒飲茶」茶藝體驗工作坊",
+    "deadline": "2026-09-28",
+    "audience": "深資童軍",
+    "fee": "HK$100",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:34",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/Summary_2026_09.pdf": {
+    "source": "九龍地域",
+    "title": "九龍地域9月份通告一覽",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班",
+          "技能訓練",
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-pioneering",
+      "course:scout-pioneering-badge",
+      "course:shared-active-citizen",
+      "course:shared-scouts-of-the-world",
+      "course:venture-pioneering",
+      "course:wood-module-2-venture",
+      "training:幼童軍",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班",
+          "技能訓練",
+          "工作坊"
+        ]
+      },
+      {
+        "id": "course:leader-pioneering",
+        "label": "先鋒工程",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：先鋒工程訓練",
+          "標題／內文：先鋒工程訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-pioneering-badge",
+        "label": "先鋒工程章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：先鋒工程訓練班"
+        ]
+      },
+      {
+        "id": "course:shared-active-citizen",
+        "label": "「積極公民」獎章系列",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：防騙先鋒章"
+        ]
+      },
+      {
+        "id": "course:shared-scouts-of-the-world",
+        "label": "寰宇童軍章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：寰宇童軍"
+        ]
+      },
+      {
+        "id": "course:venture-pioneering",
+        "label": "繩結及先鋒工程",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：先鋒工程訓練班"
+        ]
+      },
+      {
+        "id": "course:wood-module-2-venture",
+        "label": "深資童軍支部訓練方法（單元2A／2B）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍支部訓練方法"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:木章",
+        "label": "所有木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:38",
+    "enrich_version": "3.1"
+  },
+  "https://krscout.org/wp-content/uploads/2026/09/KT64_26.pdf": {
+    "source": "九龍地域",
+    "title": "PPP 2026 #4(Pre-Pilot Program)",
+    "deadline": "2026-10-12",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$30",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:43",
+    "enrich_version": "3.1"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/6hj5Q26rbj8a5geTRwbse8/6eea18eef9c75dfd1faaadccb0bbbc19/chairty_walk_poster.pdf": {
+    "source": "新界東地域",
+    "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(海報)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "籌款"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service",
+      "course:leader-leave-no-trace-trainer"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "籌款"
+        ]
+      },
+      {
+        "id": "course:leader-leave-no-trace-trainer",
+        "label": "不留痕導師",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：不留痕"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-09 16:10:46",
+    "enrich_version": "3.1"
   }
 }

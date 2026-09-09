@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-09 10:15:07",
+  "last_updated": "2026-09-09 16:05:32",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4768,
+    "total_notices": 4778,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -23310,6 +23310,87 @@
     ],
     "九龍地域": [
       {
+        "title": "第4屆深資童軍支部訓練方法訓練班(單元2A及2B)(KT/65/26)",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KT65_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT65_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "第111屆先鋒工程訓練班(領袖技能訓練班)(KT/70/26)",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KT70_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT70_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍領袖工作坊",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KT68_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT68_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍防騙先鋒章",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KT67_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT67_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "寰宇童軍計劃「探索」課程",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KT66_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT66_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "地域公布 (1/9/2026)",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KR11_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KR11_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "九龍地域深資童軍貝雷議會-「得閒飲茶」茶藝體驗工作坊",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KT69_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT69_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "九龍地域9月份通告一覽",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/Summary_2026_09.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/Summary_2026_09.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "PPP 2026 #4(Pre-Pilot Program)",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/KT64_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT64_26.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
         "title": "香港童軍115周年認可活動-九龍地域會操暨社區應急先鋒大行動",
         "url": "https://krscout.org/wp-content/uploads/2026/08/SP07_26.pdf",
         "pdf_url": "https://krscout.org/wp-content/uploads/2026/08/SP07_26.pdf",
@@ -36882,6 +36963,15 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(海報)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6hj5Q26rbj8a5geTRwbse8/6eea18eef9c75dfd1faaadccb0bbbc19/chairty_walk_poster.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6hj5Q26rbj8a5geTRwbse8/6eea18eef9c75dfd1faaadccb0bbbc19/chairty_walk_poster.pdf",
+        "date": "2026-09-09",
+        "captured_date": "2026-09-09",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7tPMoFfIuZy4XOi7AboXDA/c6ca6f6fde142fc76c1dc0eedbc45bac/Spec_cir_29-26.pdf",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7tPMoFfIuZy4XOi7AboXDA/c6ca6f6fde142fc76c1dc0eedbc45bac/Spec_cir_29-26.pdf",
@@ -43094,10 +43184,80 @@
       "captured_date": "2026-09-09"
     },
     {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6hj5Q26rbj8a5geTRwbse8/6eea18eef9c75dfd1faaadccb0bbbc19/chairty_walk_poster.pdf",
+      "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(海報)",
+      "captured_date": "2026-09-09"
+    },
+    {
       "source_site": "南葵涌區",
       "region": "新界地域",
       "pdf_url": "https://skc.scout-ntr.org.hk/pdf/2026Circular/SKC_2026_TA01_Grasshopper_motherday painting_results.pdf",
       "title": "比賽結果",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT65_26.pdf",
+      "title": "第4屆深資童軍支部訓練方法訓練班(單元2A及2B)(KT/65/26)",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT70_26.pdf",
+      "title": "第111屆先鋒工程訓練班(領袖技能訓練班)(KT/70/26)",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT68_26.pdf",
+      "title": "幼童軍領袖工作坊",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT67_26.pdf",
+      "title": "幼童軍防騙先鋒章",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT66_26.pdf",
+      "title": "寰宇童軍計劃「探索」課程",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KR11_26.pdf",
+      "title": "地域公布 (1/9/2026)",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT69_26.pdf",
+      "title": "九龍地域深資童軍貝雷議會-「得閒飲茶」茶藝體驗工作坊",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/Summary_2026_09.pdf",
+      "title": "九龍地域9月份通告一覽",
+      "captured_date": "2026-09-09"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT64_26.pdf",
+      "title": "PPP 2026 #4(Pre-Pilot Program)",
       "captured_date": "2026-09-09"
     },
     {
@@ -76517,16 +76677,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-09 10:15:07",
-      "new": 12,
-      "updated": 3501,
-      "skipped": 3,
+      "updated_at": "2026-09-09 16:05:32",
+      "new": 10,
+      "updated": 202,
+      "skipped": 37,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)"
       ]
     }
