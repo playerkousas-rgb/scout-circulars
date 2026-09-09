@@ -1,14 +1,30 @@
 #!/usr/bin/env python3
 """Pure-unit checks for the anonymous Web Push dispatcher (no network needed)."""
 
+import json
 import unittest
 import sys
 from types import SimpleNamespace
+from urllib.parse import parse_qs, urlsplit
 from unittest.mock import Mock, patch
 
 from subscription_tagging import matching_topics_for_branches
 
-from notify import build_push_payload, find_catchup_notices, find_new_notices, matching_groups, notice_id, notice_key, subscription_matches, notice_metadata, send_web_push, PUSH_TTL_SECONDS
+from notify import (
+    MAX_PAYLOAD_NOTICE_IDS,
+    PUSH_TTL_SECONDS,
+    build_push_payload,
+    find_catchup_notices,
+    find_new_notices,
+    matching_groups,
+    notice_id,
+    notice_key,
+    notice_metadata,
+    notification_results_url,
+    push_failures_are_systemic,
+    send_web_push,
+    subscription_matches,
+)
 
 
 class NotifyMatchingTests(unittest.TestCase):
@@ -244,6 +260,54 @@ class NotifyMatchingTests(unittest.TestCase):
         self.assertEqual(payload["tag"], "scout-circulars-personal-2026-09-07")
         update = build_push_payload([self.training_one, self.training_two], self.enrich, "https://site.example/", "2026-09-07", silent=True)
         self.assertTrue(update["silent"])
+
+
+class NotifyResilienceTests(unittest.TestCase):
+    """Guards against the 2026-09-09 dispatcher incidents (payload size / one bad endpoint)."""
+
+    def big_day(self, count=300):
+        # 2026-09-02 already saw 170 real notices in one day; test beyond that.
+        return [
+            {
+                "source_site": "總會",
+                "pdf_url": f"https://example.test/big-day/{index}.pdf",
+                "title": f"大日子通告 {index}",
+                "captured_date": "2026-09-08",
+            }
+            for index in range(count)
+        ]
+
+    def test_big_day_payload_stays_under_rfc_8291_limit(self):
+        payload = build_push_payload(self.big_day(), {}, "https://scout-circulars.vercel.app", "2026-09-08")
+        raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        # RFC 8291 record size is 4096 bytes; keep headroom for encryption overhead.
+        self.assertLessEqual(len(raw), 3400)
+        # Title/count still report the true total even though IDs are capped.
+        self.assertEqual(payload["count"], 300)
+        self.assertIn("300 項新通告", payload["title"])
+        self.assertEqual(len(payload["noticeIds"]), MAX_PAYLOAD_NOTICE_IDS)
+        self.assertEqual(len(set(payload["noticeIds"])), MAX_PAYLOAD_NOTICE_IDS)
+        self.assertEqual(payload["noticeIds"][0], notice_id({"source_site": "總會", "pdf_url": "https://example.test/big-day/0.pdf"}))
+
+    def test_results_url_caps_notice_ids_but_keeps_order(self):
+        notices = self.big_day()
+        url = notification_results_url("https://scout-circulars.vercel.app", notices)
+        ids = parse_qs(urlsplit(url).query)["n"][0].split(",")
+        self.assertEqual(len(ids), MAX_PAYLOAD_NOTICE_IDS)
+        self.assertEqual(ids, [notice_id(item) for item in notices[:MAX_PAYLOAD_NOTICE_IDS]])
+        # A small batch is not truncated; dedupe still applies.
+        two = notification_results_url("https://site.example/", [notices[0], notices[1], notices[0]])
+        self.assertEqual(parse_qs(urlsplit(two).query)["n"][0].split(","), [notice_id(notices[0]), notice_id(notices[1])])
+
+    def test_isolated_endpoint_failures_do_not_block_pipeline(self):
+        self.assertFalse(push_failures_are_systemic(0, 0))
+        self.assertFalse(push_failures_are_systemic(0, 3))
+        self.assertFalse(push_failures_are_systemic(1, 3))
+        self.assertFalse(push_failures_are_systemic(1, 2))  # exactly half is not "過半"
+        self.assertTrue(push_failures_are_systemic(1, 1))
+        self.assertTrue(push_failures_are_systemic(2, 3))
+        self.assertTrue(push_failures_are_systemic(2, 2))
+        self.assertTrue(push_failures_are_systemic(3, 5))
 
 
 if __name__ == "__main__":
