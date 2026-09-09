@@ -6,8 +6,9 @@
 //   2. 頂欄 position: sticky（碌到底都撳到）
 //   3. ScoutSystem 接入＋卡片「加入 ScoutSystem」手機唔顯示（CSS 隱藏，DOM 保留）
 //   4. 天數旁邊嘅收藏／通知掣手機唔顯示（已搬去頂欄，DOM 保留俾桌面用）
-//   5. 卡片：來源 badge＋分類標籤＋通告名排埋一齊（h3 仍然只係純標題）
-//   6. 分享掣得返 icon，同 ★ 一齊放卡片右上角；卡片底部只留 ScoutSystem
+//   5. 卡片：來源 badge＋分類標籤＋通告名排埋一齊（h3 仍然只係純標題），標題行全闊
+//   6. 分享掣得返 icon，同 ★ 一齊放卡片底行（同「開啟附件」一排，唔再擠壓標題）；
+//      地區搬上日期行；卡片底部只留 ScoutSystem（手機 CSS 隱藏）
 //   7. 手機卡片兩欄（grid-template-columns: repeat(2, 1fr)）
 const {JSDOM} = require('jsdom');
 const fs = require('fs');
@@ -95,7 +96,17 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', {bubbles: tr
   ok(first.querySelector('h3').textContent === '童軍繩結訓練班', 'h3 仍然只係純標題');
   const icons = first.querySelector('.card-icons');
   ok(!!icons && !!icons.querySelector('.star-btn') && !!icons.querySelector('.share-btn'),
-     '收藏 ★＋分享 icon 齊喺卡片右上角');
+     '收藏 ★＋分享 icon 齊喺卡片');
+  ok(!first.querySelector('.card-head .card-icons'),
+     '★／分享唔再喺標題隔籬（標題全闊，唔會被兩粒掣擠壓）');
+  ok(!!icons.parentElement && icons.parentElement.classList.contains('meta-foot'),
+     '★／分享搬咗去卡片底行，同「開啟附件」一排');
+  ok(!!first.querySelector('.meta-date .host') && !!first.querySelector('.meta-date .meta-region'),
+     '地區搬上日期行（騰空底行俾 ★／分享）');
+  ok(mobileCss.includes('.card .meta-foot .link'),
+     '手機「開啟附件」加大撳到手範圍');
+  ok(css.includes('.meta-row { display: flex; align-items: center;'),
+     'meta 行文字同掣置中對齊');
   ok(first.querySelector('.share-btn').textContent.trim() === '', '分享掣得返 icon，冇文字');
   const actions = first.querySelector('.card-actions');
   ok(actions.children.length === 1 && !!actions.querySelector('.ss-import'),

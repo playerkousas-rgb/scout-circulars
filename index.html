@@ -137,14 +137,15 @@
     .card { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(180deg, rgba(15,23,40,.92), rgba(8,14,26,.95)); box-shadow: var(--shadow); }
     .badge { display: inline-flex; align-items: center; gap: 6px; width: fit-content; font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(59,130,246,.35); background: rgba(29,78,216,.18); color: #b6d4ff; }
     .card h3 { margin: 0; font-size: 18px; line-height: 1.45; }
-    /* 來源 badge + 分類標籤 + 通告名排埋一齊，唔再分三行 */
+    /* 來源 badge + 分類標籤 + 通告名排埋一齊，唔再分三行；標題行全闊（★／分享搬咗去底行） */
     .card-title-wrap { flex: 1 1 auto; min-width: 0; }
     .card-title-wrap .badge { margin-right: 6px; vertical-align: 2px; }
     .card-title-wrap .cat-tags { margin-right: 6px; vertical-align: 2px; }
     .card-title-wrap h3 { display: inline; }
-    .card-icons { flex: 0 0 auto; display: flex; gap: 8px; align-items: flex-start; }
+    /* ★／分享掣放卡片底行（同「開啟附件」一排），唔再同標題爭闊度 */
+    .card-icons { flex: 0 0 auto; display: flex; gap: 8px; align-items: center; }
     /* 書籤（★）——瀏覽器本機儲存，唔會上傳 */
-    .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .card-head { display: flex; align-items: flex-start; }
     .star-btn { flex: 0 0 auto; background: transparent; border: 1px solid var(--line); color: #6b7f9e;
                 border-radius: 10px; width: 38px; height: 38px; font-size: 19px; line-height: 1;
                 cursor: pointer; transition: .15s; }
@@ -169,8 +170,10 @@
     .ex-row { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; color: #d7e6f5; line-height: 1.4; }
     .ex-ico { flex: 0 0 auto; font-size: 13px; }
     .ex-row .ex-deadline { color: #f87171; }
-    .meta-row { display: flex; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; margin-top: auto; }
-    .meta-row .host { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; margin-top: auto; }
+    /* 日期行：日期｜host（太長省略）｜地區 —— 地區搬上嚟騰空底行俾 ★／分享 */
+    .meta-row .date, .meta-row .region { flex: 0 0 auto; white-space: nowrap; }
+    .meta-row .host { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .meta-row .link { color: #cfe3ff; }
     code { background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 8px; }
     .ss-connect { margin-top: 12px; padding: 12px; border-radius: 14px; border: 1px solid rgba(59,130,246,.35); background: rgba(59,130,246,.08); display: grid; gap: 8px; }
@@ -259,7 +262,7 @@
     /* ── 分享 ─────────────────────────────────────────────── */
     .card-actions { display: flex; gap: 8px; }
     .card-actions .ss-import { flex: 1; }
-    /* 分享掣得返 icon（同收藏 ★ 一樣放卡片右上角），文字靠 title/aria-label */
+    /* 分享掣得返 icon（同收藏 ★ 一齊放卡片底行），文字靠 title/aria-label */
     .share-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
                  border: 1px solid var(--line); background: #0b1424; color: #cfe3ff; border-radius: 10px; padding: 0; cursor: pointer; }
     .share-btn:hover { background: #16263f; border-color: #3a5a8c; }
@@ -372,7 +375,7 @@
       .chip { padding: 8px 11px; }
       .status { font-size: 12px; }
       .ss-connect input { min-width: 0; width: 100%; }
-      /* 手機兩欄卡片：iPhone 一版大約見到 6–8 張 */
+      /* 手機兩欄卡片：iPhone 一版大約見到 6–8 張。標題全闊，★／分享喺底行同「開啟附件」一排 */
       .cards { margin-top: 12px; grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .card { min-width: 0; padding: 10px; gap: 8px; border-radius: 12px; }
       .card-title-wrap h3 { font-size: 13px; line-height: 1.35; }
@@ -384,6 +387,8 @@
       .card .meta-row { font-size: 11px; padding-top: 6px; gap: 6px; }
       .card .meta-row .host { display: none; }
       .card .meta-row .link { white-space: nowrap; }
+      /* 底行「開啟附件」加大撳到手範圍（padding 用負 margin 抵銷，唔影響排版） */
+      .card .meta-foot .link { display: inline-flex; align-items: center; padding: 10px 2px; margin: -10px 0; }
       .card .ex-box { padding: 6px 8px; gap: 3px; }
       .card .ex-row { font-size: 11px; gap: 5px; }
       .card .ex-ico { font-size: 11px; }
@@ -1941,6 +1946,15 @@
               <span class="cat-tags">${catHtml}</span>
               <h3>${escapeHtml(item.title || '未命名通告')}</h3>
             </div>
+          </div>
+          <div class="meta-row meta-date">
+            <span class="date">${escapeHtml(formatDate(item.date || item.captured_date || ''))}</span>
+            <span class="host">${escapeHtml(host)}</span>
+            ${item.region ? `<span class="meta-region">${escapeHtml(item.region)}</span>` : ''}
+          </div>
+          ${extraHtml}
+          <div class="meta-row meta-foot">
+            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
             <div class="card-icons">
               <button class="star-btn${starred ? ' on' : ''}" type="button"
                 aria-pressed="${starred ? 'true' : 'false'}"
@@ -1948,15 +1962,6 @@
                 aria-label="${starred ? '取消收藏' : '加入收藏'}">${starred ? '★' : '☆'}</button>
               <button class="share-btn" type="button" title="分享呢張通告" aria-label="分享呢張通告">${SHARE_SVG.share}</button>
             </div>
-          </div>
-          <div class="meta-row">
-            <span>${escapeHtml(formatDate(item.date || item.captured_date || ''))}</span>
-            <span class="host">${escapeHtml(host)}</span>
-          </div>
-          ${extraHtml}
-          <div class="meta-row">
-            <span>${escapeHtml(item.region || '')}</span>
-            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
           </div>
           <div class="card-actions">
             <button class="ss-import" data-ss-url="${escapeHtml(buildScoutSystemImportUrl(item, ex))}">加入 ScoutSystem</button>
