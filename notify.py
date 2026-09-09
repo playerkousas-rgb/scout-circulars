@@ -455,6 +455,44 @@ def vapid_config(*, require_private_key: bool = True) -> Optional[Dict[str, str]
     }
 
 
+# Secrets/variables the send path needs. Names only — values are never logged.
+REQUIRED_PUSH_ENV: Tuple[str, ...] = ("SUPABASE_URL", "SUPABASE_SERVICE_KEY", "VAPID_PRIVATE_KEY")
+OPTIONAL_PUSH_ENV: Tuple[str, ...] = ("VAPID_SUBJECT",)
+
+
+def secrets_preflight() -> Dict[str, bool]:
+    """Which push settings are present. Booleans only, so this is safe to log."""
+    return {name: bool(os.environ.get(name, "").strip()) for name in REQUIRED_PUSH_ENV + OPTIONAL_PUSH_ENV}
+
+
+def missing_required_push_env() -> List[str]:
+    return [name for name in REQUIRED_PUSH_ENV if not os.environ.get(name, "").strip()]
+
+
+def print_secrets_preflight() -> None:
+    """Print the presence of each push setting so a misconfiguration is visible.
+
+    2026-09-09: the step failed in ~2 s on two runs and the only surviving
+    evidence was "Process completed with exit code 1", because job logs live on
+    blob storage that is not always fetchable. Naming the missing setting (never
+    its value) turns that into a one-line diagnosis.
+    """
+    state = secrets_preflight()
+    print("🔐 推播設定檢查：" + "　".join(f"{name}={'✅' if ok else '❌缺少'}" for name, ok in state.items()))
+
+
+def annotate_failure(message: str) -> None:
+    """Emit a GitHub Actions error annotation carrying the real reason.
+
+    Annotations are plain REST metadata readable from
+    ``GET /repos/{o}/{r}/check-runs/{id}/annotations``, unlike the step log body
+    which lives on blob storage. Escaping follows the workflow-command syntax.
+    """
+    text = " ".join(str(message).split())[:400]
+    text = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A").replace(":", "%3A")
+    print(f"::error title=notify::{text}", flush=True)
+
+
 def _push_status(error: Exception) -> Optional[int]:
     response = getattr(error, "response", None)
     status = getattr(response, "status_code", None)
@@ -614,10 +652,16 @@ def main() -> int:
             summary_seen.add(key)
             summary_pool.append(item)
 
+    print_secrets_preflight()
     try:
         config = vapid_config(require_private_key=not args.dry_run)
     except NotificationError as exc:
-        print(f"❌ 推播設定錯誤：{exc}", file=sys.stderr)
+        missing = missing_required_push_env()
+        detail = f"{exc}（缺少 repo secret：{', '.join(missing) or '未知，請對照上面一行'}）"
+        print(f"❌ 推播設定錯誤：{detail}", file=sys.stderr)
+        print("   一則通知都未發出；cache 仍會由下一個步驟提交（見 scrape.yml 嘅 steps.notify 條件），")
+        print("   補好 secret 後同日補發仍然有效。")
+        annotate_failure(f"推播設定錯誤：{detail}")
         return 1
     if config is None:
         print("ℹ️ Web Push 尚未設定 VAPID / Supabase secrets；已略過，不影響爬蟲。")
@@ -631,7 +675,14 @@ def main() -> int:
         delivered = client.delivered_pairs(notice_key(item) for item in notices)
         already_notified_today = client.notified_subscription_ids_for_batch(batch_date)
     except StorageError as exc:
+        # Nothing has been sent yet, so no delivery record can be lost and a
+        # rerun cannot double-push. The step still reports failure (a red run is
+        # the only thing that gets noticed), but scrape.yml commits the cache
+        # anyway — 2026-09-09 root cause B: a dispatch failure must never take
+        # the day's cache down with it.
         print(f"❌ 推播資料庫錯誤：{exc}", file=sys.stderr)
+        print("   讀取訂閱／發送紀錄失敗，一則通知都未發出；cache 仍會由下一個步驟提交。")
+        annotate_failure(f"推播資料庫錯誤：{exc}")
         return 1
 
     groups = matching_groups(subscriptions, notices, summary_pool, enrich, delivered)
@@ -700,12 +751,13 @@ def main() -> int:
     print(f"🔔 推播完成：送出 {sent} 則合併通知；移除失效訂閱 {stale}；推播失敗 {send_failures}。")
     if record_failures:
         print(f"❌ {record_failures} 項資料庫寫入失敗；為避免日後重複推送，已中止提交流程。", file=sys.stderr)
+        annotate_failure(f"{record_failures} 項發送紀錄寫入失敗，已中止提交流程")
         return 1
     if push_failures_are_systemic(send_failures, len(results)):
-        print(
-            f"❌ {send_failures}/{len(results)} 個訂閱推播失敗：過半屬系統性錯誤（例如 VAPID 設定失效），已中止提交流程。",
-            file=sys.stderr,
-        )
+        sample = next((str(result.error) for result in results if result.status == "failed"), "")
+        message = f"{send_failures}/{len(results)} 個訂閱推播失敗：過半屬系統性錯誤（例如 VAPID 設定失效）"
+        print(f"❌ {message}，已中止提交流程。首個錯誤：{sample}", file=sys.stderr)
+        annotate_failure(f"{message}；首個錯誤：{sample}")
         return 1
     if send_failures:
         print(f"   {send_failures}/{len(results)} 個失敗屬個別 endpoint 錯誤（未過半）；未寫入發送紀錄，同日補發會重試，cache 照常提交。")

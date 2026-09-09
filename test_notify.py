@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Pure-unit checks for the anonymous Web Push dispatcher (no network needed)."""
 
+import io
 import json
+import os
+import tempfile
 import unittest
 import sys
+from contextlib import redirect_stderr, redirect_stdout
+from pathlib import Path
 from types import SimpleNamespace
 from urllib.parse import parse_qs, urlsplit
 from unittest.mock import Mock, patch
@@ -13,15 +18,20 @@ from subscription_tagging import matching_topics_for_branches
 from notify import (
     MAX_PAYLOAD_NOTICE_IDS,
     PUSH_TTL_SECONDS,
+    StorageError,
+    annotate_failure,
     build_push_payload,
     find_catchup_notices,
     find_new_notices,
+    main,
     matching_groups,
+    missing_required_push_env,
     notice_id,
     notice_key,
     notice_metadata,
     notification_results_url,
     push_failures_are_systemic,
+    secrets_preflight,
     send_web_push,
     subscription_matches,
 )
@@ -308,6 +318,141 @@ class NotifyResilienceTests(unittest.TestCase):
         self.assertTrue(push_failures_are_systemic(2, 3))
         self.assertTrue(push_failures_are_systemic(2, 2))
         self.assertTrue(push_failures_are_systemic(3, 5))
+
+
+class NotifyDispatchFailureTests(unittest.TestCase):
+    """2026-09-09 第二次事故：步驟 2–3 秒就 exit 1，而 log 讀唔到。
+
+    失敗必須自己講明原因（annotation），而且只要未發出任何通知，就唔可以
+    連累 cache 提交（根因 B）。
+    """
+
+    NOTICE = {
+        "source_site": "總會",
+        "pdf_url": "https://example.test/catchup.pdf",
+        "title": "今日新通告",
+        "captured_date": "2026-09-09",
+    }
+    FULL_ENV = {
+        "SUPABASE_URL": "https://example.supabase.co",
+        "SUPABASE_SERVICE_KEY": "service-key-value-must-never-be-logged",
+        "VAPID_PRIVATE_KEY": "vapid-private-value-must-never-be-logged",
+    }
+
+    def run_main(self, env, client):
+        """Run main() against a temp cache. Returns (exit_code, combined_output)."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cache = root / "cache.json"
+            cache.write_text(
+                json.dumps({"last_updated": "2026-09-09 10:15:07", "notices": [self.NOTICE]}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            enrich = root / "enrich.json"
+            enrich.write_text("{}", encoding="utf-8")
+            buffer = io.StringIO()
+            with patch.multiple(
+                "notify",
+                CACHE_PATH=cache,
+                ENRICH_PATH=enrich,
+                SupabaseClient=client,
+                load_baseline_cache=lambda ref: {"notices": []},
+                send_web_push=lambda subscription, payload, config: None,
+            ), patch.dict(os.environ, env, clear=True), patch.object(
+                sys, "argv", ["notify.py", "--batch-date", "2026-09-09"]
+            ), redirect_stdout(buffer), redirect_stderr(buffer):
+                code = main()
+        return code, buffer.getvalue()
+
+    def test_preflight_reports_presence_without_values(self):
+        with patch.dict(os.environ, {"SUPABASE_URL": "https://x.supabase.co", "VAPID_PRIVATE_KEY": "pem"}, clear=True):
+            state = secrets_preflight()
+            missing = missing_required_push_env()
+        self.assertTrue(state["SUPABASE_URL"])
+        self.assertTrue(state["VAPID_PRIVATE_KEY"])
+        self.assertFalse(state["SUPABASE_SERVICE_KEY"])
+        self.assertEqual(missing, ["SUPABASE_SERVICE_KEY"])
+
+    def test_missing_secret_is_named_and_step_stays_red(self):
+        code, out = self.run_main({"SUPABASE_URL": "https://example.supabase.co"}, client=object)
+        # 仍然要紅（靜默綠燈正正係今次睇漏嘅原因）；cache 由 scrape.yml 嘅
+        # steps.notify 條件保住，見 test_workflow_commits_cache_when_notify_fails。
+        self.assertEqual(code, 1)
+        # 缺少邊個 secret 要講得出嚟
+        self.assertIn("SUPABASE_SERVICE_KEY", out)
+        self.assertIn("VAPID_PRIVATE_KEY", out)
+        self.assertIn("::error title=notify::", out)
+        self.assertNotIn("service-key-value-must-never-be-logged", out)
+
+    def test_supabase_read_failure_is_named_and_step_stays_red(self):
+        class Broken:
+            def __init__(self, url, service_key):
+                pass
+
+            def active_subscriptions(self):
+                raise StorageError("Supabase HTTP 404")
+
+        code, out = self.run_main(dict(self.FULL_ENV), client=Broken)
+        self.assertEqual(code, 1)
+        self.assertIn("推播資料庫錯誤", out)
+        self.assertIn("Supabase HTTP 404", out)
+        self.assertIn("::error title=notify::", out)
+        self.assertNotIn("vapid-private-value-must-never-be-logged", out)
+
+    def test_post_send_record_failure_is_still_fatal(self):
+        class Recorder:
+            def __init__(self, url, service_key):
+                pass
+
+            def active_subscriptions(self):
+                return [
+                    {
+                        "id": "sub-1",
+                        "endpoint": "https://push.example/e",
+                        "p256dh": "a",
+                        "auth": "b",
+                        "branch_ids": [],
+                        "topic_ids": ["all:new"],
+                    }
+                ]
+
+            def delivered_pairs(self, keys):
+                return set()
+
+            def notified_subscription_ids_for_batch(self, date):
+                return set()
+
+            def record_deliveries(self, subscription_id, notices, date):
+                raise StorageError("Supabase HTTP 500")
+
+            def delete_subscription(self, subscription_id):
+                pass
+
+        code, out = self.run_main(dict(self.FULL_ENV), client=Recorder)
+        # 已經發出但記錄唔到 → 仍然要擋住 commit，否則日後會重複推送
+        self.assertEqual(code, 1)
+        self.assertIn("無法寫入發送紀錄", out)
+        self.assertIn("::error title=notify::", out)
+
+    def test_annotate_failure_escapes_workflow_command_syntax(self):
+        buffer = io.StringIO()
+        with redirect_stdout(buffer):
+            annotate_failure("第一行\n第二行: 100% bad")
+        line = buffer.getvalue()
+        # One annotation = exactly one line; newlines are collapsed, not emitted.
+        self.assertEqual(line.count("\n"), 1)
+        self.assertTrue(line.endswith("\n"))
+        body = line.strip()
+        self.assertTrue(body.startswith("::error title=notify::"))
+        self.assertIn("第一行 第二行", body)  # whitespace collapsed to a single space
+        self.assertIn("%3A", body)  # ':' would otherwise end the title early
+        self.assertIn("%25", body)  # '%' is the workflow-command escape character
+
+    def test_annotate_failure_never_emits_a_raw_newline(self):
+        buffer = io.StringIO()
+        with redirect_stdout(buffer):
+            annotate_failure("line one\r\nline two\n\nline three")
+        self.assertEqual(buffer.getvalue().count("\n"), 1)
 
 
 if __name__ == "__main__":
