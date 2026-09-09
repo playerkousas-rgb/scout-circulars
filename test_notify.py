@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Pure-unit checks for the anonymous Web Push dispatcher (no network needed)."""
 
+import base64
 import io
 import json
 import os
@@ -38,8 +39,10 @@ from notify import (
     notification_results_url,
     push_failures_are_systemic,
     secrets_preflight,
+    send_group,
     send_web_push,
     subscription_matches,
+    vapid_signer,
 )
 
 
@@ -201,11 +204,13 @@ class NotifyMatchingTests(unittest.TestCase):
         scoped = {"branch_ids": ["家長"], "topic_ids": ["branch:家長:activity:other"]}
         self.assertFalse(subscription_matches(scoped, {}))
 
+    @unittest.skipUnless(TEST_VAPID_PEM, "cryptography not installed")
     def test_webpush_retains_each_message_for_three_days(self):
         webpush = Mock()
         with patch.dict(sys.modules, {"pywebpush": SimpleNamespace(webpush=webpush)}):
             send_web_push({"endpoint": "https://example.test", "p256dh": "key", "auth": "auth"},
-                          {"title": "測試"}, {"private_key": "private", "subject": "https://example.test"})
+                          {"title": "測試"}, {"private_key": normalize_vapid_pem(TEST_VAPID_PEM),
+                                             "subject": "https://example.test"})
         self.assertEqual(PUSH_TTL_SECONDS, 259200)
         self.assertEqual(webpush.call_args.kwargs["ttl"], 259200)
 
@@ -483,6 +488,67 @@ class NotifyDispatchFailureTests(unittest.TestCase):
         with redirect_stdout(buffer):
             annotate_failure("line one\r\nline two\n\nline three")
         self.assertEqual(buffer.getvalue().count("\n"), 1)
+
+
+@unittest.skipUnless(TEST_VAPID_PEM, "cryptography not installed")
+class VapidSignerRegressionTests(unittest.TestCase):
+    """Keep a PEM string out of pywebpush's bare-DER parsing path."""
+
+    def setUp(self):
+        self.pem = normalize_vapid_pem(TEST_VAPID_PEM)
+        self.subscription = {
+            "id": "00000000-0000-0000-0000-000000000001",
+            "endpoint": "https://push.invalid.example/message",
+            "p256dh": "unused-while-webpush-is-mocked",
+            "auth": "unused-while-webpush-is-mocked",
+        }
+        self.config = {"private_key": self.pem, "subject": "https://example.test"}
+
+    def test_webpush_receives_a_vapid_object_not_a_pem_string(self):
+        from py_vapid import Vapid01
+
+        webpush = Mock()
+        with patch.dict(sys.modules, {"pywebpush": SimpleNamespace(webpush=webpush)}):
+            send_web_push(self.subscription, {"title": "測試"}, self.config)
+
+        private_key = webpush.call_args.kwargs["vapid_private_key"]
+        self.assertIsInstance(private_key, Vapid01)
+        self.assertNotIsInstance(private_key, str)
+
+    def test_the_old_way_of_passing_a_pem_string_really_does_fail(self):
+        from py_vapid import Vapid
+
+        with self.assertRaisesRegex(ValueError, "Could not deserialize key data"):
+            Vapid.from_string(self.pem)
+
+    def test_the_signer_object_loads_the_same_pem_without_complaint(self):
+        signer = vapid_signer(self.pem)
+        actual = signer.public_key.public_bytes(
+            _serialization.Encoding.X962, _serialization.PublicFormat.UncompressedPoint
+        )
+        expected = base64.urlsafe_b64decode(vapid_public_key_from_pem(self.pem) + "==")
+        self.assertEqual(actual, expected)
+
+    def test_signer_rejects_a_corrupt_key(self):
+        with self.assertRaises(ValueError):
+            vapid_signer(normalize_vapid_pem("not a private key"))
+
+    def test_send_group_reports_a_network_error_not_a_key_error(self):
+        webpush = Mock(side_effect=ConnectionError("push endpoint unavailable"))
+        notice = {
+            "source_site": "總會",
+            "pdf_url": "https://example.test/notice.pdf",
+            "title": "測試",
+            "captured_date": "2026-09-09",
+        }
+        with patch.dict(sys.modules, {"pywebpush": SimpleNamespace(webpush=webpush)}):
+            result = send_group(
+                self.subscription, [notice], [notice], {}, "https://example.test", "2026-09-09", self.config
+            )
+
+        self.assertEqual(result.status, "failed")
+        self.assertIn("ConnectionError", result.error)
+        self.assertNotIn("deserialize key data", result.error)
 
 
 @unittest.skipUnless(HAVE_CRYPTOGRAPHY, "cryptography not installed")

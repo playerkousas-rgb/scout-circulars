@@ -606,6 +606,24 @@ def _push_status(error: Exception) -> Optional[int]:
         return None
 
 
+def vapid_signer(pem: str):
+    """Build the VAPID signer object pywebpush actually needs.
+
+    pywebpush only treats ``vapid_private_key`` as a PEM when it is a *file
+    path*; any other string goes to ``py_vapid.Vapid.from_string``, which
+    base64url-decodes it as bare DER and therefore chokes on the
+    ``-----BEGIN PRIVATE KEY-----`` header with
+    ``ValueError: Could not deserialize key data``. Handing it a ready-made
+    ``Vapid01`` skips that parsing entirely (and gives RFC 8292 signing).
+
+    2026-09-09: this — not the secret — was why every single push failed while
+    notify.py itself loaded and verified the very same PEM without complaint.
+    """
+    from py_vapid import Vapid01
+
+    return Vapid01.from_pem(pem.encode("ascii"))
+
+
 def send_web_push(subscription: Mapping[str, Any], payload: Mapping[str, Any], config: Mapping[str, str]) -> None:
     try:
         from pywebpush import webpush
@@ -618,7 +636,7 @@ def send_web_push(subscription: Mapping[str, Any], payload: Mapping[str, Any], c
     webpush(
         subscription_info=info,
         data=json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
-        vapid_private_key=config["private_key"],
+        vapid_private_key=vapid_signer(config["private_key"]),
         vapid_claims={"sub": config["subject"]},
         ttl=PUSH_TTL_SECONDS,
         timeout=12,
