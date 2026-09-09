@@ -12,3 +12,5 @@ enrich_review.md
 .env
 .env.*
 !.env.example
+# run-local-scrape-logged.bat 嘅本機輸出日誌（只喺本機有用，唔好 commit）
+logs/

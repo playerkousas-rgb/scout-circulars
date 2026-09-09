@@ -15,10 +15,12 @@ all matching new notices are aggregated first: 10 matches means one push, not
 from __future__ import annotations
 
 import argparse
+import base64
 import concurrent.futures
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -439,6 +441,98 @@ class SupabaseClient:
         self.request("DELETE", "push_subscriptions", {"id": f"eq.{subscription_id}"}, prefer="return=minimal")
 
 
+# A P-256 PKCS#8 private key DER is 138 bytes; the matching SPKI public key is
+# 91 bytes. Comparing the decoded length tells "you pasted the public key"
+# apart from "the body got truncated" without echoing any key material.
+VAPID_PRIVATE_DER_BYTES = 138
+VAPID_PUBLIC_DER_BYTES = 91
+_PEM_BLOCK = re.compile(r"-----BEGIN ([A-Z ]+)-----(.*?)-----END \1-----", re.DOTALL)
+
+
+def normalize_vapid_pem(raw: str) -> str:
+    """Rebuild a canonical PEM from common copy/paste mangling.
+
+    Fixes only the harmless cases — literal ``\\n`` from a one-line secret,
+    arbitrary line wrapping, stray spaces, missing header/footer. It cannot
+    repair a corrupt base64 body; see ``diagnose_vapid_pem``.
+    """
+    text = raw.strip().replace("\\r\\n", "\n").replace("\\n", "\n").replace("\\r", "\n")
+    match = _PEM_BLOCK.search(text)
+    label = match.group(1).strip() if match else "PRIVATE KEY"
+    body = re.sub(r"\s+", "", match.group(2) if match else text)
+    if not body:
+        return ""
+    wrapped = "\n".join(body[i : i + 64] for i in range(0, len(body), 64))
+    return f"-----BEGIN {label}-----\n{wrapped}\n-----END {label}-----\n"
+
+
+def _load_vapid_private_key(pem: str):
+    from cryptography.hazmat.primitives.serialization import load_pem_private_key
+
+    return load_pem_private_key(pem.encode("ascii"), password=None)
+
+
+def vapid_public_key_from_pem(pem: str) -> str:
+    """The base64url X962 public key the site serves at /api/push_config.
+
+    Safe to log — this value is public by design (browsers need it). Printing it
+    lets the operator confirm the GitHub secret matches the deployed site
+    without ever exposing the private key.
+    """
+    from cryptography.hazmat.primitives import serialization
+
+    raw = _load_vapid_private_key(pem).public_key().public_bytes(
+        serialization.Encoding.X962, serialization.PublicFormat.UncompressedPoint
+    )
+    return base64.urlsafe_b64encode(raw).decode("ascii").rstrip("=")
+
+
+def diagnose_vapid_pem(pem: str) -> str:
+    """Explain why a VAPID private key will not load. Never echoes key material.
+
+    2026-09-09: the dispatcher died with three identical
+    ``ValueError: Could not deserialize key data`` lines from inside pywebpush.
+    Measured locally, that message only appears when the PEM header/footer are
+    intact but the base64 body is not a valid private key — wrapping, one-line
+    secrets, stray spaces and stripped ``=`` padding all load fine. Naming the
+    sub-case turns a dead end into a one-line fix.
+    """
+    if not pem:
+        return "VAPID_PRIVATE_KEY 係空嘅"
+    load_error: Optional[BaseException] = None
+    try:
+        _load_vapid_private_key(pem)
+        return ""
+    except Exception as exc:  # noqa: BLE001 - any load failure needs explaining
+        load_error = exc  # `except ... as exc` deletes exc at block exit, so keep a copy
+    try:
+        from cryptography.hazmat.primitives.serialization import load_pem_public_key
+
+        load_pem_public_key(pem.encode("ascii"))
+        return (
+            "VAPID_PRIVATE_KEY 入面放咗一把 PUBLIC key（呢段 base64 用 public key 讀得開）。"
+            "請改放 generate_vapid.py 印出嘅 PRIVATE PEM；VAPID_PUBLIC_KEY 只屬於 Vercel。"
+        )
+    except Exception:  # noqa: BLE001 - not a public key either; keep diagnosing
+        pass
+    match = _PEM_BLOCK.search(pem)
+    body = re.sub(r"\s+", "", match.group(2) if match else pem)
+    try:
+        decoded = base64.b64decode(body + "=" * (-len(body) % 4))
+    except Exception:  # noqa: BLE001
+        decoded = b""
+    if len(decoded) == VAPID_PUBLIC_DER_BYTES:
+        hint = f"解碼後 {len(decoded)} bytes，啱啱好係 SPKI public key 嘅長度 → 貼錯咗 public key"
+    elif len(decoded) < VAPID_PRIVATE_DER_BYTES:
+        hint = (
+            f"解碼後得 {len(decoded)} bytes，P-256 PKCS#8 private key 應該係 "
+            f"{VAPID_PRIVATE_DER_BYTES} bytes → 抄漏／截斷咗"
+        )
+    else:
+        hint = f"解碼後 {len(decoded)} bytes 但唔係有效 DER → base64 入面有字元被改動"
+    return f"VAPID_PRIVATE_KEY 讀唔到：{type(load_error).__name__}: {str(load_error)[:70]}…（{hint}）"
+
+
 def vapid_config(*, require_private_key: bool = True) -> Optional[Dict[str, str]]:
     private_key = os.environ.get("VAPID_PRIVATE_KEY", "").strip()
     url = os.environ.get("SUPABASE_URL", "").strip()
@@ -447,12 +541,60 @@ def vapid_config(*, require_private_key: bool = True) -> Optional[Dict[str, str]
         return None
     if not url or not service_key or (require_private_key and not private_key):
         raise NotificationError("Web Push secrets are incomplete")
+    pem = normalize_vapid_pem(private_key)
+    if require_private_key:
+        problem = diagnose_vapid_pem(pem)
+        if problem:
+            raise NotificationError(problem)
     return {
-        "private_key": private_key.replace("\\n", "\n"),
+        "private_key": pem,
         "subject": os.environ.get("VAPID_SUBJECT", "https://scout-circulars.vercel.app").strip() or "https://scout-circulars.vercel.app",
         "url": url,
         "service_key": service_key,
     }
+
+
+# Secrets/variables the send path needs. Names only — values are never logged.
+REQUIRED_PUSH_ENV: Tuple[str, ...] = ("SUPABASE_URL", "SUPABASE_SERVICE_KEY", "VAPID_PRIVATE_KEY")
+OPTIONAL_PUSH_ENV: Tuple[str, ...] = ("VAPID_SUBJECT",)
+
+
+def secrets_preflight() -> Dict[str, bool]:
+    """Which push settings are present. Booleans only, so this is safe to log."""
+    return {name: bool(os.environ.get(name, "").strip()) for name in REQUIRED_PUSH_ENV + OPTIONAL_PUSH_ENV}
+
+
+def missing_required_push_env() -> List[str]:
+    return [name for name in REQUIRED_PUSH_ENV if not os.environ.get(name, "").strip()]
+
+
+def print_secrets_preflight() -> None:
+    """Print the presence of each push setting so a misconfiguration is visible.
+
+    2026-09-09: the step failed in ~2 s on two runs and the only surviving
+    evidence was "Process completed with exit code 1", because job logs live on
+    blob storage that is not always fetchable. Naming the missing setting (never
+    its value) turns that into a one-line diagnosis.
+    """
+    state = secrets_preflight()
+    # flush: Actions captures stdout through a pipe, so without this the
+    # unbuffered stderr ❌ line would print *before* this one in the log.
+    print(
+        "🔐 推播設定檢查：" + "　".join(f"{name}={'✅' if ok else '❌缺少'}" for name, ok in state.items()),
+        flush=True,
+    )
+
+
+def annotate_failure(message: str) -> None:
+    """Emit a GitHub Actions error annotation carrying the real reason.
+
+    Annotations are plain REST metadata readable from
+    ``GET /repos/{o}/{r}/check-runs/{id}/annotations``, unlike the step log body
+    which lives on blob storage. Escaping follows the workflow-command syntax.
+    """
+    text = " ".join(str(message).split())[:400]
+    text = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A").replace(":", "%3A")
+    print(f"::error title=notify::{text}", flush=True)
 
 
 def _push_status(error: Exception) -> Optional[int]:
@@ -614,14 +756,32 @@ def main() -> int:
             summary_seen.add(key)
             summary_pool.append(item)
 
+    print_secrets_preflight()
     try:
         config = vapid_config(require_private_key=not args.dry_run)
     except NotificationError as exc:
-        print(f"❌ 推播設定錯誤：{exc}", file=sys.stderr)
+        missing = missing_required_push_env()
+        detail = (
+            f"{exc}（缺少 repo secret：{', '.join(missing)}）"
+            if missing
+            else f"{exc}（secret 都喺度，即係入面嘅內容本身有問題）"
+        )
+        print(f"❌ 推播設定錯誤：{detail}", file=sys.stderr)
+        print("   一則通知都未發出；cache 仍會由下一個步驟提交（見 scrape.yml 嘅 steps.notify 條件），")
+        print("   補好 secret 後同日補發仍然有效。")
+        annotate_failure(f"推播設定錯誤：{detail}")
         return 1
     if config is None:
         print("ℹ️ Web Push 尚未設定 VAPID / Supabase secrets；已略過，不影響爬蟲。")
         return 0
+    if config["private_key"]:
+        # Public by design — lets the operator confirm the GitHub secret matches
+        # the key the site serves at /api/push_config, without exposing the PEM.
+        try:
+            print(f"🔑 由 VAPID_PRIVATE_KEY 推算出嘅公鑰：{vapid_public_key_from_pem(config['private_key'])}")
+            print("   （應該同網站 /api/push_config 嘅 vapidPublicKey 一模一樣）")
+        except Exception as exc:  # noqa: BLE001 - never block dispatch on a log line
+            print(f"⚠️ 未能由私鑰推算公鑰：{type(exc).__name__}")
     client = SupabaseClient(config["url"], config["service_key"])
     try:
         subscriptions = client.active_subscriptions()
@@ -631,7 +791,14 @@ def main() -> int:
         delivered = client.delivered_pairs(notice_key(item) for item in notices)
         already_notified_today = client.notified_subscription_ids_for_batch(batch_date)
     except StorageError as exc:
+        # Nothing has been sent yet, so no delivery record can be lost and a
+        # rerun cannot double-push. The step still reports failure (a red run is
+        # the only thing that gets noticed), but scrape.yml commits the cache
+        # anyway — 2026-09-09 root cause B: a dispatch failure must never take
+        # the day's cache down with it.
         print(f"❌ 推播資料庫錯誤：{exc}", file=sys.stderr)
+        print("   讀取訂閱／發送紀錄失敗，一則通知都未發出；cache 仍會由下一個步驟提交。")
+        annotate_failure(f"推播資料庫錯誤：{exc}")
         return 1
 
     groups = matching_groups(subscriptions, notices, summary_pool, enrich, delivered)
@@ -700,12 +867,13 @@ def main() -> int:
     print(f"🔔 推播完成：送出 {sent} 則合併通知；移除失效訂閱 {stale}；推播失敗 {send_failures}。")
     if record_failures:
         print(f"❌ {record_failures} 項資料庫寫入失敗；為避免日後重複推送，已中止提交流程。", file=sys.stderr)
+        annotate_failure(f"{record_failures} 項發送紀錄寫入失敗，已中止提交流程")
         return 1
     if push_failures_are_systemic(send_failures, len(results)):
-        print(
-            f"❌ {send_failures}/{len(results)} 個訂閱推播失敗：過半屬系統性錯誤（例如 VAPID 設定失效），已中止提交流程。",
-            file=sys.stderr,
-        )
+        sample = next((str(result.error) for result in results if result.status == "failed"), "")
+        message = f"{send_failures}/{len(results)} 個訂閱推播失敗：過半屬系統性錯誤（例如 VAPID 設定失效）"
+        print(f"❌ {message}，已中止提交流程。首個錯誤：{sample}", file=sys.stderr)
+        annotate_failure(f"{message}；首個錯誤：{sample}")
         return 1
     if send_failures:
         print(f"   {send_failures}/{len(results)} 個失敗屬個別 endpoint 錯誤（未過半）；未寫入發送紀錄，同日補發會重試，cache 照常提交。")
