@@ -38,6 +38,13 @@ ENRICH_PATH = ROOT / "enrich.json"
 HKT = ZoneInfo("Asia/Hong_Kong")
 PUSH_TTL_SECONDS = 3 * 24 * 60 * 60  # Per-message offline retention, not subscription expiry.
 DEFAULT_SITE_URL = "https://scout-circulars.vercel.app"
+# RFC 8291 caps one encrypted Web Push message at 4096 bytes. Each compact
+# notice ID adds ~17 bytes to the `n=` URL plus ~19 bytes to the JSON
+# `noticeIds` array, so capping at 60 IDs keeps a >100-match big-day payload
+# around 2.5 KB — safely below the limit even before encryption overhead —
+# instead of relying on busy days staying rare (a 120-match day is ~4.6 KB
+# and already trips 413 Payload Too Large on some push services).
+MAX_PAYLOAD_NOTICE_IDS = 60
 
 
 class NotificationError(Exception):
@@ -234,6 +241,17 @@ def trim(value: Any, limit: int) -> str:
     return value if len(value) <= limit else value[: max(0, limit - 1)].rstrip() + "…"
 
 
+def payload_notice_ids(notices: Sequence[Mapping[str, Any]]) -> List[str]:
+    """Unique, deterministic notice IDs capped at ``MAX_PAYLOAD_NOTICE_IDS``.
+
+    The library's ``?n=`` filter then shows the first 60 cards of a bigger
+    batch; the notification title and payload ``count`` still report the true
+    total. Capping here keeps every encrypted push under the RFC 8291
+    4096-byte limit regardless of how many notices one day brings.
+    """
+    return list(dict.fromkeys(notice_id(item) for item in notices))[:MAX_PAYLOAD_NOTICE_IDS]
+
+
 def notification_results_url(site_url: str, notices: Sequence[Mapping[str, Any]]) -> str:
     """Link every push to the library, narrowed to this non-personal batch.
 
@@ -245,8 +263,7 @@ def notification_results_url(site_url: str, notices: Sequence[Mapping[str, Any]]
     parts = urlsplit(site_url)
     path = parts.path or "/"
     query = [(key, value) for key, value in parse_qsl(parts.query, keep_blank_values=True) if key != "n"]
-    ids = list(dict.fromkeys(notice_id(item) for item in notices))
-    query.append(("n", ",".join(ids)))
+    query.append(("n", ",".join(payload_notice_ids(notices))))
     return urlunsplit((parts.scheme, parts.netloc, path, urlencode(query, safe=","), parts.fragment))
 
 
@@ -285,11 +302,13 @@ def build_push_payload(
             "tag": f"scout-circulars-personal-{date}",
             "count": 1,
             "batchDate": date,
-            "noticeIds": [notice_id(item)],
+            "noticeIds": payload_notice_ids(notices),
             "silent": bool(silent),
         }
 
     return {
+        # `count`/title report the true total even when the linked library
+        # filter (and `noticeIds` below) is capped at MAX_PAYLOAD_NOTICE_IDS.
         "title": f"🔔 你關注的項目有 {len(notices)} 項新通告",
         "body": "按此查看全部",
         "url": library_url,
@@ -298,7 +317,7 @@ def build_push_payload(
         "tag": f"scout-circulars-personal-{date}",
         "count": len(notices),
         "batchDate": date,
-        "noticeIds": list(dict.fromkeys(notice_id(item) for item in notices)),
+        "noticeIds": payload_notice_ids(notices),
         "silent": bool(silent),
     }
 
@@ -486,6 +505,18 @@ def send_group(
         return SendResult(subscription_id, delivery_notices, "failed", f"{type(exc).__name__}: {str(exc)[:120]}")
 
 
+def push_failures_are_systemic(failed: int, attempted: int) -> bool:
+    """Only a strict majority of failed sends blocks the pipeline.
+
+    One bad endpoint (429/5xx/TLS from a single push service) must not stop
+    the cache commit the way it did on 2026-09-09: the failed send simply is
+    not recorded, so the same-day catch-up safety net retries it on the next
+    run. An over-half failure rate instead points at a systemic cause such as
+    an invalid VAPID key, where halting before the commit is still correct.
+    """
+    return attempted > 0 and failed * 2 > attempted
+
+
 def matching_groups(
     subscriptions: Sequence[Mapping[str, Any]],
     newly_discovered: Sequence[Dict[str, Any]],
@@ -636,7 +667,8 @@ def main() -> int:
         for future in concurrent.futures.as_completed(futures):
             results.append(future.result())
 
-    failures = 0
+    record_failures = 0
+    send_failures = 0
     sent = stale = 0
     for result in results:
         if result.status == "sent":
@@ -644,24 +676,40 @@ def main() -> int:
                 client.record_deliveries(result.subscription_id, result.notices, batch_date)
                 sent += 1
             except StorageError as exc:
-                # Fail before the cache commit.  A rerun may deliver a duplicate
-                # only in this rare post-send recording failure, preferable to
-                # silently losing every future notification.
+                # Still fatal before the cache commit, by design. A rerun may
+                # deliver a duplicate only in this rare post-send recording
+                # failure, preferable to silently losing every future
+                # notification.
                 print(f"❌ 無法寫入發送紀錄：{exc}", file=sys.stderr)
-                failures += 1
+                record_failures += 1
         elif result.status == "stale":
             try:
                 client.delete_subscription(result.subscription_id)
                 stale += 1
             except StorageError as exc:
                 print(f"❌ 無法清理失效訂閱：{exc}", file=sys.stderr)
-                failures += 1
+                record_failures += 1
         else:
-            print(f"❌ 訂閱 {result.subscription_id[:8]}… 推播失敗：{result.error}", file=sys.stderr)
-            failures += 1
+            # A single endpoint error (429/5xx/TLS, or one oversized payload)
+            # warns but no longer fails the step: no delivery record is
+            # written, so the same-day catch-up retries this subscriber on the
+            # next run while the cache still commits normally.
+            print(f"⚠️ 訂閱 {result.subscription_id[:8]}… 推播失敗：{result.error}", file=sys.stderr)
+            send_failures += 1
 
-    print(f"🔔 推播完成：送出 {sent} 則合併通知；移除失效訂閱 {stale}；失敗 {failures}。")
-    return 1 if failures else 0
+    print(f"🔔 推播完成：送出 {sent} 則合併通知；移除失效訂閱 {stale}；推播失敗 {send_failures}。")
+    if record_failures:
+        print(f"❌ {record_failures} 項資料庫寫入失敗；為避免日後重複推送，已中止提交流程。", file=sys.stderr)
+        return 1
+    if push_failures_are_systemic(send_failures, len(results)):
+        print(
+            f"❌ {send_failures}/{len(results)} 個訂閱推播失敗：過半屬系統性錯誤（例如 VAPID 設定失效），已中止提交流程。",
+            file=sys.stderr,
+        )
+        return 1
+    if send_failures:
+        print(f"   {send_failures}/{len(results)} 個失敗屬個別 endpoint 錯誤（未過半）；未寫入發送紀錄，同日補發會重試，cache 照常提交。")
+    return 0
 
 
 if __name__ == "__main__":
