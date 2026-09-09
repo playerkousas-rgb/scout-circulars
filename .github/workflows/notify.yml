@@ -1,0 +1,54 @@
+# ============================================================
+# 全港童軍通告自動化圖書館 v5.6 — GitHub Actions（僅通知補發）
+# 流程：checkout → 安裝最少 notify 依賴 → python notify.py --baseline-ref HEAD
+#
+# 不執行 core.py / enrich.py，也不需要 Playwright / Chromium / Tesseract。
+# 使用 Supabase push_deliveries 去重，並以 rolling recovery window 自動補發。
+# ============================================================
+
+name: Scout Notice Notify
+
+on:
+  # 每日 06:00 HKT 自動補漏（22:00 UTC = 06:00 HKT）；
+  # 使用 rolling recovery window（預設 7 日），若前一日未成功發送，
+  # 今日 06:00 會自動連同今日新通告一併補發，無需多次 retry。
+  schedule:
+    - cron: "0 22 * * *"
+
+  workflow_dispatch:
+
+concurrency:
+  group: scout-circulars-scrape-and-push
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+      TZ: "Asia/Hong_Kong"
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install minimal notify dependencies
+        # 只安裝 notify.py 所需：pywebpush + cryptography + requirements 中的核心依賴
+        # 絕不安裝 Playwright / Chromium / Tesseract / Poppler / PDF/OCR 套件
+        run: |
+          pip install -r requirements.txt pywebpush cryptography
+
+      - name: Send Web Push (with rolling catch-up)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_SUBJECT: ${{ secrets.VAPID_SUBJECT }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://scout-circulars.vercel.app' }}
+        run: |
+          python notify.py --baseline-ref HEAD
