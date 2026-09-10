@@ -47246,5 +47246,154 @@
     "error": "",
     "enriched_at": "2026-09-09 16:10:46",
     "enrich_version": "3.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25814/SING-Activities_Calendar_26-27_Sep---Nov_.pdf": {
+    "source": "總會",
+    "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(9-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-10 14:10:17",
+    "enrich_version": "3.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26021/chairty-walk_poster.pdf": {
+    "source": "總會",
+    "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(海報)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "籌款"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service",
+      "course:leader-leave-no-trace-trainer"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "籌款"
+        ]
+      },
+      {
+        "id": "course:leader-leave-no-trace-trainer",
+        "label": "不留痕導師",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：不留痕"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-10 14:10:20",
+    "enrich_version": "3.1"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26029/P097-26.pdf": {
+    "source": "總會",
+    "title": "「個人成長與團隊建立」— 跨支部水上樂園體驗日(P97/2026)",
+    "deadline": "2026-09-18",
+    "audience": "小童軍、幼童軍、深資童軍、樂行童軍、童軍、領袖、家長",
+    "fee": "全免",
+    "categories": [],
+    "branch_tags": [
+      "家長",
+      "小童軍",
+      "幼童軍",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-10 14:10:24",
+    "enrich_version": "3.1"
+  },
+  "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2602_領袖工作坊 幼童軍集會 (二) 接納通知書.pdf": {
+    "source": "深旺區",
+    "title": "領袖工作坊-幼童軍集會 (二) 接納通知書",
+    "deadline": "",
+    "audience": "",
+    "fee": "HK$10",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:幼童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-10 14:10:28",
+    "enrich_version": "3.1"
   }
 }
