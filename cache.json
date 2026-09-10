@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-10 14:03:34",
+  "last_updated": "2026-09-11 03:07:05",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
@@ -76741,12 +76741,12 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-10 14:03:34",
-      "new": 4,
-      "updated": 1135,
-      "skipped": 38,
+      "updated_at": "2026-09-11 03:07:05",
+      "new": 0,
+      "updated": 0,
+      "skipped": 39,
       "processed": 46,
-      "playwright_used": 1,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
         "港島地域",
@@ -76778,6 +76778,7 @@
         "屯門東區",
         "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
         "雙魚區",
         "壁峰區",
         "大埔北區",
