@@ -1,30 +1,26 @@
 # ============================================================
 # 全港童軍通告自動化圖書館 v5.6 — GitHub Actions
-# 流程：core.py（抓通告）→ enrich.py（增量抽當天 PDF 文字）→
-#       notify.py（每位匿名訂閱者最多一則合併 Web Push）→ 自動提交
+# 流程：core.py（抓通告）→ enrich.py（增量抽 PDF 文字）→ 自動提交
 #
-# ⚠️ 重要：enrich 只跑「增量」模式（抽今日新通告）。
-#   - 絕不要把 enrich 改成 --all：會把 3500+ 個已抽過的 PDF 全部重新下載，
-#     大量打各區會站伺服器 → 容易觸發封 runner IP（這是當初 5/23 被封的教訓）。
-#   - 歷史欠帳（如批次匯入的舊通告）請改在本機用 `python enrich.py --backfill` 補，
-#     不要放進這個每日排程。
+# 每日排程架構（HKT）：
+#   - 00:15 HKT（16:15 UTC）：本 workflow 執行全網抓取與增量抽取，更新 Git
+#   - 03:00 HKT：本機工作排程執行補漏抓取
+#   - 06:00 HKT（22:00 UTC）：notify.yml 統一發送 Web Push 推送通知
+#
+# 本 workflow 為純抓取與增量抽取，不執行 notify.py，不需要 VAPID / Supabase secrets。
+# ⚠️ enrich 只跑「增量」模式（只抽新入庫 PDF），切勿使用 --all 以免觸發網站封鎖。
 # ============================================================
 
 name: Scout Notice Scraper
 
 on:
-  # 每日自動更新（2026-08-14 重新啟用）
-  # 22:15 UTC = 06:15 HKT —— 每天早上抓到前一日所有新通告
-  # 16:15 UTC = 00:15 HKT —— 翌日抓取前一日新通告
+  # 每日 00:15 HKT 自動執行抓取（16:15 UTC = 00:15 HKT）
   schedule:
-    - cron: "15 22 * * *"
     - cron: "15 16 * * *"
 
-  # 手動觸發（驗證 / 隨時補跑用）
+  # 手動觸發（隨時測試／補跑用）
   workflow_dispatch:
 
-# 防止手動補跑與每日排程同時查閱／寫入 delivery 紀錄，避免同一裝置出現競態重推。
-# 防止與 notify workflow 同時讀寫 delivery 紀錄或同時推送，避免競態重推。
 concurrency:
   group: scout-circulars-scrape-and-push
   cancel-in-progress: false
@@ -38,16 +34,14 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       # 避免 runner 上的 urllib / requests 把中文路徑當 latin-1 處理
       PYTHONUTF8: "1"
-      # 讓 Python 看到香港時區（core.py / enrich.py 都依賴 HKT）
+      # 設定為香港時區（core.py / enrich.py 依賴 HKT 計算 captured_date）
       TZ: "Asia/Hong_Kong"
-      # GitHub 不容許在 if: 直接讀 secret；只暴露布林開關給其他 steps。
-      PUSH_DISPATCH_ENABLED: ${{ secrets.VAPID_PRIVATE_KEY != '' }}
     timeout-minutes: 30
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -56,51 +50,27 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # enrich.py 的 OCR fallback 需要 tesseract + poppler（處理圖片型/掃描 PDF）
+          # enrich.py 的 OCR fallback 需要 tesseract + poppler
           sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra poppler-utils
-          pip install -r requirements.txt pdfplumber pdfminer.six pillow pytesseract pdf2image pywebpush cryptography
+          pip install -r requirements.txt pdfplumber pdfminer.six pillow pytesseract pdf2image
           playwright install chromium
 
       # ── Step 1: 跑 core.py 抓通告 ──
-      # 注意：core.py 預設即為詳細輸出，不支援 --verbose（那是 enrich.py 才有的旗標），
-      #       加 --verbose 會被 argparse 拒絕而 exit 2。保持 `python core.py` 即可。
       - name: Run core scraper
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: |
           python core.py
 
-      # ── Step 2: 跑 enrich.py 增量抽今日新通告的文字 ──
-      # 只抽「今日新抓到」的 PDF（增量），絕不要 --all：
-      # --all 會把 3500+ 個已抽過的 PDF 全部重新下載，是觸發站方封 runner IP 的主因之一。
+      # ── Step 2: 跑 enrich.py 增量抽新入庫通告的文字 ──
       - name: Run enrich scraper (incremental only)
         run: |
           python enrich.py --verbose
 
-      # ── Step 2.5: 靜默失敗健康檢查 ──
-      # 「error_sources 為空」唔等於全部來源健康 —— 觀塘區／深水埗西區
-      # 曾經長期抓錯嘢但從來冇報過錯。呢步印出結果留喺 log，方便回溯。
-      # 刻意用 `|| true`：健康檢查只係報告，唔應該令抓取成果冇得 commit。
+      # ── Step 3: 健康檢查（報告記錄在 Action log）──
       - name: Health check (report only)
         run: |
           python check_stale.py || true
 
-      # ── Step 3: 聚合同一訂閱者的命中，再發一則 Web Push ──
-      # 沒有 VAPID_PRIVATE_KEY 時刻意跳過：通知尚未部署不應中斷既有爬蟲。
-      # 設定後，notify.py 會以前一個 HEAD:cache.json 為基準，並以資料庫
-      # unique delivery key 去重，所以重跑 workflow 不會重響。
-      - name: Send personalized Web Push summaries
-        if: env.PUSH_DISPATCH_ENABLED == 'true'
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
-          VAPID_SUBJECT: ${{ secrets.VAPID_SUBJECT }}
-          SITE_URL: ${{ vars.SITE_URL || 'https://scout-circulars.vercel.app' }}
-        run: |
-          python notify.py
-
-      # ── Step 4: 提交更新 ──
+      # ── Step 4: 提交並推送更新 ──
       - name: Commit & push updated cache + enrich + fingerprints
         run: |
           git config user.name "github-actions[bot]"
