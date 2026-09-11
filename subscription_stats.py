@@ -14,6 +14,7 @@
   export SUPABASE_SERVICE_KEY=...
   python3 subscription_stats.py            # 文字表格
   python3 subscription_stats.py --json     # JSON 輸出
+  python3 subscription_stats.py --out subscription_stats.json   # 寫檔（GitHub Actions 用，前端 stats.html 讀）
 
 （或者放入 .env 之後 `set -a; source .env; set +a` 再執行。）
 """
@@ -115,8 +116,13 @@ def summarise(rows: list[dict]) -> dict:
         topic_counter.update(set(r.get("topic_ids") or []))
         version_counter[r.get("catalog_version") or "(unknown)"] += 1
 
+    branch_labels, topic_labels = _labels()
     return {
         "generated_at": now.isoformat(timespec="seconds"),
+        "labels": {
+            "branches": {b: branch_labels.get(b, b) for b in branch_counter},
+            "topics": {t: topic_labels.get(t, t) for t in topic_counter},
+        },
         "total": len(rows),
         "enabled": len(enabled),
         "disabled": len(rows) - len(enabled),
@@ -160,7 +166,11 @@ def main() -> None:
         sys.exit("請先設定 SUPABASE_URL 同 SUPABASE_SERVICE_KEY（可放入 .env）。")
     rows = fetch_subscriptions(base_url, key)
     stats = summarise(rows)
-    if "--json" in sys.argv:
+    if "--out" in sys.argv:
+        out = Path(sys.argv[sys.argv.index("--out") + 1])
+        out.write_text(json.dumps(stats, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"已寫入 {out}（訂閱 {stats['total']}，啟用 {stats['enabled']}）")
+    elif "--json" in sys.argv:
         print(json.dumps(stats, ensure_ascii=False, indent=2))
     else:
         print_report(stats)
