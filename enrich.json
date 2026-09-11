@@ -47395,5 +47395,44 @@
     "error": "",
     "enriched_at": "2026-09-10 14:10:28",
     "enrich_version": "3.1"
+  },
+  "https://www.ylw-scout.org.hk/circular/activity13-2026.pdf.pdf": {
+    "source": "元朗西區",
+    "title": "元朗西區慶祝50週年小童軍競技比賽 - activity13-2026",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "小童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "",
+    "error": "download: HTTPError",
+    "enriched_at": "2026-09-12 03:14:33",
+    "enrich_version": "3.1"
   }
 }

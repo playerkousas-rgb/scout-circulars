@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-11 03:07:05",
+  "last_updated": "2026-09-12 03:10:05",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4782,
+    "total_notices": 4785,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -12171,6 +12171,24 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日填色比賽 [結果公布",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=632%3A115-3&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=632%3A115-3&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-09-12",
+        "captured_date": "2026-09-12",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
+        "title": "區會12/9 – 18/9/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=631%3A12-9-18-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=631%3A12-9-18-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-09-12",
+        "captured_date": "2026-09-12",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "區會 5/9 – 11/9/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=630%3A5-9-11-9-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -32601,7 +32619,16 @@
     ],
     "元朗西區": [
       {
-        "title": "元朗西區50週年紀念填色比賽 - training04-2026",
+        "title": "元朗西區慶祝50週年小童軍競技比賽 - activity13-2026",
+        "url": "https://www.ylw-scout.org.hk/circular/activity13-2026.pdf.pdf",
+        "pdf_url": "https://www.ylw-scout.org.hk/circular/activity13-2026.pdf.pdf",
+        "date": "2026-09-12",
+        "captured_date": "2026-09-12",
+        "source_site": "元朗西區",
+        "region": "新界地域"
+      },
+      {
+        "title": "元朗西區50週年紀念填色比賽 - activity12-2026",
         "url": "https://www.ylw-scout.org.hk/circular/activity12-2026.pdf.pdf",
         "pdf_url": "https://www.ylw-scout.org.hk/circular/activity12-2026.pdf.pdf",
         "date": "2026-08-25",
@@ -43143,6 +43170,27 @@
   },
   "notices": [
     {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=632%3A115-3&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日填色比賽 [結果公布",
+      "captured_date": "2026-09-12"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=631%3A12-9-18-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會12/9 – 18/9/2026辦公時間",
+      "captured_date": "2026-09-12"
+    },
+    {
+      "source_site": "元朗西區",
+      "region": "新界地域",
+      "pdf_url": "https://www.ylw-scout.org.hk/circular/activity13-2026.pdf.pdf",
+      "title": "元朗西區慶祝50週年小童軍競技比賽 - activity13-2026",
+      "captured_date": "2026-09-12"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25814/SING-Activities_Calendar_26-27_Sep---Nov_.pdf",
@@ -44994,7 +45042,7 @@
       "source_site": "元朗西區",
       "region": "新界地域",
       "pdf_url": "https://www.ylw-scout.org.hk/circular/activity12-2026.pdf.pdf",
-      "title": "元朗西區50週年紀念填色比賽 - training04-2026",
+      "title": "元朗西區50週年紀念填色比賽 - activity12-2026",
       "captured_date": "2026-08-25"
     },
     {
@@ -76741,16 +76789,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-11 03:07:05",
-      "new": 0,
-      "updated": 0,
-      "skipped": 39,
+      "updated_at": "2026-09-12 03:10:05",
+      "new": 3,
+      "updated": 160,
+      "skipped": 46,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
+        "總會",
         "港島地域",
-        "灣仔區",
+        "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
@@ -76759,8 +76808,10 @@
         "九龍地域",
         "紅磡區",
         "何文田區",
+        "九龍城區",
         "九龍塘區",
         "旺角區",
+        "深旺區",
         "深水埗東區",
         "深水埗西區",
         "油尖區",
@@ -76772,13 +76823,15 @@
         "將軍澳區",
         "觀塘區",
         "鯉魚門區",
-        "元朗西區",
+        "新界地域",
+        "元朗東區",
         "十八鄉區",
+        "屯門西區",
         "北葵涌區",
         "屯門東區",
         "荃灣區",
+        "南葵涌區",
         "離島區 (expected_empty)",
-        "新界東地域",
         "雙魚區",
         "壁峰區",
         "大埔北區",
@@ -76787,7 +76840,9 @@
         "沙田南區",
         "沙田東區",
         "沙田北區",
-        "大嶼山區 (expected_empty)"
+        "大嶼山區 (expected_empty)",
+        "慈雲山區",
+        "青衣區"
       ]
     }
   }
