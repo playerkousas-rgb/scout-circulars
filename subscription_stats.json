@@ -1,16 +1,60 @@
 {
-  "generated_at": null,
-  "total": 0,
-  "enabled": 0,
-  "disabled": 0,
-  "active_last_30d": 0,
-  "new_last_30d": 0,
-  "avg_topics_per_subscriber": 0,
+  "generated_at": "2026-09-11T23:38:57+00:00",
   "labels": {
-    "branches": {},
-    "topics": {}
+    "branches": {
+      "童軍": "童軍",
+      "領袖": "領袖",
+      "家長": "家長",
+      "小童軍": "小童軍",
+      "會務委員": "會務委員",
+      "深資童軍": "深資童軍",
+      "幼童軍": "幼童軍",
+      "樂行童軍": "樂行童軍"
+    },
+    "topics": {
+      "all:new": "全部 · 全選：所有新通告",
+      "branch:深資童軍:category:competition": "深資童軍 · 比賽 · 所有比賽",
+      "branch:深資童軍:activity:other": "深資童軍 · 活動 · 其他活動",
+      "training:深資童軍": "深資童軍 · 訓練 · 所有深資童軍訓練",
+      "branch:深資童軍:activity:campfire": "深資童軍 · 活動 · 營火會",
+      "branch:深資童軍:category:service": "深資童軍 · 服務 · 服務",
+      "branch:深資童軍:activity:big-camp": "深資童軍 · 活動 · 大露營",
+      "course:wood-module-1": "領袖/樂行童軍 · 訓練 · 童軍運動基本原則（單元1A／1B）",
+      "branch:領袖:category:service": "領袖 · 服務 · 服務",
+      "training:領袖:木章": "領袖 · 訓練 · 所有木章訓練班",
+      "training:領袖:非木章": "領袖 · 訓練 · 所有非木章訓練班"
+    }
   },
-  "by_branch": {},
-  "by_topic": {},
-  "by_catalog_version": {}
+  "total": 5,
+  "enabled": 5,
+  "disabled": 0,
+  "active_last_30d": 5,
+  "new_last_30d": 5,
+  "avg_topics_per_subscriber": 3.4,
+  "by_branch": {
+    "深資童軍": 5,
+    "領袖": 4,
+    "童軍": 2,
+    "家長": 2,
+    "小童軍": 2,
+    "會務委員": 2,
+    "幼童軍": 2,
+    "樂行童軍": 2
+  },
+  "by_topic": {
+    "branch:深資童軍:category:service": 3,
+    "all:new": 2,
+    "branch:深資童軍:activity:other": 2,
+    "training:深資童軍": 2,
+    "branch:深資童軍:activity:big-camp": 2,
+    "branch:深資童軍:category:competition": 1,
+    "branch:深資童軍:activity:campfire": 1,
+    "course:wood-module-1": 1,
+    "branch:領袖:category:service": 1,
+    "training:領袖:木章": 1,
+    "training:領袖:非木章": 1
+  },
+  "by_catalog_version": {
+    "3.0.0": 5
+  }
 }
