@@ -199,3 +199,33 @@ REVOKE ALL ON SEQUENCE push_deliveries_id_seq FROM anon, authenticated;
 GRANT ALL ON TABLE push_subscriptions TO service_role;
 GRANT ALL ON TABLE push_deliveries TO service_role;
 GRANT USAGE, SELECT ON SEQUENCE push_deliveries_id_seq TO service_role;
+
+-- ============================================================
+-- 管理員查詢：有幾多人訂閱、訂閱了甚麼（Supabase SQL Editor 直接貼上）
+-- 只回傳彙總數字，不含 endpoint / 金鑰。
+-- ============================================================
+
+-- A. 總數
+-- SELECT COUNT(*)                                   AS total,
+--        COUNT(*) FILTER (WHERE enabled)             AS enabled,
+--        COUNT(*) FILTER (WHERE enabled AND last_seen_at >= NOW() - INTERVAL '30 days') AS active_30d,
+--        COUNT(*) FILTER (WHERE created_at >= NOW() - INTERVAL '30 days')               AS new_30d
+-- FROM push_subscriptions;
+
+-- B. 每個支部有幾多人（一人可選多個支部）
+-- SELECT b AS branch_id, COUNT(*) AS subscribers
+-- FROM push_subscriptions, UNNEST(branch_ids) AS b
+-- WHERE enabled
+-- GROUP BY b ORDER BY subscribers DESC;
+
+-- C. 每個訂閱項目有幾多人（一人可選多個項目）
+-- SELECT t AS topic_id, COUNT(*) AS subscribers
+-- FROM push_subscriptions, UNNEST(topic_ids) AS t
+-- WHERE enabled
+-- GROUP BY t ORDER BY subscribers DESC;
+
+-- D. 最近 14 日實際發出的通知數
+-- SELECT batch_date, COUNT(*) AS deliveries, COUNT(DISTINCT subscription_id) AS people
+-- FROM push_deliveries
+-- WHERE batch_date >= CURRENT_DATE - 14
+-- GROUP BY batch_date ORDER BY batch_date DESC;

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>通告圖書館 — 訂閱統計</title>
+  <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <style>
+    :root {
+      --bg: #02133e; --panel: #0f1728; --panel-2: #111d32; --line: #243553;
+      --text: #e6eefb; --muted: #8ea2c6; --brand: #3b82f6; --good: #10b981; --warn: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, -apple-system, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+    main { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 28px 0 10px; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+    .sub { color: var(--muted); font-size: 13px; }
+    a { color: #7bb0ff; }
+    .panel { background: linear-gradient(180deg, rgba(17,29,50,.95), rgba(11,20,36,.95)); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+    .kpi { padding: 14px; }
+    .kpi .n { font-size: 30px; font-weight: 700; line-height: 1.1; }
+    .kpi .l { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .bars { display: grid; gap: 8px; }
+    .bar { display: grid; grid-template-columns: minmax(0, 1fr) 56px; align-items: center; gap: 10px; font-size: 14px; }
+    .bar .label { position: relative; padding: 7px 10px; border-radius: 8px; background: var(--panel-2); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .bar .label::before { content: ""; position: absolute; inset: 0; width: var(--w); background: linear-gradient(90deg, rgba(59,130,246,.55), rgba(59,130,246,.15)); }
+    .bar .label span { position: relative; }
+    .bar .cnt { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .group { margin-top: 14px; }
+    .group h3 { font-size: 13px; color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+    .gate { max-width: 360px; margin: 18vh auto 0; text-align: center; }
+    .gate input { width: 100%; font-size: 24px; letter-spacing: .4em; text-align: center; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); margin: 14px 0 10px; }
+    .gate button { width: 100%; padding: 12px; border-radius: 10px; border: 0; background: var(--brand); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; }
+    .gate .err { color: #f87171; font-size: 13px; min-height: 18px; margin-top: 8px; }
+    .toolbar { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 18px; }
+    .toolbar button { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; }
+    .empty { color: var(--muted); padding: 20px; text-align: center; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="gate panel" id="gate">
+    <h1>訂閱統計</h1>
+    <div class="sub">請輸入管理密碼</div>
+    <form id="gate-form">
+      <input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12" autofocus>
+      <button type="submit">進入</button>
+      <div class="err" id="gate-err"></div>
+    </form>
+  </section>
+
+  <section id="app" hidden>
+    <div class="toolbar">
+      <div>
+        <h1>訂閱統計</h1>
+        <div class="sub" id="meta">載入中…</div>
+      </div>
+      <div>
+        <a href="index.html" class="sub">← 返回圖書館</a>
+        &nbsp;&nbsp;<button id="logout">登出</button>
+      </div>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <h2>按支部（一人可選多個支部）</h2>
+    <div class="panel bars" id="branches"></div>
+
+    <h2>按訂閱項目（一人可選多個項目）</h2>
+    <div class="panel" id="topics"></div>
+
+    <p class="sub" style="margin-top:28px">
+      數據由 GitHub Actions 每日 06:00（HKT）自動統計並寫入 <code>subscription_stats.json</code>；
+      只含匿名彙總數字，不含任何可識別個人或裝置的資料。
+    </p>
+  </section>
+</main>
+
+<script>
+  // 密碼只以 SHA-256 雜湊存放（前端純靜態頁的簡單門檻，資料本身已是匿名彙總）。
+  const PIN_HASH = '1b230efa3b4daae74f31fe162ca07d3b46b49d766bec31e67cd61ad9b984ad5f';
+  const SESSION_KEY = 'scl_stats_ok';
+  const RAW_STATS_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/subscription_stats.json';
+
+  async function sha256Hex(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const gate = document.getElementById('gate');
+  const app = document.getElementById('app');
+  const gateErr = document.getElementById('gate-err');
+
+  document.getElementById('gate-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pin = document.getElementById('pin').value.trim();
+    if (await sha256Hex(pin) === PIN_HASH) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      unlock();
+    } else {
+      gateErr.textContent = '密碼不正確';
+      document.getElementById('pin').value = '';
+    }
+  });
+  document.getElementById('logout').onclick = () => { sessionStorage.removeItem(SESSION_KEY); location.reload(); };
+
+  function unlock() {
+    gate.hidden = true;
+    app.hidden = false;
+    loadStats();
+  }
+  if (sessionStorage.getItem(SESSION_KEY) === '1') unlock();
+
+  function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function bars(entries, labels, max) {
+    if (!entries.length) return '<div class="empty">暫無數據</div>';
+    return entries.map(([id, n]) => {
+      const w = max ? Math.max(2, Math.round(n / max * 100)) : 0;
+      return `<div class="bar"><div class="label" style="--w:${w}%"><span title="${esc(id)}">${esc(labels[id] || id)}</span></div><div class="cnt">${n.toLocaleString()}</div></div>`;
+    }).join('');
+  }
+
+  async function loadStats() {
+    const meta = document.getElementById('meta');
+    let data;
+    try {
+      // 先試同源（Vercel 部署），失敗再讀 GitHub raw
+      let r = await fetch('subscription_stats.json?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) r = await fetch(RAW_STATS_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) throw new Error(r.status);
+      data = await r.json();
+    } catch (err) {
+      meta.textContent = '仍未有統計檔案：請等 GitHub Actions（Scout Notice Notify）跑過一次，或手動 Run workflow。';
+      return;
+    }
+
+    const gen = data.generated_at ? new Date(data.generated_at) : null;
+    meta.textContent = gen ? `最後更新：${gen.toLocaleString('zh-HK', { timeZone: 'Asia/Hong_Kong' })}` : '';
+
+    const kpis = [
+      [data.enabled, '現時訂閱人數（啟用）'],
+      [data.total, '累計訂閱（含已停用）'],
+      [data.active_last_30d, '最近 30 日活躍'],
+      [data.new_last_30d, '最近 30 日新增'],
+      [data.avg_topics_per_subscriber, '平均每人訂閱項目'],
+    ];
+    document.getElementById('kpis').innerHTML = kpis.map(([n, l]) =>
+      `<div class="panel kpi"><div class="n">${(n ?? 0).toLocaleString()}</div><div class="l">${l}</div></div>`).join('');
+
+    const bl = (data.labels && data.labels.branches) || {};
+    const tl = (data.labels && data.labels.topics) || {};
+    const bEntries = Object.entries(data.by_branch || {}).sort((a, b) => b[1] - a[1]);
+    document.getElementById('branches').innerHTML = bars(bEntries, bl, bEntries[0]?.[1] || 0);
+
+    // 項目按「支部」分組顯示（label 格式「支部 · 分類 · 名稱」）
+    const tEntries = Object.entries(data.by_topic || {}).sort((a, b) => b[1] - a[1]);
+    const max = tEntries[0]?.[1] || 0;
+    const groups = new Map();
+    for (const [id, n] of tEntries) {
+      const label = tl[id] || id;
+      const grp = id === 'all:new' ? '全部' : (label.split(' · ')[0] || '其他');
+      if (!groups.has(grp)) groups.set(grp, []);
+      groups.get(grp).push([id, n]);
+    }
+    const short = {};
+    for (const [id] of tEntries) { const parts = (tl[id] || id).split(' · '); short[id] = parts.slice(1).join(' · ') || parts[0]; }
+    const topicsEl = document.getElementById('topics');
+    topicsEl.innerHTML = tEntries.length
+      ? [...groups.entries()].map(([g, list]) =>
+          `<div class="group"><h3>${esc(g)}（${list.reduce((s, x) => s + x[1], 0).toLocaleString()}）</h3><div class="bars">${bars(list, short, max)}</div></div>`).join('')
+      : '<div class="empty">暫無數據</div>';
+  }
+</script>
+</body>
+</html>

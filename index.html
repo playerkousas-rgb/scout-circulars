@@ -474,7 +474,7 @@
         <div class="mobile-section scoutsystem-section" id="scoutsystem-section">
           <button type="button" class="mobile-section-toggle" aria-expanded="false" aria-controls="scoutsystem-connect">ScoutSystem 接入 <span>⌄</span></button>
         <div class="ss-connect" id="scoutsystem-connect">
-          <div class="ss-connect-row"><strong>ScoutSystem 接入</strong><span class="sub">設定一次後，每張通告可直接加入你的旅團系統。</span></div>
+          <div class="ss-connect-row"><strong>ScoutSystem 接入</strong><span class="sub">預設已指向 troop-portal.vercel.app，每張通告可直接加入你的旅團系統；如有自家網址可在此覆蓋。</span></div>
           <div class="ss-connect-row">
             <input id="scoutsystem-url" placeholder="例如：https://troop-portal.vercel.app">
             <button class="ss-save" id="save-scoutsystem-url">儲存 ScoutSystem 網址</button>
@@ -491,7 +491,7 @@
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7bb0ff" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <span id="visit-count">累計瀏覽 …</span>
         </div>
-        <div>Copyright &copy; 2026 SCOUT SYSTEM</div>
+        <div>Copyright &copy; 2026 SCOUT SYSTEM · <a href="stats.html" style="color: var(--muted); text-decoration: none;">統計</a></div>
       </footer>
     </main>
   </div>
@@ -967,8 +967,9 @@
         .replaceAll("'", '&#39;');
     }
 
+    const DEFAULT_SCOUTSYSTEM_URL = 'https://troop-portal.vercel.app';
     function getScoutSystemUrl() {
-      return (localStorage.getItem('scoutsystem_import_base_url') || '').replace(/\/$/, '');
+      return (localStorage.getItem('scoutsystem_import_base_url') || DEFAULT_SCOUTSYSTEM_URL).replace(/\/$/, '');
     }
 
     function makeCircularKey(item) {
@@ -2508,12 +2509,17 @@
       const status = document.getElementById('scoutsystem-status');
       if (!input || !btn) return;
       input.value = getScoutSystemUrl();
-      if (status) status.textContent = input.value ? `已設定：${input.value}` : '尚未設定 ScoutSystem 網址。';
+      const showStatus = () => {
+        const custom = localStorage.getItem('scoutsystem_import_base_url');
+        if (status) status.textContent = custom ? `已設定：${custom}` : `使用預設：${DEFAULT_SCOUTSYSTEM_URL}`;
+      };
+      showStatus();
       btn.onclick = () => {
         const value = String(input.value || '').trim().replace(/\/$/, '');
         if (!/^https?:\/\//.test(value)) { alert('請輸入完整網址，例如 https://troop-portal.vercel.app'); return; }
-        localStorage.setItem('scoutsystem_import_base_url', value);
-        if (status) status.textContent = `已設定：${value}`;
+        if (value === DEFAULT_SCOUTSYSTEM_URL) localStorage.removeItem('scoutsystem_import_base_url');
+        else localStorage.setItem('scoutsystem_import_base_url', value);
+        showStatus();
         renderCards();
       };
     }

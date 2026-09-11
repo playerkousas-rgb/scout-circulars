@@ -1,0 +1,16 @@
+{
+  "generated_at": null,
+  "total": 0,
+  "enabled": 0,
+  "disabled": 0,
+  "active_last_30d": 0,
+  "new_last_30d": 0,
+  "avg_topics_per_subscriber": 0,
+  "labels": {
+    "branches": {},
+    "topics": {}
+  },
+  "by_branch": {},
+  "by_topic": {},
+  "by_catalog_version": {}
+}
