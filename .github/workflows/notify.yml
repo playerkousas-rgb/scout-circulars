@@ -24,6 +24,8 @@ concurrency:
 jobs:
   notify:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       PYTHONUTF8: "1"
       TZ: "Asia/Hong_Kong"
@@ -52,3 +54,21 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL || 'https://scout-circulars.vercel.app' }}
         run: |
           python notify.py --baseline-ref HEAD
+
+      - name: Build anonymous subscription stats
+        # 只輸出彙總數字（人數、各支部／項目訂閱數），不含任何 endpoint 或金鑰。
+        # 前端 stats.html 由 raw GitHub 讀取 subscription_stats.json 顯示。
+        if: always()
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          python subscription_stats.py --out subscription_stats.json
+
+      - name: Commit subscription stats
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add subscription_stats.json
+          git diff --cached --quiet || (git commit -m "📊 Update subscription stats [skip ci]" && git pull --rebase && git push)
