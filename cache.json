@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-09-12 03:10:05",
+  "last_updated": "2026-09-12 05:53:58",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4785,
+    "total_notices": 4787,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "2026年9月號會訊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26043/2026年9月號會訊.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26043/2026年9月號會訊.pdf",
+        "date": "2026-09-12",
+        "captured_date": "2026-09-12",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(9-11月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
         "url": "https://scout.org.hk/uploads/tc/circulars/25814/SING-Activities_Calendar_26-27_Sep---Nov_.pdf",
@@ -26652,6 +26661,15 @@
     ],
     "深旺區": [
       {
+        "title": "SOUL Keeper精神健康守護者證書課程(Level 1) 暨 「童軍精神健康章 (服務組) 訓練班」",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2605_童軍精神健康章.pdf",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2605_童軍精神健康章.pdf",
+        "date": "2026-09-12",
+        "captured_date": "2026-09-12",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
         "title": "領袖工作坊-幼童軍集會 (二) 接納通知書",
         "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2602_領袖工作坊 幼童軍集會 (二) 接納通知書.pdf",
         "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2602_領袖工作坊 幼童軍集會 (二) 接納通知書.pdf",
@@ -43170,6 +43188,13 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26043/2026年9月號會訊.pdf",
+      "title": "2026年9月號會訊",
+      "captured_date": "2026-09-12"
+    },
+    {
       "source_site": "灣仔區",
       "region": "港島地域",
       "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=632%3A115-3&catid=51&lang=zh-tw&Itemid=1210",
@@ -43181,6 +43206,13 @@
       "region": "港島地域",
       "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=631%3A12-9-18-9-2026&catid=51&lang=zh-tw&Itemid=1210",
       "title": "區會12/9 – 18/9/2026辦公時間",
+      "captured_date": "2026-09-12"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2605_童軍精神健康章.pdf",
+      "title": "SOUL Keeper精神健康守護者證書課程(Level 1) 暨 「童軍精神健康章 (服務組) 訓練班」",
       "captured_date": "2026-09-12"
     },
     {
@@ -76789,60 +76821,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-12 03:10:05",
-      "new": 3,
-      "updated": 160,
-      "skipped": 46,
+      "updated_at": "2026-09-12 05:53:58",
+      "new": 2,
+      "updated": 3522,
+      "skipped": 3,
       "processed": 46,
-      "playwright_used": 0,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "總會",
-        "港島地域",
-        "港島西區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍城區",
-        "九龍塘區",
-        "旺角區",
-        "深旺區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "新界地域",
-        "元朗東區",
-        "十八鄉區",
-        "屯門西區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
-        "南葵涌區",
         "離島區 (expected_empty)",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
-        "大嶼山區 (expected_empty)",
-        "慈雲山區",
-        "青衣區"
+        "大嶼山區 (expected_empty)"
       ]
     }
   }
