@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-12 05:53:58",
+  "last_updated": "2026-09-13 02:21:11",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
-    "total_notices": 4787,
+    "total_notices": 4790,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -34571,6 +34571,15 @@
     ],
     "屯門東區": [
       {
+        "title": "「深資童軍消防訓練班」通告",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_A_26_03.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_03.pdf",
+        "date": "2026-09-13",
+        "captured_date": "2026-09-13",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
         "title": "「童軍消防訓練班」通告",
         "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04.pdf",
@@ -37043,6 +37052,24 @@
     ],
     "離島區": [],
     "新界東地域": [
+      {
+        "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3HZzMtHZaWTbSxh0XsMcUU/32eb5b9a67af7f91e1774d390946cedc/AIT_cir_02-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3HZzMtHZaWTbSxh0XsMcUU/32eb5b9a67af7f91e1774d390946cedc/AIT_cir_02-26.pdf",
+        "date": "2026-09-13",
+        "captured_date": "2026-09-13",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "慶賀中華人民共和國成立77周年「童」展公民心– 填色比賽",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2P97CRgpFjL2FNVCZkE2yh/f3858cc734533d45ba3a52a4c564b4f0/AIT_cir_01-26_full_REV3.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2P97CRgpFjL2FNVCZkE2yh/f3858cc734533d45ba3a52a4c564b4f0/AIT_cir_01-26_full_REV3.pdf",
+        "date": "2026-09-13",
+        "captured_date": "2026-09-13",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
       {
         "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(海報)",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6hj5Q26rbj8a5geTRwbse8/6eea18eef9c75dfd1faaadccb0bbbc19/chairty_walk_poster.pdf",
@@ -43187,6 +43214,27 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3HZzMtHZaWTbSxh0XsMcUU/32eb5b9a67af7f91e1774d390946cedc/AIT_cir_02-26.pdf",
+      "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
+      "captured_date": "2026-09-13"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2P97CRgpFjL2FNVCZkE2yh/f3858cc734533d45ba3a52a4c564b4f0/AIT_cir_01-26_full_REV3.pdf",
+      "title": "慶賀中華人民共和國成立77周年「童」展公民心– 填色比賽",
+      "captured_date": "2026-09-13"
+    },
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_03.pdf",
+      "title": "「深資童軍消防訓練班」通告",
+      "captured_date": "2026-09-13"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -76821,16 +76869,49 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-12 05:53:58",
-      "new": 2,
-      "updated": 3522,
-      "skipped": 3,
+      "updated_at": "2026-09-13 02:21:11",
+      "new": 3,
+      "updated": 264,
+      "skipped": 36,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)"
       ]
     }

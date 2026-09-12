@@ -47509,5 +47509,144 @@
     "error": "",
     "enriched_at": "2026-09-12 06:01:52",
     "enrich_version": "3.1"
+  },
+  "https://www.tmescout.org.hk/file/notice/TME_A_26_03.pdf": {
+    "source": "屯門東區",
+    "title": "「深資童軍消防訓練班」通告",
+    "deadline": "2026-10-09",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:venture-fire-fighting",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:venture-fire-fighting",
+        "label": "消防",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍消防",
+          "標題／內文：消防訓練班",
+          "標題／內文：消防訓練"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-13 02:25:53",
+    "enrich_version": "3.1"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/3HZzMtHZaWTbSxh0XsMcUU/32eb5b9a67af7f91e1774d390946cedc/AIT_cir_02-26.pdf": {
+    "source": "新界東地域",
+    "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
+    "deadline": "2026-10-31",
+    "audience": "童軍",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-13 02:25:57",
+    "enrich_version": "3.1"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/2P97CRgpFjL2FNVCZkE2yh/f3858cc734533d45ba3a52a4c564b4f0/AIT_cir_01-26_full_REV3.pdf": {
+    "source": "新界東地域",
+    "title": "慶賀中華人民共和國成立77周年「童」展公民心– 填色比賽",
+    "deadline": "2026-10-31",
+    "audience": "童軍",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "enriched_at": "2026-09-13 02:26:01",
+    "enrich_version": "3.1"
   }
 }
