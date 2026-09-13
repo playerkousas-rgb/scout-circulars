@@ -783,7 +783,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "開放目錄列表，直接抓取.pdf",
+      "notes": "靜態表格：日期|通告名稱|單位/支部|下載。標題欄常寫「…區會提名截止日期」，唔可以當欄位標題濾走。直接抓取.pdf。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 20000,

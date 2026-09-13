@@ -272,7 +272,14 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
         return None
     if re.fullmatch(r"\d{1,2}\s+[A-Za-z]{3,9}\s+\d{2,4}", title):
         return None
-    if any(flag in title for flag in ["通告日期", "截止日期", "活動/訓練班名稱"]):
+    # 只拒絕「欄位標題」本身。若用 substring 匹配，屯門東區
+    # 「2027年功績獎勵及感謝狀提名 - 區會提名截止日期」會被整句丟棄，
+    # 標題欄一空就誤配到隔壁「深資童軍消防訓練班」。
+    header_like_titles = {
+        "通告日期", "截止日期", "活動/訓練班名稱", "活動／訓練班名稱",
+        "發出日期", "通告名稱", "教材名稱", "單位/支部", "單位／支部",
+    }
+    if title.strip(" ：:　") in header_like_titles:
         return None
 
     min_len = int(config.get("min_title_length") or 4)
@@ -426,13 +433,22 @@ def infer_listing_title(anchor: Any, page_soup: BeautifulSoup, config: Dict[str,
     container = nearest_container(anchor)
     title_selector = config.get('title_selector')
 
-    # 2. 先處理表格列，因為很多來源真正標題在相鄰 td
+    # 2. 表格列：先對準本列標題欄，再掃其他格子。
+    #    必須 recursive=False，避免巢狀表格把其他通告嘅格子撈入嚟。
+    #    唔可以落到 page-level title_selector——會偷隔壁列嘅標題。
     if container is not None and getattr(container, 'name', None) == 'tr':
-        for cell in container.find_all(['td', 'th']):
+        if title_selector:
+            try:
+                nodes = container.select(title_selector)
+            except Exception:
+                nodes = []
+            for node in nodes:
+                raw_candidates.append(node.get_text(' ', strip=True) or '')
+        for cell in container.find_all(['td', 'th'], recursive=False):
             raw_candidates.append(cell.get_text(' ', strip=True) or '')
 
-    # 3. 再看鄰近容器內 title_selector
-    if container is not None and title_selector:
+    # 3. 非表格列：再看鄰近容器內 title_selector
+    elif container is not None and title_selector:
         try:
             nodes = container.select(title_selector)
         except Exception:
@@ -443,15 +459,6 @@ def infer_listing_title(anchor: Any, page_soup: BeautifulSoup, config: Dict[str,
     # 4. 容器全文
     if container is not None:
         raw_candidates.append(container.get_text(' ', strip=True) or '')
-
-    # 5. page level title_selector 最後補救
-    if title_selector:
-        try:
-            nodes = page_soup.select(title_selector)
-        except Exception:
-            nodes = []
-        for node in nodes[:5]:
-            raw_candidates.append(node.get_text(' ', strip=True) or '')
 
     seen = set()
     for cand in raw_candidates:
