@@ -132,10 +132,31 @@ def test_infer_stays_in_row():
     check(merit_title != fire_title, "兩條通告標題必須唔同")
 
 
+def test_empty_title_cell_does_not_steal_audience_or_neighbour():
+    print("\n── 4. 標題欄空咗，唔可以改用單位欄或下一列 ──")
+    html = TME_HTML.replace(MERIT_TITLE, "")
+    soup = BeautifulSoup(html, "html.parser")
+    assets = core.extract_assets_from_listing(
+        name="屯門東區",
+        soup=soup,
+        page_url="https://www.tmescout.org.hk/file/memo.htm",
+        config=TME_CFG,
+        max_detail_pages=0,
+    )
+    by_url = {a["pdf_url"]: a["title"] for a in assets}
+    got = by_url.get(MERIT_URL)
+    print(f"   空標題欄 fallback → {got!r}")
+    check(got != FIRE_TITLE, "空標題欄唔可以偷消防訓練班")
+    check(got != "本區各旅旅長", "空標題欄唔可以偷舊年嗰列嘅單位欄")
+    check(got not in {"已完成深資童軍肩章之深資童軍成員", FIRE_TITLE}, "空標題欄唔可以偷受眾欄")
+    check(bool(got) and "消防" not in (got or ""), f"應 fallback 檔名而非鄰居（實際 {got!r}）")
+
+
 def main() -> int:
     test_clean_title_keeps_deadline_in_name()
     test_extract_does_not_swap_pdfs()
     test_infer_stays_in_row()
+    test_empty_title_cell_does_not_steal_audience_or_neighbour()
     print()
     if FAILED:
         print(f"❌ {len(FAILED)} 項失敗")
