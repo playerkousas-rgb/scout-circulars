@@ -47602,5 +47602,186 @@
     "error": "",
     "enriched_at": "2026-09-13 02:26:01",
     "enrich_version": "3.1"
+  },
+  "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/CHW2627-13_Venture-Scout-Backwoods-and-Campcraft-Assessment.pdf": {
+    "source": "柴灣區",
+    "title": "截止日期: 2026年11月20日(星期五)",
+    "deadline": "2026-11-20",
+    "audience": "深資童軍",
+    "fee": "HK$60",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-09-14 02:51:35",
+    "enrich_version": "3.2"
+  },
+  "https://www.scout.org.hk/uploads/tc/circulars/17268/acr202406c_%E5%AD%B8%E7%94%9F%E9%9A%8A%E5%93%A1%E8%A8%93%E7%B7%B4%E8%B3%87%E5%8A%A9%E8%A8%88%E5%8A%83%EF%BC%88%E7%94%B1%E6%B0%91%E6%94%BF%E5%8F%8A%E9%9D%92%E5%B9%B4%E4%BA%8B%E5%8B%99%E5%B1%80%E8%B3%87%E5%8A%A9%EF%BC%89.pdf": {
+    "source": "柴灣區",
+    "title": "資助計劃 第 06/2024 號通告",
+    "deadline": "",
+    "audience": "幼童軍、樂行童軍",
+    "fee": "",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "樂行童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:幼童軍",
+      "training:樂行童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-09-14 02:51:39",
+    "enrich_version": "3.2"
+  },
+  "https://hkscout-wts.org/wp-content/uploads/2026/09/濕地公園秋遊日-自然章興趣組及觀鳥章興趣組考驗活動.pdf": {
+    "source": "黃大仙區",
+    "title": "濕地公園秋遊日 - 自然章(興趣組)及觀鳥章(興趣組)考驗活動",
+    "deadline": "2026-11-04",
+    "audience": "童軍",
+    "fee": "HK$55",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-birdwatching-badge",
+      "course:scout-naturalist-badge",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-birdwatching-badge",
+        "label": "觀鳥章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：觀鳥章"
+        ]
+      },
+      {
+        "id": "course:scout-naturalist-badge",
+        "label": "自然章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：自然章"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.0.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-14 02:51:48",
+    "enrich_version": "3.2"
   }
 }
