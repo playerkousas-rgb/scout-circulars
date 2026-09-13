@@ -9,7 +9,11 @@ test_enrich.py — enrich.py 準確性單元測試
 import sys
 sys.path.insert(0, ".")
 
-from enrich import extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories
+from enrich import (
+    extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories,
+    compact_title, title_similarity, extract_pdf_heading, reconcile_listing_title,
+    apply_title_to_cache, TITLE_SIMILARITY_THRESHOLD,
+)
 from subscription_tagging import extract_subscription_metadata, load_catalog
 
 
@@ -253,6 +257,79 @@ def main():
         "訓練行事曆不產生任何訂閱 tag",
         extract_subscription_metadata("童軍訓練班一覽表")["subscription_tags"],
         [],
+    )
+
+    # ── 列表標題 vs PDF 雙重認證（寧願不改，不要亂改）──
+    merit = "「2027年功績獎勵及感謝狀提名 - 區會提名截止日期」通告"
+    fire = "「深資童軍消防訓練班」通告"
+    merit_pdf = (
+        "香港童軍總會\n"
+        "屯門東區\n"
+        "2026年9月14日\n"
+        "「2027年功績獎勵及感謝狀提名 - 區會提名截止日期」通告\n"
+        "參加資格：本區各旅旅長\n"
+        "截止日期：2026年10月9日\n"
+    )
+    fire_pdf = (
+        "香港童軍總會\n"
+        "「深資童軍消防訓練班」通告\n"
+        "參加資格：已完成深資童軍肩章之深資童軍成員\n"
+        "截止日期：2026年10月14日\n"
+    )
+    passed += test(
+        "標題正規化：引號／通告後綴唔影響比較",
+        compact_title(merit) == compact_title("2027年功績獎勵及感謝狀提名區會提名截止日期"),
+        True,
+    )
+    passed += test(
+        "相似：同一通告加引號 ≥ 90%",
+        title_similarity(merit, "2027年功績獎勵及感謝狀提名 - 區會提名截止日期") >= TITLE_SIMILARITY_THRESHOLD,
+        True,
+    )
+    passed += test(
+        "相似：功績 vs 消防遠低於 90%",
+        title_similarity(merit, fire) < 0.5,
+        True,
+    )
+    passed += test(
+        "PDF 標題：跳過信頭，取通告名",
+        extract_pdf_heading(merit_pdf),
+        merit,
+    )
+    passed += test(
+        "對證：列表正確 → 維持",
+        reconcile_listing_title(merit, merit_pdf)["status"],
+        "verified",
+    )
+    stolen = reconcile_listing_title(fire, merit_pdf)
+    passed += test(
+        "對證：列表抄咗消防班、PDF 係功績 → 改正",
+        (stolen["status"], stolen["title"]),
+        ("corrected", merit),
+    )
+    passed += test(
+        "對證：PDF 太少字 → 唔改",
+        reconcile_listing_title(fire, "abc")["status"],
+        "unverified",
+    )
+    cache = {
+        "data": {"屯門東區": [
+            {"title": fire, "pdf_url": "https://example/TME_A_26_03.pdf", "captured_date": "2026-09-13"},
+        ]},
+        "notices": [
+            {"title": fire, "pdf_url": "https://example/TME_A_26_03.pdf", "captured_date": "2026-09-13"},
+        ],
+    }
+    passed += test(
+        "寫回 cache：只改 title，唔改 url／日期",
+        (
+            apply_title_to_cache(cache, "https://example/TME_A_26_03.pdf", merit),
+            cache["data"]["屯門東區"][0]["title"],
+            cache["data"]["屯門東區"][0]["pdf_url"],
+            cache["data"]["屯門東區"][0]["captured_date"],
+            cache["notices"][0]["title"],
+        ),
+        (True, merit, "https://example/TME_A_26_03.pdf", "2026-09-13", merit),
     )
 
     # ── 格式正規化 ──

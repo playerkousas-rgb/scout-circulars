@@ -4,12 +4,14 @@
 enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 個人化標籤）
 ====================================================================
 設計原則：
-  - 完全獨立於主爬蟲 core.py，不讀寫 cache.json 內部結構
   - 只讀 cache.json 篩「captured_date = 今日」的新通告
   - 抽取方式：先用 pdfplumber 文字 + label 定位 regex；
               文字型抽唔到 → 用 OCR (tesseract chi_tra) fallback
   - 結果寫去 enrich.json（獨立檔），key = pdf_url
   - 抽唔到 = 留空（靠固定 label，不亂猜，唔會抽錯）
+  - 雙重認證：列表標題要同 PDF 內文對得上（出現喺內文，或同 PDF 標題 ≥90% 相似）。
+    對唔上而且 PDF 標題夠清楚，先至改 cache.json 嘅 title；對唔到就維持原樣。
+    唔改 pdf_url、唔改 captured_date、唔當新通告。
   - 個人化只使用「支部＋官方課程／服務／活動／比賽」標籤，不按地域或旅團推論。
   - 訓練班及工作坊同屬「訓練」；活動只分大露營、營火會、其他；比賽獨立。
 
@@ -26,6 +28,7 @@ enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 個人化標籤�
 import argparse
 import datetime
 from datetime import timezone, timedelta
+from difflib import SequenceMatcher
 import io
 import json
 import os
@@ -49,7 +52,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.1"  # 個人化：支部 + 官方課程／服務／活動／比賽標籤
+ENRICH_VERSION = "3.2"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -97,6 +100,134 @@ def normalize_for_label(text):
 
 def compact(s):
     return re.sub(r"[ \u3000\t]", "", s or "")
+
+
+# ─── 列表標題 vs PDF 雙重認證 ─────────────────────────────────
+# 主爬蟲只信列表頁；列表標題一空就可能抄鄰居個名。
+# enrich 本來就要下載 PDF，喺呢度核對一次：對得上就維持，對唔上先改名。
+
+_TITLE_PUNCT_RE = re.compile(r"[「」『』\"“”'（）()\[\]【】\-–—/／:：,.。、·•*＊]")
+_LETTERHEAD_RE = re.compile(
+    r"香港童軍總會|Scout Association|電話|傳真|\bTel\b|\bFax\b|"
+    r"www\.|https?://|檔號|發文者|受文者|內部傳閱"
+)
+_HEADING_SKIP_RE = re.compile(
+    r"參加資格|參加對象|報名辦法|報名日期|查詢|備註|^附件|費用[:：]|收費[:：]"
+)
+_HEADING_HINT_RE = re.compile(r"通告|訓練班|工作坊|提名|比賽|截止日期|感謝狀|招募|課程")
+_CIRCULAR_CODE_RE = re.compile(
+    r"^[A-Za-z]{2,5}[/\-_\s]+(?:[A-Za-z]{1,4}[/\-_\s]+)*\d{2,4}[/\-_\s]+\d{2,4}[A-Za-z]?$"
+)
+TITLE_SIMILARITY_THRESHOLD = 0.90
+
+
+def compact_title(value: str) -> str:
+    """比較用：去掉引號、空白、標點同句尾「通告」。"""
+    text = nfkc(value or "")
+    text = _TITLE_PUNCT_RE.sub("", text)
+    text = re.sub(r"\s+", "", text)
+    text = re.sub(r"通告$", "", text)
+    return text.casefold()
+
+
+def title_similarity(left: str, right: str) -> float:
+    a, b = compact_title(left), compact_title(right)
+    if not a or not b:
+        return 0.0
+    if a == b:
+        return 1.0
+    shorter, longer = (a, b) if len(a) <= len(b) else (b, a)
+    if len(shorter) >= 6 and shorter in longer and len(shorter) / len(longer) >= 0.5:
+        return 1.0
+    return SequenceMatcher(None, a, b).ratio()
+
+
+def extract_pdf_heading(text: str) -> str:
+    """從 PDF 頭幾行抽出通告標題。寧願空，唔好把信頭／欄位名當成標題。"""
+    if not text:
+        return ""
+    lines = []
+    for raw in text.splitlines():
+        line = nfkc(raw).strip()
+        if line:
+            lines.append(line)
+        if len(lines) >= 16:
+            break
+
+    candidates = []
+    for line in lines:
+        compact_line = compact(line)
+        if len(compact_line) < 6 or len(line) > 80:
+            continue
+        if not re.search(r"[\u4e00-\u9fff]", line):
+            continue
+        if _LETTERHEAD_RE.search(line):
+            continue
+        if _HEADING_SKIP_RE.search(compact_line):
+            continue
+        if re.fullmatch(r"20\d{2}年\d{1,2}月\d{1,2}日", compact_line):
+            continue
+        if _CIRCULAR_CODE_RE.match(line.strip()):
+            continue
+        candidates.append(line)
+
+    if not candidates:
+        return ""
+    hinted = [line for line in candidates if _HEADING_HINT_RE.search(line)]
+    return (hinted or candidates)[0]
+
+
+def listing_supported_by_pdf(listing: str, pdf_text: str, heading: str = "") -> bool:
+    needle = compact_title(listing)
+    if len(needle) >= 6 and needle in compact_title(pdf_text):
+        return True
+    if heading and title_similarity(listing, heading) >= TITLE_SIMILARITY_THRESHOLD:
+        return True
+    return False
+
+
+def reconcile_listing_title(listing: str, pdf_text: str) -> dict:
+    """列表標題 vs PDF。回傳 {title, status, pdf_heading, similarity}。
+
+    status:
+      verified   — 列表標題出現喺 PDF 或同 PDF 標題 ≥90% 相似，維持列表
+      corrected  — 對唔上，而且 PDF 標題夠清楚，改用 PDF
+      unverified — PDF 太少字／抽唔到標題，維持列表（寧願唔改）
+    """
+    listing = nfkc(listing or "").strip()
+    heading = extract_pdf_heading(pdf_text)
+    similarity = title_similarity(listing, heading) if heading else 0.0
+    if not pdf_text or len(compact(pdf_text)) < 20:
+        return {"title": listing, "status": "unverified", "pdf_heading": heading, "similarity": similarity}
+    if listing_supported_by_pdf(listing, pdf_text, heading):
+        return {"title": listing, "status": "verified", "pdf_heading": heading, "similarity": similarity}
+    if heading and similarity < TITLE_SIMILARITY_THRESHOLD:
+        return {"title": heading, "status": "corrected", "pdf_heading": heading, "similarity": similarity}
+    return {"title": listing, "status": "unverified", "pdf_heading": heading, "similarity": similarity}
+
+
+def apply_title_to_cache(cache: dict, url: str, new_title: str) -> bool:
+    """只改 title，唔改 pdf_url / captured_date。"""
+    if not url or not new_title or not isinstance(cache, dict):
+        return False
+    changed = False
+    for arr in (cache.get("data") or {}).values():
+        if not isinstance(arr, list):
+            continue
+        for item in arr:
+            if not isinstance(item, dict):
+                continue
+            item_url = item.get("pdf_url") or item.get("url") or ""
+            if item_url == url and item.get("title") != new_title:
+                item["title"] = new_title
+                changed = True
+    for item in cache.get("notices") or []:
+        if not isinstance(item, dict):
+            continue
+        if item.get("pdf_url") == url and item.get("title") != new_title:
+            item["title"] = new_title
+            changed = True
+    return changed
 
 
 # ─── 欄位抽取 ─────────────────────────────────────────────
@@ -445,6 +576,8 @@ def _empty_enrichment(title, error):
     """Retain title-based subscription tags even when the PDF is unavailable."""
     fields = extract_fields("", title)
     fields["_error"] = error
+    fields["_verified_title"] = title
+    fields["_title_check"] = "unverified"
     return fields
 
 
@@ -471,19 +604,26 @@ def enrich_one(url, title="", use_ocr=True, verbose=False):
 
     text = pdf_text_via_pdfplumber(data)
     method = "text"
-    fields = extract_fields(text, title)
+    probe = extract_fields(text, title)
 
     # 文字抽唔到任何欄位 + 文字本身太少 → 可能圖片型 → OCR
-    has_any = any(fields[k] for k in ("deadline", "audience", "fee"))
+    has_any = any(probe[k] for k in ("deadline", "audience", "fee"))
     if (not has_any and len(compact(text)) < 40) and use_ocr:
         if verbose:
             print("    → 文字型抽唔到，改用 OCR")
         ocr_text = pdf_text_via_ocr(data)
         if ocr_text.strip():
             method = "ocr"
-            fields = extract_fields(ocr_text, title)
+            text = ocr_text
 
+    check = reconcile_listing_title(title, text)
+    verified_title = check["title"]
+    fields = extract_fields(text, verified_title)
     fields["_method"] = method
+    fields["_verified_title"] = verified_title
+    fields["_title_check"] = check["status"]
+    fields["_pdf_heading"] = check.get("pdf_heading") or ""
+    fields["_title_similarity"] = check.get("similarity") or 0.0
     return fields
 
 
@@ -635,6 +775,8 @@ def main():
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
 
     done = ok = 0
+    cache_dirty = False
+    title_corrections = 0
     for idx, (source, title, url) in enumerate(targets):
         if idx > 0:
             # v2.4: 下載之間加隨機延遲（同 core.py 標準）——
@@ -642,6 +784,15 @@ def main():
             time.sleep(random.uniform(1.5, 4.0))
         print(f"[{source}] {title[:36]}")
         res = enrich_one(url, title=title, use_ocr=not args.no_ocr, verbose=args.verbose)
+        verified_title = res.get("_verified_title") or title
+        title_check = res.get("_title_check") or "unverified"
+        if title_check == "corrected" and verified_title != title:
+            if apply_title_to_cache(cache, url, verified_title):
+                cache_dirty = True
+                title_corrections += 1
+            print(f"   ⚠️ 標題與 PDF 不符（相似 {res.get('_title_similarity', 0):.0%}），"
+                  f"已改正：{title[:28]} → {verified_title[:28]}")
+            title = verified_title
         enrich[url] = {
             "source": source,
             "title": title,
@@ -655,6 +806,7 @@ def main():
             "subscription_catalog_version": res.get("subscription_catalog_version", ""),
             "method": res.get("_method", ""),
             "error": res.get("_error", ""),
+            "title_check": title_check,
             "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "enrich_version": ENRICH_VERSION,
         }

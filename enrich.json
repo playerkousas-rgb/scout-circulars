@@ -29932,7 +29932,7 @@
   },
   "https://www.tmescout.org.hk/file/notice/TME_A_25_08.pdf": {
     "source": "屯門東區",
-    "title": "本區各旅旅長",
+    "title": "「2026年功績獎勵及感謝狀提名--區會提名截止日期」通告",
     "deadline": "",
     "audience": "",
     "fee": "",
@@ -47512,60 +47512,14 @@
   },
   "https://www.tmescout.org.hk/file/notice/TME_A_26_03.pdf": {
     "source": "屯門東區",
-    "title": "「深資童軍消防訓練班」通告",
+    "title": "「2027年功績獎勵及感謝狀提名 - 區會提名截止日期」通告",
     "deadline": "2026-10-09",
     "audience": "",
     "fee": "",
-    "categories": [
-      {
-        "id": "training",
-        "label": "訓練",
-        "score": 3.0,
-        "evidence": [
-          "訓練班"
-        ]
-      }
-    ],
-    "branch_tags": [
-      "深資童軍"
-    ],
-    "subscription_tags": [
-      "category:training",
-      "course:venture-fire-fighting",
-      "training:深資童軍"
-    ],
-    "subscription_tag_details": [
-      {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
-        "kind": "category",
-        "evidence": [
-          "訓練班"
-        ]
-      },
-      {
-        "id": "course:venture-fire-fighting",
-        "label": "消防",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：深資童軍消防",
-          "標題／內文：消防訓練班",
-          "標題／內文：消防訓練"
-        ]
-      },
-      {
-        "id": "training:深資童軍",
-        "label": "所有深資童軍訓練",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：深資童軍"
-        ]
-      }
-    ],
-    "subscription_catalog_version": "3.0.0",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-13 02:25:53",

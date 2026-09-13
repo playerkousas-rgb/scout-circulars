@@ -272,7 +272,14 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
         return None
     if re.fullmatch(r"\d{1,2}\s+[A-Za-z]{3,9}\s+\d{2,4}", title):
         return None
-    if any(flag in title for flag in ["通告日期", "截止日期", "活動/訓練班名稱"]):
+    # 只拒絕「欄位標題」本身。若用 substring 匹配，屯門東區
+    # 「2027年功績獎勵及感謝狀提名 - 區會提名截止日期」會被整句丟棄，
+    # 標題欄一空就誤配到隔壁「深資童軍消防訓練班」。
+    header_like_titles = {
+        "通告日期", "截止日期", "活動/訓練班名稱", "活動／訓練班名稱",
+        "發出日期", "通告名稱", "教材名稱", "單位/支部", "單位／支部",
+    }
+    if title.strip(" ：:　") in header_like_titles:
         return None
 
     min_len = int(config.get("min_title_length") or 4)
@@ -414,9 +421,16 @@ def nearest_container(anchor: Any) -> Optional[Any]:
 
 
 def infer_listing_title(anchor: Any, page_soup: BeautifulSoup, config: Dict[str, Any]) -> Optional[str]:
+    """從「這一條 PDF 所在列」推標題。
+
+    身份必須係 (本列 PDF ↔ 本列標題欄)。唔可以：
+      - 用成頁 title_selector（會偷隔壁通告）
+      - 標題欄被濾走之後改用同行「單位/支部」或整列拼接
+    標題欄失敗就回 None，等 make_asset_record 用檔名，唔好張冠李戴。
+    """
     raw_candidates: List[str] = []
 
-    # 1. anchor 自身文字
+    # 1. anchor 自身文字（好多區下載格只有「(pdf格式)」，稍後會被濾走）
     raw_candidates.append(anchor.get_text(' ', strip=True) or '')
     if anchor.get('title'):
         raw_candidates.append(anchor.get('title'))
@@ -426,13 +440,27 @@ def infer_listing_title(anchor: Any, page_soup: BeautifulSoup, config: Dict[str,
     container = nearest_container(anchor)
     title_selector = config.get('title_selector')
 
-    # 2. 先處理表格列，因為很多來源真正標題在相鄰 td
-    if container is not None and getattr(container, 'name', None) == 'tr':
-        for cell in container.find_all(['td', 'th']):
-            raw_candidates.append(cell.get_text(' ', strip=True) or '')
+    # 有指定標題欄、而且本列真係揀到格子：只准用嗰一欄。
+    scoped_to_title_column = False
 
-    # 3. 再看鄰近容器內 title_selector
-    if container is not None and title_selector:
+    if container is not None and getattr(container, 'name', None) == 'tr':
+        if title_selector:
+            try:
+                nodes = container.select(title_selector)
+            except Exception:
+                nodes = []
+            if nodes:
+                scoped_to_title_column = True
+                for node in nodes:
+                    raw_candidates.append(node.get_text(' ', strip=True) or '')
+        if not scoped_to_title_column:
+            # 無標題欄選擇器（或選擇器對呢列唔生效）：先掃本列直屬格子。
+            # recursive=False，避免巢狀表格把其他通告嘅格子撈入嚟。
+            for cell in container.find_all(['td', 'th'], recursive=False):
+                raw_candidates.append(cell.get_text(' ', strip=True) or '')
+
+    # 非表格列：只睇鄰近容器內 title_selector，唔可以落到 page-level。
+    elif container is not None and title_selector:
         try:
             nodes = container.select(title_selector)
         except Exception:
@@ -440,18 +468,9 @@ def infer_listing_title(anchor: Any, page_soup: BeautifulSoup, config: Dict[str,
         for node in nodes:
             raw_candidates.append(node.get_text(' ', strip=True) or '')
 
-    # 4. 容器全文
-    if container is not None:
+    # 整段容器文字只係無標題欄時嘅最後補救；有標題欄就唔好拼埋日期/受眾欄。
+    if container is not None and not scoped_to_title_column:
         raw_candidates.append(container.get_text(' ', strip=True) or '')
-
-    # 5. page level title_selector 最後補救
-    if title_selector:
-        try:
-            nodes = page_soup.select(title_selector)
-        except Exception:
-            nodes = []
-        for node in nodes[:5]:
-            raw_candidates.append(node.get_text(' ', strip=True) or '')
 
     seen = set()
     for cand in raw_candidates:
@@ -1804,6 +1823,19 @@ def process_source(
     region = config.get("region", "")
     new_records: List[Dict[str, Any]] = []
     updated_records: List[Dict[str, Any]] = []
+
+    # 同一來源、兩個 PDF 卻同一標題 = 典型張冠李戴。唔阻擋寫入，但要喺 log 爆出嚟。
+    title_owners: Dict[str, str] = {}
+    for item in assets:
+        title = item.get("title") or ""
+        url = item.get("pdf_url") or ""
+        if not title or not url:
+            continue
+        prev = title_owners.get(title)
+        if prev and prev != url:
+            print(f"  [{name}] ⚠️ 標題重複（可能張冠李戴）: {title[:50]} | {prev} vs {url}")
+        else:
+            title_owners[title] = url
 
     for item in assets:
         asset_url = item["pdf_url"]
