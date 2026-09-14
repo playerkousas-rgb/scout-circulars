@@ -2,23 +2,61 @@
 chcp 65001 >nul
 setlocal
 
-cd /d "C:\Users\User\Documents\GitHub\scout-circulars"
+cd /d "%~dp0"
+if not exist logs mkdir logs
 
+REM ============================================================
+REM 本機補漏抓取（Windows 工作排程器每日執行；建議用 run-local-scrape-logged.bat
+REM 咁行，先至有 log 可攞）。
+REM
 REM ── 續跑／清場（2026-09-09 加）：上次 run 中途死咗會留低未 commit 嘅
 REM    cache.json / enrich.json / fingerprints.json。dirty tree 會令之後每日
 REM    git pull --rebase 被擋住（「一死永死」），所以起手先處理三條路：
 REM      1) 上次結果完整（cache last_updated 係今日 + 三個檔都係合法 JSON）
 REM         → 補 add + commit + pull --rebase + push，然後收工
-REM      2) 上次結果過期／損毀 → git checkout 還原三個檔，再行下面原流程
-REM      3) 三個檔冇未提交改動 → 直接行下面原流程
-REM    順便清理上次可能留低嘅半成品 rebase，否則 git 會拒絕所有 pull。
+REM      2) 上次結果過期／損毀 → 還原三個檔（連 index 一齊清），再行原流程
+REM      3) 冇未提交改動 → 直接行原流程
+REM    順便清理上次可能留低嘅半成品 rebase／merge，否則 git 會拒絕所有 pull。
+REM
+REM ── 2026-09-14 修正（本機連續多日 exit=1，log 係：
+REM    「error: cannot pull with rebase: Your index contains uncommitted changes.」）
+REM    成因：上次 run 死咗喺「git add 之後、git commit 之前」，index 留低咗暫存改動。
+REM    舊版有兩個洞：
+REM      (1) 判髒用 `git diff --quiet HEAD -- cache.json enrich.json fingerprints.json`，
+REM          只覆蓋三個資料檔；其他檔（例如人手改咗 index.html 仲 staged）睇唔到。
+REM      (2) 棄置分支用 `git checkout -- 嗰三個檔`：佢只係用 index 還原工作區，index
+REM          本身照舊髒 → 之後每日 `git pull --rebase` 都俾擋死。
+REM    對應修正：
+REM      (a) 判髒改用 `git status --porcelain`（index + 工作區一齊睇）；
+REM      (b) 棄置改成先 `git reset -q HEAD -- 嗰三個檔`（清 index），再 `git checkout` 還原工作區；
+REM      (c) 所有 pull 加 `--autostash`，任何殘餘未提交改動都唔再擋住拉取；
+REM      (d) rebase 衝突自動「GitHub 嗰份為準」，本機嗰份先留底喺
+REM          logs\conflict-backup\ 同 backup/local-scrape 分支（舊版 abort 之後留低
+REM          一個未 push 嘅本地 commit，之後每日都撞返同一個衝突）；
+REM      (e) 有「已 commit 但未曾 push 出去」嘅本機補跑結果就即刻補推——否則
+REM          notify.py（只通知「HEAD 之後先出現」嘅通告）會當日靜默冇通知；
+REM      (f) 工作目錄由硬扣 C:\Users\User\... 改成 script 自身所屬資料夾（%~dp0）。
+REM
+REM    ⚠️ 需 Git for Windows 2.27 或以上（先至有 `git pull --autostash`）。
+REM ============================================================
+
+REM ── 半成品 rebase／merge／cherry-pick 未清住，git 一律拒絕 pull
 if exist .git\rebase-merge git rebase --abort
 if exist .git\rebase-apply git rebase --abort
+if exist .git\MERGE_HEAD git merge --abort
+if exist .git\CHERRY_PICK_HEAD git cherry-pick --abort
 
-git diff --quiet HEAD -- cache.json enrich.json fingerprints.json
-if not errorlevel 1 goto resume_clean
+REM ── 整個 index 先還原去 HEAD（淨係 unstage，工作區一個字都冇損）：
+REM    一次過堵死兩條路——「index 有暫存改動 → pull --rebase 被擋」，
+REM    同埋「本腳本嘅自動 commit 誤抱住你手頭 staged 緊嘅其他檔」。
+git reset -q HEAD
 
-echo [%date% %time%] 偵測到上次未完成嘅抓取結果：
+REM ── 偵測上次留低嘅未提交改動（index + 工作區都要睇，唔好用 git diff HEAD）
+set "SC_DIRTY="
+for /f "delims=" %%L in ('git status --porcelain -- cache.json enrich.json fingerprints.json') do set "SC_DIRTY=1"
+if not defined SC_DIRTY goto resume_clean
+
+echo [%date% %time%] 偵測到上次未完成嘅抓取結果（可能已 staged 但冇 commit）：
 git status --porcelain -- cache.json enrich.json fingerprints.json
 echo [%date% %time%] 驗證上次結果係咪完整…
 python check_cache_fresh.py cache.json
@@ -28,30 +66,62 @@ if errorlevel 1 goto resume_discard
 
 echo [%date% %time%] 上次結果完整，補做 commit + push（續跑完成）
 git add cache.json enrich.json fingerprints.json
+git diff --cached --quiet
+if not errorlevel 1 goto resume_committed
 git commit -m "🤖 Local backup scrape（續跑：補回上次未完成嘅結果）"
-if errorlevel 1 goto failed
+if errorlevel 1 goto resume_commit_failed
+
+:resume_committed
 git fetch origin main
 if errorlevel 1 goto failed
 git show origin/main:cache.json | python check_cache_fresh.py --stdin
 if not errorlevel 1 goto remote_won
-git pull --rebase origin main
+git pull --rebase --autostash origin main
 if errorlevel 1 goto rebase_conflict
 git push origin main
 if errorlevel 1 goto push_failed
 goto done
 
+:resume_commit_failed
+echo [%date% %time%] git commit 失敗（通常係呢個 repo 冇設定 git config user.name／user.email）
+git status --short
+echo [%date% %time%] 棄置是次續跑結果，照原本流程重跑
+goto resume_discard
+
 :resume_discard
-echo [%date% %time%] 上次結果過期或損毀，還原三個檔後照原本流程重跑
-git checkout -- cache.json enrich.json fingerprints.json
+echo [%date% %time%] 上次結果過期或損毀：清走晒（index + 工作區）再照原本流程重跑
+git reset -q HEAD -- cache.json enrich.json fingerprints.json
+git checkout -- cache.json enrich.json fingerprints.json 2>nul
+git status --porcelain -- cache.json enrich.json fingerprints.json
 
 :resume_clean
 echo [%date% %time%] 更新 GitHub 最新資料
-git pull --rebase origin main
-if errorlevel 1 goto failed
+git pull --rebase --autostash origin main
+if errorlevel 1 goto rebase_conflict
 
-REM ── 本機係「後備」：GitHub Action 今朝已跑過（cache 已經係今日）就直接跳過，
-REM    唔好同 Action 爭住寫同一份 cache.json。Action 跑先係必須的：
-REM    notify.py 只會通知「HEAD 之後先出現」嘅通告，本機推先會令當日通知靜默丟失。
+REM ── 補舊數：有冇「已 commit 但未曾 push 出去」嘅本機結果？
+REM    （例如上日 push 之前斷線／停電。留咗喺本機唔單止網站冇更新，
+REM     notify.py 又只會通知「HEAD 之後先出現」嘅通告，當日通知會靜默流失。）
+set "SC_AHEAD="
+for /f "delims=" %%N in ('git rev-list --count origin/main..HEAD') do set "SC_AHEAD=%%N"
+if not defined SC_AHEAD goto after_ahead
+if "%SC_AHEAD%"=="0" goto after_ahead
+git log --format=%%s origin/main..HEAD | findstr /v /c:"Local backup scrape" >nul 2>&1
+if not errorlevel 1 goto ahead_foreign
+echo [%date% %time%] 本機有 %SC_AHEAD% 個未推送嘅補跑 commit，先補推…
+git push origin main
+if errorlevel 1 goto push_failed
+goto after_ahead
+
+:ahead_foreign
+echo [%date% %time%] 本機有 %SC_AHEAD% 個未推送 commit，但入面有唔係本腳本做嘅改動，唔敢自動 push：
+git log --oneline origin/main..HEAD
+echo [%date% %time%] 自己決定要不要 `git push origin main`
+
+:after_ahead
+REM ── 本機係「後備」：GitHub Action 當日已跑過（cache 已經係今日）就跳過，
+REM    唔好同 Action 爭住寫同一份 cache.json。Action 嗰轉先係必須嘅。
+:check_fresh
 echo [%date% %time%] 檢查今日 GitHub Action 有無跑過…
 python check_cache_fresh.py cache.json
 if not errorlevel 1 goto fresh
@@ -70,7 +140,7 @@ git diff --cached --quiet
 if not errorlevel 1 goto done
 
 git commit -m "🤖 Local backup scrape"
-if errorlevel 1 goto failed
+if errorlevel 1 goto commit_failed
 
 REM ── 推送前最後檢查：Action 會唔會喺本機跑緊嗰陣先 push 咗？
 REM    如果係，棄置本機結果（兩邊產出等價），唔好打 rebase 仗。
@@ -83,6 +153,11 @@ git push origin main
 if errorlevel 1 goto push_failed
 goto done
 
+:commit_failed
+echo [%date% %time%] git commit 失敗：檢查 `git config user.name` ／ `git config user.email`
+git status --short
+goto failed
+
 :remote_won
 echo [%date% %time%] Action 喺本機跑緊嗰陣已先完成，用返佢嗰份，棄置本機結果
 git reset --hard origin/main
@@ -91,15 +166,45 @@ goto done
 :push_failed
 REM 對方郁過但唔係新 cache（例如有人同時 push 緊網站檔案）：rebase 後再試一次。
 echo [%date% %time%] 直接 push 唔到，嘗試 rebase 後重試…
-git pull --rebase origin main
+git pull --rebase --autostash origin main
 if errorlevel 1 goto rebase_conflict
 git push origin main
 if errorlevel 1 goto failed
 goto done
 
 :rebase_conflict
+if defined SC_CONFLICT_DONE goto rebase_second_time
+REM 真係有 rebase 進行中先算「衝突」；其他 pull 錯誤（網絡、autostash 彈唔返…）唔亂改嘢。
+if not exist .git\rebase-merge if not exist .git\rebase-apply goto rebase_not_conflict
+
+echo [%date% %time%] rebase 衝突（多數係本機同 Action 各寫咗一份 cache）：先留底，改用 GitHub 嗰份
+if not exist logs\conflict-backup mkdir logs\conflict-backup
 git rebase --abort
-echo [%date% %time%] rebase 有衝突，已還原；請人手處理後再跑
+REM abort 之後先 copy：衝突進行中嘅工作區有 merge 標記，copy 咗都係垃圾
+git branch -f backup/local-scrape HEAD
+set "SC_CONFLICT_DONE=1"
+copy /y cache.json logs\conflict-backup\cache.json >nul 2>&1
+copy /y enrich.json logs\conflict-backup\enrich.json >nul 2>&1
+copy /y fingerprints.json logs\conflict-backup\fingerprints.json >nul 2>&1
+echo [%date% %time%] 本機嗰份已留低喺 logs\conflict-backup\（同 backup/local-scrape 分支）
+echo [%date% %time%] 想比對返：git checkout backup/local-scrape -- cache.json
+git fetch origin main
+if errorlevel 1 goto failed
+git reset --hard origin/main
+echo [%date% %time%] 已改用 GitHub 嗰份，繼續當日該做嘅檢查
+goto check_fresh
+
+:rebase_second_time
+echo [%date% %time%] 今次係第二輪衝突，唔敢再自動處理；本機嗰份喺 logs\conflict-backup\
+git status --short
+goto failed
+
+:rebase_not_conflict
+echo [%date% %time%] git pull/push 失敗，但唔係 rebase 衝突（詳情見上面 git 訊息）
+echo [%date% %time%] 如果上面話 unknown option／--autostash：你嘅 Git 太舊，更新去 Git for Windows 2.27 以上
+git status --short
+git log --oneline -1
+echo [%date% %time%] 冇改動過任何嘢；處理好網絡／授權之後手動再跑一次本腳本即可
 goto failed
 
 :fresh
@@ -112,4 +217,5 @@ exit /b 0
 
 :failed
 echo [%date% %time%] 發生錯誤，請檢查上面訊息
+echo [%date% %time%] 睇 log 請用 Notepad，或者：powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"
 exit /b 1

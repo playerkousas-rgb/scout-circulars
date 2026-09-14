@@ -261,6 +261,28 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 3. 如已設定 `VAPID_PRIVATE_KEY`，執行 `notify.py`，先做每位匿名訂閱者的支部＋興趣交集和合併，再發送 Web Push。
 4. 自動提交 `cache.json`、`enrich.json` 和 `fingerprints.json`，讓前端從 GitHub Raw 讀取最新資料。
 
+### 本機補漏（`run-local-scrape.bat` + `run-local-scrape-logged.bat`）
+
+雲端 Action 係主線；本機（Windows 工作排程器）只係後備。規則：
+
+- **開工先清場**：半成品 `rebase`／`merge` 一律 abort，再 `git reset -q HEAD`（淨係 unstage，
+  工作區改動一個字都冇損）。呢步係 2026-09-14 事故之後加嘅：上次 run 死咗喺 `git add` 之後、
+  `git commit` 之前，index 留低暫存改動，之後每日 `git pull --rebase` 都俾
+  `cannot pull with rebase: Your index contains uncommitted changes` 擋死。
+- **判「有冇殘餘」用 `git status --porcelain`**，唔係 `git diff HEAD`：前者先至包括已暫存改動。
+- **棄置殘餘要 `git reset` + `git checkout` 兩步**：`git checkout -- 嗰啲檔` 只會用 index 還原
+  工作區，index 本身照舊髒。
+- **所有 pull 用 `--rebase --autostash`**：需要 Git for Windows 2.27 或以上；呢個亦係「任何其他檔
+  未提交」唔再擋住每日排程嘅保險。
+- **rebase 衝突自動處理**（多數係本機同 Action 各寫一份 `cache.json`）：本機嗰份先留底喺
+  `logs\conflict-backup\` 同 `backup/local-scrape` 分支，然後 `reset --hard origin/main` 繼續當日流程。
+  舊版淨係 abort，留低一個永遠 push 唔出嘅本地 commit，之後每日撞同一個衝突。
+- **有「已 commit 但未曾 push」嘅本機補跑結果會即刻補推**：`notify.py` 只通知「HEAD 之後先出現」
+  嘅通告，咩都唔推會令當日通知靜默流失。
+- log 喺 `logs\scrape.log`（UTF-8，`logs/` 已 gitignore，過 2 MB 自動轉名做 `scrape.log.1`）。
+  喺 cmd 睇請先 `chcp 65001`，否則係亂碼：
+  `powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"`。
+
 ## 下一步建議
 
 如果你把你現有 repo 貼上來，我可以下一輪直接做：
