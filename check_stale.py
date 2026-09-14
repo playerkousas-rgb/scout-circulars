@@ -119,6 +119,18 @@ def _bucket(days: Optional[int]) -> str:
 BUCKET_ORDER = ["今天", "7 天內", "14 天內", "1 個月內", "3 個月內", "超過 3 個月"]
 
 
+def _disabled_sources() -> set:
+    """enabled=false 嘅來源（例如網址待定）唔列入靜默失敗偵測。"""
+    try:
+        root = json.loads((Path(__file__).resolve().parent / "sources.json").read_text(encoding="utf-8"))
+        return {n for n, conf in (root.get("sources") or {}).items() if conf.get("enabled") is False}
+    except Exception:
+        return set()
+
+
+DISABLED_SOURCES = _disabled_sources()
+
+
 def analyse(cache: Dict[str, Any], days: int, today: datetime.date) -> Dict[str, Any]:
     """回傳 stale / suspicious / empty / freshness 分佈。
 
@@ -136,6 +148,8 @@ def analyse(cache: Dict[str, Any], days: int, today: datetime.date) -> Dict[str,
 
     for source, items in (cache.get("data") or {}).items():
         if source in expected_empty:
+            continue
+        if source in DISABLED_SOURCES:
             continue
         if not isinstance(items, list):
             continue

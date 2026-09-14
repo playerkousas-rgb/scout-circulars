@@ -107,6 +107,7 @@
     .chip.chip-category.active[data-cat="service"] { background: linear-gradient(135deg, #15803d, #22c55e); color: #03200f; border-color: #4ade80; }
     .chip.chip-category.active[data-cat="activity"] { background: linear-gradient(135deg, #b45309, #f59e0b); color: #140800; border-color: #fbbf24; }
     .chip.chip-category.active[data-cat="competition"] { background: linear-gradient(135deg, #7e22ce, #c026d3); color: #fff; border-color: #e879f9; }
+    .chip.chip-category.active[data-cat="tools"] { background: linear-gradient(135deg, #0e7490, #06b6d4); color: #04121a; border-color: #67e8f9; }
     .chip.chip-category.active[data-cat="other"] { background: linear-gradient(135deg, #334155, #64748b); color: #0b1220; border-color: #94a3b8; }
     .chip.chip-category.active[data-cat="ALL"] { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
     /* 卡片上的分類小標籤（同來源 badge、通告名排同一行，慳行數） */
@@ -116,6 +117,7 @@
     .cat-tag.service { border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.14); color: #bbf7d0; }
     .cat-tag.activity { border-color: rgba(245,158,11,.45); background: rgba(180,83,9,.16); color: #fde68a; }
     .cat-tag.competition { border-color: rgba(232,121,249,.5); background: rgba(126,34,206,.18); color: #f5d0fe; }
+    .cat-tag.tools { border-color: rgba(103,232,249,.5); background: rgba(8,145,178,.18); color: #a5f3fc; }
     .cat-tag.other { border-color: rgba(148,163,184,.4); background: rgba(100,116,139,.15); color: #e2e8f0; }
     /* ★ 收藏分頁：同時間視窗並排，但用金色區分「唔係時間範圍」*/
     .chip-bm { border-color: rgba(250,204,21,.4); color: #facc15; margin-left: 6px; }
@@ -615,13 +617,16 @@
 
     // 決定一張通告屬於邊啲支部：
     //   1. enrich.json 有 audience（PDF 內文抽出嚟）→ 以佢為準，最可靠
-    //   2. 冇 audience（舊通告 / 抽唔到）→ 退而求其次睇標題
+    //   2. 抓取時帶返嚟嘅站方標籤（item.tags，例如 Scout System 小工具嘅支部標籤）
+    //   3. 兩樣都冇 → 退而求其次睇標題
     // 「所有成員」當作所有支部都命中。
     // 標題入面「香港童軍總會」嗰類機構名唔特別處理 —— 用戶要精細啲可以配合關鍵字搜尋。
     function itemBranches(item, enrich) {
       const audience = enrich?.audience || '';
-      const tokens = audience
-        ? extractMemberTokens(audience)
+      const tagHint = Array.isArray(item?.tags) ? item.tags.filter(Boolean).join(' ') : '';
+      const base = audience || tagHint;
+      const tokens = base
+        ? extractMemberTokens(base)
         : extractMemberTokens(item.title || '');
       if (tokens.includes('所有成員')) {
         return new Set(BRANCH_TAGS.filter(t => t.id !== 'ALL').map(t => normalizeSearchText(t.id)));
@@ -655,11 +660,15 @@
       { id: 'service', label: '服務' },
       { id: 'activity', label: '活動' },
       { id: 'competition', label: '比賽' },
+      { id: 'tools', label: '小工具' },
       { id: 'other', label: '未分類' },
     ];
-    const CATEGORY_IDS = new Set(['training', 'service', 'activity', 'competition']);
+    const CATEGORY_IDS = new Set(['training', 'service', 'activity', 'competition', 'tools']);
+    // 來源級分類：呢啲來源出嘅通告一律係「小工具」（同 subscription_tagging.py 嘅 TOOLS_SOURCES 保持一致）
+    const TOOLS_SOURCES = new Set(['Scout System']);
 
     function itemCategories(item, enrich) {
+      if (TOOLS_SOURCES.has(String(item?.source_site || '').trim())) return new Set(['tools']);
       // enrich.py 寫入：categories: [{ id, subtype, label, score, evidence }...]
       const raw = enrich?.categories;
       if (!Array.isArray(raw) || !raw.length) return new Set(['other']);
@@ -1934,7 +1943,7 @@
         const starred = isBookmarked(item);
         const cats = itemCategories(item, ex);
         const catLabels = {
-          training: '訓練', service: '服務', activity: '活動', competition: '比賽', other: '未分類'
+          training: '訓練', service: '服務', activity: '活動', competition: '比賽', tools: '小工具', other: '未分類'
         };
         const catHtml = [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('');
         const card = document.createElement('article');
@@ -2066,7 +2075,7 @@
     // training（某支部所有訓練；領袖再分木章／非木章 section）、course（該支部
     // 訓練綱要內的徽章／訓練班，subgroup 為綱要分組）。全部都係點一下即剔。
     const PUSH_MAX_TOPICS = 60; // 與 api/push_common.py MAX_TOPICS 及 schema.sql 同步
-    const PUSH_GENERAL_ORDER = ['服務', '活動', '比賽'];
+    const PUSH_GENERAL_ORDER = ['服務', '活動', '比賽', '小工具'];
     const PUSH_LEADER_SECTION_ORDER = ['木章訓練班', '非木章訓練班'];
 
     function getCatalogUrl() {

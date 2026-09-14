@@ -571,10 +571,10 @@ def clean_value(v, max_len):
     return v
 
 
-def extract_fields(text, title=""):
+def extract_fields(text, title="", source=""):
     """Extract display fields and the stable IDs used for personalised push."""
     audience = extract_audience(text)
-    subscription = extract_subscription_metadata(title, text, audience)
+    subscription = extract_subscription_metadata(title, text, audience, source=source)
     return {
         "deadline": extract_deadline(text),
         "audience": audience,
@@ -618,39 +618,39 @@ def download(url, timeout=25):
         return r.read()
 
 
-def _empty_enrichment(title, error):
+def _empty_enrichment(title, error, source=""):
     """Retain title-based subscription tags even when the PDF is unavailable."""
-    fields = extract_fields("", title)
+    fields = extract_fields("", title, source=source)
     fields["_error"] = error
     fields["_verified_title"] = title
     fields["_title_check"] = "unverified"
     return fields
 
 
-def enrich_one(url, title="", use_ocr=True, verbose=False):
+def enrich_one(url, title="", use_ocr=True, verbose=False, source=""):
     """回傳 dict：截止／對象／費用／分類／個人化標籤。"""
     fetch_url = url
     if "drive.google" in url or "docs.google" in url:
         direct = drive_direct_url(url)
         if not direct:
             # 認唔出格式就唔猜，直接放棄 —— 寧願冇資料，好過抽錯資料
-            return _empty_enrichment(title, "drive_unrecognized")
+            return _empty_enrichment(title, "drive_unrecognized", source=source)
         fetch_url = direct
 
     try:
         data = download(fetch_url)
     except Exception as e:
-        return _empty_enrichment(title, f"download: {type(e).__name__}")
+        return _empty_enrichment(title, f"download: {type(e).__name__}", source=source)
 
     # magic bytes 檢查是否真 PDF。
     # Drive 回權限頁／病毒掃描中介頁／登入頁時都係 HTML，會喺呢度被擋落嚟，
     # 唔會當成通告內容抽欄位。
     if not data[:5].startswith(b"%PDF"):
-        return _empty_enrichment(title, "not_pdf")
+        return _empty_enrichment(title, "not_pdf", source=source)
 
     text = pdf_text_via_pdfplumber(data)
     method = "text"
-    probe = extract_fields(text, title)
+    probe = extract_fields(text, title, source=source)
 
     # 文字抽唔到任何欄位 + 文字本身太少 → 可能圖片型 → OCR
     has_any = any(probe[k] for k in ("deadline", "audience", "fee"))
@@ -664,7 +664,7 @@ def enrich_one(url, title="", use_ocr=True, verbose=False):
 
     check = reconcile_listing_title(title, text)
     verified_title = check["title"]
-    fields = extract_fields(text, verified_title)
+    fields = extract_fields(text, verified_title, source=source)
     fields["_method"] = method
     fields["_verified_title"] = verified_title
     fields["_title_check"] = check["status"]
@@ -833,7 +833,7 @@ def main():
             # 5/23 教訓：同一 session 連環下載最易觸發站點封鎖
             time.sleep(random.uniform(1.5, 4.0))
         print(f"[{source}] {title[:36]}")
-        res = enrich_one(url, title=title, use_ocr=not args.no_ocr, verbose=args.verbose)
+        res = enrich_one(url, title=title, use_ocr=not args.no_ocr, verbose=args.verbose, source=source)
         verified_title = res.get("_verified_title") or title
         title_check = res.get("_title_check") or "unverified"
         if title_check == "corrected" and verified_title != title:

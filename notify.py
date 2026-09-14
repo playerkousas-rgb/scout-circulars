@@ -194,10 +194,13 @@ def enrichment_for(item: Mapping[str, Any], enrich: Mapping[str, Any]) -> Dict[s
 def notice_metadata(item: Mapping[str, Any], enrich: Mapping[str, Any]) -> Dict[str, Any]:
     """Use fresh PDF tags, with a title/audience fallback for non-PDF notices."""
     extra = enrichment_for(item, enrich)
+    tag_hint = " ".join(str(t) for t in (item.get("tags") or []) if str(t or "").strip())
     fallback = extract_subscription_metadata(
         item.get("title", ""),
         "",
         extra.get("audience", ""),
+        source=notice_source(item),
+        tag_hint=tag_hint,
     )
     branch_tags = {str(x) for x in (extra.get("branch_tags") or fallback["branch_tags"]) if isinstance(x, str)}
     topic_tags = {str(x) for x in (extra.get("subscription_tags") or fallback["subscription_tags"]) if isinstance(x, str)}
