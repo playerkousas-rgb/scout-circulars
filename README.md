@@ -300,6 +300,11 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 - **自己更新自己都得**：呢個 .bat 本身就係由呢個 repo pull 落嚟。如果頭先嗰 pull 改動咗腳本自己
   （例如你啱啱 merge 咗 PR），本次會即刻安全收工（exit 0，唔算失敗），聽日 05:00 自然用新版行 ——
   cmd 係按 byte offset 慢慢讀 .bat，繼續行落去會「半舊半新」甚至讀錯位，呢種失敗最難睇。
+- **死咗都唔准掉嘢**：`:failed` 而家係「先搶救、後執手尾」——`core.py` 成功寫入咗新通告但
+  `enrich.py`／git 嗰邊死咗時，會先驗證 JSON + `check_local_gain.py` 確認真係有新增，然後
+  commit（能 push 就 push；斷網就留喺本地，聽日開波自動補推），之後先清半成品 + 重試一次。
+- **GitHub 郁唔到 ≠ 今日唔使補底**：`git pull` 失敗會分情況 —— rebase 衝突先處理；斷網／授權
+  則照樣巡邏全部來源（成果留本地）。舊版係「GitHub 郁親 → 本機當日完全冇檢查」再 exit 1。
 - log 喺 `logs\scrape.log`（UTF-8，`logs/` 已 gitignore，過 2 MB 自動轉名做 `scrape.log.1`）。
   喺 cmd 睇請先 `chcp 65001`，否則係亂碼：
   `powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"`。

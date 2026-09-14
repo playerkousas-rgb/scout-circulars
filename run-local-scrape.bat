@@ -57,6 +57,11 @@ REM          （見下面 :scrape 嘅註解 + check_local_gain.py）—— 即�
 REM          arena/01a0895d 分支 2026-09-11 那個「來源巡邏」版本嘅原意，但改用內容
 REM          比較而唔係「有任何 diff 就 push」，唔會每日製造只改 last_updated 嘅噪音 commit。
 REM
+REM      (h) 死咗之後先搶返嘢再執手尾：`:failed` 會先試「本次成果完整就先 commit（+push）」
+REM          —— core.py 成功但 enrich.py／git 死咗，嗰啲新通告係補底成果，唔能够因為
+REM          後面一步失敗就掉晒；跟住先清半成品 + 自動重試一次（SC_RETRY，淨係一次）。
+REM      (i) `git pull` 失敗要分情況：rebase 衝突 → 處理；斷網／授權 → 唔准當死（:pull_fail
+REM          → 照樣巡邏，成果留本地）。舊版係「GitHub 郁親 → 本機當日完全冇檢查」。
 REM    ⚠️ 需 Git for Windows 2.27 或以上（先至有 `git pull --autostash`）。
 REM ============================================================
 
@@ -122,7 +127,7 @@ echo [%date% %time%] 更新 GitHub 最新資料
 set "SC_HEAD0="
 for /f "delims=" %%H in ('git rev-parse -q --verify HEAD') do set "SC_HEAD0=%%H"
 git pull --rebase --autostash origin main
-if errorlevel 1 goto rebase_conflict
+if errorlevel 1 goto pull_fail
 
 REM ── 自我更新保護：呢個腳本嘅來源就係佢自己 pull 落嚟嘅嗰個 repo。如果頭先嗰 pull
 REM    改動咗 run-local-scrape*.bat 本身，cmd 係按 byte offset 慢慢讀 .bat 嘅 —— 繼續行
@@ -132,6 +137,7 @@ set "SC_SELFC="
 if defined SC_HEAD0 for /f "delims=" %%F in ('git diff --name-only %SC_HEAD0% HEAD -- "run-local-scrape*.bat"') do set "SC_SELFC=1"
 if defined SC_SELFC goto self_updated
 
+:check_ahead
 REM ── 補舊數：有冇「已 commit 但未曾 push 出去」嘅本機結果？
 REM    （例如上日 push 之前斷線／停電。留咗喺本機唔單止網站冇更新，
 REM     notify.py 又只會通知「HEAD 之後先出現」嘅通告，當日通知會靜默流失。）
@@ -143,7 +149,13 @@ git log --format=%%s origin/main..HEAD | findstr /v /c:"Local backup scrape" >nu
 if not errorlevel 1 goto ahead_foreign
 echo [%date% %time%] 本機有 %SC_AHEAD% 個未推送嘅補跑 commit，先補推…
 git push origin main
-if errorlevel 1 goto push_failed
+if errorlevel 1 goto ahead_push_soft
+goto after_ahead
+
+REM 補推失败唔准升級成「今日完全冇檢查」：照樣落去巡邏來源，成果繼續留喺本地，
+REM 之後任何一日返到網都會補推（notify 嗰邊有 7 日 rolling recovery，唔會漏通知）。
+:ahead_push_soft
+echo [%date% %time%] 補推失敗（GitHub 郁唔到／授權問題？）：本次照樣巡邏，成果留喺本地
 goto after_ahead
 
 :ahead_foreign
@@ -212,6 +224,17 @@ git push origin main
 if errorlevel 1 goto failed
 goto done
 
+:pull_fail
+REM ── 頭先嗰個 pull 失敗，分兩種情況處理：
+REM    (a) 有 rebase 進行中／衝突 → 一定要先處理乾淨（交俾 :rebase_conflict）
+REM    (b) 淨係斷網／授權過期／GitHub 故障 → 唔准阻住今日補底：照樣巡邏來源，
+REM        成果留喺本地 commit，聽日 05:00 個 ahead 守衛會自己補推。
+REM        （舊版係一遇 pull 失敗就 exit 1，即係「GitHub 郁親 → 本機當日完全冇檢查」）
+if exist .git\rebase-merge goto rebase_conflict
+if exist .git\rebase-apply goto rebase_conflict
+echo [%date% %time%] 更新 GitHub 失敗（多數係網絡／授權／GitHub 故障）：唔阻住本次巡邏
+goto check_ahead
+
 :rebase_conflict
 if defined SC_CONFLICT_DONE goto rebase_second_time
 REM 真係有 rebase 進行中先算「衝突」；其他 pull 錯誤（網絡、autostash 彈唔返…）唔亂改嘢。
@@ -257,9 +280,34 @@ exit /b 0
 
 :failed
 echo [%date% %time%] 發生錯誤（上面有 git／Python 嘅原始訊息）
-REM ── 最要緊係：唔好留低會毒死聽日嘅狀態。清走本次半成品（淨係三個資料檔，
-REM    你手頭其他檔一個字都冇損），再自動重試一次。呢個先係「今日死＝聽日唔好死」：
-REM    就算失敗原因係我哋未預见到嘅，第二次都唔會俾 index／半成品卡住。
+
+REM ── 步 1（2026-09-14 新增）：先搶返本次已經到手嘅成果，先至執手尾。
+REM    典型情況：core.py 成功寫入咗新通告，但 enrich.py／git 嗰邊先至死 ——
+REM    嗰啲通告係實實在在嘅補底成果，唔可以因為後面一步失敗就掉晒。
+REM    安全欄：三個資料檔要 JSON 讀得開、同 check_local_gain 真係見到新增，
+REM    先至 commit；冇增量／檔壞咗就唔Save（唔製造只改 last_updated 嘅噪音 commit）。
+REM    push 唔到（斷網／授權）都冇所謂：成果已經喺本地 commit，聽日開波嘅
+REM    ahead 守衛會自動補推。
+git add cache.json enrich.json fingerprints.json 2>nul
+git diff --cached --quiet
+if not errorlevel 1 goto failed_scrub
+echo [%date% %time%] 失敗之前本次已經改動咗資料檔：驗證吓完整唔完整，能救就救…
+python -c "import json;json.load(open('cache.json',encoding='utf-8'));json.load(open('enrich.json',encoding='utf-8'));json.load(open('fingerprints.json',encoding='utf-8'))"
+if errorlevel 1 goto failed_scrub
+git fetch origin main 2>nul
+python check_local_gain.py origin/main
+if errorlevel 1 goto failed_scrub
+git commit -m "🤖 Local backup scrape（自動搶救：本次成果完整，係後續步驟死咗）"
+if errorlevel 1 goto failed_scrub
+echo [%date% %time%] 本次成果已 commit（安全咗）；嘗試直接 push…
+git push origin main
+if errorlevel 1 echo [%date% %time%] push 暫時失敗：冇事，聽日開波會自動補推
+goto failed_aftermath
+
+REM ── 步 2：清走本次半成品（淨係三個資料檔，你手頭其他檔一個字都冇損），再重試一次。
+REM    呢個先係「今日死＝聽日唔好死」：就算失敗原因係我哋未預见到嘅，
+REM    第二次都唔會俾 index／半成品卡住。
+:failed_scrub
 git reset -q HEAD -- cache.json enrich.json fingerprints.json
 git checkout -- cache.json enrich.json fingerprints.json 2>nul
 if defined SC_RETRY goto failed_final
@@ -269,6 +317,7 @@ goto resume_clean
 
 :failed_final
 echo [%date% %time%] 重試之後仍然失敗：exit 1（repo 已還原 clean，聽日嗰轉唔會被今次拖累）
+:failed_aftermath
 git status --short
 git log --oneline -1
 echo [%date% %time%] 睇 log 請用 Notepad，或者：powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"
