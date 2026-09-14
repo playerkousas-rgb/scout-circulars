@@ -20,7 +20,7 @@
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
 - `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
-- `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）嘅兩個閘門：前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」
+- `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
 - `subscription_stats.py`：管理員本機執行，用 service key 統計訂閱人數及各支部／項目的訂閱數（只出彙總，不出個資）；`schema.sql` 末段亦有對應 SQL
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
 - `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
@@ -264,50 +264,68 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 
 ### 本機補漏（`run-local-scrape.bat` + `run-local-scrape-logged.bat`）
 
-雲端 Action 係主線；本機（Windows 工作排程器）係後備補底。**2026-09-14 起本機每次都重新檢查全網**：
-舊版（2026-09-09 加）係「`check_cache_fresh.py`：GitHub 今日已 push 過 → 本機跳過」，即係只要 Action
-成功，本機嗰日就完全唔會檢查 —— Action「成功但漏咗某個來源」嗰種情況就永遠冇人補到。而家改成用
-**內容**而唔係**時間**做準則：抓完之後 `check_local_gain.py` 將本機 cache 同 `origin/main` 逐則比較
-（身份鍵同 `notify.py` 一致：來源名 + 網址），
+雲端 Action 係主線；本機（Windows 工作排程器）係後備補底。**2026-09-14 起本機流程縮到最短，兩個閘門全部移除**：
 
-- 有本機先至有嘅通告 → `commit` + `push`（06:00 嗰轉 `notify.py` 嘅 `find_catchup_notices()` 會照樣補發，唔會漏通知）；
-- 冇額外發現 → 唔製造 commit，還原三個檔（一樣唔會同 Action 打 rebase 仗）。
+1. 由 GitHub 下載最新（`git pull --rebase --autostash`）
+2. `python core.py --force` —— 全網重新巡邏，唔理 cache 有幾 fresh
+3. `python enrich.py --verbose` —— 增量抽 PDF 文字
+4. 有任何改動 → `commit` + `push`。完。
+
+**移除咗嘅兩個閘門**（舊版靠呢兩個決定「推唔推」，正正係「網站時間戳唔郁」嘅根源）：
+
+- ~~freshness gate~~：舊版「`check_cache_fresh.py`：GitHub 今日已 push 過 → 本機跳過」。只要 Action 成功，
+  本機嗰日就完全唔檢查 —— Action「成功但漏咗某個來源」嗰種情況永遠冇人補到。
+- ~~gain check~~：`check_local_gain.py` 逐則比較本機 cache 同 `origin/main`，「冇額外發現就唔 commit」。
+  結果係大多數日子本機行完都唔 push，網站「更新時間」原地踏步，用户無從確認本機到底有冇行。
+
+而家冇任何「內容等價就唔推」嘅判斷：`core.py` 每次 run 都會重寫 `cache.json` 嘅 `last_updated`
+（`core.py` 內 `now_str = hkt_now_str()` → `build_grouped_cache(...)`），所以**每次成功 run 必定有 diff →
+必定 push → 網站時間戳每日必定移動**，呢個就係用户驗證本機有冇行嘅唯一憑據。
+`check_local_gain.py` / `check_cache_fresh.py` 仍然留喺 repo（`test_check_local_gain.py` 照跑），
+只係 `run-local-scrape.bat` 唔再 call 佢哋。
 
 其他規則：
 
-- **開工先清場**：半成品 `rebase`／`merge` 一律 abort，再 `git reset -q HEAD`（淨係 unstage，
-  工作區改動一個字都冇損）。呢步係 2026-09-14 事故之後加嘅：上次 run 死咗喺 `git add` 之後、
-  `git commit` 之前，index 留低暫存改動，之後每日 `git pull --rebase` 都俾
-  `cannot pull with rebase: Your index contains uncommitted changes` 擋死。
-- 判「有冇殘餘」用 `git status --porcelain`，唔係 `git diff HEAD`：前者先至包括**已暫存**改動（今日就係死喺呢度）。
-- **棄置殘餘要 `git reset` + `git checkout` 兩步**：`git checkout -- 嗰啲檔` 只會用 index 還原
-  工作區，index 本身照舊髒。
+- **開工先清場**（自癒）：清走殘留 `.git\index.lock`、abort 半成品 `rebase`／`merge`／`cherry-pick`，
+  再 `git reset -q HEAD`（淨係 unstage，工作區改動一個字都冇損）+ 還原三個資料檔。
+  呢步係 2026-09-14 事故嘅正解：上次 run 死咗喺 `git add` 之後、`git commit` 之前，index 留低暫存改動，
+  之後每日 `git pull --rebase` 都俾 `cannot pull with rebase: Your index contains uncommitted changes` 擋死，
+  連「拉返修好嘅腳本」都拉唔到 —— 死循環。
+- **殘餘一律棄置，唔搶救**：因為 `core.py --force` 會全網重抓一次，之前未 commit 嘅新通告今次會再發現返。
+  只郁 `cache.json`／`enrich.json`／`fingerprints.json` 三個檔，你手頭改緊嘅其他檔一個字都冇損。
 - **所有 pull 用 `--rebase --autostash`**：需要 Git for Windows 2.27 或以上；呢個亦係「任何其他檔
   未提交」唔再擋住每日排程嘅保險。
-- **起手 `set PYTHONUTF8=1`／`PYTHONIOENCODING=utf-8`＋清走殘留 `.git\index.lock`**：排程器會將
-  輸出 redirect 落 log 檔，Windows 預設用 cp950，`core.py`／`enrich.py` 一打 emoji 就
-  `UnicodeEncodeError` 死喺中途；`index.lock` 殘留則令 `git add`／`git commit` 直接失敗 —— 兩個都係
-  「留低未 commit 嘅 staged 殘餘」嘅來源。呢兩條 2026-09-11 本機已寫過（`arena/01a0895d-scout-circulars`），
-  但嗰個 branch 從未 merge 入 main，所以部機每日 pull 完就冇，而家併返入嚟。
+- **起手 `set PYTHONUTF8=1`／`PYTHONIOENCODING=utf-8`**：排程器會將輸出 redirect 落 log 檔，
+  Windows 預設用 cp950，`core.py`／`enrich.py` 一打 emoji 就 `UnicodeEncodeError` 死喺中途 ——
+  呢個本身就係「留低未 commit 嘅 staged 殘餘」嘅來源之一。
+- **git 身份自癒**：`user.name`／`user.email` 完全未設嘅話，寫入 repo-local 後備身份（唔郁你嘅 global 設定），
+  否則所有自動 commit 必死。
 - **rebase 衝突自動處理**（多數係本機同 Action 各寫一份 `cache.json`）：本機嗰份先留底喺
   `logs\conflict-backup\` 同 `backup/local-scrape` 分支，然後 `reset --hard origin/main` 繼續當日流程。
   舊版淨係 abort，留低一個永遠 push 唔出嘅本地 commit，之後每日撞同一個衝突。
 - **有「已 commit 但未曾 push」嘅本機補跑結果會即刻補推**：`notify.py` 嘅同日 catch-up 只補發
   `captured_date` 係當日嘅項目，跨日留低嘅結果如果一直唔推，就會變成靜默冇通知。
-- **死咗都會執手尾**：任何一步失敗都會行 `:failed` → 清走本次半成品（reset + checkout 三個資料檔，
-  你手頭其他檔唔郁）→ **自動重試一次** → 仍然失敗先 exit 1。目的係「今日死 ≠ 聽日死」：舊版死一次會
-  留低半成品，之後每日都俾自己毒死（測試對照：舊版聽日再行 = 俾自己毒死 YES；新版 = NO）。
+- **死咗都會執手尾**：任何一步失敗都會行 `:failed` → 先試搶救本次成果（三個檔要讀得開 JSON 而且有真 diff，
+  就 commit，能 push 就 push）→ 清走本次半成品（reset + checkout 三個資料檔）→ **自動重試一次** →
+  仍然失敗先 exit 1。目的係「今日死 ≠ 聽日死」。
 - **自己更新自己都得**：呢個 .bat 本身就係由呢個 repo pull 落嚟。如果頭先嗰 pull 改動咗腳本自己
-  （例如你啱啱 merge 咗 PR），本次會即刻安全收工（exit 0，唔算失敗），聽日 05:00 自然用新版行 ——
+  （例如你啱啱 merge 咗 PR），本次會即刻安全收工（exit 0，唔算失敗），下一次排程自然用新版行 ——
   cmd 係按 byte offset 慢慢讀 .bat，繼續行落去會「半舊半新」甚至讀錯位，呢種失敗最難睇。
-- **死咗都唔准掉嘢**：`:failed` 而家係「先搶救、後執手尾」——`core.py` 成功寫入咗新通告但
-  `enrich.py`／git 嗰邊死咗時，會先驗證 JSON + `check_local_gain.py` 確認真係有新增，然後
-  commit（能 push 就 push；斷網就留喺本地，聽日開波自動補推），之後先清半成品 + 重試一次。
+  **呢個係「排程改指 repo 內腳本」之後先至真正生效嘅保護。**
 - **GitHub 郁唔到 ≠ 今日唔使補底**：`git pull` 失敗會分情況 —— rebase 衝突先處理；斷網／授權
-  則照樣巡邏全部來源（成果留本地）。舊版係「GitHub 郁親 → 本機當日完全冇檢查」再 exit 1。
+  則照樣巡邏全部來源（成果留本地，之後任何一日返到網自動補推）。舊版係「GitHub 郁親 → 本機當日完全冇檢查」再 exit 1。
+- **`no_change` 會 exit 1**：`core.py` exit 0 但 `cache.json` 完全冇變 = `last_updated` 冇移動 =
+  今日網站時間戳唔會動，即係用戶賴以確認嘅訊號斷咗，所以當失敗處理（Task Scheduler 履歴會顯示紅色）。
 - log 喺 `logs\scrape.log`（UTF-8，`logs/` 已 gitignore，過 2 MB 自動轉名做 `scrape.log.1`）。
   喺 cmd 睇請先 `chcp 65001`，否則係亂碼：
   `powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"`。
+
+> **⚠️ 排程器指去邊度？** Task Scheduler 每日 05:00 行嘅如果係 `C:\Users\User\ScoutPushSecrets\run-local-scrape-logged.bat`
+> （repo 以外嘅舊版 copy，child 內硬編碼 `cd` 去 repo 路徑），咁上面所有修改佢一律收唔到 ——
+> 佢唔會 pull 自我更新。請把「動作/Actions」嘅「程式或指令碼」改成 **repo 內**嘅
+> `run-local-scrape-logged.bat`，「起始於」填 repo 根目錄；之後排程行嘅永遠係 repo 最新腳本。
+> `ScoutPushSecrets` 舊檔留低唔郁即可。
+
 
 ## 下一步建議
 

@@ -12,7 +12,8 @@ sys.path.insert(0, ".")
 from enrich import (
     extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories,
     compact_title, title_similarity, extract_pdf_heading, reconcile_listing_title,
-    apply_title_to_cache, TITLE_SIMILARITY_THRESHOLD,
+    apply_title_to_cache, title_variants, listing_supported_by_pdf,
+    TITLE_SIMILARITY_THRESHOLD,
 )
 from subscription_tagging import extract_subscription_metadata, load_catalog
 
@@ -330,6 +331,55 @@ def main():
             cache["notices"][0]["title"],
         ),
         (True, merit, "https://example/TME_A_26_03.pdf", "2026-09-13", merit),
+    )
+
+    # ── 2026-09-14 回歸：連結標籤後綴 + 欄位行唔可以當成標題 ──
+    # 柴灣區個案：列表標題正確但帶「 - 點擊下載」，舊版因為
+    #   (1) substring 用成個標題（含連結標籤）→ 喺 PDF 一定搵唔到
+    #   (2) extract_pdf_heading 把「截止日期: ...」當成 PDF 標題
+    # 於是判定 corrected，把正確標題改成「截止日期: 2026年11月20日(星期五)」。
+    chw_pdf = (
+        "香港童軍總會 柴灣區\n"
+        "CHW/26-27/13\n"
+        "深資童軍原野烹飪暨營藝考驗\n"
+        "日期: 2026年11月21日至22日\n"
+        "截止日期: 2026年11月20日(星期五)\n"
+        "對象: 深資童軍\n"
+        "費用: HK$60\n"
+    )
+    passed += test(
+        "剝後綴：title_variants 由完整到精簡",
+        title_variants("深資童軍原野烹飪暨營藝考驗 - 點擊下載"),
+        ["深資童軍原野烹飪暨營藝考驗 - 點擊下載", "深資童軍原野烹飪暨營藝考驗"],
+    )
+    passed += test(
+        "剝後綴：冇後綴就只得一個變體",
+        title_variants("深資童軍原野烹飪暨營藝考驗"),
+        ["深資童軍原野烹飪暨營藝考驗"],
+    )
+    passed += test(
+        "對證：列表帶「 - 點擊下載」都算對得上（唔好假警報）",
+        listing_supported_by_pdf("深資童軍原野烹飪暨營藝考驗 - 點擊下載", chw_pdf),
+        True,
+    )
+    passed += test(
+        "PDF 標題：唔可以揀「截止日期」欄位行",
+        extract_pdf_heading(chw_pdf),
+        "深資童軍原野烹飪暨營藝考驗",
+    )
+    for chw_listing in ("深資童軍原野烹飪暨營藝考驗 - 點擊下載",
+                        "深資童軍原野烹飪暨營藝考驗 - 總會"):
+        chw_res = reconcile_listing_title(chw_listing, chw_pdf)
+        passed += test(
+            f"對證：{chw_listing[-5:]} → 維持原標題，唔好改成欄位行",
+            (chw_res["status"], chw_res["title"]),
+            ("verified", chw_listing),
+        )
+    # 錨定檢查：裸字「截止日期」唔可以擋走真標題
+    passed += test(
+        "欄位過濾唔好誤殺：標題含「截止日期」四字仍然抽到",
+        extract_pdf_heading(merit_pdf),
+        merit,
     )
 
     # ── 格式正規化 ──
