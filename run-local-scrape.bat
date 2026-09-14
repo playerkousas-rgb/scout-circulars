@@ -21,6 +21,17 @@ echo [%date% %time%] 發現殘留 .git\index.lock（上個 git 程序未收尾�
 del /f /q .git\index.lock
 :no_index_lock
 
+REM ── Git 身份自癒（2026-09-14 audit 加）：user.name／user.email 完全未設嘅話，
+REM    所有自動 commit 必死，而 :failed → 自動重試會白行多一次全網巡邏。
+REM    只寫 repo-local 身份（呢個 repo 自己嘅 .git\config）；你已有 global 身份
+REM    嘅話呢步完全唔郁你嘅嘢。
+for /f "delims=" %%I in ('git config user.email 2^>nul') do set "SC_EMAIL=%%I"
+if not defined SC_EMAIL (
+    git config user.name "scout-circulars-local"
+    git config user.email "local@scout-circulars"
+    echo [%date% %time%] 未設定 git 身份：已寫入 repo-local 後備身份（唔影響 global 設定）
+)
+
 REM ============================================================
 REM 本機補漏抓取（Windows 工作排程器每日執行；建議用 run-local-scrape-logged.bat
 REM 咁行，先至有 log 可攞）。
@@ -253,6 +264,9 @@ echo [%date% %time%] 本機嗰份已留低喺 logs\conflict-backup\（同 backup
 echo [%date% %time%] 想比對返：git checkout backup/local-scrape -- cache.json
 git fetch origin main
 if errorlevel 1 goto failed
+REM hard reset 會連其他未提交嘅檔案一齊清走 —— 清之前留份口供喺 log，
+REM 萬一有唔係腳本做嘅改動被清咗，睇得到係乜嘢。
+git status --porcelain
 git reset --hard origin/main
 echo [%date% %time%] 已改用 GitHub 嗰份，繼續當日該做嘅檢查
 goto scrape
