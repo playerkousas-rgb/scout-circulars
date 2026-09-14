@@ -43,6 +43,9 @@ OTHER_ACTIVITY_TERMS = [
 ]
 
 # 來源級分類：呢啲來源發布嘅通告一律歸類「小工具」，唔使靠標題關鍵詞。
+# 注意：分類固定係小工具，但**支部照行正常抽取**——每個工具本身有支部標籤
+# （例如「幼童軍計時器」），由標題／對象抽出；抽唔到就同其他通告一樣入未分類，
+# 唔好一刀切當全支部，否則幼童軍訂閱者會收到領袖嘅工具。
 # 新來源直接喺呢度加名就得（同 sources.json 嘅來源名一致）。
 TOOLS_SOURCES = {"Scout System"}
 # A calendar/guide is useful to browse, but is not itself a newly-open training
@@ -360,10 +363,6 @@ def extract_subscription_metadata(
             course_entries.append((topic, hits))
 
     branch_ids = extract_branch_ids(title, audience, catalog=catalog)
-    # 小工具來源嘅通告視為「所有成員」：任何支部訂閱都配對到，
-    # 唔會因為抽唔到支部而漏推。
-    if source_name in TOOLS_SOURCES:
-        branch_ids = set(catalog.get("_branch_ids", set()))
     # A verified course provides a safe fallback scope only when the PDF has no
     # labelled audience and the title did not identify a branch.
     if not branch_ids:

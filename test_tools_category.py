@@ -42,10 +42,16 @@ class ToolsSourceTests(unittest.TestCase):
         self.assertEqual([c["id"] for c in meta["categories"]], ["tools"])
         self.assertIn("category:tools", meta["subscription_tags"])
 
-    def test_tools_source_covers_all_branches(self):
-        meta = extract_subscription_metadata("工具", "", "", source="Scout System")
-        branches = set(meta["branch_tags"])
-        self.assertTrue({"童軍", "幼童軍", "領袖"} <= branches, branches)
+    def test_tools_branch_comes_from_title_not_blanket(self):
+        # 每個工具自帶支部標籤：支部由標題抽取，唔係一刀切全支部
+        meta = extract_subscription_metadata("幼童軍計時器", "", "", source="Scout System")
+        self.assertEqual(meta["branch_tags"], ["幼童軍"])
+        meta2 = extract_subscription_metadata("童軍背包整理器", "", "", source="Scout System")
+        self.assertEqual(meta2["branch_tags"], ["童軍"])
+
+    def test_tools_without_branch_label_stays_unlabelled(self):
+        meta = extract_subscription_metadata("背包整理器", "", "", source="Scout System")
+        self.assertEqual(meta["branch_tags"], [])
 
     def test_other_sources_unaffected(self):
         cats = extract_categories("第170屆繩結訓練班", "", "總會")
@@ -55,14 +61,19 @@ class ToolsSourceTests(unittest.TestCase):
 class PushMatchingTests(unittest.TestCase):
     def setUp(self):
         # 模擬冇 enrich 記錄（Scout System 通告唔係 PDF，唔會入 enrich）
-        self.meta = notify.notice_metadata(make_item("童軍背包整理器 v2.0"), {})
+        self.meta = notify.notice_metadata(make_item("幼童軍計時器"), {})
 
-    def test_tools_subscriber_matches(self):
-        sub = {"branch_ids": ["童軍"], "topic_ids": ["branch:童軍:category:tools"]}
+    def test_tools_subscriber_of_matching_branch_matches(self):
+        sub = {"branch_ids": ["幼童軍"], "topic_ids": ["branch:幼童軍:category:tools"]}
         self.assertTrue(notify.subscription_matches(sub, self.meta))
 
+    def test_tools_subscriber_of_other_branch_not_matched(self):
+        # 領袖訂閱者唔應該收到幼童軍嘅工具
+        sub = {"branch_ids": ["領袖"], "topic_ids": ["branch:領袖:category:tools"]}
+        self.assertFalse(notify.subscription_matches(sub, self.meta))
+
     def test_non_tools_subscriber_not_matched(self):
-        sub = {"branch_ids": ["童軍"], "topic_ids": ["branch:童軍:category:activity"]}
+        sub = {"branch_ids": ["幼童軍"], "topic_ids": ["branch:幼童軍:category:activity"]}
         self.assertFalse(notify.subscription_matches(sub, self.meta))
 
     def test_all_new_still_receives_tools(self):
