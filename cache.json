@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-14 14:22:56",
+  "last_updated": "2026-09-14 14:36:08",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
@@ -76949,12 +76949,12 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-14 14:22:56",
+      "updated_at": "2026-09-14 14:36:08",
       "new": 0,
       "updated": 3513,
       "skipped": 3,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 3,
       "error_sources": [],
       "skipped_sources": [
         "西貢區 (expected_empty)",
