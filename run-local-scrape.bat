@@ -119,8 +119,18 @@ git status --porcelain -- cache.json enrich.json fingerprints.json
 
 :resume_clean
 echo [%date% %time%] 更新 GitHub 最新資料
+set "SC_HEAD0="
+for /f "delims=" %%H in ('git rev-parse -q --verify HEAD') do set "SC_HEAD0=%%H"
 git pull --rebase --autostash origin main
 if errorlevel 1 goto rebase_conflict
+
+REM ── 自我更新保護：呢個腳本嘅來源就係佢自己 pull 落嚟嘅嗰個 repo。如果頭先嗰 pull
+REM    改動咗 run-local-scrape*.bat 本身，cmd 係按 byte offset 慢慢讀 .bat 嘅 —— 繼續行
+REM    落去會「半舊半新」甚至讀錯位（呢類就係最難睇嘅詭異失敗）。所以：發覺自己換咗
+REM    就即刻收工（exit 0，唔算失敗），聽日嗰轉自然用新版行。
+set "SC_SELFC="
+if defined SC_HEAD0 for /f "delims=" %%F in ('git diff --name-only %SC_HEAD0% HEAD -- "run-local-scrape*.bat"') do set "SC_SELFC=1"
+if defined SC_SELFC goto self_updated
 
 REM ── 補舊數：有冇「已 commit 但未曾 push 出去」嘅本機結果？
 REM    （例如上日 push 之前斷線／停電。留咗喺本機唔單止網站冇更新，
@@ -228,6 +238,10 @@ goto scrape
 echo [%date% %time%] 今次係第二輪衝突，唔敢再自動處理；本機嗰份喺 logs\conflict-backup\
 git status --short
 goto failed
+
+:self_updated
+echo [%date% %time%] 頭先嗰 pull 更新咗本腳本自己（GitHub 就係佢嘅來源）：本次即刻收工，聽日 05:00 自然用新版行
+exit /b 0
 
 :rebase_not_conflict
 echo [%date% %time%] git pull/push 失敗，但唔係 rebase 衝突（詳情見上面 git 訊息）

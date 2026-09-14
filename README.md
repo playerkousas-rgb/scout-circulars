@@ -297,6 +297,9 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 - **死咗都會執手尾**：任何一步失敗都會行 `:failed` → 清走本次半成品（reset + checkout 三個資料檔，
   你手頭其他檔唔郁）→ **自動重試一次** → 仍然失敗先 exit 1。目的係「今日死 ≠ 聽日死」：舊版死一次會
   留低半成品，之後每日都俾自己毒死（測試對照：舊版聽日再行 = 俾自己毒死 YES；新版 = NO）。
+- **自己更新自己都得**：呢個 .bat 本身就係由呢個 repo pull 落嚟。如果頭先嗰 pull 改動咗腳本自己
+  （例如你啱啱 merge 咗 PR），本次會即刻安全收工（exit 0，唔算失敗），聽日 05:00 自然用新版行 ——
+  cmd 係按 byte offset 慢慢讀 .bat，繼續行落去會「半舊半新」甚至讀錯位，呢種失敗最難睇。
 - log 喺 `logs\scrape.log`（UTF-8，`logs/` 已 gitignore，過 2 MB 自動轉名做 `scrape.log.1`）。
   喺 cmd 睇請先 `chcp 65001`，否則係亂碼：
   `powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"`。
