@@ -294,6 +294,9 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
   舊版淨係 abort，留低一個永遠 push 唔出嘅本地 commit，之後每日撞同一個衝突。
 - **有「已 commit 但未曾 push」嘅本機補跑結果會即刻補推**：`notify.py` 嘅同日 catch-up 只補發
   `captured_date` 係當日嘅項目，跨日留低嘅結果如果一直唔推，就會變成靜默冇通知。
+- **死咗都會執手尾**：任何一步失敗都會行 `:failed` → 清走本次半成品（reset + checkout 三個資料檔，
+  你手頭其他檔唔郁）→ **自動重試一次** → 仍然失敗先 exit 1。目的係「今日死 ≠ 聽日死」：舊版死一次會
+  留低半成品，之後每日都俾自己毒死（測試對照：舊版聽日再行 = 俾自己毒死 YES；新版 = NO）。
 - log 喺 `logs\scrape.log`（UTF-8，`logs/` 已 gitignore，過 2 MB 自動轉名做 `scrape.log.1`）。
   喺 cmd 睇請先 `chcp 65001`，否則係亂碼：
   `powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"`。

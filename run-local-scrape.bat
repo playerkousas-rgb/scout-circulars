@@ -242,6 +242,20 @@ echo [%date% %time%] 完成
 exit /b 0
 
 :failed
-echo [%date% %time%] 發生錯誤，請檢查上面訊息
+echo [%date% %time%] 發生錯誤（上面有 git／Python 嘅原始訊息）
+REM ── 最要緊係：唔好留低會毒死聽日嘅狀態。清走本次半成品（淨係三個資料檔，
+REM    你手頭其他檔一個字都冇損），再自動重試一次。呢個先係「今日死＝聽日唔好死」：
+REM    就算失敗原因係我哋未預见到嘅，第二次都唔會俾 index／半成品卡住。
+git reset -q HEAD -- cache.json enrich.json fingerprints.json
+git checkout -- cache.json enrich.json fingerprints.json 2>nul
+if defined SC_RETRY goto failed_final
+set "SC_RETRY=1"
+echo [%date% %time%] 已清走本次半成品，自動重試一次（會再拉一次＋補推，並重新巡邏來源）
+goto resume_clean
+
+:failed_final
+echo [%date% %time%] 重試之後仍然失敗：exit 1（repo 已還原 clean，聽日嗰轉唔會被今次拖累）
+git status --short
+git log --oneline -1
 echo [%date% %time%] 睇 log 請用 Notepad，或者：powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"
 exit /b 1
