@@ -1328,6 +1328,39 @@ def make_asset_record(url: str, title: Optional[str], config: Dict[str, Any]) ->
     return {"pdf_url": url, "title": final_title}
 
 
+def extract_item_tag_labels(anchor: Any, config: Dict[str, Any]) -> List[str]:
+    """選配 `tag_selector`：抓取站方為每個項目親手貼的分類標籤（例如支部）。
+
+    背景：Scout System 小工具嘅標題未必有支部字眼（例如「密碼旗號」適用多个支部），
+    可靠嘅支部資訊係站方貼喺每個工具上嘅標籤，所以要喺抓取時一併帶走。
+
+    標籤元素可能喺連結之內，亦可能係連結嘅兄弟元素（同一張卡片入面），
+    所以由 anchor 逐級向上搵（自己 → 父 → 祖父），搵到即止。
+    只帶走文字；邊個文字係支部由下游 _scan_branch_tokens 辨認，
+    唔係支部嘅標籤自然會被忽略，唔會亂配。
+    """
+    selector = str(config.get("tag_selector") or "").strip()
+    if not selector or anchor is None:
+        return []
+    node: Any = anchor
+    for _ in range(3):
+        if node is None:
+            break
+        try:
+            found = node.select(selector)
+        except Exception:
+            return []
+        labels: List[str] = []
+        for el in found:
+            text = " ".join(el.get_text(" ", strip=True).split())
+            if text and text not in labels:
+                labels.append(text)
+        if labels:
+            return labels[:8]
+        node = getattr(node, "parent", None)
+    return []
+
+
 def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str, Any]) -> List[Dict[str, str]]:
     records: List[Dict[str, str]] = []
     seen: Set[str] = set()
@@ -1481,6 +1514,9 @@ def extract_assets_from_listing(
         record = make_asset_record(href, inferred_title, config)
         if not record:
             continue
+        tags = extract_item_tag_labels(a, config)
+        if tags:
+            record["tags"] = tags
         seen_assets.add(href)
         assets.append(record)
 
@@ -1497,6 +1533,9 @@ def extract_assets_from_listing(
             inferred_title = infer_listing_title(a, soup, config) or raw_text
             record = make_asset_record(href, inferred_title, config)
             if record:
+                tags = extract_item_tag_labels(a, config)
+                if tags:
+                    record["tags"] = tags
                 seen_assets.add(href)
                 assets.append(record)
 
@@ -1513,6 +1552,9 @@ def extract_assets_from_listing(
                 inferred_title = infer_listing_title(a, soup, config) or raw_text
                 record = make_asset_record(href, inferred_title, config)
                 if record:
+                    tags = extract_item_tag_labels(a, config)
+                    if tags:
+                        record["tags"] = tags
                     seen_assets.add(href)
                     assets.append(record)
             elif should_follow_detail_pages(config) and is_article_candidate(href, config.get("url", page_url), raw_text):
@@ -1618,8 +1660,10 @@ def build_grouped_cache(
             "title": normalized_title,
             "captured_date": record.get("captured_date", ""),
         }
+        if record.get("tags"):
+            normalized["tags"] = list(record["tags"])
         normalized_records.append(normalized)
-        data.setdefault(source_name, []).append({
+        entry = {
             "title": normalized_title,
             "url": normalized["pdf_url"],
             "pdf_url": normalized["pdf_url"],
@@ -1627,22 +1671,28 @@ def build_grouped_cache(
             "captured_date": normalized["captured_date"],
             "source_site": source_name,
             "region": normalized["region"],
-        })
+        }
+        if normalized.get("tags"):
+            entry["tags"] = normalized["tags"]
+        data.setdefault(source_name, []).append(entry)
 
     for source_name, arr in data.items():
         arr.sort(key=lambda x: ((x.get("date") or x.get("captured_date") or ""), x.get("title") or ""), reverse=True)
 
+    def _notice_entry(r: Dict[str, Any]) -> Dict[str, Any]:
+        entry = {
+            "source_site": r.get("source_site", ""),
+            "region": r.get("region", ""),
+            "pdf_url": r.get("pdf_url", ""),
+            "title": r.get("title", ""),
+            "captured_date": r.get("captured_date", ""),
+        }
+        if r.get("tags"):
+            entry["tags"] = list(r["tags"])
+        return entry
+
     notices = sorted(
-        [
-            {
-                "source_site": r.get("source_site", ""),
-                "region": r.get("region", ""),
-                "pdf_url": r.get("pdf_url", ""),
-                "title": r.get("title", ""),
-                "captured_date": r.get("captured_date", ""),
-            }
-            for r in normalized_records
-        ],
+        [_notice_entry(r) for r in normalized_records],
         key=lambda x: ((x.get("captured_date") or ""), x.get("source_site") or "", x.get("title") or ""),
         reverse=True,
     )
@@ -1847,6 +1897,9 @@ def process_source(
             "title": item["title"],
             "captured_date": today_str,
         }
+        # 選配 tag_selector 抓到嘅站方標籤（例如小工具嘅支部標籤）
+        if item.get("tags"):
+            payload["tags"] = list(item["tags"])
         if key in existing_keys:
             # ⚠️ 保留舊 captured_date：不要覆寫已存在項目的入庫日期
             payload.pop("captured_date", None)

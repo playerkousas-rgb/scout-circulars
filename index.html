@@ -617,13 +617,16 @@
 
     // 決定一張通告屬於邊啲支部：
     //   1. enrich.json 有 audience（PDF 內文抽出嚟）→ 以佢為準，最可靠
-    //   2. 冇 audience（舊通告 / 抽唔到）→ 退而求其次睇標題
+    //   2. 抓取時帶返嚟嘅站方標籤（item.tags，例如 Scout System 小工具嘅支部標籤）
+    //   3. 兩樣都冇 → 退而求其次睇標題
     // 「所有成員」當作所有支部都命中。
     // 標題入面「香港童軍總會」嗰類機構名唔特別處理 —— 用戶要精細啲可以配合關鍵字搜尋。
     function itemBranches(item, enrich) {
       const audience = enrich?.audience || '';
-      const tokens = audience
-        ? extractMemberTokens(audience)
+      const tagHint = Array.isArray(item?.tags) ? item.tags.filter(Boolean).join(' ') : '';
+      const base = audience || tagHint;
+      const tokens = base
+        ? extractMemberTokens(base)
         : extractMemberTokens(item.title || '');
       if (tokens.includes('所有成員')) {
         return new Set(BRANCH_TAGS.filter(t => t.id !== 'ALL').map(t => normalizeSearchText(t.id)));

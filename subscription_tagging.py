@@ -303,8 +303,14 @@ def extract_subscription_metadata(
     *,
     catalog: Optional[Mapping[str, Any]] = None,
     source: Any = "",
+    tag_hint: Any = "",
 ) -> Dict[str, Any]:
-    """Create the branch/topic IDs used by the dispatcher and personal view."""
+    """Create the branch/topic IDs used by the dispatcher and personal view.
+
+    ``tag_hint`` carries site-owner labels scraped with the item (for example
+    the 支部 tags on Scout System tools). It is used only when the PDF has no
+    labelled audience: a labelled audience stays the most reliable signal.
+    """
     catalog = catalog or load_catalog()
     title = str(title or "")
     text = str(text or "")
@@ -362,7 +368,9 @@ def extract_subscription_metadata(
         if hits:
             course_entries.append((topic, hits))
 
-    branch_ids = extract_branch_ids(title, audience, catalog=catalog)
+    # 優先用 PDF 抽出嘅對象；冇嘅時候先用站方標籤（tag_hint），最後先睇標題。
+    audience_effective = str(audience or "").strip() or str(tag_hint or "").strip()
+    branch_ids = extract_branch_ids(title, audience_effective, catalog=catalog)
     # A verified course provides a safe fallback scope only when the PDF has no
     # labelled audience and the title did not identify a branch.
     if not branch_ids:

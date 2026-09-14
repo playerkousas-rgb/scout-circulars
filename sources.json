@@ -1101,8 +1101,9 @@
       "fingerprint_selector": "body",
       "link_selector": "a[href]",
       "title_selector": "a",
+      "tag_selector": "",
       "follow_detail_pages": false,
-      "notes": "推廣實用小工具嘅來源：呢度出嘅通告一律歸類「小工具」（見 subscription_tagging.py 嘅 TOOLS_SOURCES）。每個工具自帶支部標籤，配置時 title_selector 要連埋個支部標籤一齊抓（例如「幼童軍計時器」），咁支部抽取先至準；抽唔到支部嘅工具會入未分類，唔會亂推。網址待定——曾用過渡網址 https://website-kappa-black-24.vercel.app/ ，未來會換；換好後喺呢度填 url、將 enabled 改 true，並按實際頁面調整選擇器。"
+      "notes": "推廣實用小工具嘅來源：呢度出嘅通告一律歸類「小工具」（見 subscription_tagging.py 嘅 TOOLS_SOURCES）。每個工具嘅支部以站方親手貼嘅標籤為準（標題未必有支部字眼，例如「密碼旗號」適用多個支部）：配置時填 tag_selector 指向工具卡片上嘅支部標籤元素，抓取會自動帶走並用於配對。網址待定——曾用過渡網址 https://website-kappa-black-24.vercel.app/ ，未來會換；換好後喺呢度填 url、將 enabled 改 true，並按實際頁面調整選擇器。"
     }
   }
 }
