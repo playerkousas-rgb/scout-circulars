@@ -1,13 +1,22 @@
 {
-  "last_updated": "2026-09-15 04:18:19",
+  "last_updated": "2026-09-15 05:00:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4795,
+    "total_notices": 4796,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第35屆深資童軍執行委員會訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
+        "date": "2026-09-15",
+        "captured_date": "2026-09-15",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
         "url": "https://scout.org.hk/uploads/tc/circulars/25882/AIT_cir_02-26r.pdf",
@@ -43261,6 +43270,13 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
+      "title": "第35屆深資童軍執行委員會訓練班",
+      "captured_date": "2026-09-15"
+    },
+    {
       "source_site": "黃大仙區",
       "region": "東九龍地域",
       "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/濕地公園秋遊日-自然章興趣組及觀鳥章興趣組考驗活動.pdf",
@@ -76947,59 +76963,23 @@
       "Scout System"
     ],
     "total_sources": 50,
-    "has_errors": true,
+    "has_errors": false,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-15 04:18:19",
-      "new": 0,
-      "updated": 24,
-      "skipped": 38,
+      "updated_at": "2026-09-15 05:00:06",
+      "new": 1,
+      "updated": 3512,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 10,
-      "error_sources": [
-        "九龍地域"
-      ],
+      "playwright_used": 2,
+      "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
