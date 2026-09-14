@@ -284,6 +284,11 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
   工作區，index 本身照舊髒。
 - **所有 pull 用 `--rebase --autostash`**：需要 Git for Windows 2.27 或以上；呢個亦係「任何其他檔
   未提交」唔再擋住每日排程嘅保險。
+- **起手 `set PYTHONUTF8=1`／`PYTHONIOENCODING=utf-8`＋清走殘留 `.git\index.lock`**：排程器會將
+  輸出 redirect 落 log 檔，Windows 預設用 cp950，`core.py`／`enrich.py` 一打 emoji 就
+  `UnicodeEncodeError` 死喺中途；`index.lock` 殘留則令 `git add`／`git commit` 直接失敗 —— 兩個都係
+  「留低未 commit 嘅 staged 殘餘」嘅來源。呢兩條 2026-09-11 本機已寫過（`arena/01a0895d-scout-circulars`），
+  但嗰個 branch 從未 merge 入 main，所以部機每日 pull 完就冇，而家併返入嚟。
 - **rebase 衝突自動處理**（多數係本機同 Action 各寫一份 `cache.json`）：本機嗰份先留底喺
   `logs\conflict-backup\` 同 `backup/local-scrape` 分支，然後 `reset --hard origin/main` 繼續當日流程。
   舊版淨係 abort，留低一個永遠 push 唔出嘅本地 commit，之後每日撞同一個衝突。

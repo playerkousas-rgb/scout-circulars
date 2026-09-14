@@ -5,6 +5,22 @@ setlocal
 cd /d "%~dp0"
 if not exist logs mkdir logs
 
+REM ── 編碼／殘留鎖（呢兩條 2026-09-11 本機已經加過，但一直留咗喺
+REM    arena/01a0895d-scout-circulars 分支，從來冇 merge 入 main，所以部機每日 pull
+REM    完就冇。而家併返入嚟）：
+REM    * PYTHONUTF8／PYTHONIOENCODING：排程器行嘅時候 stdout 被 redirect 落 log 檔，
+REM      Windows 會用 cp950 編碼，core.py／enrich.py 一打 emoji 或中文就 UnicodeEncodeError
+REM      → 成個 run 死喺中途（好可能就是留低 staged 殘餘嘅元兇）。
+REM    * .git\index.lock：上個 git 程序（殺 soft／VS Code／OneDrive 鎖檔）留低 lock，
+REM      `git add`／`git commit` 會直接失敗，一樣係「死喺 add 之後、commit 之前」嘅來源。
+set "PYTHONUTF8=1"
+set "PYTHONIOENCODING=utf-8"
+
+if not exist .git\index.lock goto no_index_lock
+echo [%date% %time%] 發現殘留 .git\index.lock（上個 git 程序未收尾），清走佢
+del /f /q .git\index.lock
+:no_index_lock
+
 REM ============================================================
 REM 本機補漏抓取（Windows 工作排程器每日執行；建議用 run-local-scrape-logged.bat
 REM 咁行，先至有 log 可攞）。
@@ -37,7 +53,9 @@ REM      (e) 有「已 commit 但未曾 push 出去」嘅本機補跑結果就�
 REM          notify.py（只通知「HEAD 之後先出現」嘅通告）會當日靜默冇通知；
 REM      (f) 工作目錄由硬扣 C:\Users\User\... 改成 script 自身所屬資料夾（%~dp0）；
 REM      (g) 本機由「今日 Action 跑過就跳過」改成「每次都重新檢查全網，有增量才 push」
-REM          （見下面 :scrape 嘅註解 + check_local_gain.py）。
+REM          （見下面 :scrape 嘅註解 + check_local_gain.py）—— 即係還返
+REM          arena/01a0895d 分支 2026-09-11 那個「來源巡邏」版本嘅原意，但改用內容
+REM          比較而唔係「有任何 diff 就 push」，唔會每日製造只改 last_updated 嘅噪音 commit。
 REM
 REM    ⚠️ 需 Git for Windows 2.27 或以上（先至有 `git pull --autostash`）。
 REM ============================================================

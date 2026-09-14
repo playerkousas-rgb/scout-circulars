@@ -22,6 +22,12 @@ REM ============================================================
 setlocal
 cd /d "%~dp0"
 
+REM ── 輸出被 redirect 落 log 檔時，Windows 預設用 cp950；core.py／enrich.py 一打
+REM    emoji 就 UnicodeEncodeError（連帶成個 run 死喺中途）。喺 wrapper 層面一併set 咗，
+REM    就算有人直接行 run-local-scrape.bat 嘅舊版本都照樣有效。
+set "PYTHONUTF8=1"
+set "PYTHONIOENCODING=utf-8"
+
 if not exist "%~dp0logs" mkdir "%~dp0logs"
 set "SC_LOG=%~dp0logs\scrape.log"
 
