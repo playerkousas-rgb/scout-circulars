@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-14 11:13:58",
+  "last_updated": "2026-09-14 12:51:25",
   "meta": {
     "version": "5.3.0",
     "total_sources": 49,
@@ -76949,9 +76949,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-14 11:13:58",
-      "new": 2,
-      "updated": 3511,
+      "updated_at": "2026-09-14 12:51:25",
+      "new": 0,
+      "updated": 3513,
       "skipped": 3,
       "processed": 46,
       "playwright_used": 2,
