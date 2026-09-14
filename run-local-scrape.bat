@@ -35,7 +35,9 @@ REM          logs\conflict-backup\ 同 backup/local-scrape 分支（舊版 abort
 REM          一個未 push 嘅本地 commit，之後每日都撞返同一個衝突）；
 REM      (e) 有「已 commit 但未曾 push 出去」嘅本機補跑結果就即刻補推——否則
 REM          notify.py（只通知「HEAD 之後先出現」嘅通告）會當日靜默冇通知；
-REM      (f) 工作目錄由硬扣 C:\Users\User\... 改成 script 自身所屬資料夾（%~dp0）。
+REM      (f) 工作目錄由硬扣 C:\Users\User\... 改成 script 自身所屬資料夾（%~dp0）；
+REM      (g) 本機由「今日 Action 跑過就跳過」改成「每次都重新檢查全網，有增量才 push」
+REM          （見下面 :scrape 嘅註解 + check_local_gain.py）。
 REM
 REM    ⚠️ 需 Git for Windows 2.27 或以上（先至有 `git pull --autostash`）。
 REM ============================================================
@@ -64,18 +66,21 @@ if errorlevel 1 goto resume_discard
 python -c "import json;json.load(open('enrich.json',encoding='utf-8'));json.load(open('fingerprints.json',encoding='utf-8'))"
 if errorlevel 1 goto resume_discard
 
-echo [%date% %time%] 上次結果完整，補做 commit + push（續跑完成）
+echo [%date% %time%] 上次結果完整：睇吓有冇 GitHub 未有嘅新增通告，有先補做 commit + push
 git add cache.json enrich.json fingerprints.json
 git diff --cached --quiet
-if not errorlevel 1 goto resume_committed
-git commit -m "🤖 Local backup scrape（續跑：補回上次未完成嘅結果）"
-if errorlevel 1 goto resume_commit_failed
-
-:resume_committed
+if not errorlevel 1 goto resume_discard
 git fetch origin main
 if errorlevel 1 goto failed
-git show origin/main:cache.json | python check_cache_fresh.py --stdin
-if not errorlevel 1 goto remote_won
+python check_local_gain.py origin/main
+if not errorlevel 1 goto resume_committed
+if errorlevel 2 goto resume_discard
+echo [%date% %time%] 留低嘅結果冇額外發現：唔製造 commit，還原後照原流程再跑
+goto resume_discard
+
+:resume_committed
+git commit -m "🤖 Local backup scrape（續跑：補回上次未完成嘅結果）"
+if errorlevel 1 goto resume_commit_failed
 git pull --rebase --autostash origin main
 if errorlevel 1 goto rebase_conflict
 git push origin main
@@ -119,14 +124,16 @@ git log --oneline origin/main..HEAD
 echo [%date% %time%] 自己決定要不要 `git push origin main`
 
 :after_ahead
-REM ── 本機係「後備」：GitHub Action 當日已跑過（cache 已經係今日）就跳過，
-REM    唔好同 Action 爭住寫同一份 cache.json。Action 嗰轉先係必須嘅。
-:check_fresh
-echo [%date% %time%] 檢查今日 GitHub Action 有無跑過…
-python check_cache_fresh.py cache.json
-if not errorlevel 1 goto fresh
-
-echo [%date% %time%] 今日未更新，執行本機全部來源抓取
+REM ── 2026-09-14 改：本機**每次**都重新檢查全網，唔再「GitHub 有今日份就收工」。
+REM    舊版（2026-09-09 加）用 check_cache_fresh.py：Action 今朝 push 過 → 本機跳過。
+REM    問題係本機嘅定位係後備補底：Action「成功但漏咗某個來源」嗰陣，唯有用本機
+REM    自己跑過一次先發現到；用時間做準則會令後備好多日一次都冇檢查過。
+REM    新準則係「內容」而唔係「時間」：永遠抓，之後用 check_local_gain.py 比較
+REM    本機 cache vs origin/main ——
+REM      有本機先至有嘅通告 → commit + push（06:00 嗰轉 notify 嘅 catch-up 會補發）
+REM      冇額外發現        → 唔製造 commit，還原三個檔（唔會同 Action 打 rebase 仗）
+:scrape
+echo [%date% %time%] 本機重新檢查全部來源（唔理 cache 係咪今日）
 python core.py --force
 if errorlevel 1 goto failed
 
@@ -134,34 +141,39 @@ echo [%date% %time%] 執行增量 PDF 內容處理
 python enrich.py --verbose
 if errorlevel 1 goto failed
 
-echo [%date% %time%] 提交及上載更新
+echo [%date% %time%] 檢查有冇 GitHub 未有嘅新增通告…
 git add cache.json enrich.json fingerprints.json
 git diff --cached --quiet
-if not errorlevel 1 goto done
+if not errorlevel 1 goto no_change
 
-git commit -m "🤖 Local backup scrape"
-if errorlevel 1 goto commit_failed
-
-REM ── 推送前最後檢查：Action 會唔會喺本機跑緊嗰陣先 push 咗？
-REM    如果係，棄置本機結果（兩邊產出等價），唔好打 rebase 仗。
 git fetch origin main
 if errorlevel 1 goto failed
-git show origin/main:cache.json | python check_cache_fresh.py --stdin
-if not errorlevel 1 goto remote_won
+python check_local_gain.py origin/main
+if not errorlevel 1 goto commit_and_push
+if errorlevel 2 goto failed
+echo [%date% %time%] 冇額外發現：唔 commit（兩邊等價），還原三個檔
+goto discard_local
 
+:commit_and_push
+git commit -m "🤖 Local backup scrape"
+if errorlevel 1 goto commit_failed
 git push origin main
 if errorlevel 1 goto push_failed
+goto done
+
+:no_change
+echo [%date% %time%] 本機結果同現行 HEAD 完全一樣，冇嘢好提交
+goto done
+
+:discard_local
+git reset -q HEAD -- cache.json enrich.json fingerprints.json
+git checkout -- cache.json enrich.json fingerprints.json 2>nul
 goto done
 
 :commit_failed
 echo [%date% %time%] git commit 失敗：檢查 `git config user.name` ／ `git config user.email`
 git status --short
 goto failed
-
-:remote_won
-echo [%date% %time%] Action 喺本機跑緊嗰陣已先完成，用返佢嗰份，棄置本機結果
-git reset --hard origin/main
-goto done
 
 :push_failed
 REM 對方郁過但唔係新 cache（例如有人同時 push 緊網站檔案）：rebase 後再試一次。
@@ -192,7 +204,7 @@ git fetch origin main
 if errorlevel 1 goto failed
 git reset --hard origin/main
 echo [%date% %time%] 已改用 GitHub 嗰份，繼續當日該做嘅檢查
-goto check_fresh
+goto scrape
 
 :rebase_second_time
 echo [%date% %time%] 今次係第二輪衝突，唔敢再自動處理；本機嗰份喺 logs\conflict-backup\
@@ -206,10 +218,6 @@ git status --short
 git log --oneline -1
 echo [%date% %time%] 冇改動過任何嘢；處理好網絡／授權之後手動再跑一次本腳本即可
 goto failed
-
-:fresh
-echo [%date% %time%] 今日 GitHub Action 已跑過，本機跳過（後備毋須重複）
-goto done
 
 :done
 echo [%date% %time%] 完成

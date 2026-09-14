@@ -20,6 +20,7 @@
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
 - `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
+- `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）嘅兩個閘門：前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」
 - `subscription_stats.py`：管理員本機執行，用 service key 統計訂閱人數及各支部／項目的訂閱數（只出彙總，不出個資）；`schema.sql` 末段亦有對應 SQL
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
 - `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
@@ -263,13 +264,22 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 
 ### 本機補漏（`run-local-scrape.bat` + `run-local-scrape-logged.bat`）
 
-雲端 Action 係主線；本機（Windows 工作排程器）只係後備。規則：
+雲端 Action 係主線；本機（Windows 工作排程器）係後備補底。**2026-09-14 起本機每次都重新檢查全網**：
+舊版（2026-09-09 加）係「`check_cache_fresh.py`：GitHub 今日已 push 過 → 本機跳過」，即係只要 Action
+成功，本機嗰日就完全唔會檢查 —— Action「成功但漏咗某個來源」嗰種情況就永遠冇人補到。而家改成用
+**內容**而唔係**時間**做準則：抓完之後 `check_local_gain.py` 將本機 cache 同 `origin/main` 逐則比較
+（身份鍵同 `notify.py` 一致：來源名 + 網址），
+
+- 有本機先至有嘅通告 → `commit` + `push`（06:00 嗰轉 `notify.py` 嘅 `find_catchup_notices()` 會照樣補發，唔會漏通知）；
+- 冇額外發現 → 唔製造 commit，還原三個檔（一樣唔會同 Action 打 rebase 仗）。
+
+其他規則：
 
 - **開工先清場**：半成品 `rebase`／`merge` 一律 abort，再 `git reset -q HEAD`（淨係 unstage，
   工作區改動一個字都冇損）。呢步係 2026-09-14 事故之後加嘅：上次 run 死咗喺 `git add` 之後、
   `git commit` 之前，index 留低暫存改動，之後每日 `git pull --rebase` 都俾
   `cannot pull with rebase: Your index contains uncommitted changes` 擋死。
-- **判「有冇殘餘」用 `git status --porcelain`**，唔係 `git diff HEAD`：前者先至包括已暫存改動。
+- 判「有冇殘餘」用 `git status --porcelain`，唔係 `git diff HEAD`：前者先至包括**已暫存**改動（今日就係死喺呢度）。
 - **棄置殘餘要 `git reset` + `git checkout` 兩步**：`git checkout -- 嗰啲檔` 只會用 index 還原
   工作區，index 本身照舊髒。
 - **所有 pull 用 `--rebase --autostash`**：需要 Git for Windows 2.27 或以上；呢個亦係「任何其他檔
@@ -277,8 +287,8 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 - **rebase 衝突自動處理**（多數係本機同 Action 各寫一份 `cache.json`）：本機嗰份先留底喺
   `logs\conflict-backup\` 同 `backup/local-scrape` 分支，然後 `reset --hard origin/main` 繼續當日流程。
   舊版淨係 abort，留低一個永遠 push 唔出嘅本地 commit，之後每日撞同一個衝突。
-- **有「已 commit 但未曾 push」嘅本機補跑結果會即刻補推**：`notify.py` 只通知「HEAD 之後先出現」
-  嘅通告，咩都唔推會令當日通知靜默流失。
+- **有「已 commit 但未曾 push」嘅本機補跑結果會即刻補推**：`notify.py` 嘅同日 catch-up 只補發
+  `captured_date` 係當日嘅項目，跨日留低嘅結果如果一直唔推，就會變成靜默冇通知。
 - log 喺 `logs\scrape.log`（UTF-8，`logs/` 已 gitignore，過 2 MB 自動轉名做 `scrape.log.1`）。
   喺 cmd 睇請先 `chcp 65001`，否則係亂碼：
   `powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"`。

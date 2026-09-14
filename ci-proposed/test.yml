@@ -43,7 +43,7 @@ jobs:
           npm i --no-save jsdom
 
       - name: 語法檢查
-        run: python -m py_compile core.py enrich.py check_stale.py check_sources.py api/render.py serve_local.py api/render.py serve_local.py
+        run: python -m py_compile core.py enrich.py check_stale.py check_sources.py check_cache_fresh.py check_local_gain.py api/render.py serve_local.py
 
       # ── Python 測試 ──
       - name: URL 標題 fallback（防止 "view" 標題復發）
@@ -51,6 +51,9 @@ jobs:
 
       - name: 靜默失敗偵測
         run: python test_check_stale.py
+
+      - name: 本機補跑「有冇增量」閘門（後備唔可以再因為時間而失明）
+        run: python test_check_local_gain.py
 
       - name: 來源修復 v5.6.22（觀塘區／深水埗西區／旺角區）
         run: python test_source_fixes_v5_6_22.py
