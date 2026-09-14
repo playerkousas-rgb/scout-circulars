@@ -10,6 +10,8 @@
    按「更新通知設定」同步新的支部項目 ID。不需刪除訂閱或清除瀏覽器資料。
    若原先尚未部署 Web Push，仍需完成下文 Vercel／GitHub Secrets／Supabase 初始設定。
 3. Windows 本機先確認工作目錄沒有未提交更改，在本機 main checkout 更新程式及依賴。
+   （2026-09-14 起 `run-local-scrape.bat` 已會自己清走「已 `git add` 但未 commit」嘅 index 殘餘，
+   並改用 `git pull --rebase --autostash`——需要 Git for Windows 2.27 或以上；更新 Git 之後先至用得。）
    工作排程器 → 找到原本執行 `run-local-scrape.bat` 的工作 → 內容 → 觸發程序 → 編輯，
    將每日 18:00 改成 07:00（香港本機時區）；編輯原工作，不要另建一份而留下晚上那份。
    確認「下次執行時間」、電腦開機及網絡。此儲存庫無法直接修改使用者的工作排程器。

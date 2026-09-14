@@ -20,6 +20,7 @@
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
 - `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
+- `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）嘅兩個閘門：前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」
 - `subscription_stats.py`：管理員本機執行，用 service key 統計訂閱人數及各支部／項目的訂閱數（只出彙總，不出個資）；`schema.sql` 末段亦有對應 SQL
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
 - `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
@@ -260,6 +261,53 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 2. 執行 `enrich.py` 的增量標籤／欄位抽取。
 3. 如已設定 `VAPID_PRIVATE_KEY`，執行 `notify.py`，先做每位匿名訂閱者的支部＋興趣交集和合併，再發送 Web Push。
 4. 自動提交 `cache.json`、`enrich.json` 和 `fingerprints.json`，讓前端從 GitHub Raw 讀取最新資料。
+
+### 本機補漏（`run-local-scrape.bat` + `run-local-scrape-logged.bat`）
+
+雲端 Action 係主線；本機（Windows 工作排程器）係後備補底。**2026-09-14 起本機每次都重新檢查全網**：
+舊版（2026-09-09 加）係「`check_cache_fresh.py`：GitHub 今日已 push 過 → 本機跳過」，即係只要 Action
+成功，本機嗰日就完全唔會檢查 —— Action「成功但漏咗某個來源」嗰種情況就永遠冇人補到。而家改成用
+**內容**而唔係**時間**做準則：抓完之後 `check_local_gain.py` 將本機 cache 同 `origin/main` 逐則比較
+（身份鍵同 `notify.py` 一致：來源名 + 網址），
+
+- 有本機先至有嘅通告 → `commit` + `push`（06:00 嗰轉 `notify.py` 嘅 `find_catchup_notices()` 會照樣補發，唔會漏通知）；
+- 冇額外發現 → 唔製造 commit，還原三個檔（一樣唔會同 Action 打 rebase 仗）。
+
+其他規則：
+
+- **開工先清場**：半成品 `rebase`／`merge` 一律 abort，再 `git reset -q HEAD`（淨係 unstage，
+  工作區改動一個字都冇損）。呢步係 2026-09-14 事故之後加嘅：上次 run 死咗喺 `git add` 之後、
+  `git commit` 之前，index 留低暫存改動，之後每日 `git pull --rebase` 都俾
+  `cannot pull with rebase: Your index contains uncommitted changes` 擋死。
+- 判「有冇殘餘」用 `git status --porcelain`，唔係 `git diff HEAD`：前者先至包括**已暫存**改動（今日就係死喺呢度）。
+- **棄置殘餘要 `git reset` + `git checkout` 兩步**：`git checkout -- 嗰啲檔` 只會用 index 還原
+  工作區，index 本身照舊髒。
+- **所有 pull 用 `--rebase --autostash`**：需要 Git for Windows 2.27 或以上；呢個亦係「任何其他檔
+  未提交」唔再擋住每日排程嘅保險。
+- **起手 `set PYTHONUTF8=1`／`PYTHONIOENCODING=utf-8`＋清走殘留 `.git\index.lock`**：排程器會將
+  輸出 redirect 落 log 檔，Windows 預設用 cp950，`core.py`／`enrich.py` 一打 emoji 就
+  `UnicodeEncodeError` 死喺中途；`index.lock` 殘留則令 `git add`／`git commit` 直接失敗 —— 兩個都係
+  「留低未 commit 嘅 staged 殘餘」嘅來源。呢兩條 2026-09-11 本機已寫過（`arena/01a0895d-scout-circulars`），
+  但嗰個 branch 從未 merge 入 main，所以部機每日 pull 完就冇，而家併返入嚟。
+- **rebase 衝突自動處理**（多數係本機同 Action 各寫一份 `cache.json`）：本機嗰份先留底喺
+  `logs\conflict-backup\` 同 `backup/local-scrape` 分支，然後 `reset --hard origin/main` 繼續當日流程。
+  舊版淨係 abort，留低一個永遠 push 唔出嘅本地 commit，之後每日撞同一個衝突。
+- **有「已 commit 但未曾 push」嘅本機補跑結果會即刻補推**：`notify.py` 嘅同日 catch-up 只補發
+  `captured_date` 係當日嘅項目，跨日留低嘅結果如果一直唔推，就會變成靜默冇通知。
+- **死咗都會執手尾**：任何一步失敗都會行 `:failed` → 清走本次半成品（reset + checkout 三個資料檔，
+  你手頭其他檔唔郁）→ **自動重試一次** → 仍然失敗先 exit 1。目的係「今日死 ≠ 聽日死」：舊版死一次會
+  留低半成品，之後每日都俾自己毒死（測試對照：舊版聽日再行 = 俾自己毒死 YES；新版 = NO）。
+- **自己更新自己都得**：呢個 .bat 本身就係由呢個 repo pull 落嚟。如果頭先嗰 pull 改動咗腳本自己
+  （例如你啱啱 merge 咗 PR），本次會即刻安全收工（exit 0，唔算失敗），聽日 05:00 自然用新版行 ——
+  cmd 係按 byte offset 慢慢讀 .bat，繼續行落去會「半舊半新」甚至讀錯位，呢種失敗最難睇。
+- **死咗都唔准掉嘢**：`:failed` 而家係「先搶救、後執手尾」——`core.py` 成功寫入咗新通告但
+  `enrich.py`／git 嗰邊死咗時，會先驗證 JSON + `check_local_gain.py` 確認真係有新增，然後
+  commit（能 push 就 push；斷網就留喺本地，聽日開波自動補推），之後先清半成品 + 重試一次。
+- **GitHub 郁唔到 ≠ 今日唔使補底**：`git pull` 失敗會分情況 —— rebase 衝突先處理；斷網／授權
+  則照樣巡邏全部來源（成果留本地）。舊版係「GitHub 郁親 → 本機當日完全冇檢查」再 exit 1。
+- log 喺 `logs\scrape.log`（UTF-8，`logs/` 已 gitignore，過 2 MB 自動轉名做 `scrape.log.1`）。
+  喺 cmd 睇請先 `chcp 65001`，否則係亂碼：
+  `powershell -c "Get-Content -Encoding UTF8 logs\scrape.log -Tail 60"`。
 
 ## 下一步建議
 

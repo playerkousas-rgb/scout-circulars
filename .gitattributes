@@ -1,0 +1,10 @@
+# Windows 排程用嘅 batch：一定要 CRLF（LF-only 偶會搞壞 cmd 嘅 :label / goto 解析）
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 資料檔固定用 LF，唔好因為唔同人嘅 core.autocrlf 搞到每日 diff 成份檔案變咗
+*.json text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.md text eol=lf
