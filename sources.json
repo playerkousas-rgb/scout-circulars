@@ -3,8 +3,8 @@
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
     "version": "5.6.22",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
-    "total_sources": 49,
-    "note": "v5.6.22 (2026-08-16): 觀塘區改抓 Phoca Download 真通告內頁；深水埗西區由 wordpress 更正為 google_sites；core.py 修正 Google Drive 舊式資料夾 resourcekey 遺失（旺角區漏 2 個 PDF）。"
+    "total_sources": 50,
+    "note": "v5.6.22 (2026-08-16): 觀塘區改抓 Phoca Download 真通告內頁；深水埗西區由 wordpress 更正為 google_sites；core.py 修正 Google Drive 舊式資料夾 resourcekey 遺失（旺角區漏 2 個 PDF）。 新增 Scout System 來源（網址待定，enabled=false 未啟用）。"
   },
   "sources": {
     "總會": {
@@ -1091,6 +1091,18 @@
       "use_playwright": false,
       "follow_detail_pages": false,
       "asset_link_selector": "a[href*=\".pdf\"]"
+    },
+    "Scout System": {
+      "region": "Scout System",
+      "url": "",
+      "type": "nextjs_rsc",
+      "enabled": false,
+      "use_playwright": false,
+      "fingerprint_selector": "body",
+      "link_selector": "a[href]",
+      "title_selector": "a",
+      "follow_detail_pages": false,
+      "notes": "推廣實用小工具嘅來源：呢度出嘅通告一律歸類「小工具」（見 subscription_tagging.py 嘅 TOOLS_SOURCES）。網址待定——曾用過渡網址 https://website-kappa-black-24.vercel.app/ ，未來會換；換好後喺呢度填 url、將 enabled 改 true，並按實際頁面調整選擇器。"
     }
   }
 }

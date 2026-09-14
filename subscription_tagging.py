@@ -24,6 +24,9 @@ CATALOG_PATH = BASE_DIR / "subscription_catalog.json"
 # These are intentionally limited to the product taxonomy agreed for the UI.
 TRAINING_TERMS = [
     "訓練班", "訓練課程", "技能訓練", "技能考核", "研習班", "工作坊", "講座", "培訓", "進修班",
+    # 2026-09-14 擴充：「考驗」涵蓋各章考驗日／考驗營；「課程」涵蓋「…課程」通告。
+    # （單個「章」字刻意唔收：實測會引入獎章申請／訂購表格／使用手冊等行政文件，寧漏勿錯。）
+    "考驗", "課程",
 ]
 SERVICE_TERMS = [
     "社區服務", "服務計劃", "義工服務", "志願服務", "服務活動", "服務日", "服務隊", "服務團",
@@ -31,12 +34,17 @@ SERVICE_TERMS = [
 ]
 # 比賽是獨立興趣／瀏覽分類，不再含糊併入「其他活動」。只收明確賽事詞，
 # 免得一般「挑戰」或機構名稱造成誤推。
-COMPETITION_TERMS = ["比賽", "競賽", "公開賽", "錦標賽", "邀請賽", "挑戰賽", "會操"]
+COMPETITION_TERMS = ["比賽", "競賽", "公開賽", "錦標賽", "邀請賽", "挑戰賽", "會操", "練習賽", "體驗賽"]
 BIG_CAMP_TERMS = ["大露營", "大型露營", "童軍大露營"]
 CAMPFIRE_TERMS = ["營火會", "campfire"]
 OTHER_ACTIVITY_TERMS = [
     "活動", "嘉年華", "繽紛日", "旅程", "參觀", "典禮", "日營", "露營", "遠足", "交流日", "旅行", "開放日",
+    "體驗日",
 ]
+
+# 來源級分類：呢啲來源發布嘅通告一律歸類「小工具」，唔使靠標題關鍵詞。
+# 新來源直接喺呢度加名就得（同 sources.json 嘅來源名一致）。
+TOOLS_SOURCES = {"Scout System"}
 # A calendar/guide is useful to browse, but is not itself a newly-open training
 # course.  It must not trigger someone subscribed to "all training".
 REFERENCE_TITLE_TERMS = [
@@ -162,14 +170,18 @@ def is_reference_document(title: Any, text: Any = "") -> bool:
     return not normalize(title) and bool(_term_hits(text, REFERENCE_TITLE_TERMS))
 
 
-def extract_categories(title: Any, text: Any = "") -> List[Dict[str, Any]]:
+def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dict[str, Any]]:
     """Classify into training, service, activity and competition.
 
     A workshop and a training class deliberately share the ``training`` tag.
     ``activity`` has exactly three subtypes: big camp, campfire and other;
     an explicit competition is a separate top-level category. More than one
-    category can be valid for one circular.
+    category can be valid for one circular. Notices from a TOOLS_SOURCES
+    source are always ``tools`` regardless of wording.
     """
+    source_name = str(source or "").strip()
+    if source_name in TOOLS_SOURCES:
+        return [_make_category("tools", "小工具", [f"來源：{source_name}"])]
     title = str(title or "")
     text = str(text or "")
     title_hits = {
@@ -287,13 +299,15 @@ def extract_subscription_metadata(
     audience: Any = "",
     *,
     catalog: Optional[Mapping[str, Any]] = None,
+    source: Any = "",
 ) -> Dict[str, Any]:
     """Create the branch/topic IDs used by the dispatcher and personal view."""
     catalog = catalog or load_catalog()
     title = str(title or "")
     text = str(text or "")
+    source_name = str(source or "").strip()
     combined = f"{title}\n{text}"
-    categories = extract_categories(title, text)
+    categories = extract_categories(title, text, source_name)
 
     topic_ids: Set[str] = set()
     details: List[Dict[str, Any]] = []
@@ -306,6 +320,7 @@ def extract_subscription_metadata(
         "training": "category:training",
         "service": "category:service",
         "competition": "category:competition",
+        "tools": "category:tools",
     }
     for category in categories:
         topic_id = category_mapping.get(category.get("id"))
@@ -345,6 +360,10 @@ def extract_subscription_metadata(
             course_entries.append((topic, hits))
 
     branch_ids = extract_branch_ids(title, audience, catalog=catalog)
+    # 小工具來源嘅通告視為「所有成員」：任何支部訂閱都配對到，
+    # 唔會因為抽唔到支部而漏推。
+    if source_name in TOOLS_SOURCES:
+        branch_ids = set(catalog.get("_branch_ids", set()))
     # A verified course provides a safe fallback scope only when the PDF has no
     # labelled audience and the title did not identify a branch.
     if not branch_ids:

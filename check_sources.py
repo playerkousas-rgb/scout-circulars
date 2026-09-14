@@ -119,6 +119,10 @@ def main():
     # 順序逐個抓 + 來源之間隨機延遲（同 core.py 防封標準）。
     # 唔用並行：5/23 教訓係「同一時段連環打」觸發封鎖，全量檢查寧願慢少少。
     for i, n in enumerate(names):
+        # 未啟用嘅來源（例如網址待定）唔使檢查
+        if sources[n].get("enabled") is False:
+            print(f"⏭️  {n:<10} DISABLED   enabled=false，跳過", flush=True)
+            continue
         if i > 0:
             time.sleep(random.uniform(1.5, 4.0))
         r = check_one(n, sources[n], n in expected_empty)

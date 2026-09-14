@@ -1939,6 +1939,13 @@ def main(
     source_items = list(sources.items())
     for i, (name, source_config) in enumerate(source_items, 1):
         print(f"[{i}/{len(source_items)}] {name}")
+        # enabled=false 的來源：未啟用（例如網址待定），直接跳過，不計錯誤
+        if source_config.get("enabled") is False:
+            print(f"  [{name}] ⏭️ 標記為 enabled=false（未啟用），直接跳過")
+            skipped += 1
+            skipped_sources.append(f"{name} (disabled)")
+            fingerprints[name] = fingerprints.get(name, "")
+            continue
         # 標記為 expected_empty 的來源：直接跳過，不計錯誤，節省每日手動跑時間
         if source_config.get("expected_empty"):
             print(f"  [{name}] ⏭️ 標記為 expected_empty，直接跳過")

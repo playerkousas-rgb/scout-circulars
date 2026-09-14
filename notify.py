@@ -198,6 +198,7 @@ def notice_metadata(item: Mapping[str, Any], enrich: Mapping[str, Any]) -> Dict[
         item.get("title", ""),
         "",
         extra.get("audience", ""),
+        source=notice_source(item),
     )
     branch_tags = {str(x) for x in (extra.get("branch_tags") or fallback["branch_tags"]) if isinstance(x, str)}
     topic_tags = {str(x) for x in (extra.get("subscription_tags") or fallback["subscription_tags"]) if isinstance(x, str)}
