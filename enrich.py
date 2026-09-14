@@ -9,9 +9,14 @@ enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 個人化標籤�
               文字型抽唔到 → 用 OCR (tesseract chi_tra) fallback
   - 結果寫去 enrich.json（獨立檔），key = pdf_url
   - 抽唔到 = 留空（靠固定 label，不亂猜，唔會抽錯）
-  - 雙重認證：列表標題要同 PDF 內文對得上（出現喺內文，或同 PDF 標題 ≥90% 相似）。
-    對唔上而且 PDF 標題夠清楚，先至改 cache.json 嘅 title；對唔到就維持原樣。
-    唔改 pdf_url、唔改 captured_date、唔當新通告。
+  - 雙重認證（2026-09-14 改）：主判準係「攞列表標題去 PDF 內文搵」——搵到就
+    verified，唔使猜。列表標題好多時帶連結標籤後綴（「 - 點擊下載」等，
+    全庫 1500/4795 條），所以會逐層剝後綴再搵，唔好製造假警報。
+    真係搵唔到，先至考慮用 PDF 標題改正（corrected）；PDF 太少字／抽唔到標題
+    就維持原樣（unverified）。永遠唔改 pdf_url、captured_date，唔當新通告。
+    ⚠️ 改正預設**只報告、唔寫入**；要真寫回 cache.json 請加 --apply-title-fixes。
+    （舊版 log 無條件印「已改正」，但寫入係死嘅——cache_dirty 設咗從來冇用過——
+     所以 cache.json 一個字都冇變。呢類靜默失敗正正係呢個 repo 最怕嘅。）
   - 個人化只使用「支部＋官方課程／服務／活動／比賽」標籤，不按地域或旅團推論。
   - 訓練班及工作坊同屬「訓練」；活動只分大露營、營火會、其他；比賽獨立。
 
@@ -23,6 +28,7 @@ enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 個人化標籤�
   python enrich.py --date 2026-06-07
   python enrich.py --limit 5 --verbose
   python enrich.py --no-ocr        # 停用 OCR
+  python enrich.py --apply-title-fixes   # 把核對過嘅標題真係寫回 cache.json
 """
 
 import argparse
@@ -112,9 +118,19 @@ _LETTERHEAD_RE = re.compile(
     r"www\.|https?://|檔號|發文者|受文者|內部傳閱"
 )
 _HEADING_SKIP_RE = re.compile(
-    r"參加資格|參加對象|報名辦法|報名日期|查詢|備註|^附件|費用[:：]|收費[:：]"
+    r"參加資格|參加對象|報名辦法|報名日期|查詢|備註|^附件|費用[:：]|收費[:：]|"
+    # 2026-09-14 加：呢啲係「欄位名」，永遠唔可能係通告標題。之前冇擋住，
+    # 於是「截止日期：2026年11月20日(星期五)」会被當成 PDF 標題，
+    # 再被 reconcile 当成「正確標題」写回列表（柴灣區深資童軍原野烹飪個案）。
+    # ⚠️ 一定要錨定做「欄位名形態」（後面跟冒號或數字），唔可以用裸字「截止日期」：
+    #    真標題入面會出現呢四個字，例如「區會提名截止日期」通告。
+    r"截止日期[:：\d]|截止[:：]|^日期[:：]|^時間[:：]|^地點[:：]|^對象[:：]|^名額[:：]"
 )
-_HEADING_HINT_RE = re.compile(r"通告|訓練班|工作坊|提名|比賽|截止日期|感謝狀|招募|課程")
+# 「截止日期」以前喺呢度做 hint，令一條欄位行贏過真標題，已移除。
+_HEADING_HINT_RE = re.compile(r"通告|訓練班|工作坊|提名|比賽|感謝狀|招募|課程")
+# 列表頁 scrape 落嚟嘅連結標籤後綴：呢啲字永遠唔會出現喺 PDF 內文，
+# 所以直接攞成個列表標題去 PDF 搵 substring 一定搵唔到（全庫 1500/4795 條中招）。
+_LINK_SUFFIX_RE = re.compile(r"\s*[-–—]\s*[^-–—]{1,12}$")
 _CIRCULAR_CODE_RE = re.compile(
     r"^[A-Za-z]{2,5}[/\-_\s]+(?:[A-Za-z]{1,4}[/\-_\s]+)*\d{2,4}[/\-_\s]+\d{2,4}[A-Za-z]?$"
 )
@@ -177,10 +193,40 @@ def extract_pdf_heading(text: str) -> str:
     return (hinted or candidates)[0]
 
 
+def title_variants(listing: str) -> list:
+    """由完整列表標題開始，逐層剝走尾段連結標籤。
+
+    列表頁 scrape 落嚟嘅標題好多時帶「 - 點擊下載」「 - 通告下載」「 - 報名表格」
+    呢類連結文字，佢哋唔屬於通告本身，PDF 內文當然搵唔到。全庫 4795 條有
+    1500 條（31%）係咁，所以唔剝就核對嘅話會製造大量假警報。
+    回傳由最完整到最精簡，叫嘅人由頭試到尾，第一個命中就算對得上。
+    """
+    out = []
+    cur = nfkc(listing or "").strip()
+    while cur:
+        out.append(cur)
+        m = _LINK_SUFFIX_RE.search(cur)
+        if not m:
+            break
+        nxt = cur[: m.start()].strip()
+        if not nxt or nxt == cur:
+            break
+        cur = nxt
+    return out
+
+
 def listing_supported_by_pdf(listing: str, pdf_text: str, heading: str = "") -> bool:
-    needle = compact_title(listing)
-    if len(needle) >= 6 and needle in compact_title(pdf_text):
-        return True
+    """列表標題可唔可以由 PDF 內文支持。
+
+    主判準（2026-09-14 起）：攞標題（連剝咗連結標籤後綴嘅各個變體）去 PDF
+    內文搵 substring —— 搵到就代表 PDF 真係嗰份通告，唔使再猜。
+    搵唔到先至退而用「同 PDF 標題 ≥90% 相似」。
+    """
+    hay = compact_title(pdf_text)
+    for variant in title_variants(listing):
+        needle = compact_title(variant)
+        if len(needle) >= 6 and needle in hay:
+            return True
     if heading and title_similarity(listing, heading) >= TITLE_SIMILARITY_THRESHOLD:
         return True
     return False
@@ -715,6 +761,10 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="最多處理幾條（0=不限）")
     ap.add_argument("--no-ocr", action="store_true", help="停用 OCR")
     ap.add_argument("--report", action="store_true", help="行完輸出 enrich_review.md 方便人手核對")
+    ap.add_argument("--apply-title-fixes", action="store_true",
+                    help="真係把核對出嘅標題写回 cache.json（預設只報告、唔改 cache）。"
+                         "注意：之前呢個寫入係死嘅（cache_dirty 設咗從來冇用過），"
+                         "所以 log 講「已改正」但 cache.json 一個字都冇變。")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
@@ -787,11 +837,24 @@ def main():
         verified_title = res.get("_verified_title") or title
         title_check = res.get("_title_check") or "unverified"
         if title_check == "corrected" and verified_title != title:
-            if apply_title_to_cache(cache, url, verified_title):
-                cache_dirty = True
-                title_corrections += 1
-            print(f"   ⚠️ 標題與 PDF 不符（相似 {res.get('_title_similarity', 0):.0%}），"
-                  f"已改正：{title[:28]} → {verified_title[:28]}")
+            sim = res.get("_title_similarity", 0)
+            if args.apply_title_fixes:
+                if apply_title_to_cache(cache, url, verified_title):
+                    cache_dirty = True
+                    title_corrections += 1
+                    print(f"   ⚠️ 標題與 PDF 不符（相似 {sim:.0%}），"
+                          f"已寫回 cache.json：{title[:28]} → {verified_title[:28]}")
+                else:
+                    # cache 入面根本搵唔到呢個 url：講明冇改到，唔好扮改咗
+                    print(f"   ⚠️ 標題與 PDF 不符（相似 {sim:.0%}），但 cache 入面搵唔到呢個 url，未改："
+                          f"{title[:28]} → {verified_title[:28]}")
+            else:
+                # 預設：只報告。舊版呢句无条件印「已改正」，但個寫入係死嘅
+                # （cache_dirty 設咗從來冇用過），所以 cache.json 一個字都冇變 ——
+                # 呢個 repo 最怕嘅就係呢類靜默失敗，而家講真話。
+                print(f"   ⚠️ 標題與 PDF 對唔上（相似 {sim:.0%}），建議改："
+                      f"{title[:28]} → {verified_title[:28]}"
+                      f"（未寫入；要真改加 --apply-title-fixes）")
             title = verified_title
         enrich[url] = {
             "source": source,
@@ -824,6 +887,15 @@ def main():
     json.dump(enrich, open(ENRICH_FILE, "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
     print(f"\n✅ 完成：處理 {done} 條，抽到內容 {ok} 條 → {ENRICH_FILE}")
+
+    # 2026-09-14：呢個寫入之前完全冇接上（cache_dirty 設咗從來冇讀過），
+    # 所以 PR #19 個「標題雙重認證」實際上從未改過 cache.json。
+    # 而家明確接上，但只喺 --apply-title-fixes 先至會觸發，預設仍然淨係報告。
+    if cache_dirty:
+        with open(CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+        print(f"📝 已把 {title_corrections} 個核對過嘅標題寫回 {CACHE_FILE}")
 
     if args.report:
         write_report(enrich)
