@@ -24,6 +24,12 @@ from subscription_tagging import (  # noqa: E402
     load_catalog,
 )
 
+# core.py 需要 requests/bs4；本機冇裝依賴嘅環境就跳過隔離測試。
+try:
+    import core  # noqa: E402
+except Exception:  # pragma: no cover
+    core = None
+
 
 def make_item(title, source="Scout System"):
     return {
@@ -147,6 +153,52 @@ class KeywordExpansionTests(unittest.TestCase):
         ]:
             with self.subTest(title=title):
                 self.assertEqual(extract_categories(title), [])
+
+
+@unittest.skipUnless(core, "core.py 依賴（requests/bs4）未安裝，跳過隔離測試")
+class TagSelectorIsolationTests(unittest.TestCase):
+    """保證：冇設定 tag_selector 嘅來源（即其餘全部來源）行為完全唔變。"""
+
+    def test_no_tag_selector_means_no_tag_collection(self):
+        # 冇鍵、空字串、甚至冇 anchor 都一樣：直接回空，唔郁任何抓取邏輯
+        self.assertEqual(core.extract_item_tag_labels(None, {}), [])
+        self.assertEqual(core.extract_item_tag_labels(None, {"tag_selector": ""}), [])
+        self.assertEqual(core.extract_item_tag_labels(None, {"tag_selector": "   "}), [])
+
+    def test_normal_sources_cache_shape_unchanged(self):
+        recs = [
+            {
+                "source_site": "總會",
+                "region": "總會",
+                "pdf_url": "https://scout.org.hk/x.pdf",
+                "title": "某訓練班",
+                "captured_date": "2026-09-15",
+            }
+        ]
+        out = core.build_grouped_cache(recs, {"總會": {}}, "2026-09-15 18:00:00")
+        entry = out["data"]["總會"][0]
+        # 冇 tags 欄位 = 同舊格式一模一樣
+        self.assertNotIn("tags", entry)
+        self.assertEqual(
+            sorted(entry.keys()),
+            sorted(["title", "url", "pdf_url", "date", "captured_date", "source_site", "region"]),
+        )
+        self.assertNotIn("tags", out["notices"][0])
+
+    def test_only_sources_with_tags_carry_them(self):
+        recs = [
+            {
+                "source_site": "Scout System",
+                "region": "Scout System",
+                "pdf_url": "https://tools.example/t1",
+                "title": "密碼旗號",
+                "captured_date": "2026-09-15",
+                "tags": ["幼童軍", "童軍"],
+            }
+        ]
+        out = core.build_grouped_cache(recs, {"Scout System": {}}, "2026-09-15 18:00:00")
+        self.assertEqual(out["data"]["Scout System"][0]["tags"], ["幼童軍", "童軍"])
+        self.assertEqual(out["notices"][0]["tags"], ["幼童軍", "童軍"])
 
 
 if __name__ == "__main__":
