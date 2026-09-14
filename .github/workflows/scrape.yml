@@ -4,7 +4,9 @@
 #
 # 每日排程架構（HKT）：
 #   - 00:15 HKT（16:15 UTC）：本 workflow 執行全網抓取與增量抽取，更新 Git
-#   - 03:00 HKT：本機工作排程執行補漏抓取
+#   - 本機工作排程（用戶自行設定時間，目前為 05:00 HKT）：
+#     行 run-local-scrape-logged.bat 補漏抓取——每次都會先拉最新 Git，
+#     再全網重新巡邏一次，有 GitHub 未有嘅新增通告先至 push 返上去
 #   - 06:00 HKT（22:00 UTC）：notify.yml 統一發送 Web Push 推送通知
 #
 # 本 workflow 為純抓取與增量抽取，不執行 notify.py，不需要 VAPID / Supabase secrets。
