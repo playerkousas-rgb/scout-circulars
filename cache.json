@@ -1,13 +1,31 @@
 {
-  "last_updated": "2026-09-15 05:00:06",
+  "last_updated": "2026-09-16 05:00:05",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4796,
+    "total_notices": 4801,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍115周年國際賽船大會-成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26054/cir_115aregatta_result_chi.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26054/cir_115aregatta_result_chi.pdf",
+        "date": "2026-09-16",
+        "captured_date": "2026-09-16",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍115周年國際賽船大會-失物待領",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26053/cir_115aregatta_Lostthings_chi.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26053/cir_115aregatta_Lostthings_chi.pdf",
+        "date": "2026-09-16",
+        "captured_date": "2026-09-16",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第35屆深資童軍執行委員會訓練班",
         "url": "https://scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
@@ -8911,6 +8929,15 @@
       }
     ],
     "港島地域": [
+      {
+        "title": "第35屆深資童軍執行委員會訓練班",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
+        "date": "2026-09-16",
+        "captured_date": "2026-09-16",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
       {
         "title": "第41屆人際關係訓練班",
         "url": "https://www.scout.org.hk/uploads/tc/circulars/25935/Trg18_26_41stHumanRelationsHKIR.pdf",
@@ -39446,6 +39473,15 @@
     ],
     "大埔南區": [
       {
+        "title": "2026-2027年度小童軍遊戲比賽 (區總監盃)",
+        "url": "http://www.tps.org.hk/download/notice/TPSDTGS202602.pdf",
+        "pdf_url": "http://www.tps.org.hk/download/notice/TPSDTGS202602.pdf",
+        "date": "2026-09-16",
+        "captured_date": "2026-09-16",
+        "source_site": "大埔南區",
+        "region": "新界東地域"
+      },
+      {
         "title": "幼童軍晉團體驗",
         "url": "http://www.tps.org.hk/download/notice/TPSDTGS202602.docx.pdf",
         "pdf_url": "http://www.tps.org.hk/download/notice/TPSDTGS202602.docx.pdf",
@@ -42375,6 +42411,15 @@
     ],
     "青衣區": [
       {
+        "title": "取錄通知",
+        "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701-1.pdf",
+        "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701-1.pdf",
+        "date": "2026-09-16",
+        "captured_date": "2026-09-16",
+        "source_site": "青衣區",
+        "region": "新界地域"
+      },
+      {
         "title": "香港童軍115周年–青衣區親子原烹燒烤樂悠遊",
         "url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260901.pdf",
         "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/cs260901.pdf",
@@ -43269,6 +43314,41 @@
     "Scout System": []
   },
   "notices": [
+    {
+      "source_site": "青衣區",
+      "region": "新界地域",
+      "pdf_url": "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701-1.pdf",
+      "title": "取錄通知",
+      "captured_date": "2026-09-16"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26054/cir_115aregatta_result_chi.pdf",
+      "title": "香港童軍115周年國際賽船大會-成績公布",
+      "captured_date": "2026-09-16"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26053/cir_115aregatta_Lostthings_chi.pdf",
+      "title": "香港童軍115周年國際賽船大會-失物待領",
+      "captured_date": "2026-09-16"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
+      "title": "第35屆深資童軍執行委員會訓練班",
+      "captured_date": "2026-09-16"
+    },
+    {
+      "source_site": "大埔南區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.tps.org.hk/download/notice/TPSDTGS202602.pdf",
+      "title": "2026-2027年度小童軍遊戲比賽 (區總監盃)",
+      "captured_date": "2026-09-16"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -76970,9 +77050,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-15 05:00:06",
-      "new": 1,
-      "updated": 3512,
+      "updated_at": "2026-09-16 05:00:05",
+      "new": 5,
+      "updated": 3508,
       "skipped": 4,
       "processed": 46,
       "playwright_used": 2,
