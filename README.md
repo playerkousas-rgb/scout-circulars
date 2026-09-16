@@ -23,8 +23,7 @@
 - `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
 - `subscription_stats.py`：管理員本機執行，用 service key 統計訂閱人數及各支部／項目的訂閱數（只出彙總，不出個資）；`schema.sql` 末段亦有對應 SQL
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
-- `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
-- `serve_local.py`：本機同時提供靜態頁 + `/api/render`
+- `serve_local.py`：本機同時提供靜態頁 + `/api/push-*`
 - `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）
 - `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
 
@@ -162,21 +161,14 @@ node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／�
 
 - **分享連結**：WhatsApp／Telegram／Facebook／X／LINE／電郵、系統分享（手機）、複製網址、複製文字（標題 + 截止／對象／費用 + 網址）。
   分享嘅網址係**附件直連（PDF）**，朋友一撳即開。
-- **分享圖片**：把 PDF 頁面轉做 JPG，可以成張貼落 IG／WhatsApp。多頁通告可逐頁產生；支援直接分享（手機）、複製圖片、下載圖片。
-  - **電腦**：系統「分享檔案去其他 app」唔穩定，所以「分享圖片／更多…」喺電腦會收埋，改用**複製圖片**或**下載圖片**。
-  - **複製圖片**：產生圖片之後會預先用 canvas 轉好 PNG，撳「複製圖片」嗰刻直接寫剪貼簿，唔會有「撳完先 await 轉圖」嘅時序問題。
+> 「分享圖片」（PDF → JPG）功能已於 2026-09-16 移除：附加價值有限，而佢令每個 Vercel
+> deployment 嘅 function bundle 包埋 PyMuPDF（約 110MB），直接導致 Functions Storage
+> 爆額（見下文「Vercel 用量」一節）。分享連結、複製網址／文字等功能不受影響。
 
-圖片由 `api/render.py`（Vercel Python Function）產生：`GET /api/render?url=<pdf>&page=1&dpi=130` → `image/jpeg`，
-header `X-Pdf-Pages` 係總頁數。依賴 PyMuPDF（`api/requirements.txt`），內建 CJK 後備字型，Word 出嘅冇內嵌字型通告都畫得正。
-成功結果由 Vercel CDN 快取一日，同一張通告無論幾多人分享都唔會重複打區會網站。
-只回傳畫出嚟嘅圖片（唔係開放代理），內網／loopback／link-local 位址一律拒絕。
-
-本機測試（`python -m http.server` 冇呢個 API）：
+本機測試：
 
 ```bash
-pip install -r api/requirements.txt
-python serve_local.py            # http://localhost:8000/index.html，/api/render 已掛載
-python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉圖、錯誤碼、完整 HTTP 流程
+python serve_local.py            # http://localhost:8000/index.html，/api/push-* 已掛載
 ```
 
 ## `cache.json` 結構
@@ -365,8 +357,8 @@ Web Push 訂閱者 7 個；每次開頁由 Vercel 落嘅資料約 0.3 MB，全�
 - `.github/workflows/vercel-prune.yml`：每週一自動刪走 >14 日嘅舊 deployments
   （保留最近 5 個 + 最新 production）。需加 `VERCEL_TOKEN` 同 `VERCEL_PROJECT_ID` 兩個
   secrets；未加時 workflow 自動跳過，唔會紅。
-- 產生圖片功能本身**唔使改**：佢係用戶撳掣先至行、冇 prefetch、成功結果有 CDN cache
-  （`s-maxage=86400`）；問題從來只係「每個部署永久保存一份 PyMuPDF」。
+- 2026-09-16 已**移除**產生圖片功能（`api/render.py` + 前端分享圖片 UI + `api/requirements.txt`）：
+  function bundle 由 ~110MB 跌返幾 MB，Functions Storage 病源消失；配合上面兩步 + 自動 prune，用量長期安全。
 
 
 ## 下一步建議
