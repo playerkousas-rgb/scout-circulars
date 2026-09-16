@@ -1,0 +1,99 @@
+# ============================================================
+# Vercel deployment 清道夫（選配；未設 secrets 會自動跳過，唔會紅）
+# ------------------------------------------------------------
+# 點解要有：api/render.py 嘅 function bundle 包埋 PyMuPDF（安裝後約
+# 110MB／個部署），而 Vercel 會保留每個 deployment 嘅 function bundle；
+# Hobby 嘅 Functions Storage 上限 10GB，約 90 個舊部署就會爆額
+# （2026-09-16 實測 10.49GB / 10GB）。每次 commit 落 main（包括 bot 嘅
+# [skip ci] commit）都會開新 deployment，所以唔清就會不斷累積。
+#
+# 呢個 workflow 每週一刪走「超過 14 日」嘅舊 deployments，並永遠保留
+# 最近 5 個 + 最新 production（刪唔到 alias 中嘅 production 會自動跳過）。
+# 即時釋放 Functions Storage 同 Deployment Storage。
+#
+# 設定（repo → Settings → Secrets and variables → Actions）：
+#   VERCEL_TOKEN       Vercel → Account Settings → Tokens → Create
+#                      （Scope 揀呢個 project；只用於 DELETE deployments）
+#   VERCEL_PROJECT_ID  Vercel project → Settings → General → Project ID
+# 兩個都未設時，job 會印一句說話然後 exit 0。
+# ============================================================
+
+name: Vercel Deployment Prune
+
+on:
+  # 每週一 11:30 HKT（03:30 UTC）
+  schedule:
+    - cron: "30 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      keep_days:
+        description: "刪除幾日之前嘅 deployments"
+        required: false
+        default: "14"
+      keep_recent:
+        description: "無條件保留最近幾個 deployments"
+        required: false
+        default: "5"
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      KEEP_DAYS: ${{ github.event.inputs.keep_days || '14' }}
+      KEEP_RECENT: ${{ github.event.inputs.keep_recent || '5' }}
+    steps:
+      - name: Delete old Vercel deployments
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "未設定 VERCEL_TOKEN / VERCEL_PROJECT_ID secrets，跳過 prune。"
+            echo "設定方法見 .github/workflows/vercel-prune.yml 檔頭註解。"
+            exit 0
+          fi
+          python3 - <<'PY'
+import json, os, time, urllib.request, urllib.error
+
+tok = os.environ["VERCEL_TOKEN"]
+pid = os.environ["VERCEL_PROJECT_ID"]
+keep_days = float(os.environ.get("KEEP_DAYS", "14"))
+keep_recent = int(os.environ.get("KEEP_RECENT", "5"))
+headers = {"Authorization": f"Bearer {tok}"}
+
+def api(url, method="GET"):
+    req = urllib.request.Request(url, headers=headers, method=method)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.load(resp)
+
+# 攞晒成個 project 嘅 deployment 列表（分頁）
+deps, until = [], None
+while True:
+    url = f"https://api.vercel.com/v13/deployments?projectId={pid}&limit=50"
+    if until:
+        url += f"&until={until}"
+    page = api(url)
+    deps += page.get("deployments", [])
+    until = (page.get("pagination") or {}).get("until")
+    if not until or len(deps) > 800:
+        break
+
+deps.sort(key=lambda d: d.get("created", 0), reverse=True)
+now = time.time() * 1000
+deleted = skipped = 0
+for i, dep in enumerate(deps):
+    age_days = (now - dep.get("created", now)) / 86_400_000
+    if i < keep_recent:
+        continue                      # 無條件保留最近 N 個
+    if age_days <= keep_days:
+        continue                      # 未夠舊
+    try:
+        api(f"https://api.vercel.com/v13/deployments/{dep['uid']}", "DELETE")
+        deleted += 1
+        print(f"deleted {dep['uid']}  {dep.get('url')}  age={age_days:.0f}d")
+    except urllib.error.HTTPError as e:
+        # 常見：alias 中嘅 production 刪唔到 → 跳過
+        skipped += 1
+        print(f"skip {dep['uid']}  HTTP {e.code}")
+print(f"完成：刪咗 {deleted} 個舊 deployments（>{keep_days:.0f} 日），跳過 {skipped} 個。")
+PY

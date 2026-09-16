@@ -1,0 +1,56 @@
+# ============================================================
+# .vercelignore — 控制「乜嘢會上載去 Vercel deployment」
+# ------------------------------------------------------------
+# 背景（2026-09-16 用量診斷）：Vercel 會保留每個 deployment 嘅全部檔案，
+# 而 repo 入面有 8.4MB 嘅嘢對部署完全冇用：
+#   - cache.json 3.35MB / enrich.json 1.58MB：前端只讀 GitHub Raw CDN
+#     （README「前端只讀 GitHub Raw CDN，不讀相對路徑」），Vercel 呢份
+#     純綷係每日變 5MB 嘅死重，食 Deployment Storage 兼公開俾人下載。
+#   - icons/src/ 1.6MB：母圖，只係本機換圖用。
+#   - 爬蟲／工具／測試／報告：只喺 GitHub Actions 或本機跑。
+# 加咗呢個檔之後每個 deployment 由 ~8.4MB 降到 ~400KB。
+#
+# ⚠️ 唔好 ignore 嘅（部署真係要用）：
+#   index.html / errors.html / stats.html / sw.js / push-client.js /
+#   manifest.webmanifest / icon.svg / icons/*.png / api/ / vercel.json /
+#   subscription_catalog.json（前端由 Vercel 讀，push functions 亦用
+#   includeFiles 包佢，ignore 咗會令 includeFiles 搵唔到）
+# ============================================================
+
+# 資料檔（前端讀 GitHub Raw；stats.html 都係讀 raw）
+cache.json
+enrich.json
+fingerprints.json
+subscription_stats.json
+sources.json
+
+# 圖示母圖與預覽（本機換圖先用到）
+icons/src/
+icons/preview.html
+
+# 爬蟲 / 工具 / 通知（只喺 Actions 或本機跑）
+core.py
+enrich.py
+notify.py
+subscription_stats.py
+subscription_tagging.py
+check_*.py
+fix_*.py
+generate_vapid.py
+serve_local.py
+schema.sql
+
+# 測試與報告
+test_*.py
+test_*.js
+*.md
+*.bak
+
+# 本機 / CI 雜項
+ci-proposed/
+logs/
+run-local-scrape.bat
+run-local-scrape-logged.bat
+restore-local-scrape.bat
+.gitattributes
+.env.example

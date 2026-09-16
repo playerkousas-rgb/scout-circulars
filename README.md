@@ -327,6 +327,48 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 > `ScoutPushSecrets` 舊檔留低唔郁即可。
 
 
+## Vercel 用量：Functions Storage 爆額（2026-09-16 診斷）
+
+**症狀**：Hobby 用量頁 **Functions Storage 10.49 GB / 10 GB（已超限）**、
+Deployment Storage ~930 MB 持續上升（8 月中 ~190 MB 起）。
+
+**唔係 bandwidth／唔係真人流量**：站內訪客計數器（只有跑 JS 嘅真人才 +1）累計約 400 次、
+Web Push 訂閱者 7 個；每次開頁由 Vercel 落嘅資料約 0.3 MB，全月真人流量 < 0.5 GB。
+
+**真因（兩條曲線都對得上）**：
+
+1. `api/render.py` 嘅 function bundle 包埋 **PyMuPDF**（連內建 CJK 後備字型，安裝後約
+   **110 MB／個部署**）。Vercel 會**保留每個 deployment 嘅 function bundle**，而 Hobby
+   Functions Storage 上限 10 GB。
+2. **每次 commit 落 main 都開一個新 deployment** —— 包括 bot 嘅 `[skip ci]` commit
+   （`[skip ci]` 只 skip GitHub Actions，**skip 唔到 Vercel**）。9 月 5-6 日（加入產生圖片
+   功能嗰兩日，曲線起飛點）起約 95 個部署 × ~110 MB ≈ 10.5 GB → 爆額。
+   加入功能之前 push_config / push_subscriptions 嘅 bundle 得幾 MB，所以 9/5 前貼地 0。
+3. Deployment Storage 同一個病：每個部署保留成個 repo ~9 MB —— 其中 `cache.json` 3.35 MB +
+   `enrich.json` 1.58 MB **根本冇人由 Vercel 讀**（前端只讀 GitHub Raw）—— × ~100 個部署 ≈ 930 MB。
+
+**即時止血（Vercel Dashboard 手動，兩步）**：
+
+1. **Deployments → 刪走舊 deployments**（只留最新 production + 最近一兩個）→
+   即時釋放近 10 GB Functions Storage。刪唔到 alias 中嘅 production 係正常。
+2. **Settings → Git → Ignored Build Step** 貼以下一行（exit 0 = skip build）：
+   只改資料檔／報告嘅 commit 唔再觸發 build，部署頻率由每日 6+ 次跌返每日 ~1 次：
+
+   ```bash
+   git diff --name-only HEAD^ HEAD | grep -qvE '^(cache\.json|enrich\.json|fingerprints\.json|subscription_stats\.json|.*\.md|logs/.*)$' || exit 0; exit 1
+   ```
+
+**長期（已喺 repo 內）**：
+
+- `.vercelignore`：每個 deployment 由 ~8.4 MB 降到 ~400 KB（Deployment Storage 增長慢 20 倍，
+  同時唔再公開 `cache.json` 等 5 MB 死重俾人／bot 下載）。
+- `.github/workflows/vercel-prune.yml`：每週一自動刪走 >14 日嘅舊 deployments
+  （保留最近 5 個 + 最新 production）。需加 `VERCEL_TOKEN` 同 `VERCEL_PROJECT_ID` 兩個
+  secrets；未加時 workflow 自動跳過，唔會紅。
+- 產生圖片功能本身**唔使改**：佢係用戶撳掣先至行、冇 prefetch、成功結果有 CDN cache
+  （`s-maxage=86400`）；問題從來只係「每個部署永久保存一份 PyMuPDF」。
+
+
 ## 下一步建議
 
 如果你把你現有 repo 貼上來，我可以下一輪直接做：
