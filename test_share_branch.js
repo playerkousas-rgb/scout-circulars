@@ -6,8 +6,8 @@
 //   2. 「童軍」唔會命中「幼童軍 / 深資童軍 / 樂行童軍」（audience 同標題都係）
 //   3. 冇 audience 嘅通告退而求其次用標題（機構名唔特別處理，用戶可配合關鍵字）
 //   4. 舊嘅「成員（精準）/ 支部」欄位同「只顯示明確日期」已移除
-//   5. 分享面板：社交連結、複製網址（附件直連）、複製文字、圖片產生（mock /api/render）
-//   6. 圖片產生失敗（not_pdf）有中文提示，唔會炸
+//   5. 分享面板：社交連結、複製網址（附件直連）、複製文字
+//   6. 舊「產生圖片」功能已移除（2026-09-16）：面板不應再有任何 img 相關掣
 const {JSDOM} = require('jsdom');
 const fs = require('fs');
 
@@ -53,25 +53,10 @@ let fail = 0;
 const ok = (c, m) => { console.log((c ? '✅ ' : '❌ ') + m); if (!c) fail++; };
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
-// 模擬 /api/render：B.pdf 兩頁成功；網頁連結回 not_pdf；其他 fetch_failed
-const renderCalls = [];
 function fakeFetch(win) {
   return (u, opts) => {
     const s = String(u);
     if (s.includes('enrich')) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(enrich) });
-    if (s.includes('/api/render')) {
-      renderCalls.push(s);
-      const q = new win.URL(s, 'https://example.org').searchParams;
-      const target = q.get('url');
-      const page = Number(q.get('page') || 1);
-      if (target === PDF_B) {
-        if (page > 2) return Promise.resolve({ ok: false, status: 404, json: () => Promise.resolve({ error: 'page_out_of_range', message: '只有 2 頁' }) });
-        const blob = new win.Blob([new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 1, 2, 3])], { type: 'image/jpeg' });
-        return Promise.resolve({ ok: true, status: 200, headers: new win.Headers({ 'X-Pdf-Pages': '2', 'X-Pdf-Page': String(page) }), blob: () => Promise.resolve(blob) });
-      }
-      if (target === HTML_F) return Promise.resolve({ ok: false, status: 415, json: () => Promise.resolve({ error: 'not_pdf', message: '呢個連結唔係 PDF 檔' }) });
-      return Promise.resolve({ ok: false, status: 502, json: () => Promise.resolve({ error: 'fetch_failed', message: '連唔到原站' }) });
-    }
     return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(cache) });
   };
 }
@@ -186,20 +171,11 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(dom.clip.text.includes('【筲箕灣區】童軍技能訓練班') && dom.clip.text.endsWith(PDF_B), '「複製文字」= 標題 + 摘要 + 網址');
   ok(d.querySelector('.share-toast') && d.querySelector('.share-toast').textContent.includes('已複製'), '複製後有 toast 提示');
 
-  // 圖片產生
-  click(w, sheet.querySelector('[data-act="img"]')); await wait(120);
-  ok(renderCalls.length === 1 && renderCalls[0].startsWith('/api/render?') && new w.URL(renderCalls[0], 'https://example.org').searchParams.get('url') === PDF_B,
-     '「產生圖片」打 /api/render?url=<附件>：' + renderCalls[0]);
-  ok(!sheet.querySelector('[data-role="preview"]').hidden, '圖片預覽顯示');
-  ok(sheet.querySelector('[data-role="imgstatus"]').textContent.includes('已準備好'), '狀態：已準備好');
-  const pagesel = sheet.querySelector('[data-role="pagesel"]');
-  ok(pagesel.options.length === 2, `兩頁 PDF → 頁數選單有 2 頁（實際 ${pagesel.options.length}）`);
-  ok(!sheet.querySelector('[data-act="img-dl"]').disabled, '下載圖片掣可用');
-  ok(sheet.querySelector('[data-act="img-share"]').hidden, '桌面／非觸控隱藏「分享圖片」掣（電腦冇穩定系統分享入口）');
-  ok(!sheet.querySelector('[data-act="img-copy"]').disabled, '預先轉 PNG 後「複製圖片」掣可用');
-  pagesel.value = '2'; pagesel.dispatchEvent(new w.Event('change', { bubbles: true })); await wait(120);
-  ok(renderCalls.length === 2 && new w.URL(renderCalls[1], 'https://example.org').searchParams.get('page') === '2', '揀第 2 頁 → 再打 /api/render page=2');
-  ok(sheet.querySelector('[data-role="pageinfo"]').textContent.includes('第 2 頁'), '頁數資訊更新：' + sheet.querySelector('[data-role="pageinfo"]').textContent);
+  // 「產生圖片」功能已移除（2026-09-16）：面板不應再有 img 相關 UI
+  ok(!sheet.querySelector('[data-act="img"]') && !sheet.querySelector('[data-role="imgbox"]')
+     && !sheet.querySelector('[data-act="img-copy"]') && !sheet.querySelector('[data-act="img-dl"]'),
+     '分享面板已無任何「產生圖片」相關 UI');
+  ok(!html.includes('/api/render'), 'index.html 不再引用 /api/render');
 
   // Esc 關閉
   d.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await wait(30);
@@ -213,13 +189,10 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(cardA.querySelector('a.link').getAttribute('href') === dom.clip.text, '卡片「開啟附件」用同一條 encode 後網址');
   d.querySelector('.share-close').click(); await wait(30);
 
-  // 非 PDF 連結 → 中文提示，唔會炸
+  // 非 PDF（網頁）通告：分享面板照開，只餘連結分享
   const cardF = cards(d).find(c => c.querySelector('h3').textContent === '灣仔區網頁通告');
   click(w, cardF.querySelector('.share-btn')); await wait(50);
-  click(w, d.querySelector('.share-sheet [data-act="img"]')); await wait(120);
-  const st = d.querySelector('.share-sheet [data-role="imgstatus"]');
-  ok(st.classList.contains('err') && st.textContent.includes('唔係 PDF'), '網頁連結產生圖片 → 提示「唔係 PDF」：' + st.textContent.trim());
-  ok(d.querySelector('.share-sheet [data-act="img-dl"]').disabled, '失敗時下載掣停用');
+  ok(d.querySelector('.share-sheet [data-act="copy-url"]'), '網頁通告分享面板仍可複製網址');
   d.querySelector('.share-close').click(); await wait(30);
   ok(!d.querySelector('.share-sheet'), '× 掣關閉面板');
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>通告圖書館 v5.8</title>
+  <title>通告圖書館 v5.9</title>
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png">
@@ -289,27 +289,12 @@
     .share-opt svg { width: 26px; height: 26px; }
     .share-opt.wa svg { fill: #25d366; } .share-opt.tg svg { fill: #29a9eb; } .share-opt.fb svg { fill: #1877f2; }
     .share-opt.x svg { fill: #e7e9ea; } .share-opt.line svg { fill: #06c755; } .share-opt.mail svg { stroke: #eab308; fill: none; stroke-width: 2; }
-    .share-opt.sys svg, .share-opt.copy svg, .share-opt.dl svg { stroke: #93c5fd; fill: none; stroke-width: 2; }
+    .share-opt.sys svg, .share-opt.copy svg { stroke: #93c5fd; fill: none; stroke-width: 2; }
     .share-opt[disabled], .share-opt.disabled { opacity: .45; cursor: not-allowed; transform: none; }
 
-    /* 圖片預覽 */
-    .share-img-box { margin-top: 8px; border: 1px solid var(--line); border-radius: 14px; background: #0a1120; padding: 10px; }
-    .share-img-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
-    .share-img-toolbar select { font: inherit; background: #0b1424; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 4px 8px; }
-    .share-preview { display: block; width: 100%; max-height: 46vh; object-fit: contain; border-radius: 8px; margin-top: 8px; background: #fff; }
-    .share-img-status { margin-top: 8px; font-size: 12px; color: var(--muted); min-height: 16px; }
-    .share-img-status.err { color: #fca5a5; }
-    .share-img-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-    .share-img-actions button { flex: 1; min-width: 120px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid rgba(59,130,246,.45); background: #173664; color: #d9e8ff; border-radius: 12px; padding: 10px 12px; cursor: pointer; font-weight: 700; }
-    .share-img-actions button:hover { background: #2450a3; }
-    .share-img-actions button[disabled] { opacity: .5; cursor: not-allowed; }
-    .share-img-actions button svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
-    .share-hint { margin-top: 8px; font-size: 12px; color: var(--muted); line-height: 1.5; }
     .share-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; background: #0f172a; color: #e6eefb;
                    border: 1px solid #3a5a8c; padding: 10px 16px; border-radius: 999px; font-size: 13px; box-shadow: var(--shadow); pointer-events: none; opacity: 0; transition: opacity .2s; }
     .share-toast.show { opacity: 1; }
-    .spin { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.25); border-top-color: #93c5fd; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; margin-right: 6px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
     @media (max-width: 980px) {
       .app { display: block; min-height: 100vh; }
       .content { padding: 12px; }
@@ -1413,7 +1398,6 @@
 
     // ── 分享 ──────────────────────────────────────────────────
     // 分享嘅「通告網址」= 附件直連（PDF）：朋友一撳即開，唔使經圖書館。
-    // 「分享圖片」= 經 /api/render 將 PDF 頁面轉做 JPG，可以成張貼落 IG / WhatsApp。
     const SHARE_SVG = {
       share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>',
       wa: '<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>',
@@ -1424,26 +1408,7 @@
       mail: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
       copy: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
       sys: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>',
-      dl: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>',
-      img: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>',
     };
-
-    // /api/render 同 index.html 同一個 origin（Vercel 或 serve_local.py）。
-    // 用 file:// 或純靜態伺服器開時冇呢個 API，可以用 ?render=https://scout-circulars.vercel.app/api/render 指去正式站。
-    function getRenderEndpoint() {
-      const params = new URLSearchParams(location.search);
-      const override = params.get('render');
-      if (override) return override.replace(/\/$/, '');
-      if (location.protocol === 'file:') return 'https://scout-circulars.vercel.app/api/render';
-      return '/api/render';
-    }
-
-    function buildRenderUrl(pdfUrl, page, dpi) {
-      const p = new URLSearchParams({ url: pdfUrl, page: String(page || 1) });
-      if (dpi) p.set('dpi', String(dpi));
-      return `${getRenderEndpoint()}?${p.toString()}`;
-    }
-
     // 分享用嘅連結：附件直連。編碼一次即可（已有 %XX 嘅唔會 double-encode）。
     function shareUrlFor(item) {
       const raw = item.pdf_url || item.url || '';
@@ -1464,11 +1429,6 @@
       if (meta.length) lines.push(meta.join('・'));
       if (withUrl) lines.push(shareUrlFor(item));
       return lines.join('\n');
-    }
-
-    function safeFileName(title, suffix) {
-      const base = String(title || '通告').replace(/[\\/:*?"<>|\u0000-\u001f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60) || '通告';
-      return `${base}${suffix}`;
     }
 
     let toastTimer = null;
@@ -1534,31 +1494,6 @@
       return isTouchLikeDevice();
     }
 
-    function canShareFilesNow() {
-      if (!isTouchLikeDevice() || typeof navigator.share !== 'function' || typeof navigator.canShare !== 'function') return false;
-      try {
-        const probe = new File([new Blob(['probe'], { type: 'image/jpeg' })], 'x.jpg', { type: 'image/jpeg' });
-        return !!navigator.canShare({ files: [probe] });
-      } catch (_) {
-        return false;
-      }
-    }
-
-    // 預先轉成 PNG：複製圖片嘅 clipboard.write 要喺用戶手勢同一刻同步開始，
-    // 唔可以撳完掣先慢慢 createImageBitmap / toBlob（Safari／部分桌面瀏覽器會因此拒絕）。
-    async function makePngBlob(blob) {
-      if (typeof createImageBitmap !== 'function') return blob;
-      try {
-        const bmp = await createImageBitmap(blob);
-        const cv = document.createElement('canvas');
-        cv.width = bmp.width; cv.height = bmp.height;
-        cv.getContext('2d').drawImage(bmp, 0, 0);
-        return await new Promise(res => cv.toBlob(res, 'image/png'));
-      } catch (_) {
-        return blob;
-      }
-    }
-
     let activeShare = null;   // { backdrop, cleanup }
     function closeShare() {
       if (!activeShare) return;
@@ -1594,112 +1529,9 @@
               <button type="button" class="share-opt copy" data-act="copy-text">${SHARE_SVG.copy}<span>複製文字</span></button>
             </div>
           </div>
-
-          <div class="share-section">
-            <h4>分享圖片（成張通告貼上去）</h4>
-            <div class="share-grid">
-              <button type="button" class="share-opt dl" data-act="img">${SHARE_SVG.img}<span>產生圖片</span></button>
-            </div>
-            <div class="share-img-box" data-role="imgbox" hidden>
-              <div class="share-img-toolbar">
-                <span data-role="pageinfo"></span>
-                <label>頁數 <select data-role="pagesel"></select></label>
-              </div>
-              <img class="share-preview" data-role="preview" alt="通告預覽" hidden>
-              <div class="share-img-status" data-role="imgstatus"></div>
-              <div class="share-img-actions">
-                <button type="button" data-act="img-share" hidden>${SHARE_SVG.sys}分享圖片</button>
-                <button type="button" data-act="img-copy">${SHARE_SVG.copy}複製圖片</button>
-                <button type="button" data-act="img-dl">${SHARE_SVG.dl}下載圖片</button>
-              </div>
-              <div class="share-hint">Instagram 唔接受網頁直接發帖：下載／分享圖片後，喺 IG 揀相上載即可。多頁通告可以逐頁產生。</div>
-            </div>
-          </div>
         </div>`;
 
       const sheet = backdrop.querySelector('.share-sheet');
-      const imgbox = backdrop.querySelector('[data-role="imgbox"]');
-      const preview = backdrop.querySelector('[data-role="preview"]');
-      const imgstatus = backdrop.querySelector('[data-role="imgstatus"]');
-      const pagesel = backdrop.querySelector('[data-role="pagesel"]');
-      const pageinfo = backdrop.querySelector('[data-role="pageinfo"]');
-      const btnImgShare = backdrop.querySelector('[data-act="img-share"]');
-      const btnImgCopy = backdrop.querySelector('[data-act="img-copy"]');
-      const btnImgDl = backdrop.querySelector('[data-act="img-dl"]');
-
-      const img = { blob: null, pngBlob: null, pngReady: false, page: 1, pages: 0, objectUrl: null, loading: false };
-      const setStatus = (text, isErr = false) => { imgstatus.innerHTML = text; imgstatus.classList.toggle('err', isErr); };
-      const setBusy = (busy) => {
-        btnImgShare.disabled = busy || !img.blob;
-        btnImgDl.disabled = busy || !img.blob;
-        // 複製圖片要 PNG 已預先轉好先允許，唔好撳完先開始 await。
-        btnImgCopy.disabled = busy || !img.pngReady;
-        pagesel.disabled = busy;
-      };
-
-      async function loadPage(page) {
-        img.loading = true; img.blob = null; img.pngBlob = null; img.pngReady = false;
-        setBusy(true);
-        imgbox.hidden = false;
-        setStatus(`<span class="spin"></span>正在把第 ${page} 頁轉做圖片…（原站慢嘅話可能要等十幾秒）`);
-        try {
-          const resp = await fetch(buildRenderUrl(url, page), { cache: 'default' });
-          if (!resp.ok) {
-            let msg = `HTTP ${resp.status}`;
-            let code = '';
-            try { const j = await resp.json(); msg = j.message || msg; code = j.error || ''; } catch (_) {}
-            const friendly = {
-              not_pdf: '呢個連結唔係 PDF（可能係網頁或 Google 表格），只能分享連結。',
-              too_large: 'PDF 太大，唔轉圖了，請分享連結。',
-              encrypted: 'PDF 有密碼保護，轉唔到圖。',
-              fetch_timeout: '原站回應太慢，遲啲再試。',
-              fetch_failed: '連唔到原站（可能已移除或暫時死咗）。',
-              renderer_unavailable: '伺服器未設定圖片轉換（本機請用 serve_local.py）。',
-            }[code] || msg;
-            throw new Error(friendly);
-          }
-          const blob = await resp.blob();
-          if (!blob.type.startsWith('image/')) throw new Error('伺服器回覆唔係圖片');
-          img.blob = blob; img.page = page;
-          img.pages = Number(resp.headers.get('X-Pdf-Pages')) || img.pages || 1;
-          if (img.objectUrl) URL.revokeObjectURL(img.objectUrl);
-          img.objectUrl = URL.createObjectURL(blob);
-          preview.src = img.objectUrl; preview.hidden = false;
-          // 頁數選單
-          pagesel.innerHTML = '';
-          for (let i = 1; i <= img.pages; i++) {
-            const o = document.createElement('option'); o.value = String(i); o.textContent = `第 ${i} 頁`; if (i === page) o.selected = true; pagesel.appendChild(o);
-          }
-          pagesel.parentElement.style.display = img.pages > 1 ? '' : 'none';
-          pageinfo.textContent = img.pages > 1 ? `共 ${img.pages} 頁，目前第 ${page} 頁` : '共 1 頁';
-          const canShareFile = canShareFilesNow();
-          btnImgShare.hidden = !canShareFile;
-          btnImgShare.disabled = !canShareFile || !img.blob;
-          // 先顯示成圖，再喺背景準備 PNG（剪貼簿用）。準備好先准撳「複製圖片」。
-          setStatus(`<span class="spin"></span>圖片已產生（${Math.round(blob.size / 1024)} KB），準備緊「複製圖片」…`);
-          makePngBlob(blob).then(png => {
-            if (img.blob !== blob) return;   // 用戶已轉去另一頁
-            img.pngBlob = png;
-            img.pngReady = true;
-            setBusy(false);
-            setStatus(`圖片已準備好（${Math.round(blob.size / 1024)} KB），可以複製／下載。`);
-          }).catch(() => {
-            if (img.blob !== blob) return;
-            img.pngBlob = blob;
-            img.pngReady = true;
-            setBusy(false);
-            setStatus(`圖片已準備好（${Math.round(blob.size / 1024)} KB），可以複製／下載。`);
-          });
-        } catch (err) {
-          preview.hidden = true; preview.removeAttribute('src');
-          setStatus(`❌ ${escapeHtml(err.message || String(err))}`, true);
-        } finally {
-          img.loading = false;
-          setBusy(false);
-        }
-      }
-
-      const currentFile = () => new File([img.blob], safeFileName(item.title, img.pages > 1 ? `_p${img.page}.jpg` : '.jpg'), { type: img.blob.type || 'image/jpeg' });
 
       backdrop.addEventListener('click', async (e) => {
         if (e.target === backdrop) { closeShare(); return; }
@@ -1727,42 +1559,14 @@
           if (await copyText(url)) showToast('已複製通告網址');
         } else if (act === 'copy-text') {
           if (await copyText(shareTextFor(item, true))) showToast('已複製通告文字 + 網址');
-        } else if (act === 'img') {
-          if (!img.loading) loadPage(img.page || 1);
-        } else if (act === 'img-share') {
-          if (!img.blob) return;
-          // 淨係傳檔案、唔夾文字：WhatsApp / IG 見「圖 + 文字」會優先揀文字，朋友就收唔到圖。
-          try { await navigator.share({ files: [currentFile()], title: item.title || '通告' }); }
-          catch (err) {
-            if (!err || err.name !== 'AbortError') {
-              showToast('分享選單開唔到。電腦請改用「複製圖片」或「下載圖片」。');
-            }
-          }
-        } else if (act === 'img-copy') {
-          if (!img.pngReady || !img.pngBlob) { showToast('圖片仲未準備好，請等一陣再試。'); return; }
-          try {
-            if (!navigator.clipboard || typeof ClipboardItem === 'undefined') throw new Error('unsupported');
-            // PNG 喺產生圖片嗰陣已經預先轉好，撳掣嗰一刻直接寫剪貼簿，唔會因為 await 而失效。
-            await navigator.clipboard.write([new ClipboardItem({ 'image/png': img.pngBlob })]);
-            showToast('已複製圖片，可以直接貼落 WhatsApp / Telegram');
-          } catch (_) {
-            showToast('呢個瀏覽器唔支援複製圖片，請用「下載圖片」。');
-          }
-        } else if (act === 'img-dl') {
-          if (!img.blob) return;
-          const a = document.createElement('a');
-          a.href = img.objectUrl; a.download = currentFile().name; document.body.appendChild(a); a.click(); a.remove();
-          showToast('已開始下載圖片');
         }
       });
       backdrop.querySelector('.share-close').onclick = closeShare;
-      pagesel.onchange = () => { const p = Number(pagesel.value) || 1; if (!img.loading && p !== img.page) loadPage(p); };
       const onKey = (e) => { if (e.key === 'Escape') closeShare(); };
       document.addEventListener('keydown', onKey);
 
       document.body.appendChild(backdrop);
-      activeShare = { backdrop, cleanup: () => { document.removeEventListener('keydown', onKey); if (img.objectUrl) URL.revokeObjectURL(img.objectUrl); } };
-      setBusy(false);
+      activeShare = { backdrop, cleanup: () => { document.removeEventListener('keydown', onKey); } };
       sheet.querySelector('.share-close').focus();
     }
 

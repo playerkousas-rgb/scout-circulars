@@ -23,8 +23,7 @@
 - `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
 - `subscription_stats.py`：管理員本機執行，用 service key 統計訂閱人數及各支部／項目的訂閱數（只出彙總，不出個資）；`schema.sql` 末段亦有對應 SQL
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
-- `api/render.py`：PDF → 圖片 API（分享圖片用；Vercel Python Function）
-- `serve_local.py`：本機同時提供靜態頁 + `/api/render`
+- `serve_local.py`：本機同時提供靜態頁 + `/api/push-*`
 - `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）
 - `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
 
@@ -162,21 +161,14 @@ node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／�
 
 - **分享連結**：WhatsApp／Telegram／Facebook／X／LINE／電郵、系統分享（手機）、複製網址、複製文字（標題 + 截止／對象／費用 + 網址）。
   分享嘅網址係**附件直連（PDF）**，朋友一撳即開。
-- **分享圖片**：把 PDF 頁面轉做 JPG，可以成張貼落 IG／WhatsApp。多頁通告可逐頁產生；支援直接分享（手機）、複製圖片、下載圖片。
-  - **電腦**：系統「分享檔案去其他 app」唔穩定，所以「分享圖片／更多…」喺電腦會收埋，改用**複製圖片**或**下載圖片**。
-  - **複製圖片**：產生圖片之後會預先用 canvas 轉好 PNG，撳「複製圖片」嗰刻直接寫剪貼簿，唔會有「撳完先 await 轉圖」嘅時序問題。
+> 「分享圖片」（PDF → JPG）功能已於 2026-09-16 移除：附加價值有限，而佢令每個 Vercel
+> deployment 嘅 function bundle 包埋 PyMuPDF（約 110MB），直接導致 Functions Storage
+> 爆額（見下文「Vercel 用量」一節）。分享連結、複製網址／文字等功能不受影響。
 
-圖片由 `api/render.py`（Vercel Python Function）產生：`GET /api/render?url=<pdf>&page=1&dpi=130` → `image/jpeg`，
-header `X-Pdf-Pages` 係總頁數。依賴 PyMuPDF（`api/requirements.txt`），內建 CJK 後備字型，Word 出嘅冇內嵌字型通告都畫得正。
-成功結果由 Vercel CDN 快取一日，同一張通告無論幾多人分享都唔會重複打區會網站。
-只回傳畫出嚟嘅圖片（唔係開放代理），內網／loopback／link-local 位址一律拒絕。
-
-本機測試（`python -m http.server` 冇呢個 API）：
+本機測試：
 
 ```bash
-pip install -r api/requirements.txt
-python serve_local.py            # http://localhost:8000/index.html，/api/render 已掛載
-python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉圖、錯誤碼、完整 HTTP 流程
+python serve_local.py            # http://localhost:8000/index.html，/api/push-* 已掛載
 ```
 
 ## `cache.json` 結構
@@ -325,6 +317,48 @@ python test_render_api.py        # 離線測試：網址清理、SSRF、CJK 轉�
 > 佢唔會 pull 自我更新。請把「動作/Actions」嘅「程式或指令碼」改成 **repo 內**嘅
 > `run-local-scrape-logged.bat`，「起始於」填 repo 根目錄；之後排程行嘅永遠係 repo 最新腳本。
 > `ScoutPushSecrets` 舊檔留低唔郁即可。
+
+
+## Vercel 用量：Functions Storage 爆額（2026-09-16 診斷）
+
+**症狀**：Hobby 用量頁 **Functions Storage 10.49 GB / 10 GB（已超限）**、
+Deployment Storage ~930 MB 持續上升（8 月中 ~190 MB 起）。
+
+**唔係 bandwidth／唔係真人流量**：站內訪客計數器（只有跑 JS 嘅真人才 +1）累計約 400 次、
+Web Push 訂閱者 7 個；每次開頁由 Vercel 落嘅資料約 0.3 MB，全月真人流量 < 0.5 GB。
+
+**真因（兩條曲線都對得上）**：
+
+1. `api/render.py` 嘅 function bundle 包埋 **PyMuPDF**（連內建 CJK 後備字型，安裝後約
+   **110 MB／個部署**）。Vercel 會**保留每個 deployment 嘅 function bundle**，而 Hobby
+   Functions Storage 上限 10 GB。
+2. **每次 commit 落 main 都開一個新 deployment** —— 包括 bot 嘅 `[skip ci]` commit
+   （`[skip ci]` 只 skip GitHub Actions，**skip 唔到 Vercel**）。9 月 5-6 日（加入產生圖片
+   功能嗰兩日，曲線起飛點）起約 95 個部署 × ~110 MB ≈ 10.5 GB → 爆額。
+   加入功能之前 push_config / push_subscriptions 嘅 bundle 得幾 MB，所以 9/5 前貼地 0。
+3. Deployment Storage 同一個病：每個部署保留成個 repo ~9 MB —— 其中 `cache.json` 3.35 MB +
+   `enrich.json` 1.58 MB **根本冇人由 Vercel 讀**（前端只讀 GitHub Raw）—— × ~100 個部署 ≈ 930 MB。
+
+**即時止血（Vercel Dashboard 手動，兩步）**：
+
+1. **Deployments → 刪走舊 deployments**（只留最新 production + 最近一兩個）→
+   即時釋放近 10 GB Functions Storage。刪唔到 alias 中嘅 production 係正常。
+2. **Settings → Git → Ignored Build Step** 貼以下一行（exit 0 = skip build）：
+   只改資料檔／報告嘅 commit 唔再觸發 build，部署頻率由每日 6+ 次跌返每日 ~1 次：
+
+   ```bash
+   git diff --name-only HEAD^ HEAD | grep -qvE '^(cache\.json|enrich\.json|fingerprints\.json|subscription_stats\.json|.*\.md|logs/.*)$' || exit 0; exit 1
+   ```
+
+**長期（已喺 repo 內）**：
+
+- `.vercelignore`：每個 deployment 由 ~8.4 MB 降到 ~400 KB（Deployment Storage 增長慢 20 倍，
+  同時唔再公開 `cache.json` 等 5 MB 死重俾人／bot 下載）。
+- `.github/workflows/vercel-prune.yml`：每週一自動刪走 >14 日嘅舊 deployments
+  （保留最近 5 個 + 最新 production）。需加 `VERCEL_TOKEN` 同 `VERCEL_PROJECT_ID` 兩個
+  secrets；未加時 workflow 自動跳過，唔會紅。
+- 2026-09-16 已**移除**產生圖片功能（`api/render.py` + 前端分享圖片 UI + `api/requirements.txt`）：
+  function bundle 由 ~110MB 跌返幾 MB，Functions Storage 病源消失；配合上面兩步 + 自動 prune，用量長期安全。
 
 
 ## 下一步建議

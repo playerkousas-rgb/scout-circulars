@@ -157,7 +157,7 @@ set -a; source .env; set +a
 python serve_local.py
 ```
 
-`serve_local.py` 會提供靜態頁、`/api/render`、`/api/push-config` 和 `/api/push-subscriptions`。在 `http://localhost:8000` 時瀏覽器可能不允許真正的 Push subscription；正式測試請用 Vercel 的 HTTPS 網址。
+`serve_local.py` 會提供靜態頁、`/api/push-config` 和 `/api/push-subscriptions`。在 `http://localhost:8000` 時瀏覽器可能不允許真正的 Push subscription；正式測試請用 Vercel 的 HTTPS 網址。
 
 安全回歸測試：
 
