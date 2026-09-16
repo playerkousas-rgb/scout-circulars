@@ -46,7 +46,7 @@ def main():
     # 攞晒成個 project 嘅 deployment 列表（分頁）
     deps, until = [], None
     while True:
-        url = f"https://api.vercel.com/v13/deployments?projectId={pid}&limit=50"
+        url = f"https://api.vercel.com/v6/deployments?projectId={pid}&limit=50"
         if until:
             url += f"&until={until}"
         page = api(url)
