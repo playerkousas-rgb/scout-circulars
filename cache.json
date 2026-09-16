@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-16 05:00:05",
+  "last_updated": "2026-09-17 03:32:36",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4801,
+    "total_notices": 4804,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -23436,6 +23436,24 @@
     ],
     "九龍地域": [
       {
+        "title": "深資童軍射箭訓練班",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/PRG13_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/PRG13_26.pdf",
+        "date": "2026-09-17",
+        "captured_date": "2026-09-17",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "初級射箭訓練班(反曲弓)",
+        "url": "https://krscout.org/wp-content/uploads/2026/09/PRG14_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/PRG14_26.pdf",
+        "date": "2026-09-17",
+        "captured_date": "2026-09-17",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
         "title": "第4屆深資童軍支部訓練方法訓練班(單元2A及2B)(KT/65/26)",
         "url": "https://krscout.org/wp-content/uploads/2026/09/KT65_26.pdf",
         "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/KT65_26.pdf",
@@ -42109,6 +42127,15 @@
     ],
     "沙田北區": [
       {
+        "title": "第 591 屆童軍領導才訓練班",
+        "url": "https://www.stnscout.org/doc/2026/SS/STN2026-S-11.pdf",
+        "pdf_url": "https://www.stnscout.org/doc/2026/SS/STN2026-S-11.pdf",
+        "date": "2026-09-17",
+        "captured_date": "2026-09-17",
+        "source_site": "沙田北區",
+        "region": "新界東地域"
+      },
+      {
         "title": "香港童軍115周年-馬鞍山深度遊",
         "url": "https://www.stnscout.org/doc/2026/D/STN2026-A-10.pdf",
         "pdf_url": "https://www.stnscout.org/doc/2026/D/STN2026-A-10.pdf",
@@ -43314,6 +43341,27 @@
     "Scout System": []
   },
   "notices": [
+    {
+      "source_site": "沙田北區",
+      "region": "新界東地域",
+      "pdf_url": "https://www.stnscout.org/doc/2026/SS/STN2026-S-11.pdf",
+      "title": "第 591 屆童軍領導才訓練班",
+      "captured_date": "2026-09-17"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/PRG13_26.pdf",
+      "title": "深資童軍射箭訓練班",
+      "captured_date": "2026-09-17"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/PRG14_26.pdf",
+      "title": "初級射箭訓練班(反曲弓)",
+      "captured_date": "2026-09-17"
+    },
     {
       "source_site": "青衣區",
       "region": "新界地域",
@@ -77050,16 +77098,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-16 05:00:05",
-      "new": 5,
-      "updated": 3508,
-      "skipped": 4,
+      "updated_at": "2026-09-17 03:32:36",
+      "new": 3,
+      "updated": 116,
+      "skipped": 38,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
