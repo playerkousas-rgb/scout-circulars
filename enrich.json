@@ -48557,5 +48557,48 @@
     "title_check": "verified",
     "enriched_at": "2026-09-17 05:06:56",
     "enrich_version": "3.2"
+  },
+  "https://vic-web-98f2f.web.app/site-assets/notices/scouting-115-centenary-trail-2026.pdf": {
+    "source": "維多利亞城區",
+    "title": "香港童軍115周年認可慶祝活動~『百載古道遊縱』",
+    "deadline": "2026-12-01",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "HK$10",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "活動"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "活動"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-18 03:47:57",
+    "enrich_version": "3.2"
   }
 }
