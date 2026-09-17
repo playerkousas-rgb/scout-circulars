@@ -1,13 +1,49 @@
 {
-  "last_updated": "2026-09-18 03:43:10",
+  "last_updated": "2026-09-18 05:00:05",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4807,
+    "total_notices": 4814,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(總會/地域/區領袖或委員適用)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26080/Sp18_26_SCHKMAppform2027_Ind.xls",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26080/Sp18_26_SCHKMAppform2027_Ind.xls",
+        "date": "2026-09-18",
+        "captured_date": "2026-09-18",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(童軍單位適用)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26079/Sp18_26_SCHKMAppform2027_SU.xls",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26079/Sp18_26_SCHKMAppform2027_SU.xls",
+        "date": "2026-09-18",
+        "captured_date": "2026-09-18",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "渣打香港馬拉松2027 - 工作人員大招募(歡迎全港童軍參與)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26078/Sp18_26_Marathon2027.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26078/Sp18_26_Marathon2027.pdf",
+        "date": "2026-09-18",
+        "captured_date": "2026-09-18",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "NTR SCOUT WALK 2026慈善步行籌款",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26074/Special16.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26074/Special16.pdf",
+        "date": "2026-09-18",
+        "captured_date": "2026-09-18",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "地域服務獎勵計劃 - 附件 (一)",
         "url": "https://scout.org.hk/uploads/tc/circulars/26061/Special15-1.pdf",
@@ -8938,6 +8974,33 @@
       }
     ],
     "港島地域": [
+      {
+        "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(總會/地域/區領袖或委員適用)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/26080/Sp18_26_SCHKMAppform2027_Ind.xls",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26080/Sp18_26_SCHKMAppform2027_Ind.xls",
+        "date": "2026-09-18",
+        "captured_date": "2026-09-18",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(童軍單位適用)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/26079/Sp18_26_SCHKMAppform2027_SU.xls",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26079/Sp18_26_SCHKMAppform2027_SU.xls",
+        "date": "2026-09-18",
+        "captured_date": "2026-09-18",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
+      {
+        "title": "渣打香港馬拉松2027 - 工作人員大招募(歡迎全港童軍參與)",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/26078/sp18_26_marathon2027.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26078/sp18_26_marathon2027.pdf",
+        "date": "2026-09-18",
+        "captured_date": "2026-09-18",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
       {
         "title": "第35屆深資童軍執行委員會訓練班",
         "url": "https://www.scout.org.hk/uploads/tc/circulars/26048/trg19_26_35thventurescoutexecutivecommitteecourse.pdf",
@@ -43369,10 +43432,59 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26080/Sp18_26_SCHKMAppform2027_Ind.xls",
+      "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(總會/地域/區領袖或委員適用)",
+      "captured_date": "2026-09-18"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26079/Sp18_26_SCHKMAppform2027_SU.xls",
+      "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(童軍單位適用)",
+      "captured_date": "2026-09-18"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26078/Sp18_26_Marathon2027.pdf",
+      "title": "渣打香港馬拉松2027 - 工作人員大招募(歡迎全港童軍參與)",
+      "captured_date": "2026-09-18"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26074/Special16.pdf",
+      "title": "NTR SCOUT WALK 2026慈善步行籌款",
+      "captured_date": "2026-09-18"
+    },
+    {
       "source_site": "維多利亞城區",
       "region": "港島地域",
       "pdf_url": "https://vic-web-98f2f.web.app/site-assets/notices/scouting-115-centenary-trail-2026.pdf",
       "title": "香港童軍115周年認可慶祝活動~『百載古道遊縱』",
+      "captured_date": "2026-09-18"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26080/Sp18_26_SCHKMAppform2027_Ind.xls",
+      "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(總會/地域/區領袖或委員適用)",
+      "captured_date": "2026-09-18"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26079/Sp18_26_SCHKMAppform2027_SU.xls",
+      "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(童軍單位適用)",
+      "captured_date": "2026-09-18"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26078/sp18_26_marathon2027.pdf",
+      "title": "渣打香港馬拉松2027 - 工作人員大招募(歡迎全港童軍參與)",
       "captured_date": "2026-09-18"
     },
     {
@@ -77146,51 +77258,16 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-18 03:43:10",
-      "new": 1,
-      "updated": 7,
-      "skipped": 39,
+      "updated_at": "2026-09-18 05:00:05",
+      "new": 7,
+      "updated": 3513,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
