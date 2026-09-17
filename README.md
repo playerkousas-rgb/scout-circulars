@@ -72,7 +72,11 @@ iOS 會快取 apple-touch-icon：換圖後要刪除舊主畫面 App 再重新「
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+# 爬蟲依賴（requests / beautifulsoup4 / playwright）刻意唔放喺 repo 根目錄：
+# Vercel 會自動把根目錄 requirements.txt pip install 入 **每個** api/*.py
+# function bundle，而且冇 tree-shaking —— playwright 一個套件解壓後 137MB，
+# 乘開幾十個 retained deployment 就係 2026-09-17 Functions Storage 爆額嘅病源。
+pip install -r .github/requirements-scrape.txt
 playwright install chromium
 python core.py --verbose
 ```
@@ -352,13 +356,97 @@ Web Push 訂閱者 7 個；每次開頁由 Vercel 落嘅資料約 0.3 MB，全�
 
 **長期（已喺 repo 內）**：
 
-- `.vercelignore`：每個 deployment 由 ~8.4 MB 降到 ~400 KB（Deployment Storage 增長慢 20 倍，
+- `.vercelignore`：每個 deployment 由 ~8.4 MB 降到 ~1.2 MB（Deployment Storage 增長慢 7 倍，
   同時唔再公開 `cache.json` 等 5 MB 死重俾人／bot 下載）。
 - `.github/workflows/vercel-prune.yml`：每週一自動刪走 >14 日嘅舊 deployments
   （保留最近 5 個 + 最新 production）。需加 `VERCEL_TOKEN` 同 `VERCEL_PROJECT_ID` 兩個
   secrets；未加時 workflow 自動跳過，唔會紅。
-- 2026-09-16 已**移除**產生圖片功能（`api/render.py` + 前端分享圖片 UI + `api/requirements.txt`）：
-  function bundle 由 ~110MB 跌返幾 MB，Functions Storage 病源消失；配合上面兩步 + 自動 prune，用量長期安全。
+- 2026-09-16 已**移除**產生圖片功能（`api/render.py` + 前端分享圖片 UI + `api/requirements.txt`）。
+
+> ⚠️ **呢一日嘅結論「Functions Storage 病源消失」係錯嘅** —— 見下一節。
+
+
+## Functions Storage 再爆（2026-09-17 覆診：真正病源係根目錄 `requirements.txt`）
+
+**症狀**：移除 `api/render.py` 之後一日，**11.82 GB / 10 GB**（比前一日 10.49 GB 再升）。
+用戶懷疑係「本機 push 把之前 DELETE 咗嘅檔加返」。
+
+**呢個懷疑已排除**：查 `c1854af`「Local backup scrape」只改咗 `cache.json` /
+`enrich.json` / `fingerprints.json` 三個資料檔，冇還原任何被刪嘅 code；
+`api/render.py` 同 `api/requirements.txt` 依然唔喺 repo 入面。
+
+**真正病源：根目錄 `requirements.txt` 列住 `playwright>=1.52.0`。**
+
+Vercel Python runtime 嘅官方行為（[Python runtime 文件](https://vercel.com/docs/functions/runtimes/python)）：
+
+> “Define dependencies in `pyproject.toml` (with or without a `uv.lock`),
+> `requirements.txt`, or a `Pipfile` …”
+> “By default, Python Vercel Functions include all files from your project that
+> are reachable at build time. **There is no automatic tree-shaking for Python.**”
+
+即係：Vercel 會把 **repo 根目錄** 嘅 `requirements.txt` 全套 pip install 落
+**每一個** `api/*.py` function bundle，完全唔理 `api/` 有冇 import 佢。
+
+實測（`pip download` + `unzip` + `du`）：
+
+| 套件 | wheel | 解壓後 |
+|---|---|---|
+| `playwright` 1.63.0 | 46 MB | **137 MB**（`playwright/driver` 佔 135 MB） |
+| `lxml` / `cryptography` / `requests` / `bs4` / `pywebpush` | — | ~30 MB |
+
+→ 每個 function bundle **~170 MB**。而 `api/push_common.py` /
+`api/push_config.py` / `api/push_subscriptions.py` 其實係 **100% 標準庫**
+（`base64` `hashlib` `json` `os` `re` `datetime` `http.server` `pathlib`
+`typing` `urllib`）—— 一個第三方套件都唔使，137 MB 純綷係死重。
+
+`Functions Storage` = 每個 **retained** deployment × 每個 bundle × 每個 region。
+Hobby 預設 retention **30 日**，而呢個 repo 每日有 ~3 個 bot commit
+（`[skip ci]` 只 skip GitHub Actions，**skip 唔到 Vercel**）
+→ 數十個部署 × ~170 MB ≈ 10 GB+。
+
+所以 2026-09-16 斬咗 `api/render.py`（PyMuPDF ~110 MB）只係換咗個更大的：
+根目錄 `requirements.txt` 嘅 playwright（137 MB）一路都喺度，
+`push_config` / `push_subscriptions` 兩個 function 照樣被塞爆。
+
+**修法（今次一次過做齊三層，全部已喺 repo 內）**：
+
+1. **斬斷來源** —— 根目錄 `requirements.txt` 清空（佢嘅職責而家只係
+   「Vercel Function 部署 runtime 依賴」，答案係零），爬蟲／通知依賴搬去
+   `.github/requirements-scrape.txt` 同 `.github/requirements-notify.txt`
+   （`.github/` 唔會上載去 Vercel）。順帶修好 `notify.yml` 口口聲聲話
+   「絕不安裝 Playwright」但其實一路都裝緊嘅 bug，同移除全 repo 冇人
+   import 嘅 `lxml`。
+2. **雙保險** —— `requirements.txt` / `pyproject.toml` / `Pipfile` /
+   `uv.lock` / `api/requirements.txt` / `.github/` 全部加入 `.vercelignore`，
+   Vercel 連睇都睇唔到；`vercel.json` 加 `excludeFiles`，function bundle 由
+   ~1.2 MB 靜態檔再降到只剩 `api/*.py` + `subscription_catalog.json`（~120 KB）。
+3. **清走存量** —— 單靠上面兩步 **唔會** 釋放已經食咗嘅 11.82 GB（舊部署仲喺度）。
+   所以要配合：
+   - `.github/workflows/vercel-retention.yml`：用 REST API 把 project 嘅
+     Deployment Retention Policy 由 Hobby 預設 30 日縮到
+     preview 7d / production 30d / canceled 1d / errored 7d。
+     ⚠️ 通用嘅 `PATCH /v9/projects/{id}` **寫唔到** `deploymentExpiration`
+     （會回 `400 should NOT have additional property`，佢係 read-only）；
+     要用專用 sub-resource
+     `PATCH /v9/projects/{projectId}/deployment-expiration`，
+     body 用 `{"expiration":"7d","expirationProduction":"30d",...}`
+     （字串 duration，唔係 `expirationDays` 數字）。
+   - `.github/workflows/vercel-prune.yml`：新增 `mode=purge`（一次過刪走
+     所有舊部署，只留最近 3 個 ＋ alias 中嘅 production）同 `dry_run`。
+     要即刻釋放 11 GB 就用 `mode=purge` 手動 dispatch 一次。
+   - `.github/workflows/vercel-bundle-guard.yml`：每次 push 都驗證
+     「`api/` 只用標準庫」＋「根目錄冇會令 Vercel pip install 嘅 manifest
+     漏網」＋「上傳體積唔超 budget」，防止日後有人無意中加返。
+
+**你而家要做嘅兩件事**（repo 改唔到 Vercel 帳戶設定）：
+
+1. 確認 `VERCEL_TOKEN` ＋ `VERCEL_PROJECT_ID` 兩個 Actions secrets 已設。
+   未設嘅話 prune / retention 兩個 workflow 會 **靜靜地跳過**，咩都唔會清到 ——
+   而家佢哋會喺 run summary 出 ⚠️ warning，唔再係無聲無息。
+2. Actions → **Vercel Deployment Prune** → Run workflow →
+   `mode=purge`、`dry_run=false` → 即刻釋放存量。
+   之後再跑一次 **Vercel Retention Policy** 把 retention 縮短，
+   等佢日後自動清。
 
 
 ## 下一步建議

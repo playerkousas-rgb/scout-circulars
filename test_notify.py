@@ -46,7 +46,7 @@ from notify import (
 )
 
 
-try:  # cryptography ships transitively with pywebpush (requirements.txt)
+try:  # cryptography ships transitively with pywebpush (.github/requirements-notify.txt)
     from cryptography.hazmat.primitives import serialization as _serialization
     from cryptography.hazmat.primitives.asymmetric import ec as _ec
 

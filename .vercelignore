@@ -8,7 +8,11 @@
 #     純綷係每日變 5MB 嘅死重，食 Deployment Storage 兼公開俾人下載。
 #   - icons/src/ 1.6MB：母圖，只係本機換圖用。
 #   - 爬蟲／工具／測試／報告：只喺 GitHub Actions 或本機跑。
-# 加咗呢個檔之後每個 deployment 由 ~8.4MB 降到 ~400KB。
+# 加咗呢個檔之後每個 deployment 由 ~8.4MB 降到 ~1.2MB。
+#
+# ⚠️ 但 2026-09-17 發現：呢個檔 **救唔到 Functions Storage**。
+#    Functions Storage 爆到 11.82GB / 10GB 嘅真正病源係根目錄
+#    requirements.txt —— 見下面「★ 病源」一節。
 #
 # ⚠️ 唔好 ignore 嘅（部署真係要用）：
 #   index.html / errors.html / stats.html / sw.js / push-client.js /
@@ -16,6 +20,41 @@
 #   subscription_catalog.json（前端由 Vercel 讀，push functions 亦用
 #   includeFiles 包佢，ignore 咗會令 includeFiles 搵唔到）
 # ============================================================
+
+# ------------------------------------------------------------
+# ★ 病源：根目錄 requirements.txt（2026-09-17 Functions Storage 11.82GB）
+# ------------------------------------------------------------
+# Vercel 嘅 Python runtime 會自動讀 repo **根目錄** 嘅 requirements.txt /
+# pyproject.toml / Pipfile，pip install 入 **每一個** api/*.py function
+# bundle，而且官方明言「There is no automatic tree-shaking for Python」
+# —— 唔理你 api/ 有冇 import 佢。
+#
+# 呢個檔之前列住 playwright（wheel 46MB，解壓後 **137MB**，driver 135MB）
+# ＋ lxml ＋ cryptography ＋ requests ＋ bs4 ＋ pywebpush
+# → 每個 function bundle ~170MB。
+# Functions Storage = 每個 retained deployment × 每個 bundle，
+# Hobby 預設 retention 30 日 × 每日 ~3 個 bot commit（[skip ci] 都照開
+# deployment）→ 數十個部署 × ~170MB ≈ 10GB+。
+#
+# 而 api/ 係 **100% 標準庫**，一個第三方套件都唔使（用
+# .github/workflows/vercel-bundle-guard.yml 每次 push 驗證）。
+# 所以：ignore 咗佢 = Vercel 收唔到 = 零 pip install = bundle 只剩 api/ 源碼。
+#
+# 爬蟲／通知嘅依賴搬咗去 .github/requirements-ci.txt（.github/ 唔會上載）。
+# 如果你真係要喺 api/ 用第三方套件，要 **同時** 做兩件事：
+#   1) 喺根目錄 requirements.txt 加嗰個套件
+#   2) 刪走下面 "requirements.txt" 呢行
+# 只做一樣嘢 bundle-guard 會令你 CI 紅。
+requirements.txt
+# 防呆：Vercel 亦會讀 pyproject.toml / Pipfile / uv.lock / api 下面嘅 requirements
+pyproject.toml
+Pipfile
+Pipfile.lock
+uv.lock
+api/requirements.txt
+
+# GitHub Actions 专用（workflow 由 GitHub 讀，Vercel 永遠唔使）
+.github/
 
 # 資料檔（前端讀 GitHub Raw；stats.html 都係讀 raw）
 cache.json

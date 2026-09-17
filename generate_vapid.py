@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate a VAPID key pair for the anonymous Web Push setup.
 
-Run after ``pip install -r requirements.txt``. The private PEM printed here is
+Run after ``pip install -r .github/requirements-notify.txt``. The private PEM printed here is
 secret: put it in the GitHub Actions secret VAPID_PRIVATE_KEY only, never in a
 browser, Vercel public environment variable, commit, or issue/comment.
 """
@@ -12,7 +12,10 @@ try:
     from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
     from py_vapid import Vapid
 except ImportError as exc:
-    raise SystemExit("Install dependencies first: pip install -r requirements.txt") from exc
+    raise SystemExit(
+        "Install dependencies first: "
+        "pip install -r .github/requirements-notify.txt"
+    ) from exc
 
 vapid = Vapid()
 vapid.generate_keys()

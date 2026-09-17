@@ -56,7 +56,12 @@ jobs:
         run: |
           # enrich.py 的 OCR fallback 需要 tesseract + poppler
           sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra poppler-utils
-          pip install -r requirements.txt pdfplumber pdfminer.six pillow pytesseract pdf2image
+          # ⚠️ 用 .github/requirements-scrape.txt，唔好用根目錄 requirements.txt。
+          #    根目錄嗰個係「Vercel Function 部署 runtime 依賴」（刻意留空），
+          #    因為 Vercel 會把佢 pip install 入每個 function bundle 而冇
+          #    tree-shaking —— playwright 一個套件就係 137MB × 幾十個部署，
+          #    2026-09-17 就係咁令 Functions Storage 爆到 11.82GB / 10GB。
+          pip install -r .github/requirements-scrape.txt pdfplumber pdfminer.six pillow pytesseract pdf2image
           playwright install chromium
 
       # ── Step 1: 跑 core.py 抓通告 ──

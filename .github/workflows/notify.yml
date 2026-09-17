@@ -40,10 +40,18 @@ jobs:
           python-version: '3.11'
 
       - name: Install minimal notify dependencies
-        # 只安裝 notify.py 所需：pywebpush + cryptography + requirements 中的核心依賴
-        # 絕不安裝 Playwright / Chromium / Tesseract / Poppler / PDF/OCR 套件
+        # 只裝 notify.py / subscription_stats.py 真正用到嘅兩個第三方套件
+        # （pywebpush + cryptography），其餘全部標準庫。
+        # 絕不安裝 Playwright / Chromium / Tesseract / Poppler / PDF/OCR 套件。
+        #
+        # ⚠️ 舊寫法 `pip install -r requirements.txt pywebpush cryptography`
+        #    口口聲聲話唔裝 Playwright，其實根目錄 requirements.txt 一路都
+        #    列住 playwright>=1.52.0（46MB wheel），每次 notify run 都白裝。
+        #    而家依賴搬咗去 .github/requirements-notify.txt，真係唔裝了。
+        #    根目錄 requirements.txt 係「Vercel Function 部署 runtime 依賴」，
+        #    刻意留空 ＋ 已 ignore —— 見 .vercelignore「★ 病源」一節。
         run: |
-          pip install -r requirements.txt pywebpush cryptography
+          pip install -r .github/requirements-notify.txt
 
       - name: Send Web Push (with rolling catch-up)
         env:

@@ -631,7 +631,10 @@ def send_web_push(subscription: Mapping[str, Any], payload: Mapping[str, Any], c
     try:
         from pywebpush import webpush
     except ImportError as exc:
-        raise NotificationError("pywebpush is not installed; install requirements.txt") from exc
+        raise NotificationError(
+            "pywebpush is not installed; "
+            "install .github/requirements-notify.txt"
+        ) from exc
     info = {
         "endpoint": subscription["endpoint"],
         "keys": {"p256dh": subscription["p256dh"], "auth": subscription["auth"]},

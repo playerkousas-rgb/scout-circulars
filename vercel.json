@@ -3,11 +3,13 @@
   "functions": {
     "api/push_config.py": {
       "maxDuration": 10,
-      "includeFiles": "subscription_catalog.json"
+      "includeFiles": "subscription_catalog.json",
+      "excludeFiles": "{*.html,*.md,*.svg,*.bat,*.bak,*.sql,icons/**,.github/**,.gitignore,.vercelignore,.gitattributes,vercel.json,manifest.webmanifest,sw.js,push-client.js}"
     },
     "api/push_subscriptions.py": {
       "maxDuration": 10,
-      "includeFiles": "subscription_catalog.json"
+      "includeFiles": "subscription_catalog.json",
+      "excludeFiles": "{*.html,*.md,*.svg,*.bat,*.bak,*.sql,icons/**,.github/**,.gitignore,.vercelignore,.gitattributes,vercel.json,manifest.webmanifest,sw.js,push-client.js}"
     }
   },
   "rewrites": [
