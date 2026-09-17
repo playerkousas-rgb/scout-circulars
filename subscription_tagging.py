@@ -21,6 +21,12 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Set, Tuple
 BASE_DIR = Path(__file__).resolve().parent
 CATALOG_PATH = BASE_DIR / "subscription_catalog.json"
 
+# 分類器版本：改動分類詞表／規則時 bump（enrich.py 會把它寫入每條 enrich 記錄，
+# 並用嚟判斷邊啲記錄需要重分類 —— 見 enrich.py 的 _has_current_tags）。
+# 歷史：
+#   3.1  2026-09-18  新增 STAFF_RECRUIT_TITLE_TERMS（工作人員招募 → 一定係服務）
+CLASSIFIER_VERSION = "3.1"
+
 # These are intentionally limited to the product taxonomy agreed for the UI.
 TRAINING_TERMS = [
     "訓練班", "訓練課程", "技能訓練", "技能考核", "研習班", "工作坊", "講座", "培訓", "進修班",
@@ -31,6 +37,19 @@ TRAINING_TERMS = [
 SERVICE_TERMS = [
     "社區服務", "服務計劃", "義工服務", "志願服務", "服務活動", "服務日", "服務隊", "服務團",
     "義工招募", "公益服務", "社會服務", "探訪", "捐血", "籌款",
+]
+# 2026-09-18 新增：標題有「工作人員招募」類字眼 → 一定係服務（見 extract_categories）。
+# 實例：渣打香港馬拉松2027「工作人員大招募」——PDF 內文滿係「比賽」（馬拉松本身係
+# 賽事），令成張通告被分類做「比賽」。但呢類通告係招募人手幫手搞活動：係服務機會，
+# 唔係參賽機會。只睇標題（站方 listing 標題＋核實標題），唔掃內文——免得任何通告
+# 內文提一句「招募義工」就誤中。
+# 刻意唔收「隊員／成員／團員招募」：嗰啲係參與者招募（例如龍舟隊隊員招募真係去
+# 比賽），唔係工作人員，應該跟原本詞表走。
+STAFF_RECRUIT_TITLE_TERMS = [
+    "工作人員招募", "工作人員大招募", "招募工作人員",
+    "工作人員報名",
+    "義工招募", "招募義工",
+    "招募籌委會", "籌委會招募",
 ]
 # 比賽是獨立興趣／瀏覽分類，不再含糊併入「其他活動」。只收明確賽事詞，
 # 免得一般「挑戰」或機構名稱造成誤推。
@@ -173,7 +192,7 @@ def is_reference_document(title: Any, text: Any = "") -> bool:
     return not normalize(title) and bool(_term_hits(text, REFERENCE_TITLE_TERMS))
 
 
-def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dict[str, Any]]:
+def extract_categories(title: Any, text: Any = "", source: Any = "", listing_title: Any = "") -> List[Dict[str, Any]]:
     """Classify into training, service, activity and competition.
 
     A workshop and a training class deliberately share the ``training`` tag.
@@ -181,12 +200,19 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     an explicit competition is a separate top-level category. More than one
     category can be valid for one circular. Notices from a TOOLS_SOURCES
     source are always ``tools`` regardless of wording.
+
+    ``listing_title`` is the association's own listing-page title, kept
+    separate because the PDF's own heading sometimes wins for display
+    (e.g. generic 「特別通告第18/26號」). The staff-recruitment rule checks
+    both: the listing title is often the only place that says
+    「工作人員大招募」.
     """
     source_name = str(source or "").strip()
     if source_name in TOOLS_SOURCES:
         return [_make_category("tools", "小工具", [f"來源：{source_name}"])]
     title = str(title or "")
     text = str(text or "")
+    listing_title = str(listing_title or "")
     title_hits = {
         "training": _term_hits(title, TRAINING_TERMS),
         "service": _term_hits(title, SERVICE_TERMS),
@@ -211,6 +237,13 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     # a quarterly timetable rather than a registration opportunity.
     if title_is_reference:
         return []
+
+    # 2026-09-18：標題（listing 標題都計）有「工作人員招募」類字眼 → 一定係服務，
+    # 並且**只**回服務：比賽／訓練／活動訂閱者都唔需要收到人手招募通告。
+    # 呢條規則壓住 PDF 內文嘅「比賽」fallback —— 馬拉松工作人員招募就係咁中招。
+    recruit_hits = _term_hits(f"{title}\n{listing_title}", STAFF_RECRUIT_TITLE_TERMS)
+    if recruit_hits:
+        return [_make_category("service", "服務", recruit_hits)]
 
     result: List[Dict[str, Any]] = []
     training = [] if title_is_reference else (title_hits["training"] or text_hits["training"])
@@ -304,19 +337,22 @@ def extract_subscription_metadata(
     catalog: Optional[Mapping[str, Any]] = None,
     source: Any = "",
     tag_hint: Any = "",
+    listing_title: Any = "",
 ) -> Dict[str, Any]:
     """Create the branch/topic IDs used by the dispatcher and personal view.
 
     ``tag_hint`` carries site-owner labels scraped with the item (for example
     the 支部 tags on Scout System tools). It is used only when the PDF has no
     labelled audience: a labelled audience stays the most reliable signal.
+    ``listing_title`` is the association's own listing-page title (see
+    extract_categories) — it only feeds the staff-recruitment service rule.
     """
     catalog = catalog or load_catalog()
     title = str(title or "")
     text = str(text or "")
     source_name = str(source or "").strip()
     combined = f"{title}\n{text}"
-    categories = extract_categories(title, text, source_name)
+    categories = extract_categories(title, text, source_name, listing_title)
 
     topic_ids: Set[str] = set()
     details: List[Dict[str, Any]] = []

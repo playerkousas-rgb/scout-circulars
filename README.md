@@ -131,6 +131,15 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   （呢個會再下載未分類嘅 PDF，量大時請分批／夜晚跑，避免觸發站方封鎖。）
 - 想調整分類規則，改 `subscription_tagging.py` 的受控分類詞表；不要為罕見／不可靠的名稱加推播匹配。
 - 分類係 PDF 內文級估算，唔一定 100% 準；重要通告請開附件確認。
+- **「工作人員招募 → 一定係服務」**（2026-09-18，馬拉松事件）：標題
+  （站方 listing 標題都計）有 `STAFF_RECRUIT_TITLE_TERMS`（工作人員招募／
+  大招募／報名、義工招募、籌委會招募）→ 只回「服務」，連 PDF 內文嘅
+  「比賽」fallback 都壓住——招募人手搞活動係服務機會，唔係參賽機會。
+  參與者招募（隊員／成員／團員）刻意唔受影響，照走原本詞表。
+  改分類規則後記得 bump `subscription_tagging.CLASSIFIER_VERSION`，
+  咁 `--backfill-categories` 就識得重分類舊記錄（enrich 記錄由 3.3 起
+  會記 `classifier_version`）；一次過修存量資料可以跑
+  `python fix_staff_recruit_categories.py`（唔重新下載 PDF）。
 
 執行回歸測試：
 
@@ -447,6 +456,18 @@ Hobby 預設 retention **30 日**，而呢個 repo 每日有 ~3 個 bot commit
    `mode=purge`、`dry_run=false` → 即刻釋放存量。
    之後再跑一次 **Vercel Retention Policy** 把 retention 縮短，
    等佢日後自動清。
+
+### 之後點監察有冇再漲大（2026-09-18 加）
+
+`.github/workflows/vercel-usage-report.yml`（**Vercel Usage Report**）每次 push
+自動跑一報（Actions 頁亦可以手動 Run）。唯讀 GET，唔刪任何嘢：列出全部
+retained deployments、以 2026-09-17（bundle 瘦身）做分界統計「瘦身前殘留」、
+讀現時 retention policy，並喺 job summary／notice annotation 直接寫結論：
+
+- 瘦身前殘留 > 0 → 舊巨型 bundle 仲佔住額度，行 Prune（mode=purge）即刻釋放；
+- 全部係瘦身後部署 → Functions Storage ≈ 個數 × ~1.2MB，每日淨增 ~3 個
+  bot commit × 1.2MB，離 10GB 上限好遠；
+- retention 仲係預設 30 日 → 想自動清舊部署就行一次 Retention Policy。
 
 
 ## 下一步建議

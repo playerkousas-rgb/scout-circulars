@@ -49,7 +49,7 @@ import logging
 import warnings
 
 from subscription_tagging import extract_categories as classify_subscription_categories
-from subscription_tagging import extract_subscription_metadata, load_catalog
+from subscription_tagging import CLASSIFIER_VERSION, extract_subscription_metadata, load_catalog
 
 # 靜音 pdfminer/pdfplumber 嘈雜的 FontBBox 等警告
 logging.getLogger("pdfminer").setLevel(logging.ERROR)
@@ -58,7 +58,9 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.2"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
+# 3.3  2026-09-18  分類加收 listing 標題（工作人員招募 → 服務），記錄加
+#                  classifier_version／listing_title 兩個欄位
+ENRICH_VERSION = "3.3"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -288,13 +290,14 @@ CN_NUM = "零一二三四五六七八九十"
 #   4. 比賽：獨立，絕不混入其他活動。
 # 詳細的受控課程／徽章別名放在 subscription_catalog.json，由
 # subscription_tagging.py 和前端共用，不讓臨時或難辨識課程進入訂閱選項。
-CATE_VER = "3.0"
+# 分類器版本改放 subscription_tagging.CLASSIFIER_VERSION（舊 CATE_VER 常數
+# 一直冇人用，2026-09-18 移除；版本要跟分類器本身走，唔好有兩個真相來源）。
 CURRENT_SUBSCRIPTION_CATALOG_VERSION = str(load_catalog().get("version", ""))
 
 
-def extract_categories(title, text):
+def extract_categories(title, text, listing_title=""):
     """Compatibility wrapper for the shared personal-subscription taxonomy."""
-    return classify_subscription_categories(title, text)
+    return classify_subscription_categories(title, text, listing_title=listing_title)
 
 
 def extract_deadline(text):
@@ -571,10 +574,12 @@ def clean_value(v, max_len):
     return v
 
 
-def extract_fields(text, title="", source=""):
+def extract_fields(text, title="", source="", listing_title=""):
     """Extract display fields and the stable IDs used for personalised push."""
     audience = extract_audience(text)
-    subscription = extract_subscription_metadata(title, text, audience, source=source)
+    subscription = extract_subscription_metadata(
+        title, text, audience, source=source, listing_title=listing_title
+    )
     return {
         "deadline": extract_deadline(text),
         "audience": audience,
@@ -620,7 +625,7 @@ def download(url, timeout=25):
 
 def _empty_enrichment(title, error, source=""):
     """Retain title-based subscription tags even when the PDF is unavailable."""
-    fields = extract_fields("", title, source=source)
+    fields = extract_fields("", title, source=source, listing_title=title)
     fields["_error"] = error
     fields["_verified_title"] = title
     fields["_title_check"] = "unverified"
@@ -664,7 +669,9 @@ def enrich_one(url, title="", use_ocr=True, verbose=False, source=""):
 
     check = reconcile_listing_title(title, text)
     verified_title = check["title"]
-    fields = extract_fields(text, verified_title, source=source)
+    # 分類時連站方 listing 標題一齊睇：總會 PDF 標題好多時只係「特別通告第18/26號」，
+    # 「工作人員大招募」呢啲關鍵字眼只喺 listing 標題出現（2026-09-18 馬拉松事件）。
+    fields = extract_fields(text, verified_title, source=source, listing_title=title)
     fields["_method"] = method
     fields["_verified_title"] = verified_title
     fields["_title_check"] = check["status"]
@@ -799,14 +806,18 @@ def main():
 
         def _has_current_tags(u):
             entry = _entry(u)
-            # 空 array 也是已判斷結果；以欄位存在＋目前 catalog version 為準，
-            # 否則一張不屬四類的通告會被每天重下載。升級 taxonomy（例如新增
-            # 獨立比賽）時，--backfill-categories 也會重建舊版本 metadata。
+            # 空 array 也是已判斷結果；以欄位存在＋目前 catalog version＋目前
+            # 分類器版本為準，否則一張不屬四類的通告會被每天重下載。
+            # 2026-09-18：加 classifier_version —— 改分類規則（例如新增
+            # 「工作人員招募 → 服務」）時 bump subscription_tagging.CLASSIFIER_VERSION，
+            # 咁 --backfill-categories 就識得重建舊版本記錄，而增量模式只會重跑
+            # 當日嘅通告一次，唔會日日重掃全庫。
             return (
                 "categories" in entry
                 and "branch_tags" in entry
                 and "subscription_tags" in entry
                 and entry.get("subscription_catalog_version") == CURRENT_SUBSCRIPTION_CATALOG_VERSION
+                and entry.get("classifier_version") == CLASSIFIER_VERSION
             )
 
         if args.backfill_categories:
@@ -828,6 +839,7 @@ def main():
     cache_dirty = False
     title_corrections = 0
     for idx, (source, title, url) in enumerate(targets):
+        listing_title = title  # 站方列表標題；即使之後被核實標題改寫都保留分類用
         if idx > 0:
             # v2.4: 下載之間加隨機延遲（同 core.py 標準）——
             # 5/23 教訓：同一 session 連環下載最易觸發站點封鎖
@@ -859,6 +871,7 @@ def main():
         enrich[url] = {
             "source": source,
             "title": title,
+            "listing_title": listing_title,
             "deadline": res.get("deadline", ""),
             "audience": res.get("audience", ""),
             "fee": normalize_fee(res.get("fee", "")),
@@ -867,6 +880,7 @@ def main():
             "subscription_tags": res.get("subscription_tags") or [],
             "subscription_tag_details": res.get("subscription_tag_details") or [],
             "subscription_catalog_version": res.get("subscription_catalog_version", ""),
+            "classifier_version": CLASSIFIER_VERSION,
             "method": res.get("_method", ""),
             "error": res.get("_error", ""),
             "title_check": title_check,
