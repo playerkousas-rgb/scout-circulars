@@ -1,0 +1,24 @@
+# ============================================================
+# requirements-notify.txt — notify.py / subscription_stats.py 嘅依賴
+# ------------------------------------------------------------
+# 只喺 GitHub Actions（notify.yml）同本機手動補發時用。
+# ⚠️ 千祈唔好搬去 repo 根目錄 —— 原因見 requirements-scrape.txt 檔頭
+#    （Vercel 會把根目錄 requirements.txt pip install 入每個 function
+#     bundle，冇 tree-shaking；2026-09-17 Functions Storage 爆額病源）。
+#
+# notify.py 除咗下面兩個套件之外全部用標準庫（urllib / hashlib / json /
+# concurrent.futures / zoneinfo …），所以呢個檔好細，notify.yml 亦唔使
+# 再 inline 加 `pywebpush cryptography`（舊寫法係重複安裝）。
+# ============================================================
+
+# standards-compliant VAPID Web Push encryption（notify.py 行 632 懶加載）
+pywebpush>=2.0.0
+# notify.py 自己驗 VAPID_PRIVATE_KEY（並由私鑰推返公鑰同網站核對），
+# 唔等 pywebpush 逐個 subscription 失敗先報錯
+cryptography>=42.0.0
+
+# 註：明確唔裝 requests / bs4 / lxml / playwright / pdfplumber /
+#     pytesseract —— notify.yml 檔頭寫住「絕不安裝 Playwright / Chromium /
+#     Tesseract / Poppler / PDF/OCR 套件」，但舊寫法
+#     `pip install -r requirements.txt pywebpush cryptography` 其實一路都
+#     裝緊 playwright（46MB wheel）。而家真係唔裝了。

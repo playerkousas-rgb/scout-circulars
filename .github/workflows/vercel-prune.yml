@@ -1,16 +1,36 @@
 # ============================================================
-# Vercel deployment 清道夫（選配；未設 secrets 會自動跳過，唔會紅）
+# Vercel deployment 清道夫（選配；未設 secrets 會跳過並出 ⚠️ warning）
 # ------------------------------------------------------------
-# 點解要有：api/render.py 嘅 function bundle 曾包埋 PyMuPDF（安裝後約
-# 110MB／個部署），而 Vercel 會保留每個 deployment 嘅 function bundle；
-# Hobby 嘅 Functions Storage 上限 10GB，約 90 個舊部署就會爆額
-# （2026-09-16 實測 10.49GB / 10GB）。每次 commit 落 main（包括 bot 嘅
-# [skip ci] commit）都會開新 deployment，所以唔清就會不斷累積。
-# （產生圖片功能已於同日移除，新部署只係幾 MB；呢個 workflow 係保險絲，
-#  同時負責清埋歷史累積。）
+# 點解要有：Vercel 會保留每個 deployment 嘅 **function bundle**，而
+# Functions Storage = 每個 retained deployment × 每個 bundle × 每個 region。
+# Hobby 上限 10GB，而呢個 repo 每日有 ~3 個 bot commit（`[skip ci]` 只 skip
+# GitHub Actions，skip 唔到 Vercel）→ 唔清就會不斷累積。
 #
-# 呢個 workflow 每週一刪走「超過 14 日」嘅舊 deployments，並永遠保留
-# 最近 5 個 + 最新 production（刪唔到 alias 中嘅 production 會自動跳過）。
+# 歷史：
+#   2026-09-16  10.49GB / 10GB —— 以為病源係 api/render.py（PyMuPDF ~110MB），
+#               移除咗佢。
+#   2026-09-17  11.82GB / 10GB —— 一日後再爆。真正病源係根目錄
+#               requirements.txt 嘅 playwright（解壓後 137MB）：Vercel Python
+#               runtime 會把根目錄 requirements.txt pip install 入 **每個**
+#               api/*.py bundle，而官方明言「no automatic tree-shaking」。
+#               api/ 其實係 100% 標準庫，137MB 純綷死重。
+#               已修：requirements.txt 清空 + 加入 .vercelignore（依賴搬去
+#               .github/requirements-{scrape,notify}.txt）+ vercel.json
+#               excludeFiles + vercel-bundle-guard.yml 防復發。
+#
+# ⚠️ 但「以後嘅 deployment 變細」**唔會**釋放已經食咗嘅存量。
+#    要清走舊嘅巨型 bundle 有兩條路，建議兩條一齊行：
+#      (a) 呢個 workflow 嘅 mode=purge —— 即刻逐個 DELETE，即時見效
+#      (b) vercel-retention.yml —— 縮短 retention，等 Vercel 背景自動清
+#
+# 兩種 mode：
+#   policy（預設）：每週一刪走「超過 KEEP_DAYS 日」嘅舊 deployments，
+#                   並永遠保留最近 KEEP_RECENT 個
+#   purge         ：一次過清走所有舊部署，只留最近 KEEP_RECENT 個
+#                   （用嚟即時釋放已經爆咗嘅存量）
+# 兩種 mode 都刪唔到 alias 中嘅 production —— Vercel 會回 HTTP 錯，
+# script 當「跳過」處理，唔算失敗。
+#
 # 刪除邏輯喺 .github/scripts/vercel_prune.py（刻意唔放喺 run: | heredoc：
 # bash heredoc 結束符要 column 0，同 YAML block scalar 縮排衝突）。
 #
@@ -18,10 +38,9 @@
 #   VERCEL_TOKEN       Vercel → Account Settings → Tokens → Create
 #                      （Scope 揀呢個 project；只用於 DELETE deployments）
 #   VERCEL_PROJECT_ID  Vercel project → Settings → General → Project ID
-# 兩個都未設時，script 會印一句說話然後 exit 0。
-#
-# 備註：Hobby plan 自 2026-04-29 起本身有 30 日 deployment 自動保留上限
-# （最近 10 個 production + aliased 除外），呢個 workflow 只係令清理更快更可控。
+#   VERCEL_TEAM_ID     選配（team 帳戶先要；個人帳戶留空）
+# 未設時 script 會出 ::warning:: annotation ＋ job summary 然後 exit 0
+# （唔會紅，但喺 Actions 頁面一眼睇到「根本冇清到嘢」）。
 # ============================================================
 
 name: Vercel Deployment Prune
@@ -32,27 +51,51 @@ on:
     - cron: "30 3 * * 1"
   workflow_dispatch:
     inputs:
+      mode:
+        description: "policy＝只刪超過 keep_days 日嘅；purge＝清走所有舊部署（即刻釋放存量）"
+        required: false
+        default: "purge"
+        type: choice
+        options:
+          - purge
+          - policy
       keep_days:
-        description: "刪除幾日之前嘅 deployments"
+        description: "（policy mode）刪除幾日之前嘅 deployments"
         required: false
         default: "14"
       keep_recent:
         description: "無條件保留最近幾個 deployments"
         required: false
         default: "5"
+      dry_run:
+        description: "只印會刪乜，唔真係 DELETE"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
 
 jobs:
   prune:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
+      MODE: ${{ github.event.inputs.mode || 'policy' }}
       KEEP_DAYS: ${{ github.event.inputs.keep_days || '14' }}
       KEEP_RECENT: ${{ github.event.inputs.keep_recent || '5' }}
+      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Delete old Vercel deployments
         run: python3 .github/scripts/vercel_prune.py

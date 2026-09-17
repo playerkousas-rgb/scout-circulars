@@ -1,0 +1,77 @@
+# ============================================================
+# Vercel Deployment Retention Policy（縮短保留期 → 令 Vercel 自己清走舊部署）
+# ------------------------------------------------------------
+# 點解要有：單靠「以後嘅 deployment 變細」唔會釋放已經食咗嘅 Functions
+# Storage —— 舊部署仲喺度，每個都挾住一個巨型 function bundle。
+# Hobby 預設 retention 係 30 日（四種狀態全部），而呢個 repo 每日有 ~3 個
+# bot commit（`[skip ci]` 只 skip GitHub Actions，skip 唔到 Vercel），
+# 30 日 ≈ 90 個部署全部留住 → 2026-09-17 Functions Storage 11.82GB / 10GB。
+#
+# ⚠️ 通用嘅 PATCH /v9/projects/{idOrName} 寫唔到 deploymentExpiration
+#    （佢係 read-only，會回 400 "should NOT have additional property"）。
+#    真正寫到嘅係專用 sub-resource，細節同實測見
+#    .github/scripts/vercel_retention.py 檔頭。
+#
+# 設定（repo → Settings → Secrets and variables → Actions）：
+#   VERCEL_TOKEN       同 vercel-prune.yml 共用
+#   VERCEL_PROJECT_ID  同 vercel-prune.yml 共用
+#   VERCEL_TEAM_ID     選配（team 帳戶先要；個人帳戶留空）
+# 未設 secrets 時 script 會出 ⚠️ warning ＋ job summary 然後 exit 0。
+#
+# 用法：Actions → 「Vercel Retention Policy」→ Run workflow
+#       第一次建議 dry_run=true 睇吓現況，確認後再 dry_run=false。
+# ============================================================
+
+name: Vercel Retention Policy
+
+on:
+  workflow_dispatch:
+    inputs:
+      expiration_preview:
+        description: "Pre-Production（preview）保留期：1d/1w/1m/2m/3m/6m/1y/unlimited"
+        required: false
+        default: "1w"
+      expiration_production:
+        description: "Production 保留期（rollback／audit 窗口）"
+        required: false
+        default: "1m"
+      expiration_canceled:
+        description: "Canceled 保留期（build debugging）"
+        required: false
+        default: "1d"
+      expiration_errored:
+        description: "Errored 保留期（build debugging）"
+        required: false
+        default: "1w"
+      dry_run:
+        description: "只印現況同將要設嘅值，唔真係 PATCH"
+        required: false
+        default: "false"
+  # 每個月一日 check 一次：如果有人喺 dashboard 手動改返 policy，呢度會印出嚟
+  schedule:
+    - cron: "40 3 1 * *"
+
+jobs:
+  retention:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
+      EXPIRATION_PREVIEW: ${{ github.event.inputs.expiration_preview || '1w' }}
+      EXPIRATION_PRODUCTION: ${{ github.event.inputs.expiration_production || '1m' }}
+      EXPIRATION_CANCELED: ${{ github.event.inputs.expiration_canceled || '1d' }}
+      EXPIRATION_ERRORED: ${{ github.event.inputs.expiration_errored || '1w' }}
+      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Read / update Vercel deployment retention policy
+        run: python3 .github/scripts/vercel_retention.py

@@ -1,0 +1,24 @@
+# ============================================================
+# requirements-scrape.txt — core.py / enrich.py（抓取＋PDF 抽字）嘅依賴
+# ------------------------------------------------------------
+# 只喺 GitHub Actions（scrape.yml）同本機 run-local-scrape*.bat 用。
+# ⚠️ 千祈唔好搬去 repo 根目錄：Vercel 會自動 pip install 根目錄嘅
+#    requirements.txt / pyproject.toml / Pipfile 入 **每一個** api/*.py
+#    function bundle，而且「冇 tree-shaking」（官方原話）。
+#    playwright 一個套件解壓後 137MB → 每個 deployment ~170MB →
+#    2026-09-17 Functions Storage 爆到 11.82GB / 10GB 就係咁嚟。
+#    根目錄 requirements.txt 而家刻意留空 ＋ 已加入 .vercelignore。
+#
+# enrich.py 嘅 OCR fallback（pdfplumber / pdfminer.six / pillow /
+# pytesseract / pdf2image）唔列喺度 —— scrape.yml 會另外 inline 裝，
+# 因為嗰啲係 CI 環境專屬（仲要 apt-get 裝 tesseract + poppler）。
+# ============================================================
+
+requests>=2.32.0
+beautifulsoup4>=4.12.3
+# 用 Playwright 抓 JS-rendered 來源（core.py 懶加載：未裝會自動降級 requests）
+playwright>=1.52.0
+
+# 註：舊嘅根目錄 requirements.txt 有 lxml>=5.2.2，但全 repo 冇任何一處
+# import lxml，BeautifulSoup 一律用內置 "html.parser"，所以移除咗
+# （lxml wheel ~5MB，CI 白裝）。如果日後改用 "lxml" parser 記得加返。

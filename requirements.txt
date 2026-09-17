@@ -1,9 +1,26 @@
-requests>=2.32.0
-beautifulsoup4>=4.12.3
-lxml>=5.2.2
-playwright>=1.52.0
-# GitHub Actions dispatcher only: standards-compliant VAPID Web Push encryption.
-pywebpush>=2.0.0
-# notify.py validates VAPID_PRIVATE_KEY itself (and derives the public key to
-# cross-check the site) instead of letting pywebpush fail per subscription.
-cryptography>=42.0.0
+# ============================================================
+# requirements.txt — Vercel Function（api/）嘅 **部署 runtime** 依賴
+# ------------------------------------------------------------
+# ⚠️⚠️ 呢個檔唔係爬蟲用嘅。爬蟲／通知／本機工具嘅依賴喺
+#      .github/requirements-ci.txt
+#
+# Vercel 嘅 Python runtime 會自動 pip install 呢個檔入 **每一個**
+# api/*.py 嘅 function bundle，而且冇 tree-shaking。Functions Storage
+# = 每個 retained deployment × 每個 bundle，所以呢度每加一行，
+# 全部都乘開幾十個部署計。
+#
+# 2026-09-17：呢個檔曾經列住 playwright（解壓後 137MB）+ lxml +
+# cryptography + requests + bs4 + pywebpush，令每個 function bundle ~170MB，
+# Functions Storage 爆到 11.82GB / 10GB。而 api/ 其實係 100% 標準庫，
+# 一個第三方套件都唔使 —— 所以呢個檔而家係刻意留空。
+#
+# 呢個檔亦已加入 .vercelignore，Vercel 根本收唔到佢（雙保險）。
+# 如果你真係要喺 api/ 用第三方套件：
+#   1) 喺呢度加嗰個套件
+#   2) 由 .vercelignore 移除 requirements.txt 嗰行
+#   3) 心理準備：每個 deployment 嘅 Functions Storage 會脹返
+#   .github/workflows/vercel-bundle-guard.yml 會驗證 1) 同 2) 有冇一齊做，
+#   只做一半（api/ import 第三方但 Vercel 收唔到 requirements.txt）會 CI 紅。
+#
+# 下面刻意冇任何套件。
+# ============================================================

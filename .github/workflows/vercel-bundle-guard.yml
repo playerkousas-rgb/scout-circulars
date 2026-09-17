@@ -1,0 +1,56 @@
+# ============================================================
+# Vercel bundle guard —— 防止 Functions Storage 病源復發
+# ------------------------------------------------------------
+# 2026-09-17：Functions Storage 爆到 11.82GB / 10GB。病源係根目錄
+# requirements.txt 列住 playwright（解壓後 137MB）—— Vercel Python runtime
+# 會把 **repo 根目錄** 嘅 requirements.txt / pyproject.toml / Pipfile
+# pip install 入 **每一個** api/*.py function bundle，官方明言
+# 「There is no automatic tree-shaking for Python」。而 api/ 其實係
+# 100% 標準庫，137MB 純綷死重 × 幾十個 retained deployment = 爆額。
+#
+# 之前 2026-09-16 移除咗 api/render.py（PyMuPDF）就以為「病源消失」，
+# 點知根目錄 requirements.txt 一路都喺度 —— 所以今次加個 guard，
+# 令呢類「靜靜地令 bundle 脹返」嘅改動 **即刻 CI 紅**，唔使等用量爆先發現。
+#
+# 檢查五樣嘢（細節見 .github/scripts/vercel_bundle_guard.py 檔頭）：
+#   1. api/*.py 只 import 標準庫 ＋ local module
+#   2. Vercel 會自動 pip install 嘅 manifest 冇漏網上載
+#   3. requirements.txt 被 ignore ↔ 入面冇真嘢（防止半桶水 runtime 500）
+#   4. 上載去 Vercel 嘅總體積唔超 budget（預設 2MB）
+#   5. vercel.json 嘅 includeFiles 指到嘅檔案真係存在＋會上載
+#
+# 完全離線：唔使 network、唔使 Vercel token，幾秒跑完。
+# ============================================================
+
+name: Vercel Bundle Guard
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+# 每日嘅 bot commit（cache.json / enrich.json / subscription_stats.json）
+# 唔會改到 api/ 或者 manifest，但照樣跑一次做保險 —— 佢幾秒就完，
+# 而且係唯一會留意到「有人手動喺 dashboard 改 setting 之外，repo 慢慢漂移」嘅地方。
+concurrency:
+  group: vercel-bundle-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Guard Vercel function bundle size
+        env:
+          UPLOAD_BUDGET_BYTES: "2097152"  # 2 MB
+        run: python3 .github/scripts/vercel_bundle_guard.py
