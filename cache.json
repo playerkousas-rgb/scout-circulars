@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-18 05:00:05",
+  "last_updated": "2026-09-19 03:01:09",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4814,
+    "total_notices": 4820,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -12306,6 +12306,24 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "活動延期-香港童軍總會115周年 - 灣仔東銅六十五載情誼童樂日",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=634%3A115-4&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=634%3A115-4&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-09-19",
+        "captured_date": "2026-09-19",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
+        "title": "區會 19/9 – 25/9/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=633%3A19-9-25-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=633%3A19-9-25-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-09-19",
+        "captured_date": "2026-09-19",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "香港童軍115周年 - 灣仔東銅六十五載情誼童樂日填色比賽 [結果公布",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=632%3A115-3&catid=51&lang=zh-tw&Itemid=1210",
@@ -37242,6 +37260,42 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "第2屆地球部落領袖工作坊-日光善用者挑戰暨第3屆地球部落領袖工作坊-自然守護者挑戰",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6BYkHsJYnRzC7q4sIOc7Tp/139a3b87b448e68aed3cd10efbd778a6/OD_cir_02-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6BYkHsJYnRzC7q4sIOc7Tp/139a3b87b448e68aed3cd10efbd778a6/OD_cir_02-26.pdf",
+        "date": "2026-09-19",
+        "captured_date": "2026-09-19",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "沙田北區—香港童軍115周年—馬鞍山深度遊(海報)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3QCdslUSQqlHWmEM4RMNBB/6669dbca3bc873b3a207944c0dfd3f0c/stn_poster.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3QCdslUSQqlHWmEM4RMNBB/6669dbca3bc873b3a207944c0dfd3f0c/stn_poster.pdf",
+        "date": "2026-09-19",
+        "captured_date": "2026-09-19",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "沙田北區—香港童軍115周年—馬鞍山深度遊",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5OTqZBPcgiq8QqxHpcPg0d/454506952239e5fab24049b6c8ab544c/stn_cir__10_26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5OTqZBPcgiq8QqxHpcPg0d/454506952239e5fab24049b6c8ab544c/stn_cir__10_26.pdf",
+        "date": "2026-09-19",
+        "captured_date": "2026-09-19",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2RbdGz5TrfcY8yBqSPljA9/f942651e4f30a82e92abd4bdd716551f/OD_cir_02-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2RbdGz5TrfcY8yBqSPljA9/f942651e4f30a82e92abd4bdd716551f/OD_cir_02-26.pdf",
+        "date": "2026-09-19",
+        "captured_date": "2026-09-19",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "慶賀中華人民共和國成立77周年心繫祖國之賀國慶建未來–標語創作比賽",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3HZzMtHZaWTbSxh0XsMcUU/32eb5b9a67af7f91e1774d390946cedc/AIT_cir_02-26.pdf",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3HZzMtHZaWTbSxh0XsMcUU/32eb5b9a67af7f91e1774d390946cedc/AIT_cir_02-26.pdf",
@@ -43431,6 +43485,48 @@
     "Scout System": []
   },
   "notices": [
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=634%3A115-4&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "活動延期-香港童軍總會115周年 - 灣仔東銅六十五載情誼童樂日",
+      "captured_date": "2026-09-19"
+    },
+    {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=633%3A19-9-25-9-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 19/9 – 25/9/2026辦公時間",
+      "captured_date": "2026-09-19"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6BYkHsJYnRzC7q4sIOc7Tp/139a3b87b448e68aed3cd10efbd778a6/OD_cir_02-26.pdf",
+      "title": "第2屆地球部落領袖工作坊-日光善用者挑戰暨第3屆地球部落領袖工作坊-自然守護者挑戰",
+      "captured_date": "2026-09-19"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3QCdslUSQqlHWmEM4RMNBB/6669dbca3bc873b3a207944c0dfd3f0c/stn_poster.pdf",
+      "title": "沙田北區—香港童軍115周年—馬鞍山深度遊(海報)",
+      "captured_date": "2026-09-19"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5OTqZBPcgiq8QqxHpcPg0d/454506952239e5fab24049b6c8ab544c/stn_cir__10_26.pdf",
+      "title": "沙田北區—香港童軍115周年—馬鞍山深度遊",
+      "captured_date": "2026-09-19"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2RbdGz5TrfcY8yBqSPljA9/f942651e4f30a82e92abd4bdd716551f/OD_cir_02-26.pdf",
+      "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
+      "captured_date": "2026-09-19"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -77258,16 +77354,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-18 05:00:05",
-      "new": 7,
-      "updated": 3513,
-      "skipped": 4,
+      "updated_at": "2026-09-19 03:01:09",
+      "new": 6,
+      "updated": 108,
+      "skipped": 38,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
