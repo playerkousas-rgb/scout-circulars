@@ -941,7 +941,13 @@
       const m = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
       if (!m) return null;
       const year = Number(m[1]);
-      if (year < 2024 || year > 2028) return null;
+      // v5.6.23: 原本寫死 year < 2024 || year > 2028 → 2029-01-01 一日起 parseDate
+      // 對「所有」通告回傳 null，全部卡變「日期不明」、15日/本月時間窗清空，
+      // UI 睇落似壞晒但 cache.json 完全正常（一粒倒數計時嘅假炸彈）。
+      // 改成跟隨今年嘅滑動窗口：舊過去年 1 年、新過今年 2 年先當作無效，永久免維護。
+      // 上限留 +2 年係因為區會偶爾會貼明年嘅活動（例如 12 月貼明年 1 月截止）。
+      const thisYear = new Date().getFullYear();
+      if (year < thisYear - 1 || year > thisYear + 2) return null;
       const d = new Date(`${m[1]}-${m[2]}-${m[3]}T00:00:00+08:00`);
       return Number.isNaN(d.getTime()) ? null : d;
     }

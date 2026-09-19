@@ -239,7 +239,7 @@
       document.getElementById('run-status').textContent = hasErrors ? '有錯誤' : '正常';
       document.getElementById('run-status').className = `num ${hasErrors ? 'warn' : 'good'}`;
       document.getElementById('run-detail').textContent =
-        `new=${lastRun.new || 0}, updated=${lastRun.updated || 0}, skipped=${lastRun.skipped || 0}`;
+        `new=${lastRun.new || 0}, 今日入庫=${lastRun.daily_new ?? '—'}, updated=${lastRun.updated || 0}, skipped=${lastRun.skipped || 0}`;
 
       // Zero-data sources
       const expectedEmpty = new Set(cache._meta?.expected_empty_sources || []);
@@ -253,8 +253,12 @@
       const JUNK_TITLES = new Set(['view','preview','edit','open','download','下載','檢視',
         '開啟','預覽','瀏覽','通告','表格','詳情','查看','more','read more']);
       const CATEGORY_RE = /^\d+\s*支部通告[-－]|^支部通告[-－].*\(\d+\)$|^區會\(\d+\)$/;
-      // ⚠️ 特意唔當「URL 有 #」為垃圾：將軍澳區通告內容寫喺 HTML，用 notice.php#錨點
-      // 指向該則通告，係正常設計。判斷重點係「標題有冇真內容」，唔係 URL 型態。
+      // ⚠️ 特意唔當「URL 有 #」為垃圾：判斷重點係「標題有冇真內容」，唔係 URL 型態。
+      // （歷史註：呢度原本寫「將軍澳區通告內容寫喺 HTML，用 notice.php#錨點指向該則通告，
+      //  係正常設計」—— v5.6.23 已證實嗰個係 bug 而唔係設計：該站每則通告其實有真內頁
+      //  /notice/?nid=<data-id> 同真 PDF，只係下載掣係 JS span 而唔係 anchor，舊版先至
+      //  唯有砌假 fragment。而家已改用 notice_card 結構化解析，唔再產生假錨點。
+      //  對 # 嘅容忍保留，因為其他來源仍可能合法使用 fragment。）
       const isJunkTitle = (t) => {
         const s = (t || '').trim();
         if (!s) return true;
