@@ -88,8 +88,15 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse, urlunparse
 
-import requests
-from bs4 import BeautifulSoup
+try:
+    import requests
+except ImportError:
+    requests = None
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    BeautifulSoup = None
 
 # ─── Playwright (optional, lazy import) ───────────────────
 _playwright_available = False
@@ -112,16 +119,17 @@ SUPABASE_TABLE = "scout_notices"
 USE_SUPABASE = bool(SUPABASE_URL and SUPABASE_KEY)
 
 # ─── HTTP Session ─────────────────────────────────────────
-SESSION = requests.Session()
-SESSION.headers.update({
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/125.0.0.0 Safari/537.36"
-    ),
-    "Accept": "text/html,application/xhtml+xml,*/*;q=0.9",
-    "Accept-Language": "zh-HK,zh-TW;q=0.9,zh;q=0.8,en;q=0.7",
-})
+SESSION = requests.Session() if requests is not None else None
+if SESSION is not None:
+    SESSION.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/125.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.9",
+        "Accept-Language": "zh-HK,zh-TW;q=0.9,zh;q=0.8,en;q=0.7",
+    })
 
 DOWNLOAD_EXTENSIONS = {
     ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
@@ -1438,7 +1446,223 @@ def slugify_fragment(text: str) -> str:
     return text.strip('-')[:80] or 'notice'
 
 
-def parse_text_notice_blocks(soup: BeautifulSoup, page_url: str, config: Dict[str, Any]) -> List[Dict[str, str]]:
+# ─── 通告卡解析（下載掣係 JS span，唔係 <a href>）─────────────
+NOTICE_CARD_CODE_COL_RE = re.compile(r'^\d{2}-\d{4}$')
+NOTICE_CARD_DEADLINE_RE = re.compile(r'\((\d{4}-\d{2}-\d{2})\s*截止\)\s*$')
+NOTICE_CARD_CODE_TAIL_RE = re.compile(r'\((\d{2}-\d{4})\)\s*$')
+
+
+def parse_notice_card_blocks(
+    name: str,
+    soup: BeautifulSoup,
+    page_url: str,
+    config: Dict[str, Any],
+    max_detail_pages: int = 0,
+) -> List[Dict[str, str]]:
+    """結構化解析「通告卡」：連結靠 JS 而唔係 anchor 嘅來源（將軍澳區）。
+
+    hkscout-tko.org/notice.php 每個通告嘅真實 DOM（2026-09-19 用 W3C validator
+    showsource 攞到嘅 verbatim 結構）：
+
+        <div class="divlink">
+          <div class="form-group">
+            <div class="col-md-2 … div_expired">06-2026</div>              ← 通告編號
+            <div class="col-md-5 … div_expired">第25屆區務委員會就職典禮…</div> ← 標題
+            <div class="col-md-2 … div_expired">
+              <span class="pdfImg" data-id="206" title="下載">…</span>       ← JS 跳 /notice/?nid=206
+              <span class="whatsappImg" data-id="206"
+                    data-title="第25屆… (2026-07-16截止)">…</span>            ← 原截止日
+              <span class="fbImg" data-id="206"
+                    data-title="第25屆…(06-2026)">…</span>                    ← 編號
+            </div>
+            <div class="col-md-3 … div_expired">
+              <span class="span_expired">已截止</span>                        ← 或 span_deadline
+            </div>
+          </div>
+        </div>
+
+    成張卡一個 anchor 都冇，於是舊路徑有三个後果：
+      * `asset_link_selector: "a[href]"` 完全睇唔到 → 30 筆通告 0 個附件；
+      * regex-over-text 只可以砌假 URL `notice.php#slug`，而頁面只有 #top 同 8 個
+        分類 anchor（#spec/#adm/#all/#gs/#cs/#sc/#vs/#rs）→ 㩒「開啟附件」永遠彈返列表頂；
+      * 畫面色水變「已截止」之後可見嘅截止日就冇咗 —— 但 `whatsappImg[data-title]`
+        仲留住原截止日，所以過期通告嘅 deadline 一樣可以還原。
+
+    呢度改成：data-id → 真內頁 URL；data-title → 還原截止日／編號；再跟內頁攞真 PDF。
+    內頁攞唔到（例如站方 block 緊抓取端 IP）就 fail-soft 保留 `/notice/?nid=`，
+    仍然好過假 anchor。標題格式同舊路徑完全一致，唔影響下游 notify / UI。
+    """
+    card_selector = str(config.get("notice_card_selector") or "").strip()
+    if not card_selector:
+        return []
+    id_selector = str(config.get("notice_id_selector") or "[data-id]").strip()
+    id_attr = str(config.get("notice_id_attr") or "data-id").strip()
+    share_selector = str(config.get("notice_share_selector") or "[data-title]").strip()
+    template = str(config.get("notice_detail_url_template") or "").strip()
+
+    try:
+        containers = soup.select(card_selector)
+    except Exception:
+        containers = []
+
+    results: List[Dict[str, str]] = []
+    pending: List[Tuple[Dict[str, str], str]] = []  # (record, 內頁 URL)，之後跟入去攞 PDF
+    seen: Set[str] = set()
+
+    for container in containers:
+        # ── 1. data-id（PDF 掣優先，其次任何帶 data-id 嘅 share 掣）──
+        nid = ""
+        try:
+            id_el = container.select_one(id_selector)
+        except Exception:
+            id_el = None
+        if id_el is not None:
+            nid = normalize_text(str(id_el.get(id_attr) or ""))
+
+        # ── 2. 分類標題（同舊路徑一樣由 h5/h4/h3 攞）──
+        heading = ""
+        prev = container.find_previous(["h5", "h4", "h3"])
+        if prev is not None:
+            heading = normalize_text(prev.get_text(" ", strip=True))
+
+        # ── 3. 編號 + 標題：逐欄讀，跳過按鈕欄同期限欄 ──
+        code = ""
+        title = ""
+        try:
+            columns = container.find_all("div", recursive=False)
+        except Exception:
+            columns = []
+        for col in columns:
+            text = normalize_text(col.get_text(" ", strip=True))
+            if not code and NOTICE_CARD_CODE_COL_RE.match(text or ""):
+                code = text
+                continue
+            if col.select_one(id_selector) or col.select_one("span.span_expired, span.span_deadline"):
+                continue
+            if text and not title:
+                title = text
+
+        # ── 4. 截止日：data-title 係唯一過期後仲存在嘅來源 ──
+        deadline = ""
+        share_title = ""
+        try:
+            share = container.select_one(share_selector)
+        except Exception:
+            share = None
+        if share is not None:
+            raw = normalize_text(str(share.get("data-title") or ""))
+            m = NOTICE_CARD_DEADLINE_RE.search(raw)
+            if m:
+                deadline = m.group(1)
+                share_title = normalize_text(raw[: m.start()])
+            else:
+                share_title = raw
+            if not nid:
+                nid = normalize_text(str(share.get(id_attr) or ""))
+        if not title:
+            title = share_title
+        if not code:
+            try:
+                fb = container.select_one("span.fbImg[data-title]")
+            except Exception:
+                fb = None
+            if fb is not None:
+                m2 = NOTICE_CARD_CODE_TAIL_RE.search(normalize_text(str(fb.get("data-title") or "")))
+                if m2:
+                    code = m2.group(1)
+        if not deadline:
+            try:
+                visible = container.select_one("span.span_deadline")
+            except Exception:
+                visible = None
+            if visible is not None:
+                m3 = re.search(r"(\d{4}-\d{2}-\d{2})", visible.get_text(" ", strip=True) or "")
+                if m3:
+                    deadline = m3.group(1)
+
+        if not title:
+            continue
+
+        # ── 5. 標題格式：同 parse_text_notice_blocks 一模一樣 ──
+        full_title = f"{heading} - {title}" if heading and heading not in title else title
+        full_title = clean_title(full_title, config) or salvage_title_from_text(full_title, config) or title
+        if not full_title:
+            continue
+        subtitle = f"{code} {full_title}".strip()
+        if deadline:
+            subtitle += f" (截止: {deadline})"
+
+        # ── 6. 真 URL：/notice/?nid=<data-id>；冇 id 先退回舊假 fragment ──
+        detail_url = ""
+        if nid and template:
+            detail_url = resolve_url(page_url, template.format(id=nid)) or ""
+            detail_url = sanitize_url(detail_url, config.get("url_sanitize", []))
+        if not detail_url:
+            detail_url = page_url + "#" + slugify_fragment((heading + "-" + code + "-" + title).strip("-"))
+        if detail_url in seen:
+            continue
+        seen.add(detail_url)
+
+        record = {"pdf_url": detail_url, "title": subtitle}
+        results.append(record)
+        if nid and detail_url.startswith("http") and "#" not in detail_url:
+            pending.append((record, detail_url))
+
+    # ── 7. 跟內頁攞真 PDF（fail-soft：攞唔到就保留內頁 URL）──
+    limit = int(config.get("notice_detail_max_pages") or config.get("detail_max_pages") or max_detail_pages or 0)
+    if pending and limit > 0:
+        fetched = 0
+        for idx, (record, detail_url) in enumerate(pending):
+            if fetched >= limit:
+                break
+            fetched += 1
+            if idx:
+                time.sleep(random.uniform(1.5, 4.0))  # 同來源之間一樣嘅防封間隔
+            detail = fetch_detail_page(name, detail_url, config)
+            if not detail:
+                continue
+            try:
+                detail_soup = BeautifulSoup(detail.html, "html.parser")
+            except Exception:
+                continue
+            for dr in extract_detail_assets(detail_soup, detail.url, config):
+                pdf = dr.get("pdf_url") or ""
+                if pdf and is_download_url(pdf):
+                    record["pdf_url"] = pdf
+                    break
+        if fetched:
+            print(f"  [{name}] 🔗 通告卡內頁跟進 {fetched}/{len(pending)} 個（上限 {limit}）")
+
+    # 兩張卡跟到同一份檔案（例如區會把同一份通告貼喺兩個分類）就保留第一張，
+    # 避免下游同一個 (source_site, pdf_url) key 出現兩次。
+    deduped: List[Dict[str, str]] = []
+    seen_urls: Set[str] = set()
+    for record in results:
+        url = record.get("pdf_url") or ""
+        if url in seen_urls:
+            print(f"  [{name}] ⚠️ 兩張通告卡指向同一個檔案，已略過重複: {record.get('title', '')[:50]}")
+            continue
+        seen_urls.add(url)
+        deduped.append(record)
+    return deduped
+
+
+def parse_text_notice_blocks(
+    soup: BeautifulSoup,
+    page_url: str,
+    config: Dict[str, Any],
+    name: str = "",
+    max_detail_pages: int = 0,
+) -> List[Dict[str, str]]:
+    # v5.6.23: 有 notice_card_selector 就先行結構化解析（將軍澳區式 JS 下載掣）。
+    # 解析到嘢就用佢；一個都解析唔到（例如站方再改版）就自動回落去下面嘅
+    # regex-over-text 舊路徑，唔會因為新 code 而由「有資料」變「零資料」。
+    if config.get("notice_card_selector"):
+        cards = parse_notice_card_blocks(name, soup, page_url, config, max_detail_pages)
+        if cards:
+            return cards
+        print(f"  [{name}] ⚠️ notice_card 解析到 0 個通告，回落去 regex text_notice 路徑")
+
     results: List[Dict[str, str]] = []
     selectors = config.get('text_notice_selector') or []
     if isinstance(selectors, str):
@@ -1562,8 +1786,8 @@ def extract_assets_from_listing(
                     seen_details.add(href)
                     detail_candidates.append(href)
 
-    if not assets and config.get('text_notice_selector'):
-        assets.extend(parse_text_notice_blocks(soup, page_url, config))
+    if not assets and (config.get('text_notice_selector') or config.get('notice_card_selector')):
+        assets.extend(parse_text_notice_blocks(soup, page_url, config, name=name, max_detail_pages=max_detail_pages))
 
     if not should_follow_detail_pages(config):
         return assets
@@ -1580,8 +1804,8 @@ def extract_assets_from_listing(
             seen_assets.add(record["pdf_url"])
             assets.append(record)
 
-    if not assets and config.get('text_notice_selector'):
-        assets.extend(parse_text_notice_blocks(soup, page_url, config))
+    if not assets and (config.get('text_notice_selector') or config.get('notice_card_selector')):
+        assets.extend(parse_text_notice_blocks(soup, page_url, config, name=name, max_detail_pages=max_detail_pages))
 
     return assets
 
@@ -2043,6 +2267,7 @@ def main(
             import random as _random
             time.sleep(_random.uniform(1.5, 4.0))  # v5.6.15: 拉長防封
 
+    daily_new = 0  # v5.6.23 (P8): 見下面 merged_records 之後嘅說明
     if not dry_run:
         if USE_SUPABASE:
             supabase_upsert(all_new)
@@ -2072,6 +2297,15 @@ def main(
             if remote_records:
                 merged_records = remote_records
 
+        # v5.6.23 (P8): 一日有兩個 writer —— GitHub Actions 00:15 HKT (`python core.py`)
+        # 同本機 run-local-scrape.bat 05:00 HKT (`python core.py --force`)。
+        # `last_run.new` 只反映「最後一次 run 自己新增咗幾多」，所以第二次 run 會蓋走
+        # 第一次嘅成果：2026-09-19 dashboard 顯示 new=8，但 cache 入面其實有 14 筆今日入庫。
+        # `daily_new` 由 merged cache 反數 captured_date == 今日，兩個 writer 都會寫出同一個
+        # 正確總數，唔會互相蓋走。`last_run.new` 保留原義（本輪增量），唔影響舊 consumer。
+        _today = hkt_today_str()
+        daily_new = sum(1 for r in merged_records if (r.get("captured_date") or "") == _today)
+
         grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
         grouped_cache.setdefault("_meta", {})["has_errors"] = (errors > 0)
         grouped_cache.setdefault("_meta", {})["expected_empty_sources"] = [
@@ -2081,6 +2315,7 @@ def main(
             "updated_at": now_str,
             "new": len(all_new),
             "updated": len(all_updated),
+            "daily_new": daily_new,
             "skipped": skipped,
             "processed": processed,
             "playwright_used": pw_used,
@@ -2095,6 +2330,7 @@ def main(
     print(f"\n{'═'*60}")
     print("📊 執行報告 v5.6.20")
     print(f"   🆕 新通告:     {len(all_new)}")
+    print(f"   📅 今日入庫:   {daily_new}   ← cache 內 captured_date == 今日，跨 writer 累計")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
     print(f"   🔍 指紋變動:   {processed}")
