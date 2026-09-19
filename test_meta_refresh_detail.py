@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""回歸測試 v5.6.24：內頁 meta refresh 跳轉 + 「同一張卡換 URL」嘅 cache 衛生。
+"""回歸測試 v5.6.24：內頁 meta refresh 跳轉 + 「記錄只增不減」嘅 cache 紀律。
 
 背景（2026-09-19 診斷）
 ----------------------
@@ -161,81 +161,62 @@ def test_placeholder_template_冇_id_就唔認():
     assert core.notice_detail_template_regex({"notice_detail_url_template": "/notice/{slug}"}) is None
 
 
-# ─── 3. cache 衛生：只換「今次親眼見到」嗰一對 ─────────────────────
+# ─── 3. 記錄只增不減：同一張卡可以有兩筆，一筆都唔會被收起 ──────────
+#
+# 原則（2026-09-19 使用者定案）：我哋要嘅係「全」。GitHub Actions 掃到、本機掃到、
+# 一時掃到一時掃唔到 —— 每個時刻見到嘅都係真，cache 照收。用戶見到多一張一樣嘅卡
+# （一張跳內頁、一張直連 PDF）無傷大雅；站方唔統一伺服器，唔應該由我哋去掩蓋。
 
 
 TITLE_206 = "06-2026 行政通告 - 第25屆區務委員會就職典禮暨積極公民同樂日 (截止: 2026-07-16)"
-PLACEHOLDER_206 = "https://hkscout-tko.org/notice/?nid=206"
-PDF_206 = "https://hkscout-tko.org/notice/2026/prog_206.pdf"
 
 
-def row(url, date, title=TITLE_206, source="將軍澳區"):
+def row(url, date, title=None, source="將軍澳區"):
+    title = TITLE_206 if title is None else title
     return {"source_site": source, "region": "東九龍地域",
             "pdf_url": url, "title": title, "captured_date": date}
 
 
-def test_今次跟到嘅一對_收起內頁_URL_並繼承最早_captured_date():
-    placeholder = row(PLACEHOLDER_206, "2026-06-30")
-    placeholder["tags"] = ["行政通告"]
-    upgraded = row(PDF_206, "2026-09-19")
-    out = core.collapse_superseded_placeholders(
-        [placeholder, upgraded], {("將軍澳區", PLACEHOLDER_206): PDF_206}
-    )
-    assert len(out) == 1, out
-    kept = out[0]
-    assert kept["pdf_url"] == PDF_206
-    # captured_date 係「幾時第一次見到」，唔應該因為換 URL 而變今日
-    assert kept["captured_date"] == "2026-06-30"
-    assert kept["tags"] == ["行政通告"]
+def test_cache_collapse_機制已經唔存在():
+    """釘死：core.py 唔應該再有任何「收起／取代記錄」嘅函數。
+
+    曾幾何時呢度有 collapse_superseded_placeholders；佢會令同一張卡嘅舊 URL
+    記錄消失。使用者明確要求「多一筆唔緊要，我哋要全」，所以拆走咗。
+    """
+    names = [n for n in dir(core) if "collapse" in n.lower()]
+    assert names == [], f"唔應該再有收起記錄嘅函數: {names}"
+    for needle in ("superseded_placeholders", "known_detail_files", "_notice_detail_files"):
+        assert needle not in Path(core.__file__).read_text(encoding="utf-8"), needle
 
 
-def test_今次跟唔到內頁_內頁_URL_記錄原封不動():
-    """fail-soft：站方 block 緊抓取端 IP，就繼續擺住 /notice/?nid=，等下次再試。"""
-    placeholder = row(PLACEHOLDER_206, "2026-06-30")
-    out = core.collapse_superseded_placeholders([placeholder], {})
-    assert out == [placeholder]
-    assert out[0]["pdf_url"] == PLACEHOLDER_206
-
-
-def test_冇對應嘅真檔案記錄時_唔會動任何嘢():
-    """有 supersede 記錄但 cache 入面搵唔到真檔案嗰筆 → 唔動（寧願多一筆都唔亂掉）。"""
-    placeholder = row(PLACEHOLDER_206, "2026-06-30")
-    other = row("https://hkscout-tko.org/notice/2026/prog_999.pdf", "2026-09-19", title="第 999 則通告")
-    out = core.collapse_superseded_placeholders(
-        [placeholder, other], {("將軍澳區", PLACEHOLDER_206): PDF_206}
-    )
-    assert len(out) == 2, out
-    assert out == [placeholder, other]
-
-
-def test_同來源另一張卡_一個字都唔碰():
-    """今年同明年同名嘅通告（或者同一頁兩張同標題嘅卡）係兩則登記，兩筆都要留。"""
-    placeholder = row(PLACEHOLDER_206, "2026-06-30")
-    upgraded = row(PDF_206, "2026-09-19")
-    other_card = row("https://hkscout-tko.org/notice/2026/prog_300.pdf", "2026-09-19")
-    out = core.collapse_superseded_placeholders(
-        [placeholder, upgraded, other_card], {("將軍澳區", PLACEHOLDER_206): PDF_206}
-    )
-    by_url = {r["pdf_url"]: r for r in out}
-    assert len(out) == 2, out
-    assert by_url[PDF_206]["captured_date"] == "2026-06-30"
-    assert by_url["https://hkscout-tko.org/notice/2026/prog_300.pdf"]["captured_date"] == "2026-09-19"
+def test_同一張卡兩筆都留_包括內頁_URL_同真檔案():
+    """一時掃到真檔案、一時只掃到內頁 URL → 兩筆都係真，兩筆都要留。"""
+    placeholder = row("https://hkscout-tko.org/notice/?nid=206", "2026-09-19")
+    resolved = row("https://hkscout-tko.org/notice/2026/prog_206.pdf", "2026-06-30")
+    assert core.build_grouped_cache([placeholder, resolved], SOURCES, "2026-09-19")["data"]["將軍澳區"], "兩筆都要出"
+    data = core.build_grouped_cache([placeholder, resolved], SOURCES, "2026-09-19")
+    entries = data["data"]["將軍澳區"]
+    assert len(entries) == 2, entries
+    assert {e["pdf_url"] for e in entries} == {
+        "https://hkscout-tko.org/notice/?nid=206",
+        "https://hkscout-tko.org/notice/2026/prog_206.pdf",
+    }
+    # captured_date 一個字都唔准改
+    assert {e["captured_date"] for e in entries} == {"2026-09-19", "2026-06-30"}
 
 
 def test_同名通告_唔同年份_兩筆都留():
     """2026 同 2027 各有一個「消防訓練班」：來源一樣、名一樣、只有 PDF 唔同。
 
-    標題唔係身份 —— 兩則都要當新通告照收，唔可以被當成同一則。
+    標題唔係身份 —— 兩則都要當新通告照收。就算連 PDF 名都一樣，只要
+    (source_site, pdf_url) 唔同，就係兩筆登記，兩筆都留。
     """
-    title = "消防訓練班 (截止: 2027-03-01)"
-    y2026 = row("https://hkscout-tko.org/notice/2026/prog_100.pdf", "2026-03-01", title="消防訓練班 (截止: 2026-03-01)")
-    y2027 = row("https://hkscout-tko.org/notice/2027/prog_200.pdf", "2027-03-01", title=title)
-    # 連 supersede 記錄都冇（兩張卡都直接攞到真 PDF，唔經內頁 placeholder）
-    out = core.collapse_superseded_placeholders([y2026, y2027], {})
-    assert out == [y2026, y2027]
-    # 就算有 supersede 記錄，都只會換記錄入面嗰一對，唔會因為同名而合併
-    out2 = core.collapse_superseded_placeholders([y2026, y2027], {("將軍澳區", "https://x/y.pdf"): "https://x/z.pdf"})
-    assert out2 == [y2026, y2027]
+    y2026 = row("https://hkscout-tko.org/notice/2026/prog_100.pdf", "2026-03-01",
+                title="消防訓練班 (截止: 2026-03-01)")
+    y2027 = row("https://hkscout-tko.org/notice/2027/prog_200.pdf", "2027-03-01",
+                title="消防訓練班 (截止: 2027-03-01)")
+    entries = core.build_grouped_cache([y2026, y2027], SOURCES, "2027-03-01")["data"]["將軍澳區"]
+    assert len(entries) == 2, entries
 
 
 def test_同一標題跨來源_幾個地方登記嘅通告_全部保留():
@@ -249,78 +230,36 @@ def test_同一標題跨來源_幾個地方登記嘅通告_全部保留():
         row(same_pdf, "2026-09-19", title=title, source="深旺區"),
         row(same_pdf, "2026-09-19", title=title, source="新界地域"),
         row(same_pdf, "2026-09-19", title=title, source="總會"),
-        row(PLACEHOLDER_206, "2026-06-30", title=title),
-        row(PDF_206, "2026-09-19", title=title),
+        row("https://hkscout-tko.org/notice/?nid=207", "2026-06-30", title=title),
     ]
-    out = core.collapse_superseded_placeholders(
-        copy.deepcopy(scenario), {("將軍澳區", PLACEHOLDER_206): PDF_206}
-    )
-    cross = [r for r in out if r["source_site"] in ("深旺區", "新界地域", "總會")]
+    out = core.build_grouped_cache(copy.deepcopy(scenario), SOURCES, "2026-09-19")
+    cross = out["data"]["深旺區"] + out["data"]["新界地域"] + out["data"]["總會"]
     assert len(cross) == 3, cross
     assert {r["pdf_url"] for r in cross} == {same_pdf}
-    assert all(r["captured_date"] == "2026-09-19" for r in cross), cross
-    assert not any("?nid=" in r["pdf_url"] for r in out)
+    assert len(out["data"]["將軍澳區"]) == 1
 
 
-def test_page_fallback_來源_唔會被碰():
-    """大埔北區式：內頁通告本身係正式記錄（唔係 placeholder），永遠唔會入 supersede。"""
-    page = {"source_site": "大埔北區",
-            "pdf_url": "https://tpnscout.org/大埔北區幼童軍主席盃技能比賽成績公布/",
-            "title": "大埔北區幼童軍主席盃技能比賽成績公布", "captured_date": "2026-08-07"}
-    pdf = {"source_site": "大埔北區",
-           "pdf_url": "https://tpnscout.org/wp-content/uploads/2023/08/result.pdf",
-           "title": "大埔北區幼童軍主席盃技能比賽成績公布", "captured_date": "2026-05-23"}
-    out = core.collapse_superseded_placeholders([page, pdf], {})
-    assert out == [page, pdf]
-
-
-def test_同一張卡唔會降級_連唔上時沿用上次親眼見到嘅真檔案():
-    """站方一時回 500、一時正常：唔應該令同一張卡由真檔案變返內頁 URL。
-
-    情境：上一輪跟到 ?nid=206 → prog_206.pdf（cache 有真檔案嗰筆）；
-    今輪連唔上，於是今輪開咗一筆 ?nid=206。collapse 要收走今輪嗰筆，
-    留住真檔案嗰筆（captured_date 亦唔會亂）。
-    """
-    resolved = row(PDF_206, "2026-06-30")
-    fresh_placeholder = row(PLACEHOLDER_206, "2026-09-19")
-    out = core.collapse_superseded_placeholders(
-        [resolved, fresh_placeholder], {("將軍澳區", PLACEHOLDER_206): PDF_206}
-    )
-    assert out == [resolved], out
-    assert out[0]["captured_date"] == "2026-06-30"
+def test_來源隔離_同名同_PDF_但唔同來源_永遠唔會合併():
+    """cache 唯一鍵係 (source_site, pdf_url)：來源唔同 = 兩筆，即使 URL 一樣。"""
+    same_pdf = "https://www.scout.org.hk/article_attach/99999/PT20.pdf"
+    a = row(same_pdf, "2026-09-19", title="同一份通告", source="深旺區")
+    b = row(same_pdf, "2026-09-19", title="同一份通告", source="總會")
+    out = core.build_grouped_cache([a, b], SOURCES, "2026-09-19")
+    assert len(out["data"]["深旺區"]) == 1
+    assert len(out["data"]["總會"]) == 1
 
 
 def test_現有_cache_一筆都唔應該被動():
-    """真 cache.json：冇「今次跟到」嘅紀錄，就等於一筆都唔會改。"""
+    """真 cache.json 4828 筆：build_grouped_cache 重跑一次，一筆都唔可以少。"""
     cache_path = BASE_DIR / "cache.json"
     if not cache_path.exists():
         return
-    records = json.loads(cache_path.read_text(encoding="utf-8")).get("notices") or []
-    before = copy.deepcopy(records)
-    out = core.collapse_superseded_placeholders(records, {})
-    assert len(out) == len(before), (len(out), len(before))
-    assert out == before
-
-
-@needs_bs4
-def test_dom_連唔上內頁時_沿用指紋記憶入面嘅真檔案(monkeypatch):
-    """防止「同一張卡一時真檔案、一時內頁 URL」來回震盪。"""
-    if not TKO_LISTING_FIXTURE:
-        return
-    monkeypatch.setattr(core, "fetch_detail_page", lambda name, url, config: None)
-    monkeypatch.setattr(core.time, "sleep", lambda *_a, **_k: None)
-    remembered = {"將軍澳區": {"206": "https://hkscout-tko.org/notice/2026/prog_206.pdf"}}
-    superseded: dict = {}
-    records = core.parse_notice_card_blocks(
-        "將軍澳區", tko_soup(TKO_LISTING_FIXTURE), TKO_PAGE_URL,
-        tko_cfg(notice_detail_max_pages=5),
-        superseded_placeholders=superseded,
-        known_detail_files=remembered,
-    )
-    # 連唔上 → 卡仍然係內頁 URL（fail-soft），但記憶入面有嘅就要出 supersede
-    assert superseded[("將軍澳區", "https://hkscout-tko.org/notice/?nid=206")] == \
-        "https://hkscout-tko.org/notice/2026/prog_206.pdf"
-    assert all("?nid=" in r["pdf_url"] for r in records), records
+    cache = json.loads(cache_path.read_text(encoding="utf-8"))
+    records = cache.get("notices") or []
+    rebuilt = core.build_grouped_cache(copy.deepcopy(records), SOURCES, cache.get("last_updated") or "")
+    total_before = sum(len(v) for v in cache.get("data", {}).values() if isinstance(v, list))
+    total_after = sum(len(v) for v in rebuilt.get("data", {}).values() if isinstance(v, list))
+    assert total_after == total_before, (total_after, total_before)
 
 
 # ─── 4. 空殼內頁 → extract_detail_assets 抽到真 PDF（DOM）────────────
@@ -408,34 +347,31 @@ def test_dom_通告卡跟內頁_meta_refresh_升級做真_pdf(monkeypatch):
     monkeypatch.setattr(core, "fetch_requests", fake_fetch)
     monkeypatch.setattr(core.time, "sleep", lambda *_a, **_k: None)
 
-    superseded: dict = {}
-    remembered: dict = {}
     records = core.parse_notice_card_blocks(
         "將軍澳區", tko_soup(TKO_LISTING_FIXTURE), TKO_PAGE_URL,
         tko_cfg(notice_detail_max_pages=5),
-        superseded_placeholders=superseded,
-        known_detail_files=remembered,
     )
-    # 今次親眼見到嘅「卡 id → 真檔案」要記入指紋記憶，帶去下一輪
-    assert remembered == {"將軍澳區": {
-        "190": "https://hkscout-tko.org/notice/2026/prog_190.pdf",
-        "189": "https://hkscout-tko.org/notice/2026/prog_189.pdf",
-        "206": "https://hkscout-tko.org/notice/2026/prog_206.pdf",
-        "211": "https://hkscout-tko.org/notice/2026/prog_211.pdf",
-    }}, remembered
-    # 今次親手跟到嘅「內頁 URL → 真檔案」要記低，等 main() 換走上一輪嘅記錄
-    assert superseded == {
-        ("將軍澳區", "https://hkscout-tko.org/notice/?nid=190"): "https://hkscout-tko.org/notice/2026/prog_190.pdf",
-        ("將軍澳區", "https://hkscout-tko.org/notice/?nid=189"): "https://hkscout-tko.org/notice/2026/prog_189.pdf",
-        ("將軍澳區", "https://hkscout-tko.org/notice/?nid=206"): "https://hkscout-tko.org/notice/2026/prog_206.pdf",
-        ("將軍澳區", "https://hkscout-tko.org/notice/?nid=211"): "https://hkscout-tko.org/notice/2026/prog_211.pdf",
-    }, superseded
     by_nid = {r["title"].split(" ", 1)[0]: r for r in records}
     assert by_nid["09-2026"]["pdf_url"] == "https://hkscout-tko.org/notice/2026/prog_211.pdf"
     assert by_nid["06-2026"]["pdf_url"] == "https://hkscout-tko.org/notice/2026/prog_206.pdf"
     # 標題唔應該被內頁標題蓋走
     assert by_nid["09-2026"]["title"].endswith("(截止: 2026-09-30)")
     assert all(core.is_download_url(r["pdf_url"]) for r in records), records
+
+
+@needs_bs4
+def test_dom_連唔上內頁時_照樣出內頁_URL_記錄(monkeypatch):
+    """跟唔到內頁唔會消失：卡照出（內頁 URL），等下次再試，兩筆都留。"""
+    if not TKO_LISTING_FIXTURE:
+        return
+    monkeypatch.setattr(core, "fetch_detail_page", lambda name, url, config: None)
+    monkeypatch.setattr(core.time, "sleep", lambda *_a, **_k: None)
+    records = core.parse_notice_card_blocks(
+        "將軍澳區", tko_soup(TKO_LISTING_FIXTURE), TKO_PAGE_URL,
+        tko_cfg(notice_detail_max_pages=5),
+    )
+    assert len(records) == 4, records
+    assert all("?nid=" in r["pdf_url"] for r in records), records
 
 
 # ─── 6. enrich.py 嘅守門條件（呢個係「enrich.json 完全冇變」嘅第 2 個原因）──
