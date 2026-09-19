@@ -1,0 +1,51 @@
+# ============================================================
+# Vercel 用量報告（唯讀；未設 secrets 會跳過並出 ⚠️ warning）
+# ------------------------------------------------------------
+# 點解要有：2026-09-16/17 Functions Storage 兩度爆額（10.49GB →
+# 11.82GB / 10GB），修好之後要一眼睇到「仲有冇繼續漲大」。呢個
+# workflow 淨係 GET Vercel API：列 deployments、分「瘦身前／後」
+# 統計、讀 retention policy，唔刪任何嘢（刪嘢去 Vercel Deployment
+# Prune）。每次 push 自動跑一報；亦可以喺 Actions 頁手動 Run。
+#
+# 判讀（腳本會喺 job summary 同 notice annotation 寫結論）：
+#   - 「瘦身前 deployment 殘留」> 0 → 舊巨型 bundle 仲喺度佔額，
+#     要行 Prune（mode=purge）即刻釋放；
+#   - 全部係瘦身後部署 → Functions Storage ≈ 個數 × ~1.2MB，
+#     增長 = 每日 bot commit 數 × 1.2MB，好快活；
+#   - retention 仲係預設 30 日 → 想自動清舊部署就行一次
+#     Vercel Retention Policy workflow。
+#
+# 設定（同 vercel-prune.yml 共用）：
+#   VERCEL_TOKEN       Vercel → Account Settings → Tokens → Create
+#   VERCEL_PROJECT_ID  Vercel project → Settings → General → Project ID
+#   VERCEL_TEAM_ID     選配（team 帳戶先要；個人帳戶留空）
+# ============================================================
+
+name: Vercel Usage Report
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Read-only Vercel usage report
+        run: python3 .github/scripts/vercel_usage_report.py
