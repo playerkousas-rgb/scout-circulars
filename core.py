@@ -15,10 +15,16 @@ v5.6.24 核心修復 (2026-09-19):
      （https://hkscout-tko.org/notice/2026/prog_207.pdf）。舊碼見空 body 就當
      「內頁攞唔到」，fail-soft 保留 /notice/?nid=207 當成 PDF 網址寫入 cache.json，
      而 enrich.py 只肯處理 .pdf 結尾嘅網址 → enrich.json 永遠冇將軍澳區資料。
-  2. 新增 collapse_notice_placeholders：內頁 placeholder 升級做真檔案之後，
-     收起舊記錄（唔會同一則通告喺 UI 出現兩次），並把最早嘅 captured_date
-     （同標籤）過繼去真檔案嗰筆 —— notify.py 用 (source_site, pdf_url) 做 diff，
-     唔做嘅話 29 筆舊通告會因為換 URL 而被當成新通告重推。
+  2. 新增 collapse_superseded_placeholders：同一張卡嘅內頁 URL 今次親手跟到真檔案，
+     就收起舊嗰條 URL 記錄（唔會同一張卡喺 UI 出現兩次），並把 captured_date
+     （同標籤）過繼去真檔案嗰筆 —— captured_date 係「幾時第一次見到」，
+     一則通告只登記一次。配對完全唔用標題：標題唔係身份，同一區今年／明年
+     可以有同名通告，今年嘅「消防訓練班」同明年嘅「消防訓練班」係兩則，
+     要兩筆都留。只認「同一張卡（站方 data-id）+ 我哋親眼見到嘅 URL 對應」。
+  3. 唔會降級：跟內頁一時成功一時失敗（站方對 datacenter IP 回 500），
+     唔應該令同一張卡由「真檔案」變返「內頁 URL」而喺 cache 開多一筆。
+     跟到真檔案時會把「站方卡 id → 真檔案」記入 fingerprints.json，
+     下次連唔上就沿用返嗰個真檔案（記憶係我哋親眼見到嘅事實，唔係猜測）。
 
 v5.6.20 核心修復 (2026-08-13):
   1. wordpress_api: 第一頁 3 次重試（403/429/5xx/網路異常），改用 SESSION 完整瀏覽器標頭
@@ -621,14 +627,6 @@ def _notice_detail_match(url: str, config: Dict[str, Any]):
         parsed = urlparse(url)
         candidate = parsed.path + (f"?{parsed.query}" if parsed.query else "")
     return template_re.fullmatch(candidate)
-
-
-def notice_detail_id(url: str, config: Dict[str, Any]) -> str:
-    """由內頁 URL 拎返 id（``/notice/?nid=207`` → ``207``）；唔係內頁 URL 就回空字串。"""
-    match = _notice_detail_match(url, config)
-    if not match:
-        return ""
-    return match.group(1) if match.groups() else ""
 
 
 def is_notice_placeholder_url(url: str, config: Dict[str, Any]) -> bool:
@@ -1444,6 +1442,10 @@ def extract_item_tag_labels(anchor: Any, config: Dict[str, Any]) -> List[str]:
     return []
 
 
+# v5.6.24: fingerprints.json 入面嘅保留 key ——「站方通告卡 id → 真檔案 URL」記憶。
+# 跟指紋一齊存，唔會同來源名（中文區會名）撞。
+_DETAIL_FILES_KEY = "_notice_detail_files"
+
 # v5.6.24: <meta http-equiv="refresh" content="0; url=…"> 嘅目標 URL 部分。
 # 唔用 split(";") —— 目標 URL 本身可以帶分號（例如 ?a=1;b=2），split 第一粒會斬爛。
 META_REFRESH_URL_RE = re.compile(r"url\s*=\s*(.*)$", re.IGNORECASE | re.DOTALL)
@@ -1579,18 +1581,14 @@ NOTICE_CARD_CODE_COL_RE = re.compile(r'^\d{2}-\d{4}$')
 NOTICE_CARD_DEADLINE_RE = re.compile(r'\((\d{4}-\d{2}-\d{2})\s*截止\)\s*$')
 NOTICE_CARD_CODE_TAIL_RE = re.compile(r'\((\d{2}-\d{4})\)\s*$')
 
-# v5.6.24: 標題尾巴嘅截止日（「… (截止: 2026-07-16)」/「…（截止：2026-07-16）」）。
-# 配對「同一則通告換咗 URL」時要剝走，否則 placeholder 版同真檔案版會被當兩則。
-# （同 fix_tko_notice_urls.py 嘅 DEADLINE_SUFFIX_RE 一樣。）
-DEADLINE_SUFFIX_RE = re.compile(r"\s*[（(]截止[:：]\s*\d{4}-\d{2}-\d{2}[）)]\s*$")
-
-
 def parse_notice_card_blocks(
     name: str,
     soup: BeautifulSoup,
     page_url: str,
     config: Dict[str, Any],
     max_detail_pages: int = 0,
+    superseded_placeholders: Optional[Dict[Tuple[str, str], str]] = None,
+    known_detail_files: Optional[Dict[str, Dict[str, str]]] = None,
 ) -> List[Dict[str, str]]:
     """結構化解析「通告卡」：連結靠 JS 而唔係 anchor 嘅來源（將軍澳區）。
 
@@ -1739,30 +1737,48 @@ def parse_notice_card_blocks(
         record = {"pdf_url": detail_url, "title": subtitle}
         results.append(record)
         if nid and detail_url.startswith("http") and "#" not in detail_url:
-            pending.append((record, detail_url))
+            pending.append((record, detail_url, nid))
 
     # ── 7. 跟內頁攞真 PDF（fail-soft：攞唔到就保留內頁 URL）──
     limit = int(config.get("notice_detail_max_pages") or config.get("detail_max_pages") or max_detail_pages or 0)
     if pending and limit > 0:
         fetched = 0
-        for idx, (record, detail_url) in enumerate(pending):
+        for idx, (record, detail_url, nid) in enumerate(pending):
             if fetched >= limit:
                 break
             fetched += 1
             if idx:
                 time.sleep(random.uniform(1.5, 4.0))  # 同來源之間一樣嘅防封間隔
+            resolved_pdf = ""
             detail = fetch_detail_page(name, detail_url, config)
-            if not detail:
+            if detail:
+                try:
+                    detail_soup = BeautifulSoup(detail.html, "html.parser")
+                except Exception:
+                    detail_soup = None
+                if detail_soup is not None:
+                    for dr in extract_detail_assets(detail_soup, detail.url, config):
+                        pdf = dr.get("pdf_url") or ""
+                        if pdf and is_download_url(pdf):
+                            resolved_pdf = pdf
+                            break
+            if resolved_pdf:
+                record["pdf_url"] = resolved_pdf
+                # 記低「呢張卡（站方 data-id = nid）真檔案喺邊」—— 呢個係我哋親眼
+                # 見到嘅事實，寫入 fingerprints.json 帶去下一輪用。
+                if known_detail_files is not None:
+                    known_detail_files.setdefault(name, {})[nid] = resolved_pdf
+                if superseded_placeholders is not None and detail_url != resolved_pdf:
+                    superseded_placeholders[(name, detail_url)] = resolved_pdf
                 continue
-            try:
-                detail_soup = BeautifulSoup(detail.html, "html.parser")
-            except Exception:
-                continue
-            for dr in extract_detail_assets(detail_soup, detail.url, config):
-                pdf = dr.get("pdf_url") or ""
-                if pdf and is_download_url(pdf):
-                    record["pdf_url"] = pdf
-                    break
+            # 今次跟唔到內頁（站方 block 抓取端 IP 等）。同一張卡之前已經親眼見到
+            # 真檔案喺邊嘅話，就沿用返嗰個 —— 唔應該因為我哋一時連唔上，就由
+            # 「真檔案」降級做「內頁 URL」，喺 cache 度開多一筆同一張卡嘅記錄。
+            remembered = ""
+            if known_detail_files is not None:
+                remembered = str((known_detail_files.get(name) or {}).get(nid) or "")
+            if remembered and superseded_placeholders is not None:
+                superseded_placeholders[(name, detail_url)] = remembered
         if fetched:
             print(f"  [{name}] 🔗 通告卡內頁跟進 {fetched}/{len(pending)} 個（上限 {limit}）")
 
@@ -1786,12 +1802,17 @@ def parse_text_notice_blocks(
     config: Dict[str, Any],
     name: str = "",
     max_detail_pages: int = 0,
+    superseded_placeholders: Optional[Dict[Tuple[str, str], str]] = None,
+    known_detail_files: Optional[Dict[str, Dict[str, str]]] = None,
 ) -> List[Dict[str, str]]:
     # v5.6.23: 有 notice_card_selector 就先行結構化解析（將軍澳區式 JS 下載掣）。
     # 解析到嘢就用佢；一個都解析唔到（例如站方再改版）就自動回落去下面嘅
     # regex-over-text 舊路徑，唔會因為新 code 而由「有資料」變「零資料」。
     if config.get("notice_card_selector"):
-        cards = parse_notice_card_blocks(name, soup, page_url, config, max_detail_pages)
+        cards = parse_notice_card_blocks(
+            name, soup, page_url, config, max_detail_pages, superseded_placeholders,
+            known_detail_files,
+        )
         if cards:
             return cards
         print(f"  [{name}] ⚠️ notice_card 解析到 0 個通告，回落去 regex text_notice 路徑")
@@ -1838,6 +1859,8 @@ def extract_assets_from_listing(
     page_url: str,
     config: Dict[str, Any],
     max_detail_pages: int,
+    superseded_placeholders: Optional[Dict[Tuple[str, str], str]] = None,
+    known_detail_files: Optional[Dict[str, Dict[str, str]]] = None,
 ) -> List[Dict[str, str]]:
     assets: List[Dict[str, str]] = []
     detail_candidates: List[str] = []
@@ -1920,7 +1943,11 @@ def extract_assets_from_listing(
                     detail_candidates.append(href)
 
     if not assets and (config.get('text_notice_selector') or config.get('notice_card_selector')):
-        assets.extend(parse_text_notice_blocks(soup, page_url, config, name=name, max_detail_pages=max_detail_pages))
+        assets.extend(parse_text_notice_blocks(
+            soup, page_url, config, name=name, max_detail_pages=max_detail_pages,
+            superseded_placeholders=superseded_placeholders,
+            known_detail_files=known_detail_files,
+        ))
 
     if not should_follow_detail_pages(config):
         return assets
@@ -1938,7 +1965,10 @@ def extract_assets_from_listing(
             assets.append(record)
 
     if not assets and (config.get('text_notice_selector') or config.get('notice_card_selector')):
-        assets.extend(parse_text_notice_blocks(soup, page_url, config, name=name, max_detail_pages=max_detail_pages))
+        assets.extend(parse_text_notice_blocks(
+            soup, page_url, config, name=name, max_detail_pages=max_detail_pages,
+            superseded_placeholders=superseded_placeholders,
+        ))
 
     return assets
 
@@ -1998,105 +2028,58 @@ def iter_records_from_cache(cache: Dict[str, Any]) -> List[Dict[str, Any]]:
     return records
 
 
-def collapse_notice_placeholders(
+def collapse_superseded_placeholders(
     records: List[Dict[str, Any]],
-    all_sources: Dict[str, Dict[str, Any]],
+    superseded_placeholders: Optional[Dict[Tuple[str, str], str]] = None,
 ) -> List[Dict[str, Any]]:
-    """同一張通告卡由「內頁 URL」升級做真檔案之後，收起舊嗰筆。
+    """把「同一張通告卡、同一筆登記」嘅內頁 URL 記錄，換成今次親手跟到嘅真檔案。
 
-    呢度做嘅**唔係**「同一份內容去重」—— 內容一樣但喺唔同地方（區／地域／總會）
-    登記嘅通告，係幾筆唔同嘅登記，一筆都唔會動（唔同 source_site 由頭到尾唔會
-    擺埋一齊比較，見下面 grouping key）。
+    呢度**完全唔用標題配對**（v5.6.24 修正）。原因：標題唔係身份。同一區今年
+    2026 有一個「消防訓練班」、明年 2027 再有一個同名嘅，來源一樣、名一樣，
+    唯一分別可能只係 PDF 名；用標題配對就會把兩則唔同嘅通告當成同一則。
+    站方話佢係新，我哋就當佢係新 —— 登記係跟網站講嘅嘢，唔係跟我們嘅推測。
 
-    背景（v5.6.24）
-    --------------
-    cache 嘅唯一鍵係 ``(source_site, pdf_url)``。將軍澳區嘅通告一開頭跟唔到內頁
-    （站方對 datacenter IP 回 500 等），fail-soft 寫低 ``/notice/?nid=207``；
-    之後內頁跟得到（v5.6.24 起支援 meta refresh），URL 變成
-    ``/notice/2026/prog_207.pdf``。URL 一變就係一筆「新通告」，於是：
+    所以配對只認一個事實來源：``superseded_placeholders``，由
+    ``parse_notice_card_blocks`` 喺**今次呢個 run** 跟內頁成功攞到真檔案嗰刻填落去
+    （key = (source_site, 內頁 URL)，value = 真檔案 URL）。即係：
 
-    * 同一張卡喺 UI 出現兩次（一筆跳轉頁、一筆真 PDF），
-      舊嗰筆仲要被 enrich/notify 當成另一則；
-    * 真 PDF 嗰筆 ``captured_date`` 係今日，notify.py 用
-      ``(source_site, pdf_url)`` 做 diff → 29 筆舊通告會被當成新通告重推。
+    * 只有「今次親眼見到某條內頁 URL 跳去某個真檔案」呢一對先會換；
+    * 同一標題、同一來源嘅其他卡（今年／明年同名通告）一律唔會被碰；
+    * 其他來源（哪怕 PDF 內容一模一樣、喺區／地域／總會分別登記）一律唔會被碰；
+    * 上一輪寫低、但今次卡已經唔存在嘅內頁 URL，一律原封不動留低
+      （我哋當時真係見到嗰張卡，就係當時嘅真實記錄）。
 
-    配對準則（三重，缺一不可）
-    --------------------------
-    1. **同一個來源**（grouping key 已含 source_site）；
-    2. **同一個標題**（只剝走「(截止: …)」尾巴，同 fix_tko_notice_urls.py 一致）；
-    3. **id 對得上**：placeholder ``/notice/?nid=207`` 只認 URL 內含 ``207``
-       嘅真檔案（``prog_207.pdf``）。對唔上、或者同時有幾個候選，就當「認唔到」，
-       placeholder 原封不動留低 —— 寧願多一筆舊記錄，都唔會亂掉／亂改。
-
-    收起身嘅只有「同一張卡嘅同一筆登記」嗰條 URL：``captured_date``（同標籤）
-    過繼去真檔案嗰筆，因為 captured_date 嘅語義係「幾時第一次見到」，
-    一則通告只應該登記一次。**其他記錄一律唔碰**，包括同來源其他卡、
-    以及任何其他來源（哪怕 PDF 內容一模一樣）。
-
-    Supabase 模式：呢個函數喺 ``merged_records`` 上做（即係 upsert 之後先過濾），
-    所以 cache.json 一定會乾淨；遠端殘留嘅 placeholder 行唔會再流出 cache。
+    換嘅時候只做兩件事：收起舊嗰條記錄、把 ``captured_date``（同標籤）過繼去真檔案
+    嗰筆 —— captured_date 嘅語義係「幾時第一次見到」，一則通告只應該登記一次。
     """
-    if not records:
+    if not records or not superseded_placeholders:
         return records
 
-    def title_key(title: Any) -> str:
-        # 「06-2026 行政通告 - X (截止: 2026-07-16)」同「… X」要當同一則通告
-        return " ".join(DEADLINE_SUFFIX_RE.sub("", str(title or "")).split())
-
-    groups: Dict[Any, List[Dict[str, Any]]] = {}
+    index: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for record in records:
         source = str(record.get("source_site") or record.get("source") or "")
-        groups.setdefault((source, title_key(record.get("title"))), []).append(record)
+        url = str(record.get("pdf_url") or "")
+        index.setdefault((source, url), record)
 
     obsolete: Set[int] = set()
-    for (source, _), group in groups.items():
-        if len(group) < 2:
-            continue
-        config = all_sources.get(source) or {}
-        # 只有夾得到 notice_detail_url_template 嘅來源先有 placeholder 呢回事
-        # （現時全庫只有將軍澳區）。其他來源一個字都唔會改。
-        placeholders = [
-            r for r in group
-            if is_notice_placeholder_url(str(r.get("pdf_url") or ""), config)
-        ]
-        if not placeholders:
-            continue
-        downloads = [r for r in group if is_download_url(str(r.get("pdf_url") or ""))]
-        if not downloads:
-            continue
+    for (source, placeholder_url), replacement_url in superseded_placeholders.items():
+        placeholder = index.get((source, placeholder_url))
+        replacement = index.get((source, replacement_url))
+        if placeholder is None or replacement is None or placeholder is replacement:
+            continue  # 有一邊唔喺 cache（例如 dry-run／另一輪已經換走）就唔動
+        obsolete.add(id(placeholder))
 
-        for placeholder in placeholders:
-            nid = notice_detail_id(str(placeholder.get("pdf_url") or ""), config)
-            if nid:
-                # id 要獨立數字（prog_207.pdf ✔ / prog_2070.pdf ✘）
-                id_re = re.compile(rf"(?<!\d){re.escape(nid)}(?!\d)")
-                targets = [d for d in downloads if id_re.search(str(d.get("pdf_url") or ""))]
-            else:
-                targets = []
-            if len(targets) != 1:
-                if not nid and len(downloads) == 1:
-                    targets = downloads  # 認唔到 id，但全組只得一個真檔案，冇歧義
-                else:
-                    print(
-                        f"  [{source}] ⚠️ 認唔到邊個真檔案對應內頁 "
-                        f"{placeholder.get('pdf_url')}（候選 {len(targets)} 個），"
-                        f"兩個記錄都保留，唔會亂掉"
-                    )
-                    continue
-
-            kept = targets[0]
-            inherited = str(placeholder.get("captured_date") or "")
-            if inherited and (
-                not kept.get("captured_date") or str(kept.get("captured_date")) > inherited
-            ):
-                kept["captured_date"] = inherited
-            if placeholder.get("tags") and not kept.get("tags"):
-                kept["tags"] = list(placeholder["tags"])
-            obsolete.add(id(placeholder))
-            print(
-                f"  [{source}] ♻️ 內頁 placeholder 已升級做真檔案，收起舊記錄: "
-                f"{(placeholder.get('title') or '')[:40]} | {placeholder.get('pdf_url')}"
-            )
+        inherited = str(placeholder.get("captured_date") or "")
+        if inherited and (
+            not replacement.get("captured_date") or str(replacement.get("captured_date")) > inherited
+        ):
+            replacement["captured_date"] = inherited
+        if placeholder.get("tags") and not replacement.get("tags"):
+            replacement["tags"] = list(placeholder["tags"])
+        print(
+            f"  [{source}] ♻️ 同一張卡嘅內頁 URL 已由真檔案取代: "
+            f"{placeholder_url} → {replacement_url}"
+        )
 
     if not obsolete:
         return records
@@ -2279,6 +2262,8 @@ def process_source(
     today_str: str,
     force: bool = False,
     max_detail_pages: int = 12,
+    superseded_placeholders: Optional[Dict[Tuple[str, str], str]] = None,
+    known_detail_files: Optional[Dict[str, Dict[str, str]]] = None,
 ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], str, bool, Optional[str], bool]:
     print(f"  [{name}] {config.get('url', '')[:80]}...")
 
@@ -2303,6 +2288,8 @@ def process_source(
         page_url=result.url,
         config=config,
         max_detail_pages=max_detail_pages,
+        superseded_placeholders=superseded_placeholders,
+        known_detail_files=known_detail_files,
     )
 
     if config.get('follow_listing_pages'):
@@ -2319,6 +2306,8 @@ def process_source(
                     page_url=sub.url,
                     config=config,
                     max_detail_pages=max_detail_pages,
+                    superseded_placeholders=superseded_placeholders,
+                    known_detail_files=known_detail_files,
                 )
                 for rec in sub_assets:
                     if rec['pdf_url'] in seen_asset_urls:
@@ -2424,6 +2413,12 @@ def main(
     now_str = hkt_now_str()
 
     fingerprints = load_fingerprints()
+    # v5.6.24: 「站方卡 id → 我哋親眼見到嘅真檔案」記憶，跟 fingerprints.json 一齊帶去
+    # 下一輪。用途：今次跟唔到內頁（站方 block 抓取端 IP）時，唔好由「真檔案」降級
+    # 做「內頁 URL」，同一張卡喺 cache 開多一筆。
+    known_detail_files = fingerprints.get(_DETAIL_FILES_KEY)
+    if not isinstance(known_detail_files, dict):
+        known_detail_files = {}
     local_cache = load_local_cache()
     local_records = iter_records_from_cache(local_cache)
 
@@ -2444,6 +2439,8 @@ def main(
 
     all_new: List[Dict[str, Any]] = []
     all_updated: List[Dict[str, Any]] = []
+    # (source_site, 內頁 URL) → 今次跟到嘅真檔案 URL（只有親眼見到先入嚟）
+    superseded_placeholders: Dict[Tuple[str, str], str] = {}
     skipped = 0
     processed = 0
     pw_used = 0
@@ -2477,6 +2474,8 @@ def main(
                 today_str=today_str,
                 force=force,
                 max_detail_pages=max_detail_pages,
+                superseded_placeholders=superseded_placeholders,
+                known_detail_files=known_detail_files,
             )
             fingerprints[name] = fp
             if skip:
@@ -2536,10 +2535,10 @@ def main(
             if remote_records:
                 merged_records = remote_records
 
-        # v5.6.24: 內頁 placeholder（fail-soft 寫低嘅 /notice/?nid=）一旦升級做真檔案，
-        # 舊記錄要收起，否則同一則通告出現兩次，而且 notify.py 會把舊通告當新通告重推。
-        # 見 collapse_notice_placeholders 嘅說明。
-        merged_records = collapse_notice_placeholders(merged_records, all_sources)
+        # v5.6.24: 今次親手跟到真檔案嗰啲內頁 URL，舊記錄要換走，否則同一張卡會
+        # 出現兩次（一次跳轉頁、一次真檔案）；配對只認今次親眼見到嘅一對，
+        # 唔用標題。見 collapse_superseded_placeholders 嘅說明。
+        merged_records = collapse_superseded_placeholders(merged_records, superseded_placeholders)
 
         # 本輪產生、但最後冇留喺 cache 嘅新記錄（即係 fail-soft placeholder 一升級就被收起
         # 嗰啲）唔應該算落 last_run.new，否則報告會虛報「新通告」。
@@ -2578,6 +2577,7 @@ def main(
             "error_sources": error_sources,
             "skipped_sources": skipped_sources,
         }
+        fingerprints[_DETAIL_FILES_KEY] = known_detail_files
         save_local_cache(grouped_cache)
         save_fingerprints(fingerprints)
 
@@ -2587,11 +2587,23 @@ def main(
     print("📊 執行報告 v5.6.20")
     print(f"   🆕 新通告:     {len(all_new) - collapsed_new}")
     if collapsed_new:
-        print(f"   ♻️  收起舊記錄: {collapsed_new}   ← 內頁 placeholder 已升級做真檔案")
+        print(f"   ♻️  收起舊記錄: {collapsed_new}   ← 同一張卡嘅舊 URL，已由真檔案取代")
     print(f"   📅 今日入庫:   {daily_new}   ← cache 內 captured_date == 今日，跨 writer 累計")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
     print(f"   🔍 指紋變動:   {processed}")
+    remaining_placeholders = 0
+    if not dry_run:
+        for source, arr in (grouped_cache.get("data") or {}).items():
+            if not isinstance(arr, list):
+                continue
+            cfg = all_sources.get(source) or {}
+            remaining_placeholders += sum(
+                1 for it in arr
+                if is_notice_placeholder_url(str(it.get("pdf_url") or ""), cfg)
+            )
+    if remaining_placeholders:
+        print(f"   🔗 未升級內頁: {remaining_placeholders}   ← 內頁跟唔到，保留內頁 URL（fail-soft，等下次再試）")
     print(f"   🎭 Playwright: {pw_used} 次")
     print(f"   💾 模式:       {'Supabase' if USE_SUPABASE else '本地 JSON'}")
     print(f"   🧪 Dry run:    {'是' if dry_run else '否'}")
