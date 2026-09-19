@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "ignoreCommand": "bash -c 'if [[ \"$VERCEL_GIT_COMMIT_MESSAGE\" == *\"[skip ci]\"* ]] || [[ \"$VERCEL_GIT_COMMIT_MESSAGE\" == *\"[vercel skip]\"* ]]; then echo \"⏭️ Skipping Vercel build: $VERCEL_GIT_COMMIT_MESSAGE\"; exit 0; else echo \"✅ Building: $VERCEL_GIT_COMMIT_MESSAGE\"; exit 1; fi'",
   "functions": {
     "api/push_config.py": {
       "maxDuration": 10,
