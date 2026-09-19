@@ -8,6 +8,20 @@
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
 
+v5.6.24 核心修復 (2026-09-19):
+  1. extract_detail_assets 支援古典 HTML 自動跳轉 <meta http-equiv="refresh"
+     content="0; url=…">：將軍澳區嘅內頁 /notice/?nid=207 係「空殼」——
+     <body> 完全空、冇 <a>、冇 <iframe>，只有 meta refresh 跳去真 PDF
+     （https://hkscout-tko.org/notice/2026/prog_207.pdf）。舊碼見空 body 就當
+     「內頁攞唔到」，fail-soft 保留 /notice/?nid=207 當成 PDF 網址寫入 cache.json，
+     而 enrich.py 只肯處理 .pdf 結尾嘅網址 → enrich.json 永遠冇將軍澳區資料。
+  2. 記錄只增不減、唔會互相取代：今次跟到內頁真檔案，就寫真檔案嗰條 URL；
+     下次跟唔到（站方對 datacenter IP 回 500 等）就照寫內頁 URL。同一張卡
+     可能因此有兩筆（一條內頁、一條真檔案），呢個係刻意嘅 —— 我哋要嘅係
+     「全」：站方一時掃到一時掃唔到，兩邊都係當日嘅真相，用戶見到多一張
+     一樣嘅卡無傷大雅。cache 只會按 (source_site, pdf_url) 去重，
+     絕對唔會因為「同一張卡」而收起或改寫任何記錄。
+
 v5.6.20 核心修復 (2026-08-13):
   1. wordpress_api: 第一頁 3 次重試（403/429/5xx/網路異常），改用 SESSION 完整瀏覽器標頭
   2. wordpress_api: 新增 fallback_urls — API 被擋時改抓 HTML 通告頁，唔再「第一頁 fail 即整站紅」
@@ -575,6 +589,61 @@ def is_download_url(url: str) -> bool:
     if any(k in lowered for k in ["download=1", "download=", "/download/", "attachment_id="]):
         return True
     return False
+
+
+def notice_detail_template_regex(config: Dict[str, Any]) -> Optional[re.Pattern]:
+    """由 ``notice_detail_url_template``（例如 ``/notice/?nid={id}``）砌出配對用 regex。
+
+    v5.6.24：用嚟認出 core.py 自己 fail-soft 寫低嘅「內頁 URL」placeholder。
+    冇 template（大部分來源根本唔跟內頁）就回 None。
+    """
+    template = str(config.get("notice_detail_url_template") or "").strip()
+    if not template:
+        return None
+    parts = template.split("{id}")
+    if len(parts) == 1:
+        return None  # 冇 {id} 就認唔出邊個 URL 係 placeholder，寧願唔認
+    # {id} 要留住做 capture group，之後可以拎返個 id 去認「邊個真檔案係佢」
+    pattern = r"(\d+)".join(re.escape(part) for part in parts)
+    try:
+        return re.compile(pattern)
+    except re.error:
+        return None
+
+
+def _notice_detail_match(url: str, config: Dict[str, Any]):
+    """個 URL 係唔係該來源嘅內頁 URL？係就回 regex match（group 1 = id），否則 None。"""
+    template_re = notice_detail_template_regex(config)
+    if template_re is None or not url:
+        return None
+    template = str(config.get("notice_detail_url_template") or "").strip()
+    if template.lower().startswith(("http://", "https://")):
+        candidate = url
+    else:
+        parsed = urlparse(url)
+        candidate = parsed.path + (f"?{parsed.query}" if parsed.query else "")
+    return template_re.fullmatch(candidate)
+
+
+def is_notice_placeholder_url(url: str, config: Dict[str, Any]) -> bool:
+    """係唔係「跟內頁攞唔到真檔案、fail-soft 寫低嘅內頁 URL」？
+
+    例子：將軍澳區嘅 ``https://hkscout-tko.org/notice/?nid=207``
+    （真檔案係 ``https://hkscout-tko.org/notice/2026/prog_207.pdf``）。
+
+    分辨準則有兩個，兩者都要中：
+
+    1. 個 URL 唔似可下載檔案（``is_download_url`` 為 False）；
+    2. 個 URL 夾得到該來源 ``notice_detail_url_template`` 砌出嘅樣式
+       （例如 ``/notice/?nid=<數字>``）。
+
+    刻意唔用「凡係非下載 URL 就當 placeholder」呢種闊準則 ——
+    ``allow_page_notice_fallback`` 嘅來源會視內頁通告為正式記錄，
+    嗰啲 URL 係真資料，唔可以被當成 placeholder 掉走。
+    """
+    if not url or is_download_url(url):
+        return False
+    return _notice_detail_match(url, config) is not None
 
 
 def is_article_candidate(url: str, root_url: str, text: str) -> bool:
@@ -1369,6 +1438,38 @@ def extract_item_tag_labels(anchor: Any, config: Dict[str, Any]) -> List[str]:
     return []
 
 
+# v5.6.24: <meta http-equiv="refresh" content="0; url=…"> 嘅目標 URL 部分。
+# 唔用 split(";") —— 目標 URL 本身可以帶分號（例如 ?a=1;b=2），split 第一粒會斬爛。
+META_REFRESH_URL_RE = re.compile(r"url\s*=\s*(.*)$", re.IGNORECASE | re.DOTALL)
+
+
+def extract_meta_refresh_target(content: Optional[str]) -> str:
+    """由 ``<meta http-equiv="refresh" content="...">`` 抽跳轉目標 URL。
+
+    古典 HTML 自動跳轉嘅寫法五花八門，現場見過嘅有::
+
+        content="0; url=https://hkscout-tko.org/notice/2026/prog_207.pdf"
+        content="0;URL='https://example.org/a.pdf'"
+        content="0;url=/notice/2026/prog_207.pdf"
+        content="url=https://example.org/a.pdf"      # 冇分號嘅變體
+
+    認唔出（例如 content 只得個秒數 ``"5"``）就回空字串，交由上游略過，
+    唔會亂砌一個目標出嚟。呢個函數純字串處理，方便獨立測試。
+    """
+    text = str(content or "").strip()
+    if not text:
+        return ""
+    match = META_REFRESH_URL_RE.search(text)
+    if not match:
+        return ""
+    target = match.group(1).strip()
+    # url='…' / url="…"，或者尾隨分號（url='…';）都要剝走；只剝頭尾，唔好整爛中間
+    target = target.strip("'\"").strip()
+    target = target.rstrip(";").strip()
+    target = target.strip("'\"").strip()
+    return target
+
+
 def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str, Any]) -> List[Dict[str, str]]:
     records: List[Dict[str, str]] = []
     seen: Set[str] = set()
@@ -1404,6 +1505,27 @@ def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str
             record = make_asset_record(href, page_title, config)
             if record:
                 records.append(record)
+
+    # v5.6.24: 支援 <meta http-equiv="refresh" content="..."> 古典自動跳轉至真 PDF。
+    # 將軍澳區嘅內頁（/notice/?nid=207）<body> 係完全空嘅 —— 冇 <a>、冇 <iframe>，
+    # 只有 <meta http-equiv="refresh" content="0; url=https://hkscout-tko.org/notice/2026/prog_207.pdf">。
+    # 冇呢一段，extract_detail_assets 會回空 → fetch_detail_page 當「內頁攞唔到」，
+    # 結果 fail-soft 保留 /notice/?nid=207 當成 PDF 網址寫入 cache.json，
+    # 而 enrich.py 只肯處理 .pdf 結尾嘅網址 → enrich.json 永遠冇將軍澳區嘅資料。
+    for meta in soup.find_all("meta"):
+        if str(meta.get("http-equiv") or "").strip().lower() != "refresh":
+            continue
+        target = extract_meta_refresh_target(meta.get("content"))
+        if not target:
+            continue
+        href = resolve_url(detail_url, target)
+        href = sanitize_url(href or "", config.get("url_sanitize", []))
+        if not href or not is_download_url(href) or href in seen:
+            continue
+        seen.add(href)
+        record = make_asset_record(href, page_title, config)
+        if record:
+            records.append(record)
 
     if not records and config.get("allow_page_notice_fallback"):
         fallback_title = page_title or clean_title(soup.get_text(' ', strip=True), config)
@@ -1450,7 +1572,6 @@ def slugify_fragment(text: str) -> str:
 NOTICE_CARD_CODE_COL_RE = re.compile(r'^\d{2}-\d{4}$')
 NOTICE_CARD_DEADLINE_RE = re.compile(r'\((\d{4}-\d{2}-\d{2})\s*截止\)\s*$')
 NOTICE_CARD_CODE_TAIL_RE = re.compile(r'\((\d{2}-\d{4})\)\s*$')
-
 
 def parse_notice_card_blocks(
     name: str,
@@ -1620,6 +1741,9 @@ def parse_notice_card_blocks(
                 time.sleep(random.uniform(1.5, 4.0))  # 同來源之間一樣嘅防封間隔
             detail = fetch_detail_page(name, detail_url, config)
             if not detail:
+                # 跟唔到就保留內頁 URL（fail-soft）。今次見到乜就記乜：
+                # 同一張卡下次跟到真檔案，就係另一條 URL、另一筆記錄，
+                # 兩筆都留住 —— 我哋要嘅係「全」，唔係整齊。
                 continue
             try:
                 detail_soup = BeautifulSoup(detail.html, "html.parser")
@@ -2334,6 +2458,18 @@ def main(
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
     print(f"   🔍 指紋變動:   {processed}")
+    unresolved_details = 0
+    if not dry_run:
+        for source, arr in (grouped_cache.get("data") or {}).items():
+            if not isinstance(arr, list):
+                continue
+            cfg = all_sources.get(source) or {}
+            unresolved_details += sum(
+                1 for it in arr
+                if is_notice_placeholder_url(str(it.get("pdf_url") or ""), cfg)
+            )
+    if unresolved_details:
+        print(f"   🔗 今日未跟到真檔案: {unresolved_details}   ← 卡係真嘅，連結暫時係內頁 URL（等下次再試）")
     print(f"   🎭 Playwright: {pw_used} 次")
     print(f"   💾 模式:       {'Supabase' if USE_SUPABASE else '本地 JSON'}")
     print(f"   🧪 Dry run:    {'是' if dry_run else '否'}")
