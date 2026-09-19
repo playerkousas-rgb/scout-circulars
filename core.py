@@ -601,11 +601,34 @@ def notice_detail_template_regex(config: Dict[str, Any]) -> Optional[re.Pattern]
     parts = template.split("{id}")
     if len(parts) == 1:
         return None  # 冇 {id} 就認唔出邊個 URL 係 placeholder，寧願唔認
-    pattern = r"\d+".join(re.escape(part) for part in parts)
+    # {id} 要留住做 capture group，之後可以拎返個 id 去認「邊個真檔案係佢」
+    pattern = r"(\d+)".join(re.escape(part) for part in parts)
     try:
         return re.compile(pattern)
     except re.error:
         return None
+
+
+def _notice_detail_match(url: str, config: Dict[str, Any]):
+    """個 URL 係唔係該來源嘅內頁 URL？係就回 regex match（group 1 = id），否則 None。"""
+    template_re = notice_detail_template_regex(config)
+    if template_re is None or not url:
+        return None
+    template = str(config.get("notice_detail_url_template") or "").strip()
+    if template.lower().startswith(("http://", "https://")):
+        candidate = url
+    else:
+        parsed = urlparse(url)
+        candidate = parsed.path + (f"?{parsed.query}" if parsed.query else "")
+    return template_re.fullmatch(candidate)
+
+
+def notice_detail_id(url: str, config: Dict[str, Any]) -> str:
+    """由內頁 URL 拎返 id（``/notice/?nid=207`` → ``207``）；唔係內頁 URL 就回空字串。"""
+    match = _notice_detail_match(url, config)
+    if not match:
+        return ""
+    return match.group(1) if match.groups() else ""
 
 
 def is_notice_placeholder_url(url: str, config: Dict[str, Any]) -> bool:
@@ -626,16 +649,7 @@ def is_notice_placeholder_url(url: str, config: Dict[str, Any]) -> bool:
     """
     if not url or is_download_url(url):
         return False
-    template_re = notice_detail_template_regex(config)
-    if template_re is None:
-        return False
-    template = str(config.get("notice_detail_url_template") or "").strip()
-    if template.lower().startswith(("http://", "https://")):
-        candidate = url
-    else:
-        parsed = urlparse(url)
-        candidate = parsed.path + (f"?{parsed.query}" if parsed.query else "")
-    return bool(template_re.fullmatch(candidate))
+    return _notice_detail_match(url, config) is not None
 
 
 def is_article_candidate(url: str, root_url: str, text: str) -> bool:
@@ -1988,7 +2002,11 @@ def collapse_notice_placeholders(
     records: List[Dict[str, Any]],
     all_sources: Dict[str, Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
-    """同一則通告由「內頁 URL」升級做真檔案之後，只保留真檔案嗰筆。
+    """同一張通告卡由「內頁 URL」升級做真檔案之後，收起舊嗰筆。
+
+    呢度做嘅**唔係**「同一份內容去重」—— 內容一樣但喺唔同地方（區／地域／總會）
+    登記嘅通告，係幾筆唔同嘅登記，一筆都唔會動（唔同 source_site 由頭到尾唔會
+    擺埋一齊比較，見下面 grouping key）。
 
     背景（v5.6.24）
     --------------
@@ -1997,20 +2015,23 @@ def collapse_notice_placeholders(
     之後內頁跟得到（v5.6.24 起支援 meta refresh），URL 變成
     ``/notice/2026/prog_207.pdf``。URL 一變就係一筆「新通告」，於是：
 
-    * 同一則通告喺 UI 出現兩次（一筆跳轉頁、一筆真 PDF），
+    * 同一張卡喺 UI 出現兩次（一筆跳轉頁、一筆真 PDF），
       舊嗰筆仲要被 enrich/notify 當成另一則；
     * 真 PDF 嗰筆 ``captured_date`` 係今日，notify.py 用
       ``(source_site, pdf_url)`` 做 diff → 29 筆舊通告會被當成新通告重推。
 
-    呢度做嘅事：按 ``(source_site, 標題去掉「截止」尾巴)`` 分組，一個群組同時有
-    placeholder（見 ``is_notice_placeholder_url``）同真下載檔，就掉走 placeholder，
-    並把最早嘅 ``captured_date``（同標籤）過繼去真檔案嗰筆 ——
-    captured_date 嘅語義係「幾時第一次見到」，唔應該因為換 URL 而變今日。
+    配對準則（三重，缺一不可）
+    --------------------------
+    1. **同一個來源**（grouping key 已含 source_site）；
+    2. **同一個標題**（只剝走「(截止: …)」尾巴，同 fix_tko_notice_urls.py 一致）；
+    3. **id 對得上**：placeholder ``/notice/?nid=207`` 只認 URL 內含 ``207``
+       嘅真檔案（``prog_207.pdf``）。對唔上、或者同時有幾個候選，就當「認唔到」，
+       placeholder 原封不動留低 —— 寧願多一筆舊記錄，都唔會亂掉／亂改。
 
-    搵唔到真檔案嘅 placeholder 一律原封不動，fail-soft 行為完全不變。
-    （配對係靠標題，同 fix_tko_notice_urls.py 嘅 title_key 一樣。若果站方喺
-    我哋攞到真檔案之前改過標題／換咗通告編號，就配對唔到 —— 呢種情況會留低
-    一筆 placeholder 記錄，唔會誤刪任何真資料，只係多一筆舊記錄。）
+    收起身嘅只有「同一張卡嘅同一筆登記」嗰條 URL：``captured_date``（同標籤）
+    過繼去真檔案嗰筆，因為 captured_date 嘅語義係「幾時第一次見到」，
+    一則通告只應該登記一次。**其他記錄一律唔碰**，包括同來源其他卡、
+    以及任何其他來源（哪怕 PDF 內容一模一樣）。
 
     Supabase 模式：呢個函數喺 ``merged_records`` 上做（即係 upsert 之後先過濾），
     所以 cache.json 一定會乾淨；遠端殘留嘅 placeholder 行唔會再流出 cache。
@@ -2032,6 +2053,8 @@ def collapse_notice_placeholders(
         if len(group) < 2:
             continue
         config = all_sources.get(source) or {}
+        # 只有夾得到 notice_detail_url_template 嘅來源先有 placeholder 呢回事
+        # （現時全庫只有將軍澳區）。其他來源一個字都唔會改。
         placeholders = [
             r for r in group
             if is_notice_placeholder_url(str(r.get("pdf_url") or ""), config)
@@ -2042,17 +2065,34 @@ def collapse_notice_placeholders(
         if not downloads:
             continue
 
-        inherited_dates = sorted(
-            str(r.get("captured_date") or "") for r in placeholders if r.get("captured_date")
-        )
-        earliest = inherited_dates[0] if inherited_dates else ""
         for placeholder in placeholders:
+            nid = notice_detail_id(str(placeholder.get("pdf_url") or ""), config)
+            if nid:
+                # id 要獨立數字（prog_207.pdf ✔ / prog_2070.pdf ✘）
+                id_re = re.compile(rf"(?<!\d){re.escape(nid)}(?!\d)")
+                targets = [d for d in downloads if id_re.search(str(d.get("pdf_url") or ""))]
+            else:
+                targets = []
+            if len(targets) != 1:
+                if not nid and len(downloads) == 1:
+                    targets = downloads  # 認唔到 id，但全組只得一個真檔案，冇歧義
+                else:
+                    print(
+                        f"  [{source}] ⚠️ 認唔到邊個真檔案對應內頁 "
+                        f"{placeholder.get('pdf_url')}（候選 {len(targets)} 個），"
+                        f"兩個記錄都保留，唔會亂掉"
+                    )
+                    continue
+
+            kept = targets[0]
+            inherited = str(placeholder.get("captured_date") or "")
+            if inherited and (
+                not kept.get("captured_date") or str(kept.get("captured_date")) > inherited
+            ):
+                kept["captured_date"] = inherited
+            if placeholder.get("tags") and not kept.get("tags"):
+                kept["tags"] = list(placeholder["tags"])
             obsolete.add(id(placeholder))
-            for kept in downloads:
-                if earliest and (not kept.get("captured_date") or str(kept.get("captured_date")) > earliest):
-                    kept["captured_date"] = earliest
-                if placeholder.get("tags") and not kept.get("tags"):
-                    kept["tags"] = list(placeholder["tags"])
             print(
                 f"  [{source}] ♻️ 內頁 placeholder 已升級做真檔案，收起舊記錄: "
                 f"{(placeholder.get('title') or '')[:40]} | {placeholder.get('pdf_url')}"

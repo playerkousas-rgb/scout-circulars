@@ -203,12 +203,95 @@ def test_搵唔到真檔案時_placeholder_原封不動():
     assert out[0]["pdf_url"] == "https://hkscout-tko.org/notice/?nid=206"
 
 
-def test_兩份真_pdf_同一標題_一筆都唔會掉():
-    """張冠李戴嘅情況留返俾 log 警告，唔應該喺呢度靜靜雞掉資料。"""
+def test_多過一個候選時_唔會亂掉_兩個記錄都保留():
+    """同一標題下有幾個真檔案（例如正本 + 表格），認唔到邊個先係佢 → 一律保留。"""
     _, upgraded = build_upgrade_records()
     other = dict(upgraded, pdf_url="https://hkscout-tko.org/notice/2026/prog_206_form.pdf")
-    out = core.collapse_notice_placeholders([upgraded, other], SOURCES)
+    placeholder, _ = build_upgrade_records()
+    out = core.collapse_notice_placeholders([placeholder, upgraded, other], SOURCES)
+    assert len(out) == 3, out
+    assert any("?nid=" in r["pdf_url"] for r in out), "認唔到就應該留住 placeholder"
+
+
+def test_nid_要獨立數字_唔會誤中其他編號():
+    """placeholder nid=207 唔可以當咗 prog_2070.pdf 係佢。"""
+    placeholder = {
+        "source_site": "將軍澳區",
+        "pdf_url": "https://hkscout-tko.org/notice/?nid=207",
+        "title": "10-2026 特別通告 - 測試",
+        "captured_date": "2026-05-23",
+    }
+    other = {
+        "source_site": "將軍澳區",
+        "pdf_url": "https://hkscout-tko.org/notice/2026/prog_2070.pdf",
+        "title": "10-2026 特別通告 - 測試",
+        "captured_date": "2026-09-19",
+    }
+    out = core.collapse_notice_placeholders([placeholder, other], SOURCES)
     assert len(out) == 2, out
+    assert out[1]["captured_date"] == "2026-09-19", "唔准亂改另一張卡嘅日期"
+
+
+def test_同來源另一張卡_日期一律唔碰():
+    """同一份 PDF、同一標題、但係兩張唔同嘅卡 —— 只有 nid 對得上嗰張收 placeholder。"""
+    title = "09-2026 童軍支部 - 童軍消防(服務組)專章訓練班 (截止: 2026-09-30)"
+    placeholder = {
+        "source_site": "將軍澳區",
+        "pdf_url": "https://hkscout-tko.org/notice/?nid=207",
+        "title": title,
+        "captured_date": "2026-06-30",
+    }
+    matched = {
+        "source_site": "將軍澳區",
+        "pdf_url": "https://hkscout-tko.org/notice/2026/prog_207.pdf",
+        "title": title,
+        "captured_date": "2026-09-19",
+    }
+    other_card = {
+        "source_site": "將軍澳區",
+        "pdf_url": "https://hkscout-tko.org/notice/2026/prog_300.pdf",
+        "title": "09-2026 童軍支部 - 童軍消防(服務組)專章訓練班",
+        "captured_date": "2026-09-19",
+    }
+    out = core.collapse_notice_placeholders([placeholder, matched, other_card], SOURCES)
+    by_url = {r["pdf_url"]: r for r in out}
+    assert len(out) == 2, out
+    assert by_url["https://hkscout-tko.org/notice/2026/prog_207.pdf"]["captured_date"] == "2026-06-30"
+    assert by_url["https://hkscout-tko.org/notice/2026/prog_300.pdf"]["captured_date"] == "2026-09-19"
+
+
+def test_同一標題跨來源_幾個地方登記嘅通告_全部保留():
+    """內容一樣但喺唔同地方（區／地域／總會）登記 = 幾筆唔同嘅登記，一筆都唔會動。
+
+    呢個係核心原則：我哋收嘅係「邊個幾時喺邊度刊出」，唔係「內容去重」。
+    """
+    title = "09-2026 童軍支部 - 童軍消防(服務組)專章訓練班 (截止: 2026-09-30)"
+    same_pdf = "https://www.scout.org.hk/article_attach/99999/PT20.pdf"
+    scenario = [
+        {"source_site": "深旺區", "pdf_url": same_pdf, "title": title, "captured_date": "2026-09-19"},
+        {"source_site": "新界地域", "pdf_url": same_pdf, "title": title, "captured_date": "2026-09-19"},
+        {"source_site": "總會", "pdf_url": same_pdf, "title": title, "captured_date": "2026-09-19"},
+        # 摻一筆將軍澳區嘅 placeholder 入去，證明唔會影響其他來源
+        {
+            "source_site": "將軍澳區",
+            "pdf_url": "https://hkscout-tko.org/notice/?nid=207",
+            "title": title,
+            "captured_date": "2026-06-30",
+        },
+        {
+            "source_site": "將軍澳區",
+            "pdf_url": "https://hkscout-tko.org/notice/2026/prog_207.pdf",
+            "title": title,
+            "captured_date": "2026-09-19",
+        },
+    ]
+    out = core.collapse_notice_placeholders(copy.deepcopy(scenario), SOURCES)
+    cross = [r for r in out if r["source_site"] in ("深旺區", "新界地域", "總會")]
+    assert len(cross) == 3, cross
+    assert {r["pdf_url"] for r in cross} == {same_pdf}
+    assert all(r["captured_date"] == "2026-09-19" for r in cross), cross
+    # 只有將軍澳區嗰對 (placeholder → 真檔案) 做咗升級
+    assert not any("?nid=" in r["pdf_url"] for r in out)
 
 
 def test_page_fallback_來源_唔會被當_placeholder():
