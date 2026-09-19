@@ -8,6 +8,18 @@
   1. 極度嚴格的錯誤通報機制：任何連線異常、403、404 皆會觸發 has_errors=true
   2. 確保爬蟲只增不減，徹底隔離舊資料覆寫風險
 
+v5.6.24 核心修復 (2026-09-19):
+  1. extract_detail_assets 支援古典 HTML 自動跳轉 <meta http-equiv="refresh"
+     content="0; url=…">：將軍澳區嘅內頁 /notice/?nid=207 係「空殼」——
+     <body> 完全空、冇 <a>、冇 <iframe>，只有 meta refresh 跳去真 PDF
+     （https://hkscout-tko.org/notice/2026/prog_207.pdf）。舊碼見空 body 就當
+     「內頁攞唔到」，fail-soft 保留 /notice/?nid=207 當成 PDF 網址寫入 cache.json，
+     而 enrich.py 只肯處理 .pdf 結尾嘅網址 → enrich.json 永遠冇將軍澳區資料。
+  2. 新增 collapse_notice_placeholders：內頁 placeholder 升級做真檔案之後，
+     收起舊記錄（唔會同一則通告喺 UI 出現兩次），並把最早嘅 captured_date
+     （同標籤）過繼去真檔案嗰筆 —— notify.py 用 (source_site, pdf_url) 做 diff，
+     唔做嘅話 29 筆舊通告會因為換 URL 而被當成新通告重推。
+
 v5.6.20 核心修復 (2026-08-13):
   1. wordpress_api: 第一頁 3 次重試（403/429/5xx/網路異常），改用 SESSION 完整瀏覽器標頭
   2. wordpress_api: 新增 fallback_urls — API 被擋時改抓 HTML 通告頁，唔再「第一頁 fail 即整站紅」
@@ -575,6 +587,55 @@ def is_download_url(url: str) -> bool:
     if any(k in lowered for k in ["download=1", "download=", "/download/", "attachment_id="]):
         return True
     return False
+
+
+def notice_detail_template_regex(config: Dict[str, Any]) -> Optional[re.Pattern]:
+    """由 ``notice_detail_url_template``（例如 ``/notice/?nid={id}``）砌出配對用 regex。
+
+    v5.6.24：用嚟認出 core.py 自己 fail-soft 寫低嘅「內頁 URL」placeholder。
+    冇 template（大部分來源根本唔跟內頁）就回 None。
+    """
+    template = str(config.get("notice_detail_url_template") or "").strip()
+    if not template:
+        return None
+    parts = template.split("{id}")
+    if len(parts) == 1:
+        return None  # 冇 {id} 就認唔出邊個 URL 係 placeholder，寧願唔認
+    pattern = r"\d+".join(re.escape(part) for part in parts)
+    try:
+        return re.compile(pattern)
+    except re.error:
+        return None
+
+
+def is_notice_placeholder_url(url: str, config: Dict[str, Any]) -> bool:
+    """係唔係「跟內頁攞唔到真檔案、fail-soft 寫低嘅內頁 URL」？
+
+    例子：將軍澳區嘅 ``https://hkscout-tko.org/notice/?nid=207``
+    （真檔案係 ``https://hkscout-tko.org/notice/2026/prog_207.pdf``）。
+
+    分辨準則有兩個，兩者都要中：
+
+    1. 個 URL 唔似可下載檔案（``is_download_url`` 為 False）；
+    2. 個 URL 夾得到該來源 ``notice_detail_url_template`` 砌出嘅樣式
+       （例如 ``/notice/?nid=<數字>``）。
+
+    刻意唔用「凡係非下載 URL 就當 placeholder」呢種闊準則 ——
+    ``allow_page_notice_fallback`` 嘅來源會視內頁通告為正式記錄，
+    嗰啲 URL 係真資料，唔可以被當成 placeholder 掉走。
+    """
+    if not url or is_download_url(url):
+        return False
+    template_re = notice_detail_template_regex(config)
+    if template_re is None:
+        return False
+    template = str(config.get("notice_detail_url_template") or "").strip()
+    if template.lower().startswith(("http://", "https://")):
+        candidate = url
+    else:
+        parsed = urlparse(url)
+        candidate = parsed.path + (f"?{parsed.query}" if parsed.query else "")
+    return bool(template_re.fullmatch(candidate))
 
 
 def is_article_candidate(url: str, root_url: str, text: str) -> bool:
@@ -1369,6 +1430,38 @@ def extract_item_tag_labels(anchor: Any, config: Dict[str, Any]) -> List[str]:
     return []
 
 
+# v5.6.24: <meta http-equiv="refresh" content="0; url=…"> 嘅目標 URL 部分。
+# 唔用 split(";") —— 目標 URL 本身可以帶分號（例如 ?a=1;b=2），split 第一粒會斬爛。
+META_REFRESH_URL_RE = re.compile(r"url\s*=\s*(.*)$", re.IGNORECASE | re.DOTALL)
+
+
+def extract_meta_refresh_target(content: Optional[str]) -> str:
+    """由 ``<meta http-equiv="refresh" content="...">`` 抽跳轉目標 URL。
+
+    古典 HTML 自動跳轉嘅寫法五花八門，現場見過嘅有::
+
+        content="0; url=https://hkscout-tko.org/notice/2026/prog_207.pdf"
+        content="0;URL='https://example.org/a.pdf'"
+        content="0;url=/notice/2026/prog_207.pdf"
+        content="url=https://example.org/a.pdf"      # 冇分號嘅變體
+
+    認唔出（例如 content 只得個秒數 ``"5"``）就回空字串，交由上游略過，
+    唔會亂砌一個目標出嚟。呢個函數純字串處理，方便獨立測試。
+    """
+    text = str(content or "").strip()
+    if not text:
+        return ""
+    match = META_REFRESH_URL_RE.search(text)
+    if not match:
+        return ""
+    target = match.group(1).strip()
+    # url='…' / url="…"，或者尾隨分號（url='…';）都要剝走；只剝頭尾，唔好整爛中間
+    target = target.strip("'\"").strip()
+    target = target.rstrip(";").strip()
+    target = target.strip("'\"").strip()
+    return target
+
+
 def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str, Any]) -> List[Dict[str, str]]:
     records: List[Dict[str, str]] = []
     seen: Set[str] = set()
@@ -1404,6 +1497,27 @@ def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str
             record = make_asset_record(href, page_title, config)
             if record:
                 records.append(record)
+
+    # v5.6.24: 支援 <meta http-equiv="refresh" content="..."> 古典自動跳轉至真 PDF。
+    # 將軍澳區嘅內頁（/notice/?nid=207）<body> 係完全空嘅 —— 冇 <a>、冇 <iframe>，
+    # 只有 <meta http-equiv="refresh" content="0; url=https://hkscout-tko.org/notice/2026/prog_207.pdf">。
+    # 冇呢一段，extract_detail_assets 會回空 → fetch_detail_page 當「內頁攞唔到」，
+    # 結果 fail-soft 保留 /notice/?nid=207 當成 PDF 網址寫入 cache.json，
+    # 而 enrich.py 只肯處理 .pdf 結尾嘅網址 → enrich.json 永遠冇將軍澳區嘅資料。
+    for meta in soup.find_all("meta"):
+        if str(meta.get("http-equiv") or "").strip().lower() != "refresh":
+            continue
+        target = extract_meta_refresh_target(meta.get("content"))
+        if not target:
+            continue
+        href = resolve_url(detail_url, target)
+        href = sanitize_url(href or "", config.get("url_sanitize", []))
+        if not href or not is_download_url(href) or href in seen:
+            continue
+        seen.add(href)
+        record = make_asset_record(href, page_title, config)
+        if record:
+            records.append(record)
 
     if not records and config.get("allow_page_notice_fallback"):
         fallback_title = page_title or clean_title(soup.get_text(' ', strip=True), config)
@@ -1450,6 +1564,11 @@ def slugify_fragment(text: str) -> str:
 NOTICE_CARD_CODE_COL_RE = re.compile(r'^\d{2}-\d{4}$')
 NOTICE_CARD_DEADLINE_RE = re.compile(r'\((\d{4}-\d{2}-\d{2})\s*截止\)\s*$')
 NOTICE_CARD_CODE_TAIL_RE = re.compile(r'\((\d{2}-\d{4})\)\s*$')
+
+# v5.6.24: 標題尾巴嘅截止日（「… (截止: 2026-07-16)」/「…（截止：2026-07-16）」）。
+# 配對「同一則通告換咗 URL」時要剝走，否則 placeholder 版同真檔案版會被當兩則。
+# （同 fix_tko_notice_urls.py 嘅 DEADLINE_SUFFIX_RE 一樣。）
+DEADLINE_SUFFIX_RE = re.compile(r"\s*[（(]截止[:：]\s*\d{4}-\d{2}-\d{2}[）)]\s*$")
 
 
 def parse_notice_card_blocks(
@@ -1865,6 +1984,85 @@ def iter_records_from_cache(cache: Dict[str, Any]) -> List[Dict[str, Any]]:
     return records
 
 
+def collapse_notice_placeholders(
+    records: List[Dict[str, Any]],
+    all_sources: Dict[str, Dict[str, Any]],
+) -> List[Dict[str, Any]]:
+    """同一則通告由「內頁 URL」升級做真檔案之後，只保留真檔案嗰筆。
+
+    背景（v5.6.24）
+    --------------
+    cache 嘅唯一鍵係 ``(source_site, pdf_url)``。將軍澳區嘅通告一開頭跟唔到內頁
+    （站方對 datacenter IP 回 500 等），fail-soft 寫低 ``/notice/?nid=207``；
+    之後內頁跟得到（v5.6.24 起支援 meta refresh），URL 變成
+    ``/notice/2026/prog_207.pdf``。URL 一變就係一筆「新通告」，於是：
+
+    * 同一則通告喺 UI 出現兩次（一筆跳轉頁、一筆真 PDF），
+      舊嗰筆仲要被 enrich/notify 當成另一則；
+    * 真 PDF 嗰筆 ``captured_date`` 係今日，notify.py 用
+      ``(source_site, pdf_url)`` 做 diff → 29 筆舊通告會被當成新通告重推。
+
+    呢度做嘅事：按 ``(source_site, 標題去掉「截止」尾巴)`` 分組，一個群組同時有
+    placeholder（見 ``is_notice_placeholder_url``）同真下載檔，就掉走 placeholder，
+    並把最早嘅 ``captured_date``（同標籤）過繼去真檔案嗰筆 ——
+    captured_date 嘅語義係「幾時第一次見到」，唔應該因為換 URL 而變今日。
+
+    搵唔到真檔案嘅 placeholder 一律原封不動，fail-soft 行為完全不變。
+    （配對係靠標題，同 fix_tko_notice_urls.py 嘅 title_key 一樣。若果站方喺
+    我哋攞到真檔案之前改過標題／換咗通告編號，就配對唔到 —— 呢種情況會留低
+    一筆 placeholder 記錄，唔會誤刪任何真資料，只係多一筆舊記錄。）
+
+    Supabase 模式：呢個函數喺 ``merged_records`` 上做（即係 upsert 之後先過濾），
+    所以 cache.json 一定會乾淨；遠端殘留嘅 placeholder 行唔會再流出 cache。
+    """
+    if not records:
+        return records
+
+    def title_key(title: Any) -> str:
+        # 「06-2026 行政通告 - X (截止: 2026-07-16)」同「… X」要當同一則通告
+        return " ".join(DEADLINE_SUFFIX_RE.sub("", str(title or "")).split())
+
+    groups: Dict[Any, List[Dict[str, Any]]] = {}
+    for record in records:
+        source = str(record.get("source_site") or record.get("source") or "")
+        groups.setdefault((source, title_key(record.get("title"))), []).append(record)
+
+    obsolete: Set[int] = set()
+    for (source, _), group in groups.items():
+        if len(group) < 2:
+            continue
+        config = all_sources.get(source) or {}
+        placeholders = [
+            r for r in group
+            if is_notice_placeholder_url(str(r.get("pdf_url") or ""), config)
+        ]
+        if not placeholders:
+            continue
+        downloads = [r for r in group if is_download_url(str(r.get("pdf_url") or ""))]
+        if not downloads:
+            continue
+
+        inherited_dates = sorted(
+            str(r.get("captured_date") or "") for r in placeholders if r.get("captured_date")
+        )
+        earliest = inherited_dates[0] if inherited_dates else ""
+        for placeholder in placeholders:
+            obsolete.add(id(placeholder))
+            for kept in downloads:
+                if earliest and (not kept.get("captured_date") or str(kept.get("captured_date")) > earliest):
+                    kept["captured_date"] = earliest
+                if placeholder.get("tags") and not kept.get("tags"):
+                    kept["tags"] = list(placeholder["tags"])
+            print(
+                f"  [{source}] ♻️ 內頁 placeholder 已升級做真檔案，收起舊記錄: "
+                f"{(placeholder.get('title') or '')[:40]} | {placeholder.get('pdf_url')}"
+            )
+
+    if not obsolete:
+        return records
+    return [r for r in records if id(r) not in obsolete]
+
+
 def build_grouped_cache(
     all_records: List[Dict[str, Any]],
     all_sources: Dict[str, Dict[str, Any]],
@@ -2268,6 +2466,7 @@ def main(
             time.sleep(_random.uniform(1.5, 4.0))  # v5.6.15: 拉長防封
 
     daily_new = 0  # v5.6.23 (P8): 見下面 merged_records 之後嘅說明
+    collapsed_new = 0  # v5.6.24: 本輪新增、但最後被收起身嘅 placeholder（升級去真檔案）
     if not dry_run:
         if USE_SUPABASE:
             supabase_upsert(all_new)
@@ -2297,6 +2496,23 @@ def main(
             if remote_records:
                 merged_records = remote_records
 
+        # v5.6.24: 內頁 placeholder（fail-soft 寫低嘅 /notice/?nid=）一旦升級做真檔案，
+        # 舊記錄要收起，否則同一則通告出現兩次，而且 notify.py 會把舊通告當新通告重推。
+        # 見 collapse_notice_placeholders 嘅說明。
+        merged_records = collapse_notice_placeholders(merged_records, all_sources)
+
+        # 本輪產生、但最後冇留喺 cache 嘅新記錄（即係 fail-soft placeholder 一升級就被收起
+        # 嗰啲）唔應該算落 last_run.new，否則報告會虛報「新通告」。
+        # 用 key 而唔用 id()：Supabase 模式下 merged_records 係另一批 dict 物件。
+        kept_keys = {
+            (str(r.get("source_site") or ""), str(r.get("pdf_url") or ""))
+            for r in merged_records
+        }
+        collapsed_new = sum(
+            1 for r in all_new
+            if (str(r.get("source_site") or ""), str(r.get("pdf_url") or "")) not in kept_keys
+        )
+
         # v5.6.23 (P8): 一日有兩個 writer —— GitHub Actions 00:15 HKT (`python core.py`)
         # 同本機 run-local-scrape.bat 05:00 HKT (`python core.py --force`)。
         # `last_run.new` 只反映「最後一次 run 自己新增咗幾多」，所以第二次 run 會蓋走
@@ -2313,7 +2529,7 @@ def main(
         ]
         grouped_cache.setdefault("_meta", {})["last_run"] = {
             "updated_at": now_str,
-            "new": len(all_new),
+            "new": len(all_new) - collapsed_new,
             "updated": len(all_updated),
             "daily_new": daily_new,
             "skipped": skipped,
@@ -2329,7 +2545,9 @@ def main(
 
     print(f"\n{'═'*60}")
     print("📊 執行報告 v5.6.20")
-    print(f"   🆕 新通告:     {len(all_new)}")
+    print(f"   🆕 新通告:     {len(all_new) - collapsed_new}")
+    if collapsed_new:
+        print(f"   ♻️  收起舊記錄: {collapsed_new}   ← 內頁 placeholder 已升級做真檔案")
     print(f"   📅 今日入庫:   {daily_new}   ← cache 內 captured_date == 今日，跨 writer 累計")
     print(f"   🔄 更新時間戳: {len(all_updated)}")
     print(f"   ⏭️  指紋相同:   {skipped}")
@@ -2346,7 +2564,7 @@ def main(
             print(f"   [{rec['source_site']}] {rec['title'][:70]}")
 
     return {
-        "new": len(all_new),
+        "new": len(all_new) - collapsed_new,
         "updated": len(all_updated),
         "skipped": skipped,
         "processed": processed,

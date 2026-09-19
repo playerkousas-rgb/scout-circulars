@@ -67,6 +67,9 @@ jobs:
       - name: enrich Google Drive 支援（寧願唔抽都唔好抽錯）
         run: python test_enrich_drive.py
 
+      - name: 將軍澳區內頁 meta refresh 跳轉 + placeholder 升級（v5.6.24）
+        run: python test_meta_refresh_detail.py
+
       # ── 前端測試 ──
       - name: 診斷儀表板 errors.html
         run: node test_errors_dashboard.js

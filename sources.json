@@ -1,10 +1,10 @@
 {
   "_meta": {
     "project": "全港童軍通告自動化圖書館 (Scout Notice Library)",
-    "version": "5.6.23",
+    "version": "5.6.24",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 50,
-    "note": "v5.6.23 (2026-09-19): 將軍澳區改用 notice_card 結構化解析 —— 真連結 /notice/?nid=<data-id>（舊版係假 notice.php#slug）、由 whatsappImg[data-title] 還原已過期通告嘅截止日、跟內頁攞真 PDF（fail-soft）；fingerprint_selector 由 '.divContent, body' 改 '.divlink'，修好「指紋只 hash 靜態 chrome → Actions 無 --force 時日日 skip 將軍澳區」嘅潛伏 bug。core.py 新增 _meta.last_run.daily_new（一日兩個 writer：Actions 00:15 HKT + 本機 05:00 HKT，last_run.new 會互相蓋走令 dashboard 少報）。index.html parseDate 年份上限由寫死 2028 改成滑動窗口。新增 fix_tko_notice_urls.py 一次性把 30 筆舊假 URL re-key 做真 URL 並保留原 captured_date。"
+    "note": "v5.6.23 (2026-09-19): 將軍澳區改用 notice_card 結構化解析 —— 真連結 /notice/?nid=<data-id>（舊版係假 notice.php#slug）、由 whatsappImg[data-title] 還原已過期通告嘅截止日、跟內頁攞真 PDF（fail-soft）；fingerprint_selector 由 '.divContent, body' 改 '.divlink'，修好「指紋只 hash 靜態 chrome → Actions 無 --force 時日日 skip 將軍澳區」嘅潛伏 bug。core.py 新增 _meta.last_run.daily_new（一日兩個 writer：Actions 00:15 HKT + 本機 05:00 HKT，last_run.new 會互相蓋走令 dashboard 少報）。index.html parseDate 年份上限由寫死 2028 改成滑動窗口。新增 fix_tko_notice_urls.py 一次性把 30 筆舊假 URL re-key 做真 URL 並保留原 captured_date。 v5.6.24 (2026-09-19): 將軍澳區通告內頁（/notice/?nid=）嘅真 PDF 係靠古典 <meta http-equiv=\"refresh\"> 跳轉 —— 內頁 <body> 完全空、冇 <a> 冇 <iframe>，所以 core.extract_detail_assets 舊碼當「內頁冇嘢」回空，fail-soft 保留 /notice/?nid=207 當 PDF 網址寫入 cache.json，而 enrich.py 只食 .pdf → enrich.json 由頭到尾冇將軍澳區資料。core.py 已支援 meta refresh 跳轉（extract_meta_refresh_target），URL 換咗之後由 collapse_notice_placeholders 收起舊 placeholder 並過繼最早 captured_date（避免 29 筆舊通告被 notify 重推）。"
   },
   "sources": {
     "總會": {
@@ -572,7 +572,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "v5.6.23 (2026-09-19): 舊 note「無PDF下載連結」係錯的 —— 通告有 PDF，只係下載掣唔係 anchor 而係 span.pdfImg[data-id]（站方 JS 跳 /notice/?nid=<id>），所以 a[href] 睇唔到，30 筆通告長期 0 個附件，舊路徑唯有砌假 URL notice.php#slug（頁面其實只有 #top 同 8 個分類 anchor，㩒落去永遠彈返列表頂）。改用 notice_card 結構化解析：由 data-id 砌真內頁 URL、由 whatsappImg[data-title] 還原截止日（畫面色水變「已截止」之後 data-title 仍保留原日期）、再跟內頁攞真 PDF（攞唔到就 fail-soft 保留 /notice/?nid=）。fingerprint_selector 由 '.divContent, body' 改成 '.divlink'：divContent/body 都含 a[href]（breadcrumb + 8 個分類連結），compute_fingerprint 因此行「只 hash anchor」分支，而通告卡一個 anchor 都冇 → 指紋永遠唔變 → GitHub Actions 嘅 `python core.py`（無 --force）日日 skip 呢個來源，只有本機 run-local-scrape.bat 嘅 --force 先至巡到（cache 入面 TKO 只有 3 個 captured_date：2026-05-23 / 06-30 / 09-19，正正係本機跑過嘅日子）。.divlink 無 anchor → 自動 fallback 去 hash 文字 → 通告一有增減/改字就會醒。",
+      "notes": "v5.6.23 (2026-09-19): 舊 note「無PDF下載連結」係錯的 —— 通告有 PDF，只係下載掣唔係 anchor 而係 span.pdfImg[data-id]（站方 JS 跳 /notice/?nid=<id>），所以 a[href] 睇唔到，30 筆通告長期 0 個附件，舊路徑唯有砌假 URL notice.php#slug（頁面其實只有 #top 同 8 個分類 anchor，㩒落去永遠彈返列表頂）。改用 notice_card 結構化解析：由 data-id 砌真內頁 URL、由 whatsappImg[data-title] 還原截止日（畫面色水變「已截止」之後 data-title 仍保留原日期）、再跟內頁攞真 PDF（攞唔到就 fail-soft 保留 /notice/?nid=）。fingerprint_selector 由 '.divContent, body' 改成 '.divlink'：divContent/body 都含 a[href]（breadcrumb + 8 個分類連結），compute_fingerprint 因此行「只 hash anchor」分支，而通告卡一個 anchor 都冇 → 指紋永遠唔變 → GitHub Actions 嘅 `python core.py`（無 --force）日日 skip 呢個來源，只有本機 run-local-scrape.bat 嘅 --force 先至巡到（cache 入面 TKO 只有 3 個 captured_date：2026-05-23 / 06-30 / 09-19，正正係本機跑過嘅日子）。.divlink 無 anchor → 自動 fallback 去 hash 文字 → 通告一有增減/改字就會醒。 v5.6.24 (2026-09-19): 內頁 /notice/?nid=<id> 唔係普通 HTML —— <body> 完全空，只有 <meta http-equiv=\"refresh\" content=\"0; url=https://hkscout-tko.org/notice/2026/prog_207.pdf\"> 跳去真 PDF。core.extract_detail_assets 舊碼只搵 a[href]/iframe/embed/object，所以跟內頁永遠「攞唔到嘢」，唯有 fail-soft 保留 /notice/?nid=。已加 support（連引號／大細寫／URL 內含分號都認）。升級後舊 placeholder 由 collapse_notice_placeholders 收起，唔會同一則通告出現兩次。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
