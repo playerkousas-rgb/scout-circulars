@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>通告圖書館 v5.9</title>
+  <title>通告圖書館 v5.10</title>
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png">
@@ -55,11 +55,16 @@
     .sidebar input[type="search"] { width: 100%; border: 1px solid var(--line); background: #0b1424; color: var(--text); border-radius: 12px; padding: 11px 12px; margin-bottom: 12px; outline: none; }
     /* ── 地域開關制（用戶話：我住港島，想關掉其他地域；想要港島+九龍就關掉新界/新界東/東九龍） ── */
     .region-toggles { margin: 12px 0; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.03); }
-    .region-toggles-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .region-toggles.collapsed .rt-body { display: none; }
+    .region-toggles-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; cursor: pointer; user-select: none; }
     .region-toggles-title strong { font-size: 13px; color: #d9e8ff; }
     .region-toggles-title .rt-actions { display: flex; gap: 6px; }
     .region-toggles-title .rt-actions button { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 8px; padding: 4px 8px; font-size: 11px; cursor: pointer; }
     .region-toggles-title .rt-actions button:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .rt-collapse-icon { font-size: 14px; color: var(--muted); transition: transform .18s ease; display: inline-block; margin-right: 6px; }
+    .region-toggles.collapsed .rt-collapse-icon { transform: rotate(-90deg); }
+    .rt-body { display: grid; gap: 12px; }
+    .rt-section-title { font-size: 12px; color: var(--muted); font-weight: 700; margin: 4px 0 2px; }
     .rt-list { display: grid; gap: 8px; }
     .rt-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 10px; border-radius: 10px; background: #0b1424; border: 1px solid var(--line); }
     .rt-item.disabled { opacity: .55; background: rgba(255,255,255,.02); }
@@ -72,6 +77,20 @@
     .rt-switch .rt-knob { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #e2e8f0; transition: .18s; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
     .rt-switch.on .rt-knob { transform: translateX(18px); background: #fff; }
     .rt-item.disabled .rt-switch { background: #0f172a; }
+    /* 區會獨立開關 */
+    .rt-districts { display: grid; gap: 12px; }
+    .rt-district-group { border: 1px solid rgba(36,53,83,.6); border-radius: 10px; background: rgba(255,255,255,.02); overflow: hidden; }
+    .rt-district-group-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; background: rgba(255,255,255,.03); font-size: 12px; color: #d9e8ff; }
+    .rt-district-group-title .rt-dg-actions { display: flex; gap: 6px; }
+    .rt-district-group-title .rt-dg-actions button { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 6px; padding: 2px 6px; font-size: 10px; cursor: pointer; }
+    .rt-district-group-title .rt-dg-actions button:hover { color: var(--text); }
+    .rt-district-group.disabled { opacity: .5; }
+    .rt-district-list { display: grid; gap: 6px; padding: 8px; max-height: 260px; overflow: auto; }
+    .rt-item.rt-district-item { padding: 6px 8px; font-size: 12px; }
+    .rt-item.rt-district-item .rt-name { font-size: 12px; }
+    .rt-item.rt-district-item .rt-switch { width: 36px; height: 22px; }
+    .rt-item.rt-district-item .rt-switch .rt-knob { width: 16px; height: 16px; top: 2px; left: 2px; }
+    .rt-item.rt-district-item .rt-switch.on .rt-knob { transform: translateX(14px); }
     .accordion { display: grid; gap: 10px; }
     .region { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: rgba(255,255,255,.02); }
     .region.rt-disabled { opacity: .45; filter: grayscale(.3); }
@@ -415,20 +434,28 @@
         <strong>地域／區會</strong>
         <button type="button" id="close-library-menu" aria-label="關閉地域及區會選單">×</button>
       </div>
-      <div class="brand"><h1>通告圖書館 v5.9</h1></div>
+      <div class="brand"><h1>通告圖書館 v5.10</h1></div>
       <div class="sidebar-update" id="sidebar-last-updated">最後更新：讀取中…</div>
 
       <input id="district-search" type="search" placeholder="搜尋地域 / 區會…">
-      <div class="region-toggles" id="region-toggles">
-        <div class="region-toggles-title">
+      <div class="region-toggles collapsed" id="region-toggles">
+        <div class="region-toggles-title" id="rt-toggle-header">
           <strong>🗺️ 地域開關</strong>
-          <div class="rt-actions">
-            <button type="button" id="rt-all">全開</button>
-            <button type="button" id="rt-reset">重置</button>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="rt-collapse-icon" id="rt-collapse-icon">⌄</span>
+            <div class="rt-actions">
+              <button type="button" id="rt-all">全開</button>
+              <button type="button" id="rt-reset">重置</button>
+            </div>
           </div>
         </div>
-        <div class="rt-list" id="rt-list"></div>
-        <div style="margin-top:8px; font-size:11px; color:var(--muted); line-height:1.4;">例如住港島，想關掉新界/新界東/東九龍，只留港島+九龍。關掉後「全港」及搜尋都會隱藏該地域。</div>
+        <div class="rt-body" id="rt-body">
+          <div class="rt-section-title">地域（大類）</div>
+          <div class="rt-list" id="rt-list"></div>
+          <div class="rt-section-title">區會（可獨立關，例如只關離島區）</div>
+          <div class="rt-districts" id="rt-districts"></div>
+          <div style="font-size:11px; color:var(--muted); line-height:1.4;">例如住港島，想關掉新界/新界東/東九龍，只留港島+九龍；新界好大，想淨係關離島區都可以獨立關。關掉後「全港」及搜尋都會隱藏。</div>
+        </div>
       </div>
       <div class="accordion" id="accordion"></div>
 
@@ -451,7 +478,7 @@
           <button type="button" id="open-push-mobile" class="mobile-push-btn" aria-controls="push-settings" aria-label="個人化通知設定">🔔</button>
         </div>
         <div class="mobile-library-meta">
-          <strong id="mobile-library-version">通告圖書館 v5.9</strong>
+          <strong id="mobile-library-version">通告圖書館 v5.10</strong>
           <span id="mobile-last-updated">最後更新：讀取中…</span>
         </div>
       </div>
@@ -821,14 +848,17 @@
       personalMode: new URLSearchParams(location.search).get('personal') === '1',
       personalDate: new URLSearchParams(location.search).get('date') || '',
       personalPreferences: null,
-      enabledRegions: new Set(), // 地域開關：只顯示 ON 的地域（多選，解決「想同時睇港島+九龍而關掉新界」）
+      enabledRegions: new Set(), // 地域開關：只顯示 ON 的地域
+      enabledSources: new Set(), // 區會獨立開關：例如只關離島區
+      rtCollapsed: true, // 整個開關區塊預設收起
     };
 
-    // ── 地域開關：多選開關制 ────────────────────────────────────
-    // 用戶住港島，想關掉其他地域；想要港島+九龍就關掉新界/新界東/東九龍。
-    // 以前只能「只看港島」，依家可以「港島+九龍」同時開，其他關掉。
+    // ── 地域+區會開關：多選開關制 ────────────────────────────────
+    // 地域：港島、九龍、東九龍、新界、新界東
+    // 區會：柴灣區、離島區... 可獨立關，例如新界好大，只關離島區
     const REGION_TOGGLE_KEY = 'scl_enabled_regions_v2';
-    // 這些不是地理地域，永遠顯示（用戶唔會想關掉總會）
+    const SOURCE_TOGGLE_KEY = 'scl_enabled_sources_v3';
+    const RT_COLLAPSED_KEY = 'scl_rt_collapsed_v1';
     const ALWAYS_ENABLED_REGIONS = new Set(['總會', 'Scout System']);
 
     function loadEnabledRegions() {
@@ -840,28 +870,51 @@
         return new Set(arr);
       } catch (_) { return null; }
     }
-
     function saveEnabledRegions() {
+      try { localStorage.setItem(REGION_TOGGLE_KEY, JSON.stringify([...state.enabledRegions])); } catch (_) {}
+    }
+    function loadEnabledSources() {
       try {
-        localStorage.setItem(REGION_TOGGLE_KEY, JSON.stringify([...state.enabledRegions]));
-      } catch (_) {}
+        const raw = localStorage.getItem(SOURCE_TOGGLE_KEY);
+        if (!raw) return null;
+        const arr = JSON.parse(raw);
+        if (!Array.isArray(arr)) return null;
+        return new Set(arr);
+      } catch (_) { return null; }
+    }
+    function saveEnabledSources() {
+      try { localStorage.setItem(SOURCE_TOGGLE_KEY, JSON.stringify([...state.enabledSources])); } catch (_) {}
+    }
+    function loadRtCollapsed() {
+      try {
+        const raw = localStorage.getItem(RT_COLLAPSED_KEY);
+        if (raw === null) return true;
+        return raw === '1' || raw === 'true';
+      } catch (_) { return true; }
+    }
+    function saveRtCollapsed() {
+      try { localStorage.setItem(RT_COLLAPSED_KEY, state.rtCollapsed ? '1' : '0'); } catch (_) {}
     }
 
     function isRegionEnabled(regionName) {
       if (ALWAYS_ENABLED_REGIONS.has(regionName)) return true;
-      // 如果 enabledRegions 空（首次），當作全部開啟
       if (!state.enabledRegions.size) return true;
       return state.enabledRegions.has(regionName);
     }
+    function isSourceEnabled(sourceName) {
+      const region = getRegionForSource(sourceName);
+      if (region && !isRegionEnabled(region)) return false;
+      if (ALWAYS_ENABLED_REGIONS.has(region)) return true;
+      if (!state.enabledSources.size) return true;
+      return state.enabledSources.has(sourceName);
+    }
 
-    // 由 source 名稱反查地域
     function getRegionForSource(sourceName) {
       for (const [regionName, sources] of Object.entries(state.regions)) {
         if (sources.includes(sourceName)) return regionName;
       }
       return '';
     }
-
     function getRegionForItem(item) {
       return item.region || getRegionForSource(item.source_site || '') || '';
     }
@@ -871,18 +924,15 @@
       if (enabled) state.enabledRegions.add(regionName);
       else state.enabledRegions.delete(regionName);
       const allRegions = Object.keys(state.regions).filter(r => !ALWAYS_ENABLED_REGIONS.has(r));
-      const enabledCount = allRegions.filter(r => state.enabledRegions.has(r)).length;
-      if (enabledCount === 0 && allRegions.length) {
+      if (allRegions.filter(r => state.enabledRegions.has(r)).length === 0 && allRegions.length) {
         for (const r of allRegions) state.enabledRegions.add(r);
       }
-      // 若當前選中嘅來源/地域被關掉，跳返全港
       if (state.activeSource) {
         if (state.activeSource.startsWith('REGION:')) {
           const rn = state.activeSource.substring(7);
           if (!isRegionEnabled(rn)) state.activeSource = 'ALL_SOURCES';
         } else if (state.activeSource !== 'ALL_SOURCES' && state.activeSource !== 'BOOKMARKS') {
-          const rg = getRegionForSource(state.activeSource);
-          if (rg && !isRegionEnabled(rg)) state.activeSource = 'ALL_SOURCES';
+          if (!isSourceEnabled(state.activeSource)) state.activeSource = 'ALL_SOURCES';
         }
       }
       saveEnabledRegions();
@@ -893,30 +943,75 @@
       renderCards();
     }
 
+    function toggleSource(sourceName, enabled) {
+      const region = getRegionForSource(sourceName);
+      if (region && ALWAYS_ENABLED_REGIONS.has(region)) return;
+      if (enabled) {
+        state.enabledSources.add(sourceName);
+        if (region && !isRegionEnabled(region)) {
+          state.enabledRegions.add(region);
+          saveEnabledRegions();
+        }
+      } else {
+        state.enabledSources.delete(sourceName);
+      }
+      const allSrc = state.sourceOrder.filter(s => {
+        const rg = getRegionForSource(s);
+        return !rg || !ALWAYS_ENABLED_REGIONS.has(rg);
+      });
+      if (allSrc.length && allSrc.filter(s => state.enabledSources.has(s)).length === 0) {
+        for (const s of allSrc) state.enabledSources.add(s);
+      }
+      if (state.activeSource && state.activeSource !== 'ALL_SOURCES' && state.activeSource !== 'BOOKMARKS' && !state.activeSource.startsWith('REGION:')) {
+        if (!isSourceEnabled(state.activeSource)) state.activeSource = 'ALL_SOURCES';
+      }
+      saveEnabledSources();
+      renderRegionToggles();
+      renderAccordion();
+      renderSidebarMeta();
+      renderHeader();
+      renderCards();
+    }
+
+    function toggleRtCollapsed() {
+      state.rtCollapsed = !state.rtCollapsed;
+      saveRtCollapsed();
+      const wrap = document.getElementById('region-toggles');
+      if (wrap) wrap.classList.toggle('collapsed', state.rtCollapsed);
+    }
+
     function renderRegionToggles() {
       const listEl = document.getElementById('rt-list');
+      const distEl = document.getElementById('rt-districts');
       if (!listEl) return;
-      // 如果 regions 未載入，顯示提示
       if (!Object.keys(state.regions).length) {
         listEl.innerHTML = '<div style="font-size:12px; color:var(--muted);">載入中…</div>';
+        if (distEl) distEl.innerHTML = '';
         return;
       }
-      // 初始化 enabledRegions（首次載入）
       if (!state.enabledRegions.size) {
         const saved = loadEnabledRegions();
-        if (saved && saved.size) {
-          state.enabledRegions = saved;
-        } else {
-          // 預設全部開啟
-          for (const r of Object.keys(state.regions)) {
-            if (!ALWAYS_ENABLED_REGIONS.has(r)) state.enabledRegions.add(r);
+        if (saved && saved.size) state.enabledRegions = saved;
+        else {
+          for (const r of Object.keys(state.regions)) if (!ALWAYS_ENABLED_REGIONS.has(r)) state.enabledRegions.add(r);
+        }
+      }
+      if (!state.enabledSources.size) {
+        const savedSrc = loadEnabledSources();
+        if (savedSrc && savedSrc.size) state.enabledSources = savedSrc;
+        else {
+          for (const s of state.sourceOrder) {
+            const rg = getRegionForSource(s);
+            if (!rg || !ALWAYS_ENABLED_REGIONS.has(rg)) state.enabledSources.add(s);
           }
         }
       }
+      state.rtCollapsed = loadRtCollapsed();
+      const wrap = document.getElementById('region-toggles');
+      if (wrap) wrap.classList.toggle('collapsed', state.rtCollapsed);
 
       listEl.innerHTML = '';
       const regions = Object.entries(state.regions);
-      // 排序：港島、九龍、東九龍、新界、新界東、總會、Scout System
       const order = ['港島地域','九龍地域','東九龍地域','新界地域','新界東地域','總會','Scout System'];
       regions.sort((a,b) => {
         const ia = order.indexOf(a[0]); const ib = order.indexOf(b[0]);
@@ -924,11 +1019,10 @@
         if (ia === -1) return 1; if (ib === -1) return -1;
         return ia - ib;
       });
-
       for (const [regionName, sources] of regions) {
-        if (ALWAYS_ENABLED_REGIONS.has(regionName)) continue; // 總會/Scout System 唔顯示開關
+        if (ALWAYS_ENABLED_REGIONS.has(regionName)) continue;
         const enabled = isRegionEnabled(regionName);
-        const count = sources.reduce((s, src) => s + sourceCount(src), 0);
+        const count = sources.reduce((s, src) => s + (isSourceEnabled(src) ? sourceCount(src) : 0), 0);
         const item = document.createElement('div');
         item.className = `rt-item ${enabled ? '' : 'disabled'}`;
         item.innerHTML = `
@@ -940,35 +1034,106 @@
             <span class="rt-knob"></span>
           </button>
         `;
-        const btn = item.querySelector('.rt-switch');
-        btn.onclick = () => toggleRegion(regionName, !enabled);
+        item.querySelector('.rt-switch').onclick = (e) => { e.stopPropagation(); toggleRegion(regionName, !enabled); };
         listEl.appendChild(item);
       }
 
-      // 更新標題顯示已啟用數量
-      const titleEl = document.querySelector('.region-toggles-title strong');
+      if (distEl) {
+        distEl.innerHTML = '';
+        for (const [regionName, sources] of regions) {
+          if (ALWAYS_ENABLED_REGIONS.has(regionName)) continue;
+          const regionEnabled = isRegionEnabled(regionName);
+          const filtered = sources.slice().sort((a,b) => a.localeCompare(b,'zh-Hant'));
+          const onCount = filtered.filter(s => isSourceEnabled(s)).length;
+          const group = document.createElement('div');
+          group.className = `rt-district-group ${regionEnabled ? '' : 'disabled'}`;
+          group.innerHTML = `
+            <div class="rt-district-group-title">
+              <span>${escapeHtml(regionName)} (${onCount}/${filtered.length})${regionEnabled ? '' : ' 已關'}</span>
+              <div class="rt-dg-actions">
+                <button type="button" data-act="all-on">全開</button>
+                <button type="button" data-act="all-off">全關</button>
+              </div>
+            </div>
+            <div class="rt-district-list"></div>
+          `;
+          const list = group.querySelector('.rt-district-list');
+          for (const src of filtered) {
+            const srcEnabled = isSourceEnabled(src);
+            const cnt = (() => {
+              try { return (state.grouped[src]||[]).filter(it => inWindow(it.date||it.captured_date||'')).length; } catch(_) { return 0; }
+            })();
+            const it = document.createElement('div');
+            it.className = `rt-item rt-district-item ${srcEnabled && regionEnabled ? '' : 'disabled'}`;
+            it.innerHTML = `
+              <div class="rt-item-left">
+                <span class="rt-name">${escapeHtml(src)}</span>
+                <span class="rt-count">${regionEnabled ? cnt+'則' : '地域已關'}</span>
+              </div>
+              <button type="button" class="rt-switch ${srcEnabled && regionEnabled ? 'on' : ''}" role="switch" aria-checked="${srcEnabled ? 'true' : 'false'}" aria-label="${escapeHtml(src)} 開關">
+                <span class="rt-knob"></span>
+              </button>
+            `;
+            it.querySelector('.rt-switch').onclick = (e) => { e.stopPropagation(); toggleSource(src, !srcEnabled); };
+            list.appendChild(it);
+          }
+          group.querySelector('[data-act="all-on"]').onclick = (e) => {
+            e.stopPropagation();
+            for (const s of filtered) state.enabledSources.add(s);
+            if (!isRegionEnabled(regionName)) state.enabledRegions.add(regionName);
+            saveEnabledRegions(); saveEnabledSources();
+            renderRegionToggles(); renderAccordion(); renderSidebarMeta(); renderHeader(); renderCards();
+          };
+          group.querySelector('[data-act="all-off"]').onclick = (e) => {
+            e.stopPropagation();
+            for (const s of filtered) state.enabledSources.delete(s);
+            saveEnabledSources();
+            renderRegionToggles(); renderAccordion(); renderSidebarMeta(); renderHeader(); renderCards();
+          };
+          distEl.appendChild(group);
+        }
+      }
+
+      const titleEl = document.querySelector('#rt-toggle-header strong');
       if (titleEl) {
         const all = Object.keys(state.regions).filter(r => !ALWAYS_ENABLED_REGIONS.has(r));
         const on = all.filter(r => isRegionEnabled(r)).length;
-        titleEl.textContent = `🗺️ 地域開關 (${on}/${all.length})`;
+        const allSrc = state.sourceOrder.filter(s => {
+          const rg = getRegionForSource(s);
+          return !rg || !ALWAYS_ENABLED_REGIONS.has(rg);
+        });
+        const onSrc = allSrc.filter(s => isSourceEnabled(s)).length;
+        titleEl.textContent = `🗺️ 地域開關 (${on}/${all.length} 地域・${onSrc}/${allSrc.length} 區會)`;
       }
     }
 
     function initRegionToggles() {
-      document.getElementById('rt-all')?.addEventListener('click', () => {
-        for (const r of Object.keys(state.regions)) {
-          if (!ALWAYS_ENABLED_REGIONS.has(r)) state.enabledRegions.add(r);
+      document.getElementById('rt-toggle-header')?.addEventListener('click', (e) => {
+        if (e.target.closest('.rt-actions button')) return;
+        toggleRtCollapsed();
+      });
+      document.getElementById('rt-all')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        for (const r of Object.keys(state.regions)) if (!ALWAYS_ENABLED_REGIONS.has(r)) state.enabledRegions.add(r);
+        for (const s of state.sourceOrder) {
+          const rg = getRegionForSource(s);
+          if (!rg || !ALWAYS_ENABLED_REGIONS.has(rg)) state.enabledSources.add(s);
         }
-        saveEnabledRegions();
+        saveEnabledRegions(); saveEnabledSources();
         renderRegionToggles(); renderAccordion(); renderSidebarMeta(); renderHeader(); renderCards();
       });
-      document.getElementById('rt-reset')?.addEventListener('click', () => {
+      document.getElementById('rt-reset')?.addEventListener('click', (e) => {
+        e.stopPropagation();
         state.enabledRegions.clear();
-        for (const r of Object.keys(state.regions)) {
-          if (!ALWAYS_ENABLED_REGIONS.has(r)) state.enabledRegions.add(r);
+        state.enabledSources.clear();
+        for (const r of Object.keys(state.regions)) if (!ALWAYS_ENABLED_REGIONS.has(r)) state.enabledRegions.add(r);
+        for (const s of state.sourceOrder) {
+          const rg = getRegionForSource(s);
+          if (!rg || !ALWAYS_ENABLED_REGIONS.has(rg)) state.enabledSources.add(s);
         }
         localStorage.removeItem(REGION_TOGGLE_KEY);
-        saveEnabledRegions();
+        localStorage.removeItem(SOURCE_TOGGLE_KEY);
+        saveEnabledRegions(); saveEnabledSources();
         renderRegionToggles(); renderAccordion(); renderSidebarMeta(); renderHeader(); renderCards();
       });
     }
@@ -1211,8 +1376,7 @@
     }
 
     function sourceCount(source) {
-      const region = getRegionForSource(source);
-      if (region && !isRegionEnabled(region)) return 0;
+      if (!isSourceEnabled(source)) return 0;
       const items = state.grouped[source] || [];
       return items.filter(item => {
         const dateValue = item.date || item.captured_date || '';
@@ -1224,8 +1388,7 @@
       if (sourceId === 'ALL_SOURCES') {
         let all = [];
         for (const src of state.sourceOrder) {
-          const region = getRegionForSource(src);
-          if (region && !isRegionEnabled(region)) continue;
+          if (!isSourceEnabled(src)) continue;
           all = all.concat(state.grouped[src] || []);
         }
         return all;
@@ -1236,14 +1399,13 @@
         const sourcesInRegion = state.regions[regionName] || [];
         let all = [];
         for (const src of sourcesInRegion) {
+          if (!isSourceEnabled(src)) continue;
           all = all.concat(state.grouped[src] || []);
         }
         return all;
       }
-      // 單一來源：若其地域被關掉，返回空
       if (sourceId) {
-        const region = getRegionForSource(sourceId);
-        if (region && !isRegionEnabled(region)) return [];
+        if (!isSourceEnabled(sourceId)) return [];
       }
       return state.grouped[sourceId] || [];
     }
@@ -1289,8 +1451,7 @@
       if (state.searchScope === 'global') {
         items = [];
         for (const src of state.sourceOrder) {
-          const region = getRegionForSource(src);
-          if (region && !isRegionEnabled(region)) continue;
+          if (!isSourceEnabled(src)) continue;
           items = items.concat(state.grouped[src] || []);
         }
       } else {
@@ -1298,8 +1459,8 @@
       }
 
       items = items.filter(item => {
-        const region = getRegionForItem(item);
-        if (region && !isRegionEnabled(region)) return false;
+        const src = item.source_site || '';
+        if (src && !isSourceEnabled(src)) return false;
         const dateValue = item.date || item.captured_date || '';
         if (!inWindow(dateValue)) return false;
         if (state.keyword || state.branch !== 'ALL' || state.category !== 'ALL') {
@@ -1546,21 +1707,20 @@
           : sources;
         if (!filteredSources.length) continue;
 
-        const enabled = isRegionEnabled(regionName);
+        const regionEnabled = isRegionEnabled(regionName);
         const regionEl = document.createElement('section');
-        regionEl.className = `region ${enabled ? '' : 'rt-disabled'}`.trim();
+        regionEl.className = `region ${regionEnabled ? '' : 'rt-disabled'}`.trim();
         const isRegionActive = state.activeSource === 'REGION:' + regionName;
         const shouldOpen = isRegionActive || filteredSources.includes(state.activeSource);
-        if (shouldOpen && enabled) regionEl.classList.add('open');
+        if (shouldOpen && regionEnabled) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
-        if (total > 0 && enabled) regionEl.classList.add('has-updates');
+        if (total > 0 && regionEnabled) regionEl.classList.add('has-updates');
         const header = document.createElement('button');
-        header.innerHTML = `<span>${escapeHtml(regionName)}${enabled ? '' : ' (已隱藏)'}</span>${badgeHtml(enabled ? total : 0)}`;
-        header.title = enabled ? `點擊展開/收起 ${regionName}` : `${regionName} 已關閉，請到上方「地域開關」重新開啟`;
+        header.innerHTML = `<span>${escapeHtml(regionName)}${regionEnabled ? '' : ' (已隱藏)'}</span>${badgeHtml(regionEnabled ? total : 0)}`;
+        header.title = regionEnabled ? `點擊展開/收起 ${regionName}` : `${regionName} 已關閉，請到上方「地域開關」重新開啟`;
         header.onclick = () => {
-          if (!enabled) {
-            // 關閉狀態下點擊，直接開啟該地域
+          if (!regionEnabled) {
             toggleRegion(regionName, true);
             return;
           }
@@ -1571,27 +1731,33 @@
         const list = document.createElement('div');
         list.className = 'source-list';
         
-        // Add "All in this Region" button
         if (filteredSources.length > 1 || true) {
           const allRegionBtn = document.createElement('button');
-          allRegionBtn.className = `source-btn ${isRegionActive ? 'active' : ''} ${total > 0 && enabled ? 'has-updates' : ''}`;
-          allRegionBtn.innerHTML = `<span>全部 (${escapeHtml(regionName)})</span><small>${enabled ? total + ' 則' : '已隱藏'}</small>`;
-          allRegionBtn.disabled = !enabled;
+          allRegionBtn.className = `source-btn ${isRegionActive ? 'active' : ''} ${total > 0 && regionEnabled ? 'has-updates' : ''}`;
+          allRegionBtn.innerHTML = `<span>全部 (${escapeHtml(regionName)})</span><small>${regionEnabled ? total + ' 則' : '已隱藏'}</small>`;
+          allRegionBtn.disabled = !regionEnabled;
           allRegionBtn.onclick = () => {
-            if (!enabled) return;
+            if (!regionEnabled) return;
             chooseSource('REGION:' + regionName);
           };
           list.appendChild(allRegionBtn);
         }
 
         for (const source of filteredSources) {
+          const srcEnabled = isSourceEnabled(source);
           const cnt = sourceCount(source);
           const btn = document.createElement('button');
-          btn.className = `source-btn ${state.activeSource === source ? 'active' : ''} ${cnt > 0 && enabled ? 'has-updates' : ''}`;
-          btn.innerHTML = `<span>${escapeHtml(source)}</span><small>${enabled ? cnt + ' 則' : '已隱藏'}</small>`;
-          btn.disabled = !enabled;
+          const reallyEnabled = regionEnabled && srcEnabled;
+          btn.className = `source-btn ${state.activeSource === source ? 'active' : ''} ${cnt > 0 && reallyEnabled ? 'has-updates' : ''}`;
+          let smallText = '';
+          if (!regionEnabled) smallText = '地域已關';
+          else if (!srcEnabled) smallText = '已隱藏（區會開關）';
+          else smallText = cnt + ' 則';
+          btn.innerHTML = `<span>${escapeHtml(source)}</span><small>${smallText}</small>`;
+          btn.disabled = !regionEnabled;
+          if (!srcEnabled) btn.style.opacity = '0.5';
           btn.onclick = () => {
-            if (!enabled) return;
+            if (!regionEnabled) return;
             chooseSource(source);
           };
           list.appendChild(btn);
@@ -1852,7 +2018,16 @@
       else if (state.activeSource === 'ALL_SOURCES') {
         const all = Object.keys(state.regions).filter(r => !ALWAYS_ENABLED_REGIONS.has(r));
         const off = all.filter(r => !isRegionEnabled(r));
-        subtitle = off.length ? `目前顯示已開啟的 ${all.length - off.length} 個地域（已關掉：${off.join('、')}）。` : '目前顯示全港所有通告。';
+        const allSrc = state.sourceOrder.filter(s => { const rg = getRegionForSource(s); return !rg || !ALWAYS_ENABLED_REGIONS.has(rg); });
+        const offSrc = allSrc.filter(s => !isSourceEnabled(s));
+        if (off.length || offSrc.length) {
+          const parts = [];
+          if (off.length) parts.push(`已關地域：${off.join('、')}`);
+          if (offSrc.length) parts.push(`已關區會：${offSrc.slice(0,8).join('、')}${offSrc.length>8?'…':''}`);
+          subtitle = `目前顯示已開啟的 ${all.length - off.length}/${all.length} 地域・${allSrc.length - offSrc.length}/${allSrc.length} 區會（${parts.join('；')}）。`;
+        } else {
+          subtitle = '目前顯示全港所有通告。';
+        }
       }
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
@@ -1860,7 +2035,12 @@
       if (!exactNotification && !state.personalMode && state.searchScope === 'global') {
         const all = Object.keys(state.regions).filter(r => !ALWAYS_ENABLED_REGIONS.has(r));
         const off = all.filter(r => !isRegionEnabled(r));
-        subtitle = `全港搜尋「${escapeHtml(state.keyword || '(未輸入)')}」— 忽略左邊分頁選擇。${off.length ? `（已關掉 ${off.length} 個地域）` : ''}`;
+        const allSrc = state.sourceOrder.filter(s => { const rg = getRegionForSource(s); return !rg || !ALWAYS_ENABLED_REGIONS.has(rg); });
+        const offSrc = allSrc.filter(s => !isSourceEnabled(s));
+        const offInfo = [];
+        if (off.length) offInfo.push(`${off.length}個地域`);
+        if (offSrc.length) offInfo.push(`${offSrc.length}個區會`);
+        subtitle = `全港搜尋「${escapeHtml(state.keyword || '(未輸入)')}」— 忽略左邊分頁選擇。${offInfo.length ? `（已關掉 ${offInfo.join('、')}）` : ''}`;
       }
 
       const subEl = $('#page-subtitle');
@@ -1869,15 +2049,19 @@
 
       const scopeLabel = exactNotification ? '通知結果' : (state.personalMode ? '個人化' : (state.searchScope === 'global' ? '全港' : '目前分頁'));
       const totalAll = state.sourceOrder.reduce((sum, src) => {
-        const region = getRegionForSource(src);
-        if (region && !isRegionEnabled(region)) return sum;
+        if (!isSourceEnabled(src)) return sum;
         return sum + (state.grouped[src] || []).length;
       }, 0);
       const totalCurrent = (exactNotification || state.personalMode) ? current : (state.searchScope === 'global' ? totalAll : getBucket(state.activeSource).length);
       const currentCat = CATEGORY_TAGS.find(c => c.id === state.category);
       const allRegions = Object.keys(state.regions).filter(r => !ALWAYS_ENABLED_REGIONS.has(r));
       const offRegions = allRegions.filter(r => !isRegionEnabled(r));
-      const regionInfo = offRegions.length ? `・地域：<code>${allRegions.length - offRegions.length}/${allRegions.length} 開</code>` : '';
+      const allSrc = state.sourceOrder.filter(s => { const rg = getRegionForSource(s); return !rg || !ALWAYS_ENABLED_REGIONS.has(rg); });
+      const offSrc = allSrc.filter(s => !isSourceEnabled(s));
+      let regionInfo = '';
+      if (offRegions.length || offSrc.length) {
+        regionInfo = `・地域：<code>${allRegions.length - offRegions.length}/${allRegions.length} 開</code>・區會：<code>${allSrc.length - offSrc.length}/${allSrc.length} 開</code>`;
+      }
       $('#status-line').innerHTML = `
         模式：<code>${scopeLabel}</code>
         ${state.personalMode && personalDate ? `・日期：<code>${escapeHtml(personalDate)}</code>` : (!exactNotification ? `・視窗：<code>${escapeHtml(currentWindow().label)}</code>` : '')}
