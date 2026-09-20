@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-20 05:00:05",
+  "last_updated": "2026-09-21 02:45:32",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4828,
+    "total_notices": 4829,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -14875,6 +14875,15 @@
       }
     ],
     "柴灣區": [
+      {
+        "title": "全港嘉爾頓錦標賽2027 – 柴灣、筲箕灣、維多利亞城區選拔賽-成績公佈 - 點擊下載",
+        "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/Joint-Carlton-Result-Announcement.pdf",
+        "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/Joint-Carlton-Result-Announcement.pdf",
+        "date": "2026-09-21",
+        "captured_date": "2026-09-21",
+        "source_site": "柴灣區",
+        "region": "港島地域"
+      },
       {
         "title": "深資童軍原野烹飪暨營藝考驗 - 點擊下載",
         "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/CHW2627-13_Venture-Scout-Backwoods-and-Campcraft-Assessment.pdf",
@@ -43557,6 +43566,13 @@
     "Scout System": []
   },
   "notices": [
+    {
+      "source_site": "柴灣區",
+      "region": "港島地域",
+      "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/Joint-Carlton-Result-Announcement.pdf",
+      "title": "全港嘉爾頓錦標賽2027 – 柴灣、筲箕灣、維多利亞城區選拔賽-成績公佈 - 點擊下載",
+      "captured_date": "2026-09-21"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -77482,17 +77498,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-20 05:00:05",
-      "new": 0,
-      "updated": 3528,
-      "daily_new": 0,
-      "skipped": 4,
+      "updated_at": "2026-09-21 02:45:32",
+      "new": 1,
+      "updated": 317,
+      "daily_new": 1,
+      "skipped": 37,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
