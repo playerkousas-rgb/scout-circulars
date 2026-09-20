@@ -1,0 +1,15 @@
+# ============================================================
+# api/requirements.txt — Vercel Python Functions 嘅明確零依賴聲明
+# ------------------------------------------------------------
+# Vercel 會優先用 api/requirements.txt（如果存在）去 pip install
+# 每個 api/*.py function bundle。呢個檔刻意留空，表示 api/ 係
+# 100% 標準庫，零第三方依賴。
+#
+# 之前病源：根目錄 requirements.txt 有 playwright（137MB），令每個
+# bundle ~170MB，Functions Storage 爆到 12GB。已修：根目錄清空 +
+# .vercelignore + 呢個檔留空 + bundle-guard 驗證。
+#
+# 如果你真係要喺 api/ 加第三方套件，喺呢度加，然後同步更新
+# .github/workflows/vercel-bundle-guard.yml 嘅檢查。
+# ============================================================
+# 下面刻意冇任何套件，全部用標準庫。
