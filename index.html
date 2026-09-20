@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>通告圖書館 v5.10</title>
+  <title>通告圖書館 v5.11</title>
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png">
@@ -80,7 +80,11 @@
     /* 區會獨立開關 */
     .rt-districts { display: grid; gap: 12px; }
     .rt-district-group { border: 1px solid rgba(36,53,83,.6); border-radius: 10px; background: rgba(255,255,255,.02); overflow: hidden; }
-    .rt-district-group-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; background: rgba(255,255,255,.03); font-size: 12px; color: #d9e8ff; }
+    .rt-district-group.collapsed .rt-district-list { display: none; }
+    .rt-district-group-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; background: rgba(255,255,255,.03); font-size: 12px; color: #d9e8ff; cursor: pointer; user-select: none; }
+    .rt-district-group-title .rt-dg-left { display: flex; align-items: center; gap: 6px; }
+    .rt-dg-collapse-icon { font-size: 12px; color: var(--muted); transition: transform .16s ease; display: inline-block; }
+    .rt-district-group.collapsed .rt-dg-collapse-icon { transform: rotate(-90deg); }
     .rt-district-group-title .rt-dg-actions { display: flex; gap: 6px; }
     .rt-district-group-title .rt-dg-actions button { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 6px; padding: 2px 6px; font-size: 10px; cursor: pointer; }
     .rt-district-group-title .rt-dg-actions button:hover { color: var(--text); }
@@ -434,7 +438,7 @@
         <strong>地域／區會</strong>
         <button type="button" id="close-library-menu" aria-label="關閉地域及區會選單">×</button>
       </div>
-      <div class="brand"><h1>通告圖書館 v5.10</h1></div>
+      <div class="brand"><h1>通告圖書館 v5.11</h1></div>
       <div class="sidebar-update" id="sidebar-last-updated">最後更新：讀取中…</div>
 
       <input id="district-search" type="search" placeholder="搜尋地域 / 區會…">
@@ -478,7 +482,7 @@
           <button type="button" id="open-push-mobile" class="mobile-push-btn" aria-controls="push-settings" aria-label="個人化通知設定">🔔</button>
         </div>
         <div class="mobile-library-meta">
-          <strong id="mobile-library-version">通告圖書館 v5.10</strong>
+          <strong id="mobile-library-version">通告圖書館 v5.11</strong>
           <span id="mobile-last-updated">最後更新：讀取中…</span>
         </div>
       </div>
@@ -1046,10 +1050,13 @@
           const filtered = sources.slice().sort((a,b) => a.localeCompare(b,'zh-Hant'));
           const onCount = filtered.filter(s => isSourceEnabled(s)).length;
           const group = document.createElement('div');
-          group.className = `rt-district-group ${regionEnabled ? '' : 'disabled'}`;
+          group.className = `rt-district-group collapsed ${regionEnabled ? '' : 'disabled'}`.trim();
           group.innerHTML = `
             <div class="rt-district-group-title">
-              <span>${escapeHtml(regionName)} (${onCount}/${filtered.length})${regionEnabled ? '' : ' 已關'}</span>
+              <div class="rt-dg-left">
+                <span class="rt-dg-collapse-icon">⌄</span>
+                <span>${escapeHtml(regionName)} (${onCount}/${filtered.length})${regionEnabled ? '' : ' 已關'}</span>
+              </div>
               <div class="rt-dg-actions">
                 <button type="button" data-act="all-on">全開</button>
                 <button type="button" data-act="all-off">全關</button>
@@ -1057,6 +1064,10 @@
             </div>
             <div class="rt-district-list"></div>
           `;
+          group.querySelector('.rt-district-group-title').addEventListener('click', (e) => {
+            if (e.target.closest('button')) return;
+            group.classList.toggle('collapsed');
+          });
           const list = group.querySelector('.rt-district-list');
           for (const src of filtered) {
             const srcEnabled = isSourceEnabled(src);
