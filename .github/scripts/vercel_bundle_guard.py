@@ -15,8 +15,8 @@ Python」。playwright 解壓後 137MB，× 幾十個 retained deployment = 爆�
 
   1. api/*.py 只 import 標準庫 ＋ 自己嘅 local module（api.*）
   2. 冇任何「Vercel 會自動 pip install」嘅 manifest 漏網上載：
-     requirements.txt / pyproject.toml / Pipfile / uv.lock / api/requirements.txt
-     —— 存在就必須被 .vercelignore 擋住
+     requirements.txt / pyproject.toml / Pipfile / uv.lock
+     —— 存在就必須被 .vercelignore 擋住（除咗 api/requirements.txt 特例）
   3. 根目錄 requirements.txt 如果列咗真嘢，就必須 **冇** 被 ignore
      （反之亦然：ignore 咗就唔准有真嘢）—— 防止「api/ 要裝但 Vercel 收唔到」
      呢種會 runtime 500 嘅半桶水狀態
@@ -173,7 +173,7 @@ def parse_requirements(path: Path) -> list[str]:
 
 
 def check_manifests(tracked: list[str], ignored: set[str], uploaded: list[str]) -> None:
-    """2 + 3. Vercel 會自動 pip install 嘅 manifest 唔准漏網上載。"""
+    """2 + 3. Vercel 會自動 pip install 嘅 manifest 唔准漏網上載（除咗 api/requirements.txt 特例）。"""
     tracked_set = set(tracked)
     uploaded_set = set(uploaded)
 
@@ -189,6 +189,25 @@ def check_manifests(tracked: list[str], ignored: set[str], uploaded: list[str]) 
         deps = parse_requirements(path) if exists_on_disk else []
         has_real_deps = bool(deps)
 
+        # 特例：api/requirements.txt 係刻意 **唔 ignore**，留空俾 Vercel 明確知道零依賴
+        # （2026-09-19 發現：淨係 ignore 根目錄 requirements.txt，新部署仲係肥，可能係
+        # Vercel 探測 fallback 問題，所以加個明確空嘅 api/requirements.txt 更穩陣）
+        if manifest == "api/requirements.txt":
+            if has_real_deps and not is_uploaded:
+                fail(
+                    f"{manifest} 被 .vercelignore 擋住，但入面列咗 {len(deps)} 個依賴："
+                    f"{'、'.join(deps[:6])}{'…' if len(deps) > 6 else ''}。"
+                    f"呢啲依賴 Vercel 收唔到 → api/ 會 runtime 500。"
+                )
+            elif has_real_deps and is_uploaded:
+                note(f"⚠️ 檢查 2/3：{manifest} 有 {len(deps)} 個依賴且會上載（每個 deployment 會脹）")
+            elif not has_real_deps and is_uploaded:
+                note(f"✅ 檢查 2/3：{manifest} 已上載且冇列任何依賴（明確零依賴，更穩陣）")
+            else:
+                note(f"✅ 檢查 2/3：{manifest} 已被 .vercelignore 擋住，且冇列任何依賴")
+            continue
+
+        # 其他 manifest（根目錄 requirements.txt / pyproject.toml 等）必須被 ignore
         if is_uploaded:
             fail(
                 f"{manifest} 會上載去 Vercel（冇被 .vercelignore 擋住）。"

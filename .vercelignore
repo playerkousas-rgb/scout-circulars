@@ -45,13 +45,17 @@
 #   1) 喺根目錄 requirements.txt 加嗰個套件
 #   2) 刪走下面 "requirements.txt" 呢行
 # 只做一樣嘢 bundle-guard 會令你 CI 紅。
-requirements.txt
-# 防呆：Vercel 亦會讀 pyproject.toml / Pipfile / uv.lock / api 下面嘅 requirements
+# 根目錄 requirements.txt 係病源（playwright 137MB），已清空 + ignore，零 pip install
+# 用 / 錨定只 ignore 根目錄嗰個，唔好誤傷 api/requirements.txt
+/requirements.txt
+# 防呆：Vercel 亦會讀 pyproject.toml / Pipfile / uv.lock
 pyproject.toml
 Pipfile
 Pipfile.lock
 uv.lock
-api/requirements.txt
+# 明確唔 ignore api/requirements.txt（留空俾 Vercel 知道零依賴，更穩陣）
+# 因為上面 /requirements.txt 唔會匹配子目錄，但為保險加個 ! 否定
+!api/requirements.txt
 
 # GitHub Actions 专用（workflow 由 GitHub 讀，Vercel 永遠唔使）
 .github/
