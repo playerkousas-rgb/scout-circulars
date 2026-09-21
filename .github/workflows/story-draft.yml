@@ -1,0 +1,83 @@
+# ============================================================
+# Story 草稿出圖（每日 20 張 1080×1920 PNG）— 中間路：
+#   畫圖全自動（呢度），發佈半自動（admin 17:30 喺 app 揀啱嘅貼 Story +
+#   link sticker）。原因：IG Graph API 出嘅 Story 貼唔到 link sticker，
+#   「撳 Story 入圖書館專屬頁」呢個閉環只有人手貼先保得住。
+#
+# 觸發：Story Queue workflow 行完（workflow_run）＋ 15:55 HKT 保底 cron。
+#
+# 草稿去邊：force-push 去 `stories` 分支（獨立分支、歷史得 1 個 commit），
+#   main 分支 git 歷史零 PNG bloat。raw.githubusercontent 可以直接喺手機開。
+#
+# Vercel 紅線：Pillow 只裝喺 GitHub runner（同台機裝 Playwright 嗰個
+#   workflow 一樣），api/ 零改動，bundle guard 繼續綠。
+# ============================================================
+
+name: Story Drafts
+
+on:
+  workflow_run:
+    workflows: ["Story Queue"]
+    types: [completed]
+  schedule:
+    # 15:55 HKT（07:55 UTC）保底：就算 queue workflow 故障，保底班都會
+    # 自己 rebuild queue 再出圖
+    - cron: "55 7 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: scout-circulars-story-drafts
+  cancel-in-progress: true
+
+jobs:
+  draft:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      PYTHONUTF8: "1"
+      TZ: "Asia/Hong_Kong"
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 中文字體（冇咗就全部豆腐）
+        run: |
+          sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+
+      - name: Pillow（只係 runner 用；同 Vercel bundle 無關）
+        run: pip install pillow
+
+      - name: 更新今日 queue 兼出 9 款草稿
+        run: |
+          python3 story_queue.py
+          python3 tools/render_story_templates.py
+
+      - name: Force-push 草稿去 stories 分支（留最近 7 日＋index.json，main 歷史零 bloat）
+        run: |
+          TODAY=$(date +%F)
+          # checkout 會換走成個 working tree，先搬 index 砌手落 /tmp
+          cp tools/render_story_templates.py /tmp/build_index.py
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git fetch --depth 1 origin stories:stories-tmp 2>/dev/null; then
+            git checkout -f stories-tmp          # 分支已有：疊加今日，舊日保留
+          else
+            git checkout --orphan stories-tmp    # 第一浸：全新分支
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+          mkdir -p "stories/$TODAY"
+          cp -r "output/$TODAY/." "stories/$TODAY/"
+          # 留最近 7 日（YYYY-MM-DD 排得起字串序）
+          (cd stories && ls -1d 20*/ 2>/dev/null | sort -r | tail -n +8 | xargs -r rm -rf)
+          python3 /tmp/build_index.py --build-index stories
+          git add stories/
+          git commit -qm "📚 story drafts $TODAY [skip ci]" || echo "冇新草稿"
+          git push --force origin HEAD:stories

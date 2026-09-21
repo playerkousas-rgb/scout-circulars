@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>童軍組織徽號預覽 · icons/orgs</title>
+<style>
+  body { margin: 0; padding: 24px; font-family: "PingFang TC", "Noto Sans CJK TC", sans-serif; background: #0a1931; color: #e6eefb; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: #8ea2c6; font-size: 13px; margin-bottom: 20px; }
+  .region { margin: 22px 0 10px; font-size: 15px; color: #9ec3ff; border-bottom: 1px solid rgba(142,162,198,.28); padding-bottom: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px; }
+  .card { background: rgba(255,255,255,.05); border: 1px solid rgba(142,162,198,.25); border-radius: 12px; padding: 10px 8px 8px; text-align: center; }
+  .card img { width: 64px; height: 64px; object-fit: contain; display: block; margin: 0 auto 6px; }
+  .card .n { font-size: 13px; font-weight: 600; }
+  .card .s { font-size: 10px; margin-top: 3px; }
+  .ok .s { color: #6ee7a0; }
+  .pending { opacity: .55; } .pending .s { color: #fbbf24; }
+  .dark { min-height: 76px; }
+  .dark img { background: #fff; border-radius: 8px; }
+</style>
+</head>
+<body>
+<h1>童軍組織徽號（icons/orgs）</h1>
+<p class="sub">官方來源：scout.org.hk「Regions and Districts」頁 · 256/64 AVIF · 黃字＝等緊官方補捉（行 org-icons workflow）</p>
+<div id="app">載入中…</div>
+<script>
+fetch('orgs.json').then(r => r.json()).then(data => {
+  const app = document.getElementById('app');
+  app.textContent = '';
+  const byRegion = {};
+  for (const [name, o] of Object.entries(data.orgs)) {
+    (byRegion[o.region] ||= []).push([name, o]);
+  }
+  for (const [region, list] of Object.entries(byRegion)) {
+    const h = document.createElement('h2'); h.className = 'region'; h.textContent = region;
+    const g = document.createElement('div'); g.className = 'grid';
+    for (const [name, o] of list) {
+      const c = document.createElement('div');
+      c.className = 'card ' + (o.status === 'official' ? 'ok' : 'pending');
+      c.innerHTML = o.icon64
+        ? `<span class="dark"><img src="${o.icon64}" alt="${name}"></span>`
+        : `<span class="dark"></span>`;
+      c.innerHTML += `<div class="n">${name}</div><div class="s">${o.status === 'official' ? 'official' : '等官方 → 暫用「' + (o.fallback || '總會') + '」'}</div>`;
+      g.appendChild(c);
+    }
+    app.appendChild(h); app.appendChild(g);
+  }
+});
+</script>
+</body>
+</html>

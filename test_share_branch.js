@@ -7,7 +7,8 @@
 //   3. 冇 audience 嘅通告退而求其次用標題（機構名唔特別處理，用戶可配合關鍵字）
 //   4. 舊嘅「成員（精準）/ 支部」欄位同「只顯示明確日期」已移除
 //   5. 分享面板：社交連結、複製網址（附件直連）、複製文字
-//   6. 舊「產生圖片」功能已移除（2026-09-16）：面板不應再有任何 img 相關掣
+//   6. IG 分享圖（2026-09-21）：client-side canvas 產生＋預覽＋下載＋複製 Caption
+//      紅線：仍然唔准用 server-side /api/render（Vercel bundle 瘦身維持不變）
 const {JSDOM} = require('jsdom');
 const fs = require('fs');
 
@@ -53,24 +54,47 @@ let fail = 0;
 const ok = (c, m) => { console.log((c ? '✅ ' : '❌ ') + m); if (!c) fail++; };
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
+// stories 分支 index（專屬頁 hero 用）；測試中途會改寫
+let storyIndex = {
+  version: 1,
+  items: [{ k: PDF_B, f: 'stories/2026-09-21/00_train_blue_abc123.png', t: '童軍技能訓練班' }],
+};
+
 function fakeFetch(win) {
   return (u, opts) => {
     const s = String(u);
     if (s.includes('enrich')) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(enrich) });
+    if (s.includes('/stories/stories/index.json')) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(storyIndex) });
     return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(cache) });
   };
 }
 
-function boot() {
+function boot(qs = '') {
   const clip = { text: null, items: null };
   const dom = new JSDOM(html, {
     runScripts: 'dangerously',
-    url: 'https://example.org/',
+    url: 'https://example.org/' + qs,
     pretendToBeVisual: true,
     beforeParse(win) {
       win.fetch = fakeFetch(win);
       win.alert = () => {}; win.confirm = () => true;
       win.URL.createObjectURL = () => 'blob:fake'; win.URL.revokeObjectURL = () => {};
+      // 「直接分享」測試용：扮支援 Web Share files，落個 spy 落 win.__shared
+      win.__shared = [];
+      Object.defineProperty(win.navigator, 'canShare', { value: () => true, configurable: true });
+      Object.defineProperty(win.navigator, 'share', { value: (data) => { win.__shared.push(data); return Promise.resolve(); }, configurable: true });
+      // IG 分享圖測試用：jsdom 冇真 canvas，落個假 2d context（逐字 18px 當量度）
+      const fakeGradient = { addColorStop() {} };
+      win.HTMLCanvasElement.prototype.getContext = function () {
+        return {
+          measureText: (t) => ({ width: String(t).length * 18 }),
+          fillRect() {}, strokeRect() {}, fillText() {}, beginPath() {}, closePath() {},
+          moveTo() {}, lineTo() {}, arc() {}, arcTo() {}, save() {}, restore() {},
+          translate() {}, stroke() {}, fill() {}, rect() {}, clip() {},
+          createLinearGradient: () => fakeGradient, createRadialGradient: () => fakeGradient,
+        };
+      };
+      win.HTMLCanvasElement.prototype.toBlob = function (cb) { cb(new win.Blob(['png'], { type: 'image/png' })); };
       Object.defineProperty(win.navigator, 'clipboard', { value: {
         writeText: (t) => { clip.text = t; return Promise.resolve(); },
         write: (items) => { clip.items = items; return Promise.resolve(); },
@@ -100,7 +124,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
 
   // ── 1.5 分類標籤 ──
   const catLabels = $$(d, '#category-chips .chip').map(c => c.textContent.trim());
-  ok(JSON.stringify(catLabels) === JSON.stringify(['全部', '訓練', '服務', '活動', '比賽', '未分類']),
+  ok(JSON.stringify(catLabels) === JSON.stringify(['全部', '訓練', '服務', '活動', '比賽', '小工具', '未分類']),
      '分類標籤次序正確：' + catLabels.join(' '));
   ok(cards(d).length === 5, `分類標籤未影響預設「今天」5 張（實際 ${cards(d).length}）`);
   click(w, $$(d, '#category-chips .chip').find(c => c.textContent.trim() === '訓練')); await wait(50);
@@ -161,6 +185,9 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(JSON.stringify(linkLabels) === JSON.stringify(['WhatsApp', 'Telegram', 'Facebook', 'X', 'LINE', '電郵']), '社交平台連結齊全：' + linkLabels.join(' '));
   const waHref = decodeURIComponent($$(d, '.share-sheet a.wa')[0].href);
   ok(waHref.includes(PDF_B) && waHref.includes('童軍技能訓練班') && waHref.includes('【筲箕灣區】'), 'WhatsApp 文字含區會、標題、附件直連');
+  ok(waHref.includes('【筲箕灣區】童軍技能訓練班童軍、領袖'), '精簡格式：對象直接黐住標題（B 只有對象）');
+  ok(waHref.includes('\n詳情：' + PDF_B + '\n---經 通告圖書館 v5.11 整理 @noscout.system'), '第 2 行詳情連結、第 3 行落款（v5.11 + IG handle）');
+  ok(!waHref.includes('參加資格：') && !waHref.includes('費用：') && !waHref.includes('截止報名：'), '舊嘅逐行 label 格式已移除');
   const fbHref = $$(d, '.share-sheet a.fb')[0].href;
   ok(fbHref.startsWith('https://www.facebook.com/sharer/sharer.php?u=') && decodeURIComponent(fbHref).includes(PDF_B), 'Facebook sharer 帶附件網址');
   ok($$(d, '.share-sheet a[data-act="link"]').every(a => a.target === '_blank' && a.rel.includes('noopener')), '社交連結新分頁 + noopener');
@@ -168,22 +195,112 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   click(w, sheet.querySelector('[data-act="copy-url"]')); await wait(30);
   ok(dom.clip.text === PDF_B, '「複製網址」複製附件直連：' + dom.clip.text);
   click(w, sheet.querySelector('[data-act="copy-text"]')); await wait(30);
-  ok(dom.clip.text.includes('【筲箕灣區】童軍技能訓練班') && dom.clip.text.endsWith(PDF_B), '「複製文字」= 標題 + 摘要 + 網址');
+  ok(dom.clip.text.includes('【筲箕灣區】童軍技能訓練班') && dom.clip.text.includes('詳情：' + PDF_B), '「複製文字」= 標題行 + 詳情網址');
+  ok(dom.clip.text.endsWith('---經 通告圖書館 v5.11 整理 @noscout.system'), '「複製文字」結尾係圖書館落款（v5.11 + IG handle）');
+  // Telegram：url 參數渲染附件連結，text 有落款但唔會重複詳情行
+  const tgHref = decodeURIComponent($$(d, '.share-sheet a.tg')[0].href);
+  ok(tgHref.includes('url=') && tgHref.includes('@noscout.system') && !(tgHref.split('text=')[1] || '').includes('詳情：'),
+     'Telegram text 跟落款、唔重複詳情行');
   ok(d.querySelector('.share-toast') && d.querySelector('.share-toast').textContent.includes('已複製'), '複製後有 toast 提示');
 
-  // 「產生圖片」功能已移除（2026-09-16）：面板不應再有 img 相關 UI
-  ok(!sheet.querySelector('[data-act="img"]') && !sheet.querySelector('[data-role="imgbox"]')
-     && !sheet.querySelector('[data-act="img-copy"]') && !sheet.querySelector('[data-act="img-dl"]'),
-     '分享面板已無任何「產生圖片」相關 UI');
-  ok(!html.includes('/api/render'), 'index.html 不再引用 /api/render');
+  // IG 分享圖（2026-09-21）：client-side canvas 版。紅線不變：唔准 server-side render endpoint
+  ok(!html.includes('/api/render'), '保持紅線：index.html 唔引用 /api/render（Vercel bundle 維持瘦身）');
+  ok(html.includes('renderIgImage') && html.includes('canvas.toBlob'), 'IG 圖用 client-side canvas 產生（toBlob→objectURL）');
+  const igBtn = sheet.querySelector('[data-act="ig"]');
+  ok(!!igBtn, '分享面板有「產生 IG 分享圖」掣');
+  click(w, igBtn); await wait(80);
+  const igBox = sheet.querySelector('[data-role="igbox"]');
+  ok(igBox && !igBox.hidden, '產生完顯示預覽區');
+  ok(igBox.querySelector('img').src === 'blob:fake', '預覽圖係 objectURL（冇寫檔、冇上傳，關面板 revoke）');
+  const igDl = igBox.querySelector('[data-role="igdl"]');
+  ok(!!igDl && igDl.href === 'blob:fake' && /^通告圖書館-筲箕灣區-\d{8}\.png$/.test(igDl.getAttribute('download') || ''),
+     '「下載圖片」有 objectURL + 中文檔名：' + (igDl && igDl.getAttribute('download')));
+  click(w, igBox.querySelector('[data-act="copy-caption"]')); await wait(30);
+  ok(dom.clip.text && dom.clip.text.startsWith('【筲箕灣區】童軍技能訓練班')
+     && dom.clip.text.endsWith('---經 通告圖書館 v5.11 整理 @noscout.system'),
+     '「複製 Caption」= 新三款分享文案（貼去 IG 用）');
+  // 「直接分享」（Web Share files）：一撳彈系統分享直接揀 IG／WhatsApp
+  const igShareBtn = igBox.querySelector('[data-role="igshare"]');
+  ok(!!igShareBtn && !igShareBtn.hidden, '手機支援 Web Share files 時「直接分享」掣會出現');
+  click(w, igShareBtn); await wait(50);
+  ok(w.__shared.length === 1 && /^通告圖書館-筲箕灣區-\d{8}\.png$/.test(w.__shared[0]?.files?.[0]?.name || ''),
+     '「直接分享」拎住中文檔名 PNG 彈 navigator.share(files)');
+
+  // Story 直向版（1080×1920）：admin 出 Story；4:5 feed 版照舊係預設
+  const storyBtn = igBox.querySelector('[data-role="igstory"]');
+  ok(!!storyBtn, 'IG 盒有「📱 Story 版」切換掣（feed 4:5 預設不變）');
+  click(w, storyBtn); await wait(60);
+  ok(igBox.querySelector('[data-role="igdl"]').download.includes('-story.png')
+     && storyBtn.textContent.includes('4:5'),
+     '切去 Story 版：檔名加 -story、掣變「返去 4:5 版」');
+  click(w, igShareBtn); await wait(50);
+  ok(w.__shared.length === 2 && /-story\.png$/.test(w.__shared[1]?.files?.[0]?.name || ''),
+     'Story 模式下「直接分享」拎住 -story.png');
+  click(w, storyBtn); await wait(60);
+  ok(!igBox.querySelector('[data-role="igdl"]').download.includes('-story')
+     && storyBtn.textContent.includes('Story 版'),
+     '再切返 4:5：檔名同掣面都還原');
+
+  // PDF 內容出圖（pdf.js client-side；bytes 經 stdlib /api/pdf-proxy byte bridge 入）
+  ok(html.includes('cdn.jsdelivr.net/npm/pdfjs-dist@4'), 'pdf.js 由 CDN lazy-load（唔入 repo、唔入 Vercel bundle）');
+  ok(html.includes('/api/pdf-proxy?u='), 'PDF bytes 經 /api/pdf-proxy 過橋（CORS 冇開嘅區會站先要用）');
+  const p2iBtn = sheet.querySelector('[data-act="pdf2img"]');
+  ok(!!p2iBtn && !!sheet.querySelector('[data-role="pdfshare"]'), '分享面板有「轉換內文做圖」掣＋其「直接分享」掣');
+  click(w, p2iBtn); await wait(160);
+  ok(d.querySelector('.share-toast') && (d.querySelector('.share-toast').textContent || '').includes('轉換唔到'),
+     'jsdom 載入唔到 pdf.js → 有 toast 回饋，唔會靜靜失敗');
+
+  // 「複製連結」＝ 通告專屬頁深鏈（IG Story link sticker 就貼呢條）
+  const copyLinkBtn = sheet.querySelector('[data-act="copy-link"]');
+  ok(!!copyLinkBtn, '「分享至」grid 有「複製連結」掣');
+  click(w, copyLinkBtn); await wait(30);
+  ok(/^https:\/\/example\.org\/\?n=[0-9a-f]{16}$/.test(dom.clip.text || ''),
+     '複製出嚟嘅係 ?n=<16hex> 深鏈：' + dom.clip.text);
+  const noticeDeepLink = dom.clip.text;
 
   // Esc 關閉
   d.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await wait(30);
   ok(!d.querySelector('.share-sheet'), 'Esc 關閉面板');
 
+  // ── 專屬頁著陸 round-trip：貼返條深鏈入瀏覽器 → 直接彈出嗰張通告 ──
+  {
+    const dom2 = boot('?n=' + noticeDeepLink.split('?n=')[1]);
+    const w2 = dom2.window, d2 = w2.document;
+    await wait(700);
+    const page = d2.querySelector('.notice-page');
+    ok(!!page && page.querySelector('h2').textContent.includes('童軍技能訓練班'),
+       '深鏈著陸：專屬頁直接彈出嗰張通告');
+    ok(d2.title.includes('童軍技能訓練班'), '專屬頁會改 document.title 俾分享預覽');
+    const hero = page.querySelector('.np-hero');
+    ok(!!hero && hero.querySelector('img')?.src.endsWith('stories/2026-09-21/00_train_blue_abc123.png')
+       && hero.getAttribute('href').includes('stories/stories/2026-09-21/'),
+       '專屬頁 hero：今日有 Story 草稿就插喺頁頂（熱連結 stories 分支）');
+    click(w2, page.querySelector('[data-act="nplink"]')); await wait(30);
+    ok(dom2.clip.text === noticeDeepLink, '專屬頁「複製專屬連結」複製返同一條深鏈');
+    click(w2, page.querySelector('[data-act="npclose"]')); await wait(30);
+    ok(!d2.querySelector('.notice-page') && !d2.title.includes('童軍技能訓練班'),
+       '「入返全圖書館」收回頁面＋還原 title');
+    // index 冇呢張通告（未出草稿/過咗 7 日）→ 靜靜略過，頁面照舊
+    storyIndex = { version: 1, items: [{ k: 'https://example.org/no-such.pdf', f: 'stories/2026-09-21/xx.png' }] };
+    const dom4 = boot('?n=' + noticeDeepLink.split('?n=')[1]);
+    await wait(700);
+    ok(!!dom4.window.document.querySelector('.notice-page')
+       && !dom4.window.document.querySelector('.np-hero'),
+       '冇草稿命中 → 專屬頁照開但冇 hero（唔會破版）');
+    // 唔存在嘅 id：靜靜提示，唔會白屏
+    const dom3 = boot('?n=0123456789abcdef');
+    await wait(700);
+    ok(!dom3.window.document.querySelector('.notice-page')
+       && (dom3.window.document.querySelector('.share-toast')?.textContent || '').includes('沉底'),
+       '垃圾 id → toast 提示＋唔開頁');
+  }
+
+
   // 空格 + 中文 URL：分享連結要 encode 一次，唔會 double-encode
   const cardA = cards(d).find(c => c.querySelector('h3').textContent === '幼童軍繩結章訓練班');
   click(w, cardA.querySelector('.share-btn')); await wait(50);
+  const waA = decodeURIComponent($$(d, '.share-sheet a.wa')[0].href);
+  ok(waA.includes('【筲箕灣區】幼童軍繩結章訓練班幼童軍｜HK$50｜截止 2026-09-20'), 'A 卡三項資料齊：對象黐標題、其餘 ｜ 分隔');
   click(w, d.querySelector('.share-sheet [data-act="copy-url"]')); await wait(30);
   ok(dom.clip.text === 'https://www.skwscout.org.hk/uploads/A%20%E5%B9%BC%E7%AB%A5%E8%BB%8D.pdf', '有空格／中文嘅附件網址會 percent-encode 一次：' + dom.clip.text);
   ok(cardA.querySelector('a.link').getAttribute('href') === dom.clip.text, '卡片「開啟附件」用同一條 encode 後網址');

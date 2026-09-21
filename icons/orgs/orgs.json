@@ -1,0 +1,435 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-21T14:26:21.109Z",
+  "fallback": "sahk",
+  "orgs": {
+    "總會": {
+      "slug": "sahk",
+      "region": "總會",
+      "status": "official",
+      "icon256": "icons/orgs/sahk-256.avif",
+      "icon64": "icons/orgs/sahk-64.avif",
+      "badge_source": "wikipedia-svg-render"
+    },
+    "港島地域": {
+      "slug": "hkir",
+      "region": "港島地域",
+      "status": "official",
+      "icon256": "icons/orgs/hkir-256.avif",
+      "icon64": "icons/orgs/hkir-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/HKIR.jpg"
+    },
+    "柴灣區": {
+      "slug": "chai_wan",
+      "region": "港島地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Chai_Wan.JPG",
+      "fallback": "港島地域"
+    },
+    "港島北區": {
+      "slug": "hk_north",
+      "region": "港島地域",
+      "status": "official",
+      "icon256": "icons/orgs/hk_north-256.avif",
+      "icon64": "icons/orgs/hk_north-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/HK_North.JPG"
+    },
+    "港島南區": {
+      "slug": "hk_south",
+      "region": "港島地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/HK_South.JPG",
+      "fallback": "港島地域"
+    },
+    "港島西區": {
+      "slug": "hk_west",
+      "region": "港島地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/HK_West.JPG",
+      "fallback": "港島地域"
+    },
+    "筲箕灣區": {
+      "slug": "shau_kei_wan",
+      "region": "港島地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Shau_Kei_Wan.JPG",
+      "fallback": "港島地域"
+    },
+    "維多利亞城區": {
+      "slug": "victoria_city",
+      "region": "港島地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/vic2.jpg",
+      "fallback": "港島地域"
+    },
+    "灣仔區": {
+      "slug": "wan_chai",
+      "region": "港島地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Wan_Chai.JPG",
+      "fallback": "港島地域"
+    },
+    "九龍地域": {
+      "slug": "kr",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/KR.jpg",
+      "fallback": "總會"
+    },
+    "紅磡區": {
+      "slug": "hung_hom",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Hung_Hom.gif",
+      "fallback": "總會"
+    },
+    "何文田區": {
+      "slug": "ho_man_tin",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Ho_Man_Tin.gif",
+      "fallback": "總會"
+    },
+    "九龍城區": {
+      "slug": "kowloon_city",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/KR_District-08.png",
+      "fallback": "總會"
+    },
+    "九龍塘區": {
+      "slug": "kowloon_tong",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/KR_District-03.png",
+      "fallback": "總會"
+    },
+    "旺角區": {
+      "slug": "mong_kok",
+      "region": "九龍地域",
+      "status": "official",
+      "icon256": "icons/orgs/mong_kok-256.avif",
+      "icon64": "icons/orgs/mong_kok-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Mong_Kok.gif"
+    },
+    "深旺區": {
+      "slug": "sam_mong",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sam_Mong.gif",
+      "fallback": "總會"
+    },
+    "深水埗東區": {
+      "slug": "ssp_east",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sham_Shui_Po_East.gif",
+      "fallback": "總會"
+    },
+    "深水埗西區": {
+      "slug": "ssp_west",
+      "region": "九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sham_Shui_Po_West.gif",
+      "fallback": "總會"
+    },
+    "油尖區": {
+      "slug": "yau_tsim",
+      "region": "九龍地域",
+      "status": "official",
+      "icon256": "icons/orgs/yau_tsim-256.avif",
+      "icon64": "icons/orgs/yau_tsim-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Yau_Tsim.png"
+    },
+    "東九龍地域": {
+      "slug": "ekr",
+      "region": "東九龍地域",
+      "status": "official",
+      "icon256": "icons/orgs/ekr-256.avif",
+      "icon64": "icons/orgs/ekr-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/EKR.jpg"
+    },
+    "西貢區": {
+      "slug": "sai_kung",
+      "region": "東九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sai_Kung.jpg",
+      "fallback": "東九龍地域"
+    },
+    "慈雲山區": {
+      "slug": "tsz_wan_shan",
+      "region": "東九龍地域",
+      "status": "official",
+      "icon256": "icons/orgs/tsz_wan_shan-256.avif",
+      "icon64": "icons/orgs/tsz_wan_shan-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/TWS.jpg"
+    },
+    "黃大仙區": {
+      "slug": "wong_tai_sin",
+      "region": "東九龍地域",
+      "status": "official",
+      "icon256": "icons/orgs/wong_tai_sin-256.avif",
+      "icon64": "icons/orgs/wong_tai_sin-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/WTS.JPG"
+    },
+    "九龍灣區": {
+      "slug": "kowloon_bay",
+      "region": "東九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Kln_Bay.jpg",
+      "fallback": "東九龍地域"
+    },
+    "秀茂坪區": {
+      "slug": "sau_mau_ping",
+      "region": "東九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/SMP.jpg",
+      "fallback": "東九龍地域"
+    },
+    "將軍澳區": {
+      "slug": "tseung_kwan_o",
+      "region": "東九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/TKO.JPG",
+      "fallback": "東九龍地域"
+    },
+    "觀塘區": {
+      "slug": "kwun_tong",
+      "region": "東九龍地域",
+      "status": "official",
+      "icon256": "icons/orgs/kwun_tong-256.avif",
+      "icon64": "icons/orgs/kwun_tong-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/KTD.jpg"
+    },
+    "鯉魚門區": {
+      "slug": "lei_yue_mun",
+      "region": "東九龍地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Lei_Yue_Mun.jpg",
+      "fallback": "東九龍地域"
+    },
+    "新界地域": {
+      "slug": "ntr",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/NT.jpg",
+      "fallback": "總會"
+    },
+    "元朗東區": {
+      "slug": "yuen_long_east",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/YLE.JPG",
+      "fallback": "總會"
+    },
+    "元朗西區": {
+      "slug": "yuen_long_west",
+      "region": "新界地域",
+      "status": "official",
+      "icon256": "icons/orgs/yuen_long_west-256.avif",
+      "icon64": "icons/orgs/yuen_long_west-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/YLW.JPG"
+    },
+    "十八鄉區": {
+      "slug": "shap_pat_heung",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Shap_Pat_Heung.jpg",
+      "fallback": "總會"
+    },
+    "屯門西區": {
+      "slug": "tuen_mun_west",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/TMW.JPG",
+      "fallback": "總會"
+    },
+    "北葵涌區": {
+      "slug": "north_kwai_chung",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/North_Kwai_Chung.JPG",
+      "fallback": "總會"
+    },
+    "屯門東區": {
+      "slug": "tuen_mun_east",
+      "region": "新界地域",
+      "status": "official",
+      "icon256": "icons/orgs/tuen_mun_east-256.avif",
+      "icon64": "icons/orgs/tuen_mun_east-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/TME.JPG"
+    },
+    "荃灣區": {
+      "slug": "tsuen_wan",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Tsuen_Wan.jpg",
+      "fallback": "總會"
+    },
+    "南葵涌區": {
+      "slug": "south_kwai_chung",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/South_Kwai_Chung.JPG",
+      "fallback": "總會"
+    },
+    "青衣區": {
+      "slug": "tsing_yi",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/TY.JPG",
+      "fallback": "總會"
+    },
+    "離島區": {
+      "slug": "islands",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Island.jpg",
+      "fallback": "總會"
+    },
+    "大嶼山區": {
+      "slug": "lantau",
+      "region": "新界地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Lantau.jpg",
+      "fallback": "總會"
+    },
+    "新界東地域": {
+      "slug": "nter",
+      "region": "新界東地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/NTE.jpg",
+      "fallback": "總會"
+    },
+    "雙魚區": {
+      "slug": "sheung_yue",
+      "region": "新界東地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sheung_Yue.jpg",
+      "fallback": "總會"
+    },
+    "壁峰區": {
+      "slug": "pik_fung",
+      "region": "新界東地域",
+      "status": "official",
+      "icon256": "icons/orgs/pik_fung-256.avif",
+      "icon64": "icons/orgs/pik_fung-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Pik_Fung.jpg"
+    },
+    "大埔北區": {
+      "slug": "tai_po_north",
+      "region": "新界東地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Tai_Po_North.jpg",
+      "fallback": "總會"
+    },
+    "大埔南區": {
+      "slug": "tai_po_south",
+      "region": "新界東地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Tai_Po_South.jpg",
+      "fallback": "總會"
+    },
+    "沙田西區": {
+      "slug": "shatin_west",
+      "region": "新界東地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/STW.jpg",
+      "fallback": "總會"
+    },
+    "沙田南區": {
+      "slug": "shatin_south",
+      "region": "新界東地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sha_Tin_South.jpg",
+      "fallback": "總會"
+    },
+    "沙田東區": {
+      "slug": "shatin_east",
+      "region": "新界東地域",
+      "status": "pending-official",
+      "icon256": null,
+      "icon64": null,
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sha_Tin_East.jpg",
+      "fallback": "總會"
+    },
+    "沙田北區": {
+      "slug": "shatin_north",
+      "region": "新界東地域",
+      "status": "official",
+      "icon256": "icons/orgs/shatin_north-256.avif",
+      "icon64": "icons/orgs/shatin_north-64.avif",
+      "badge_source": "https://www.scout.org.hk/uploads/tc/districts/Sha_Tin_North.jpg"
+    }
+  }
+}

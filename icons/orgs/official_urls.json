@@ -1,0 +1,63 @@
+{
+  "_meta": {
+    "description": "49 個童軍組織徽號嘅官方來源清單（總會 + 5 地域 + 43 區）。badge_url 全部係總會官網 scout.org.hk「Regions and Districts」頁嘅官方圖檔；總會徽號本身冇喺嗰頁，用 Wikipedia SVG render。fetch_org_logos.py 用呢個檔逐個捉落 icons/orgs/src/，build_org_avif.mjs 再正規化成 AVIF。",
+    "source_page": "https://www.scout.org.hk/en/scout-units/regions-districts/index.html",
+    "badge_base": "https://www.scout.org.hk/uploads/tc/districts/"
+  },
+  "orgs": [
+    { "slug": "sahk", "name": "總會", "region": "總會", "badge_url": null, "note": "官網冇單獨檔；用 Wikipedia 嘅 SVG render（已 harvest）" },
+
+    { "slug": "hkir", "name": "港島地域", "region": "港島地域", "badge_url": "HKIR.jpg" },
+    { "slug": "chai_wan", "name": "柴灣區", "region": "港島地域", "badge_url": "Chai_Wan.JPG" },
+    { "slug": "hk_north", "name": "港島北區", "region": "港島地域", "badge_url": "HK_North.JPG" },
+    { "slug": "hk_south", "name": "港島南區", "region": "港島地域", "badge_url": "HK_South.JPG" },
+    { "slug": "hk_west", "name": "港島西區", "region": "港島地域", "badge_url": "HK_West.JPG" },
+    { "slug": "shau_kei_wan", "name": "筲箕灣區", "region": "港島地域", "badge_url": "Shau_Kei_Wan.JPG" },
+    { "slug": "victoria_city", "name": "維多利亞城區", "region": "港島地域", "badge_url": "vic2.jpg" },
+    { "slug": "wan_chai", "name": "灣仔區", "region": "港島地域", "badge_url": "Wan_Chai.JPG" },
+
+    { "slug": "kr", "name": "九龍地域", "region": "九龍地域", "badge_url": "KR.jpg" },
+    { "slug": "hung_hom", "name": "紅磡區", "region": "九龍地域", "badge_url": "Hung_Hom.gif" },
+    { "slug": "ho_man_tin", "name": "何文田區", "region": "九龍地域", "badge_url": "Ho_Man_Tin.gif" },
+    { "slug": "kowloon_city", "name": "九龍城區", "region": "九龍地域", "badge_url": "KR_District-08.png" },
+    { "slug": "kowloon_tong", "name": "九龍塘區", "region": "九龍地域", "badge_url": "KR_District-03.png" },
+    { "slug": "mong_kok", "name": "旺角區", "region": "九龍地域", "badge_url": "Mong_Kok.gif" },
+    { "slug": "sam_mong", "name": "深旺區", "region": "九龍地域", "badge_url": "Sam_Mong.gif" },
+    { "slug": "ssp_east", "name": "深水埗東區", "region": "九龍地域", "badge_url": "Sham_Shui_Po_East.gif" },
+    { "slug": "ssp_west", "name": "深水埗西區", "region": "九龍地域", "badge_url": "Sham_Shui_Po_West.gif" },
+    { "slug": "yau_tsim", "name": "油尖區", "region": "九龍地域", "badge_url": "Yau_Tsim.png" },
+
+    { "slug": "ekr", "name": "東九龍地域", "region": "東九龍地域", "badge_url": "EKR.jpg" },
+    { "slug": "sai_kung", "name": "西貢區", "region": "東九龍地域", "badge_url": "Sai_Kung.jpg" },
+    { "slug": "tsz_wan_shan", "name": "慈雲山區", "region": "東九龍地域", "badge_url": "TWS.jpg" },
+    { "slug": "wong_tai_sin", "name": "黃大仙區", "region": "東九龍地域", "badge_url": "WTS.JPG" },
+    { "slug": "kowloon_bay", "name": "九龍灣區", "region": "東九龍地域", "badge_url": "Kln_Bay.jpg" },
+    { "slug": "sau_mau_ping", "name": "秀茂坪區", "region": "東九龍地域", "badge_url": "SMP.jpg" },
+    { "slug": "tseung_kwan_o", "name": "將軍澳區", "region": "東九龍地域", "badge_url": "TKO.JPG" },
+    { "slug": "kwun_tong", "name": "觀塘區", "region": "東九龍地域", "badge_url": "KTD.jpg" },
+    { "slug": "lei_yue_mun", "name": "鯉魚門區", "region": "東九龍地域", "badge_url": "Lei_Yue_Mun.jpg" },
+
+    { "slug": "ntr", "name": "新界地域", "region": "新界地域", "badge_url": "NT.jpg" },
+    { "slug": "yuen_long_east", "name": "元朗東區", "region": "新界地域", "badge_url": "YLE.JPG" },
+    { "slug": "yuen_long_west", "name": "元朗西區", "region": "新界地域", "badge_url": "YLW.JPG" },
+    { "slug": "shap_pat_heung", "name": "十八鄉區", "region": "新界地域", "badge_url": "Shap_Pat_Heung.jpg" },
+    { "slug": "tuen_mun_west", "name": "屯門西區", "region": "新界地域", "badge_url": "TMW.JPG" },
+    { "slug": "north_kwai_chung", "name": "北葵涌區", "region": "新界地域", "badge_url": "North_Kwai_Chung.JPG" },
+    { "slug": "tuen_mun_east", "name": "屯門東區", "region": "新界地域", "badge_url": "TME.JPG" },
+    { "slug": "tsuen_wan", "name": "荃灣區", "region": "新界地域", "badge_url": "Tsuen_Wan.jpg" },
+    { "slug": "south_kwai_chung", "name": "南葵涌區", "region": "新界地域", "badge_url": "South_Kwai_Chung.JPG" },
+    { "slug": "tsing_yi", "name": "青衣區", "region": "新界地域", "badge_url": "TY.JPG" },
+    { "slug": "islands", "name": "離島區", "region": "新界地域", "badge_url": "Island.jpg" },
+    { "slug": "lantau", "name": "大嶼山區", "region": "新界地域", "badge_url": "Lantau.jpg" },
+
+    { "slug": "nter", "name": "新界東地域", "region": "新界東地域", "badge_url": "NTE.jpg" },
+    { "slug": "sheung_yue", "name": "雙魚區", "region": "新界東地域", "badge_url": "Sheung_Yue.jpg" },
+    { "slug": "pik_fung", "name": "壁峰區", "region": "新界東地域", "badge_url": "Pik_Fung.jpg" },
+    { "slug": "tai_po_north", "name": "大埔北區", "region": "新界東地域", "badge_url": "Tai_Po_North.jpg" },
+    { "slug": "tai_po_south", "name": "大埔南區", "region": "新界東地域", "badge_url": "Tai_Po_South.jpg" },
+    { "slug": "shatin_west", "name": "沙田西區", "region": "新界東地域", "badge_url": "STW.jpg" },
+    { "slug": "shatin_south", "name": "沙田南區", "region": "新界東地域", "badge_url": "Sha_Tin_South.jpg" },
+    { "slug": "shatin_east", "name": "沙田東區", "region": "新界東地域", "badge_url": "Sha_Tin_East.jpg" },
+    { "slug": "shatin_north", "name": "沙田北區", "region": "新界東地域", "badge_url": "Sha_Tin_North.jpg" }
+  ]
+}

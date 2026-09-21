@@ -1,0 +1,65 @@
+# ============================================================
+# 全港童軍通告自動化圖書館 — 今日 Story 清單（story-queue.json）
+#
+# 點解係日間 cron 而唔係跟 scrape 尾段／workflow_run 鏈：
+#   - 凌晨 00:15 HKT：GitHub scrape（scrape.yml）更新 cache.json
+#   - 朝早 05:00 HKT：本機補底（run-local-scrape-logged.bat）再推一輪
+#   如果清單凌晨生成，就會漏咗本機補底執返嘅通告；所以等到兩輪都行完
+#   嘅中午 12:00 先挑「今日新入庫」。
+#   - 15:30 HKT 補跑一次：純錦上添花（併入下晝新料），遲到都唔緊要，
+#     因為 12:00 嗰份已經喺度。
+#
+# 點解唔使喺 runner 入面「等到理想時間」：
+#   - GitHub Actions 每個 job 上限 6 個鐘，凌晨等到下晝會俾 GitHub 殺 job；
+#   - 呢度個產物係一張 metadata 清單，唔係自動出 Story —— 出 Story 係
+#     admin 17:30–20:00 用人手照清單做，清單幾點生成對出 Story 時間零影響。
+#   - GitHub scheduler 排隊延遲（最壞 ~2 個鐘）喺中午呢個位冇殺傷力：
+#     12:00 + 2h = 14:00，距離 17:30 高峰仲有成個下晝。
+#
+# 紅線：stdlib only、唔畫圖、唔存圖、唔裝任何 pip 套件。
+# ============================================================
+
+name: Story Queue
+
+on:
+  schedule:
+    # 12:00 HKT（04:00 UTC）：兩輪 scrape 完成之後，正式生成
+    - cron: "0 4 * * *"
+    # 15:30 HKT（07:30 UTC）：高峰前補跑（bonus，遲到都唔緊要）
+    - cron: "30 7 * * *"
+
+  workflow_dispatch:
+
+concurrency:
+  # 自己一個 group：唔同 scrape/notify 嗰條隊互相塞車
+  group: scout-circulars-story-queue
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      PYTHONUTF8: "1"
+      TZ: "Asia/Hong_Kong"
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 零 pip install：story_queue.py 係 stdlib only
+      - name: Build story queue (stdlib only)
+        run: python3 story_queue.py
+
+      - name: Commit story queue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add story-queue.json
+          git diff --cached --quiet || (git commit -m "📱 Update story queue [skip ci]" && git pull --rebase && git push)

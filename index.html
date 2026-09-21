@@ -336,6 +336,43 @@
     .share-opt.sys svg, .share-opt.copy svg { stroke: #93c5fd; fill: none; stroke-width: 2; }
     .share-opt[disabled], .share-opt.disabled { opacity: .45; cursor: not-allowed; transform: none; }
 
+    /* IG 分享圖（client-side canvas；零伺服器） */
+    .share-ig-btn { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--brand); background: var(--brand-2); color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; }
+    .share-ig-btn:hover { background: #16335f; }
+    .share-ig-btn[disabled] { opacity: .5; cursor: wait; }
+    .share-ig-result { margin-top: 12px; }
+    .share-ig-result img { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--line); }
+    .share-ig-hint { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .share-ig-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .share-ig-actions a, .share-ig-actions button { flex: 1; text-align: center; padding: 10px 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .share-ig-actions a:hover, .share-ig-actions button:hover { background: rgba(255,255,255,.1); }
+    /* ── 通告專屬頁（Story link sticker 著陸用；push 直連通告唔經呢度）── */
+    .notice-backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(2,8,23,.7); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 18px; }
+    .notice-page { width: min(560px, 100%); max-height: 88vh; overflow: auto; background: linear-gradient(180deg, #111d32, #0b1424); border: 1px solid rgba(96,165,250,.42); border-radius: 18px; box-shadow: 0 18px 40px rgba(0,0,0,.5); padding: 26px 24px 16px; }
+    .notice-page .np-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .notice-page .np-badge { width: 56px; height: 56px; object-fit: contain; background: #fff; border-radius: 12px; padding: 4px; }
+    .notice-page .np-hero { display: block; margin: 0 0 14px; border-radius: 14px; overflow: hidden; background: #000; text-decoration: none; }
+    .notice-page .np-hero img { display: block; width: 100%; max-height: 52vh; object-fit: contain; background: #000; }
+    .notice-page .np-hero-cap { display: block; padding: 8px 12px; font-size: 12px; color: #b8c2d4; background: #10141c; }
+    .notice-page .np-src { color: #9ec3ff; font-weight: 600; font-size: 15px; }
+    .notice-page .np-region { color: #8ea2c6; font-size: 12px; }
+    .notice-page h2 { margin: 0 0 16px; font-size: 22px; line-height: 1.45; color: #e6eefb; }
+    .notice-page .np-metas { display: grid; gap: 8px; margin-bottom: 20px; }
+    .notice-page .np-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 14px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.04); font-size: 14px; }
+    .notice-page .np-meta b { color: #8ea2c6; font-weight: 400; }
+    .notice-page .np-meta span { color: #e6eefb; font-weight: 600; text-align: right; }
+    .notice-page .np-meta.warn span { color: #fbbf24; }
+    .notice-page .np-primary { display: block; padding: 13px; border-radius: 12px; border: 1px solid var(--brand); background: var(--brand-2); color: var(--text); text-align: center; font-weight: 700; text-decoration: none; font-size: 15px; cursor: pointer; }
+    .notice-page .np-row { display: flex; gap: 10px; margin-top: 10px; }
+    .notice-page .np-row button { flex: 1; padding: 11px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); font-size: 13.5px; font-weight: 600; cursor: pointer; }
+    .notice-page .np-close { margin-top: 12px; width: 100%; padding: 10px; border: 0; background: transparent; color: #8ea2c6; font-size: 13px; cursor: pointer; }
+    /* PDF 內容出圖嘅版數導航 */
+    .share-pdf-nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; }
+    .share-pdf-nav button { border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--text); border-radius: 9px; padding: 6px 14px; cursor: pointer; font-size: 13px; }
+    .share-pdf-nav button:hover:not([disabled]) { background: rgba(255,255,255,.12); }
+    .share-pdf-nav button[disabled] { opacity: .35; cursor: default; }
+    .share-pdf-nav span { color: var(--muted); font-size: 12px; }
+
     .share-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; background: #0f172a; color: #e6eefb;
                    border: 1px solid #3a5a8c; padding: 10px 16px; border-radius: 999px; font-size: 13px; box-shadow: var(--shadow); pointer-events: none; opacity: 0; transition: opacity .2s; }
     .share-toast.show { opacity: 1; }
@@ -607,6 +644,10 @@
   <script>
     const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
     const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/enrich.json';
+    // Story 草稿（stories 分支，force-push 維持最近 7 日）：專屬頁 hero 圖熱連結 ——
+    // 全部流量/儲存行 GitHub CDN，Vercel 零 byte（結論：唔會再爆 storage）
+    const STORY_BRANCH_RAW = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/stories/';
+    const STORY_INDEX_URL = STORY_BRANCH_RAW + 'stories/index.json';
     const TIME_WINDOWS = [
       { id: '1d', label: '今天', days: 1 },
       { id: '7d', label: '7天', days: 7 },
@@ -1805,35 +1846,345 @@
       copy: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
       sys: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>',
     };
+    // 文案落款：複製 / 轉發一律跟呢行（版本號同 <title>／brand 一致，改版時一齊改）
+    const SHARE_CREDIT = '---經 通告圖書館 v5.11 整理 @noscout.system';
+
     // 分享用嘅連結：附件直連。編碼一次即可（已有 %XX 嘅唔會 double-encode）。
     function shareUrlFor(item) {
       const raw = item.pdf_url || item.url || '';
       try { return new URL(raw).href; } catch (_) { return raw; }
     }
 
-    // 分享文案：對用戶最重要係價錢/名額/參加資格，唔係發佈日期
-    // 新 template：標題 + 對象/費用/名額/截止 + 詳情連結，乾淨易讀，適合 WhatsApp/電郵
+    // 通告專屬頁深鏈：騎返 push 嘅 ?n=<fnv1a-16hex> 機制（ID 同源，
+    // 所以通知點擊同 Story sticker 著陸都會落到同一張通告）。
+    function noticeLinkFor(item) {
+      return `${location.origin}${location.pathname}?n=${notificationNoticeId(item)}`;
+    }
+
+    // ── 區徽（icons/orgs）：專屬頁徽 + Story 圖角標 ────────────────
+    // orgs.json 懶載入；任何失敗（404/冇檔/相解唔到）一律靜默降級，
+    // 唔阻出圖、唔阻開頁。fallback 鏈：區 → 佢嘅地域 → 總會。
+    let orgIconsPromise = null;
+    function loadOrgIcons() {
+      if (!orgIconsPromise) {
+        orgIconsPromise = fetch('icons/orgs/orgs.json')
+          .then((r) => (r.ok ? r.json() : null)).catch(() => null);
+      }
+      return orgIconsPromise;
+    }
+    function orgIconEntryFor(data, item) {
+      const name = String(item?.source_site || '').trim();
+      const ent = data?.orgs?.[name] || null;
+      if (ent?.icon256) return ent;
+      const fb = ent?.fallback ? data.orgs[ent.fallback] : null;
+      if (fb?.icon256) return fb;
+      return data?.orgs?.['總會']?.icon256 ? data.orgs['總會'] : null;
+    }
+    async function orgBadgeUrlFor(item) {
+      const data = await loadOrgIcons();
+      return orgIconEntryFor(data, item)?.icon256 || null;
+    }
+    // canvas 用：要先 decode 成 Image；2.5s 解唔到當冇，唔掛住出圖
+    async function orgBadgeImgFor(item) {
+      const url = await orgBadgeUrlFor(item);
+      if (!url) return null;
+      return new Promise((resolve) => {
+        const im = new Image();
+        const bail = setTimeout(() => resolve(null), 2500);
+        im.onload = () => { clearTimeout(bail); resolve(im); };
+        im.onerror = () => { clearTimeout(bail); resolve(null); };
+        im.src = url;
+      });
+    }
+
+    // 分享文案（v5.11 精簡三行格式）：
+    //   第 1 行：【區會】標題＋對象｜費用｜名額 X｜截止 YYYY-MM-DD（第一項資料直接黐住標題，其餘 ｜ 分隔）
+    //   第 2 行：詳情：附件直連（Telegram 用 url 參數渲染，所以可省略）
+    //   第 3 行：圖書館落款
     function shareTextFor(item, withUrl = true) {
       const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-      const lines = [
-        `【${item.source_site || ''}】${item.title || '未命名通告'}`,
-        '',
-      ];
-      // 參加資格/對象最重要
-      if (ex?.audience) lines.push(`參加資格：${ex.audience}`);
-      // 費用/價錢
-      if (ex?.fee) lines.push(`費用：${ex.fee}`);
-      // 名額（將來 enrich 可能會有 quota / places / limit）
       const quota = ex?.quota || ex?.places || ex?.limit || ex?.名額 || '';
-      if (quota) lines.push(`名額：${quota}`);
-      // 截止報名
-      if (ex?.deadline) lines.push(`截止報名：${ex.deadline}`);
-      if (withUrl) {
-        if (lines[lines.length - 1] !== '') lines.push('');
-        lines.push(`詳情：${shareUrlFor(item)}`);
+      const metas = [
+        ex?.audience || '',
+        ex?.fee || '',
+        quota ? `名額 ${quota}` : '',
+        ex?.deadline ? `截止 ${ex.deadline}` : '',
+      ].filter(Boolean);
+      const lines = [`【${item.source_site || ''}】${item.title || '未命名通告'}${metas.join('｜')}`];
+      if (withUrl) lines.push(`詳情：${shareUrlFor(item)}`);
+      lines.push(SHARE_CREDIT);
+      return lines.join('\n');
+    }
+
+    // ── IG 分享圖：1080×1350，client-side canvas 即畫即棄 ─────────────────
+    //
+    // 點解唔係 server-side render endpoint + Pillow：
+    // 2026-09-17 爆 Functions Storage（11.82GB / 10GB）嘅真兇係
+    //「Vercel 將 root requirements.txt 嘅 Python 依賴裝入每一個 api 嘅
+    //  function bundle × 幾十個 retained deployment」，唔係圖片儲存
+    // （詳見 VERCEL_EMERGENCY_CLEANUP_2026-09-19.md；2026-09-16 移除咗嘅
+    //  PyMuPDF server render 功能亦係同一教訓 —— 唔好返轉頭）。
+    // 改用瀏覽器 canvas 之後：零 function、零依賴、零 storage、零 invocation，
+    // 數學上 Vercel 冇新增任何計費資源；中文直接用裝置內建字體，
+    // 連 CJK 字體檔都唔使打包。「撳一撳生一張、用完即棄」係真正嘅 stateless。
+    const POSTER_W = 1080;
+    const POSTER_H = 1350; // IG 4:5 直倒
+    const POSTER_MX = 72;
+    const POSTER_FONT = '"PingFang TC","Microsoft JhengHei","Noto Sans CJK TC","Noto Sans TC","Heiti TC",sans-serif';
+    const POSTER_CREDIT = '經 通告圖書館整理 @noscout.system';
+
+    // CJK 貪心斷行（逐字量度；ASCII 都會中間斷，但標題好少有長英文單字）
+    function posterWrap(ctx, text, maxWidth) {
+      const lines = [];
+      let cur = '';
+      for (const ch of String(text)) {
+        if (ch === '\n') { if (cur) lines.push(cur); cur = ''; continue; }
+        if (cur && ctx.measureText(cur + ch).width > maxWidth) { lines.push(cur); cur = ch; }
+        else cur += ch;
       }
-      // 清理多餘空行
-      return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+      if (cur) lines.push(cur);
+      return lines;
+    }
+
+    function posterRoundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function igFileNameFor(item, story) {
+      const safe = (s) => String(s || '').replace(/[\\/:*?"<>|\s]+/g, '').slice(0, 30);
+      const stamp = String(item.date || item.captured_date || '').slice(0, 10).replace(/-/g, '');
+      return `通告圖書館-${safe(item.source_site)}${stamp ? '-' + stamp : ''}${story ? '-story' : ''}.png`;
+    }
+
+    // ── PDF 內容出圖：pdf.js 喺用戶部機 rasterize，Vercel 唔畫圖 ───────────
+    //
+    // 重嘢（PDF → PNG）100% 喺用戶瀏覽器做；pdf.js 由 CDN lazy-load，
+    // 唔入 repo、唔入 Vercel bundle。唯一要 server 幫手嘅係「攞 bytes」：
+    // 49 個區會站大部分冇 CORS，所以經 /api/pdf-proxy 過橋（Python 標準庫
+    // 寫成嘅 byte bridge：零依賴、零儲存，回應俾 Vercel edge cache 一星期）。
+    // 失敗（PDF >4MB／來源站死／CDN 斷）會 toast 提用戶直接開附件，
+    // 唔會靜靜失敗。
+    const PDFJS_BASE = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4';
+    let pdfjsPromise = null;
+    function loadPdfJs() {
+      if (!pdfjsPromise) {
+        pdfjsPromise = import(`${PDFJS_BASE}/legacy/build/pdf.min.mjs`).then((m) => {
+          m.GlobalWorkerOptions.workerSrc = `${PDFJS_BASE}/legacy/build/pdf.worker.min.mjs`;
+          return m;
+        }, (err) => { pdfjsPromise = null; throw err; });
+      }
+      return pdfjsPromise;
+    }
+
+    function pdfProxyFor(item) {
+      return `/api/pdf-proxy?u=${encodeURIComponent(shareUrlFor(item))}`;
+    }
+
+    // Web Share API（files）：手機可以將產生咗嘅 PNG 直接分享去 IG / WhatsApp，
+    // 唔使先儲存落 Photos。支援度用到先 check，唔支援就收埋「直接分享」掣。
+    function canShareImageFiles() {
+      try {
+        return typeof navigator.share === 'function' && typeof navigator.canShare === 'function'
+          && navigator.canShare({ files: [new File([''], 'x.png', { type: 'image/png' })] });
+      } catch (_) { return false; }
+    }
+
+    async function shareImageFile(blob, fileName, title) {
+      await navigator.share({
+        files: [new File([blob], fileName, { type: 'image/png' })],
+        title: title || '通告',
+      });
+    }
+
+    // 版式跟朋友定嘅 template：
+    //   頂 ~80px 站名/最後更新 → badge 行（區會 + 分類）→ 大標題（≤4 行）
+    //   → 日期｜地域 → 底部黑盒（截止/對象/費用/名額）→ 最底細字落款
+    async function renderIgImage(item, opts) {
+      // mode 'story' = 1080×1920（IG Story 直向，admin 出 Story 專用）：
+      // 頂留 250px、底留 360px 安全區，避開 Story 介面（頭像列／回覆欄）。
+      // 冇 opts 照舊出 4:5 feed 版，分享流程零改動。
+      const story = Boolean(opts && opts.mode === 'story');
+      const H = story ? 1920 : POSTER_H;
+      const safeTop = story ? 250 : 0, safeBottom = story ? 360 : 0;
+      const canvas = document.createElement('canvas');
+      canvas.width = POSTER_W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d');
+      if (!ctx || typeof canvas.toBlob !== 'function') return Promise.reject(new Error('canvas unavailable'));
+
+      const W = POSTER_W, MX = POSTER_MX, CW = W - MX * 2;
+      const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+      const quota = ex?.quota || ex?.places || ex?.limit || ex?.名額 || '';
+      const rawDate = String(item.date || item.captured_date || '');
+      const dm = rawDate.match(/(\d{4})-(\d{2})-(\d{2})/);
+      const dateLabel = dm ? `${Number(dm[2])}月${Number(dm[3])}日` : rawDate;
+      const region = getRegionForItem(item);
+
+      // 背景 + 左上品牌光暈
+      ctx.fillStyle = '#0a1931';
+      ctx.fillRect(0, 0, W, H);
+      const glow = ctx.createRadialGradient(150, 130 + safeTop, 0, 150, 130 + safeTop, 560);
+      glow.addColorStop(0, 'rgba(59,130,246,.30)');
+      glow.addColorStop(1, 'rgba(59,130,246,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.textBaseline = 'middle';
+
+      // 頂部：站名 | 最後更新
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#e6eefb';
+      ctx.font = `700 34px ${POSTER_FONT}`;
+      ctx.fillText('通告圖書館 v5.11', MX, 88 + safeTop);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#8ea2c6';
+      ctx.font = `400 26px ${POSTER_FONT}`;
+      ctx.fillText(`最後更新 ${state.cache?.last_updated || ''}`.trim(), W - MX, 88 + safeTop);
+      ctx.strokeStyle = 'rgba(142,162,198,.28)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(MX, 132 + safeTop); ctx.lineTo(W - MX, 132 + safeTop); ctx.stroke();
+
+      // Story 版先有：右下區徽小白磚（feed 4:5 版照舊唔加，分享零改動）；
+      // 冇徽/解唔到就靜靜略過，唔阻出圖
+      if (story) {
+        try {
+          const badgeImg = await orgBadgeImgFor(item);
+          if (badgeImg && badgeImg.width) {
+            const s = 116;
+            const bx = W - MX - s, by = H - safeBottom - s - 36;
+            posterRoundRect(ctx, bx - 8, by - 8, s + 16, s + 16, 22);
+            ctx.fillStyle = 'rgba(255,255,255,.95)'; ctx.fill();
+            const rr = Math.min(s / badgeImg.width, s / badgeImg.height);
+            const dw = Math.round(badgeImg.width * rr), dh = Math.round(badgeImg.height * rr);
+            ctx.drawImage(badgeImg, bx + (s - dw) / 2, by + (s - dh) / 2, dw, dh);
+          }
+        } catch (_) {}
+      }
+
+      // 大標題：72 → 64 → 56px，最多 4 行，超出加省略號；
+      // 得一行嘅短標題放膽升去 84px，視覺重啲
+      let size = 56;
+      let titleLines = [];
+      let fitted = false;
+      for (const s of [72, 64, 56]) {
+        ctx.font = `700 ${s}px ${POSTER_FONT}`;
+        titleLines = posterWrap(ctx, item.title || '未命名通告', CW);
+        if (titleLines.length <= 4) { size = s; fitted = true; break; }
+      }
+      if (!fitted) {
+        ctx.font = `700 56px ${POSTER_FONT}`;
+        titleLines = titleLines.slice(0, 4);
+        titleLines[3] = titleLines[3].replace(/.{1,2}$/u, '…');
+      }
+      if (size === 72 && titleLines.length === 1) {
+        ctx.font = `700 84px ${POSTER_FONT}`;
+        const bigger = posterWrap(ctx, item.title || '未命名通告', CW);
+        if (bigger.length === 1) { size = 84; titleLines = bigger; }
+      }
+
+      // 底部黑盒資料先計好（影響中間置中區域有幾高）
+      const rows = [
+        ex?.deadline ? ['⏳', '截止', 'warn'] : null,
+        ex?.audience ? ['👤', '對象', ''] : null,
+        ex?.fee ? ['💲', '費用', ''] : null,
+        quota ? ['🔢', '名額', ''] : null,
+      ].filter(Boolean);
+      const boxRowH = 62, boxPadV = 28;
+      const boxH = rows.length ? boxPadV * 2 + rows.length * boxRowH : 0;
+      const boxY = rows.length ? H - (176 + safeBottom) - boxH : H - (200 + safeBottom);
+
+      // 主體（badge＋標題＋日期行）垂直置中喺 hairline 同黑盒之間：
+      // 短內容唔會吊喺頂留一笪空白，長標題/多行黑盒自然向上泊返
+      const lh = Math.round(size * 1.32);
+      const hasDate = Boolean(dateLabel || region);
+      const badgeH = 58, gapBadgeTitle = 44, gapTitleDate = 30, dateLineH = 34;
+      const blockH = badgeH + gapBadgeTitle + (titleLines.length - 1) * lh + size
+        + (hasDate ? gapTitleDate + dateLineH : 0);
+      const zoneTop = 172 + safeTop;
+      const free = Math.max(0, boxY - 34 - zoneTop - blockH);
+      const y0 = zoneTop + free / 2;
+
+      // Badge 行：區會（品牌色）＋分類（素色），太長自動截
+      const catIds = [...itemCategories(item, ex)].filter((id) => id !== 'other');
+      const pills = [String(item.source_site || '').trim(),
+        ...catIds.map((id) => CATEGORY_TAGS.find((c) => c.id === id)?.label || id)].filter(Boolean);
+      let bx = MX;
+      const by = y0 + badgeH / 2, bh = badgeH, pad = 26;
+      ctx.font = `600 30px ${POSTER_FONT}`;
+      for (let i = 0; i < pills.length && i < 3; i++) {
+        const pw = ctx.measureText(pills[i]).width + pad * 2;
+        if (bx + pw > W - MX) break;
+        posterRoundRect(ctx, bx, by - bh / 2, pw, bh, bh / 2);
+        if (i === 0) {
+          ctx.fillStyle = 'rgba(59,130,246,.26)'; ctx.fill();
+          ctx.strokeStyle = 'rgba(96,165,250,.9)'; ctx.lineWidth = 2.5; ctx.stroke();
+          ctx.fillStyle = '#9ec3ff';
+        } else {
+          ctx.fillStyle = 'rgba(255,255,255,.07)'; ctx.fill();
+          ctx.strokeStyle = 'rgba(96,120,170,.55)'; ctx.lineWidth = 2; ctx.stroke();
+          ctx.fillStyle = '#cfe3ff';
+        }
+        ctx.textAlign = 'left';
+        ctx.fillText(pills[i], bx + pad, by + 1);
+        bx += pw + 14;
+      }
+
+      // 標題行
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#e6eefb';
+      ctx.font = `700 ${size}px ${POSTER_FONT}`;
+      let ty = by + badgeH / 2 + gapBadgeTitle + size / 2;
+      for (const line of titleLines) { ctx.fillText(line, MX, ty); ty += lh; }
+
+      // 日期｜地域
+      if (hasDate) {
+        const dateRegion = [dateLabel, region].filter(Boolean).join(' ｜ ');
+        ctx.fillStyle = '#8ea2c6';
+        ctx.font = `400 33px ${POSTER_FONT}`;
+        ctx.fillText(dateRegion, MX, ty - lh + size / 2 + gapTitleDate + dateLineH / 2);
+      }
+      if (rows.length) {
+        const rowH = boxRowH, padV = boxPadV;
+        posterRoundRect(ctx, MX, boxY, CW, boxH, 26);
+        ctx.fillStyle = 'rgba(1,6,18,.62)'; ctx.fill();
+        ctx.strokeStyle = 'rgba(96,120,170,.5)'; ctx.lineWidth = 2; ctx.stroke();
+        const values = { 截止: ex.deadline, 對象: ex.audience, 費用: ex.fee, 名額: quota };
+        let ry = boxY + padV + rowH / 2;
+        for (const [icon, label, tone] of rows) {
+          const value = String(values[label] || '');
+          ctx.textAlign = 'left';
+          ctx.fillStyle = '#8ea2c6';
+          ctx.font = `400 32px ${POSTER_FONT}`;
+          ctx.fillText(`${icon}  ${label}`, MX + 34, ry);
+          // value 太長向左縮，唔同 label 撞車：label 側固定闊 210
+          let valueFont = 34;
+          ctx.font = `600 ${valueFont}px ${POSTER_FONT}`;
+          while (valueFont > 24 && ctx.measureText(value).width > CW - 210) {
+            valueFont -= 2;
+            ctx.font = `600 ${valueFont}px ${POSTER_FONT}`;
+          }
+          ctx.textAlign = 'right';
+          ctx.fillStyle = tone === 'warn' ? '#fbbf24' : '#e6eefb';
+          ctx.fillText(value, W - MX - 34, ry);
+          ry += rowH;
+        }
+      }
+
+      // 最底 ~60px 細字落款
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#8ea2c6';
+      ctx.font = `400 26px ${POSTER_FONT}`;
+      ctx.fillText(POSTER_CREDIT, W / 2, H - 64 - safeBottom);
+
+      return new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('toBlob failed'))), 'image/png');
+      });
     }
 
     let toastTimer = null;
@@ -1867,17 +2218,19 @@
 
     function socialLinks(item) {
       const url = shareUrlFor(item);
-      const text = shareTextFor(item, false);
+      // 完整文案（詳情連結 + 落款）：每個平台一條過，唔會喺落款後面重複吊住條附件網址
+      const text = shareTextFor(item, true);
+      // Telegram 嘅 url 參數會自己渲染附件連結，所以佢嘅 text 唔使再跟詳情行
+      const etNoUrl = encodeURIComponent(shareTextFor(item, false));
       const eu = encodeURIComponent(url);
       const et = encodeURIComponent(text);
-      const eboth = encodeURIComponent(`${text}\n${url}`);
       return [
-        { id: 'wa', label: 'WhatsApp', href: `https://api.whatsapp.com/send?text=${eboth}` },
-        { id: 'tg', label: 'Telegram', href: `https://t.me/share/url?url=${eu}&text=${et}` },
+        { id: 'wa', label: 'WhatsApp', href: `https://api.whatsapp.com/send?text=${et}` },
+        { id: 'tg', label: 'Telegram', href: `https://t.me/share/url?url=${eu}&text=${etNoUrl}` },
         { id: 'fb', label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${eu}` },
-        { id: 'x', label: 'X', href: `https://twitter.com/intent/tweet?text=${et}&url=${eu}` },
+        { id: 'x', label: 'X', href: `https://twitter.com/intent/tweet?text=${et}` },
         { id: 'line', label: 'LINE', href: `https://social-plugins.line.me/lineit/share?url=${eu}&text=${et}` },
-        { id: 'mail', label: '電郵', href: `mailto:?subject=${encodeURIComponent(`${item.source_site || ''} ${item.title || '通告'}`.trim())}&body=${eboth}` },
+        { id: 'mail', label: '電郵', href: `mailto:?subject=${encodeURIComponent(`${item.source_site || ''} ${item.title || '通告'}`.trim())}&body=${et}` },
       ];
     }
 
@@ -1934,13 +2287,48 @@
           </div>
 
           <div class="share-section">
-            <h4>分享文案預覽（已移除發佈日期，保留費用/名額/資格）</h4>
+            <h4>分享文案預覽（【區會】標題＋對象｜費用｜截止＋圖書館落款）</h4>
             <pre style="white-space:pre-wrap; background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:10px; padding:10px; font-size:12px; line-height:1.5; color:#cfe3ff;">${escapeHtml(shareTextFor(item, true))}</pre>
+          </div>
+
+          <div class="share-section">
+            <h4>通告內容出圖（PDF→PNG・你部機即畫，轉發 WhatsApp／IG 啱用）</h4>
+            <button type="button" class="share-ig-btn" data-act="pdf2img">📄 轉換內文做圖</button>
+            <div class="share-ig-result" data-role="pdfbox" hidden>
+              <p class="share-ig-hint" data-role="pdfstatus"></p>
+              <div class="share-pdf-nav" data-role="pdfnav" hidden>
+                <button type="button" data-act="pdf-prev" aria-label="上一版">◀ 上一版</button>
+                <span data-role="pdfpage"></span>
+                <button type="button" data-act="pdf-next" aria-label="下一版">下一版 ▶</button>
+              </div>
+              <img alt="通告內容預覽">
+              <p class="share-ig-hint">手機可以長撳張圖直接轉發／儲存；多版通告可以㩒上一版/下一版逐版出圖。</p>
+              <div class="share-ig-actions">
+                <a data-role="pdfdl" download>下載圖片</a>
+                <button type="button" data-act="share-file" data-kind="pdf" data-role="pdfshare" hidden>📤 直接分享</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="share-section">
+            <h4>IG 分享圖（1080×1350・本機即畫，唔經伺服器）</h4>
+            <button type="button" class="share-ig-btn" data-act="ig">🖼 產生 IG 分享圖</button>
+            <div class="share-ig-result" data-role="igbox" hidden>
+              <img alt="IG 分享圖預覽">
+              <p class="share-ig-hint">手機可以長撳張圖直接儲存，或者撳「下載圖片」。</p>
+              <div class="share-ig-actions">
+                <a data-role="igdl" download>下載圖片</a>
+                <button type="button" data-act="copy-caption">複製 Caption</button>
+                <button type="button" data-act="ig-story" data-role="igstory" title="直向 1080×1920（出 Story 專用，feed 照舊用 4:5）">📱 Story 版</button>
+                <button type="button" data-act="share-file" data-kind="ig" data-role="igshare" hidden>📤 直接分享</button>
+              </div>
+            </div>
           </div>
 
           <div class="share-section">
             <h4>分享至</h4>
             <div class="share-grid" data-role="links">
+              <button type="button" class="share-opt" data-act="copy-link">${SHARE_SVG.copy}<span>複製連結</span></button>
               ${canWebShare ? `<button type="button" class="share-opt sys" data-act="sys">${SHARE_SVG.sys}<span>更多…</span></button>` : ''}
               ${links.map(l => `<a class="share-opt ${l.id}" data-act="link" href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${SHARE_SVG[l.id]}<span>${escapeHtml(l.label)}</span></a>`).join('')}
               <button type="button" class="share-opt copy" data-act="copy-url">${SHARE_SVG.copy}<span>複製網址</span></button>
@@ -1950,12 +2338,164 @@
         </div>`;
 
       const sheet = backdrop.querySelector('.share-sheet');
+      let igUrl = null;   // objectURL，關面板時 revoke，唔留低任何嘢
+      let igMode = 'feed'; // 'feed' 4:5（預設，分享照原本出）| 'story' 1080×1920
+      let igBlob = null;  // 生成咗嘅 PNG blob（「直接分享」用）
+      let pdfImgUrl = null;
+      let pdfBlob = null;
+      let pdfDoc = null;  // pdf.js document（關面板 destroy 釋放記憶體）
+      let pdfKey = '';
+      let pdfPage = 1;
+
+      async function renderPdfPage(num) {
+        const box = sheet.querySelector('[data-role="pdfbox"]');
+        const status = box.querySelector('[data-role="pdfstatus"]');
+        const nav = box.querySelector('[data-role="pdfnav"]');
+        status.textContent = `畫緊第 ${num} 版（共 ${pdfDoc.numPages} 版）…`;
+        const page = await pdfDoc.getPage(num);
+        const base = page.getViewport({ scale: 1 });
+        const scale = Math.min(2, 1240 / base.width);
+        const vp = page.getViewport({ scale });
+        const cv = document.createElement('canvas');
+        cv.width = Math.ceil(vp.width);
+        cv.height = Math.ceil(vp.height);
+        const c2 = cv.getContext('2d');
+        if (!c2) throw new Error('canvas unavailable');
+        await page.render({ canvasContext: c2, viewport: vp }).promise;
+        const blob = await new Promise((res, rej) => cv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
+        if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
+        pdfImgUrl = URL.createObjectURL(blob);
+        pdfBlob = blob;
+        box.querySelector('img').src = pdfImgUrl;
+        const safe = (s) => String(s || '').replace(/[\\/:*?"<>|\s]+/g, '').slice(0, 30);
+        const stamp = String(item.date || item.captured_date || '').slice(0, 10).replace(/-/g, '');
+        const dl = box.querySelector('[data-role="pdfdl"]');
+        dl.href = pdfImgUrl;
+        dl.download = `通告圖書館-${safe(item.source_site)}${stamp ? '-' + stamp : ''}-p${num}.png`;
+        pdfPage = num;
+        box.querySelector('[data-role="pdfpage"]').textContent = `第 ${num} / ${pdfDoc.numPages} 版`;
+        nav.hidden = pdfDoc.numPages <= 1;
+        nav.querySelector('[data-act="pdf-prev"]').disabled = num <= 1;
+        nav.querySelector('[data-act="pdf-next"]').disabled = num >= pdfDoc.numPages;
+        box.querySelector('[data-role="pdfshare"]').hidden = !canShareImageFiles();
+        status.textContent = '';
+      }
 
       backdrop.addEventListener('click', async (e) => {
         if (e.target === backdrop) { closeShare(); return; }
         const el = e.target.closest('[data-act]');
         if (!el) return;
         const act = el.dataset.act;
+        if (act === 'pdf2img') {
+          const box = sheet.querySelector('[data-role="pdfbox"]');
+          const status = box.querySelector('[data-role="pdfstatus"]');
+          el.disabled = true;
+          box.hidden = false;
+          status.textContent = '載入緊轉換器（第一次要幾秒）…';
+          try {
+            const pdfjs = await loadPdfJs();
+            status.textContent = '攞緊 PDF（經圖書館橋）…';
+            const key = shareUrlFor(item);
+            if (!pdfDoc || pdfKey !== key) {
+              if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} pdfDoc = null; }
+              pdfDoc = await pdfjs.getDocument({
+                url: pdfProxyFor(item),
+                cMapUrl: `${PDFJS_BASE}/cmaps/`,
+                cMapPacked: true,
+              }).promise;
+              pdfKey = key;
+            }
+            await renderPdfPage(1);
+          } catch (err) {
+            box.hidden = true;
+            if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} pdfDoc = null; }
+            showToast('轉換唔到：PDF 太大（>4MB）、來源站連唔到，或呢個瀏覽器唔支援。可撳「複製網址」直接開附件。');
+          } finally {
+            el.disabled = false;
+          }
+          return;
+        }
+        if (act === 'pdf-prev' || act === 'pdf-next') {
+          if (!pdfDoc) return;
+          const num = pdfPage + (act === 'pdf-next' ? 1 : -1);
+          if (num < 1 || num > pdfDoc.numPages) return;
+          try { await renderPdfPage(num); } catch (_) { showToast('呢一版畫唔到，試下其他版。'); }
+          return;
+        }
+        if (act === 'copy-link') {
+          // 專屬頁深鏈：貼上 IG Story link sticker，撳就咁啱返到呢張通告嘅頁
+          const link = noticeLinkFor(item);
+          try {
+            await navigator.clipboard.writeText(link);
+            showToast('已複製專屬連結（貼上 Story link sticker 得）');
+          } catch (_) {
+            try { prompt('複製呢條連結：', link); } catch (_) {}
+          }
+          return;
+        }
+        if (act === 'ig-story') {
+          // Story 直向版（1080×1920，admin 出 Story 用）：切去再切返 4:5，
+          // 下載／直接分享跟住當前 mode 出貨
+          const next = igMode === 'story' ? 'feed' : 'story';
+          try {
+            const blob = await renderIgImage(item, { mode: next });
+            if (igUrl) { try { URL.revokeObjectURL(igUrl); } catch (_) {} }
+            igUrl = URL.createObjectURL(blob);
+            igBlob = blob;
+            igMode = next;
+            const box = sheet.querySelector('[data-role="igbox"]');
+            const dl = box.querySelector('[data-role="igdl"]');
+            box.querySelector('img').src = igUrl;
+            dl.href = igUrl;
+            dl.download = igFileNameFor(item, next === 'story');
+            el.textContent = next === 'story' ? '🖼 返去 4:5 版' : '📱 Story 版';
+            box.querySelector('[data-role="igshare"]').hidden = !canShareImageFiles();
+          } catch (err) { showToast('Story 版出唔到，用返 4:5 版。'); }
+          return;
+        }
+        if (act === 'share-file') {
+          // 一撳彈系統分享（直接揀 IG／WhatsApp），唔使先儲存落 Photos
+          const blob = el.dataset.kind === 'ig' ? igBlob : pdfBlob;
+          const name = el.dataset.kind === 'ig' ? igFileNameFor(item, igMode === 'story')
+            : (sheet.querySelector('[data-role="pdfdl"]').download || igFileNameFor(item));
+          if (!blob) return;
+          try {
+            await shareImageFile(blob, name, item.title || '通告');
+          } catch (err) {
+            if (err && err.name === 'AbortError') showToast('已取消分享');
+            else showToast('直接分享開唔到，可以用「下載圖片」代替。');
+          }
+          return;
+        }
+        if (act === 'ig') {
+          const box = sheet.querySelector('[data-role="igbox"]');
+          el.disabled = true;
+          el.textContent = '畫緊圖…';
+          try {
+            const blob = await renderIgImage(item);
+            if (igUrl) { try { URL.revokeObjectURL(igUrl); } catch (_) {} }
+            igUrl = URL.createObjectURL(blob);
+            igBlob = blob;
+            igMode = 'feed';
+            const dl = box.querySelector('[data-role="igdl"]');
+            box.querySelector('img').src = igUrl;
+            dl.href = igUrl;
+            dl.download = igFileNameFor(item);
+            box.querySelector('[data-role="igshare"]').hidden = !canShareImageFiles();
+            box.hidden = false;
+            try { box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (_) {}
+          } catch (err) {
+            showToast('呢個瀏覽器產生唔到圖，可以用上面嘅複製文字代替。');
+          } finally {
+            el.disabled = false;
+            el.textContent = '🖼 產生 IG 分享圖';
+          }
+          return;
+        }
+        if (act === 'copy-caption') {
+          if (await copyText(shareTextFor(item, true))) showToast('已複製 Caption，貼去 IG post 就得。');
+          return;
+        }
         if (act === 'sys') {
           if (typeof navigator.share !== 'function') {
             // in-app browser / 舊 WebView：冇系統分享，但唔好俾用戶靜靜失敗
@@ -1963,7 +2503,8 @@
             return;
           }
           try {
-            await navigator.share({ title: item.title || '通告', text: shareTextFor(item, false), url });
+            // 文案已包詳情連結 + 落款；唔好多傳 url，否則部分 app 會喺結尾重複顯示連結
+            await navigator.share({ title: item.title || '通告', text: shareTextFor(item, true) });
           } catch (err) {
             if (err && err.name === 'AbortError') {
               showToast('已取消系統分享');
@@ -1984,7 +2525,12 @@
       document.addEventListener('keydown', onKey);
 
       document.body.appendChild(backdrop);
-      activeShare = { backdrop, cleanup: () => { document.removeEventListener('keydown', onKey); } };
+      activeShare = { backdrop, cleanup: () => {
+        document.removeEventListener('keydown', onKey);
+        if (igUrl) { try { URL.revokeObjectURL(igUrl); } catch (_) {} }
+        if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
+        if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} }
+      } };
       sheet.querySelector('.share-close').focus();
     }
 
@@ -2272,6 +2818,100 @@
       state.activeSource = 'ALL_SOURCES';
     }
 
+    // ── 通告專屬頁：單一 ?n=<id> 深鏈著陸（Story sticker 用）──────────
+    // push 直連通告，唔經呢度；呢頁係俾「外面返入嚟」一個人睇一張通告：
+    // 標題 + 區徽 + 截止/對象/費用/名額 + 開附件/分享/複製連結。
+    let activeNoticePage = null;
+    let savedDocTitle = '';
+    function closeNoticePage() {
+      if (!activeNoticePage) return;
+      document.removeEventListener('keydown', activeNoticePage.onKey);
+      try { activeNoticePage.root.remove(); } catch (_) {}
+      activeNoticePage = null;
+      if (savedDocTitle) { document.title = savedDocTitle; savedDocTitle = ''; }
+    }
+    function openNoticePage(item) {
+      closeNoticePage();
+      if (typeof closeShare === 'function') closeShare();
+      const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+      const region = getRegionForItem(item);
+      const quota = ex?.quota || ex?.places || ex?.limit || ex?.名額 || '';
+      const metas = [
+        ex?.deadline ? ['⏳ 截止', String(ex.deadline), 'warn'] : null,
+        item.date ? ['📄 頒佈', String(item.date).slice(0, 10), ''] : null,
+        ex?.audience ? ['👤 對象', String(ex.audience), ''] : null,
+        ex?.fee ? ['💲 費用', String(ex.fee), ''] : null,
+        quota ? ['🔢 名額', String(quota), ''] : null,
+      ].filter(Boolean);
+      const root = document.createElement('div');
+      root.className = 'notice-backdrop';
+      root.setAttribute('role', 'dialog');
+      root.innerHTML = `
+        <section class="notice-page">
+          <div class="np-head">
+            <img class="np-badge" data-role="badge" alt="" hidden>
+            <div>
+              <div class="np-src">${escapeHtml(String(item.source_site || '').trim())}</div>
+              ${region ? `<div class="np-region">${escapeHtml(region)}</div>` : ''}
+            </div>
+          </div>
+          <h2>${escapeHtml(item.title || '未命名通告')}</h2>
+          ${metas.length ? `<div class="np-metas">${metas.map(([k, v, tone]) => `<div class="np-meta ${tone}"><b>${k}</b><span>${escapeHtml(v)}</span></div>`).join('')}</div>` : ''}
+          <a class="np-primary" href="${escapeHtml(shareUrlFor(item))}" target="_blank" rel="noopener noreferrer">開啟附件（PDF 原文）</a>
+          <div class="np-row">
+            <button type="button" data-act="npshare">📤 分享…</button>
+            <button type="button" data-act="nplink">🔗 複製專屬連結</button>
+          </div>
+          <button type="button" class="np-close" data-act="npclose">入返全圖書館 ↩</button>
+        </section>`;
+      const onKey = (e) => { if (e.key === 'Escape') closeNoticePage(); };
+      document.addEventListener('keydown', onKey);
+      root.addEventListener('click', async (e) => {
+        const act = e.target.closest('[data-act]')?.dataset.act;
+        if (e.target === root || act === 'npclose') { closeNoticePage(); return; }
+        if (act === 'npshare') { closeNoticePage(); openShare(item); return; }
+        if (act === 'nplink') {
+          const link = noticeLinkFor(item);
+          try { await navigator.clipboard.writeText(link); showToast('已複製專屬連結'); }
+          catch (_) { try { prompt('複製呢條連結：', link); } catch (_) {} }
+        }
+      });
+      document.body.appendChild(root);
+      activeNoticePage = { root, onKey };
+      savedDocTitle = document.title;
+      document.title = `${item.title || '通告'}｜通告圖書館`;
+      orgBadgeUrlFor(item).then((u) => {
+        const img = root.querySelector('[data-role="badge"]');
+        if (u && img) { img.src = u; img.hidden = false; }
+      });
+      // 草稿圖 hero：呢張通告今日有出 Story 草稿（stories 分支）就插喺頁頂。
+      // 搵唔到/超時/分支未開 → 靜靜略過，頁面照舊（文字版）。記住：PNG 永遠唔入 main。
+      (async () => {
+        try {
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 4000);
+          const r = await fetch(STORY_INDEX_URL + '?t=' + Date.now(), { signal: ctrl.signal });
+          clearTimeout(timer);
+          if (!r.ok) return;
+          const idx = await r.json();
+          const k1 = item.pdf_url || '', k2 = item.url || '';
+          const hit = Array.isArray(idx.items)
+            && idx.items.find(e => e && (e.k === k1 || (k2 && e.k === k2)));
+          if (!hit || !hit.f || !root.isConnected) return;
+          const url = STORY_BRANCH_RAW + hit.f;
+          const fig = document.createElement('a');
+          fig.className = 'np-hero';
+          fig.href = url;
+          fig.target = '_blank';
+          fig.rel = 'noopener noreferrer';
+          fig.innerHTML = `<img src="${escapeHtml(url)}" alt="${escapeHtml(item.title || '通告')}（草稿圖）" loading="lazy">`
+            + '<span class="np-hero-cap">📱 草稿圖（撳開原圖／長按可儲存，貼 Story 用）</span>';
+          const head = root.querySelector('.np-head');
+          if (head) head.insertAdjacentElement('afterend', fig);
+        } catch (_) {}
+      })();
+    }
+
     async function loadCache() {
       messagesEl.innerHTML = '<div class="msg">正在從 GitHub Raw CDN 讀取最新 cache.json…</div>';
       try {
@@ -2306,6 +2946,20 @@
         renderWindowChips();
         renderHeader();
         renderCards();
+
+        // 專屬頁著陸：URL 係單一 ?n=<id> → 直接彈出嗰張通告
+        //（多 ID ＝ push 批次，維持篩住列表；push 直連通告本身唔經呢度）
+        if (state.notificationMode && state.notificationNoticeIds?.size === 1) {
+          const [onlyId] = state.notificationNoticeIds;
+          let found = null;
+          outer: for (const source of state.sourceOrder) {
+            for (const it of state.grouped[source] || []) {
+              if (notificationNoticeId(it) === onlyId) { found = it; break outer; }
+            }
+          }
+          if (found) openNoticePage(found);
+          else showToast('呢張通告已沉底或冇收錄，下面係最新內容');
+        }
       } catch (err) {
         messagesEl.innerHTML = `<div class="msg error">讀取 GitHub Raw cache.json 失敗：${escapeHtml(err.message || String(err))}</div>`;
       }

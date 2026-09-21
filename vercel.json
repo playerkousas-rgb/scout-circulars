@@ -11,10 +11,15 @@
       "maxDuration": 10,
       "includeFiles": "subscription_catalog.json",
       "excludeFiles": "{*.html,*.md,*.svg,*.bat,*.bak,*.sql,icons/**,.github/**,.gitignore,.vercelignore,.gitattributes,vercel.json,manifest.webmanifest,sw.js,push-client.js}"
+    },
+    "api/pdf_proxy.py": {
+      "maxDuration": 25,
+      "excludeFiles": "{*.html,*.md,*.svg,*.bat,*.bak,*.sql,icons/**,.github/**,.gitignore,.vercelignore,.gitattributes,vercel.json,manifest.webmanifest,sw.js,push-client.js,subscription_catalog.json}"
     }
   },
   "rewrites": [
     { "source": "/api/push-config", "destination": "/api/push_config" },
-    { "source": "/api/push-subscriptions", "destination": "/api/push_subscriptions" }
+    { "source": "/api/push-subscriptions", "destination": "/api/push_subscriptions" },
+    { "source": "/api/pdf-proxy", "destination": "/api/pdf_proxy" }
   ]
 }
