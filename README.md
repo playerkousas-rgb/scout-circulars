@@ -15,7 +15,8 @@
 - `core.py`：Python 爬蟲主程式
 - `sources.json`：49 個來源映射設定
 - `cache.json`：輸出資料與內部狀態
-- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享 / 匿名通知設定）
+- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享（文案＋社交＋IG 分享圖 4:5，另設 📱 Story 版 1080×1920）/ 匿名通知設定）。通告專屬頁：每張通告有深鏈 `?n=<16hex>`（同 push ID 同源），單一 ID 著陸會直接彈出該通告嘅專屬頁（標題＋區徽＋截止/對象/費用/名額＋開附件/分享/複製連結），分享面板「複製連結」一撳攞鏈，貼上 IG Story link sticker 就形成 Story → 圖書館閉環
+  - IG 分享圖（2026-09-21）：瀏覽器 canvas 即畫 1080×1350，用人者裝置字體同記憶體，**唔經任何 Vercel function／storage**；取代 2026-09-16 移除嘅 server-side render（PyMuPDF）——Vercel 爆容量嘅真兇係 Python 依賴入 bundle（見 VERCEL_EMERGENCY_CLEANUP_2026-09-19.md），唔係圖片儲存，所以 server render 唔會返嚟
 - `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
@@ -23,9 +24,14 @@
 - `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
 - `subscription_stats.py`：管理員本機執行，用 service key 統計訂閱人數及各支部／項目的訂閱數（只出彙總，不出個資）；`schema.sql` 末段亦有對應 SQL
 - `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
+- `api/pdf_proxy.py`：stdlib-only PDF byte bridge（2026-09-21）。「分享 → 轉換內文做圖」用 pdf.js 喺用戶部機 rasterize，但 49 個來源站大部分冇 CORS，所以呢個 function 淨係過橋攞 bytes：零依賴、零儲存、4MB 上限、`%PDF` magic 檢查、只 proxy cache.json 列出嘅通告 URL（防 open-relay），回應俾 Vercel edge cache 一星期
 - `serve_local.py`：本機同時提供靜態頁 + `/api/push-*`
 - `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）
 - `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
+- `icons/orgs/` + `tools/fetch_org_logos.py` + `tools/build_org_avif.mjs` + `.github/workflows/org-icons.yml`（2026-09-21）：49 個童軍組織（總會＋5 地域＋43 區）官方徽號，正規化成 256/64 AVIF（每個 3–11KB），出 Story 時做區徽角標用。官方檔全部喺 scout.org.hk「Regions and Districts」頁；官方補捉行 `org-icons` workflow（Actions 手動掣）一次搞掂，預覽喺 `/icons/orgs/preview.html`
+- `story_queue.py` + `.github/workflows/story-queue.yml`（2026-09-21）：「今日 Story 清單」。每日 12:00 HKT（凌晨 GitHub scrape ＋ 朝早 05:00 本機補底兩輪都行完之後）由 cache.json 揀 `captured_date=今日`、join 埋 `enrich.json` 嘅 截止/對象/費用 兼分好類（**訓練／服務／活動／比賽／其他**；「Scout System 小工具」唔入清單），按截止日排序頭 20 條寫 `story-queue.json`,15:30 HKT 補跑一次。stdlib only,15 秒行完
+- `tools/render_story_templates.py`（2026-09-21）：Story 草稿出圖。食 `story-queue.json`，9 款 Pillow 模板（訓練三色噴霧／比賽金黑／活動軍綠／服務 WANTED 羊皮紙／其他六款 UNC 風）出 1080×1920 PNG：右上直貼**真區徽**（PNG 版，`build_org_avif.mjs` 會連埋 `<slug>-256.png` 出，fallback 鏈 區→地域→總會）、CJK 逐字斷行（年份、`HK$50` 呢類 ASCII token 唔會斷開）、底部四卡（截止/對象/費用/頒佈）攞 enrich 實數、打尾 `經 通告圖書館整理 @noscout.system` credit。邊張通告配邊款由 `md5(url)` 定死 —— 同一通告永遠同款。中文硬性要 Noto Sans CJK（workflow 會 apt 裝），無字體會即場彈錯。runtime：`python3 tools/render_story_templates.py`（本地要 `pip install pillow`）
+- `.github/workflows/story-draft.yml`（2026-09-21）：中間路全自動草稿。Story Queue workflow 行完即觸發（＋15:55 HKT 保底 cron，保底班會自己重砌 queue），runner 裝 `fonts-noto-cjk` + Pillow → 出齊今日 20 張草稿 → **force-push 去 `stories` 分支**（`stories/<日期>/*.png` + manifest.json + branch 級 `index.json`，淨留最近 7 日；main 分支歷史零 PNG bloat，raw.githubusercontent 直接喺手機開到）。**發佈人手做**：IG API 出嘅 Story 貼唔到 link sticker，所以流程係 揀草稿 → 手機貼 Story → link sticker 貼該通告嘅專屬頁（app 分享面板「複製連結」一撳攞 `?n=` link）—— 畫圖全自動、貼圖半自動，閉環完備。**草稿重用**：通告專屬頁（`?n=`）會 fetch `stories/stories/index.json`，呢張通告 7 日內有出草稿就喺頁頂插 hero 圖（撳開原圖／長按可儲存貼 Story）；熱連結 GitHub CDN 所以 **Vercel 儲存零新增**，搵唔到就靜靜顯示純文字版
 
 ## 圖示
 

@@ -14,3 +14,5 @@ enrich_review.md
 !.env.example
 # run-local-scrape-logged.bat 嘅本機輸出日誌（只喺本機有用，唔好 commit）
 logs/
+# Story 草稿出圖（stories 分支 force-push 先係家；main 唔塞 PNG）
+output/

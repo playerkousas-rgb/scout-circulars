@@ -1,0 +1,59 @@
+# ============================================================
+# 童軍組織徽號同步（workflow_dispatch 手動撳掣用）
+#
+# 做咩：總會官網（scout.org.hk）捉 49 個官方徽號 → 正規化成 AVIF
+#   （icons/orgs/*-256.avif / *-64.avif ＋ orgs.json）→ 自動 commit。
+#
+# 點解要行喺 Actions：scout.org.hk 喺香港網絡先捉到；本機（HK）或者
+#   GitHub runner 都得，開發 sandbox 反而出唔去。行一次就夠；總會
+#   幾時換咗徽號再撳多次（idempotent，已有檔會 skip；要重捉先刪 src/）。
+#
+# sharp 係 build-time 工具：裝喺 runner、唔入 package.json、
+#   唔入 Vercel function bundle —— bundle guard 繼續綠。
+# ============================================================
+
+name: Sync Scout Org Icons
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scout-circulars-org-icons
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+      TZ: "Asia/Hong_Kong"
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python + Node
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 捉官方徽號（stdlib，官網 scout.org.hk）
+        run: python3 tools/fetch_org_logos.py
+
+      - name: 正規化成 AVIF（sharp 只係 build-time 工具）
+        run: |
+          npm install --no-save sharp
+          node tools/build_org_avif.mjs
+
+      - name: Commit icons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add icons/orgs/
+          git diff --cached --quiet || (git commit -m "🎖 Sync scout org icons (official badges → AVIF)" && git pull --rebase && git push)
