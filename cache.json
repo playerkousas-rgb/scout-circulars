@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-21 05:00:10",
+  "last_updated": "2026-09-22 04:25:23",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4830,
+    "total_notices": 4831,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -37350,6 +37350,15 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
+        "date": "2026-09-22",
+        "captured_date": "2026-09-22",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "第2屆地球部落領袖工作坊-日光善用者挑戰暨第3屆地球部落領袖工作坊-自然守護者挑戰",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6BYkHsJYnRzC7q4sIOc7Tp/139a3b87b448e68aed3cd10efbd778a6/OD_cir_02-26.pdf",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/6BYkHsJYnRzC7q4sIOc7Tp/139a3b87b448e68aed3cd10efbd778a6/OD_cir_02-26.pdf",
@@ -43575,6 +43584,13 @@
     "Scout System": []
   },
   "notices": [
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
+      "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
+      "captured_date": "2026-09-22"
+    },
     {
       "source_site": "柴灣區",
       "region": "港島地域",
@@ -77514,17 +77530,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-21 05:00:10",
+      "updated_at": "2026-09-22 04:25:23",
       "new": 1,
-      "updated": 3513,
-      "daily_new": 2,
-      "skipped": 4,
+      "updated": 249,
+      "daily_new": 1,
+      "skipped": 37,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
         "離島區 (expected_empty)",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]

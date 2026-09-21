@@ -49156,5 +49156,24 @@
     "title_check": "verified",
     "enriched_at": "2026-09-21 05:07:32",
     "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf": {
+    "source": "新界東地域",
+    "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-22 04:30:19",
+    "enrich_version": "3.2"
   }
 }
