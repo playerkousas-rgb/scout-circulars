@@ -90,7 +90,7 @@ function boot(qs = '') {
           measureText: (t) => ({ width: String(t).length * 18 }),
           fillRect() {}, strokeRect() {}, fillText() {}, beginPath() {}, closePath() {},
           moveTo() {}, lineTo() {}, arc() {}, arcTo() {}, save() {}, restore() {},
-          translate() {}, stroke() {}, fill() {}, rect() {}, clip() {},
+          translate() {}, rotate() {}, scale() {}, stroke() {}, fill() {}, rect() {}, clip() {},
           createLinearGradient: () => fakeGradient, createRadialGradient: () => fakeGradient,
         };
       };
@@ -240,6 +240,49 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(!igBox.querySelector('[data-role="igdl"]').download.includes('-story')
      && storyBtn.textContent.includes('Story 版'),
      '再切返 4:5：檔名同掣面都還原');
+
+  // ── 12 款設計（2026-09-22）：同 Actions 草稿（Pillow render_story_templates.py）
+  //    同一套款、同一個揀款算法（md5(url) % pool），所以 app 出嘅圖同草稿係同一款 ──
+  const DESIGN_IDS = ['train_blue', 'train_orange', 'train_green', 'competition_gold_black',
+    'activity_army', 'service_wanted', 'unc_scope', 'unc_topsecret', 'unc_glitch',
+    'unc_wanted_parchment', 'unc_wanted_red', 'unc_wanted_blackfin'];
+  ok(w.eval('md5Hex("")') === 'd41d8cd98f00b204e9800998ecf8427e'
+     && w.eval('md5Hex("abc")') === '900150983cd24fb0d6963f7d28e17f72'
+     && w.eval('md5Hex("通告")') === 'ec8914bcafa641cb122a396181b0801e',
+     '內建 MD5 同 hashlib 對齊（空字串／abc／中文向量；唔用 TextEncoder，舊機都有）');
+  ok(w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf"},{categories:[{id:"training"}]})') === 'train_blue'
+     && w.eval('posterAutoDesignId({pdf_url:"https://x/2.pdf"},{categories:[{id:"training"}]})') === 'train_orange'
+     && w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf"},{categories:[{id:"competition"}]})') === 'competition_gold_black'
+     && w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf"},{})') === 'unc_wanted_parchment',
+     '揀款算法跟 Pillow：md5(pdf_url) % pool（訓練 3 款 / 比賽 1 款 / 其他 6 款，hash 固定唔會日日變樣）');
+  ok(w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf",category:"service"},{})') === 'service_wanted',
+     'queue 出嘅 flat category 都揀得中（service → WANTED 羊皮紙）');
+  const designWrap = igBox.querySelector('[data-role="igdesigns"]');
+  const designBtns = designWrap ? [...designWrap.querySelectorAll('button')] : [];
+  ok(designBtns.map(b => b.dataset.id).join(',') === DESIGN_IDS.join(','),
+     '12 款縮圖次序同 Pillow POOLS 一致：' + designBtns.map(b => b.dataset.id).join(' '));
+  ok(designBtns.every(b => b.dataset.act === 'ig-design' && b.title.includes('換款')), '縮圖掣帶款名 tooltip');
+  ok(designBtns.filter(b => b.classList.contains('active')).length === 1
+     && designBtns.find(b => b.classList.contains('active')).dataset.id === 'train_blue',
+     '第一次出圖會自動亮起跟分類嗰款（B 卡 = 訓練 → train_blue）');
+  const dlName0 = igBox.querySelector('[data-role="igdl"]').download;
+  click(w, designBtns.find(b => b.dataset.id === 'unc_topsecret')); await wait(80);
+  ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active')
+     && designBtns.filter(b => b.classList.contains('active')).length === 1,
+     '撳「通告・絕密檔案」→ 即換款（只有佢 active）');
+  ok(igBox.querySelector('[data-role="igdl"]').download === dlName0 && igBox.querySelector('img').src === 'blob:fake',
+     '換款只換畫法，檔名／預覽機制不變');
+  click(w, designBtns.find(b => b.dataset.id === 'unc_topsecret')); await wait(60);
+  ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
+     '再撳同一款：no-op，唔會彈返自動款');
+  click(w, storyBtn); await wait(80);   // 揀咗款之後切 Story：款要跟住行
+  ok(igBox.querySelector('[data-role="igdl"]').download.includes('-story.png')
+     && designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
+     '揀咗「絕密檔案」再切 Story：款保留、只換 9:16 版型');
+  click(w, storyBtn); await wait(80);
+  ok(!igBox.querySelector('[data-role="igdl"]').download.includes('-story')
+     && designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
+     '切返 4:5：款照樣保留');
 
   // PDF 內容出圖（pdf.js client-side；bytes 經 stdlib /api/pdf-proxy byte bridge 入）
   ok(html.includes('cdn.jsdelivr.net/npm/pdfjs-dist@4'), 'pdf.js 由 CDN lazy-load（唔入 repo、唔入 Vercel bundle）');
