@@ -4107,15 +4107,17 @@
 
     const BATCH_NO_DATE = '9999-99-99';
 
-    // 同 story_queue.py pick_today/build_queue 一樣：今日新入庫 → 排截止日 → 頭 N 條
-    function batchQueueToday(cache, enrich, today, limit) {
+    // 同 story_queue.py pick_today/build_queue 一樣：當日新入庫 → 排通告日期 → 頭 N 條
+    // dates 可以係多日（出圖台「連近 N 日」用），單日就係今日。
+    function batchQueueRange(cache, enrich, dates, limit) {
+      const want = new Set(dates);
       const out = [];
       const data = (cache && cache.data) || {};
       for (const [section, arr] of Object.entries(data)) {
         if (!Array.isArray(arr)) continue;
         for (const it of arr) {
           if (!it || typeof it !== 'object') continue;
-          if (String(it.captured_date || '').slice(0, 10) !== today) continue;
+          if (!want.has(String(it.captured_date || '').slice(0, 10))) continue;
           const ex = (enrich && (enrich[it.pdf_url] || enrich[it.url])) || null;
           const category = batchCategory(it, ex);
           if (category === 'tools') continue;   // 小工具唔係通告，唔出 Story
@@ -4140,6 +4142,10 @@
         return ka < kb ? -1 : ka > kb ? 1 : 0;
       });
       return out.slice(0, limit > 0 ? limit : BATCH_LIMIT_DEFAULT);
+    }
+
+    function batchQueueToday(cache, enrich, today, limit) {
+      return batchQueueRange(cache, enrich, [today], limit);
     }
 
     function batchFileName(item, idx, story, designId) {
@@ -4193,10 +4199,23 @@
       const params = new URLSearchParams(location.search);
       const limit = Math.max(1, Math.min(60, Number(params.get('limit')) || BATCH_LIMIT_DEFAULT));
       const today = batchTodayHkt();
-      const queue = batchQueueToday(state.cache, state.enrich, today, limit);
 
       let story = params.get('mode') === 'story';
       let design = params.get('design') && POSTER_DESIGN_BY_ID[params.get('design')] ? params.get('design') : 'auto';
+      let days = Math.max(1, Math.min(30, Number(params.get('days')) || 1));
+      let anchorDate = /^\d{4}-\d{2}-\d{2}$/.test(params.get('date') || '') ? params.get('date') : today;
+      let queue = [];
+      // 由 anchorDate 起倒數 N 日（純 UTC 計，唔會受時區／夏令影響）
+      const datesFor = (anchor, n) => {
+        const out = [];
+        const [y, m, d] = String(anchor).split('-').map(Number);
+        for (let i = 0; i < n; i++) {
+          const dt = new Date(Date.UTC(y, m - 1, d));
+          dt.setUTCDate(dt.getUTCDate() - i);
+          out.push(dt.toISOString().slice(0, 10));
+        }
+        return out;
+      };
 
       const backdrop = document.createElement('div');
       backdrop.className = 'batch-backdrop';
@@ -4214,13 +4233,21 @@
               <option value="auto">自動（跟分類，同草稿一致）</option>
               ${POSTER_DESIGNS.map((d) => `<option value="${d.id}">${d.label}</option>`).join('')}
             </select></label>
+            <label>日期：<input type="date" data-role="batchdate"></label>
+            <label>範圍：<select data-role="batchrange">
+              <option value="1">只出呢日</option>
+              <option value="3">連近 3 日</option>
+              <option value="7">連近 7 日</option>
+              <option value="30">連近 30 日</option>
+            </select></label>
             <button type="button" data-role="batchmode">📱 出 Story 版</button>
             <button type="button" class="primary" data-role="batchsave">💾 全部儲存到資料夾</button>
             <span class="batch-progress" data-role="batchprogress"></span>
           </div>
           <p class="batch-hint">全部圖都係你自己部機嘅 canvas 畫，唔經伺服器、唔會上傳。<br>
             Chrome／Edge 可以一撳揀個資料夾就寫晒 20 張入去；Safari／手機就會逐張下載。<br>
-            呢版可以直接加 <code>?limit=6</code> 試少幾張，或者 <code>&amp;design=unc_topsecret</code> 指定款。</p>
+            呢版可以直接加 <code>?limit=6</code> 試少幾張、<code>&amp;date=2026-09-21&amp;days=3</code> 補做之前幾日，
+            或者 <code>&amp;design=unc_topsecret</code> 指定款。</p>
           <div class="batch-grid" data-role="batchgrid"></div>
         </div>`;
       document.body.appendChild(backdrop);
@@ -4232,56 +4259,79 @@
       const saveBtn = q('[data-role="batchsave"]');
       designSel.value = design;
       modeBtn.textContent = story ? '🖼 出 4:5 feed 版' : '📱 出 Story 版';
-      q('[data-role="batchmeta"]').textContent =
-        `${today} ・ ${queue.length} 張${queue.length ? '' : '（今日冇新通告；試下 ?limit 或者等 scrape 更新）'}`;
+      const metaEl = q('[data-role="batchmeta"]');
+      const dateInput = q('[data-role="batchdate"]');
+      const rangeSel = q('[data-role="batchrange"]');
+      dateInput.value = anchorDate;
+      rangeSel.value = String(days);
 
-      const cards = [];
-      for (const [idx, item] of queue.entries()) {
-        const fig = document.createElement('figure');
-        fig.className = 'batch-card';
-        const img = document.createElement('img');
-        img.alt = item.title;
-        const cap = document.createElement('figcaption');
-        const t = document.createElement('span');
-        t.className = 'batch-title';
-        t.textContent = item.title;
-        const meta = document.createElement('span');
-        meta.className = 'batch-meta';
-        meta.textContent = [item.source_site, item.category, item.deadline ? `截止 ${item.deadline}` : ''].filter(Boolean).join(' ・ ');
-        const dl = document.createElement('button');
-        dl.type = 'button';
-        dl.textContent = '⬇ 下載';
-        dl.addEventListener('click', async () => {
-          dl.disabled = true;
-          try {
-            const badgeImg = await orgBadgeImgFor(item).catch(() => null);
-            const cv = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg });
-            const blob = cv && typeof cv.toBlob === 'function'
-              ? await new Promise((res) => cv.toBlob((b) => res(b), 'image/png')) : null;
-            if (!blob) { progress.textContent = '出唔到圖，試下換款或更新瀏覽器。'; return; }
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = batchFileName(item, idx, story, (cv && cv.__designId) || design);
-            document.body.appendChild(a); a.click(); a.remove();
-            setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
-            progress.textContent = `已出：${a.download}`;
-          } finally {
-            dl.disabled = false;
-          }
+      let cards = [];
+      let paintToken = 0;
+
+      function renderGrid() {
+        paintToken += 1;
+        grid.innerHTML = '';
+        cards = [];
+        queue.forEach((item, idx) => {
+          const fig = document.createElement('figure');
+          fig.className = 'batch-card';
+          const img = document.createElement('img');
+          img.alt = item.title;
+          const cap = document.createElement('figcaption');
+          const tt = document.createElement('span');
+          tt.className = 'batch-title';
+          tt.textContent = item.title;
+          const meta = document.createElement('span');
+          meta.className = 'batch-meta';
+          meta.textContent = [item.source_site, item.category, item.captured_date,
+            item.deadline ? `截止 ${item.deadline}` : ''].filter(Boolean).join(' ・ ');
+          const dl = document.createElement('button');
+          dl.type = 'button';
+          dl.textContent = '⬇ 下載';
+          dl.addEventListener('click', async () => {
+            dl.disabled = true;
+            try {
+              const badgeImg = await orgBadgeImgFor(item).catch(() => null);
+              const cv = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg });
+              const blob = cv && typeof cv.toBlob === 'function'
+                ? await new Promise((res) => cv.toBlob((b) => res(b), 'image/png')) : null;
+              if (!blob) { progress.textContent = '出唔到圖，試下換款或更新瀏覽器。'; return; }
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = batchFileName(item, idx, story, (cv && cv.__designId) || design);
+              document.body.appendChild(a); a.click(); a.remove();
+              setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+              progress.textContent = `已出：${a.download}`;
+            } finally {
+              dl.disabled = false;
+            }
+          });
+          cap.appendChild(tt); cap.appendChild(meta); cap.appendChild(dl);
+          fig.appendChild(img); fig.appendChild(cap);
+          grid.appendChild(fig);
+          cards.push({ fig, img, item });
         });
-        cap.appendChild(t); cap.appendChild(meta); cap.appendChild(dl);
-        fig.appendChild(img); fig.appendChild(cap);
-        grid.appendChild(fig);
-        cards.push({ fig, img, item });
+      }
+
+      function rebuild() {
+        queue = batchQueueRange(state.cache, state.enrich, datesFor(anchorDate, days), limit);
+        const span = days > 1 ? `${anchorDate} 起近 ${days} 日` : anchorDate;
+        metaEl.textContent = `${span} ・ ${queue.length} 張`
+          + (queue.length ? '' : '（呢日冇新通告；試下揀另一日、加大範圍，或者等 scrape 更新）');
+        saveBtn.disabled = !queue.length;
+        renderGrid();
+        paintThumbs(false);
       }
 
       let painting = false;
       async function paintThumbs(full) {
         if (painting) return;
         painting = true;
+        const token = paintToken;
         try {
           for (let i = 0; i < cards.length; i++) {
+            if (token !== paintToken) return;   // 換咗日／換咗款，舊 paint 唔好再寫落新卡片
             const { img, item } = cards[i];
             const badgeImg = full ? await orgBadgeImgFor(item).catch(() => null) : null;
             const scale = full ? 1 : 0.22;
@@ -4295,7 +4345,7 @@
           painting = false;
         }
       }
-      paintThumbs(false);
+      rebuild();
 
       designSel.addEventListener('change', () => { design = designSel.value; paintThumbs(false); });
       modeBtn.addEventListener('click', () => {
@@ -4303,6 +4353,10 @@
         modeBtn.textContent = story ? '🖼 出 4:5 feed 版' : '📱 出 Story 版';
         paintThumbs(false);
       });
+      dateInput.addEventListener('change', () => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateInput.value)) { anchorDate = dateInput.value; rebuild(); }
+      });
+      rangeSel.addEventListener('change', () => { days = Number(rangeSel.value) || 1; rebuild(); });
       saveBtn.addEventListener('click', async () => {
         if (!queue.length) { progress.textContent = '今日冇新通告，冇嘢出。'; return; }
         saveBtn.disabled = true;

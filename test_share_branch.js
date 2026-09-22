@@ -421,6 +421,25 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     await wait(80);
     ok(view.querySelector('[data-role="batchmode"]').textContent.includes('4:5'),
        '撳「出 Story 版」→ 變「出 4:5 feed 版」（切換 work）');
+    // 日期／範圍：可以補做之前幾日，唔會淨係得今日
+    const before = view.querySelectorAll('.batch-card').length;
+    const rangeSel = view.querySelector('[data-role="batchrange"]');
+    rangeSel.value = '30';   // fixture 有一張 20 日前嘅通告，用 30 日範圍包返佢
+    rangeSel.dispatchEvent(new domB.window.Event('change', { bubbles: true }));
+    await wait(200);
+    const after = view.querySelectorAll('.batch-card').length;
+    ok(after > before, `範圍揀「連近 30 日」→ 卡片由 ${before} 變 ${after} 張（補做舊通告）`);
+    ok(/起近 30 日/.test(view.querySelector('[data-role="batchmeta"]').textContent),
+       '標題行講明而家睇緊邊段日期');
+    const todayIso = iso(today);
+    const mkR = (title, dt, src) => ({ title, url: 'https://x/' + encodeURIComponent(title), pdf_url: 'https://x/' + encodeURIComponent(title), date: dt, captured_date: dt, source_site: src, region: src });
+    const cacheR = { data: { 筲箕灣區: [mkR('今日一', iso(today), '筲箕灣區'), mkR('尋日嘅', daysAgo(1), '筲箕灣區'), mkR('上月嘅', daysAgo(30), '筲箕灣區')] } };
+    ok(w.eval('batchQueueRange')(cacheR, {}, [todayIso, daysAgo(1)], 20).length === 2,
+       'batchQueueRange 食多日：今日 1 + 尋日 1 ＝ 2 張');
+    ok(w.eval('batchQueueRange')(cacheR, {}, [daysAgo(1)], 20)[0].title === '尋日嘅',
+       '指定日子即刻出得返嗰日嘅通告（?date= 補做）');
+    ok(w.eval('batchQueueRange')(cacheR, {}, [daysAgo(29)], 20).length === 0,
+       '範圍以外嘅日子唔會偷走出嚟（30 日前唔算近 30 日）');
     click(domB.window, view.querySelector('.batch-close'));
     await wait(30);
     ok(!dB.querySelector('.batch-backdrop'), '× 關得返');
