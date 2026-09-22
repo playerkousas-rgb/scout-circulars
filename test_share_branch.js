@@ -69,7 +69,8 @@ function fakeFetch(win) {
   };
 }
 
-function boot(qs = '') {
+// opts.touch === false → 扮「電腦」（jsdom 本身有 ontouchstart，所以當手機係預設）
+function boot(qs = '', opts = {}) {
   const clip = { text: null, items: null };
   const dom = new JSDOM(html, {
     runScripts: 'dangerously',
@@ -79,6 +80,21 @@ function boot(qs = '') {
       win.fetch = fakeFetch(win);
       win.alert = () => {}; win.confirm = () => true;
       win.URL.createObjectURL = () => 'blob:fake'; win.URL.revokeObjectURL = () => {};
+      if (opts.touch === false) {
+        // 冇 touch 特徵（isTouchLikeDevice() → false），即係電腦版
+        try { delete win.ontouchstart; } catch (_) {}
+        Object.defineProperty(win.navigator, 'maxTouchPoints', { value: 0, configurable: true });
+      }
+      // 「貼去平台」開新分頁（jsdom 冇實作 window.open）
+      win.__opened = [];
+      win.open = (url) => {
+        const tab = { location: { href: url || '' }, closed: false, close() { this.closed = true; } };
+        win.__opened.push(tab);
+        return tab;
+      };
+      if (typeof win.ClipboardItem === 'undefined') {
+        win.ClipboardItem = class ClipboardItem { constructor(data) { this.data = data; } };
+      }
       // 「直接分享」測試용：扮支援 Web Share files，落個 spy 落 win.__shared
       win.__shared = [];
       Object.defineProperty(win.navigator, 'canShare', { value: () => true, configurable: true });
@@ -288,10 +304,67 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(html.includes('cdn.jsdelivr.net/npm/pdfjs-dist@4'), 'pdf.js 由 CDN lazy-load（唔入 repo、唔入 Vercel bundle）');
   ok(html.includes('/api/pdf-proxy?u='), 'PDF bytes 經 /api/pdf-proxy 過橋（CORS 冇開嘅區會站先要用）');
   const p2iBtn = sheet.querySelector('[data-act="pdf2img"]');
-  ok(!!p2iBtn && !!sheet.querySelector('[data-role="pdfshare"]'), '分享面板有「轉換內文做圖」掣＋其「直接分享」掣');
+  ok(!!p2iBtn && !!sheet.querySelector('[data-role="pdfshare"]'), '分享面板有「轉換內文做圖」掣＋其「分享圖片」掣');
+  ok(!!sheet.querySelector('[data-role="pdfcopy"]') && !!sheet.querySelector('[data-role="pdfdl"]'),
+     'PDF 圖有「下載圖片」＋「複製圖片」掣（電腦版唔使靠系統分享）');
+  ok($$(d, '[data-role="pdfsocial"] button[data-act="img-target"]').map(b => b.dataset.target).join(',') === 'wa,tg,fb,x',
+     'PDF 圖有「貼去 WhatsApp／Telegram／Facebook／X」四個掣（電腦版複製＋開平台）');
   click(w, p2iBtn); await wait(160);
   ok(d.querySelector('.share-toast') && (d.querySelector('.share-toast').textContent || '').includes('轉換唔到'),
      'jsdom 載入唔到 pdf.js → 有 toast 回饋，唔會靜靜失敗');
+
+  // ── PDF 落款（廣告位，2026-09-22）：同純文字分享同一句落款＋該通告深鏈 ──
+  const footer = w.eval('pdfImageFooter({source_site:"筲箕灣區",title:"童軍技能訓練班",pdf_url:"' + PDF_B + '",url:"' + PDF_B + '"},2,3)');
+  ok(footer.title === '【筲箕灣區】童軍技能訓練班', '落款第一行：【區會】標題：' + footer.title);
+  ok(footer.credit === '經 通告圖書館 v5.11 整理 @noscout.system',
+     '落款第二行同純文字分享第 3 行一樣：' + footer.credit);
+  ok(/^完整通告＋最新截止日期：example\.org\/\?n=[0-9a-f]{16}$/.test(footer.linkLine),
+     '落款第三行係該通告嘅專屬深鏈：' + footer.linkLine);
+  ok(footer.page === '第 2 / 3 版', '多版 PDF 會標明版本：' + footer.page);
+  ok(w.eval('pdfImageFooter({title:"單版通告"},{pdf_url:"x",url:"x"},1,1).page') === '',
+     '單版 PDF 唔會多餘標「第 1 / 1 版」');
+  ok(html.includes('composePdfImage(cv, item, num, pdfDoc.numPages'), 'renderPdfPage 真係用 composePdfImage 落款');
+  {
+    // jsdom 嘅假 canvas 冇 drawImage：落款唔可以因此失去張圖（fail-safe）
+    const fakePage = d.createElement('canvas');
+    fakePage.width = 800; fakePage.height = 1100;
+    const fakeItem = { source_site: '筲箕灣區', title: 'x', pdf_url: PDF_B, url: PDF_B };
+    const out = w.eval('composePdfImage')(fakePage, fakeItem, 1, 1, null);
+    ok(out === fakePage, '落款畫唔到（環境唔支援）就原圖照出，唔會冇咗張圖');
+  }
+
+  // ── 圖片分享掣規則：手機＝系統分享；電腦＝複製圖片＋「貼去平台」 ──
+  const uiMobile = w.eval('imageShareUi(true,true)'), uiMobileNoShare = w.eval('imageShareUi(true,false)'), uiDesktop = w.eval('imageShareUi(false,true)');
+  ok(uiMobile.system === true && uiMobile.social === false, '手機＋支援 Web Share → 出「分享圖片」，唔出「貼去…」');
+  ok(uiMobileNoShare.system === false && uiMobileNoShare.social === false, '手機但唔支援 Web Share（例如 App 內置瀏覽器）→ 兩個都唔出，用「複製圖片」');
+  ok(uiDesktop.system === false && uiDesktop.social === true, '電腦 → 唔出系統分享（嗰個面板分享唔到去社交平台），出「貼去…」');
+  {
+    ok(sheet.querySelector('[data-role="igsocial"]').hidden, '手機面板：唔出「貼去…」列（直接用系統分享）');
+    // 電腦版：複製圖片 ＋「貼去 WhatsApp／Telegram…」＝複製＋開平台＋貼上
+    const domD = boot('', { touch: false });
+    const wD = domD.window, dD = wD.document;
+    await wait(700);
+    const cardD = [...dD.querySelectorAll('#cards .card')].find(c => c.querySelector('h3').textContent === '童軍技能訓練班');
+    click(wD, cardD.querySelector('.share-btn')); await wait(60);
+    const sheetD = dD.querySelector('.share-sheet');
+    click(wD, sheetD.querySelector('[data-act="ig"]')); await wait(90);
+    const boxD = sheetD.querySelector('[data-role="igbox"]');
+    ok(boxD && !boxD.hidden, '電腦版：照樣出到 IG 圖預覽');
+    ok(sheetD.querySelector('[data-role="igshare"]').hidden, '電腦版：「分享圖片」（系統分享）收埋唔出，唔會似壞咗');
+    ok(!sheetD.querySelector('[data-role="igsocial"]').hidden && !boxD.querySelector('[data-role="igcopy"]').hidden,
+       '電腦版：「貼去…」列同「複製圖片」都出齊');
+    click(wD, boxD.querySelector('[data-role="igcopy"]')); await wait(40);
+    ok(domD.clip.items && domD.clip.items.length === 1, '「複製圖片」真係寫咗 ClipboardItem 落剪貼板');
+    ok((dD.querySelector('.share-toast')?.textContent || '').includes('已複製圖片'), '複製完有 toast 提你貼去邊');
+    click(wD, sheetD.querySelector('[data-role="igsocial"] button[data-target="tg"]')); await wait(60);
+    ok(wD.__opened.length === 1 && wD.__opened[0].location.href === 'https://web.telegram.org/a/',
+       '撳「貼去 Telegram」→ 開 Telegram 網頁預備貼圖');
+    ok(domD.clip.items.length === 1 && (dD.querySelector('.share-toast')?.textContent || '').includes('Ctrl'),
+       '同時複製咗圖片，toast 教貼上（Ctrl／⌘+V）');
+    click(wD, sheetD.querySelector('[data-role="pdfsocial"] button[data-target="wa"]')); await wait(40);
+    ok((dD.querySelector('.share-toast')?.textContent || '').includes('請先產生圖片'),
+       '未出 PDF 圖就撳「貼去 WhatsApp」→ 有提示，唔會靜靜冇反應');
+  }
 
   // 「複製連結」＝ 通告專屬頁深鏈（IG Story link sticker 就貼呢條）
   const copyLinkBtn = sheet.querySelector('[data-act="copy-link"]');

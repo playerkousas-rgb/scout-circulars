@@ -351,9 +351,14 @@
     .share-ig-designs button.active { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand) inset; }
     @media (max-width: 520px) { .share-ig-designs { grid-template-columns: repeat(4, 1fr); } }
     .share-ig-hint { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
-    .share-ig-actions { display: flex; gap: 8px; margin-top: 10px; }
-    .share-ig-actions a, .share-ig-actions button { flex: 1; text-align: center; padding: 10px 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .share-ig-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .share-ig-actions a, .share-ig-actions button { flex: 1 1 112px; min-width: 0; text-align: center; padding: 10px 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; }
     .share-ig-actions a:hover, .share-ig-actions button:hover { background: rgba(255,255,255,.1); }
+    /* 電腦版「貼去平台」：一撳複製圖片＋開平台，貼上即發 */
+    .share-ig-shareto { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
+    .share-ig-shareto span { color: var(--muted); font-size: 12px; }
+    .share-ig-shareto button { padding: 7px 12px; border-radius: 9px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+    .share-ig-shareto button:hover { background: rgba(255,255,255,.12); }
     /* ── 通告專屬頁（Story link sticker 著陸用；push 直連通告唔經呢度）── */
     .notice-backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(2,8,23,.7); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 18px; }
     .notice-page { width: min(560px, 100%); max-height: 88vh; overflow: auto; background: linear-gradient(180deg, #111d32, #0b1424); border: 1px solid rgba(96,165,250,.42); border-radius: 18px; box-shadow: 0 18px 40px rgba(0,0,0,.5); padding: 26px 24px 16px; }
@@ -2312,6 +2317,98 @@
       ctx.fillText(POSTER_CREDIT, L.MX, L.creditY);
     }
 
+    function posterTruncate(ctx, text, maxW) {
+      let s = String(text == null ? '' : text);
+      if (ctx.measureText(s).width <= maxW) return s;
+      while (s.length > 1 && ctx.measureText(s + '…').width > maxW) s = s.slice(0, -1);
+      return s + '…';
+    }
+
+    // ── PDF 內文出圖嘅「落款位」（廣告位）────────────────────────────────
+    // 同純文字分享嘅第 3 行一模一樣：經 通告圖書館 v5.11 整理 @noscout.system，
+    // 另加該通告嘅深鏈 —— 人哋收到圖就知去邊度搵返完整通告同最新截止日期。
+    // 純 canvas，零 function／零 storage／零上傳，所以「無負擔」。
+    function pdfImageFooter(item, pageNum, pageCount) {
+      const site = String((item && item.source_site) || '').trim();
+      const title = String((item && item.title) || '未命名通告').replace(/\s+/g, ' ').trim();
+      let link = '';
+      try { link = String(noticeLinkFor(item) || '').replace(/^https?:\/\//, ''); } catch (_) { link = ''; }
+      return {
+        title: (site ? `【${site}】` : '') + title,
+        page: pageCount > 1 ? `第 ${pageNum} / ${pageCount} 版` : '',
+        credit: SHARE_CREDIT.replace(/^-+/, ''),
+        linkLine: link ? `完整通告＋最新截止日期：${link}` : '',
+      };
+    }
+
+    // 版面上：PDF 原頁 + 底部落款帶（深藍底＋品牌 accent 線＋區徽＋三行字）
+    // 任何一步失敗都回原頁，唔會因為落款而失去張圖。
+    function composePdfImage(pageCanvas, item, pageNum, pageCount, badgeImg) {
+      const W = pageCanvas.width, H = pageCanvas.height;
+      if (!W || !H) return pageCanvas;
+      const f = pdfImageFooter(item, pageNum, pageCount);
+      const pad = Math.round(W * 0.042);
+      const bandH = Math.max(140, Math.round(W * 0.17));
+      const out = document.createElement('canvas');
+      out.width = W; out.height = H + bandH;
+      const ctx = out.getContext('2d');
+      if (!ctx) return pageCanvas;
+      try {
+        ctx.drawImage(pageCanvas, 0, 0);
+        const y0 = H;
+        ctx.fillStyle = '#0d1626';
+        ctx.fillRect(0, y0, W, bandH);
+        ctx.fillStyle = '#3b82f6';
+        ctx.fillRect(0, y0, W, Math.max(4, Math.round(W * 0.005)));
+        // 區徽（有就畫，冇就純文字，唔會空一格）
+        let tx = pad;
+        const tile = Math.round(bandH * 0.64);
+        if (badgeImg && badgeImg.width && badgeImg.height) {
+          const bx = pad, by = y0 + Math.round((bandH - tile) / 2);
+          posterRoundRect(ctx, bx, by, tile, tile, Math.round(tile * 0.22));
+          ctx.fillStyle = 'rgba(255,255,255,.95)';
+          ctx.fill();
+          const rr = Math.min((tile - Math.round(tile * 0.16)) / badgeImg.width,
+                              (tile - Math.round(tile * 0.16)) / badgeImg.height);
+          const dw = badgeImg.width * rr, dh = badgeImg.height * rr;
+          ctx.drawImage(badgeImg, bx + (tile - dw) / 2, by + (tile - dh) / 2, dw, dh);
+          tx = pad + tile + Math.round(pad * 0.55);
+        }
+        const sTitle = Math.round(bandH * 0.175);
+        const sCredit = Math.round(bandH * 0.140);
+        const sLink = Math.round(bandH * 0.115);
+        const avail = W - tx - pad;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        // 第一行：標題（左）＋ 第 N/M 版（右）
+        let pageW = 0;
+        if (f.page) {
+          ctx.font = `400 ${sLink}px ${POSTER_FONT}`;
+          pageW = ctx.measureText(f.page).width + Math.round(pad * 0.6);
+          ctx.fillStyle = '#8ea2c6';
+          ctx.textAlign = 'right';
+          ctx.fillText(f.page, W - pad, y0 + bandH * 0.33);
+          ctx.textAlign = 'left';
+        }
+        ctx.font = `700 ${sTitle}px ${POSTER_FONT}`;
+        ctx.fillStyle = '#e6eefb';
+        ctx.fillText(posterTruncate(ctx, f.title, avail - pageW), tx, y0 + bandH * 0.33);
+        // 第二行：落款（同分享文案第 3 行）
+        ctx.font = `700 ${sCredit}px ${POSTER_FONT}`;
+        ctx.fillStyle = '#9ec3ff';
+        ctx.fillText(posterTruncate(ctx, f.credit, avail), tx, y0 + bandH * 0.62);
+        // 第三行：深鏈（人有興趣就自己搵返上嚟）
+        if (f.linkLine) {
+          ctx.font = `400 ${sLink}px ${POSTER_FONT}`;
+          ctx.fillStyle = '#7c89a3';
+          ctx.fillText(posterTruncate(ctx, f.linkLine, avail), tx, y0 + bandH * 0.845);
+        }
+      } catch (_) {
+        return pageCanvas;
+      }
+      return out;
+    }
+
     // ── 每一款嘅背景／裝飾（同 Pillow 各 t_* 函數對應）────────────────────
     const POSTER_KINDS = {
       train(ctx, L, design, phase) {
@@ -2489,13 +2586,60 @@
       return `/api/pdf-proxy?u=${encodeURIComponent(shareUrlFor(item))}`;
     }
 
-    // Web Share API（files）：手機可以將產生咗嘅 PNG 直接分享去 IG / WhatsApp，
-    // 唔使先儲存落 Photos。支援度用到先 check，唔支援就收埋「直接分享」掣。
+    // ── 圖片分享：電腦同手機走兩條完全唔同嘅路 ──────────────────────────
+    //   手機／平板：Web Share files（系統面板直接揀 IG／WhatsApp／AirDrop…）。
+    //   電腦：系統分享面板對「分享去社交平台」幫唔到手（Windows／macOS 嗰個
+    //         面板好多時冇社交 app，撳咗好似壞咗），所以電腦改為
+    //        「📋 複製圖片 ＋ 開平台網頁 ＋ 貼上（Ctrl/⌘+V）」。呢個係唯一
+    //         可以由網頁推圖入社交平台嘅正路 —— 瀏覽器唔容許網站代你上載圖。
+    const IMG_SHARE_TARGETS = [
+      { id: 'wa', label: 'WhatsApp', url: 'https://web.whatsapp.com/' },
+      { id: 'tg', label: 'Telegram', url: 'https://web.telegram.org/a/' },
+      { id: 'fb', label: 'Facebook', url: 'https://www.facebook.com/' },
+      { id: 'x', label: 'X', url: 'https://x.com/compose/post' },
+    ];
+
+    // 兩種掣幾時出：手機出系統分享；電腦出「貼去…」（複製＋開網頁）。
+    // 純函數，方便測試同保持兩個盒（PDF 圖／IG 圖）行為一致。
+    function imageShareUi(touch, canShareFiles) {
+      return { system: Boolean(touch && canShareFiles), social: !touch };
+    }
+
+    // Web Share files（手機）：一撳彈系統面板直接揀 IG／WhatsApp
     function canShareImageFiles() {
       try {
         return typeof navigator.share === 'function' && typeof navigator.canShare === 'function'
           && navigator.canShare({ files: [new File([''], 'x.png', { type: 'image/png' })] });
       } catch (_) { return false; }
+    }
+
+    // 複製圖片落剪貼板（電腦貼上社交平台用）。唔支援／唔准就回 false，
+    // 呼叫方會提示改用「下載圖片」，唔會靜靜失敗。
+    async function copyImageBlob(blob) {
+      try {
+        if (!navigator.clipboard || typeof navigator.clipboard.write !== 'function') return false;
+        if (typeof ClipboardItem === 'undefined') return false;
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          return true;
+        } catch (_) {
+          // Safari：非同步產生嘅 blob 要用 Promise 形式交俾 ClipboardItem
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': Promise.resolve(blob) })]);
+          return true;
+        }
+      } catch (_) { return false; }
+    }
+
+    function applyImageShareUi(box, ui) {
+      if (!box) return;
+      const state = ui || imageShareUi(isTouchLikeDevice(), canShareImageFiles());
+      const sysBtn = box.querySelector('[data-act="share-file"]');
+      if (sysBtn) sysBtn.hidden = !state.system;
+      const social = box.querySelector('.share-ig-shareto');
+      if (social) social.hidden = !state.social;
+      // 「貼上（Ctrl/⌘+V）」呢句提示只有電腦版啱用
+      const hint = box.querySelector('[data-role="pdfsharehint"]');
+      if (hint) hint.hidden = !state.social;
     }
 
     async function shareImageFile(blob, fileName, title) {
@@ -2610,7 +2754,7 @@
           </div>
 
           <div class="share-section">
-            <h4>通告內容出圖（PDF→PNG・你部機即畫，轉發 WhatsApp／IG 啱用）</h4>
+            <h4>通告內容出圖（PDF→PNG・你部機即畫，附圖書館落款，轉發 WhatsApp／IG 啱用）</h4>
             <button type="button" class="share-ig-btn" data-act="pdf2img">📄 轉換內文做圖</button>
             <div class="share-ig-result" data-role="pdfbox" hidden>
               <p class="share-ig-hint" data-role="pdfstatus"></p>
@@ -2620,11 +2764,20 @@
                 <button type="button" data-act="pdf-next" aria-label="下一版">下一版 ▶</button>
               </div>
               <img alt="通告內容預覽">
-              <p class="share-ig-hint">手機可以長撳張圖直接轉發／儲存；多版通告可以㩒上一版/下一版逐版出圖。</p>
+              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖。每張圖右下角都印住圖書館落款同呢張通告嘅專屬連結。</p>
               <div class="share-ig-actions">
                 <a data-role="pdfdl" download>下載圖片</a>
-                <button type="button" data-act="share-file" data-kind="pdf" data-role="pdfshare" hidden>📤 直接分享</button>
+                <button type="button" data-act="copy-image" data-kind="pdf" data-role="pdfcopy">📋 複製圖片</button>
+                <button type="button" data-act="share-file" data-kind="pdf" data-role="pdfshare" hidden>📤 分享圖片</button>
               </div>
+              <div class="share-ig-shareto" data-role="pdfsocial" hidden>
+                <span>貼去：</span>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="wa">WhatsApp</button>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="tg">Telegram</button>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="fb">Facebook</button>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="x">X</button>
+              </div>
+              <p class="share-ig-hint" data-role="pdfsharehint">電腦版：撳「貼去 WhatsApp／Telegram…」會順手複製張圖再開個平台，貼上（Ctrl／⌘+V）就發得。</p>
             </div>
           </div>
 
@@ -2639,8 +2792,16 @@
               <div class="share-ig-actions">
                 <a data-role="igdl" download>下載圖片</a>
                 <button type="button" data-act="copy-caption">複製 Caption</button>
+                <button type="button" data-act="copy-image" data-kind="ig" data-role="igcopy">📋 複製圖片</button>
                 <button type="button" data-act="ig-story" data-role="igstory" title="直向 1080×1920（出 Story 專用，feed 照舊用 4:5）">📱 Story 版</button>
-                <button type="button" data-act="share-file" data-kind="ig" data-role="igshare" hidden>📤 直接分享</button>
+                <button type="button" data-act="share-file" data-kind="ig" data-role="igshare" hidden>📤 分享圖片</button>
+              </div>
+              <div class="share-ig-shareto" data-role="igsocial" hidden>
+                <span>貼去：</span>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="wa">WhatsApp</button>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="tg">Telegram</button>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="fb">Facebook</button>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="x">X</button>
               </div>
             </div>
           </div>
@@ -2663,12 +2824,17 @@
       let igBlob = null;  // 生成咗嘅 PNG blob（「直接分享」用）
       let igDesign = 'auto';  // 'auto' = 跟分類自動揀款（同 Actions 草稿一致）；否則指定款 id
       let igPicking = false;  // 一次只做一個 render（避免狂撳縮圖時搶 canvas）
-      let igBadgePromise = null;  // 呢張通告嘅區徽只 decode 一次
+      let badgePromise = null;  // 呢張通告嘅區徽只 decode 一次（IG 圖同 PDF 落款共用）
       let pdfImgUrl = null;
       let pdfBlob = null;
       let pdfDoc = null;  // pdf.js document（關面板 destroy 釋放記憶體）
       let pdfKey = '';
       let pdfPage = 1;
+
+      function badgeOnce() {
+        if (!badgePromise) badgePromise = orgBadgeImgFor(item).catch(() => null);
+        return badgePromise;
+      }
 
       async function renderPdfPage(num) {
         const box = sheet.querySelector('[data-role="pdfbox"]');
@@ -2685,7 +2851,9 @@
         const c2 = cv.getContext('2d');
         if (!c2) throw new Error('canvas unavailable');
         await page.render({ canvasContext: c2, viewport: vp }).promise;
-        const blob = await new Promise((res, rej) => cv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
+        // 落款帶（圖書館名＋落款＋深鏈）：見 composePdfImage —— 廣告位，零成本
+        const outCv = composePdfImage(cv, item, num, pdfDoc.numPages, await badgeOnce());
+        const blob = await new Promise((res, rej) => outCv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
         if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
         pdfImgUrl = URL.createObjectURL(blob);
         pdfBlob = blob;
@@ -2700,7 +2868,7 @@
         nav.hidden = pdfDoc.numPages <= 1;
         nav.querySelector('[data-act="pdf-prev"]').disabled = num <= 1;
         nav.querySelector('[data-act="pdf-next"]').disabled = num >= pdfDoc.numPages;
-        box.querySelector('[data-role="pdfshare"]').hidden = !canShareImageFiles();
+        applyImageShareUi(box);
         status.textContent = '';
       }
 
@@ -2713,9 +2881,7 @@
           const exItem = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
           let use = igDesign;
           if (use === 'auto') { use = posterAutoDesignId(item, exItem); igDesign = use; }
-          // 區徽解一次就夠：換款／切 feed↔story 唔使再 decode 同一個 AVIF
-          if (!igBadgePromise) igBadgePromise = orgBadgeImgFor(item).catch(() => null);
-          const badgeImg = await igBadgePromise;
+          const badgeImg = await badgeOnce();
           const canvas = renderPoster(item, { mode: igMode, design: use, badgeImg });
           if (!canvas || typeof canvas.toBlob !== 'function') return false;
           const blob = await new Promise((res, rej) => canvas.toBlob(
@@ -2728,7 +2894,7 @@
           box.querySelector('img').src = igUrl;
           dl.href = igUrl;
           dl.download = igFileNameFor(item, igMode === 'story');
-          box.querySelector('[data-role="igshare"]').hidden = !canShareImageFiles();
+          applyImageShareUi(box);
           try { paintIgDesigns(); } catch (_) {}  // 縮圖條失敗唔算畫圖失敗
           return true;
         } catch (err) {
@@ -2843,18 +3009,62 @@
           if (!(await paintIg())) { igDesign = prev; paintIgDesigns(); }
           return;
         }
+        if (act === 'copy-image') {
+          const blob = el.dataset.kind === 'ig' ? igBlob : pdfBlob;
+          if (!blob) { showToast('請先產生圖片，再複製。'); return; }
+          if (await copyImageBlob(blob)) showToast('已複製圖片：貼去 WhatsApp／Telegram／FB 就得。');
+          else showToast('呢個瀏覽器複製唔到圖片，用「下載圖片」再上載代替。');
+          return;
+        }
+        if (act === 'img-target') {
+          // 電腦版：複製圖片 ＋ 開平台網頁，用戶貼上（Ctrl/⌘+V）就發得。
+          // 手機（有 Web Share）：直接叫系統分享面板，唔玩網頁貼上。
+          const kind = el.dataset.kind;
+          const blob = kind === 'ig' ? igBlob : pdfBlob;
+          const target = IMG_SHARE_TARGETS.find((t) => t.id === el.dataset.target);
+          if (!blob) { showToast('請先產生圖片，再分享。'); return; }
+          if (!target) return;
+          const name = kind === 'ig' ? igFileNameFor(item, igMode === 'story')
+            : (sheet.querySelector('[data-role="pdfdl"]').download || igFileNameFor(item));
+          if (imageShareUi(isTouchLikeDevice(), canShareImageFiles()).system) {
+            try { await shareImageFile(blob, name, item.title || '通告'); }
+            catch (err) {
+              if (err && err.name === 'AbortError') showToast('已取消分享');
+              else showToast('系統分享開唔到，可以撳「📋 複製圖片」再自己貼上。');
+            }
+            return;
+          }
+          // 開新分頁要喺使用者手勢內做，所以先開空白頁，複製完先導航過去
+          let popup = null;
+          try { popup = window.open('', '_blank'); } catch (_) { popup = null; }
+          const copied = await copyImageBlob(blob);
+          if (popup && popup.location) {
+            try { popup.location.href = target.url; } catch (_) { try { popup.location = target.url; } catch (__) {} }
+          }
+          if (copied && popup) showToast(`已複製圖片：喺 ${target.label} 貼上（Ctrl／⌘+V）就發得。`);
+          else if (copied) showToast(`已複製圖片：自己開 ${target.label} 貼上就得。`);
+          else if (popup) showToast(`已開 ${target.label}：請先撳「下載圖片」，再喺嗰邊上載。`);
+          else showToast('複製唔到圖片，請用「下載圖片」再上載。');
+          return;
+        }
         if (act === 'share-file') {
-          // 一撳彈系統分享（直接揀 IG／WhatsApp），唔使先儲存落 Photos
+          // 一撳彈系統分享（直接揀 IG／WhatsApp），唔使先儲存落 Photos。
+          // 個別瀏覽器（部分 App 內置瀏覽器）支援度唔同：分享唔到就退返做
+          //「複製圖片」，唔會撳完冇反應。
           const blob = el.dataset.kind === 'ig' ? igBlob : pdfBlob;
           const name = el.dataset.kind === 'ig' ? igFileNameFor(item, igMode === 'story')
             : (sheet.querySelector('[data-role="pdfdl"]').download || igFileNameFor(item));
-          if (!blob) return;
-          try {
-            await shareImageFile(blob, name, item.title || '通告');
-          } catch (err) {
-            if (err && err.name === 'AbortError') showToast('已取消分享');
-            else showToast('直接分享開唔到，可以用「下載圖片」代替。');
+          if (!blob) { showToast('請先產生圖片，再分享。'); return; }
+          if (canShareImageFiles()) {
+            try {
+              await shareImageFile(blob, name, item.title || '通告');
+              return;
+            } catch (err) {
+              if (err && err.name === 'AbortError') { showToast('已取消分享'); return; }
+            }
           }
+          if (await copyImageBlob(blob)) showToast('已複製圖片：長按／貼上就可以傳去社交平台。');
+          else showToast('直接分享開唔到，可以用「下載圖片」代替。');
           return;
         }
         if (act === 'ig') {
