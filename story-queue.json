@@ -1,35 +1,22 @@
 {
   "version": 1,
-  "today": "2026-09-21",
-  "generated_at": "2026-09-21 22:32:57 +0800",
-  "cache_last_updated": "2026-09-21 05:00:10",
-  "count": 2,
+  "today": "2026-09-22",
+  "generated_at": "2026-09-22 17:00:50 +0800",
+  "cache_last_updated": "2026-09-22 05:00:08",
+  "count": 1,
   "items": [
     {
-      "title": "品酒工作坊(11月)",
-      "url": "https://www.klcscout.hk/cportal/uploads/D09_品酒工作坊(11月)通告2026.pdf",
-      "pdf_url": "https://www.klcscout.hk/cportal/uploads/D09_品酒工作坊(11月)通告2026.pdf",
-      "region": "九龍地域",
-      "source_site": "九龍城區",
-      "date": "2026-09-21",
-      "captured_date": "2026-09-21",
-      "deadline": "2026-11-04",
-      "audience": "領袖",
-      "fee": "HK$300",
-      "category": "training"
-    },
-    {
-      "title": "全港嘉爾頓錦標賽2027 – 柴灣、筲箕灣、維多利亞城區選拔賽-成績公佈 - 點擊下載",
-      "url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/Joint-Carlton-Result-Announcement.pdf",
-      "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/Joint-Carlton-Result-Announcement.pdf",
-      "region": "港島地域",
-      "source_site": "柴灣區",
-      "date": "2026-09-21",
-      "captured_date": "2026-09-21",
+      "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
+      "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
+      "region": "新界東地域",
+      "source_site": "新界東地域",
+      "date": "2026-09-22",
+      "captured_date": "2026-09-22",
       "deadline": "",
       "audience": "",
       "fee": "",
-      "category": "competition"
+      "category": "other"
     }
   ]
 }
