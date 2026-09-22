@@ -386,6 +386,31 @@
     .share-pdf-nav button[disabled] { opacity: .35; cursor: default; }
     .share-pdf-nav span { color: var(--muted); font-size: 12px; }
 
+    /* ── 今日草稿出圖台（?batch=1）：本機批次出圖，零伺服器 ── */
+    .batch-backdrop { position: fixed; inset: 0; z-index: 70; background: rgba(2,8,23,.86); backdrop-filter: blur(6px); overflow: auto; padding: 20px; }
+    .batch-page { width: min(1180px, 100%); margin: 0 auto; background: linear-gradient(180deg, #111d32, #0b1424); border: 1px solid rgba(96,165,250,.35); border-radius: 18px; padding: 22px 22px 28px; box-shadow: 0 18px 48px rgba(0,0,0,.55); }
+    .batch-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .batch-head h2 { margin: 0; font-size: 20px; color: #e6eefb; }
+    .batch-sub { margin-top: 4px; color: #8ea2c6; font-size: 13px; }
+    .batch-close { border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); border-radius: 10px; width: 36px; height: 36px; font-size: 20px; cursor: pointer; }
+    .batch-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 16px; }
+    .batch-tools label { color: #cfe3ff; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+    .batch-tools select { background: #0f1c31; color: var(--text); border: 1px solid var(--line); border-radius: 9px; padding: 7px 10px; font-size: 13px; }
+    .batch-tools button { padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; }
+    .batch-tools button.primary { border-color: var(--brand); background: var(--brand-2); }
+    .batch-tools button[disabled] { opacity: .5; cursor: wait; }
+    .batch-progress { color: #9ec3ff; font-size: 12.5px; }
+    .batch-hint { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .batch-hint code { background: rgba(255,255,255,.07); padding: 1px 5px; border-radius: 5px; }
+    .batch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 14px; margin-top: 18px; }
+    .batch-card { margin: 0; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .batch-card img { width: 100%; display: block; background: #0a1931; aspect-ratio: 4 / 5; object-fit: cover; }
+    .batch-card figcaption { padding: 9px 10px 11px; display: flex; flex-direction: column; gap: 6px; }
+    .batch-title { color: #e6eefb; font-size: 12.5px; font-weight: 600; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .batch-meta { color: #8ea2c6; font-size: 11px; }
+    .batch-card button { margin-top: 2px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--text); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+    @media (max-width: 560px) { .batch-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
+
     .share-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; background: #0f172a; color: #e6eefb;
                    border: 1px solid #3a5a8c; padding: 10px 16px; border-radius: 999px; font-size: 13px; box-shadow: var(--shadow); pointer-events: none; opacity: 0; transition: opacity .2s; }
     .share-toast.show { opacity: 1; }
@@ -3540,6 +3565,7 @@
         renderWindowChips();
         renderHeader();
         renderCards();
+        maybeInitBatchView();   // ?batch=1 → 今日草稿出圖台（本機批次出圖）
 
         // 專屬頁著陸：URL 係單一 ?n=<id> → 直接彈出嗰張通告
         //（多 ID ＝ push 批次，維持篩住列表；push 直連通告本身唔經呢度）
@@ -4031,6 +4057,276 @@
         showStatus();
         renderCards();
       };
+    }
+
+    // ── 今日草稿出圖台（?batch=1）：本機自動化用 ───────────────────────────
+    //
+    // 點解要呢個：同一套 canvas 引擎（renderPoster）喺 app 度已經出得好好，
+    // 但「今日 20 張」逐張撳分享面板太慢。呢個出圖台將 story_queue.py 嘅
+    // 揀通告邏輯（caputred_date=今日、join enrich、排除小工具、按日期排序）
+    // 搬嚟前端，一撳出齊今日草稿：
+    //   - 100% 用戶部機 canvas，零 function／零 storage（Vercel 紅線不變）；
+    //   - 可以一次過儲存去一個資料夾（Chrome/Edge 支援 File System Access）；
+    //   - 唔使裝 Python、唔使等 Actions —— 開個網址就得：
+    //       https://<你嘅網址>/?batch=1
+    //       python serve_local.py 之後 http://localhost:8000/?batch=1
+    //   資料來源同 app 其他地方一樣（GitHub Raw cache.json/enrich.json），
+    //   所以 Actions 凌晨 scrape 有新料，呢度即刻見到。
+    const BATCH_LIMIT_DEFAULT = 20;
+
+    function batchTodayHkt(nowMs) {
+      const ms = typeof nowMs === 'number' ? nowMs : Date.now();
+      return new Date(ms + 8 * 3600 * 1000).toISOString().slice(0, 10);
+    }
+
+    // 同 story_queue.py classify_category 一樣嘅語義（保持兩邊出嘅清單一致）
+    const BATCH_TOOLS_SOURCES = new Set(['Scout System']);
+    const BATCH_RE = {
+      competition: /比賽|錦標賽|大賽|競賽|錦標/,
+      training: /訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會/,
+      service: /服務|義工|義務/,
+      activity: /活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集/,
+    };
+
+    function batchCategory(item, ex) {
+      if (BATCH_TOOLS_SOURCES.has(String((item && item.source_site) || '').trim())) return 'tools';
+      const cats = ex && ex.categories;
+      if (Array.isArray(cats)) {
+        for (const c of cats) {
+          if (!c || !c.id) continue;
+          if (c.id === 'competition' || (c.id === 'activity' && c.subtype === 'competition')) return 'competition';
+          if (c.id === 'training' || c.id === 'service' || c.id === 'activity') return c.id;
+        }
+      }
+      const title = String((item && item.title) || '');
+      for (const id of ['competition', 'training', 'service', 'activity']) {
+        if (BATCH_RE[id].test(title)) return id;
+      }
+      return 'other';
+    }
+
+    const BATCH_NO_DATE = '9999-99-99';
+
+    // 同 story_queue.py pick_today/build_queue 一樣：今日新入庫 → 排截止日 → 頭 N 條
+    function batchQueueToday(cache, enrich, today, limit) {
+      const out = [];
+      const data = (cache && cache.data) || {};
+      for (const [section, arr] of Object.entries(data)) {
+        if (!Array.isArray(arr)) continue;
+        for (const it of arr) {
+          if (!it || typeof it !== 'object') continue;
+          if (String(it.captured_date || '').slice(0, 10) !== today) continue;
+          const ex = (enrich && (enrich[it.pdf_url] || enrich[it.url])) || null;
+          const category = batchCategory(it, ex);
+          if (category === 'tools') continue;   // 小工具唔係通告，唔出 Story
+          out.push({
+            title: it.title || '未命名通告',
+            url: it.url || '',
+            pdf_url: it.pdf_url || '',
+            region: it.region || section,
+            source_site: it.source_site || section,
+            date: String(it.date || '').slice(0, 10),
+            captured_date: String(it.captured_date || '').slice(0, 10),
+            deadline: String((ex && ex.deadline) || '').slice(0, 10),
+            audience: String((ex && ex.audience) || ''),
+            fee: String((ex && ex.fee) || ''),
+            category,
+          });
+        }
+      }
+      out.sort((a, b) => {
+        const ka = (a.date || BATCH_NO_DATE) + '\u0000' + a.source_site + '\u0000' + a.title;
+        const kb = (b.date || BATCH_NO_DATE) + '\u0000' + b.source_site + '\u0000' + b.title;
+        return ka < kb ? -1 : ka > kb ? 1 : 0;
+      });
+      return out.slice(0, limit > 0 ? limit : BATCH_LIMIT_DEFAULT);
+    }
+
+    function batchFileName(item, idx, story, designId) {
+      const safe = (s) => String(s || '').replace(/[\\/:*?"<>|\s]+/g, '').slice(0, 24);
+      const stamp = String((item && (item.date || item.captured_date)) || '').slice(0, 10).replace(/-/g, '');
+      return `${String(idx).padStart(2, '0')}_${designId}_${safe(item && item.source_site)}${stamp ? '-' + stamp : ''}${story ? '-story' : ''}.png`;
+    }
+
+    // 一撳出齊：逐張 render（同一部機、同一引擎），可以一次過寫入一個資料夾。
+    // 唔支援 File System Access（Safari／手機）就逐張下載，唔會靜靜失敗。
+    async function batchSaveAll(items, opts) {
+      const { story, design, onProgress } = opts;
+      let dir = null;
+      try {
+        if (typeof window.showDirectoryPicker === 'function') {
+          dir = await window.showDirectoryPicker({ id: 'story-drafts', mode: 'readwrite' });
+        }
+      } catch (err) {
+        if (err && err.name === 'AbortError') return { saved: 0, aborted: true };
+        dir = null;
+      }
+      let saved = 0;
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const badgeImg = await orgBadgeImgFor(item).catch(() => null);
+        const canvas = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg });
+        if (!canvas || typeof canvas.toBlob !== 'function') continue;
+        const blob = await new Promise((res) => canvas.toBlob((b) => res(b), 'image/png'));
+        if (!blob) continue;
+        const name = batchFileName(item, i, story, canvas.__designId || design);
+        if (dir) {
+          const handle = await dir.getFileHandle(name, { create: true });
+          const w = await handle.createWritable();
+          await w.write(blob);
+          await w.close();
+        } else {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = name;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+          await new Promise((r) => setTimeout(r, 320));  // 畀瀏覽器逐張落載，唔會互相取消
+        }
+        saved++;
+        if (onProgress) onProgress(saved, items.length, name);
+      }
+      return { saved, aborted: false };
+    }
+
+    async function initBatchView() {
+      const params = new URLSearchParams(location.search);
+      const limit = Math.max(1, Math.min(60, Number(params.get('limit')) || BATCH_LIMIT_DEFAULT));
+      const today = batchTodayHkt();
+      const queue = batchQueueToday(state.cache, state.enrich, today, limit);
+
+      let story = params.get('mode') === 'story';
+      let design = params.get('design') && POSTER_DESIGN_BY_ID[params.get('design')] ? params.get('design') : 'auto';
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'batch-backdrop';
+      backdrop.innerHTML = `
+        <div class="batch-page" role="dialog" aria-label="今日草稿出圖台">
+          <div class="batch-head">
+            <div>
+              <h2>今日草稿出圖台</h2>
+              <div class="batch-sub" data-role="batchmeta"></div>
+            </div>
+            <button type="button" class="batch-close" aria-label="關閉">×</button>
+          </div>
+          <div class="batch-tools">
+            <label>款：<select data-role="batchdesign">
+              <option value="auto">自動（跟分類，同草稿一致）</option>
+              ${POSTER_DESIGNS.map((d) => `<option value="${d.id}">${d.label}</option>`).join('')}
+            </select></label>
+            <button type="button" data-role="batchmode">📱 出 Story 版</button>
+            <button type="button" class="primary" data-role="batchsave">💾 全部儲存到資料夾</button>
+            <span class="batch-progress" data-role="batchprogress"></span>
+          </div>
+          <p class="batch-hint">全部圖都係你自己部機嘅 canvas 畫，唔經伺服器、唔會上傳。<br>
+            Chrome／Edge 可以一撳揀個資料夾就寫晒 20 張入去；Safari／手機就會逐張下載。<br>
+            呢版可以直接加 <code>?limit=6</code> 試少幾張，或者 <code>&amp;design=unc_topsecret</code> 指定款。</p>
+          <div class="batch-grid" data-role="batchgrid"></div>
+        </div>`;
+      document.body.appendChild(backdrop);
+      const q = (sel) => backdrop.querySelector(sel);
+      const grid = q('[data-role="batchgrid"]');
+      const progress = q('[data-role="batchprogress"]');
+      const designSel = q('[data-role="batchdesign"]');
+      const modeBtn = q('[data-role="batchmode"]');
+      const saveBtn = q('[data-role="batchsave"]');
+      designSel.value = design;
+      modeBtn.textContent = story ? '🖼 出 4:5 feed 版' : '📱 出 Story 版';
+      q('[data-role="batchmeta"]').textContent =
+        `${today} ・ ${queue.length} 張${queue.length ? '' : '（今日冇新通告；試下 ?limit 或者等 scrape 更新）'}`;
+
+      const cards = [];
+      for (const [idx, item] of queue.entries()) {
+        const fig = document.createElement('figure');
+        fig.className = 'batch-card';
+        const img = document.createElement('img');
+        img.alt = item.title;
+        const cap = document.createElement('figcaption');
+        const t = document.createElement('span');
+        t.className = 'batch-title';
+        t.textContent = item.title;
+        const meta = document.createElement('span');
+        meta.className = 'batch-meta';
+        meta.textContent = [item.source_site, item.category, item.deadline ? `截止 ${item.deadline}` : ''].filter(Boolean).join(' ・ ');
+        const dl = document.createElement('button');
+        dl.type = 'button';
+        dl.textContent = '⬇ 下載';
+        dl.addEventListener('click', async () => {
+          dl.disabled = true;
+          try {
+            const badgeImg = await orgBadgeImgFor(item).catch(() => null);
+            const cv = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg });
+            const blob = cv && typeof cv.toBlob === 'function'
+              ? await new Promise((res) => cv.toBlob((b) => res(b), 'image/png')) : null;
+            if (!blob) { progress.textContent = '出唔到圖，試下換款或更新瀏覽器。'; return; }
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = batchFileName(item, idx, story, (cv && cv.__designId) || design);
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+            progress.textContent = `已出：${a.download}`;
+          } finally {
+            dl.disabled = false;
+          }
+        });
+        cap.appendChild(t); cap.appendChild(meta); cap.appendChild(dl);
+        fig.appendChild(img); fig.appendChild(cap);
+        grid.appendChild(fig);
+        cards.push({ fig, img, item });
+      }
+
+      let painting = false;
+      async function paintThumbs(full) {
+        if (painting) return;
+        painting = true;
+        try {
+          for (let i = 0; i < cards.length; i++) {
+            const { img, item } = cards[i];
+            const badgeImg = full ? await orgBadgeImgFor(item).catch(() => null) : null;
+            const scale = full ? 1 : 0.22;
+            const cv = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg, scale });
+            if (cv && typeof cv.toDataURL === 'function') {
+              try { img.src = cv.toDataURL('image/png'); } catch (_) {}
+            }
+            if (!full && i % 4 === 3) await new Promise((r) => setTimeout(r, 0));  // 唔好鎖死主執行緒
+          }
+        } finally {
+          painting = false;
+        }
+      }
+      paintThumbs(false);
+
+      designSel.addEventListener('change', () => { design = designSel.value; paintThumbs(false); });
+      modeBtn.addEventListener('click', () => {
+        story = !story;
+        modeBtn.textContent = story ? '🖼 出 4:5 feed 版' : '📱 出 Story 版';
+        paintThumbs(false);
+      });
+      saveBtn.addEventListener('click', async () => {
+        if (!queue.length) { progress.textContent = '今日冇新通告，冇嘢出。'; return; }
+        saveBtn.disabled = true;
+        progress.textContent = '開始出圖…';
+        try {
+          const res = await batchSaveAll(queue, {
+            story, design,
+            onProgress: (n, total, name) => { progress.textContent = `儲存中 ${n}/${total}：${name}`; },
+          });
+          progress.textContent = res.aborted ? '已取消。' : `✅ 出咗 ${res.saved} 張（${story ? 'Story 9:16' : 'feed 4:5'}）。`;
+        } catch (err) {
+          progress.textContent = '儲存途中出錯，試下逐張下載。';
+        } finally {
+          saveBtn.disabled = false;
+        }
+      });
+      q('.batch-close').addEventListener('click', () => backdrop.remove());
+      backdrop.addEventListener('keydown', (e) => { if (e.key === 'Escape') backdrop.remove(); });
+      return { count: queue.length };
+    }
+
+    function maybeInitBatchView() {
+      if (!new URLSearchParams(location.search).has('batch')) return Promise.resolve(null);
+      return initBatchView().catch(() => null);
     }
 
     initCompactMobileControls();

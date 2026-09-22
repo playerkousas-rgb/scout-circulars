@@ -366,6 +366,70 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
        '未出 PDF 圖就撳「貼去 WhatsApp」→ 有提示，唔會靜靜冇反應');
   }
 
+  // ── 今日草稿出圖台（?batch=1）：本機批次出圖 ──────────────────────
+  // 揀通告邏輯要同 story_queue.py 一致（今日新入庫、join enrich、排除小工具、按日期排序）
+  {
+    const cache2 = {
+      last_updated: '2026-09-22',
+      data: {
+        筲箕灣區: [
+          mk('未來 A', PDF_A, '筲箕灣區', iso(today), '港島地域'),
+          mk('未來 B', PDF_B, '筲箕灣區', iso(today), '港島地域'),
+          mk('尋日嘅', PDF_C, '筲箕灣區', daysAgo(1), '港島地域'),
+        ],
+        深水埗西區: [mk('未來 C', PDF_D, '深水埗西區', iso(today), '九龍地域')],
+        'Scout System': [mk('小工具公告', PDF_E, 'Scout System', iso(today), '港島地域')],
+      },
+    };
+    const enrich2 = {
+      [PDF_A]: { deadline: '2026-12-01', categories: [{ id: 'training' }] },
+      [PDF_B]: { deadline: '2026-09-30', categories: [{ id: 'activity', subtype: 'competition' }] },
+      [PDF_D]: { deadline: '', categories: [{ id: 'service' }] },
+    };
+    const todayIso = iso(today);
+    const q = w.eval('batchQueueToday')(cache2, enrich2, todayIso, 20);
+    ok(q.length === 3, `出圖台只揀今日新入庫（3 張，實際 ${q.length}）：尋日嗰張同小工具都唔入`);
+    ok(!q.some(x => x.title === '小工具公告'), '「Scout System」小工具唔出 Story（同 story_queue.py 一致）');
+    ok(q.find(x => x.title === '未來 B') && q.find(x => x.title === '未來 B').category === 'competition',
+       'enrich 有 activity+subtype=competition → 當比賽（同 story_queue.py 一致）');
+    ok(q.find(x => x.title === '未來 A').audience === '' || q.find(x => x.title === '未來 A').category === 'training',
+       'enrich join：deadline／category 有跟入 item');
+    ok(w.eval('batchQueueToday')(cache2, enrich2, todayIso, 2).length === 2, 'limit 生效（limit=2）');
+    ok(w.eval('batchCategory')({ title: '某某錦標賽通告', source_site: 'x' }, null) === 'competition'
+       && w.eval('batchCategory')({ title: '義工服務日', source_site: 'x' }, null) === 'service'
+       && w.eval('batchCategory')({ title: '隨意標題', source_site: 'x' }, null) === 'other',
+       '冇 enrich 時按標題關鍵字分類（比賽／服務／其他）');
+    ok(/^02_unc_scope_柴灣區-\d{8}\.png$/.test(w.eval('batchFileName')({ source_site: '柴灣區', date: '2026-09-22' }, 2, false, 'unc_scope')),
+       '檔名有次序＋款＋區會＋日期，唔會撞名：' + w.eval('batchFileName')({ source_site: '柴灣區', date: '2026-09-22' }, 2, false, 'unc_scope'));
+  }
+  {
+    // ?batch=1 真係開到出圖台（jsdom 冇 showDirectoryPicker，會走逐張下載路線）
+    const domB = boot('?batch=1');
+    const dB = domB.window.document;
+    await wait(900);
+    const view = dB.querySelector('.batch-backdrop');
+    ok(!!view, '?batch=1 → 彈出「今日草稿出圖台」');
+    ok(view && /今日草稿出圖台/.test(view.textContent) && /全部儲存到資料夾/.test(view.textContent),
+       '出圖台有標題同「全部儲存到資料夾」掣');
+    const figs = view ? [...view.querySelectorAll('.batch-card')] : [];
+    ok(figs.length === 5, `出圖台列出今日 5 張（實際 ${figs.length}）—— ?limit 可以收窄（純函數測試已蓋）`);
+    ok(figs.every(f => f.querySelector('button')), '每張卡都有「⬇ 下載」掣');
+    const sel = view.querySelector('[data-role="batchdesign"]');
+    ok(sel && sel.options.length === 13 && sel.options[0].value === 'auto',
+       '款選擇器＝自動＋12 款');
+    click(domB.window, view.querySelector('[data-role="batchmode"]'));
+    await wait(80);
+    ok(view.querySelector('[data-role="batchmode"]').textContent.includes('4:5'),
+       '撳「出 Story 版」→ 變「出 4:5 feed 版」（切換 work）');
+    click(domB.window, view.querySelector('.batch-close'));
+    await wait(30);
+    ok(!dB.querySelector('.batch-backdrop'), '× 關得返');
+    // 冇 ?batch 就唔會彈（日常使用零影響）
+    const domN = boot();
+    await wait(700);
+    ok(!domN.window.document.querySelector('.batch-backdrop'), '冇 ?batch 時唔會出現出圖台');
+  }
+
   // 「複製連結」＝ 通告專屬頁深鏈（IG Story link sticker 就貼呢條）
   const copyLinkBtn = sheet.querySelector('[data-act="copy-link"]');
   ok(!!copyLinkBtn, '「分享至」grid 有「複製連結」掣');
