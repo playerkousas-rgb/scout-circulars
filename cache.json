@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-22 05:00:08",
+  "last_updated": "2026-09-23 03:44:19",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4831,
+    "total_notices": 4833,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -28116,6 +28116,15 @@
     ],
     "油尖區": [
       {
+        "title": "油尖區百年童行-童軍115追蹤挑戰賽",
+        "url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
+        "pdf_url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
+        "date": "2026-09-23",
+        "captured_date": "2026-09-23",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
         "title": "雙節棍武術入門",
         "url": "https://drive.google.com/file/d/1OL57y7vUFVvBrFTy-gD0bwTTNdpGukmV/view",
         "pdf_url": "https://drive.google.com/file/d/1OL57y7vUFVvBrFTy-gD0bwTTNdpGukmV/view",
@@ -37350,6 +37359,15 @@
     "離島區": [],
     "新界東地域": [
       {
+        "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(修訂)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
+        "date": "2026-09-23",
+        "captured_date": "2026-09-23",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
         "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
         "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
@@ -43584,6 +43602,20 @@
     "Scout System": []
   },
   "notices": [
+    {
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
+      "title": "油尖區百年童行-童軍115追蹤挑戰賽",
+      "captured_date": "2026-09-23"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
+      "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(修訂)",
+      "captured_date": "2026-09-23"
+    },
     {
       "source_site": "新界東地域",
       "region": "新界東地域",
@@ -77530,17 +77562,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-22 05:00:08",
-      "new": 0,
-      "updated": 3509,
-      "daily_new": 1,
-      "skipped": 4,
+      "updated_at": "2026-09-23 03:44:19",
+      "new": 2,
+      "updated": 280,
+      "daily_new": 2,
+      "skipped": 37,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]

@@ -49175,5 +49175,125 @@
     "title_check": "verified",
     "enriched_at": "2026-09-22 04:30:19",
     "enrich_version": "3.2"
+  },
+  "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view": {
+    "source": "油尖區",
+    "title": "油尖區百年童行-童軍115追蹤挑戰賽",
+    "deadline": "2026-11-09",
+    "audience": "童軍、公眾",
+    "fee": "HK$10",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "考驗"
+        ]
+      },
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "挑戰賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:competition",
+      "category:training",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "挑戰賽"
+        ]
+      },
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "考驗"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-23 03:49:01",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf": {
+    "source": "新界東地域",
+    "title": "特別通告第 29/2026 號",
+    "deadline": "2026-10-17",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "籌款"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service",
+      "course:leader-leave-no-trace-trainer"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "籌款"
+        ]
+      },
+      {
+        "id": "course:leader-leave-no-trace-trainer",
+        "label": "不留痕導師",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：不留痕"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-09-23 03:49:04",
+    "enrich_version": "3.2"
   }
 }
