@@ -109,3 +109,8 @@ run-local-scrape-logged.bat
 restore-local-scrape.bat
 .gitattributes
 .env.example
+
+# AI 底圖試範（story-bases-demo/）：只係本機／raw.githubusercontent 用嘅示範素材，
+# 唔係部署要用 —— 一入 Vercel 就會食晒 budget（每張 60–260KB × 幾張）。
+# 正式上線時底圖會放 bases/（同樣 ignore），app 由 raw 讀，Vercel 零 byte。
+story-bases-demo/
