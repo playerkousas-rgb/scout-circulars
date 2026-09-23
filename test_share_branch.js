@@ -69,7 +69,8 @@ function fakeFetch(win) {
   };
 }
 
-function boot(qs = '') {
+// opts.touch === false → 扮「電腦」（jsdom 本身有 ontouchstart，所以當手機係預設）
+function boot(qs = '', opts = {}) {
   const clip = { text: null, items: null };
   const dom = new JSDOM(html, {
     runScripts: 'dangerously',
@@ -79,6 +80,21 @@ function boot(qs = '') {
       win.fetch = fakeFetch(win);
       win.alert = () => {}; win.confirm = () => true;
       win.URL.createObjectURL = () => 'blob:fake'; win.URL.revokeObjectURL = () => {};
+      if (opts.touch === false) {
+        // 冇 touch 特徵（isTouchLikeDevice() → false），即係電腦版
+        try { delete win.ontouchstart; } catch (_) {}
+        Object.defineProperty(win.navigator, 'maxTouchPoints', { value: 0, configurable: true });
+      }
+      // 「貼去平台」開新分頁（jsdom 冇實作 window.open）
+      win.__opened = [];
+      win.open = (url) => {
+        const tab = { location: { href: url || '' }, closed: false, close() { this.closed = true; } };
+        win.__opened.push(tab);
+        return tab;
+      };
+      if (typeof win.ClipboardItem === 'undefined') {
+        win.ClipboardItem = class ClipboardItem { constructor(data) { this.data = data; } };
+      }
       // 「直接分享」測試용：扮支援 Web Share files，落個 spy 落 win.__shared
       win.__shared = [];
       Object.defineProperty(win.navigator, 'canShare', { value: () => true, configurable: true });
@@ -90,7 +106,7 @@ function boot(qs = '') {
           measureText: (t) => ({ width: String(t).length * 18 }),
           fillRect() {}, strokeRect() {}, fillText() {}, beginPath() {}, closePath() {},
           moveTo() {}, lineTo() {}, arc() {}, arcTo() {}, save() {}, restore() {},
-          translate() {}, stroke() {}, fill() {}, rect() {}, clip() {},
+          translate() {}, rotate() {}, scale() {}, stroke() {}, fill() {}, rect() {}, clip() {},
           createLinearGradient: () => fakeGradient, createRadialGradient: () => fakeGradient,
         };
       };
@@ -241,14 +257,210 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
      && storyBtn.textContent.includes('Story 版'),
      '再切返 4:5：檔名同掣面都還原');
 
+  // ── 12 款設計（2026-09-22）：同 Actions 草稿（Pillow render_story_templates.py）
+  //    同一套款、同一個揀款算法（md5(url) % pool），所以 app 出嘅圖同草稿係同一款 ──
+  const DESIGN_IDS = ['train_blue', 'train_orange', 'train_green', 'competition_gold_black',
+    'activity_army', 'service_wanted', 'unc_scope', 'unc_topsecret', 'unc_glitch',
+    'unc_wanted_parchment', 'unc_wanted_red', 'unc_wanted_blackfin'];
+  ok(w.eval('md5Hex("")') === 'd41d8cd98f00b204e9800998ecf8427e'
+     && w.eval('md5Hex("abc")') === '900150983cd24fb0d6963f7d28e17f72'
+     && w.eval('md5Hex("通告")') === 'ec8914bcafa641cb122a396181b0801e',
+     '內建 MD5 同 hashlib 對齊（空字串／abc／中文向量；唔用 TextEncoder，舊機都有）');
+  ok(w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf"},{categories:[{id:"training"}]})') === 'train_blue'
+     && w.eval('posterAutoDesignId({pdf_url:"https://x/2.pdf"},{categories:[{id:"training"}]})') === 'train_orange'
+     && w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf"},{categories:[{id:"competition"}]})') === 'competition_gold_black'
+     && w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf"},{})') === 'unc_wanted_parchment',
+     '揀款算法跟 Pillow：md5(pdf_url) % pool（訓練 3 款 / 比賽 1 款 / 其他 6 款，hash 固定唔會日日變樣）');
+  ok(w.eval('posterAutoDesignId({pdf_url:"https://x/1.pdf",category:"service"},{})') === 'service_wanted',
+     'queue 出嘅 flat category 都揀得中（service → WANTED 羊皮紙）');
+  const designWrap = igBox.querySelector('[data-role="igdesigns"]');
+  const designBtns = designWrap ? [...designWrap.querySelectorAll('button')] : [];
+  ok(designBtns.map(b => b.dataset.id).join(',') === DESIGN_IDS.join(','),
+     '12 款縮圖次序同 Pillow POOLS 一致：' + designBtns.map(b => b.dataset.id).join(' '));
+  ok(designBtns.every(b => b.dataset.act === 'ig-design' && b.title.includes('換款')), '縮圖掣帶款名 tooltip');
+  ok(designBtns.filter(b => b.classList.contains('active')).length === 1
+     && designBtns.find(b => b.classList.contains('active')).dataset.id === 'train_blue',
+     '第一次出圖會自動亮起跟分類嗰款（B 卡 = 訓練 → train_blue）');
+  const dlName0 = igBox.querySelector('[data-role="igdl"]').download;
+  click(w, designBtns.find(b => b.dataset.id === 'unc_topsecret')); await wait(80);
+  ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active')
+     && designBtns.filter(b => b.classList.contains('active')).length === 1,
+     '撳「通告・絕密檔案」→ 即換款（只有佢 active）');
+  ok(igBox.querySelector('[data-role="igdl"]').download === dlName0 && igBox.querySelector('img').src === 'blob:fake',
+     '換款只換畫法，檔名／預覽機制不變');
+  click(w, designBtns.find(b => b.dataset.id === 'unc_topsecret')); await wait(60);
+  ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
+     '再撳同一款：no-op，唔會彈返自動款');
+  click(w, storyBtn); await wait(80);   // 揀咗款之後切 Story：款要跟住行
+  ok(igBox.querySelector('[data-role="igdl"]').download.includes('-story.png')
+     && designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
+     '揀咗「絕密檔案」再切 Story：款保留、只換 9:16 版型');
+  click(w, storyBtn); await wait(80);
+  ok(!igBox.querySelector('[data-role="igdl"]').download.includes('-story')
+     && designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
+     '切返 4:5：款照樣保留');
+
   // PDF 內容出圖（pdf.js client-side；bytes 經 stdlib /api/pdf-proxy byte bridge 入）
   ok(html.includes('cdn.jsdelivr.net/npm/pdfjs-dist@4'), 'pdf.js 由 CDN lazy-load（唔入 repo、唔入 Vercel bundle）');
   ok(html.includes('/api/pdf-proxy?u='), 'PDF bytes 經 /api/pdf-proxy 過橋（CORS 冇開嘅區會站先要用）');
   const p2iBtn = sheet.querySelector('[data-act="pdf2img"]');
-  ok(!!p2iBtn && !!sheet.querySelector('[data-role="pdfshare"]'), '分享面板有「轉換內文做圖」掣＋其「直接分享」掣');
+  ok(!!p2iBtn && !!sheet.querySelector('[data-role="pdfshare"]'), '分享面板有「轉換內文做圖」掣＋其「分享圖片」掣');
+  ok(!!sheet.querySelector('[data-role="pdfcopy"]') && !!sheet.querySelector('[data-role="pdfdl"]'),
+     'PDF 圖有「下載圖片」＋「複製圖片」掣（電腦版唔使靠系統分享）');
+  ok($$(d, '[data-role="pdfsocial"] button[data-act="img-target"]').map(b => b.dataset.target).join(',') === 'wa,tg,fb,x',
+     'PDF 圖有「貼去 WhatsApp／Telegram／Facebook／X」四個掣（電腦版複製＋開平台）');
   click(w, p2iBtn); await wait(160);
   ok(d.querySelector('.share-toast') && (d.querySelector('.share-toast').textContent || '').includes('轉換唔到'),
      'jsdom 載入唔到 pdf.js → 有 toast 回饋，唔會靜靜失敗');
+
+  // ── PDF 落款（廣告位，2026-09-22）：同純文字分享同一句落款＋該通告深鏈 ──
+  const footer = w.eval('pdfImageFooter({source_site:"筲箕灣區",title:"童軍技能訓練班",pdf_url:"' + PDF_B + '",url:"' + PDF_B + '"},2,3)');
+  ok(footer.title === '【筲箕灣區】童軍技能訓練班', '（保留）落款資料仲有【區會】標題：' + footer.title);
+  ok(footer.credit === '---經 通告圖書館 v5.11 整理 @noscout.system',
+     '精簡落款＝純文字分享嗰行原樣（連開頭 ---）：' + footer.credit);
+  ok(/^完整通告＋最新截止日期：example\.org\/\?n=[0-9a-f]{16}$/.test(footer.linkLine),
+     '深鏈擺右邊細字（人哋收到圖照樣搵得返）：' + footer.linkLine);
+  ok(footer.page === '第 2 / 3 版', '多版 PDF 會標明版本：' + footer.page);
+  ok(w.eval('pdfImageFooter({title:"單版通告"},{pdf_url:"x",url:"x"},1,1).page') === '',
+     '單版 PDF 唔會多餘標「第 1 / 1 版」');
+  ok(html.includes('composePdfImage(cv, item, num, pdfDoc.numPages'), 'renderPdfPage 真係用 composePdfImage 落款');
+  // ── PDF 內文本機生圖：全部版數一次過出（2026-09-23）──
+  ok(html.includes('data-act="pdf-all"'), '有「💾 全部版數」掣');
+  ok(html.includes('async function renderAllPdfPages'), '有 renderAllPdfPages：一次過出齊所有版');
+  ok(html.includes("showDirectoryPicker({ id: 'pdf-notice-images'"),
+     '全部版數支援 File System Access（揀資料夾一次寫入）');
+  ok(/await new Promise\(\(r\) => setTimeout\(r, 320\)\);\s*\/\/ 畀瀏覽器逐張落載/.test(html),
+     '唔支援資料夾時逐張下載（320ms 間隔，唔會互相取消）');
+  ok(html.includes('每張圖底部都印住圖書館落款'), '提示講明每版都有落款');
+  ok(/bandH = Math\.max\(112, Math\.round\(W \* 0\.135\)\)/.test(html),
+     '落款帶收窄（原本 17% 高大藍帶 → 13.5%，兩行細字）');
+  ok(!/pdfImageFooter\(item, pageNum, pageCount\)[\s\S]{0,400}badgeImg\.width/.test(
+       html.slice(html.indexOf('function composePdfImage'), html.indexOf('function composePdfImage') + 2600)),
+     '精簡落款唔再畫區徽大格（純文字，唔搶通告版面）');
+  {
+    // jsdom 嘅假 canvas 冇 drawImage：落款唔可以因此失去張圖（fail-safe）
+    const fakePage = d.createElement('canvas');
+    fakePage.width = 800; fakePage.height = 1100;
+    const fakeItem = { source_site: '筲箕灣區', title: 'x', pdf_url: PDF_B, url: PDF_B };
+    const out = w.eval('composePdfImage')(fakePage, fakeItem, 1, 1, null);
+    ok(out === fakePage, '落款畫唔到（環境唔支援）就原圖照出，唔會冇咗張圖');
+  }
+
+  // ── 圖片分享掣規則：手機＝系統分享；電腦＝複製圖片＋「貼去平台」 ──
+  const uiMobile = w.eval('imageShareUi(true,true)'), uiMobileNoShare = w.eval('imageShareUi(true,false)'), uiDesktop = w.eval('imageShareUi(false,true)');
+  ok(uiMobile.system === true && uiMobile.social === false, '手機＋支援 Web Share → 出「分享圖片」，唔出「貼去…」');
+  ok(uiMobileNoShare.system === false && uiMobileNoShare.social === false, '手機但唔支援 Web Share（例如 App 內置瀏覽器）→ 兩個都唔出，用「複製圖片」');
+  ok(uiDesktop.system === false && uiDesktop.social === true, '電腦 → 唔出系統分享（嗰個面板分享唔到去社交平台），出「貼去…」');
+  {
+    ok(sheet.querySelector('[data-role="igsocial"]').hidden, '手機面板：唔出「貼去…」列（直接用系統分享）');
+    // 電腦版：複製圖片 ＋「貼去 WhatsApp／Telegram…」＝複製＋開平台＋貼上
+    const domD = boot('', { touch: false });
+    const wD = domD.window, dD = wD.document;
+    await wait(700);
+    const cardD = [...dD.querySelectorAll('#cards .card')].find(c => c.querySelector('h3').textContent === '童軍技能訓練班');
+    click(wD, cardD.querySelector('.share-btn')); await wait(60);
+    const sheetD = dD.querySelector('.share-sheet');
+    click(wD, sheetD.querySelector('[data-act="ig"]')); await wait(90);
+    const boxD = sheetD.querySelector('[data-role="igbox"]');
+    ok(boxD && !boxD.hidden, '電腦版：照樣出到 IG 圖預覽');
+    ok(sheetD.querySelector('[data-role="igshare"]').hidden, '電腦版：「分享圖片」（系統分享）收埋唔出，唔會似壞咗');
+    ok(!sheetD.querySelector('[data-role="igsocial"]').hidden && !boxD.querySelector('[data-role="igcopy"]').hidden,
+       '電腦版：「貼去…」列同「複製圖片」都出齊');
+    click(wD, boxD.querySelector('[data-role="igcopy"]')); await wait(40);
+    ok(domD.clip.items && domD.clip.items.length === 1, '「複製圖片」真係寫咗 ClipboardItem 落剪貼板');
+    ok((dD.querySelector('.share-toast')?.textContent || '').includes('已複製圖片'), '複製完有 toast 提你貼去邊');
+    click(wD, sheetD.querySelector('[data-role="igsocial"] button[data-target="tg"]')); await wait(60);
+    ok(wD.__opened.length === 1 && wD.__opened[0].location.href === 'https://web.telegram.org/a/',
+       '撳「貼去 Telegram」→ 開 Telegram 網頁預備貼圖');
+    ok(domD.clip.items.length === 1 && (dD.querySelector('.share-toast')?.textContent || '').includes('Ctrl'),
+       '同時複製咗圖片，toast 教貼上（Ctrl／⌘+V）');
+    click(wD, sheetD.querySelector('[data-role="pdfsocial"] button[data-target="wa"]')); await wait(40);
+    ok((dD.querySelector('.share-toast')?.textContent || '').includes('請先產生圖片'),
+       '未出 PDF 圖就撳「貼去 WhatsApp」→ 有提示，唔會靜靜冇反應');
+  }
+
+  // ── 今日草稿出圖台（?batch=1）：本機批次出圖 ──────────────────────
+  // 揀通告邏輯要同 story_queue.py 一致（今日新入庫、join enrich、排除小工具、按日期排序）
+  {
+    const cache2 = {
+      last_updated: '2026-09-22',
+      data: {
+        筲箕灣區: [
+          mk('未來 A', PDF_A, '筲箕灣區', iso(today), '港島地域'),
+          mk('未來 B', PDF_B, '筲箕灣區', iso(today), '港島地域'),
+          mk('尋日嘅', PDF_C, '筲箕灣區', daysAgo(1), '港島地域'),
+        ],
+        深水埗西區: [mk('未來 C', PDF_D, '深水埗西區', iso(today), '九龍地域')],
+        'Scout System': [mk('小工具公告', PDF_E, 'Scout System', iso(today), '港島地域')],
+      },
+    };
+    const enrich2 = {
+      [PDF_A]: { deadline: '2026-12-01', categories: [{ id: 'training' }] },
+      [PDF_B]: { deadline: '2026-09-30', categories: [{ id: 'activity', subtype: 'competition' }] },
+      [PDF_D]: { deadline: '', categories: [{ id: 'service' }] },
+    };
+    const todayIso = iso(today);
+    const q = w.eval('batchQueueToday')(cache2, enrich2, todayIso, 20);
+    ok(q.length === 3, `出圖台只揀今日新入庫（3 張，實際 ${q.length}）：尋日嗰張同小工具都唔入`);
+    ok(!q.some(x => x.title === '小工具公告'), '「Scout System」小工具唔出 Story（同 story_queue.py 一致）');
+    ok(q.find(x => x.title === '未來 B') && q.find(x => x.title === '未來 B').category === 'competition',
+       'enrich 有 activity+subtype=competition → 當比賽（同 story_queue.py 一致）');
+    ok(q.find(x => x.title === '未來 A').audience === '' || q.find(x => x.title === '未來 A').category === 'training',
+       'enrich join：deadline／category 有跟入 item');
+    ok(w.eval('batchQueueToday')(cache2, enrich2, todayIso, 2).length === 2, 'limit 生效（limit=2）');
+    ok(w.eval('batchCategory')({ title: '某某錦標賽通告', source_site: 'x' }, null) === 'competition'
+       && w.eval('batchCategory')({ title: '義工服務日', source_site: 'x' }, null) === 'service'
+       && w.eval('batchCategory')({ title: '隨意標題', source_site: 'x' }, null) === 'other',
+       '冇 enrich 時按標題關鍵字分類（比賽／服務／其他）');
+    ok(/^02_unc_scope_柴灣區-\d{8}\.png$/.test(w.eval('batchFileName')({ source_site: '柴灣區', date: '2026-09-22' }, 2, false, 'unc_scope')),
+       '檔名有次序＋款＋區會＋日期，唔會撞名：' + w.eval('batchFileName')({ source_site: '柴灣區', date: '2026-09-22' }, 2, false, 'unc_scope'));
+  }
+  {
+    // ?batch=1 真係開到出圖台（jsdom 冇 showDirectoryPicker，會走逐張下載路線）
+    const domB = boot('?batch=1');
+    const dB = domB.window.document;
+    await wait(900);
+    const view = dB.querySelector('.batch-backdrop');
+    ok(!!view, '?batch=1 → 彈出「今日草稿出圖台」');
+    ok(view && /今日草稿出圖台/.test(view.textContent) && /全部儲存到資料夾/.test(view.textContent),
+       '出圖台有標題同「全部儲存到資料夾」掣');
+    const figs = view ? [...view.querySelectorAll('.batch-card')] : [];
+    ok(figs.length === 5, `出圖台列出今日 5 張（實際 ${figs.length}）—— ?limit 可以收窄（純函數測試已蓋）`);
+    ok(figs.every(f => f.querySelector('button')), '每張卡都有「⬇ 下載」掣');
+    const sel = view.querySelector('[data-role="batchdesign"]');
+    ok(sel && sel.options.length === 13 && sel.options[0].value === 'auto',
+       '款選擇器＝自動＋12 款');
+    click(domB.window, view.querySelector('[data-role="batchmode"]'));
+    await wait(80);
+    ok(view.querySelector('[data-role="batchmode"]').textContent.includes('4:5'),
+       '撳「出 Story 版」→ 變「出 4:5 feed 版」（切換 work）');
+    // 日期／範圍：可以補做之前幾日，唔會淨係得今日
+    const before = view.querySelectorAll('.batch-card').length;
+    const rangeSel = view.querySelector('[data-role="batchrange"]');
+    rangeSel.value = '30';   // fixture 有一張 20 日前嘅通告，用 30 日範圍包返佢
+    rangeSel.dispatchEvent(new domB.window.Event('change', { bubbles: true }));
+    await wait(200);
+    const after = view.querySelectorAll('.batch-card').length;
+    ok(after > before, `範圍揀「連近 30 日」→ 卡片由 ${before} 變 ${after} 張（補做舊通告）`);
+    ok(/起近 30 日/.test(view.querySelector('[data-role="batchmeta"]').textContent),
+       '標題行講明而家睇緊邊段日期');
+    const todayIso = iso(today);
+    const mkR = (title, dt, src) => ({ title, url: 'https://x/' + encodeURIComponent(title), pdf_url: 'https://x/' + encodeURIComponent(title), date: dt, captured_date: dt, source_site: src, region: src });
+    const cacheR = { data: { 筲箕灣區: [mkR('今日一', iso(today), '筲箕灣區'), mkR('尋日嘅', daysAgo(1), '筲箕灣區'), mkR('上月嘅', daysAgo(30), '筲箕灣區')] } };
+    ok(w.eval('batchQueueRange')(cacheR, {}, [todayIso, daysAgo(1)], 20).length === 2,
+       'batchQueueRange 食多日：今日 1 + 尋日 1 ＝ 2 張');
+    ok(w.eval('batchQueueRange')(cacheR, {}, [daysAgo(1)], 20)[0].title === '尋日嘅',
+       '指定日子即刻出得返嗰日嘅通告（?date= 補做）');
+    ok(w.eval('batchQueueRange')(cacheR, {}, [daysAgo(29)], 20).length === 0,
+       '範圍以外嘅日子唔會偷走出嚟（30 日前唔算近 30 日）');
+    click(domB.window, view.querySelector('.batch-close'));
+    await wait(30);
+    ok(!dB.querySelector('.batch-backdrop'), '× 關得返');
+    // 冇 ?batch 就唔會彈（日常使用零影響）
+    const domN = boot();
+    await wait(700);
+    ok(!domN.window.document.querySelector('.batch-backdrop'), '冇 ?batch 時唔會出現出圖台');
+  }
 
   // 「複製連結」＝ 通告專屬頁深鏈（IG Story link sticker 就貼呢條）
   const copyLinkBtn = sheet.querySelector('[data-act="copy-link"]');

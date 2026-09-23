@@ -16,7 +16,7 @@
 - `sources.json`：49 個來源映射設定
 - `cache.json`：輸出資料與內部狀態
 - `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享（文案＋社交＋IG 分享圖 4:5，另設 📱 Story 版 1080×1920）/ 匿名通知設定）。通告專屬頁：每張通告有深鏈 `?n=<16hex>`（同 push ID 同源），單一 ID 著陸會直接彈出該通告嘅專屬頁（標題＋區徽＋截止/對象/費用/名額＋開附件/分享/複製連結），分享面板「複製連結」一撳攞鏈，貼上 IG Story link sticker 就形成 Story → 圖書館閉環
-  - IG 分享圖（2026-09-21）：瀏覽器 canvas 即畫 1080×1350，用人者裝置字體同記憶體，**唔經任何 Vercel function／storage**；取代 2026-09-16 移除嘅 server-side render（PyMuPDF）——Vercel 爆容量嘅真兇係 Python 依賴入 bundle（見 VERCEL_EMERGENCY_CLEANUP_2026-09-19.md），唔係圖片儲存，所以 server render 唔會返嚟
+  - IG 分享圖（2026-09-21；**2026-09-22 由「深藍底＋字」重寫成 12 款設計**）：瀏覽器 canvas 即畫 1080×1350（feed 4:5）／1080×1920（Story），用人者裝置字體同記憶體，**唔經任何 Vercel function／storage**；取代 2026-09-16 移除嘅 server-side render（PyMuPDF）——Vercel 爆容量嘅真兇係 Python 依賴入 bundle（見 VERCEL_EMERGENCY_CLEANUP_2026-09-19.md），唔係圖片儲存，所以 server render 唔會返嚟。12 款、md5 揀款、縮圖 picker 見「分享通告」一節
 - `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
@@ -171,6 +171,14 @@ node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／�
 
 - **分享連結**：WhatsApp／Telegram／Facebook／X／LINE／電郵、系統分享（手機）、複製網址、複製文字（標題 + 截止／對象／費用 + 網址）。
   分享嘅網址係**附件直連（PDF）**，朋友一撳即開。
+- **IG 分享圖（2026-09-22 大改：12 款設計）**：分享面板撳「產生 IG 分享圖」即
+  喺用戶部機用 canvas 畫（零 function、零 storage）。12 款 = 訓練 3 色斜帶／比賽金框黑／
+  活動軍綠／服務 WANTED 羊皮紙／通告 6 款 UNC 風（瞄準鏡・絕密檔案・故障霓虹・羊皮紙・
+  紅 WANTED・黑金），**同 Actions 嘅 Pillow 草稿（`tools/render_story_templates.py`）
+  同一套視覺語言**，連揀款算法都一樣（`md5(pdf_url||url||title) % pool`，見下面
+  `md5Hex`）——所以同一張通告，app 出嘅圖同 Story 草稿係同一款。撳 4:5／9:16 切換
+  feed／Story 版，下面有 12 款縮圖可以即場換款（縮圖就係實際效果）。區徽（`icons/orgs`
+  嘅 AVIF）貼右上角白磚，fallback 鏈 區 → 地域 → 總會。
 > 「分享圖片」（PDF → JPG）功能已於 2026-09-16 移除：附加價值有限，而佢令每個 Vercel
 > deployment 嘅 function bundle 包埋 PyMuPDF（約 110MB），直接導致 Functions Storage
 > 爆額（見下文「Vercel 用量」一節）。分享連結、複製網址／文字等功能不受影響。
@@ -443,6 +451,25 @@ Hobby 預設 retention **30 日**，而呢個 repo 每日有 ~3 個 bot commit
    - `.github/workflows/vercel-bundle-guard.yml`：每次 push 都驗證
      「`api/` 只用標準庫」＋「根目錄冇會令 Vercel pip install 嘅 manifest
      漏網」＋「上傳體積唔超 budget」，防止日後有人無意中加返。
+
+### 區徽工具檔爆 budget（2026-09-22：check 4 紅 → 綠）
+
+Check 4 一度紅：上傳 231 個檔、4.15 MB（budget 2 MB）。病源係新入庫嘅
+`icons/orgs/` **三類 Vercel 完全唔使嘅檔**（49 個組織 × 每款）：
+
+| 檔 | 邊個用 | 應唔應該上 Vercel |
+| --- | --- | --- |
+| `icons/orgs/*-256.png`（49 隻，~3.5MB） | Pillow 出 Story 草稿先用；Pillow 喺 GitHub Actions 跑、讀 git checkout | ❌ 唔使 |
+| `icons/orgs/src/`（官方原圖 9.2MB） | `tools/fetch_org_logos.py` 捉落嚟嘅母圖 | ❌ 唔使 |
+| `icons/orgs/official_urls.json` | 上面嗰個工具嘅資料 | ❌ 唔使 |
+| `icons/orgs/orgs.json` ＋ `*-256.avif` ＋ `*-64.avif` | **前端 badge runtime**（`fetch('icons/orgs/orgs.json')` 係相對路徑，行 Vercel） | ✅ 必須留 |
+
+三類一 `.vercelignore`，上傳即由 4.15 MB 跌到 **0.97 MB（＋2 個 PWA 圖示豁免）**。
+`.github/scripts/vercel_bundle_guard.py` 同時加咗 `BUDGET_ALLOWLIST`：
+`icons/icon-512.png`（PWA 安裝）同 `icons/icon-maskable-512.png` 係部署真係要嘅
+（`manifest.webmanifest` 指住佢哋，ignore 咗安裝會爛），所以佢哋**唔計 budget**
+但一定要喺 report 度交代理由 —— 想加新檔入豁免就要答「冇咗佢 Vercel 上面會壞乜」。
+**唔准為咗令 check 4 變綠而 ignore 呢兩個 PWA 圖示。**
 
 **你而家要做嘅兩件事**（repo 改唔到 Vercel 帳戶設定）：
 

@@ -342,10 +342,23 @@
     .share-ig-btn[disabled] { opacity: .5; cursor: wait; }
     .share-ig-result { margin-top: 12px; }
     .share-ig-result img { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--line); }
+    /* 12 款設計縮圖 picker（撳一撳即換款，唔使關面板） */
+    .share-ig-designs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 10px; }
+    .share-ig-designs button { position: relative; padding: 0; border: 2px solid transparent; border-radius: 8px; background: rgba(255,255,255,.04); cursor: pointer; overflow: hidden; line-height: 0; }
+    .share-ig-designs button img { border: 0; border-radius: 6px; width: 100%; display: block; }
+    .share-ig-designs button span { display: block; padding: 3px 0 4px; font-size: 9px; line-height: 1.1; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .share-ig-designs button:hover { border-color: var(--line); }
+    .share-ig-designs button.active { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand) inset; }
+    @media (max-width: 520px) { .share-ig-designs { grid-template-columns: repeat(4, 1fr); } }
     .share-ig-hint { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
-    .share-ig-actions { display: flex; gap: 8px; margin-top: 10px; }
-    .share-ig-actions a, .share-ig-actions button { flex: 1; text-align: center; padding: 10px 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .share-ig-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .share-ig-actions a, .share-ig-actions button { flex: 1 1 112px; min-width: 0; text-align: center; padding: 10px 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; }
     .share-ig-actions a:hover, .share-ig-actions button:hover { background: rgba(255,255,255,.1); }
+    /* 電腦版「貼去平台」：一撳複製圖片＋開平台，貼上即發 */
+    .share-ig-shareto { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
+    .share-ig-shareto span { color: var(--muted); font-size: 12px; }
+    .share-ig-shareto button { padding: 7px 12px; border-radius: 9px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+    .share-ig-shareto button:hover { background: rgba(255,255,255,.12); }
     /* ── 通告專屬頁（Story link sticker 著陸用；push 直連通告唔經呢度）── */
     .notice-backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(2,8,23,.7); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 18px; }
     .notice-page { width: min(560px, 100%); max-height: 88vh; overflow: auto; background: linear-gradient(180deg, #111d32, #0b1424); border: 1px solid rgba(96,165,250,.42); border-radius: 18px; box-shadow: 0 18px 40px rgba(0,0,0,.5); padding: 26px 24px 16px; }
@@ -372,6 +385,31 @@
     .share-pdf-nav button:hover:not([disabled]) { background: rgba(255,255,255,.12); }
     .share-pdf-nav button[disabled] { opacity: .35; cursor: default; }
     .share-pdf-nav span { color: var(--muted); font-size: 12px; }
+
+    /* ── 今日草稿出圖台（?batch=1）：本機批次出圖，零伺服器 ── */
+    .batch-backdrop { position: fixed; inset: 0; z-index: 70; background: rgba(2,8,23,.86); backdrop-filter: blur(6px); overflow: auto; padding: 20px; }
+    .batch-page { width: min(1180px, 100%); margin: 0 auto; background: linear-gradient(180deg, #111d32, #0b1424); border: 1px solid rgba(96,165,250,.35); border-radius: 18px; padding: 22px 22px 28px; box-shadow: 0 18px 48px rgba(0,0,0,.55); }
+    .batch-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .batch-head h2 { margin: 0; font-size: 20px; color: #e6eefb; }
+    .batch-sub { margin-top: 4px; color: #8ea2c6; font-size: 13px; }
+    .batch-close { border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); border-radius: 10px; width: 36px; height: 36px; font-size: 20px; cursor: pointer; }
+    .batch-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 16px; }
+    .batch-tools label { color: #cfe3ff; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+    .batch-tools select { background: #0f1c31; color: var(--text); border: 1px solid var(--line); border-radius: 9px; padding: 7px 10px; font-size: 13px; }
+    .batch-tools button { padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; }
+    .batch-tools button.primary { border-color: var(--brand); background: var(--brand-2); }
+    .batch-tools button[disabled] { opacity: .5; cursor: wait; }
+    .batch-progress { color: #9ec3ff; font-size: 12.5px; }
+    .batch-hint { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .batch-hint code { background: rgba(255,255,255,.07); padding: 1px 5px; border-radius: 5px; }
+    .batch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 14px; margin-top: 18px; }
+    .batch-card { margin: 0; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .batch-card img { width: 100%; display: block; background: #0a1931; aspect-ratio: 4 / 5; object-fit: cover; }
+    .batch-card figcaption { padding: 9px 10px 11px; display: flex; flex-direction: column; gap: 6px; }
+    .batch-title { color: #e6eefb; font-size: 12.5px; font-weight: 600; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .batch-meta { color: #8ea2c6; font-size: 11px; }
+    .batch-card button { margin-top: 2px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--text); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+    @media (max-width: 560px) { .batch-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
 
     .share-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; background: #0f172a; color: #e6eefb;
                    border: 1px solid #3a5a8c; padding: 10px 16px; border-radius: 999px; font-size: 13px; box-shadow: var(--shadow); pointer-events: none; opacity: 0; transition: opacity .2s; }
@@ -1916,7 +1954,7 @@
       return lines.join('\n');
     }
 
-    // ── IG 分享圖：1080×1350，client-side canvas 即畫即棄 ─────────────────
+    // ── IG 分享圖：12 款設計，client-side canvas 即畫即棄 ─────────────────
     //
     // 點解唔係 server-side render endpoint + Pillow：
     // 2026-09-17 爆 Functions Storage（11.82GB / 10GB）嘅真兇係
@@ -1927,23 +1965,178 @@
     // 改用瀏覽器 canvas 之後：零 function、零依賴、零 storage、零 invocation，
     // 數學上 Vercel 冇新增任何計費資源；中文直接用裝置內建字體，
     // 連 CJK 字體檔都唔使打包。「撳一撳生一張、用完即棄」係真正嘅 stateless。
+    //
+    // 2026-09-22 大改：由「深藍底＋字」升級做 12 款設計，同 Actions 嘅
+    // tools/render_story_templates.py（Pillow 草稿）同一套視覺語言 ——
+    //   訓練 3 色斜帶／比賽金框黑／活動軍綠／服務 WANTED 羊皮紙／
+    //   通告 6 款 UNC 風（瞄準鏡・絕密檔案・故障霓虹・羊皮紙・紅 WANTED・黑金）
+    // 邊張通告配邊款：同 Pillow 一模一樣嘅算法 md5(pdf_url || url || title) 再
+    // % pool（連 pool 次序都一樣）→ 同一張通告，app 出嘅圖同 Actions 草稿係同一款。
+    // 用戶仲可以喺分享面板自己揀款（縮圖 picker）。
+    // Story 版（1080×1920）照舊守住 IG 介面安全區（頂 250 / 底 360），
+    // 所以最頂／最底嘅內容唔會被 Story 嘅頭像列同回覆欄遮住。
     const POSTER_W = 1080;
-    const POSTER_H = 1350; // IG 4:5 直倒
-    const POSTER_MX = 72;
+    const POSTER_H = 1350;        // IG feed 4:5
+    const POSTER_STORY_H = 1920;  // IG Story 9:16
+    const POSTER_MX = 60;         // 左右留白（同 Pillow 草稿一致）
     const POSTER_FONT = '"PingFang TC","Microsoft JhengHei","Noto Sans CJK TC","Noto Sans TC","Heiti TC",sans-serif';
     const POSTER_CREDIT = '經 通告圖書館整理 @noscout.system';
 
-    // CJK 貪心斷行（逐字量度；ASCII 都會中間斷，但標題好少有長英文單字）
-    function posterWrap(ctx, text, maxWidth) {
-      const lines = [];
-      let cur = '';
+
+    // ── md5（同 Pillow hashlib.md5 對齊；只用嚟揀款，唔係加密用途）─────────
+    // 唔用 TextEncoder：jsdom / 舊 WebView 未必有，自己 encode UTF-8 最穩。
+    const MD5_K = Array.from({ length: 64 }, (_, i) => Math.floor(Math.abs(Math.sin(i + 1)) * 4294967296) >>> 0);
+    const MD5_S = [
+      7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
+      5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
+      4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
+      6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21,
+    ];
+
+    function posterUtf8(text) {
+      const out = [];
       for (const ch of String(text)) {
-        if (ch === '\n') { if (cur) lines.push(cur); cur = ''; continue; }
-        if (cur && ctx.measureText(cur + ch).width > maxWidth) { lines.push(cur); cur = ch; }
-        else cur += ch;
+        const cp = ch.codePointAt(0);
+        if (cp < 0x80) out.push(cp);
+        else if (cp < 0x800) out.push(0xc0 | (cp >> 6), 0x80 | (cp & 63));
+        else if (cp < 0x10000) out.push(0xe0 | (cp >> 12), 0x80 | ((cp >> 6) & 63), 0x80 | (cp & 63));
+        else out.push(0xf0 | (cp >> 18), 0x80 | ((cp >> 12) & 63), 0x80 | ((cp >> 6) & 63), 0x80 | (cp & 63));
       }
-      if (cur) lines.push(cur);
-      return lines;
+      return out;
+    }
+
+    function md5Hex(text) {
+      const bytes = posterUtf8(text);
+      const len = bytes.length;
+      const padded = new Uint8Array((((len + 8) >> 6) + 1) * 64);
+      padded.set(bytes);
+      padded[len] = 0x80;
+      const view = new DataView(padded.buffer);
+      const bits = len * 8;
+      view.setUint32(padded.length - 8, bits >>> 0, true);
+      view.setUint32(padded.length - 4, Math.floor(bits / 4294967296), true);
+      let a0 = 0x67452301, b0 = 0xefcdab89, c0 = 0x98badcfe, d0 = 0x10325476;
+      const M = new Uint32Array(16);
+      for (let off = 0; off < padded.length; off += 64) {
+        for (let i = 0; i < 16; i++) M[i] = view.getUint32(off + i * 4, true);
+        let A = a0, B = b0, C = c0, D = d0;
+        for (let i = 0; i < 64; i++) {
+          let F, g;
+          if (i < 16) { F = (B & C) | (~B & D); g = i; }
+          else if (i < 32) { F = (D & B) | (~D & C); g = (5 * i + 1) % 16; }
+          else if (i < 48) { F = B ^ C ^ D; g = (3 * i + 5) % 16; }
+          else { F = C ^ (B | ~D); g = (7 * i) % 16; }
+          F = (F + A + MD5_K[i] + M[g]) >>> 0;
+          A = D; D = C; C = B;
+          B = (B + (((F << MD5_S[i]) | (F >>> (32 - MD5_S[i]))) >>> 0)) >>> 0;
+        }
+        a0 = (a0 + A) >>> 0; b0 = (b0 + B) >>> 0; c0 = (c0 + C) >>> 0; d0 = (d0 + D) >>> 0;
+      }
+      const out = new Uint8Array(16);
+      const ov = new DataView(out.buffer);
+      ov.setUint32(0, a0, true); ov.setUint32(4, b0, true); ov.setUint32(8, c0, true); ov.setUint32(12, d0, true);
+      let hex = '';
+      for (const b of out) hex += b.toString(16).padStart(2, '0');
+      return hex;
+    }
+
+    // ── 12 款設計（次序同 Pillow POOLS / POOL_NAMES 一致）─────────────────
+    const POSTER_DESIGNS = [
+      { id: 'train_blue', label: '訓練・藍帶', cat: 'training', kind: 'train', accent: '#0066FF', pill: '訓練', pillFg: '#FFFFFF', titleColor: '#111111', onLight: true },
+      { id: 'train_orange', label: '訓練・橙帶', cat: 'training', kind: 'train', accent: '#FF6B00', pill: '訓練', pillFg: '#FFFFFF', titleColor: '#111111', onLight: true },
+      { id: 'train_green', label: '訓練・綠帶', cat: 'training', kind: 'train', accent: '#00C950', pill: '訓練', pillFg: '#FFFFFF', titleColor: '#111111', onLight: true },
+      { id: 'competition_gold_black', label: '比賽・金框黑', cat: 'competition', kind: 'competition', accent: '#FFD700', pill: '比賽', pillFg: '#000000', titleColor: '#FFD700', titleOutline: '#000000' },
+      { id: 'activity_army', label: '活動・軍綠', cat: 'activity', kind: 'army', accent: '#A6FF00', pill: '活動', pillFg: '#000000', titleColor: '#FFFFFF' },
+      { id: 'service_wanted', label: '服務・WANTED', cat: 'service', kind: 'parchment', accent: '#8B5A2B', pill: '服務', pillFg: '#FFFFFF', pillBg: '#3D1E00', titleColor: '#1b1206', onLight: true, headline: 'WANTED', headlineColor: '#3D1E00', strip: 'REWARD：服務時數／義工証明' },
+      { id: 'unc_scope', label: '通告・瞄準鏡', cat: 'other', kind: 'scope', accent: '#FF0000', pill: '通告', pillFg: '#FFFFFF', titleColor: '#FFFFFF' },
+      { id: 'unc_topsecret', label: '通告・絕密檔案', cat: 'other', kind: 'topsecret', accent: '#8B0000', pill: '通告', pillFg: '#FFFFFF', titleColor: '#111111', onLight: true, headline: 'TOP SECRET', headlineColor: '#8B0000' },
+      { id: 'unc_glitch', label: '通告・故障霓虹', cat: 'other', kind: 'glitch', accent: '#00FFFF', pill: '通告', pillFg: '#000000', titleColor: '#FFFFFF', headline: 'ghost' },
+      { id: 'unc_wanted_parchment', label: '通告・羊皮紙', cat: 'other', kind: 'parchment', accent: '#8B5A2B', pill: '通告', pillFg: '#FFFFFF', pillBg: '#3D1E00', titleColor: '#1b1206', onLight: true, headline: 'WANTED', headlineColor: '#3D1E00', strip: 'REWARD：服務時數／義工証明' },
+      { id: 'unc_wanted_red', label: '通告・紅 WANTED', cat: 'other', kind: 'wanted_red', accent: '#FF0000', pill: '通告', pillFg: '#FFFFFF', pillBg: '#000000', titleColor: '#000000', onLight: true, headline: 'WANTED', headlineColor: '#FF0000' },
+      { id: 'unc_wanted_blackfin', label: '通告・黑金 WANTED', cat: 'other', kind: 'blackfin', accent: '#111111', pill: '通告', pillFg: '#FFFFFF', pillBg: '#111111', titleColor: '#111111', onLight: true, headline: 'WANTED', headlineColor: '#111111' },
+    ];
+    const POSTER_DESIGN_BY_ID = {};
+    for (const _d of POSTER_DESIGNS) POSTER_DESIGN_BY_ID[_d.id] = _d;
+    const POSTER_POOLS = {
+      training: ['train_blue', 'train_orange', 'train_green'],
+      competition: ['competition_gold_black'],
+      activity: ['activity_army'],
+      service: ['service_wanted'],
+      other: ['unc_scope', 'unc_topsecret', 'unc_glitch', 'unc_wanted_parchment', 'unc_wanted_red', 'unc_wanted_blackfin'],
+    };
+
+    function posterPoolFor(item, ex) {
+      const cats = itemCategories(item, ex);
+      for (const id of ['training', 'competition', 'activity', 'service']) if (cats.has(id)) return id;
+      // 後備：story_queue.py 出嘅 item 用 flat `category`（enrich 冇 categories 時都揀得中）
+      const flat = String((ex && ex.category) || (item && item.category) || '').trim();
+      if (POSTER_POOLS[flat]) return flat;
+      return 'other';
+    }
+
+    // 同 Pillow 一樣：int(md5(pdf_url || url || title), 16) % len(pool)
+    // 逐個 hex 位累加取模（唔用 BigInt，舊瀏覽器都跑得）。
+    function posterAutoDesignId(item, ex) {
+      const pool = POSTER_POOLS[posterPoolFor(item, ex)];
+      if (pool.length === 1) return pool[0];
+      const key = String((item && (item.pdf_url || item.url)) || (item && item.title) || '');
+      let v = 0;
+      for (const ch of md5Hex(key)) v = (v * 16 + parseInt(ch, 16)) % pool.length;
+      return pool[v];
+    }
+
+    function posterRng(seed) {
+      let h = 2166136261;
+      for (const ch of String(seed)) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; }
+      let s = h || 1;
+      return () => {
+        s ^= s << 13; s >>>= 0;
+        s ^= s >>> 17;
+        s ^= s << 5; s >>>= 0;
+        return s / 4294967296;
+      };
+    }
+
+    // ── 版面（feed 4:5 / story 9:16 都係同一套錨點，自動適應）─────────────
+    function posterLayout(item, ex, mode, design) {
+      const story = mode === 'story';
+      const W = POSTER_W, H = story ? POSTER_STORY_H : POSTER_H;
+      const safeTop = story ? 250 : 0, safeBottom = story ? 360 : 0;
+      const MX = POSTER_MX, CW = W - MX * 2;
+      const quota = (ex && (ex.quota || ex.places || ex.limit || ex.名額)) || '';
+      const rows = [];
+      if (ex && ex.deadline) rows.push(['截止', String(ex.deadline), 'warn']);
+      if (ex && ex.audience) rows.push(['對象', String(ex.audience), '']);
+      if (ex && ex.fee) rows.push(['費用', String(ex.fee), '']);
+      if (quota) rows.push(['名額', String(quota), '']);
+      const dateLabel = String((item && (item.date || item.captured_date)) || '');
+      rows.push(['頒佈', dateLabel || '—', '']);
+      const rowH = 108, cardH = 92;
+      const creditY = H - 46 - safeBottom;
+      const footY = creditY - 34;
+      const cardsBottom = footY - 40;
+      const cardsTop = cardsBottom - ((rows.length - 1) * rowH + cardH);
+      const L = {
+        story, W, H, MX, CW, safeTop, safeBottom,
+        rows, rowH, cardH, cardsTop, cardsBottom,
+        dateY: cardsTop - 54,
+        creditY, footY,
+        pillY: safeTop + 80, pillH: 60, pillFont: 32,
+        badge: { x: W - MX - 176, y: safeTop + 68, size: 176 },
+        zone: { x0: MX, x1: W - MX, y0: safeTop + 210, y1: cardsTop - 114 },
+      };
+      // 設計自己嘅預留位：headline（WANTED／TOP SECRET／重影）＋ strip（REWARD 條）
+      if (design.headline) {
+        const hh = Math.max(88, Math.min(170, Math.round((L.zone.y1 - L.zone.y0) * 0.26)));
+        L.headline = { y0: L.zone.y0 - 12, y1: L.zone.y0 - 12 + hh };
+        L.zone.y0 = L.headline.y1 + 30;
+      }
+      if (design.strip) {
+        L.strip = { y0: L.zone.y1 - 96, y1: L.zone.y1 };
+        L.zone.y1 = L.strip.y0 - 26;
+      }
+      L.dividerY = L.dateY - 40;
+      return L;
     }
 
     function posterRoundRect(ctx, x, y, w, h, r) {
@@ -1954,6 +2147,421 @@
       ctx.arcTo(x, y + h, x, y, r);
       ctx.arcTo(x, y, x + w, y, r);
       ctx.closePath();
+    }
+
+    // 切字：ASCII 連續字母／數字當一粒（HK$50、2027、PDF 唔會斷開），
+    // CJK 同標點逐字 —— 同 Pillow render_story_templates._tokens 一樣。
+    const POSTER_TOKEN_SPLIT = /([A-Za-z0-9%$./_+@#-]+)/;
+    const POSTER_TOKEN_ASCII = /^[A-Za-z0-9%$./_+@#-]+$/;
+
+    function posterTokens(text) {
+      const out = [];
+      for (const part of String(text).split(POSTER_TOKEN_SPLIT)) {
+        if (!part) continue;
+        if (POSTER_TOKEN_ASCII.test(part)) out.push(part);
+        else out.push(...part);
+      }
+      return out;
+    }
+
+    function posterWrap(ctx, text, maxWidth, maxLines) {
+      const max = maxLines || 4;
+      const clean = String(text == null ? '' : text).replace(/\s+/g, ' ').trim() || '未命名通告';
+      const lines = [];
+      let cur = '';
+      for (const tok of posterTokens(clean)) {
+        if (!cur || ctx.measureText(cur + tok).width <= maxWidth) cur += tok;
+        else {
+          lines.push(cur.replace(/\s+$/, ''));
+          cur = tok.replace(/^\s+/, '');
+          if (lines.length >= max) break;
+        }
+      }
+      if (cur && lines.length < max) lines.push(cur);
+      const shown = lines.join('').replace(/\s+/g, '').length;
+      if (lines.length && shown < clean.replace(/\s+/g, '').length) {
+        let last = lines[lines.length - 1];
+        while (last && ctx.measureText(last + '…').width > maxWidth) last = last.slice(0, -1);
+        lines[lines.length - 1] = last + '…';
+      }
+      return lines.length ? lines : ['未命名通告'];
+    }
+
+    function posterFitTitle(ctx, title, L) {
+      const maxW = L.zone.x1 - L.zone.x0, maxH = L.zone.y1 - L.zone.y0;
+      let fallback = null;
+      for (const size of [96, 84, 72, 64, 56, 48]) {
+        ctx.font = `700 ${size}px ${POSTER_FONT}`;
+        const lines = posterWrap(ctx, title, maxW, 4);
+        const lh = Math.round(size * 1.3);
+        const block = { size, lines, lh, height: (lines.length - 1) * lh + size };
+        if (block.height <= maxH && !lines[lines.length - 1].endsWith('…')) return block;
+        fallback = block;
+      }
+      return fallback;
+    }
+
+    function posterPill(ctx, text, L, design) {
+      const pad = 26, size = L.pillFont;
+      ctx.font = `700 ${size}px ${POSTER_FONT}`;
+      const w = ctx.measureText(text).width + pad * 2;
+      posterRoundRect(ctx, L.MX, L.pillY, w, L.pillH, L.pillH / 2);
+      ctx.fillStyle = design.pillBg || design.accent;
+      ctx.fill();
+      ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = design.pillFg || '#FFFFFF';
+      ctx.fillText(text, L.MX + pad, L.pillY + L.pillH / 2 + 1);
+    }
+
+    function posterBadge(ctx, L, badgeImg) {
+      if (!badgeImg || !badgeImg.width) return;
+      const s = L.badge.size;
+      try {
+        posterRoundRect(ctx, L.badge.x, L.badge.y, s, s, 32);
+        ctx.fillStyle = 'rgba(255,255,255,.95)';
+        ctx.fill();
+        const rr = Math.min((s - 30) / badgeImg.width, (s - 30) / badgeImg.height);
+        const dw = badgeImg.width * rr, dh = badgeImg.height * rr;
+        ctx.drawImage(badgeImg, L.badge.x + (s - dw) / 2, L.badge.y + (s - dh) / 2, dw, dh);
+      } catch (_) { /* 冇徽／解唔到就靜靜略過，唔阻出圖 */ }
+    }
+
+    // 大字（WANTED／TOP SECRET）同故障霓虹重影
+    function posterHeadline(ctx, L, design, item) {
+      if (!L.headline) return;
+      const z = L.headline, availH = z.y1 - z.y0, text = design.headline;
+      if (text === 'ghost') {
+        let g = String((item && item.title) || 'UNEXPECTED EVENT').replace(/\s+/g, ' ').slice(0, 12);
+        let size = 48;
+        for (const s of [84, 72, 60, 48]) {
+          ctx.font = `700 ${s}px ${POSTER_FONT}`;
+          if (ctx.measureText(g).width <= L.CW * 0.86 && s * 1.2 <= availH + 40) { size = s; break; }
+        }
+        ctx.font = `700 ${size}px ${POSTER_FONT}`;
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        const y = z.y0 + availH / 2;
+        ctx.fillStyle = '#00FFFF'; ctx.fillText(g, L.MX + 7, y + 9);
+        ctx.fillStyle = '#FF00FF'; ctx.fillText(g, L.MX, y);
+        return;
+      }
+      let size = 56;
+      for (const s of [150, 132, 118, 104, 92, 80, 68, 56]) {
+        ctx.font = `700 ${s}px ${POSTER_FONT}`;
+        if (ctx.measureText(text).width <= L.CW * 0.94 && s <= availH * 0.86) { size = s; break; }
+      }
+      ctx.save();
+      ctx.font = `700 ${size}px ${POSTER_FONT}`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.translate(L.W / 2, z.y0 + availH / 2);
+      if (design.kind === 'topsecret') ctx.rotate(-14 * Math.PI / 180);
+      ctx.fillStyle = design.headlineColor || design.accent;
+      ctx.fillText(text, 0, 0);
+      ctx.restore();
+    }
+
+    function posterTitle(ctx, L, design, fit) {
+      const { size, lines, lh, height } = fit;
+      let y = L.zone.y0 + Math.max(0, (L.zone.y1 - L.zone.y0 - height) / 2) + size / 2;
+      ctx.font = `700 ${size}px ${POSTER_FONT}`;
+      ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      for (const line of lines) {
+        if (design.titleOutline) {
+          ctx.fillStyle = design.titleOutline;
+          for (const [dx, dy] of [[-2, 0], [2, 0], [0, -2], [0, 2]]) ctx.fillText(line, L.MX + dx, y + dy);
+        }
+        ctx.fillStyle = design.titleColor || '#FFFFFF';
+        ctx.fillText(line, L.MX, y);
+        y += lh;
+      }
+    }
+
+    function posterStrip(ctx, L, design) {
+      if (!L.strip || !design.strip) return;
+      const z = L.strip, h = z.y1 - z.y0;
+      ctx.strokeStyle = design.accent; ctx.lineWidth = 3;
+      ctx.strokeRect(L.MX, z.y0, L.CW, h);
+      ctx.font = `700 30px ${POSTER_FONT}`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = design.accent;
+      ctx.fillText(design.strip, L.W / 2, z.y0 + h / 2 + 1);
+    }
+
+    function posterDateLine(ctx, L, item, design) {
+      const raw = String((item && (item.date || item.captured_date)) || '');
+      const dm = raw.match(/(\d{4})-(\d{2})-(\d{2})/);
+      const dateLabel = dm ? `${Number(dm[2])}月${Number(dm[3])}日` : raw;
+      let region = '';
+      try { region = getRegionForItem(item) || ''; } catch (_) { region = ''; }
+      const text = [dateLabel, region].filter(Boolean).join(' ｜ ');
+      if (!text) return;
+      ctx.font = `400 30px ${POSTER_FONT}`;
+      ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = design.onLight ? '#5B6470' : '#9AA7BD';
+      ctx.fillText(text, L.MX, L.dateY);
+    }
+
+    // 底部資料卡：同 Pillow draw_bottom 一樣（白卡、label 上、value 下）
+    function posterCards(ctx, L, design) {
+      if (!L.rows.length) return;
+      let y = L.cardsTop;
+      for (const [label, rawValue, tone] of L.rows) {
+        let value = String(rawValue == null ? '' : rawValue);
+        if (value.length > 22) value = value.slice(0, 21) + '…';
+        posterRoundRect(ctx, L.MX, y, L.CW, L.cardH, 18);
+        ctx.fillStyle = 'rgba(255,255,255,.94)';
+        ctx.fill();
+        if (design.onLight) {
+          ctx.strokeStyle = 'rgba(17,17,17,.10)'; ctx.lineWidth = 2; ctx.stroke();
+        }
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        ctx.font = `400 26px ${POSTER_FONT}`;
+        ctx.fillStyle = '#666666';
+        ctx.fillText(label, L.MX + 26, y + 16);
+        let size = 30;
+        ctx.font = `700 ${size}px ${POSTER_FONT}`;
+        while (size > 20 && ctx.measureText(value).width > L.CW - 52) {
+          size -= 2;
+          ctx.font = `700 ${size}px ${POSTER_FONT}`;
+        }
+        ctx.fillStyle = tone === 'warn' ? design.accent : '#111111';
+        ctx.fillText(value, L.MX + 26, y + 44);
+        y += L.rowH;
+      }
+    }
+
+    function posterFooter(ctx, L, item, design) {
+      const foot = [item && item.source_site, item && item.region].filter(Boolean).join(' ・ ');
+      ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      if (foot) {
+        ctx.font = `400 22px ${POSTER_FONT}`;
+        ctx.fillStyle = design.onLight ? '#6B7280' : '#9AA7BD';
+        ctx.fillText(foot, L.MX, L.footY);
+      }
+      ctx.font = `400 22px ${POSTER_FONT}`;
+      ctx.fillStyle = design.onLight ? '#9CA3AF' : '#7C89A3';
+      ctx.fillText(POSTER_CREDIT, L.MX, L.creditY);
+    }
+
+    function posterTruncate(ctx, text, maxW) {
+      let s = String(text == null ? '' : text);
+      if (ctx.measureText(s).width <= maxW) return s;
+      while (s.length > 1 && ctx.measureText(s + '…').width > maxW) s = s.slice(0, -1);
+      return s + '…';
+    }
+
+    // ── PDF 內文出圖嘅「落款位」（廣告位）────────────────────────────────
+    // 就用返純文字分享嗰行，一個字都唔改：---經 通告圖書館 v5.11 整理 @noscout.system
+    // 深鏈擺右邊細字 —— 人哋收到圖就知去邊度搵返完整通告同最新截止日期。
+    // 純 canvas，零 function／零 storage／零上傳，所以「無負擔」。
+    function pdfImageFooter(item, pageNum, pageCount) {
+      const site = String((item && item.source_site) || '').trim();
+      const title = String((item && item.title) || '未命名通告').replace(/\s+/g, ' ').trim();
+      let link = '';
+      try { link = String(noticeLinkFor(item) || '').replace(/^https?:\/\//, ''); } catch (_) { link = ''; }
+      return {
+        title: (site ? `【${site}】` : '') + title,
+        page: pageCount > 1 ? `第 ${pageNum} / ${pageCount} 版` : '',
+        credit: SHARE_CREDIT,   // 原樣：---經 通告圖書館 v5.11 整理 @noscout.system
+        linkLine: link ? `完整通告＋最新截止日期：${link}` : '',
+      };
+    }
+
+    // 版面上：PDF 原頁 + 底部「精簡落款」一行
+    // 落款文字＝同分享文案完全一樣嘅一行（---經 通告圖書館 v5.11 整理 @noscout.system），
+    // 右邊細字放該通告嘅深鏈（人哋收到圖可以直接搵返完整通告＋最新截止日期）。
+    // 任何一步失敗都回原頁，唔會因為落款而失去張圖。
+    function composePdfImage(pageCanvas, item, pageNum, pageCount, badgeImg) {
+      const W = pageCanvas.width, H = pageCanvas.height;
+      if (!W || !H) return pageCanvas;
+      const f = pdfImageFooter(item, pageNum, pageCount);
+      const pad = Math.round(W * 0.042);
+      const bandH = Math.max(112, Math.round(W * 0.135));
+      const out = document.createElement('canvas');
+      out.width = W; out.height = H + bandH;
+      const ctx = out.getContext('2d');
+      if (!ctx) return pageCanvas;
+      try {
+        ctx.drawImage(pageCanvas, 0, 0);
+        const y0 = H;
+        ctx.fillStyle = '#0d1626';
+        ctx.fillRect(0, y0, W, bandH);
+        // 頂部品牌 accent 幼線（同 app 一致）
+        ctx.fillStyle = '#3b82f6';
+        ctx.fillRect(0, y0, W, Math.max(3, Math.round(W * 0.004)));
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        // 第一行（主）：落款 —— 就用分享文案嗰句，一個字都唔改
+        const sCredit = Math.max(24, Math.round(bandH * 0.30));
+        ctx.font = `700 ${sCredit}px ${POSTER_FONT}`;
+        ctx.fillStyle = '#cfe0ff';
+        ctx.fillText(posterTruncate(ctx, f.credit, W - pad * 2), pad, y0 + bandH * 0.36);
+        // 第二行：深鏈（細、暗）—— 人哋收到圖搵得返完整通告同最新截止日期
+        if (f.linkLine) {
+          const sLink = Math.max(20, Math.round(bandH * 0.16));
+          ctx.font = `400 ${sLink}px ${POSTER_FONT}`;
+          ctx.fillStyle = '#7c89a3';
+          ctx.fillText(posterTruncate(ctx, f.linkLine, W - pad * 2), pad, y0 + bandH * 0.74);
+        }
+        // 多版通告：右上角細字標版數（唔阻落款）
+        if (f.page) {
+          const sPage = Math.max(16, Math.round(bandH * 0.15));
+          ctx.font = `400 ${sPage}px ${POSTER_FONT}`;
+          ctx.textAlign = 'right';
+          ctx.fillStyle = '#5f6d85';
+          ctx.fillText(f.page, W - pad, y0 + bandH * 0.30);
+          ctx.textAlign = 'left';
+        }
+      } catch (_) {
+        return pageCanvas;
+      }
+      return out;
+    }
+
+    // ── 每一款嘅背景／裝飾（同 Pillow 各 t_* 函數對應）────────────────────
+    const POSTER_KINDS = {
+      train(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, L.W, L.H);
+        const topR = L.zone.y0 - 70, slope = 230, bandH = 620;
+        ctx.fillStyle = design.accent;
+        ctx.beginPath();
+        ctx.moveTo(0, topR + slope);
+        ctx.lineTo(L.W, topR);
+        ctx.lineTo(L.W, topR + bandH);
+        ctx.lineTo(0, topR + bandH + slope);
+        ctx.closePath();
+        ctx.fill();
+      },
+      competition(ctx, L, design, phase) {
+        if (phase === 'bg') {
+          ctx.fillStyle = '#0A0A0A'; ctx.fillRect(0, 0, L.W, L.H);
+          ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 4;
+          ctx.strokeRect(32, 32, L.W - 64, L.H - 64);
+        } else if (phase === 'over') {
+          ctx.fillStyle = '#FFD700';
+          ctx.fillRect(L.MX, L.dividerY, L.CW, 8);
+        }
+      },
+      army(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#2D3A2E'; ctx.fillRect(0, 0, L.W, L.H);
+        const rnd = posterRng(L.key);
+        ctx.strokeStyle = '#3A4A3B'; ctx.lineWidth = 1;
+        for (let y = 0; y < L.H; y += 120) {
+          ctx.beginPath();
+          ctx.moveTo(0, y + Math.round(rnd() * 40 - 20));
+          ctx.lineTo(L.W, y + Math.round(rnd() * 40 - 20));
+          ctx.stroke();
+        }
+        const cy = (L.zone.y0 + L.zone.y1) / 2, cx = L.W / 2;
+        const r1 = Math.min(340, (L.zone.y1 - L.zone.y0) / 2 + 46);
+        ctx.strokeStyle = '#A6FF00';
+        ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(cx, cy, r1, 0, Math.PI * 2); ctx.stroke();
+        ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx, cy, r1 * 0.72, 0, Math.PI * 2); ctx.stroke();
+      },
+      scope(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#000000'; ctx.fillRect(0, 0, L.W, L.H);
+        const cx = L.W / 2, cy = (L.zone.y0 + L.zone.y1) / 2;
+        const rMax = Math.min(500, (L.zone.y1 - L.zone.y0) / 2 + 130);
+        ctx.strokeStyle = '#FF0000'; ctx.lineWidth = 2;
+        for (const f of [0.4, 0.7, 1]) { ctx.beginPath(); ctx.arc(cx, cy, rMax * f, 0, Math.PI * 2); ctx.stroke(); }
+        ctx.beginPath();
+        ctx.moveTo(0, cy); ctx.lineTo(L.W, cy);
+        ctx.moveTo(cx, cy - rMax * 1.05); ctx.lineTo(cx, cy + rMax * 1.05);
+        ctx.stroke();
+      },
+      topsecret(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#000000'; ctx.fillRect(0, 0, L.W, L.H);
+        ctx.fillStyle = '#C9B896';
+        ctx.fillRect(40, L.safeTop + 150, L.W - 80, L.H - L.safeTop - L.safeBottom - 250);
+        // 兩粒「刪節」黑條（同 Pillow 一樣係裝飾）：標題短、有位先畫
+        const slack = L.dateY - 46 - (L.zone.y0 + 40);
+        if (slack > 120) {
+          ctx.fillStyle = '#111111';
+          ctx.fillRect(L.MX + 60, L.dateY - 150, 310, 42);
+          ctx.fillRect(L.MX + 60, L.dateY - 88, 180, 42);
+        }
+      },
+      glitch(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#000000'; ctx.fillRect(0, 0, L.W, L.H);
+        ctx.fillStyle = '#141414';
+        for (let y = 0; y < L.H; y += 4) ctx.fillRect(0, y, L.W, 1);
+      },
+      parchment(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#E9D5A8'; ctx.fillRect(0, 0, L.W, L.H);
+        ctx.strokeStyle = design.accent; ctx.lineWidth = 6;
+        ctx.strokeRect(23, 23, L.W - 46, L.H - 46);
+      },
+      wanted_red(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, L.W, L.H);
+        ctx.strokeStyle = '#000000'; ctx.lineWidth = 8;
+        ctx.strokeRect(34, 34, L.W - 68, L.H - 68);
+      },
+      blackfin(ctx, L, design, phase) {
+        if (phase !== 'bg') return;
+        ctx.fillStyle = '#0A0A0A'; ctx.fillRect(0, 0, L.W, L.H);
+        ctx.fillStyle = '#E9D5A8';
+        ctx.fillRect(40, 40, L.W - 80, L.H - 80);
+      },
+    };
+
+    // 畫一張海報；同步回 canvas（俾縮圖／預覽都用得）。
+    // opts: { mode:'feed'|'story', design:<id>|'auto', scale, badgeImg }
+    function renderPoster(item, opts) {
+      const o = opts || {};
+      const mode = o.mode === 'story' ? 'story' : 'feed';
+      const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+      const wanted = o.design && o.design !== 'auto' ? o.design : null;
+      const designId = wanted && POSTER_DESIGN_BY_ID[wanted] ? wanted : posterAutoDesignId(item, ex);
+      const design = POSTER_DESIGN_BY_ID[designId] || POSTER_DESIGNS[0];
+      const L = posterLayout(item, ex, mode, design);
+      L.key = String((item && (item.pdf_url || item.url)) || (item && item.title) || '');
+      const scale = o.scale && o.scale > 0 && o.scale !== 1 ? o.scale : 1;
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(L.W * scale);
+      canvas.height = Math.round(L.H * scale);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
+      // 縮圖用：ctx.scale 唔係個個環境都有（亦係防禦性寫法，唔想因為縮圖爆掉主流程）
+      if (scale !== 1 && typeof ctx.scale === 'function') ctx.scale(scale, scale);
+      try {
+        const kind = POSTER_KINDS[design.kind] || POSTER_KINDS.train;
+        kind(ctx, L, design, 'bg');
+        kind(ctx, L, design, 'deco');
+        posterBadge(ctx, L, o.badgeImg);
+        posterPill(ctx, design.pill, L, design);
+        posterHeadline(ctx, L, design, item);
+        posterTitle(ctx, L, design, posterFitTitle(ctx, item && item.title, L));
+        posterStrip(ctx, L, design);
+        kind(ctx, L, design, 'over');
+        posterDateLine(ctx, L, item, design);
+        posterCards(ctx, L, design);
+        posterFooter(ctx, L, item, design);
+      } catch (err) {
+        // 任何一款畫唔到都唔應該拖冧成個流程：回 null，呼叫方自己決定提示
+        return null;
+      }
+      return canvas;
+    }
+
+    async function renderIgImage(item, opts) {
+      const o = opts || {};
+      const story = o.mode === 'story';
+      // 區徽要先 decode 成 Image 先畫得落 canvas；解唔到當冇，唔阻出圖
+      let badgeImg = o.badgeImg;
+      if (badgeImg === undefined) {
+        try { badgeImg = await orgBadgeImgFor(item); } catch (_) { badgeImg = null; }
+      }
+      const canvas = renderPoster(item, Object.assign({}, o, { mode: story ? 'story' : 'feed', badgeImg }));
+      if (!canvas || typeof canvas.toBlob !== 'function') return Promise.reject(new Error('canvas unavailable'));
+      return new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('toBlob failed'))), 'image/png');
+      });
     }
 
     function igFileNameFor(item, story) {
@@ -1986,8 +2594,26 @@
       return `/api/pdf-proxy?u=${encodeURIComponent(shareUrlFor(item))}`;
     }
 
-    // Web Share API（files）：手機可以將產生咗嘅 PNG 直接分享去 IG / WhatsApp，
-    // 唔使先儲存落 Photos。支援度用到先 check，唔支援就收埋「直接分享」掣。
+    // ── 圖片分享：電腦同手機走兩條完全唔同嘅路 ──────────────────────────
+    //   手機／平板：Web Share files（系統面板直接揀 IG／WhatsApp／AirDrop…）。
+    //   電腦：系統分享面板對「分享去社交平台」幫唔到手（Windows／macOS 嗰個
+    //         面板好多時冇社交 app，撳咗好似壞咗），所以電腦改為
+    //        「📋 複製圖片 ＋ 開平台網頁 ＋ 貼上（Ctrl/⌘+V）」。呢個係唯一
+    //         可以由網頁推圖入社交平台嘅正路 —— 瀏覽器唔容許網站代你上載圖。
+    const IMG_SHARE_TARGETS = [
+      { id: 'wa', label: 'WhatsApp', url: 'https://web.whatsapp.com/' },
+      { id: 'tg', label: 'Telegram', url: 'https://web.telegram.org/a/' },
+      { id: 'fb', label: 'Facebook', url: 'https://www.facebook.com/' },
+      { id: 'x', label: 'X', url: 'https://x.com/compose/post' },
+    ];
+
+    // 兩種掣幾時出：手機出系統分享；電腦出「貼去…」（複製＋開網頁）。
+    // 純函數，方便測試同保持兩個盒（PDF 圖／IG 圖）行為一致。
+    function imageShareUi(touch, canShareFiles) {
+      return { system: Boolean(touch && canShareFiles), social: !touch };
+    }
+
+    // Web Share files（手機）：一撳彈系統面板直接揀 IG／WhatsApp
     function canShareImageFiles() {
       try {
         return typeof navigator.share === 'function' && typeof navigator.canShare === 'function'
@@ -1995,195 +2621,39 @@
       } catch (_) { return false; }
     }
 
+    // 複製圖片落剪貼板（電腦貼上社交平台用）。唔支援／唔准就回 false，
+    // 呼叫方會提示改用「下載圖片」，唔會靜靜失敗。
+    async function copyImageBlob(blob) {
+      try {
+        if (!navigator.clipboard || typeof navigator.clipboard.write !== 'function') return false;
+        if (typeof ClipboardItem === 'undefined') return false;
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          return true;
+        } catch (_) {
+          // Safari：非同步產生嘅 blob 要用 Promise 形式交俾 ClipboardItem
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': Promise.resolve(blob) })]);
+          return true;
+        }
+      } catch (_) { return false; }
+    }
+
+    function applyImageShareUi(box, ui) {
+      if (!box) return;
+      const state = ui || imageShareUi(isTouchLikeDevice(), canShareImageFiles());
+      const sysBtn = box.querySelector('[data-act="share-file"]');
+      if (sysBtn) sysBtn.hidden = !state.system;
+      const social = box.querySelector('.share-ig-shareto');
+      if (social) social.hidden = !state.social;
+      // 「貼上（Ctrl/⌘+V）」呢句提示只有電腦版啱用
+      const hint = box.querySelector('[data-role="pdfsharehint"]');
+      if (hint) hint.hidden = !state.social;
+    }
+
     async function shareImageFile(blob, fileName, title) {
       await navigator.share({
         files: [new File([blob], fileName, { type: 'image/png' })],
         title: title || '通告',
-      });
-    }
-
-    // 版式跟朋友定嘅 template：
-    //   頂 ~80px 站名/最後更新 → badge 行（區會 + 分類）→ 大標題（≤4 行）
-    //   → 日期｜地域 → 底部黑盒（截止/對象/費用/名額）→ 最底細字落款
-    async function renderIgImage(item, opts) {
-      // mode 'story' = 1080×1920（IG Story 直向，admin 出 Story 專用）：
-      // 頂留 250px、底留 360px 安全區，避開 Story 介面（頭像列／回覆欄）。
-      // 冇 opts 照舊出 4:5 feed 版，分享流程零改動。
-      const story = Boolean(opts && opts.mode === 'story');
-      const H = story ? 1920 : POSTER_H;
-      const safeTop = story ? 250 : 0, safeBottom = story ? 360 : 0;
-      const canvas = document.createElement('canvas');
-      canvas.width = POSTER_W;
-      canvas.height = H;
-      const ctx = canvas.getContext('2d');
-      if (!ctx || typeof canvas.toBlob !== 'function') return Promise.reject(new Error('canvas unavailable'));
-
-      const W = POSTER_W, MX = POSTER_MX, CW = W - MX * 2;
-      const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-      const quota = ex?.quota || ex?.places || ex?.limit || ex?.名額 || '';
-      const rawDate = String(item.date || item.captured_date || '');
-      const dm = rawDate.match(/(\d{4})-(\d{2})-(\d{2})/);
-      const dateLabel = dm ? `${Number(dm[2])}月${Number(dm[3])}日` : rawDate;
-      const region = getRegionForItem(item);
-
-      // 背景 + 左上品牌光暈
-      ctx.fillStyle = '#0a1931';
-      ctx.fillRect(0, 0, W, H);
-      const glow = ctx.createRadialGradient(150, 130 + safeTop, 0, 150, 130 + safeTop, 560);
-      glow.addColorStop(0, 'rgba(59,130,246,.30)');
-      glow.addColorStop(1, 'rgba(59,130,246,0)');
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, W, H);
-
-      ctx.textBaseline = 'middle';
-
-      // 頂部：站名 | 最後更新
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#e6eefb';
-      ctx.font = `700 34px ${POSTER_FONT}`;
-      ctx.fillText('通告圖書館 v5.11', MX, 88 + safeTop);
-      ctx.textAlign = 'right';
-      ctx.fillStyle = '#8ea2c6';
-      ctx.font = `400 26px ${POSTER_FONT}`;
-      ctx.fillText(`最後更新 ${state.cache?.last_updated || ''}`.trim(), W - MX, 88 + safeTop);
-      ctx.strokeStyle = 'rgba(142,162,198,.28)';
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(MX, 132 + safeTop); ctx.lineTo(W - MX, 132 + safeTop); ctx.stroke();
-
-      // Story 版先有：右下區徽小白磚（feed 4:5 版照舊唔加，分享零改動）；
-      // 冇徽/解唔到就靜靜略過，唔阻出圖
-      if (story) {
-        try {
-          const badgeImg = await orgBadgeImgFor(item);
-          if (badgeImg && badgeImg.width) {
-            const s = 116;
-            const bx = W - MX - s, by = H - safeBottom - s - 36;
-            posterRoundRect(ctx, bx - 8, by - 8, s + 16, s + 16, 22);
-            ctx.fillStyle = 'rgba(255,255,255,.95)'; ctx.fill();
-            const rr = Math.min(s / badgeImg.width, s / badgeImg.height);
-            const dw = Math.round(badgeImg.width * rr), dh = Math.round(badgeImg.height * rr);
-            ctx.drawImage(badgeImg, bx + (s - dw) / 2, by + (s - dh) / 2, dw, dh);
-          }
-        } catch (_) {}
-      }
-
-      // 大標題：72 → 64 → 56px，最多 4 行，超出加省略號；
-      // 得一行嘅短標題放膽升去 84px，視覺重啲
-      let size = 56;
-      let titleLines = [];
-      let fitted = false;
-      for (const s of [72, 64, 56]) {
-        ctx.font = `700 ${s}px ${POSTER_FONT}`;
-        titleLines = posterWrap(ctx, item.title || '未命名通告', CW);
-        if (titleLines.length <= 4) { size = s; fitted = true; break; }
-      }
-      if (!fitted) {
-        ctx.font = `700 56px ${POSTER_FONT}`;
-        titleLines = titleLines.slice(0, 4);
-        titleLines[3] = titleLines[3].replace(/.{1,2}$/u, '…');
-      }
-      if (size === 72 && titleLines.length === 1) {
-        ctx.font = `700 84px ${POSTER_FONT}`;
-        const bigger = posterWrap(ctx, item.title || '未命名通告', CW);
-        if (bigger.length === 1) { size = 84; titleLines = bigger; }
-      }
-
-      // 底部黑盒資料先計好（影響中間置中區域有幾高）
-      const rows = [
-        ex?.deadline ? ['⏳', '截止', 'warn'] : null,
-        ex?.audience ? ['👤', '對象', ''] : null,
-        ex?.fee ? ['💲', '費用', ''] : null,
-        quota ? ['🔢', '名額', ''] : null,
-      ].filter(Boolean);
-      const boxRowH = 62, boxPadV = 28;
-      const boxH = rows.length ? boxPadV * 2 + rows.length * boxRowH : 0;
-      const boxY = rows.length ? H - (176 + safeBottom) - boxH : H - (200 + safeBottom);
-
-      // 主體（badge＋標題＋日期行）垂直置中喺 hairline 同黑盒之間：
-      // 短內容唔會吊喺頂留一笪空白，長標題/多行黑盒自然向上泊返
-      const lh = Math.round(size * 1.32);
-      const hasDate = Boolean(dateLabel || region);
-      const badgeH = 58, gapBadgeTitle = 44, gapTitleDate = 30, dateLineH = 34;
-      const blockH = badgeH + gapBadgeTitle + (titleLines.length - 1) * lh + size
-        + (hasDate ? gapTitleDate + dateLineH : 0);
-      const zoneTop = 172 + safeTop;
-      const free = Math.max(0, boxY - 34 - zoneTop - blockH);
-      const y0 = zoneTop + free / 2;
-
-      // Badge 行：區會（品牌色）＋分類（素色），太長自動截
-      const catIds = [...itemCategories(item, ex)].filter((id) => id !== 'other');
-      const pills = [String(item.source_site || '').trim(),
-        ...catIds.map((id) => CATEGORY_TAGS.find((c) => c.id === id)?.label || id)].filter(Boolean);
-      let bx = MX;
-      const by = y0 + badgeH / 2, bh = badgeH, pad = 26;
-      ctx.font = `600 30px ${POSTER_FONT}`;
-      for (let i = 0; i < pills.length && i < 3; i++) {
-        const pw = ctx.measureText(pills[i]).width + pad * 2;
-        if (bx + pw > W - MX) break;
-        posterRoundRect(ctx, bx, by - bh / 2, pw, bh, bh / 2);
-        if (i === 0) {
-          ctx.fillStyle = 'rgba(59,130,246,.26)'; ctx.fill();
-          ctx.strokeStyle = 'rgba(96,165,250,.9)'; ctx.lineWidth = 2.5; ctx.stroke();
-          ctx.fillStyle = '#9ec3ff';
-        } else {
-          ctx.fillStyle = 'rgba(255,255,255,.07)'; ctx.fill();
-          ctx.strokeStyle = 'rgba(96,120,170,.55)'; ctx.lineWidth = 2; ctx.stroke();
-          ctx.fillStyle = '#cfe3ff';
-        }
-        ctx.textAlign = 'left';
-        ctx.fillText(pills[i], bx + pad, by + 1);
-        bx += pw + 14;
-      }
-
-      // 標題行
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#e6eefb';
-      ctx.font = `700 ${size}px ${POSTER_FONT}`;
-      let ty = by + badgeH / 2 + gapBadgeTitle + size / 2;
-      for (const line of titleLines) { ctx.fillText(line, MX, ty); ty += lh; }
-
-      // 日期｜地域
-      if (hasDate) {
-        const dateRegion = [dateLabel, region].filter(Boolean).join(' ｜ ');
-        ctx.fillStyle = '#8ea2c6';
-        ctx.font = `400 33px ${POSTER_FONT}`;
-        ctx.fillText(dateRegion, MX, ty - lh + size / 2 + gapTitleDate + dateLineH / 2);
-      }
-      if (rows.length) {
-        const rowH = boxRowH, padV = boxPadV;
-        posterRoundRect(ctx, MX, boxY, CW, boxH, 26);
-        ctx.fillStyle = 'rgba(1,6,18,.62)'; ctx.fill();
-        ctx.strokeStyle = 'rgba(96,120,170,.5)'; ctx.lineWidth = 2; ctx.stroke();
-        const values = { 截止: ex.deadline, 對象: ex.audience, 費用: ex.fee, 名額: quota };
-        let ry = boxY + padV + rowH / 2;
-        for (const [icon, label, tone] of rows) {
-          const value = String(values[label] || '');
-          ctx.textAlign = 'left';
-          ctx.fillStyle = '#8ea2c6';
-          ctx.font = `400 32px ${POSTER_FONT}`;
-          ctx.fillText(`${icon}  ${label}`, MX + 34, ry);
-          // value 太長向左縮，唔同 label 撞車：label 側固定闊 210
-          let valueFont = 34;
-          ctx.font = `600 ${valueFont}px ${POSTER_FONT}`;
-          while (valueFont > 24 && ctx.measureText(value).width > CW - 210) {
-            valueFont -= 2;
-            ctx.font = `600 ${valueFont}px ${POSTER_FONT}`;
-          }
-          ctx.textAlign = 'right';
-          ctx.fillStyle = tone === 'warn' ? '#fbbf24' : '#e6eefb';
-          ctx.fillText(value, W - MX - 34, ry);
-          ry += rowH;
-        }
-      }
-
-      // 最底 ~60px 細字落款
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#8ea2c6';
-      ctx.font = `400 26px ${POSTER_FONT}`;
-      ctx.fillText(POSTER_CREDIT, W / 2, H - 64 - safeBottom);
-
-      return new Promise((resolve, reject) => {
-        canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('toBlob failed'))), 'image/png');
       });
     }
 
@@ -2292,7 +2762,7 @@
           </div>
 
           <div class="share-section">
-            <h4>通告內容出圖（PDF→PNG・你部機即畫，轉發 WhatsApp／IG 啱用）</h4>
+            <h4>通告內容出圖（PDF→PNG・你部機即畫，附圖書館落款，轉發 WhatsApp／IG 啱用）</h4>
             <button type="button" class="share-ig-btn" data-act="pdf2img">📄 轉換內文做圖</button>
             <div class="share-ig-result" data-role="pdfbox" hidden>
               <p class="share-ig-hint" data-role="pdfstatus"></p>
@@ -2302,25 +2772,45 @@
                 <button type="button" data-act="pdf-next" aria-label="下一版">下一版 ▶</button>
               </div>
               <img alt="通告內容預覽">
-              <p class="share-ig-hint">手機可以長撳張圖直接轉發／儲存；多版通告可以㩒上一版/下一版逐版出圖。</p>
+              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖。每張圖底部都印住圖書館落款同呢張通告嘅專屬連結；多版通告可以撳「💾 全部版數」一次過出齊。</p>
               <div class="share-ig-actions">
                 <a data-role="pdfdl" download>下載圖片</a>
-                <button type="button" data-act="share-file" data-kind="pdf" data-role="pdfshare" hidden>📤 直接分享</button>
+                <button type="button" data-act="pdf-all" data-role="pdfall">💾 全部版數</button>
+                <button type="button" data-act="copy-image" data-kind="pdf" data-role="pdfcopy">📋 複製圖片</button>
+                <button type="button" data-act="share-file" data-kind="pdf" data-role="pdfshare" hidden>📤 分享圖片</button>
               </div>
+              <div class="share-ig-shareto" data-role="pdfsocial" hidden>
+                <span>貼去：</span>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="wa">WhatsApp</button>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="tg">Telegram</button>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="fb">Facebook</button>
+                <button type="button" data-act="img-target" data-kind="pdf" data-target="x">X</button>
+              </div>
+              <p class="share-ig-hint" data-role="pdfsharehint">電腦版：撳「貼去 WhatsApp／Telegram…」會順手複製張圖再開個平台，貼上（Ctrl／⌘+V）就發得。</p>
             </div>
           </div>
 
           <div class="share-section">
-            <h4>IG 分享圖（1080×1350・本機即畫，唔經伺服器）</h4>
+            <h4>IG 分享圖（12 款設計・本機即畫，唔經伺服器）</h4>
             <button type="button" class="share-ig-btn" data-act="ig">🖼 產生 IG 分享圖</button>
             <div class="share-ig-result" data-role="igbox" hidden>
               <img alt="IG 分享圖預覽">
+              <div class="share-ig-designs" data-role="igdesigns" role="group" aria-label="揀設計款"></div>
+              <p class="share-ig-hint">想換款就撳上面嘅縮圖；默認款跟通告分類自動揀（同 Actions 草稿同一款）。</p>
               <p class="share-ig-hint">手機可以長撳張圖直接儲存，或者撳「下載圖片」。</p>
               <div class="share-ig-actions">
                 <a data-role="igdl" download>下載圖片</a>
                 <button type="button" data-act="copy-caption">複製 Caption</button>
+                <button type="button" data-act="copy-image" data-kind="ig" data-role="igcopy">📋 複製圖片</button>
                 <button type="button" data-act="ig-story" data-role="igstory" title="直向 1080×1920（出 Story 專用，feed 照舊用 4:5）">📱 Story 版</button>
-                <button type="button" data-act="share-file" data-kind="ig" data-role="igshare" hidden>📤 直接分享</button>
+                <button type="button" data-act="share-file" data-kind="ig" data-role="igshare" hidden>📤 分享圖片</button>
+              </div>
+              <div class="share-ig-shareto" data-role="igsocial" hidden>
+                <span>貼去：</span>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="wa">WhatsApp</button>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="tg">Telegram</button>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="fb">Facebook</button>
+                <button type="button" data-act="img-target" data-kind="ig" data-target="x">X</button>
               </div>
             </div>
           </div>
@@ -2341,17 +2831,22 @@
       let igUrl = null;   // objectURL，關面板時 revoke，唔留低任何嘢
       let igMode = 'feed'; // 'feed' 4:5（預設，分享照原本出）| 'story' 1080×1920
       let igBlob = null;  // 生成咗嘅 PNG blob（「直接分享」用）
+      let igDesign = 'auto';  // 'auto' = 跟分類自動揀款（同 Actions 草稿一致）；否則指定款 id
+      let igPicking = false;  // 一次只做一個 render（避免狂撳縮圖時搶 canvas）
+      let badgePromise = null;  // 呢張通告嘅區徽只 decode 一次（IG 圖同 PDF 落款共用）
       let pdfImgUrl = null;
       let pdfBlob = null;
       let pdfDoc = null;  // pdf.js document（關面板 destroy 釋放記憶體）
       let pdfKey = '';
       let pdfPage = 1;
 
-      async function renderPdfPage(num) {
-        const box = sheet.querySelector('[data-role="pdfbox"]');
-        const status = box.querySelector('[data-role="pdfstatus"]');
-        const nav = box.querySelector('[data-role="pdfnav"]');
-        status.textContent = `畫緊第 ${num} 版（共 ${pdfDoc.numPages} 版）…`;
+      function badgeOnce() {
+        if (!badgePromise) badgePromise = orgBadgeImgFor(item).catch(() => null);
+        return badgePromise;
+      }
+
+      // 畫一版（唔碰 UI）：回 { blob, name } —— 單版預覽同「全部版數」共用
+      async function renderPdfPageBlob(num) {
         const page = await pdfDoc.getPage(num);
         const base = page.getViewport({ scale: 1 });
         const scale = Math.min(2, 1240 / base.width);
@@ -2362,23 +2857,136 @@
         const c2 = cv.getContext('2d');
         if (!c2) throw new Error('canvas unavailable');
         await page.render({ canvasContext: c2, viewport: vp }).promise;
-        const blob = await new Promise((res, rej) => cv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
+        // 落款帶（精簡一行落款＋深鏈）：見 composePdfImage —— 廣告位，零成本
+        const outCv = composePdfImage(cv, item, num, pdfDoc.numPages, await badgeOnce());
+        const blob = await new Promise((res, rej) => outCv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
+        return { blob, name: pdfFileNameFor(num) };
+      }
+
+      function pdfFileNameFor(num) {
+        return igFileNameFor(item, false).replace(/\.png$/, `-p${num}.png`);
+      }
+
+      // 全部版數一次過出（Chrome／Edge 揀個資料夾就寫晒入去；其他瀏覽器逐張下載）
+      async function renderAllPdfPages(box, status) {
+        if (!pdfDoc) return;
+        const total = pdfDoc.numPages;
+        let dir = null;
+        try {
+          if (typeof window.showDirectoryPicker === 'function') {
+            status.textContent = '揀個資料夾存圖…';
+            dir = await window.showDirectoryPicker({ id: 'pdf-notice-images', mode: 'readwrite' });
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') { status.textContent = '已取消。'; return; }
+          dir = null;
+        }
+        let saved = 0;
+        for (let n = 1; n <= total; n++) {
+          status.textContent = `出圖中 ${n}/${total}…`;
+          const { blob, name } = await renderPdfPageBlob(n);
+          if (dir) {
+            const handle = await dir.getFileHandle(name, { create: true });
+            const w = await handle.createWritable();
+            await w.write(blob);
+            await w.close();
+          } else {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+            await new Promise((r) => setTimeout(r, 320));   // 畀瀏覽器逐張落載
+          }
+          saved++;
+        }
+        status.textContent = `✅ 出咗 ${saved} 版（每張都有圖書館落款）。`;
+      }
+
+      async function renderPdfPage(num) {
+        const box = sheet.querySelector('[data-role="pdfbox"]');
+        const status = box.querySelector('[data-role="pdfstatus"]');
+        status.textContent = `畫緊第 ${num} 版（共 ${pdfDoc.numPages} 版）…`;
+        const { blob, name } = await renderPdfPageBlob(num);
         if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
         pdfImgUrl = URL.createObjectURL(blob);
         pdfBlob = blob;
         box.querySelector('img').src = pdfImgUrl;
-        const safe = (s) => String(s || '').replace(/[\\/:*?"<>|\s]+/g, '').slice(0, 30);
-        const stamp = String(item.date || item.captured_date || '').slice(0, 10).replace(/-/g, '');
         const dl = box.querySelector('[data-role="pdfdl"]');
         dl.href = pdfImgUrl;
-        dl.download = `通告圖書館-${safe(item.source_site)}${stamp ? '-' + stamp : ''}-p${num}.png`;
+        dl.download = name;
         pdfPage = num;
         box.querySelector('[data-role="pdfpage"]').textContent = `第 ${num} / ${pdfDoc.numPages} 版`;
         nav.hidden = pdfDoc.numPages <= 1;
         nav.querySelector('[data-act="pdf-prev"]').disabled = num <= 1;
         nav.querySelector('[data-act="pdf-next"]').disabled = num >= pdfDoc.numPages;
-        box.querySelector('[data-role="pdfshare"]').hidden = !canShareImageFiles();
+        applyImageShareUi(box);
         status.textContent = '';
+      }
+
+      // 畫（或重畫）當前款／當前 mode 嘅 IG 圖，更新預覽同下載連結。
+      // 回傳 false = 畫唔到（呼叫方自己決定提示）。
+      async function paintIg() {
+        if (igPicking) return true;
+        igPicking = true;
+        try {
+          const exItem = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+          let use = igDesign;
+          if (use === 'auto') { use = posterAutoDesignId(item, exItem); igDesign = use; }
+          const badgeImg = await badgeOnce();
+          const canvas = renderPoster(item, { mode: igMode, design: use, badgeImg });
+          if (!canvas || typeof canvas.toBlob !== 'function') return false;
+          const blob = await new Promise((res, rej) => canvas.toBlob(
+            (b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
+          if (igUrl) { try { URL.revokeObjectURL(igUrl); } catch (_) {} }
+          igUrl = URL.createObjectURL(blob);
+          igBlob = blob;
+          const box = sheet.querySelector('[data-role="igbox"]');
+          const dl = box.querySelector('[data-role="igdl"]');
+          box.querySelector('img').src = igUrl;
+          dl.href = igUrl;
+          dl.download = igFileNameFor(item, igMode === 'story');
+          applyImageShareUi(box);
+          try { paintIgDesigns(); } catch (_) {}  // 縮圖條失敗唔算畫圖失敗
+          return true;
+        } catch (err) {
+          return false;
+        } finally {
+          igPicking = false;
+        }
+      }
+
+      // 12 款縮圖 picker：第一次顯示先畫縮圖（1080→216，每張幾 ms，縮圖就係實際效果）
+      function paintIgDesigns() {
+        const wrap = sheet.querySelector('[data-role="igdesigns"]');
+        if (!wrap) return;
+        if (!wrap.dataset.built) {
+          wrap.dataset.built = '1';
+          for (const d of POSTER_DESIGNS) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.dataset.act = 'ig-design';
+            btn.dataset.id = d.id;
+            btn.title = d.label + '（撳一撳即換款）';
+            try {
+              const thumb = renderPoster(item, { mode: 'feed', design: d.id, scale: 0.2, badgeImg: null });
+              if (thumb && typeof thumb.toDataURL === 'function') {
+                const im = document.createElement('img');
+                im.alt = d.label;
+                im.src = thumb.toDataURL('image/png');
+                btn.appendChild(im);
+              }
+            } catch (_) { /* 縮圖畫唔到就淨係顯示款名，照樣揀得 */ }
+            const cap = document.createElement('span');
+            cap.textContent = d.label;
+            btn.appendChild(cap);
+            wrap.appendChild(btn);
+          }
+        }
+        for (const btn of wrap.querySelectorAll('button')) {
+          btn.classList.toggle('active', btn.dataset.id === igDesign);
+        }
       }
 
       backdrop.addEventListener('click', async (e) => {
@@ -2415,6 +3023,20 @@
           }
           return;
         }
+        if (act === 'pdf-all') {
+          const box = sheet.querySelector('[data-role="pdfbox"]');
+          const status = box.querySelector('[data-role="pdfstatus"]');
+          if (!pdfDoc) return;
+          el.disabled = true;
+          try {
+            await renderAllPdfPages(box, status);
+          } catch (err) {
+            showToast('出圖途中出錯，試下逐版下載。');
+          } finally {
+            el.disabled = false;
+          }
+          return;
+        }
         if (act === 'pdf-prev' || act === 'pdf-next') {
           if (!pdfDoc) return;
           const num = pdfPage + (act === 'pdf-next' ? 1 : -1);
@@ -2435,54 +3057,93 @@
         }
         if (act === 'ig-story') {
           // Story 直向版（1080×1920，admin 出 Story 用）：切去再切返 4:5，
-          // 下載／直接分享跟住當前 mode 出貨
-          const next = igMode === 'story' ? 'feed' : 'story';
-          try {
-            const blob = await renderIgImage(item, { mode: next });
-            if (igUrl) { try { URL.revokeObjectURL(igUrl); } catch (_) {} }
-            igUrl = URL.createObjectURL(blob);
-            igBlob = blob;
-            igMode = next;
-            const box = sheet.querySelector('[data-role="igbox"]');
-            const dl = box.querySelector('[data-role="igdl"]');
-            box.querySelector('img').src = igUrl;
-            dl.href = igUrl;
-            dl.download = igFileNameFor(item, next === 'story');
-            el.textContent = next === 'story' ? '🖼 返去 4:5 版' : '📱 Story 版';
-            box.querySelector('[data-role="igshare"]').hidden = !canShareImageFiles();
-          } catch (err) { showToast('Story 版出唔到，用返 4:5 版。'); }
+          // 下載／直接分享跟住當前 mode 出貨；款（igDesign）唔變
+          igMode = igMode === 'story' ? 'feed' : 'story';
+          if (!(await paintIg())) {
+            igMode = igMode === 'story' ? 'feed' : 'story';
+            showToast('Story 版出唔到，用返 4:5 版。');
+            return;
+          }
+          el.textContent = igMode === 'story' ? '🖼 返去 4:5 版' : '📱 Story 版';
+          return;
+        }
+        if (act === 'ig-design') {
+          const id = el.dataset.id || 'auto';
+          if (id === igDesign || igPicking) return;
+          const prev = igDesign;
+          igDesign = id;
+          paintIgDesigns();
+          if (!(await paintIg())) { igDesign = prev; paintIgDesigns(); }
+          return;
+        }
+        if (act === 'copy-image') {
+          const blob = el.dataset.kind === 'ig' ? igBlob : pdfBlob;
+          if (!blob) { showToast('請先產生圖片，再複製。'); return; }
+          if (await copyImageBlob(blob)) showToast('已複製圖片：貼去 WhatsApp／Telegram／FB 就得。');
+          else showToast('呢個瀏覽器複製唔到圖片，用「下載圖片」再上載代替。');
+          return;
+        }
+        if (act === 'img-target') {
+          // 電腦版：複製圖片 ＋ 開平台網頁，用戶貼上（Ctrl/⌘+V）就發得。
+          // 手機（有 Web Share）：直接叫系統分享面板，唔玩網頁貼上。
+          const kind = el.dataset.kind;
+          const blob = kind === 'ig' ? igBlob : pdfBlob;
+          const target = IMG_SHARE_TARGETS.find((t) => t.id === el.dataset.target);
+          if (!blob) { showToast('請先產生圖片，再分享。'); return; }
+          if (!target) return;
+          const name = kind === 'ig' ? igFileNameFor(item, igMode === 'story')
+            : (sheet.querySelector('[data-role="pdfdl"]').download || igFileNameFor(item));
+          if (imageShareUi(isTouchLikeDevice(), canShareImageFiles()).system) {
+            try { await shareImageFile(blob, name, item.title || '通告'); }
+            catch (err) {
+              if (err && err.name === 'AbortError') showToast('已取消分享');
+              else showToast('系統分享開唔到，可以撳「📋 複製圖片」再自己貼上。');
+            }
+            return;
+          }
+          // 開新分頁要喺使用者手勢內做，所以先開空白頁，複製完先導航過去
+          let popup = null;
+          try { popup = window.open('', '_blank'); } catch (_) { popup = null; }
+          const copied = await copyImageBlob(blob);
+          if (popup && popup.location) {
+            try { popup.location.href = target.url; } catch (_) { try { popup.location = target.url; } catch (__) {} }
+          }
+          if (copied && popup) showToast(`已複製圖片：喺 ${target.label} 貼上（Ctrl／⌘+V）就發得。`);
+          else if (copied) showToast(`已複製圖片：自己開 ${target.label} 貼上就得。`);
+          else if (popup) showToast(`已開 ${target.label}：請先撳「下載圖片」，再喺嗰邊上載。`);
+          else showToast('複製唔到圖片，請用「下載圖片」再上載。');
           return;
         }
         if (act === 'share-file') {
-          // 一撳彈系統分享（直接揀 IG／WhatsApp），唔使先儲存落 Photos
+          // 一撳彈系統分享（直接揀 IG／WhatsApp），唔使先儲存落 Photos。
+          // 個別瀏覽器（部分 App 內置瀏覽器）支援度唔同：分享唔到就退返做
+          //「複製圖片」，唔會撳完冇反應。
           const blob = el.dataset.kind === 'ig' ? igBlob : pdfBlob;
           const name = el.dataset.kind === 'ig' ? igFileNameFor(item, igMode === 'story')
             : (sheet.querySelector('[data-role="pdfdl"]').download || igFileNameFor(item));
-          if (!blob) return;
-          try {
-            await shareImageFile(blob, name, item.title || '通告');
-          } catch (err) {
-            if (err && err.name === 'AbortError') showToast('已取消分享');
-            else showToast('直接分享開唔到，可以用「下載圖片」代替。');
+          if (!blob) { showToast('請先產生圖片，再分享。'); return; }
+          if (canShareImageFiles()) {
+            try {
+              await shareImageFile(blob, name, item.title || '通告');
+              return;
+            } catch (err) {
+              if (err && err.name === 'AbortError') { showToast('已取消分享'); return; }
+            }
           }
+          if (await copyImageBlob(blob)) showToast('已複製圖片：長按／貼上就可以傳去社交平台。');
+          else showToast('直接分享開唔到，可以用「下載圖片」代替。');
           return;
         }
         if (act === 'ig') {
-          const box = sheet.querySelector('[data-role="igbox"]');
           el.disabled = true;
           el.textContent = '畫緊圖…';
           try {
-            const blob = await renderIgImage(item);
-            if (igUrl) { try { URL.revokeObjectURL(igUrl); } catch (_) {} }
-            igUrl = URL.createObjectURL(blob);
-            igBlob = blob;
-            igMode = 'feed';
-            const dl = box.querySelector('[data-role="igdl"]');
-            box.querySelector('img').src = igUrl;
-            dl.href = igUrl;
-            dl.download = igFileNameFor(item);
-            box.querySelector('[data-role="igshare"]').hidden = !canShareImageFiles();
+            // 第一撳：跟分類自動揀款（同 Actions 草稿一樣）；之後重畫沿用用戶揀咗嘅款
+            const box = sheet.querySelector('[data-role="igbox"]');
+            const okd = await paintIg();
+            if (!okd) throw new Error('paint failed');
             box.hidden = false;
+            paintIgDesigns();
             try { box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (_) {}
           } catch (err) {
             showToast('呢個瀏覽器產生唔到圖，可以用上面嘅複製文字代替。');
@@ -2946,6 +3607,7 @@
         renderWindowChips();
         renderHeader();
         renderCards();
+        maybeInitBatchView();   // ?batch=1 → 今日草稿出圖台（本機批次出圖）
 
         // 專屬頁著陸：URL 係單一 ?n=<id> → 直接彈出嗰張通告
         //（多 ID ＝ push 批次，維持篩住列表；push 直連通告本身唔經呢度）
@@ -3437,6 +4099,330 @@
         showStatus();
         renderCards();
       };
+    }
+
+    // ── 今日草稿出圖台（?batch=1）：本機自動化用 ───────────────────────────
+    //
+    // 點解要呢個：同一套 canvas 引擎（renderPoster）喺 app 度已經出得好好，
+    // 但「今日 20 張」逐張撳分享面板太慢。呢個出圖台將 story_queue.py 嘅
+    // 揀通告邏輯（caputred_date=今日、join enrich、排除小工具、按日期排序）
+    // 搬嚟前端，一撳出齊今日草稿：
+    //   - 100% 用戶部機 canvas，零 function／零 storage（Vercel 紅線不變）；
+    //   - 可以一次過儲存去一個資料夾（Chrome/Edge 支援 File System Access）；
+    //   - 唔使裝 Python、唔使等 Actions —— 開個網址就得：
+    //       https://<你嘅網址>/?batch=1
+    //       python serve_local.py 之後 http://localhost:8000/?batch=1
+    //   資料來源同 app 其他地方一樣（GitHub Raw cache.json/enrich.json），
+    //   所以 Actions 凌晨 scrape 有新料，呢度即刻見到。
+    const BATCH_LIMIT_DEFAULT = 20;
+
+    function batchTodayHkt(nowMs) {
+      const ms = typeof nowMs === 'number' ? nowMs : Date.now();
+      return new Date(ms + 8 * 3600 * 1000).toISOString().slice(0, 10);
+    }
+
+    // 同 story_queue.py classify_category 一樣嘅語義（保持兩邊出嘅清單一致）
+    const BATCH_TOOLS_SOURCES = new Set(['Scout System']);
+    const BATCH_RE = {
+      competition: /比賽|錦標賽|大賽|競賽|錦標/,
+      training: /訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會/,
+      service: /服務|義工|義務/,
+      activity: /活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集/,
+    };
+
+    function batchCategory(item, ex) {
+      if (BATCH_TOOLS_SOURCES.has(String((item && item.source_site) || '').trim())) return 'tools';
+      const cats = ex && ex.categories;
+      if (Array.isArray(cats)) {
+        for (const c of cats) {
+          if (!c || !c.id) continue;
+          if (c.id === 'competition' || (c.id === 'activity' && c.subtype === 'competition')) return 'competition';
+          if (c.id === 'training' || c.id === 'service' || c.id === 'activity') return c.id;
+        }
+      }
+      const title = String((item && item.title) || '');
+      for (const id of ['competition', 'training', 'service', 'activity']) {
+        if (BATCH_RE[id].test(title)) return id;
+      }
+      return 'other';
+    }
+
+    const BATCH_NO_DATE = '9999-99-99';
+
+    // 同 story_queue.py pick_today/build_queue 一樣：當日新入庫 → 排通告日期 → 頭 N 條
+    // dates 可以係多日（出圖台「連近 N 日」用），單日就係今日。
+    function batchQueueRange(cache, enrich, dates, limit) {
+      const want = new Set(dates);
+      const out = [];
+      const data = (cache && cache.data) || {};
+      for (const [section, arr] of Object.entries(data)) {
+        if (!Array.isArray(arr)) continue;
+        for (const it of arr) {
+          if (!it || typeof it !== 'object') continue;
+          if (!want.has(String(it.captured_date || '').slice(0, 10))) continue;
+          const ex = (enrich && (enrich[it.pdf_url] || enrich[it.url])) || null;
+          const category = batchCategory(it, ex);
+          if (category === 'tools') continue;   // 小工具唔係通告，唔出 Story
+          out.push({
+            title: it.title || '未命名通告',
+            url: it.url || '',
+            pdf_url: it.pdf_url || '',
+            region: it.region || section,
+            source_site: it.source_site || section,
+            date: String(it.date || '').slice(0, 10),
+            captured_date: String(it.captured_date || '').slice(0, 10),
+            deadline: String((ex && ex.deadline) || '').slice(0, 10),
+            audience: String((ex && ex.audience) || ''),
+            fee: String((ex && ex.fee) || ''),
+            category,
+          });
+        }
+      }
+      out.sort((a, b) => {
+        const ka = (a.date || BATCH_NO_DATE) + '\u0000' + a.source_site + '\u0000' + a.title;
+        const kb = (b.date || BATCH_NO_DATE) + '\u0000' + b.source_site + '\u0000' + b.title;
+        return ka < kb ? -1 : ka > kb ? 1 : 0;
+      });
+      return out.slice(0, limit > 0 ? limit : BATCH_LIMIT_DEFAULT);
+    }
+
+    function batchQueueToday(cache, enrich, today, limit) {
+      return batchQueueRange(cache, enrich, [today], limit);
+    }
+
+    function batchFileName(item, idx, story, designId) {
+      const safe = (s) => String(s || '').replace(/[\\/:*?"<>|\s]+/g, '').slice(0, 24);
+      const stamp = String((item && (item.date || item.captured_date)) || '').slice(0, 10).replace(/-/g, '');
+      return `${String(idx).padStart(2, '0')}_${designId}_${safe(item && item.source_site)}${stamp ? '-' + stamp : ''}${story ? '-story' : ''}.png`;
+    }
+
+    // 一撳出齊：逐張 render（同一部機、同一引擎），可以一次過寫入一個資料夾。
+    // 唔支援 File System Access（Safari／手機）就逐張下載，唔會靜靜失敗。
+    async function batchSaveAll(items, opts) {
+      const { story, design, onProgress } = opts;
+      let dir = null;
+      try {
+        if (typeof window.showDirectoryPicker === 'function') {
+          dir = await window.showDirectoryPicker({ id: 'story-drafts', mode: 'readwrite' });
+        }
+      } catch (err) {
+        if (err && err.name === 'AbortError') return { saved: 0, aborted: true };
+        dir = null;
+      }
+      let saved = 0;
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const badgeImg = await orgBadgeImgFor(item).catch(() => null);
+        const canvas = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg });
+        if (!canvas || typeof canvas.toBlob !== 'function') continue;
+        const blob = await new Promise((res) => canvas.toBlob((b) => res(b), 'image/png'));
+        if (!blob) continue;
+        const name = batchFileName(item, i, story, canvas.__designId || design);
+        if (dir) {
+          const handle = await dir.getFileHandle(name, { create: true });
+          const w = await handle.createWritable();
+          await w.write(blob);
+          await w.close();
+        } else {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = name;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+          await new Promise((r) => setTimeout(r, 320));  // 畀瀏覽器逐張落載，唔會互相取消
+        }
+        saved++;
+        if (onProgress) onProgress(saved, items.length, name);
+      }
+      return { saved, aborted: false };
+    }
+
+    async function initBatchView() {
+      const params = new URLSearchParams(location.search);
+      const limit = Math.max(1, Math.min(60, Number(params.get('limit')) || BATCH_LIMIT_DEFAULT));
+      const today = batchTodayHkt();
+
+      let story = params.get('mode') === 'story';
+      let design = params.get('design') && POSTER_DESIGN_BY_ID[params.get('design')] ? params.get('design') : 'auto';
+      let days = Math.max(1, Math.min(30, Number(params.get('days')) || 1));
+      let anchorDate = /^\d{4}-\d{2}-\d{2}$/.test(params.get('date') || '') ? params.get('date') : today;
+      let queue = [];
+      // 由 anchorDate 起倒數 N 日（純 UTC 計，唔會受時區／夏令影響）
+      const datesFor = (anchor, n) => {
+        const out = [];
+        const [y, m, d] = String(anchor).split('-').map(Number);
+        for (let i = 0; i < n; i++) {
+          const dt = new Date(Date.UTC(y, m - 1, d));
+          dt.setUTCDate(dt.getUTCDate() - i);
+          out.push(dt.toISOString().slice(0, 10));
+        }
+        return out;
+      };
+
+      const backdrop = document.createElement('div');
+      backdrop.className = 'batch-backdrop';
+      backdrop.innerHTML = `
+        <div class="batch-page" role="dialog" aria-label="今日草稿出圖台">
+          <div class="batch-head">
+            <div>
+              <h2>今日草稿出圖台</h2>
+              <div class="batch-sub" data-role="batchmeta"></div>
+            </div>
+            <button type="button" class="batch-close" aria-label="關閉">×</button>
+          </div>
+          <div class="batch-tools">
+            <label>款：<select data-role="batchdesign">
+              <option value="auto">自動（跟分類，同草稿一致）</option>
+              ${POSTER_DESIGNS.map((d) => `<option value="${d.id}">${d.label}</option>`).join('')}
+            </select></label>
+            <label>日期：<input type="date" data-role="batchdate"></label>
+            <label>範圍：<select data-role="batchrange">
+              <option value="1">只出呢日</option>
+              <option value="3">連近 3 日</option>
+              <option value="7">連近 7 日</option>
+              <option value="30">連近 30 日</option>
+            </select></label>
+            <button type="button" data-role="batchmode">📱 出 Story 版</button>
+            <button type="button" class="primary" data-role="batchsave">💾 全部儲存到資料夾</button>
+            <span class="batch-progress" data-role="batchprogress"></span>
+          </div>
+          <p class="batch-hint">全部圖都係你自己部機嘅 canvas 畫，唔經伺服器、唔會上傳。<br>
+            Chrome／Edge 可以一撳揀個資料夾就寫晒 20 張入去；Safari／手機就會逐張下載。<br>
+            呢版可以直接加 <code>?limit=6</code> 試少幾張、<code>&amp;date=2026-09-21&amp;days=3</code> 補做之前幾日，
+            或者 <code>&amp;design=unc_topsecret</code> 指定款。</p>
+          <div class="batch-grid" data-role="batchgrid"></div>
+        </div>`;
+      document.body.appendChild(backdrop);
+      const q = (sel) => backdrop.querySelector(sel);
+      const grid = q('[data-role="batchgrid"]');
+      const progress = q('[data-role="batchprogress"]');
+      const designSel = q('[data-role="batchdesign"]');
+      const modeBtn = q('[data-role="batchmode"]');
+      const saveBtn = q('[data-role="batchsave"]');
+      designSel.value = design;
+      modeBtn.textContent = story ? '🖼 出 4:5 feed 版' : '📱 出 Story 版';
+      const metaEl = q('[data-role="batchmeta"]');
+      const dateInput = q('[data-role="batchdate"]');
+      const rangeSel = q('[data-role="batchrange"]');
+      dateInput.value = anchorDate;
+      rangeSel.value = String(days);
+
+      let cards = [];
+      let paintToken = 0;
+
+      function renderGrid() {
+        paintToken += 1;
+        grid.innerHTML = '';
+        cards = [];
+        queue.forEach((item, idx) => {
+          const fig = document.createElement('figure');
+          fig.className = 'batch-card';
+          const img = document.createElement('img');
+          img.alt = item.title;
+          const cap = document.createElement('figcaption');
+          const tt = document.createElement('span');
+          tt.className = 'batch-title';
+          tt.textContent = item.title;
+          const meta = document.createElement('span');
+          meta.className = 'batch-meta';
+          meta.textContent = [item.source_site, item.category, item.captured_date,
+            item.deadline ? `截止 ${item.deadline}` : ''].filter(Boolean).join(' ・ ');
+          const dl = document.createElement('button');
+          dl.type = 'button';
+          dl.textContent = '⬇ 下載';
+          dl.addEventListener('click', async () => {
+            dl.disabled = true;
+            try {
+              const badgeImg = await orgBadgeImgFor(item).catch(() => null);
+              const cv = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg });
+              const blob = cv && typeof cv.toBlob === 'function'
+                ? await new Promise((res) => cv.toBlob((b) => res(b), 'image/png')) : null;
+              if (!blob) { progress.textContent = '出唔到圖，試下換款或更新瀏覽器。'; return; }
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = batchFileName(item, idx, story, (cv && cv.__designId) || design);
+              document.body.appendChild(a); a.click(); a.remove();
+              setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+              progress.textContent = `已出：${a.download}`;
+            } finally {
+              dl.disabled = false;
+            }
+          });
+          cap.appendChild(tt); cap.appendChild(meta); cap.appendChild(dl);
+          fig.appendChild(img); fig.appendChild(cap);
+          grid.appendChild(fig);
+          cards.push({ fig, img, item });
+        });
+      }
+
+      function rebuild() {
+        queue = batchQueueRange(state.cache, state.enrich, datesFor(anchorDate, days), limit);
+        const span = days > 1 ? `${anchorDate} 起近 ${days} 日` : anchorDate;
+        metaEl.textContent = `${span} ・ ${queue.length} 張`
+          + (queue.length ? '' : '（呢日冇新通告；試下揀另一日、加大範圍，或者等 scrape 更新）');
+        saveBtn.disabled = !queue.length;
+        renderGrid();
+        paintThumbs(false);
+      }
+
+      let painting = false;
+      async function paintThumbs(full) {
+        if (painting) return;
+        painting = true;
+        const token = paintToken;
+        try {
+          for (let i = 0; i < cards.length; i++) {
+            if (token !== paintToken) return;   // 換咗日／換咗款，舊 paint 唔好再寫落新卡片
+            const { img, item } = cards[i];
+            const badgeImg = full ? await orgBadgeImgFor(item).catch(() => null) : null;
+            const scale = full ? 1 : 0.22;
+            const cv = renderPoster(item, { mode: story ? 'story' : 'feed', design, badgeImg, scale });
+            if (cv && typeof cv.toDataURL === 'function') {
+              try { img.src = cv.toDataURL('image/png'); } catch (_) {}
+            }
+            if (!full && i % 4 === 3) await new Promise((r) => setTimeout(r, 0));  // 唔好鎖死主執行緒
+          }
+        } finally {
+          painting = false;
+        }
+      }
+      rebuild();
+
+      designSel.addEventListener('change', () => { design = designSel.value; paintThumbs(false); });
+      modeBtn.addEventListener('click', () => {
+        story = !story;
+        modeBtn.textContent = story ? '🖼 出 4:5 feed 版' : '📱 出 Story 版';
+        paintThumbs(false);
+      });
+      dateInput.addEventListener('change', () => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateInput.value)) { anchorDate = dateInput.value; rebuild(); }
+      });
+      rangeSel.addEventListener('change', () => { days = Number(rangeSel.value) || 1; rebuild(); });
+      saveBtn.addEventListener('click', async () => {
+        if (!queue.length) { progress.textContent = '今日冇新通告，冇嘢出。'; return; }
+        saveBtn.disabled = true;
+        progress.textContent = '開始出圖…';
+        try {
+          const res = await batchSaveAll(queue, {
+            story, design,
+            onProgress: (n, total, name) => { progress.textContent = `儲存中 ${n}/${total}：${name}`; },
+          });
+          progress.textContent = res.aborted ? '已取消。' : `✅ 出咗 ${res.saved} 張（${story ? 'Story 9:16' : 'feed 4:5'}）。`;
+        } catch (err) {
+          progress.textContent = '儲存途中出錯，試下逐張下載。';
+        } finally {
+          saveBtn.disabled = false;
+        }
+      });
+      q('.batch-close').addEventListener('click', () => backdrop.remove());
+      backdrop.addEventListener('keydown', (e) => { if (e.key === 'Escape') backdrop.remove(); });
+      return { count: queue.length };
+    }
+
+    function maybeInitBatchView() {
+      if (!new URLSearchParams(location.search).has('batch')) return Promise.resolve(null);
+      return initBatchView().catch(() => null);
     }
 
     initCompactMobileControls();

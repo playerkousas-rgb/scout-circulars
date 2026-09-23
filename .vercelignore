@@ -71,6 +71,18 @@ sources.json
 icons/src/
 icons/preview.html
 
+# 區徽工具檔（2026-09-22：呢三類 Vercel 完全唔使，但之前全部上載咗 → 4.15MB 爆 budget）
+#   - *-256.png：Pillow 出 Story 草稿先用（tools/render_story_templates.py），
+#     而 Pillow 喺 GitHub Actions 跑，讀 git checkout，唔經 Vercel；
+#   - src/：官方原圖（tools/fetch_org_logos.py 捉落嚟）；
+#   - official_urls.json：fetch 工具嘅資料。
+# 前端 badge 同 Story 草稿都唔受影響：前端 runtime 只讀 orgs.json + AVIF
+# （相對路徑 fetch('icons/orgs/orgs.json')，一定要留）；Actions 讀 git，唔關 Vercel 事。
+# 49 組織嘅 PNG 版冇上載之後：上載總量 4.15MB → ~1.4MB（check 4 綠）。
+icons/orgs/*-256.png
+icons/orgs/src/
+icons/orgs/official_urls.json
+
 # 爬蟲 / 工具 / 通知（只喺 Actions 或本機跑）
 core.py
 enrich.py
@@ -97,3 +109,9 @@ run-local-scrape-logged.bat
 restore-local-scrape.bat
 .gitattributes
 .env.example
+
+# AI 底圖（story-bases/）：出 Story 用嘅 9 張無字底圖＋試樣，本機／raw 讀，唔上 Vercel。
+# 9 張 WebP 共 ~1.2 MB —— 一入部署就爆 budget（2 MB），所以一定要擋。
+# app 要用就由 raw.githubusercontent（有 ACAO:*）讀，jsDelivr 做後備；Actions 直接讀 git。
+story-bases/
+story-bases-demo/

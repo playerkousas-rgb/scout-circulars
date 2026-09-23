@@ -20,7 +20,8 @@ Python」。playwright 解壓後 137MB，× 幾十個 retained deployment = 爆�
   3. 根目錄 requirements.txt 如果列咗真嘢，就必須 **冇** 被 ignore
      （反之亦然：ignore 咗就唔准有真嘢）—— 防止「api/ 要裝但 Vercel 收唔到」
      呢種會 runtime 500 嘅半桶水狀態
-  4. 上載去 Vercel 嘅總體積唔超 budget（預設 2 MB）
+  4. 上載去 Vercel 嘅總體積唔超 budget（預設 2 MB；BUDGET_ALLOWLIST 入面嘅
+     runtime 必需品，例如 PWA 安裝圖示，唔計 budget 但要喺 report 度交代）
   5. vercel.json 入面 includeFiles 指到嘅檔案真係存在，而且冇被 .vercelignore
      擋走（擋走咗 includeFiles 會靜靜地搵唔到 → runtime 先炸）
 
@@ -51,6 +52,13 @@ MANIFESTS = [
 # 主要係 index.html 160KB + icons/*.png 712KB + icon.svg 68KB + api/ + catalog。
 # 呢個 budget 係「靜態資產」嘅，同 function bundle 無關；超咗代表有人放咗大檔入部署。
 UPLOAD_BUDGET_BYTES = int(os.environ.get("UPLOAD_BUDGET_BYTES", 2 * 1024 * 1024))
+
+# 部署真係要用、所以唔可以 ignore、但可以唔計 budget 嘅檔（要有理由）。
+# 加之前問自己：冇咗佢，Vercel 上面嘅嘢係咪會壞？（答唔到就唔好加。）
+BUDGET_ALLOWLIST = {
+    "icons/icon-512.png": "PWA 安裝圖示（manifest 512×512，瀏覽器安裝一定要）",
+    "icons/icon-maskable-512.png": "PWA maskable 圖示（Android 自適應圖示要佢）",
+}
 
 failures: list[str] = []
 notes: list[str] = []
@@ -239,24 +247,39 @@ def check_manifests(tracked: list[str], ignored: set[str], uploaded: list[str]) 
 
 
 def check_upload_budget(uploaded: list[str]) -> None:
-    """4. 上載去 Vercel 嘅總體積唔好超 budget。"""
+    """4. 上載去 Vercel 嘅總體積唔好超 budget。
+
+    有啲「真係 runtime 要用」嘅大檔（PWA 安裝 icon）另計：佢哋超支係正常，
+    唔計入 budget 但每個都必須有理由，否則就係有人偷偷塞大檔入部署。
+    """
     total = 0
+    budgeted: list[tuple[int, str]] = []
+    allowed: list[tuple[int, str]] = []
     biggest: list[tuple[int, str]] = []
     for path in uploaded:
         full = ROOT / path
         if not full.is_file():
             continue
         size = full.stat().st_size
-        total += size
         biggest.append((size, path))
+        if path in BUDGET_ALLOWLIST:
+            allowed.append((size, path))
+            continue
+        total += size
+        budgeted.append((size, path))
 
     biggest.sort(reverse=True)
     over = total > UPLOAD_BUDGET_BYTES
-    note(f"{'❌' if over else '✅'} 檢查 4：上載去 Vercel 嘅檔案 {len(uploaded)} 個，合共 "
-         f"{total / 1024 / 1024:.2f} MB（budget {UPLOAD_BUDGET_BYTES / 1024 / 1024:.2f} MB）")
-    if biggest:
-        note("    最大五個：" + "、".join(
-            f"{path} {size / 1024:.0f}KB" for size, path in biggest[:5]))
+    note(f"{'❌' if over else '✅'} 檢查 4：上載去 Vercel 嘅檔案 {len(uploaded)} 個，"
+         f"計入 budget 嘅 {len(budgeted)} 個合共 "
+         f"{total / 1024 / 1024:.2f} MB（budget {UPLOAD_BUDGET_BYTES / 1024 / 1024:.2f} MB），"
+         f"另加 {len(allowed)} 個豁免檔 {sum(s for s, _ in allowed) / 1024 / 1024:.2f} MB")
+    if budgeted:
+        biggest_budgeted = sorted(budgeted, reverse=True)
+        note("    最大五個（計 budget）：" + "、".join(
+            f"{path} {size / 1024:.0f}KB" for size, path in biggest_budgeted[:5]))
+    for size, path in sorted(allowed, reverse=True):
+        note(f"    豁免：{path} {size / 1024:.0f}KB —— {BUDGET_ALLOWLIST[path]}")
 
     if over:
         fail(
