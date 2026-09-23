@@ -158,39 +158,52 @@ def soft_plate(img, area, dark_plate, feather=56, alpha=214):
 
 
 def draw_title(draw, text, area, color, tmpl=""):
-    x0, y0, x1, y1, align, _cfg_color, base_sz = area
+    """標題。字級同 app（posterFitTitle）一致：96→84→72→64→56→48，
+    行高 1.3×，最多 4 行（同 app 一樣，唔會忽然變 5 行）。"""
+    x0, y0, x1, y1, align, _cfg, _base = area
     max_w = x1 - x0
     text = text.replace("\n", " ").strip()
-    for sz in [base_sz, base_sz - 8, base_sz - 14, 48, 40]:
-        font = load_font(sz, True)
+    max_h = y1 - y0
+    fallback = None
+    for size in (96, 84, 72, 64, 56, 48):
+        font = load_font(size, True)
         lines = wrap_cjk(draw, text, font, max_w)
-        total_h = len(lines) * (font.size + 16)
-        if total_h <= (y1 - y0) and len(lines) <= 5:
+        lh = round(size * 1.3)
+        block = dict(size=size, lines=lines, lh=lh, height=(len(lines) - 1) * lh + size)
+        if block["height"] <= max_h and not lines[-1].endswith("…") and len(lines) <= 4:
+            fallback = block
             break
-    else:
-        font = load_font(36, True)
-        lines = wrap_cjk(draw, text, font, max_w)[:6]
-        total_h = len(lines) * (font.size + 16)
-    y = y0 + (y1 - y0 - total_h) // 2
+        fallback = fallback or block
+    font = load_font(fallback["size"], True)
+    lines, lh = fallback["lines"], fallback["lh"]
+    total_h = fallback["height"]
+    y = y0 + (max_h - total_h) // 2
     for line in lines:
-        bbox = draw.textbbox((0, 0), line, font=font)
-        tw = bbox[2] - bbox[0]
-        x = x0 + (max_w - tw) // 2 if align == "center" else x0
-        if tmpl in ("service_wanted", "unc_topsecret") and color.startswith("#"):
+        if line != lines[-1] and y + lh > y1:
+            break
+        wtxt = draw.textbbox((0, 0), line, font=font)[2]
+        x = x0 + (max_w - wtxt) // 2 if align == "center" else x0
+        if tmpl in ("service_wanted", "unc_topsecret"):
             stroke = "#F2E4C8" if tmpl == "service_wanted" else "#FFFFFF"
         else:
             stroke = "#FFFFFF" if color == "#111111" else "#000000"
         draw.text((x, y), line, font=font, fill=color, stroke_width=5, stroke_fill=stroke)
-        y += font.size + 18
+        y += lh
 
 
-def draw_pill(draw, text, bg, fg, xy=(56, 68)):
-    font = load_font(30, True)
+def draw_pill(draw, text, bg, fg, xy=(56, 68), size=30):
+    """分類標籤。用 glyph 實際 bbox（唔係 (0,0) 起點）居中，
+    否則中文字會有 bearing 令字貼邊／出界。"""
+    font = load_font(size, True)
     bbox = draw.textbbox((0, 0), text, font=font)
-    tw = bbox[2] - bbox[0]
+    gw, gh = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    pad_x = max(18, round(size * 0.62))
+    pad_y = max(12, round(size * 0.42))
+    w, h = gw + pad_x * 2, gh + pad_y * 2
     x, y = xy
-    draw.rounded_rectangle([x, y, x + tw + 52, y + 48], radius=24, fill=bg)
-    draw.text((x + 26, y + 10), text, font=font, fill=fg)
+    draw.rounded_rectangle([x, y, x + w, y + h], radius=h // 2, fill=bg)
+    draw.text((x + pad_x - bbox[0], y + pad_y - bbox[1]), text, font=font, fill=fg)
+    return w, h
 
 
 # ── 真區徽（取代假 LOGO 虛線圈） ────────────────────────────────
@@ -227,15 +240,22 @@ def badge_for(item):
     return None
 
 
-def paste_badge(img, badge, xy=(880, 80)):
+def paste_badge(img, badge, xy=(904, 68), size=176):
+    """真區徽。托底跟 app 嘅 posterBadge：白色圓角方（radius ≈ 18% 邊長）。
+    唔用圓圈 —— 方徽下面凸個圓出嚟就係之前嘅 bug。"""
     if badge is None:
         return
     x, y = xy
-    tile = Image.new("RGBA", (170, 170), (255, 255, 255, 52))
-    mask = Image.new("L", (170, 170), 0)
-    ImageDraw.Draw(mask).ellipse([2, 2, 168, 168], fill=255)
-    img.paste(tile, (x, y), mask)
-    img.paste(badge, (x + (170 - badge.width) // 2, y + (170 - badge.height) // 2), badge)
+    r = round(size * 0.18)
+    tile = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    ImageDraw.Draw(tile).rounded_rectangle([0, 0, size - 1, size - 1], radius=r,
+                                           fill=(255, 255, 255, 242))
+    img.paste(tile, (x, y), tile.split()[3])
+    inner = round(size * 0.84)
+    sc = min(inner / badge.width, inner / badge.height)
+    bw, bh = max(1, round(badge.width * sc)), max(1, round(badge.height * sc))
+    b2 = badge.resize((bw, bh), Image.LANCZOS)
+    img.paste(b2, (x + (size - bw) // 2, y + (size - bh) // 2), b2)
 
 
 def draw_footer(draw, item, tmpl):
@@ -340,8 +360,8 @@ def render_one(item, tmpl, out_path, force_color=None):
     draw_title(draw, item.get("title") or "未命名通告", area, color, tmpl)
     cat = item.get("category") if item.get("category") in CATEGORY_TO_POOL else "other"
     fg = "#000000" if tmpl in DARK_PILL_FG else ("#E8D8B0" if tmpl == "service_wanted" else "#FFFFFF")
-    draw_pill(draw, CATEGORY_LABEL.get(cat, "通告"), PILL_COLORS.get(tmpl, "#333"), fg, xy=(56, 68))
-    paste_badge(img, badge_for(item), xy=(880, 80))
+    draw_pill(draw, CATEGORY_LABEL.get(cat, "通告"), PILL_COLORS.get(tmpl, "#333"), fg, xy=(60, 80), size=32)
+    paste_badge(img, badge_for(item), xy=(844, 68))
     draw_footer(draw, item, tmpl)
     img.save(out_path, optimize=True)
     return luma, sd, color

@@ -110,7 +110,8 @@ restore-local-scrape.bat
 .gitattributes
 .env.example
 
-# AI 底圖試範（story-bases-demo/）：只係本機／raw.githubusercontent 用嘅示範素材，
-# 唔係部署要用 —— 一入 Vercel 就會食晒 budget（每張 60–260KB × 幾張）。
-# 正式上線時底圖會放 bases/（同樣 ignore），app 由 raw 讀，Vercel 零 byte。
+# AI 底圖（story-bases/）：出 Story 用嘅 9 張無字底圖＋試樣，本機／raw 讀，唔上 Vercel。
+# 9 張 WebP 共 ~1.2 MB —— 一入部署就爆 budget（2 MB），所以一定要擋。
+# app 要用就由 raw.githubusercontent（有 ACAO:*）讀，jsDelivr 做後備；Actions 直接讀 git。
+story-bases/
 story-bases-demo/
