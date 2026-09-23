@@ -2350,8 +2350,8 @@
     }
 
     // ── PDF 內文出圖嘅「落款位」（廣告位）────────────────────────────────
-    // 同純文字分享嘅第 3 行一模一樣：經 通告圖書館 v5.11 整理 @noscout.system，
-    // 另加該通告嘅深鏈 —— 人哋收到圖就知去邊度搵返完整通告同最新截止日期。
+    // 就用返純文字分享嗰行，一個字都唔改：---經 通告圖書館 v5.11 整理 @noscout.system
+    // 深鏈擺右邊細字 —— 人哋收到圖就知去邊度搵返完整通告同最新截止日期。
     // 純 canvas，零 function／零 storage／零上傳，所以「無負擔」。
     function pdfImageFooter(item, pageNum, pageCount) {
       const site = String((item && item.source_site) || '').trim();
@@ -2361,19 +2361,21 @@
       return {
         title: (site ? `【${site}】` : '') + title,
         page: pageCount > 1 ? `第 ${pageNum} / ${pageCount} 版` : '',
-        credit: SHARE_CREDIT.replace(/^-+/, ''),
+        credit: SHARE_CREDIT,   // 原樣：---經 通告圖書館 v5.11 整理 @noscout.system
         linkLine: link ? `完整通告＋最新截止日期：${link}` : '',
       };
     }
 
-    // 版面上：PDF 原頁 + 底部落款帶（深藍底＋品牌 accent 線＋區徽＋三行字）
+    // 版面上：PDF 原頁 + 底部「精簡落款」一行
+    // 落款文字＝同分享文案完全一樣嘅一行（---經 通告圖書館 v5.11 整理 @noscout.system），
+    // 右邊細字放該通告嘅深鏈（人哋收到圖可以直接搵返完整通告＋最新截止日期）。
     // 任何一步失敗都回原頁，唔會因為落款而失去張圖。
     function composePdfImage(pageCanvas, item, pageNum, pageCount, badgeImg) {
       const W = pageCanvas.width, H = pageCanvas.height;
       if (!W || !H) return pageCanvas;
       const f = pdfImageFooter(item, pageNum, pageCount);
       const pad = Math.round(W * 0.042);
-      const bandH = Math.max(140, Math.round(W * 0.17));
+      const bandH = Math.max(112, Math.round(W * 0.135));
       const out = document.createElement('canvas');
       out.width = W; out.height = H + bandH;
       const ctx = out.getContext('2d');
@@ -2383,50 +2385,31 @@
         const y0 = H;
         ctx.fillStyle = '#0d1626';
         ctx.fillRect(0, y0, W, bandH);
+        // 頂部品牌 accent 幼線（同 app 一致）
         ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(0, y0, W, Math.max(4, Math.round(W * 0.005)));
-        // 區徽（有就畫，冇就純文字，唔會空一格）
-        let tx = pad;
-        const tile = Math.round(bandH * 0.64);
-        if (badgeImg && badgeImg.width && badgeImg.height) {
-          const bx = pad, by = y0 + Math.round((bandH - tile) / 2);
-          posterRoundRect(ctx, bx, by, tile, tile, Math.round(tile * 0.22));
-          ctx.fillStyle = 'rgba(255,255,255,.95)';
-          ctx.fill();
-          const rr = Math.min((tile - Math.round(tile * 0.16)) / badgeImg.width,
-                              (tile - Math.round(tile * 0.16)) / badgeImg.height);
-          const dw = badgeImg.width * rr, dh = badgeImg.height * rr;
-          ctx.drawImage(badgeImg, bx + (tile - dw) / 2, by + (tile - dh) / 2, dw, dh);
-          tx = pad + tile + Math.round(pad * 0.55);
-        }
-        const sTitle = Math.round(bandH * 0.175);
-        const sCredit = Math.round(bandH * 0.140);
-        const sLink = Math.round(bandH * 0.115);
-        const avail = W - tx - pad;
+        ctx.fillRect(0, y0, W, Math.max(3, Math.round(W * 0.004)));
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
-        // 第一行：標題（左）＋ 第 N/M 版（右）
-        let pageW = 0;
-        if (f.page) {
-          ctx.font = `400 ${sLink}px ${POSTER_FONT}`;
-          pageW = ctx.measureText(f.page).width + Math.round(pad * 0.6);
-          ctx.fillStyle = '#8ea2c6';
-          ctx.textAlign = 'right';
-          ctx.fillText(f.page, W - pad, y0 + bandH * 0.33);
-          ctx.textAlign = 'left';
-        }
-        ctx.font = `700 ${sTitle}px ${POSTER_FONT}`;
-        ctx.fillStyle = '#e6eefb';
-        ctx.fillText(posterTruncate(ctx, f.title, avail - pageW), tx, y0 + bandH * 0.33);
-        // 第二行：落款（同分享文案第 3 行）
+        // 第一行（主）：落款 —— 就用分享文案嗰句，一個字都唔改
+        const sCredit = Math.max(24, Math.round(bandH * 0.30));
         ctx.font = `700 ${sCredit}px ${POSTER_FONT}`;
-        ctx.fillStyle = '#9ec3ff';
-        ctx.fillText(posterTruncate(ctx, f.credit, avail), tx, y0 + bandH * 0.62);
-        // 第三行：深鏈（人有興趣就自己搵返上嚟）
+        ctx.fillStyle = '#cfe0ff';
+        ctx.fillText(posterTruncate(ctx, f.credit, W - pad * 2), pad, y0 + bandH * 0.36);
+        // 第二行：深鏈（細、暗）—— 人哋收到圖搵得返完整通告同最新截止日期
         if (f.linkLine) {
+          const sLink = Math.max(20, Math.round(bandH * 0.16));
           ctx.font = `400 ${sLink}px ${POSTER_FONT}`;
           ctx.fillStyle = '#7c89a3';
-          ctx.fillText(posterTruncate(ctx, f.linkLine, avail), tx, y0 + bandH * 0.845);
+          ctx.fillText(posterTruncate(ctx, f.linkLine, W - pad * 2), pad, y0 + bandH * 0.74);
+        }
+        // 多版通告：右上角細字標版數（唔阻落款）
+        if (f.page) {
+          const sPage = Math.max(16, Math.round(bandH * 0.15));
+          ctx.font = `400 ${sPage}px ${POSTER_FONT}`;
+          ctx.textAlign = 'right';
+          ctx.fillStyle = '#5f6d85';
+          ctx.fillText(f.page, W - pad, y0 + bandH * 0.30);
+          ctx.textAlign = 'left';
         }
       } catch (_) {
         return pageCanvas;
@@ -2789,9 +2772,10 @@
                 <button type="button" data-act="pdf-next" aria-label="下一版">下一版 ▶</button>
               </div>
               <img alt="通告內容預覽">
-              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖。每張圖右下角都印住圖書館落款同呢張通告嘅專屬連結。</p>
+              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖。每張圖底部都印住圖書館落款同呢張通告嘅專屬連結；多版通告可以撳「💾 全部版數」一次過出齊。</p>
               <div class="share-ig-actions">
                 <a data-role="pdfdl" download>下載圖片</a>
+                <button type="button" data-act="pdf-all" data-role="pdfall">💾 全部版數</button>
                 <button type="button" data-act="copy-image" data-kind="pdf" data-role="pdfcopy">📋 複製圖片</button>
                 <button type="button" data-act="share-file" data-kind="pdf" data-role="pdfshare" hidden>📤 分享圖片</button>
               </div>
@@ -2861,11 +2845,8 @@
         return badgePromise;
       }
 
-      async function renderPdfPage(num) {
-        const box = sheet.querySelector('[data-role="pdfbox"]');
-        const status = box.querySelector('[data-role="pdfstatus"]');
-        const nav = box.querySelector('[data-role="pdfnav"]');
-        status.textContent = `畫緊第 ${num} 版（共 ${pdfDoc.numPages} 版）…`;
+      // 畫一版（唔碰 UI）：回 { blob, name } —— 單版預覽同「全部版數」共用
+      async function renderPdfPageBlob(num) {
         const page = await pdfDoc.getPage(num);
         const base = page.getViewport({ scale: 1 });
         const scale = Math.min(2, 1240 / base.width);
@@ -2876,18 +2857,65 @@
         const c2 = cv.getContext('2d');
         if (!c2) throw new Error('canvas unavailable');
         await page.render({ canvasContext: c2, viewport: vp }).promise;
-        // 落款帶（圖書館名＋落款＋深鏈）：見 composePdfImage —— 廣告位，零成本
+        // 落款帶（精簡一行落款＋深鏈）：見 composePdfImage —— 廣告位，零成本
         const outCv = composePdfImage(cv, item, num, pdfDoc.numPages, await badgeOnce());
         const blob = await new Promise((res, rej) => outCv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
+        return { blob, name: pdfFileNameFor(num) };
+      }
+
+      function pdfFileNameFor(num) {
+        return igFileNameFor(item, false).replace(/\.png$/, `-p${num}.png`);
+      }
+
+      // 全部版數一次過出（Chrome／Edge 揀個資料夾就寫晒入去；其他瀏覽器逐張下載）
+      async function renderAllPdfPages(box, status) {
+        if (!pdfDoc) return;
+        const total = pdfDoc.numPages;
+        let dir = null;
+        try {
+          if (typeof window.showDirectoryPicker === 'function') {
+            status.textContent = '揀個資料夾存圖…';
+            dir = await window.showDirectoryPicker({ id: 'pdf-notice-images', mode: 'readwrite' });
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') { status.textContent = '已取消。'; return; }
+          dir = null;
+        }
+        let saved = 0;
+        for (let n = 1; n <= total; n++) {
+          status.textContent = `出圖中 ${n}/${total}…`;
+          const { blob, name } = await renderPdfPageBlob(n);
+          if (dir) {
+            const handle = await dir.getFileHandle(name, { create: true });
+            const w = await handle.createWritable();
+            await w.write(blob);
+            await w.close();
+          } else {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => { try { URL.revokeObjectURL(url); } catch (_) {} }, 4000);
+            await new Promise((r) => setTimeout(r, 320));   // 畀瀏覽器逐張落載
+          }
+          saved++;
+        }
+        status.textContent = `✅ 出咗 ${saved} 版（每張都有圖書館落款）。`;
+      }
+
+      async function renderPdfPage(num) {
+        const box = sheet.querySelector('[data-role="pdfbox"]');
+        const status = box.querySelector('[data-role="pdfstatus"]');
+        status.textContent = `畫緊第 ${num} 版（共 ${pdfDoc.numPages} 版）…`;
+        const { blob, name } = await renderPdfPageBlob(num);
         if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
         pdfImgUrl = URL.createObjectURL(blob);
         pdfBlob = blob;
         box.querySelector('img').src = pdfImgUrl;
-        const safe = (s) => String(s || '').replace(/[\\/:*?"<>|\s]+/g, '').slice(0, 30);
-        const stamp = String(item.date || item.captured_date || '').slice(0, 10).replace(/-/g, '');
         const dl = box.querySelector('[data-role="pdfdl"]');
         dl.href = pdfImgUrl;
-        dl.download = `通告圖書館-${safe(item.source_site)}${stamp ? '-' + stamp : ''}-p${num}.png`;
+        dl.download = name;
         pdfPage = num;
         box.querySelector('[data-role="pdfpage"]').textContent = `第 ${num} / ${pdfDoc.numPages} 版`;
         nav.hidden = pdfDoc.numPages <= 1;
@@ -2990,6 +3018,20 @@
             box.hidden = true;
             if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} pdfDoc = null; }
             showToast('轉換唔到：PDF 太大（>4MB）、來源站連唔到，或呢個瀏覽器唔支援。可撳「複製網址」直接開附件。');
+          } finally {
+            el.disabled = false;
+          }
+          return;
+        }
+        if (act === 'pdf-all') {
+          const box = sheet.querySelector('[data-role="pdfbox"]');
+          const status = box.querySelector('[data-role="pdfstatus"]');
+          if (!pdfDoc) return;
+          el.disabled = true;
+          try {
+            await renderAllPdfPages(box, status);
+          } catch (err) {
+            showToast('出圖途中出錯，試下逐版下載。');
           } finally {
             el.disabled = false;
           }

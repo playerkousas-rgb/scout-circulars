@@ -315,15 +315,28 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
 
   // ── PDF 落款（廣告位，2026-09-22）：同純文字分享同一句落款＋該通告深鏈 ──
   const footer = w.eval('pdfImageFooter({source_site:"筲箕灣區",title:"童軍技能訓練班",pdf_url:"' + PDF_B + '",url:"' + PDF_B + '"},2,3)');
-  ok(footer.title === '【筲箕灣區】童軍技能訓練班', '落款第一行：【區會】標題：' + footer.title);
-  ok(footer.credit === '經 通告圖書館 v5.11 整理 @noscout.system',
-     '落款第二行同純文字分享第 3 行一樣：' + footer.credit);
+  ok(footer.title === '【筲箕灣區】童軍技能訓練班', '（保留）落款資料仲有【區會】標題：' + footer.title);
+  ok(footer.credit === '---經 通告圖書館 v5.11 整理 @noscout.system',
+     '精簡落款＝純文字分享嗰行原樣（連開頭 ---）：' + footer.credit);
   ok(/^完整通告＋最新截止日期：example\.org\/\?n=[0-9a-f]{16}$/.test(footer.linkLine),
-     '落款第三行係該通告嘅專屬深鏈：' + footer.linkLine);
+     '深鏈擺右邊細字（人哋收到圖照樣搵得返）：' + footer.linkLine);
   ok(footer.page === '第 2 / 3 版', '多版 PDF 會標明版本：' + footer.page);
   ok(w.eval('pdfImageFooter({title:"單版通告"},{pdf_url:"x",url:"x"},1,1).page') === '',
      '單版 PDF 唔會多餘標「第 1 / 1 版」');
   ok(html.includes('composePdfImage(cv, item, num, pdfDoc.numPages'), 'renderPdfPage 真係用 composePdfImage 落款');
+  // ── PDF 內文本機生圖：全部版數一次過出（2026-09-23）──
+  ok(html.includes('data-act="pdf-all"'), '有「💾 全部版數」掣');
+  ok(html.includes('async function renderAllPdfPages'), '有 renderAllPdfPages：一次過出齊所有版');
+  ok(html.includes("showDirectoryPicker({ id: 'pdf-notice-images'"),
+     '全部版數支援 File System Access（揀資料夾一次寫入）');
+  ok(/await new Promise\(\(r\) => setTimeout\(r, 320\)\);\s*\/\/ 畀瀏覽器逐張落載/.test(html),
+     '唔支援資料夾時逐張下載（320ms 間隔，唔會互相取消）');
+  ok(html.includes('每張圖底部都印住圖書館落款'), '提示講明每版都有落款');
+  ok(/bandH = Math\.max\(112, Math\.round\(W \* 0\.135\)\)/.test(html),
+     '落款帶收窄（原本 17% 高大藍帶 → 13.5%，兩行細字）');
+  ok(!/pdfImageFooter\(item, pageNum, pageCount\)[\s\S]{0,400}badgeImg\.width/.test(
+       html.slice(html.indexOf('function composePdfImage'), html.indexOf('function composePdfImage') + 2600)),
+     '精簡落款唔再畫區徽大格（純文字，唔搶通告版面）');
   {
     // jsdom 嘅假 canvas 冇 drawImage：落款唔可以因此失去張圖（fail-safe）
     const fakePage = d.createElement('canvas');
