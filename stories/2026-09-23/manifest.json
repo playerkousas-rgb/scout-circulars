@@ -1,0 +1,51 @@
+{
+  "today": "2026-09-23",
+  "queue_generated_at": "2026-09-23 17:05:30 +0800",
+  "items": [
+    {
+      "file": "00_service_wanted_b3817e.png",
+      "template": "service_wanted",
+      "category": "service",
+      "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(修訂)",
+      "source_site": "新界東地域",
+      "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf"
+    },
+    {
+      "file": "01_train_green_0f0f82.png",
+      "template": "train_green",
+      "category": "training",
+      "title": "油尖區百年童行-童軍115追蹤挑戰賽",
+      "source_site": "油尖區",
+      "url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
+      "pdf_url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view"
+    },
+    {
+      "file": "02_train_green_167826.png",
+      "template": "train_green",
+      "category": "training",
+      "title": "深資童軍消防訓練班 接納通知書",
+      "source_site": "深旺區",
+      "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2604_深資童軍消防訓練班_接納通知書.pdf",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2604_深資童軍消防訓練班_接納通知書.pdf"
+    },
+    {
+      "file": "03_train_green_4f0f56.png",
+      "template": "train_green",
+      "category": "training",
+      "title": "童軍消防訓練班 接納通知書",
+      "source_site": "深旺區",
+      "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf"
+    },
+    {
+      "file": "04_activity_army_7cc3c9.png",
+      "template": "activity_army",
+      "category": "activity",
+      "title": "新修訂支部訓練綱要(P22/2026)",
+      "source_site": "總會",
+      "url": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf"
+    }
+  ]
+}

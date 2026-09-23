@@ -1,14 +1,40 @@
 {
  "version": 1,
  "days": [
-  "2026-09-22"
+  "2026-09-22",
+  "2026-09-23"
  ],
- "updated_at": "2026-09-22T12:58:05.984712+00:00",
+ "updated_at": "2026-09-23T09:05:32.942841+00:00",
  "items": [
+  {
+   "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
+   "f": "stories/2026-09-23/00_service_wanted_b3817e.png",
+   "t": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(修訂)"
+  },
   {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
    "f": "stories/2026-09-22/00_unc_wanted_parchment_7aba4d.png",
    "t": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單"
+  },
+  {
+   "k": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
+   "f": "stories/2026-09-23/01_train_green_0f0f82.png",
+   "t": "油尖區百年童行-童軍115追蹤挑戰賽"
+  },
+  {
+   "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf",
+   "f": "stories/2026-09-23/03_train_green_4f0f56.png",
+   "t": "童軍消防訓練班 接納通知書"
+  },
+  {
+   "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2604_深資童軍消防訓練班_接納通知書.pdf",
+   "f": "stories/2026-09-23/02_train_green_167826.png",
+   "t": "深資童軍消防訓練班 接納通知書"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
+   "f": "stories/2026-09-23/04_activity_army_7cc3c9.png",
+   "t": "新修訂支部訓練綱要(P22/2026)"
   }
  ]
 }
