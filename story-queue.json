@@ -1,22 +1,74 @@
 {
   "version": 1,
-  "today": "2026-09-22",
-  "generated_at": "2026-09-22 20:45:06 +0800",
-  "cache_last_updated": "2026-09-22 05:00:08",
-  "count": 1,
+  "today": "2026-09-23",
+  "generated_at": "2026-09-23 17:04:54 +0800",
+  "cache_last_updated": "2026-09-23 05:00:05",
+  "count": 5,
   "items": [
     {
-      "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單",
-      "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
-      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/5sGC8WS5oypnt0frtz0bDI/ebdec1db92e0ebd24846d6f9cd726ff2/OD_cir_02-26.pdf",
+      "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(修訂)",
+      "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
       "region": "新界東地域",
       "source_site": "新界東地域",
-      "date": "2026-09-22",
-      "captured_date": "2026-09-22",
+      "date": "2026-09-23",
+      "captured_date": "2026-09-23",
+      "deadline": "2026-10-17",
+      "audience": "童軍、領袖、會務委員",
+      "fee": "",
+      "category": "service"
+    },
+    {
+      "title": "油尖區百年童行-童軍115追蹤挑戰賽",
+      "url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
+      "pdf_url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
+      "region": "九龍地域",
+      "source_site": "油尖區",
+      "date": "2026-09-23",
+      "captured_date": "2026-09-23",
+      "deadline": "2026-11-09",
+      "audience": "童軍、公眾",
+      "fee": "HK$10",
+      "category": "training"
+    },
+    {
+      "title": "深資童軍消防訓練班 接納通知書",
+      "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2604_深資童軍消防訓練班_接納通知書.pdf",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2604_深資童軍消防訓練班_接納通知書.pdf",
+      "region": "九龍地域",
+      "source_site": "深旺區",
+      "date": "2026-09-23",
+      "captured_date": "2026-09-23",
       "deadline": "",
       "audience": "",
       "fee": "",
-      "category": "other"
+      "category": "training"
+    },
+    {
+      "title": "童軍消防訓練班 接納通知書",
+      "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf",
+      "region": "九龍地域",
+      "source_site": "深旺區",
+      "date": "2026-09-23",
+      "captured_date": "2026-09-23",
+      "deadline": "",
+      "audience": "",
+      "fee": "",
+      "category": "training"
+    },
+    {
+      "title": "新修訂支部訓練綱要(P22/2026)",
+      "url": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
+      "region": "總會",
+      "source_site": "總會",
+      "date": "2026-09-23",
+      "captured_date": "2026-09-23",
+      "deadline": "",
+      "audience": "",
+      "fee": "",
+      "category": "activity"
     }
   ]
 }
