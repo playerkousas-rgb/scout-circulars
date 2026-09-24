@@ -82,6 +82,9 @@ icons/preview.html
 icons/orgs/*-256.png
 icons/orgs/src/
 icons/orgs/official_urls.json
+# 支部最高獎章 AVIF：avif＋awards.json 前端要用（相對路徑）；PNG 俾 Actions／本機 Pillow、src 母圖唔上 Vercel
+icons/awards/*-256.png
+icons/awards/src/
 
 # 爬蟲 / 工具 / 通知（只喺 Actions 或本機跑）
 core.py
