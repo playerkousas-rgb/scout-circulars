@@ -110,9 +110,11 @@ function boot(qs = '', opts = {}) {
       }
       // 「貼去平台」開新分頁（jsdom 冇實作 window.open）
       win.__opened = [];
+      win.__calls = [];   // 'clip' / 'open' 先後次序（剪貼板一定要喺開新分頁之前寫）
       win.open = (url) => {
         const tab = { location: { href: url || '' }, closed: false, close() { this.closed = true; } };
         win.__opened.push(tab);
+        win.__calls.push('open');
         return tab;
       };
       if (typeof win.ClipboardItem === 'undefined') {
@@ -136,7 +138,7 @@ function boot(qs = '', opts = {}) {
       win.HTMLCanvasElement.prototype.toBlob = function (cb) { cb(new win.Blob(['png'], { type: 'image/png' })); };
       Object.defineProperty(win.navigator, 'clipboard', { value: {
         writeText: (t) => { clip.text = t; return Promise.resolve(); },
-        write: (items) => { clip.items = items; return Promise.resolve(); },
+        write: (items) => { clip.items = items; win.__calls.push('clip'); return Promise.resolve(); },
       }, configurable: true });
     },
   });
@@ -220,6 +222,18 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   let sheet = d.querySelector('.share-sheet');
   ok(!!sheet, '撳分享 → 彈出分享面板');
   ok(sheet.querySelector('#share-title').textContent === '童軍技能訓練班', '面板標題係該通告');
+  // 2026-09-24 用戶話「呢堆字全都不用了」：文案預覽、PDF／IG 標題同兩句 IG 說明全部拎走
+  {
+    const REMOVED = ['分享文案預覽', '通告內容出圖', '12 款設計・本機即畫', '想換款就撳上面嘅縮圖',
+      'Story 同 4:5 都會加直連通告原文嘅 QR', '分類標語只喺每日自動化 Story 先加', '右上角只貼區／地域／總會 LOGO'];
+    ok(REMOVED.every((t) => !sheet.textContent.includes(t) && !html.includes(t)),
+       '分享面板唔再有文案預覽標題、PDF／IG 標題同 IG 說明字');
+    ok(!sheet.querySelector('pre'), '分享文案預覽框（<pre>）已拎走（文案照樣用「複製文字」／WhatsApp 等掣分享）');
+    ok($$(d, '.share-sheet h4').map((h) => h.textContent.trim()).join('|') === '分享至',
+       '面板淨返「分享至」一個小標題：' + $$(d, '.share-sheet h4').map((h) => h.textContent.trim()).join('|'));
+    ok(!!sheet.querySelector('[data-act="pdf2img"]') && !!sheet.querySelector('[data-act="ig"]'),
+       '拎走標題之後「轉換內文做圖」同「產生 IG 分享圖」兩粒掣照舊喺度');
+  }
   const linkLabels = $$(d, '.share-sheet a[data-act="link"]').map(a => a.textContent.trim());
   ok(JSON.stringify(linkLabels) === JSON.stringify(['WhatsApp', 'Telegram', 'Facebook', 'X', 'LINE', '電郵']), '社交平台連結齊全：' + linkLabels.join(' '));
   const waHref = decodeURIComponent($$(d, '.share-sheet a.wa')[0].href);
@@ -627,6 +641,30 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     click(wD, sheetD.querySelector('[data-role="pdfsocial"] button[data-target="wa"]')); await wait(40);
     ok((dD.querySelector('.share-toast')?.textContent || '').includes('請先產生圖片'),
        '未出 PDF 圖就撳「貼去 WhatsApp」→ 有提示，唔會靜靜冇反應');
+    // 2026-09-24：「貼去 WhatsApp」以前開 web.whatsapp.com —— 用電腦版 app 嘅人冇登入網頁版，
+    // 只會見到「下載／掃碼連結」畫面。而家同「分享至 → WhatsApp」用同一條 api.whatsapp.com，
+    // 有裝電腦版就直接彈開 app（同分享文字一樣）。
+    {
+      const waTextHref = sheetD.querySelector('a.share-opt.wa').href;
+      const openedBefore = wD.__opened.length;
+      wD.__calls.length = 0;
+      domD.clip.items = null;
+      click(wD, sheetD.querySelector('[data-role="igsocial"] button[data-target="wa"]')); await wait(60);
+      const tab = wD.__opened[openedBefore];
+      ok(wD.__opened.length === openedBefore + 1 && tab && tab.location.href === waTextHref,
+         '撳「貼去 WhatsApp」→ 開同分享文字一模一樣嘅 WhatsApp 連結：' + (tab && tab.location.href.slice(0, 48)));
+      ok(tab && tab.location.href.startsWith('https://api.whatsapp.com/send?text=') && !tab.location.href.includes('web.whatsapp.com'),
+         '唔再開 web.whatsapp.com（冇登入網頁版就淨係見到下載／掃碼連結畫面）');
+      ok(decodeURIComponent((tab && tab.location.href) || '').includes('【筲箕灣區】童軍技能訓練班'),
+         'WhatsApp 開到之後文案（區會＋標題＋詳情連結）已預填，貼圖一齊發');
+      ok(domD.clip.items && domD.clip.items.length === 1, '開 WhatsApp 之前已經複製咗張圖');
+      ok(wD.__calls.join(',') === 'clip,open',
+         '先寫剪貼板、後開新分頁（唔好等新分頁搶咗焦點／用咗 user activation 先複製）：' + wD.__calls.join(','));
+      ok(tab && tab.opener === null, '新分頁切斷 opener（等同 rel=noopener）');
+      const t = dD.querySelector('.share-toast')?.textContent || '';
+      ok(t.includes('WhatsApp') && t.includes('揀對話') && t.includes('Ctrl'),
+         'toast 教：WhatsApp 開咗之後揀對話、Ctrl／⌘+V 貼上：' + t);
+    }
   }
 
   // ── 今日草稿出圖台（?batch=1）：本機批次出圖 ──────────────────────

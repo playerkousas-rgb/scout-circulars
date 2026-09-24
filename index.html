@@ -3274,14 +3274,28 @@
     //   手機／平板：Web Share files（系統面板直接揀 IG／WhatsApp／AirDrop…）。
     //   電腦：系統分享面板對「分享去社交平台」幫唔到手（Windows／macOS 嗰個
     //         面板好多時冇社交 app，撳咗好似壞咗），所以電腦改為
-    //        「📋 複製圖片 ＋ 開平台網頁 ＋ 貼上（Ctrl/⌘+V）」。呢個係唯一
+    //        「📋 複製圖片 ＋ 開平台 ＋ 貼上（Ctrl/⌘+V）」。呢個係唯一
     //         可以由網頁推圖入社交平台嘅正路 —— 瀏覽器唔容許網站代你上載圖。
+    //   WhatsApp（2026-09-24）：唔再開 web.whatsapp.com —— 用電腦版 app、冇登入
+    //         網頁版嘅人只會見到「下載／掃碼連結」畫面。改為同「分享至 → WhatsApp」
+    //         同一條 api.whatsapp.com 連結（sameAs），有裝電腦版就直接彈開 app，
+    //         同分享文字一模一樣；冇裝嘅，嗰頁都有「使用 WhatsApp Web」入口。
     const IMG_SHARE_TARGETS = [
-      { id: 'wa', label: 'WhatsApp', url: 'https://web.whatsapp.com/' },
+      { id: 'wa', label: 'WhatsApp', sameAs: 'wa' },
       { id: 'tg', label: 'Telegram', url: 'https://web.telegram.org/a/' },
       { id: 'fb', label: 'Facebook', url: 'https://www.facebook.com/' },
       { id: 'x', label: 'X', url: 'https://x.com/compose/post' },
     ];
+
+    // 「貼去…」要開嘅網址。sameAs＝借用「分享至」嗰粒掣（socialLinks）同一條，
+    // 保證同分享文字行為一致（文案＋詳情連結會預填埋，貼圖之後一齊發）。
+    function imgShareTargetUrl(target, item) {
+      if (target && target.sameAs) {
+        const link = socialLinks(item).find((l) => l.id === target.sameAs);
+        if (link) return link.href;
+      }
+      return (target && target.url) || '';
+    }
 
     // 兩種掣幾時出：手機出系統分享；電腦出「貼去…」（複製＋開網頁）。
     // 純函數，方便測試同保持兩個盒（PDF 圖／IG 圖）行為一致。
@@ -3434,12 +3448,6 @@
           </div>
 
           <div class="share-section">
-            <h4>分享文案預覽（【區會】標題＋對象｜費用｜截止＋圖書館落款）</h4>
-            <pre style="white-space:pre-wrap; background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:10px; padding:10px; font-size:12px; line-height:1.5; color:#cfe3ff;">${escapeHtml(shareTextFor(item, true))}</pre>
-          </div>
-
-          <div class="share-section">
-            <h4>通告內容出圖（PDF→PNG・你部機即畫，最大 20MB，附圖書館落款，轉發 WhatsApp／IG 啱用）</h4>
             <button type="button" class="share-ig-btn" data-act="pdf2img">📄 轉換內文做圖</button>
             <div class="share-ig-result" data-role="pdfbox" hidden>
               <p class="share-ig-hint" data-role="pdfstatus"></p>
@@ -3468,13 +3476,10 @@
           </div>
 
           <div class="share-section">
-            <h4>IG 分享圖（12 款設計・本機即畫，唔經伺服器）</h4>
             <button type="button" class="share-ig-btn" data-act="ig">🖼 產生 IG 分享圖</button>
             <div class="share-ig-result" data-role="igbox" hidden>
               <img alt="IG 分享圖預覽">
               <div class="share-ig-designs" data-role="igdesigns" role="group" aria-label="揀設計款"></div>
-              <p class="share-ig-hint">想換款就撳上面嘅縮圖；默認款跟通告分類自動揀（同 Actions 草稿同一款）。</p>
-              <p class="share-ig-hint">Story 同 4:5 都會加直連通告原文嘅 QR（白圓角方塊，唔經圖書館頁）。分類標語只喺每日自動化 Story 先加，手動出圖唔加字。右上角只貼區／地域／總會 LOGO，冇白框。</p>
               <p class="share-ig-hint">手機可以長撳張圖直接儲存，或者撳「下載圖片」。</p>
               <div class="share-ig-actions">
                 <a data-role="igdl" download>下載圖片</a>
@@ -3780,7 +3785,7 @@
           return;
         }
         if (act === 'img-target') {
-          // 電腦版：複製圖片 ＋ 開平台網頁，用戶貼上（Ctrl/⌘+V）就發得。
+          // 電腦版：複製圖片 ＋ 開平台（WhatsApp 直接開電腦版 app），用戶貼上（Ctrl/⌘+V）就發得。
           // 手機（有 Web Share）：直接叫系統分享面板，唔玩網頁貼上。
           const kind = el.dataset.kind;
           const blob = kind === 'ig' ? igBlob : pdfBlob;
@@ -3797,14 +3802,18 @@
             }
             return;
           }
-          // 開新分頁要喺使用者手勢內做，所以先開空白頁，複製完先導航過去
+          // 次序唔可以調轉：先「同步」開始複製，再開新分頁。
+          //   Chrome 喺 call clipboard.write 嗰刻驗焦點（新分頁搶咗焦點就 Document is not focused）；
+          //   Firefox／Safari 寫剪貼板要今次撳掣嘅 user activation，而 window.open 可能已經用咗佢。
+          //   copyImageBlob 喺第一個 await 之前已經 call 咗 clipboard.write，所以前面唔好加 await。
+          const copying = copyImageBlob(blob);
+          const targetUrl = imgShareTargetUrl(target, item);
           let popup = null;
-          try { popup = window.open('', '_blank'); } catch (_) { popup = null; }
-          const copied = await copyImageBlob(blob);
-          if (popup && popup.location) {
-            try { popup.location.href = target.url; } catch (_) { try { popup.location = target.url; } catch (__) {} }
-          }
-          if (copied && popup) showToast(`已複製圖片：喺 ${target.label} 貼上（Ctrl／⌘+V）就發得。`);
+          try { popup = window.open(targetUrl, '_blank'); } catch (_) { popup = null; }
+          if (popup) { try { popup.opener = null; } catch (_) {} }   // 等同 rel="noopener"
+          const copied = await copying;
+          if (copied && popup && target.sameAs) showToast(`已複製圖片：${target.label} 開咗之後揀對話，貼上（Ctrl／⌘+V）就發得。`);
+          else if (copied && popup) showToast(`已複製圖片：喺 ${target.label} 貼上（Ctrl／⌘+V）就發得。`);
           else if (copied) showToast(`已複製圖片：自己開 ${target.label} 貼上就得。`);
           else if (popup) showToast(`已開 ${target.label}：請先撳「下載圖片」，再喺嗰邊上載。`);
           else showToast('複製唔到圖片，請用「下載圖片」再上載。');

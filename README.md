@@ -181,6 +181,10 @@ node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／�
   嘅 AVIF）直貼右上角（唔加白框），fallback 鏈 區 → 地域 → 總會。Story 版另加直連原文 QR。
   分類標語**只喺自動化先加**（Actions 每日 Story，同埋 `?batch=1` 出圖台）；分享面板手動出圖
   唔加標語，QR 左邊留位，用戶喺 IG 自己加字更彈性（2026-09-24 決定）。
+- **圖片「貼去 WhatsApp」（電腦版，2026-09-24）**：PDF 內文圖／IG 圖都係先複製張圖，再開同「分享至 → WhatsApp」
+  **同一條 `api.whatsapp.com` 連結**（`IMG_SHARE_TARGETS` 嘅 `sameAs`）—— 有裝 WhatsApp 電腦版就直接彈開 app
+  （文案已預填），揀對話再 Ctrl／⌘+V 貼圖。以前開 `web.whatsapp.com`，冇登入網頁版嘅人只會見到「下載／掃碼連結」畫面。
+  手機照舊用系統分享。分享面板唔再顯示文案預覽框同各區說明字（用戶要求精簡）。
 > 「分享圖片」（PDF → JPG）功能已於 2026-09-16 移除：附加價值有限，而佢令每個 Vercel
 > deployment 嘅 function bundle 包埋 PyMuPDF（約 110MB），直接導致 Functions Storage
 > 爆額（見下文「Vercel 用量」一節）。分享連結、複製網址／文字等功能不受影響。
