@@ -17,8 +17,10 @@
 防 open-relay（SSRF）濫用：
 - ``u`` 必須出現喺 live cache.json（同前端同一來源：GitHub Raw）嘅
   ``pdf_url`` / ``url`` 欄位 → 淨係 proxy「圖書館而家真係列出嘅通告」。
-- 硬上限 4 MB（Vercel serverless response 上限 ~4.5 MB）；超過回 413，
-  前端 fallback 叫用戶直接開附件。
+- 單次回應硬上限 4 MB（Vercel serverless response 上限 ~4.5 MB）。
+  全檔超過就回 413（可帶 ``bytes``）。前端本機畫圖上限係 20 MB：
+  先試用戶自己條網；CORS 唔得先用 ``off``／``n`` 分片（每片 ≤4 MB）拼返再畫。
+  超過 20 MB 唔再經呢度拉。
 - ``%PDF`` magic bytes 檢查：Drive 有時回 HTML 權限頁，唔好塞返出去當 PDF。
 """
 
@@ -28,6 +30,7 @@ import json
 import os
 import re
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from http.server import BaseHTTPRequestHandler
@@ -39,7 +42,8 @@ RAW_CACHE_URL = os.environ.get(
     "https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json",
 )
 CACHE_TTL_SECONDS = 10 * 60          # in-process；Vercel warm instance 重用
-MAX_PDF_BYTES = 4 * 1024 * 1024      # 低過 Vercel ~4.5MB response cap
+MAX_PDF_BYTES = 4 * 1024 * 1024      # 低過 Vercel ~4.5MB response cap；單次回應唔可以再大
+LOCAL_DRAW_MAX = 20 * 1024 * 1024    # 本機畫圖上限；分片總和唔好超過呢個
 FETCH_TIMEOUT = 20
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -85,10 +89,11 @@ def drive_direct_url(url):
 
 
 class ProxyError(Exception):
-    def __init__(self, status: int, code: str):
+    def __init__(self, status: int, code: str, extra: dict | None = None):
         super().__init__(code)
         self.status = status
         self.code = code
+        self.extra = extra or {}
 
 
 def refresh_allowed_urls(force: bool = False) -> set:
@@ -119,10 +124,47 @@ def resolve_fetch_url(u: str) -> str:
     return drive_direct_url(u) or u
 
 
+def _header(resp, name: str):
+    headers = getattr(resp, "headers", None)
+    if not headers or not hasattr(headers, "get"):
+        return None
+    return headers.get(name)
+
+
+def _content_length(resp):
+    raw = _header(resp, "Content-Length")
+    if raw is None or raw == "":
+        return None
+    try:
+        return int(raw)
+    except (TypeError, ValueError):
+        return None
+
+
+def _content_range_total(resp):
+    raw = str(_header(resp, "Content-Range") or "")
+    if "/" not in raw:
+        return None
+    total = raw.rsplit("/", 1)[-1].strip()
+    return int(total) if total.isdigit() else None
+
+
+def _query_int(qs, key: str):
+    raw = (qs.get(key) or [""])[0]
+    if raw == "":
+        return None
+    if not re.fullmatch(r"-?\d+", raw):
+        raise ProxyError(400, "bad_range")
+    return int(raw)
+
+
 def fetch_pdf(url: str) -> bytes:
     req = urllib.request.Request(_quote(url), headers={"User-Agent": USER_AGENT})
     try:
         with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT) as resp:  # noqa: S310（URL 已過名單檢查）
+            length = _content_length(resp)
+            if length is not None and length > MAX_PDF_BYTES:
+                raise ProxyError(413, "pdf_too_large", extra={"bytes": length})
             data = resp.read(MAX_PDF_BYTES + 1)
     except ProxyError:
         raise
@@ -133,6 +175,56 @@ def fetch_pdf(url: str) -> bytes:
     if not data.startswith(b"%PDF"):
         raise ProxyError(415, "not_a_pdf")
     return data
+
+
+def fetch_pdf_slice(url: str, off: int, n: int) -> tuple[bytes, bool]:
+    """回 (bytes, eof)。單次回應永遠 ≤ MAX_PDF_BYTES；唔會讀過 LOCAL_DRAW_MAX。"""
+    if off < 0 or n < 1 or off >= LOCAL_DRAW_MAX:
+        raise ProxyError(400, "bad_range")
+    n = min(int(n), MAX_PDF_BYTES, LOCAL_DRAW_MAX - off)
+    end = off + n - 1
+    req = urllib.request.Request(
+        _quote(url),
+        headers={"User-Agent": USER_AGENT, "Range": f"bytes={off}-{end}"},
+    )
+    try:
+        resp_cm = urllib.request.urlopen(req, timeout=FETCH_TIMEOUT)  # noqa: S310
+    except urllib.error.HTTPError as exc:
+        if exc.code == 416:
+            return b"", True
+        raise ProxyError(502, "upstream_unreachable") from exc
+    except ProxyError:
+        raise
+    except Exception as exc:
+        raise ProxyError(502, "upstream_unreachable") from exc
+    with resp_cm as resp:
+        code = getattr(resp, "status", None) or resp.getcode()
+        if code == 416:
+            return b"", True
+        total = _content_range_total(resp) or _content_length(resp)
+        if total is not None and total > LOCAL_DRAW_MAX:
+            raise ProxyError(413, "pdf_too_large", extra={"bytes": total})
+        if code == 206:
+            data = resp.read(n)
+            if off == 0 and data and not data.startswith(b"%PDF"):
+                raise ProxyError(415, "not_a_pdf")
+            eof = len(data) < n or (total is not None and off + len(data) >= total)
+            return data, eof
+        # 上游忽略 Range，回 200 全檔。丟棄 off，只回 n，保護 Vercel 回應上限。
+        skipped = 0
+        while skipped < off:
+            chunk = resp.read(min(64 * 1024, off - skipped))
+            if not chunk:
+                return b"", True
+            skipped += len(chunk)
+        data = resp.read(n)
+        if off == 0 and data and not data.startswith(b"%PDF"):
+            raise ProxyError(415, "not_a_pdf")
+        extra = resp.read(1)
+        eof = not extra
+        if not eof and off + len(data) >= LOCAL_DRAW_MAX:
+            raise ProxyError(413, "pdf_too_large", extra={"bytes": LOCAL_DRAW_MAX + 1})
+        return data, eof
 
 
 def _send_json(h: BaseHTTPRequestHandler, status: int, payload: dict) -> None:
@@ -166,21 +258,32 @@ class handler(BaseHTTPRequestHandler):  # noqa: N801 - Vercel function conventio
             qs = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
             u = (qs.get("u") or [""])[0]
             fetch_url = resolve_fetch_url(u)
+            if "off" in qs or "n" in qs:
+                off = _query_int(qs, "off")
+                n = _query_int(qs, "n")
+                data, eof = fetch_pdf_slice(fetch_url, 0 if off is None else off, MAX_PDF_BYTES if n is None else n)
+                self._send_pdf(data, eof=eof)
+                return
             data = fetch_pdf(fetch_url)
         except ProxyError as exc:
-            _send_json(self, exc.status, {"ok": False, "error": exc.code})
+            _send_json(self, exc.status, {"ok": False, "error": exc.code, **exc.extra})
             return
         except Exception:
             # raw cache 攞唔到／JSON 異常：fail closed，唔好無名單照 proxy
             _send_json(self, 503, {"ok": False, "error": "cache_index_unavailable"})
             return
+        self._send_pdf(data, eof=True)
+
+    def _send_pdf(self, data: bytes, eof: bool = True) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "application/pdf")
         self.send_header("Content-Length", str(len(data)))
         self.send_header("Access-Control-Allow-Origin", "*")
-        # 通告 PDF 基本唔變：edge CDN cache 一星期，重複出圖零 function 成本
+        # 通告 PDF 基本唔變：edge CDN cache 一星期，重複出圖零 function 成本。
+        # 分片都 cache：同一片第二個人係 CDN 直出，唔會重跑 function。
         self.send_header("Cache-Control", "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400")
         self.send_header("Content-Disposition", "inline")
         self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Pdf-EOF", "1" if eof else "0")
         self.end_headers()
         self.wfile.write(data)

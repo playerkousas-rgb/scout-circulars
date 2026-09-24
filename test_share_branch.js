@@ -291,6 +291,34 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   click(w, designBtns.find(b => b.dataset.id === 'unc_topsecret')); await wait(60);
   ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
      '再撳同一款：no-op，唔會彈返自動款');
+
+  // ── Story 圖：冇白框、冇頒佈欄、冇絕密黑條、有標語＋直連 QR ──
+  ok(!html.includes("rows.push(['頒佈'"), '資料卡唔再重複頒佈（上方日期行已經有）');
+  ok(!html.includes('rgba(255,255,255,.95)'), '區徽唔再加白框');
+  ok(!html.includes('兩粒「刪節」黑條') && !html.includes('L.dateY - 150'), '絕密檔案唔再畫兩粒黑色不知名框');
+  const storyL = w.eval('posterLayout')(
+    { title: '港島通告', date: '2026-09-24', region: '港島地域', pdf_url: 'https://x/1.pdf', source_site: '港島地域' },
+    { deadline: '2026-10-01', audience: '童軍', fee: 'HK$10' },
+    'story',
+    { headline: null },
+  );
+  ok(storyL.rows.map(r => r[0]).join(',') === '截止,對象,費用', 'story 資料卡得截止／對象／費用：' + storyL.rows.map(r => r[0]).join(','));
+  ok(storyL.cta && storyL.cta.qr >= 160 && storyL.cta.y0 < storyL.dateY, 'story 預留標語＋QR，唔蓋住日期行');
+  const feedL = w.eval('posterLayout')(
+    { title: 't', date: '2026-09-24', pdf_url: 'https://x/1.pdf' },
+    { deadline: '2026-10-01' },
+    'feed',
+    {},
+  );
+  ok(!feedL.cta && feedL.rows.every(r => r[0] !== '頒佈'), 'feed 唔逼 QR，同樣冇頒佈欄');
+  ok(w.eval('storySloganFor')({ slogan: '自定標語', category: 'training' }) === '自定標語', '已配標語就用返');
+  const trainLines = ['解鎖新技能','Skill Up!','學多樣，識多樣','今日學，明日用','升級進行中','成為更勁嘅自己','新手都歡迎','學到就係你嘅'];
+  const slogan = w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' });
+  ok(trainLines.includes(slogan), '訓練標語出自八句：' + slogan);
+  ok(w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' }) === slogan, '同一通告標語穩定');
+  const qr = w.eval('posterQrMatrix')('https://scout.org.hk/uploads/B.pdf');
+  ok(qr && qr.length === 29 && qr[0].slice(0, 7).join('') === '1111111' && qr[14][14] === 1 && qr[28][28] === 1,
+     'Story QR 同 Python qrcode（byte／EC-M／mask 0）對齊，直連通告附件');
   click(w, storyBtn); await wait(80);   // 揀咗款之後切 Story：款要跟住行
   ok(igBox.querySelector('[data-role="igdl"]').download.includes('-story.png')
      && designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
@@ -303,6 +331,17 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   // PDF 內容出圖（pdf.js client-side；bytes 經 stdlib /api/pdf-proxy byte bridge 入）
   ok(html.includes('cdn.jsdelivr.net/npm/pdfjs-dist@4'), 'pdf.js 由 CDN lazy-load（唔入 repo、唔入 Vercel bundle）');
   ok(html.includes('/api/pdf-proxy?u='), 'PDF bytes 經 /api/pdf-proxy 過橋（CORS 冇開嘅區會站先要用）');
+  ok(w.eval('LOCAL_PDF_MAX') === 20 * 1024 * 1024 && w.eval('PROXY_PDF_MAX') === 4 * 1024 * 1024,
+     '本機畫圖上限 20MB；Vercel 單次回應仍然 4MB');
+  const plan20 = w.eval('pdfBytePlan')(20 * 1024 * 1024);
+  ok(plan20.ok && plan20.mode === 'slices' && plan20.chunks.every(c => c.n <= 4 * 1024 * 1024)
+     && plan20.chunks.reduce((s, c) => s + c.n, 0) === 20 * 1024 * 1024,
+     '20MB 分片每片 ≤4MB，拼齊先喺本機畫');
+  ok(w.eval('pdfBytePlan')(20 * 1024 * 1024 + 1).ok === false, '超過 20MB 唔再畫');
+  ok(w.eval('driveDirectUrl')('https://drive.google.com/file/d/ABC-1_x/view')
+     === 'https://drive.google.com/uc?export=download&id=ABC-1_x',
+     'Drive 分享頁轉直連，本機先試自己條網');
+  ok(html.includes('loadNoticePdfBytes'), '轉換內文做圖經本機下載（直接／分片），唔再硬食 4MB 全檔');
   const p2iBtn = sheet.querySelector('[data-act="pdf2img"]');
   ok(!!p2iBtn && !!sheet.querySelector('[data-role="pdfshare"]'), '分享面板有「轉換內文做圖」掣＋其「分享圖片」掣');
   ok(!!sheet.querySelector('[data-role="pdfcopy"]') && !!sheet.querySelector('[data-role="pdfdl"]'),

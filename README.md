@@ -178,7 +178,7 @@ node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／�
   同一套視覺語言**，連揀款算法都一樣（`md5(pdf_url||url||title) % pool`，見下面
   `md5Hex`）——所以同一張通告，app 出嘅圖同 Story 草稿係同一款。撳 4:5／9:16 切換
   feed／Story 版，下面有 12 款縮圖可以即場換款（縮圖就係實際效果）。區徽（`icons/orgs`
-  嘅 AVIF）貼右上角白磚，fallback 鏈 區 → 地域 → 總會。
+  嘅 AVIF）直貼右上角（唔加白框），fallback 鏈 區 → 地域 → 總會。Story 版另加分類標語同直連原文 QR。
 > 「分享圖片」（PDF → JPG）功能已於 2026-09-16 移除：附加價值有限，而佢令每個 Vercel
 > deployment 嘅 function bundle 包埋 PyMuPDF（約 110MB），直接導致 Functions Storage
 > 爆額（見下文「Vercel 用量」一節）。分享連結、複製網址／文字等功能不受影響。
@@ -489,3 +489,4 @@ Check 4 一度紅：上傳 231 個檔、4.15 MB（budget 2 MB）。病源係新�
 - 對照你現有 `core.py` 修補崩潰點
 - 併回你原本已成功抓到的來源
 - 補埋 Vercel / Raw CDN / GitHub Actions 實際部署細節
+��節

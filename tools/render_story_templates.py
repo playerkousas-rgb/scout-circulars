@@ -218,13 +218,15 @@ def badge_for(item: dict, orgs: dict) -> Image.Image | None:
 
 
 def paste_badge(img: Image.Image, badge: Image.Image | None):
+    """右上直貼真區徽，唔加白框。fallback 已喺 badge_for 做咗。"""
     if not badge:
         return
-    tile = Image.new("RGBA", (184, 184), (255, 255, 255, 242))
-    mask = Image.new("L", (184, 184), 0)
-    ImageDraw.Draw(mask).rounded_rectangle([0, 0, 184, 184], radius=34, fill=255)
-    img.paste(tile, (W - 236, 68), mask)
-    img.paste(badge, (W - 236 + (184 - badge.width) // 2, 68 + (184 - badge.height) // 2), badge)
+    size = 176
+    x, y = W - 60 - size, 68
+    scale = min(size / badge.width, size / badge.height)
+    bw, bh = max(1, round(badge.width * scale)), max(1, round(badge.height * scale))
+    fitted = badge.resize((bw, bh), Image.Resampling.LANCZOS)
+    img.paste(fitted, (x + (size - bw) // 2, y + (size - bh) // 2), fitted)
 
 
 def draw_story_cta(img: Image.Image, draw: ImageDraw.ImageDraw, item: dict, accent: str):
@@ -267,13 +269,12 @@ def draw_story_cta(img: Image.Image, draw: ImageDraw.ImageDraw, item: dict, acce
 
 
 def draw_bottom(draw, item: dict, accent: str, dark: bool, img: Image.Image):
-    """QR／鼓勵字句 callout + 實數據卡：截止／對象／費用／頒佈。"""
+    """QR／鼓勵字句 callout + 實數據卡：截止／對象／費用。頒佈日期已喺上方日期行。"""
     draw_story_cta(img, draw, item, accent)
     rows = [
         ("截止", item.get("deadline") or "詳情見內文"),
         ("對象", item.get("audience") or "見通告"),
         ("費用", item.get("fee") or "見通告"),
-        ("頒佈", item.get("date") or "—"),
     ]
     y = 1380
     fl, fv = _font(26), _font(30)
@@ -369,8 +370,6 @@ def t_unc_topsecret(item, img, draw, badge):
     draw_pill(draw, "其他", (60, 80), "#8B0000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#111111", (120, 500, 960, 1060))
-    draw.rectangle([120, 1180, 430, 1222], fill="#111111")
-    draw.rectangle([120, 1246, 300, 1288], fill="#111111")
     draw_bottom(draw, item, "#8B0000", False, img)
 
 
