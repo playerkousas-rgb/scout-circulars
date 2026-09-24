@@ -1,13 +1,40 @@
 {
-  "last_updated": "2026-09-25 03:59:00",
+  "last_updated": "2026-09-25 05:00:08",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4844,
+    "total_notices": 4847,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "第11屆斯里蘭卡大露營",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26145/CIR_1426_Chi_11thNationalScoutJamboree2027_SRILANKA.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26145/CIR_1426_Chi_11thNationalScoutJamboree2027_SRILANKA.pdf",
+        "date": "2026-09-25",
+        "captured_date": "2026-09-25",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "印度第28屆國際歷奇活動",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26146/CIR_1526_Chi_28thInternationalAdventureProgramme_INDIA.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26146/CIR_1526_Chi_28thInternationalAdventureProgramme_INDIA.pdf",
+        "date": "2026-09-25",
+        "captured_date": "2026-09-25",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "PPP 2026 #4(Pre-Pilot Program)(KT/64/26)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/25952/KT66_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25952/KT66_26.pdf",
+        "date": "2026-09-25",
+        "captured_date": "2026-09-25",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "新修訂支部訓練綱要(P22/2026)",
         "url": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
@@ -4176,6 +4203,15 @@
         "region": "總會"
       },
       {
+        "title": "香港童軍115周年–幼童軍度假營2026【更新】",
+        "url": "https://scout.org.hk/uploads/tc/circulars/24886/Circular-07_2026.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24886/Circular-07_2026.pdf",
+        "date": "2026-06-03",
+        "captured_date": "2026-06-03",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "香港童軍115周年–幼童軍度假營2026–服務隊招募",
         "url": "https://scout.org.hk/uploads/tc/circulars/24887/Circular-08_2026.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24887/Circular-08_2026.pdf",
@@ -4188,15 +4224,6 @@
         "title": "香港童軍115周年–幼童軍度假營2026(Poster)",
         "url": "https://scout.org.hk/uploads/tc/circulars/24895/Cuboree-2026_Poster.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24895/Cuboree-2026_Poster.pdf",
-        "date": "2026-06-03",
-        "captured_date": "2026-06-03",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "香港童軍115周年–幼童軍度假營2026",
-        "url": "https://scout.org.hk/uploads/tc/circulars/24886/Circular-07_2026.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24886/Circular-07_2026.pdf",
         "date": "2026-06-03",
         "captured_date": "2026-06-03",
         "source_site": "總會",
@@ -43723,6 +43750,27 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26145/CIR_1426_Chi_11thNationalScoutJamboree2027_SRILANKA.pdf",
+      "title": "第11屆斯里蘭卡大露營",
+      "captured_date": "2026-09-25"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26146/CIR_1526_Chi_28thInternationalAdventureProgramme_INDIA.pdf",
+      "title": "印度第28屆國際歷奇活動",
+      "captured_date": "2026-09-25"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/25952/KT66_26.pdf",
+      "title": "PPP 2026 #4(Pre-Pilot Program)(KT/64/26)",
+      "captured_date": "2026-09-25"
+    },
+    {
       "source_site": "灣仔區",
       "region": "港島地域",
       "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=635%3A26-9-2-10-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -52586,6 +52634,13 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24886/Circular-07_2026.pdf",
+      "title": "香港童軍115周年–幼童軍度假營2026【更新】",
+      "captured_date": "2026-06-03"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24887/Circular-08_2026.pdf",
       "title": "香港童軍115周年–幼童軍度假營2026–服務隊招募",
       "captured_date": "2026-06-03"
@@ -52595,13 +52650,6 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24895/Cuboree-2026_Poster.pdf",
       "title": "香港童軍115周年–幼童軍度假營2026(Poster)",
-      "captured_date": "2026-06-03"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/24886/Circular-07_2026.pdf",
-      "title": "香港童軍115周年–幼童軍度假營2026",
       "captured_date": "2026-06-03"
     },
     {
@@ -77779,51 +77827,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-25 03:59:00",
-      "new": 2,
-      "updated": 84,
-      "daily_new": 2,
-      "skipped": 38,
+      "updated_at": "2026-09-25 05:00:08",
+      "new": 3,
+      "updated": 3509,
+      "daily_new": 5,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]

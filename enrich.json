@@ -49677,5 +49677,208 @@
     "title_check": "corrected",
     "enriched_at": "2026-09-25 04:03:56",
     "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26145/CIR_1426_Chi_11thNationalScoutJamboree2027_SRILANKA.pdf": {
+    "source": "總會",
+    "title": "第11屆斯里蘭卡大露營",
+    "deadline": "2026-10-19",
+    "audience": "童軍",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "服務隊"
+        ]
+      },
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "大露營"
+        ],
+        "subtype": "big_camp"
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "activity:big-camp",
+      "category:service"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:big-camp",
+        "label": "大露營",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "大露營"
+        ]
+      },
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "服務隊"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-25 05:07:38",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26146/CIR_1526_Chi_28thInternationalAdventureProgramme_INDIA.pdf": {
+    "source": "總會",
+    "title": "印度第28屆國際歷奇活動",
+    "deadline": "2026-11-15",
+    "audience": "童軍、領袖",
+    "fee": "",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "活動"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "活動"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-25 05:07:42",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/25952/KT66_26.pdf": {
+    "source": "總會",
+    "title": "寰宇童軍計劃「探索」課程 編號:KT/66/26",
+    "deadline": "2026-10-22",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$30",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "課程"
+        ]
+      },
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "社區服務",
+          "社會服務"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service",
+      "category:training",
+      "course:shared-scouts-of-the-world",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "社區服務",
+          "社會服務"
+        ]
+      },
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "課程"
+        ]
+      },
+      {
+        "id": "course:shared-scouts-of-the-world",
+        "label": "寰宇童軍章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：寰宇童軍"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-09-25 05:07:45",
+    "enrich_version": "3.2"
   }
 }
