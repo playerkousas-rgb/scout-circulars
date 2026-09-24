@@ -29,6 +29,12 @@ merge 前測試用 `icon_base` input 指去 branch raw；merge 後留空（用 m
 
 ### 階段 2 — 未來：投稿→批核→上架→PUSH／STORY 自動閉環
 
+**組件已預備、未開啟**（2026-09-24）：`tools/scrape_appstore.py`＋
+`.github/workflows/scrape-appstore.yml`（只掛 workflow_dispatch，冇 schedule）。
+離線測試已驗證：首次同步 64 項入 catalog、0 張新通告（baseline 防風暴）；
+模擬「批核後新 app」（created_at 遲過 baseline）→ 剛好 1 張新 notice、url 去重生效。
+啟用時：打開 workflow 內 schedule 註解＋停用 scrape.yml。
+
 ```
 用家喺 store 投稿 (submit_work)
         ↓

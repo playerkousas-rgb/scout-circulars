@@ -28,6 +28,7 @@
 - `serve_local.py`：本機同時提供靜態頁 + `/api/push-*`
 - `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）
 - `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
+- `.github/workflows/scrape-appstore.yml`（2026-09-24，**未開啟**）：未來取代 scrape.yml 嘅版本——core 抓取後加掃 SCOUT APP STORE（`tools/scrape_appstore.py`，anon key 唯讀、baseline 防舊 app 風暴、url 去重）。而家只掛 workflow_dispatch，啟用時先開 schedule 並停用 scrape.yml；唔使新 secrets
 - `icons/orgs/` + `tools/fetch_org_logos.py` + `tools/build_org_avif.mjs` + `.github/workflows/org-icons.yml`（2026-09-21）：49 個童軍組織（總會＋5 地域＋43 區）官方徽號，正規化成 256/64 AVIF（每個 3–11KB），出 Story 時做區徽角標用。官方檔全部喺 scout.org.hk「Regions and Districts」頁；官方補捉行 `org-icons` workflow（Actions 手動掣）一次搞掂，預覽喺 `/icons/orgs/preview.html`
 - `icons/awards/` + `tools/build_award_avif.mjs`（2026-09-24）：童軍總會四支部最高獎章——幼童軍**金紫荊獎章**、童軍**總領袖獎章**、深資童軍**榮譽童軍獎章**、樂行童軍**貝登堡獎章**——正規化成 256/64 AVIF（幾何同 orgs 一致：contain 232／60 置中透明底），作 4 個「進度追蹤」小工具（cubsbadge／scoutbadge／vsbadge／roverbadge）嘅 ICON；`awards.json` 係支部→獎章對照表，母圖放 `icons/awards/src/`，Vercel 只上 avif＋awards.json（見 `.vercelignore`）
 - `appstore.json` + `tools/fetch_appstore.mjs`（2026-09-24）：直連 **SCOUT APP STORE**（`playerkousas-rgb/website`）嘅 Supabase。設定（`supabase_url`＋公開 `anon_key`、表結構、RPC、RLS 備忘）同今日 snapshot（pages／categories／apps）一次過放喺 `appstore.json`；anon key 屬公開金鑰、RLS 限唯讀，可安全 commit。要 refresh snapshot 就喺你部機或 Actions 行 `node tools/fetch_appstore.mjs`（sandbox 出唔到 supabase.co）。**寫入**（改 store 內容／icon 等）要 service role key 或 admin 登入，website repo 冇 commit 呢啲——要喺 Supabase Dashboard 攞
