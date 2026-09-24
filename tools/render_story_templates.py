@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Story 草稿出圖：9 款 Pillow 模板，食 story-queue.json 出 1080×1920 PNG。
+"""Story 出圖：Pillow 模板，食 story-queue.json 出 1080×1920 PNG + JPEG。
+
+PNG 供 Stories branch／通告專屬頁顯示；JPEG 供 Instagram Graph API（只接受 JPEG）。
+預設輸出 queue 內全部齊料通告，不設張數上限。
 
 由「NoScout 9 款概念」正式移植，執正咗嘅位：
   - 資料真源：story_queue.py 已 join 好 cache.json + enrich.json
@@ -11,11 +14,11 @@
   - 中文要靠 Noto Sans CJK（workflow 會 apt install fonts-noto-cjk）；
   - 底部有 credit（同 app poster 同款），唔係「NoScout.System」。
 
-出 Story 時間係人決定：呢度只出「草稿」，正式發佈（貼圖 + link sticker）
-人手喺 app 做 —— API 出嘅 Story 貼唔到 sticker，閉環要保。
+每日 15:30 HKT 自動流程會將 JPEG 經 Instagram Graph API 發佈；API 發佈唔支援
+link sticker。PNG 仍供通告專屬頁及手動 Story Drafts 流程重用。
 
-需要：pip install pillow。CLI：--queue story-queue.json --out output
-產物：output/<today>/NN_<template>_<hash>.png + manifest.json
+需要：pip install pillow 'qrcode[pil]'。CLI：--queue story-queue.json --out output
+產物：output/<today>/NN_<template>_<hash>.png/.jpg + manifest.json
 """
 from __future__ import annotations
 
@@ -27,10 +30,27 @@ import random
 import sys
 from pathlib import Path
 
+import qrcode
+from qrcode.constants import ERROR_CORRECT_M
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1080, 1920
 ROOT = Path(__file__).resolve().parent.parent
+story_attachment_url = None
+story_slogan = None
+
+
+def _load_story_helpers():
+    """Load queue helpers only for rendering; copied --build-index runs on stories branch."""
+    global story_attachment_url, story_slogan
+    if callable(story_attachment_url) and callable(story_slogan):
+        return
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from story_queue import story_attachment_url as _attachment_url, story_slogan as _story_slogan
+    story_attachment_url, story_slogan = _attachment_url, _story_slogan
+
+
 CREDIT = "經 通告圖書館整理 @noscout.system"  # 同 index.html POSTER_CREDIT 一致
 
 # ── 字體 ──────────────────────────────────────────────────────────
@@ -207,9 +227,48 @@ def paste_badge(img: Image.Image, badge: Image.Image | None):
     img.paste(badge, (W - 236 + (184 - badge.width) // 2, 68 + (184 - badge.height) // 2), badge)
 
 
-def draw_bottom(draw, item: dict, accent: str, dark: bool):
-    """底部資料卡（實數據）：截止／對象／費用／頒佈；抽唔到 → 詳情見內文。
-    全部模板統一白卡（黑底上白卡先至夠跳）；accent 只點 截止 個 value。"""
+def draw_story_cta(img: Image.Image, draw: ImageDraw.ImageDraw, item: dict, accent: str):
+    """Add the category's encouragement and a scan-friendly QR to the original attachment."""
+    _load_story_helpers()
+    attachment_url = story_attachment_url(item)
+    if not attachment_url:
+        raise ValueError("Story QR requires the original attachment URL")
+    qr = qrcode.QRCode(error_correction=ERROR_CORRECT_M, box_size=8, border=4)
+    qr.add_data(attachment_url)
+    qr.make(fit=True)
+    qr_img = qr.make_image(fill_color="#111111", back_color="#FFFFFF").get_image().convert("RGB")
+    qr_size = 250
+    qr_img = qr_img.resize((qr_size, qr_size), Image.Resampling.NEAREST)
+
+    panel = [60, 1090, 1020, 1372]
+    draw.rounded_rectangle(panel, radius=24, fill=(255, 255, 255, 246), outline=accent, width=3)
+    draw.rounded_rectangle([60, panel[1], 82, panel[3]], radius=10, fill=accent)
+
+    slogan = story_slogan(item)
+    text_x, max_width = 108, 620
+    for size in (46, 42, 38, 34):
+        font = _font(size)
+        lines = wrap_cjk(draw, slogan, font, max_width, 2)
+        if len(lines) < 2 or not lines[-1].endswith("…"):
+            break
+    line_height = int(size * 1.25)
+    text_height = line_height * len(lines)
+    text_y = panel[1] + max(0, (panel[3] - panel[1] - text_height) // 2)
+    for line in lines:
+        draw.text((text_x, text_y), line, fill="#111111", font=font)
+        text_y += line_height
+
+    qr_x, qr_y = 770, 1094
+    img.paste(qr_img, (qr_x, qr_y))
+    qr_label = "掃碼開原文附件"
+    qr_font = _font(20)
+    label_width = text_w(draw, qr_label, qr_font)
+    draw.text((qr_x + (qr_size - label_width) / 2, 1345), qr_label, fill="#333333", font=qr_font)
+
+
+def draw_bottom(draw, item: dict, accent: str, dark: bool, img: Image.Image):
+    """QR／鼓勵字句 callout + 實數據卡：截止／對象／費用／頒佈。"""
+    draw_story_cta(img, draw, item, accent)
     rows = [
         ("截止", item.get("deadline") or "詳情見內文"),
         ("對象", item.get("audience") or "見通告"),
@@ -235,7 +294,7 @@ def draw_bottom(draw, item: dict, accent: str, dark: bool):
     draw.text((60, 1834), CREDIT, fill=credit_c, font=_font(22))
 
 
-# ── 9 款模板 ──────────────────────────────────────────────────────
+# ── 12 款模板 ─────────────────────────────────────────────────────
 def t_train(color_hex):
     def render(item, img, draw, badge):
         draw.rectangle([0, 0, W, H], fill="#FFFFFF")
@@ -243,7 +302,7 @@ def t_train(color_hex):
         draw_pill(draw, "訓練", (60, 80), color_hex)
         paste_badge(img, badge)
         draw_title_block(draw, item.get("title", ""), "#111111", (70, 480, 1010, 1080))
-        draw_bottom(draw, item, color_hex, False)
+        draw_bottom(draw, item, color_hex, False, img)
     return render
 
 
@@ -254,7 +313,7 @@ def t_competition_gold(item, img, draw, badge):
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#FFD700", (80, 500, 1000, 1080), outline="#000000")
     draw.rectangle([60, 1288, 1020, 1296], fill="#FFD700")
-    draw_bottom(draw, item, "#FFD700", True)
+    draw_bottom(draw, item, "#FFD700", True, img)
 
 
 def t_activity_army(item, img, draw, badge):
@@ -267,7 +326,7 @@ def t_activity_army(item, img, draw, badge):
     draw_pill(draw, "活動", (60, 80), "#A6FF00", "#000000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#FFFFFF", (70, 470, 1010, 1030))
-    draw_bottom(draw, item, "#A6FF00", True)
+    draw_bottom(draw, item, "#A6FF00", True, img)
 
 
 def _wanted_base(item, img, draw, badge, pill_text):
@@ -279,11 +338,7 @@ def _wanted_base(item, img, draw, badge, pill_text):
     draw_pill(draw, pill_text, (60, 80), "#3D1E00")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#1b1206", (90, 480, 990, 1050))
-    draw.rectangle([60, 1250, 1020, 1336], outline="#3D1E00", width=3)
-    rf = _font(30)
-    rt = "REWARD: 服務時數 / 義工証明"
-    draw.text((60 + (960 - text_w(draw, rt, rf)) / 2, 1272), rt, fill="#3D1E00", font=rf)
-    draw_bottom(draw, item, "#8B5A2B", False)
+    draw_bottom(draw, item, "#8B5A2B", False, img)
 
 
 def t_service_wanted(item, img, draw, badge):
@@ -297,10 +352,10 @@ def t_unc_scope(item, img, draw, badge):
         draw.ellipse([cx - r, cy - r, cx + r, cy + r], outline="#FF0000", width=2)
     draw.line([(cx - 600, cy), (cx + 600, cy)], fill="#FF0000", width=2)
     draw.line([(cx, cy - 600), (cx, cy + 600)], fill="#FF0000", width=2)
-    draw_pill(draw, "通告", (60, 80), "#FF0000")
+    draw_pill(draw, "其他", (60, 80), "#FF0000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#FFFFFF", (90, 470, 990, 1050))
-    draw_bottom(draw, item, "#FF0000", True)
+    draw_bottom(draw, item, "#FF0000", True, img)
 
 
 def t_unc_topsecret(item, img, draw, badge):
@@ -311,12 +366,12 @@ def t_unc_topsecret(item, img, draw, badge):
     sd.text((10, 20), "TOP SECRET", fill="#8B0000", font=_font(96))
     stamp = stamp.rotate(-14, expand=True)
     img.paste(stamp, (90, 230), stamp)
-    draw_pill(draw, "通告", (60, 80), "#8B0000")
+    draw_pill(draw, "其他", (60, 80), "#8B0000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#111111", (120, 500, 960, 1060))
     draw.rectangle([120, 1180, 430, 1222], fill="#111111")
     draw.rectangle([120, 1246, 300, 1288], fill="#111111")
-    draw_bottom(draw, item, "#8B0000", False)
+    draw_bottom(draw, item, "#8B0000", False, img)
 
 
 def t_unc_glitch(item, img, draw, badge):
@@ -328,14 +383,14 @@ def t_unc_glitch(item, img, draw, badge):
     gf = _font(84)
     draw.text((66, 306), ghost, fill="#00FFFF", font=gf)
     draw.text((58, 298), ghost, fill="#FF00FF", font=gf)
-    draw_pill(draw, "通告", (60, 80), "#00FFFF", "#000000")
+    draw_pill(draw, "其他", (60, 80), "#00FFFF", "#000000")
     paste_badge(img, badge)
     draw_title_block(draw, title, "#FFFFFF", (70, 470, 1010, 1050))
-    draw_bottom(draw, item, "#00FFFF", True)
+    draw_bottom(draw, item, "#00FFFF", True, img)
 
 
 def t_unc_wanted_parchment(item, img, draw, badge):
-    _wanted_base(item, img, draw, badge, "通告")
+    _wanted_base(item, img, draw, badge, "其他")
 
 
 def t_unc_wanted_red(item, img, draw, badge):
@@ -344,10 +399,10 @@ def t_unc_wanted_red(item, img, draw, badge):
     tw = text_w(draw, "WANTED", f)
     draw.text((60 + (W - 320 - tw) / 2, 170), "WANTED", fill="#FF0000", font=f)
     draw.rectangle([30, 30, W - 30, H - 30], outline="#000000", width=8)
-    draw_pill(draw, "通告", (60, 80), "#000000")
+    draw_pill(draw, "其他", (60, 80), "#000000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#000000", (90, 480, 990, 1080))
-    draw_bottom(draw, item, "#FF0000", False)
+    draw_bottom(draw, item, "#FF0000", False, img)
 
 
 def t_unc_wanted_blackfin(item, img, draw, badge):
@@ -356,10 +411,10 @@ def t_unc_wanted_blackfin(item, img, draw, badge):
     f = _font(118)
     tw = text_w(draw, "WANTED", f)
     draw.text((60 + (W - 320 - tw) / 2, 180), "WANTED", fill="#111111", font=f)
-    draw_pill(draw, "通告", (60, 80), "#111111")
+    draw_pill(draw, "其他", (60, 80), "#111111")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#111111", (100, 500, 980, 1080))
-    draw_bottom(draw, item, "#111111", False)
+    draw_bottom(draw, item, "#111111", False, img)
 
 
 POOLS = {
@@ -423,7 +478,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--queue", default="story-queue.json")
     ap.add_argument("--orgs", default=str(ROOT / "icons/orgs/orgs.json"))
     ap.add_argument("--out", default="output")
-    ap.add_argument("--limit", type=int, default=20)
+    ap.add_argument("--limit", type=int, default=0,
+                    help="最多幾多張；預設 0＝queue 內全部（正數只供手動測試）")
     ap.add_argument("--build-index", metavar="STORIES_DIR",
                     help="只抌索引：掃 <STORIES_DIR>/<日期>/manifest.json 出 index.json")
     args = ap.parse_args(argv)
@@ -437,6 +493,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"✅ {out}")
         return 0
 
+    _load_story_helpers()
     qp = Path(args.queue)
     if not qp.exists():
         print(f"❌ 搵唔到 {qp}（先行 story_queue.py）", file=sys.stderr)
@@ -448,21 +505,29 @@ def main(argv: list[str] | None = None) -> int:
     orgs = load_orgs(Path(args.orgs))
 
     manifest = {"today": today, "queue_generated_at": queue.get("generated_at", ""), "items": []}
-    items = (queue.get("items") or [])[: args.limit]
+    queue_items = queue.get("items") or []
+    items = queue_items[: args.limit] if args.limit > 0 else queue_items
     for idx, item in enumerate(items):
         cat, tname, func = pick_template(item)
         img = Image.new("RGB", (W, H), "#FFFFFF")
         draw = ImageDraw.Draw(img, "RGBA")
         func(item, img, draw, badge_for(item, orgs))
         key = str(item.get("pdf_url") or item.get("url") or idx)
-        fname = f"{idx:02d}_{tname}_{hashlib.md5(key.encode()).hexdigest()[:6]}.png"
+        stem = f"{idx:02d}_{tname}_{hashlib.md5(key.encode()).hexdigest()[:6]}"
+        fname = f"{stem}.png"
+        instagram_fname = f"{stem}.jpg"
         img.save(out_dir / fname, optimize=True)
+        # Meta Content Publishing API 只接受 JPEG 圖片；保留 PNG 作 app hero
+        # 及人工下載版，JPEG 以高質素輸出供 Story 發佈。
+        img.save(out_dir / instagram_fname, format="JPEG", quality=94, optimize=True)
         manifest["items"].append({
-            "file": fname, "template": tname, "category": cat,
+            "file": fname, "instagram_file": instagram_fname,
+            "template": tname, "category": cat,
             "title": item.get("title", ""), "source_site": item.get("source_site", ""),
             "url": item.get("url", ""), "pdf_url": item.get("pdf_url", ""),
+            "attachment_url": story_attachment_url(item), "slogan": story_slogan(item),
         })
-        print(f"✓ {today}/{fname} ← {cat}/{tname} | {str(item.get('title',''))[:24]}")
+        print(f"✓ {today}/{fname} + {instagram_fname} ← {cat}/{tname} | {str(item.get('title',''))[:24]}")
 
     (out_dir / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
