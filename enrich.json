@@ -49541,5 +49541,85 @@
     "title_check": "verified",
     "enriched_at": "2026-09-24 03:44:43",
     "enrich_version": "3.2"
+  },
+  "https://cubsbadge.vercel.app/": {
+    "source": "Scout System",
+    "title": "幼童軍進度追蹤系統",
+    "deadline": "",
+    "audience": "幼童軍",
+    "fee": "免費",
+    "description": "基於幼童軍訓練綱要，支援全團進度管理、領袖審批、活動履歷申報及金紫荊表格自動填寫系統。",
+    "method": "system",
+    "error": "",
+    "enriched_at": "2026-09-24 10:00:00",
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "tools",
+        "label": "小工具",
+        "subtype": "assistant",
+        "score": 1.0
+      }
+    ]
+  },
+  "https://scoutbadge.vercel.app/": {
+    "source": "Scout System",
+    "title": "童軍進度追蹤系統",
+    "deadline": "",
+    "audience": "童軍",
+    "fee": "免費",
+    "description": "童軍支部訓練綱要及進度管理，支援總領袖獎章追蹤、成員進度申報、領袖審批及官方表格列印。",
+    "method": "system",
+    "error": "",
+    "enriched_at": "2026-09-24 10:00:00",
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "tools",
+        "label": "小工具",
+        "subtype": "assistant",
+        "score": 1.0
+      }
+    ]
+  },
+  "https://vsbadge.vercel.app/": {
+    "source": "Scout System",
+    "title": "深資童軍進度紀錄",
+    "deadline": "",
+    "audience": "深資童軍",
+    "fee": "免費",
+    "description": "深資童軍支部訓練綱要、榮譽十字章與各項考驗進度管理平台。",
+    "method": "system",
+    "error": "",
+    "enriched_at": "2026-09-24 10:00:00",
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "tools",
+        "label": "小工具",
+        "subtype": "assistant",
+        "score": 1.0
+      }
+    ]
+  },
+  "https://roverbadge.vercel.app/": {
+    "source": "Scout System",
+    "title": "樂行童軍進度紀錄",
+    "deadline": "",
+    "audience": "樂行童軍",
+    "fee": "免費",
+    "description": "樂行童軍支部進度獎章、自選服務與個人發展目標追蹤系統。",
+    "method": "system",
+    "error": "",
+    "enriched_at": "2026-09-24 10:00:00",
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "tools",
+        "label": "小工具",
+        "subtype": "assistant",
+        "score": 1.0
+      }
+    ]
   }
 }
