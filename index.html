@@ -190,6 +190,8 @@
     .card-title-wrap .badge { margin-right: 6px; vertical-align: 2px; }
     .card-title-wrap .cat-tags { margin-right: 6px; vertical-align: 2px; }
     .card-title-wrap h3 { display: inline; }
+    .tool-card-icon { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); padding: 3px; flex-shrink: 0; margin-right: 12px; }
+    .tool-desc { color: var(--text-sub, #cbd5e1); font-size: 13.5px; line-height: 1.5; padding: 4px 0; }
     /* ★／分享掣放卡片底行（同「開啟附件」一排），唔再同標題爭闊度 */
     .card-icons { flex: 0 0 auto; display: flex; gap: 8px; align-items: center; }
     /* 書籤（★）——瀏覽器本機儲存，唔會上傳 */
@@ -566,6 +568,13 @@
       <section class="panel hero">
         <h2 id="page-title">載入中…</h2>
         <div class="sub" id="page-subtitle">目前支援分區或全港層級瀏覽。</div>
+        <div style="margin-top: 10px; padding: 10px 14px; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 10px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <span>📱 <b>Scout System 電子紀錄冊：</b>已注入 4 本紀錄冊卡片及 Story 實時畫布！</span>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="button" id="btn-open-tools-modal" style="padding: 4px 12px; background: #2563eb; color: #fff; border: 1px solid #3b82f6; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer;">🔍 即席對比預覽 (彈窗)</button>
+            <a href="/preview_scout_tools.html" target="_self" style="color: #60a5fa; font-weight: 600; text-decoration: underline; font-size: 12.5px;">👉 專屬獨立預覽頁</a>
+          </div>
+        </div>
 
         <div class="contact-bar" id="contact-bar"></div>
 
@@ -628,7 +637,7 @@
     <section class="push-sheet" id="push-settings" role="dialog" aria-modal="true" aria-labelledby="push-settings-title">
       <div class="push-heading">
         <div>
-          <h3 id="push-settings-title">🔔 個人化通告通知</h3>
+          <h3 id="push-settings-title">🔔 個人化通知</h3>
         </div>
         <button type="button" class="push-close" id="push-close" aria-label="關閉通知設定">×</button>
       </div>
@@ -636,13 +645,13 @@
       <p class="push-state warn" id="push-testing-notice"><strong>通知系統仍在測試中：</strong>推送可能延遲或遺漏，建議每天到圖書館瀏覽有沒有通告更新，不要只依賴通知。</p>
 
       <div class="push-block">
-        <div class="pick-chips" id="push-all" role="group" aria-label="通知所有新通告"></div>
+        <div class="pick-chips" id="push-all" role="group" aria-label="通知所有新消息"></div>
       </div>
       <div id="push-custom-options">
         <div class="push-block">
           <div class="push-block-title"><span class="push-step">1</span> 我的支部 <small>可多選，點一下即選取</small></div>
           <div class="pick-chips" id="push-branches" role="group" aria-label="我的支部"></div>
-          <small class="push-help">命中任何一組就通知；同一通告只計一次。</small>
+          <small class="push-help">命中任何一組就通知；同一消息只計一次。</small>
         </div>
         <div class="push-block">
           <div class="push-block-title"><span class="push-step">2</span> 各支部關注項目</div>
@@ -677,6 +686,44 @@
       <ul class="push-privacy">
         <li>私隱：設定先留在本機 LocalStorage。</li>
       </ul>
+    </section>
+  </div>
+
+  <!-- 📱 Scout System 電子紀錄冊卡片及 Story 即席預覽彈窗 -->
+  <div class="push-backdrop" id="tools-preview-backdrop" hidden>
+    <section class="push-sheet" id="tools-preview-sheet" role="dialog" aria-modal="true" style="max-width: 960px; max-height: 90vh;">
+      <div class="push-heading">
+        <div>
+          <h3 style="font-size: 18px; color: #fff;">📱 Scout System 4 本電子紀錄冊卡片與 Story 即席預覽</h3>
+          <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">已收錄幼童軍、童軍、深資童軍、樂行童軍 4 本進度紀錄冊。點選卡片可即時切換右側 Story / Feed 畫布。</p>
+        </div>
+        <button type="button" class="push-close" id="tools-preview-close" aria-label="關閉預覽">×</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 16px; align-items: start;">
+        <!-- 左側：卡片列表 -->
+        <div style="display: flex; flex-direction: column; gap: 12px;" id="modal-tool-cards"></div>
+
+        <!-- 右側：Story 畫布預覽 -->
+        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.35); padding: 14px; border-radius: 14px; border: 1px solid var(--line);">
+          <div style="display: flex; gap: 6px; margin-bottom: 8px; width: 100%; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="push-primary" id="modal-design-cyber" style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px;">🔵 數碼霓虹</button>
+            <button type="button" class="push-secondary" id="modal-design-navy" style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px;">👑 童軍深藍金</button>
+            <button type="button" class="push-secondary" id="modal-design-aurora" style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px;">✨ 極光漸變</button>
+          </div>
+          <div style="display: flex; gap: 8px; margin-bottom: 12px; width: 100%; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="push-primary" id="modal-btn-story-mode" style="font-size: 12px; padding: 5px 12px; border-radius: 6px;">📱 Story 9:16</button>
+            <button type="button" class="push-secondary" id="modal-btn-feed-mode" style="font-size: 12px; padding: 5px 12px; border-radius: 6px;">🖼️ Feed 4:5</button>
+            <button type="button" class="push-secondary" id="modal-btn-download-story" style="font-size: 12px; padding: 5px 12px; border-radius: 6px;">💾 下載 PNG</button>
+          </div>
+          <div style="width: 270px; height: 480px; border-radius: 18px; overflow: hidden; border: 3px solid #1e293b; background: #000; box-shadow: 0 8px 30px rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;" id="modal-story-frame">
+            <canvas id="modalPosterCanvas" width="1080" height="1920" style="width: 100%; height: 100%; display: block; object-fit: contain;"></canvas>
+          </div>
+          <div style="margin-top: 10px; font-size: 11.5px; color: var(--muted); text-align: center; line-height: 1.4;">
+            ✨ App Logo · 支部識別 · 功能簡介 · 向量 QR 直達 · 落款 <code>@noscout.system</code>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -806,7 +853,8 @@
       { id: 'link', label: '連結' },
     ];
     const SCOUT_KIND_LABELS = {
-      '助手': 'assistant', '小助手': 'assistant', '集會助手': 'assistant',
+      '助手': 'assistant', '小助手': 'assistant', '集會助手': 'assistant', '集會助手及指南': 'assistant',
+      '電子紀錄冊': 'assistant', '進度紀錄': 'assistant', '紀錄冊': 'assistant',
       '遊戲': 'game', '小遊戲': 'game',
       '系統': 'system',
       '工具': 'tool',
@@ -846,9 +894,9 @@
 
     function scoutKindFromText(text) {
       const value = String(text || '');
-      const bracket = value.match(/[【\[（(]\s*(助手|小助手|集會助手|遊戲|小遊戲|系統|工具|其他|連結|有用連結)\s*[】\]）)]/);
+      const bracket = value.match(/[【\[（(]\s*(助手|小助手|集會助手|集會助手及指南|電子紀錄冊|進度紀錄|紀錄冊|遊戲|小遊戲|系統|工具|其他|連結|有用連結)\s*[】\]）)]/);
       if (bracket && SCOUT_KIND_LABELS[bracket[1]]) return SCOUT_KIND_LABELS[bracket[1]];
-      if (value.includes('助手')) return 'assistant';
+      if (value.includes('助手') || value.includes('紀錄冊') || value.includes('進度追蹤')) return 'assistant';
       if (value.includes('遊戲')) return 'game';
       if (value.includes('連結')) return 'link';
       if (value.includes('系統') && !/scout\s*system/i.test(value)) return 'system';
@@ -1423,17 +1471,19 @@
 
     function getRawUrl() {
       const params = new URLSearchParams(location.search);
-      const raw = params.get('raw') || RAW_CACHE_URL;
+      const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname.endsWith('.e2b.app');
+      const defaultUrl = isLocal ? '/cache.json' : RAW_CACHE_URL;
+      const raw = params.get('raw') || defaultUrl;
       return `${raw}${raw.includes('?') ? '&' : '?'}t=${Date.now()}`;
     }
 
     function getEnrichUrl() {
       const params = new URLSearchParams(location.search);
-      // 若用 ?raw= 覆蓋 cache，enrich 自動取同目錄的 enrich.json；否則用預設
+      const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname.endsWith('.e2b.app');
       let base = params.get('enrich');
       if (!base) {
         const rawCache = params.get('raw');
-        base = rawCache ? rawCache.replace(/cache\.json.*$/, 'enrich.json') : RAW_ENRICH_URL;
+        base = rawCache ? rawCache.replace(/cache\.json.*$/, 'enrich.json') : (isLocal ? '/enrich.json' : RAW_ENRICH_URL);
       }
       return `${base}${base.includes('?') ? '&' : '?'}t=${Date.now()}`;
     }
@@ -2072,6 +2122,7 @@
       return data?.orgs?.['總會']?.icon256 ? data.orgs['總會'] : null;
     }
     async function orgBadgeUrlFor(item) {
+      if (item?.icon) return item.icon;
       const data = await loadOrgIcons();
       return orgIconEntryFor(data, item)?.icon256 || null;
     }
@@ -2193,7 +2244,7 @@
       return hex;
     }
 
-    // ── 12 款設計（次序同 Pillow POOLS / POOL_NAMES 一致）─────────────────
+    // ── 15 款設計（12 款通告 + 3 款 Scout System 小工具專屬）─────────────
     const POSTER_DESIGNS = [
       { id: 'train_blue', label: '訓練・藍帶', cat: 'training', kind: 'train', accent: '#0066FF', pill: '訓練', pillFg: '#FFFFFF', titleColor: '#111111', onLight: true },
       { id: 'train_orange', label: '訓練・橙帶', cat: 'training', kind: 'train', accent: '#FF6B00', pill: '訓練', pillFg: '#FFFFFF', titleColor: '#111111', onLight: true },
@@ -2207,6 +2258,10 @@
       { id: 'unc_wanted_parchment', label: '通告・羊皮紙', cat: 'other', kind: 'parchment', accent: '#8B5A2B', pill: '通告', pillFg: '#FFFFFF', pillBg: '#3D1E00', titleColor: '#1b1206', onLight: true, headline: 'WANTED', headlineColor: '#3D1E00', strip: 'REWARD：服務時數／義工証明' },
       { id: 'unc_wanted_red', label: '通告・紅 WANTED', cat: 'other', kind: 'wanted_red', accent: '#FF0000', pill: '通告', pillFg: '#FFFFFF', pillBg: '#000000', titleColor: '#000000', onLight: true, headline: 'WANTED', headlineColor: '#FF0000' },
       { id: 'unc_wanted_blackfin', label: '通告・黑金 WANTED', cat: 'other', kind: 'blackfin', accent: '#111111', pill: '通告', pillFg: '#FFFFFF', pillBg: '#111111', titleColor: '#111111', onLight: true, headline: 'WANTED', headlineColor: '#111111' },
+      // Scout System 專屬 3 款底圖
+      { id: 'tool_cyber', label: '小工具・數碼霓虹', cat: 'tools', kind: 'tool_cyber', accent: '#38BDF8', pill: 'SCOUT SYSTEM', pillFg: '#FFFFFF', pillBg: '#0284C7', titleColor: '#FFFFFF' },
+      { id: 'tool_scout_navy', label: '小工具・童軍深藍金', cat: 'tools', kind: 'tool_scout_navy', accent: '#F59E0B', pill: 'SCOUT SYSTEM', pillFg: '#0F172A', pillBg: '#F59E0B', titleColor: '#FFFFFF' },
+      { id: 'tool_aurora', label: '小工具・極光漸變', cat: 'tools', kind: 'tool_aurora', accent: '#A855F7', pill: 'SCOUT SYSTEM', pillFg: '#FFFFFF', pillBg: '#7C3AED', titleColor: '#FFFFFF' },
     ];
     const POSTER_DESIGN_BY_ID = {};
     for (const _d of POSTER_DESIGNS) POSTER_DESIGN_BY_ID[_d.id] = _d;
@@ -2215,12 +2270,14 @@
       competition: ['competition_gold_black'],
       activity: ['activity_army'],
       service: ['service_wanted'],
+      tools: ['tool_cyber', 'tool_scout_navy', 'tool_aurora'],
       other: ['unc_scope', 'unc_topsecret', 'unc_glitch', 'unc_wanted_parchment', 'unc_wanted_red', 'unc_wanted_blackfin'],
     };
 
     function posterPoolFor(item, ex) {
+      if (isScoutSystemItem(item)) return 'tools';
       const cats = itemCategories(item, ex);
-      for (const id of ['training', 'competition', 'activity', 'service']) if (cats.has(id)) return id;
+      for (const id of ['training', 'competition', 'activity', 'service', 'tools']) if (cats.has(id)) return id;
       // 後備：story_queue.py 出嘅 item 用 flat `category`（enrich 冇 categories 時都揀得中）
       const flat = String((ex && ex.category) || (item && item.category) || '').trim();
       if (POSTER_POOLS[flat]) return flat;
@@ -2536,7 +2593,10 @@
       } catch (_) { /* QR 畫唔到都唔可以拖冧成張圖 */ }
       if (!L.story) return;
       try {
-        const slogan = storySloganFor(item);
+        let slogan = storySloganFor(item);
+        if (!slogan && isScoutSystemItem(item)) {
+          slogan = '掃描 QR Code・立即使用系統';
+        }
         if (!slogan) return;
         const textX = L.MX;
         const maxW = Math.max(80, L.qr.x - textX - 28);
@@ -2573,10 +2633,21 @@
       const MX = POSTER_MX, CW = W - MX * 2;
       const quota = (ex && (ex.quota || ex.places || ex.limit || ex.名額)) || '';
       const rows = [];
-      if (ex && ex.deadline) rows.push(['截止', String(ex.deadline), 'warn']);
-      if (ex && ex.audience) rows.push(['對象', String(ex.audience), '']);
-      if (ex && ex.fee) rows.push(['費用', String(ex.fee), '']);
-      if (quota) rows.push(['名額', String(quota), '']);
+      const isTool = isScoutSystemItem(item);
+      if (isTool) {
+        const branches = (item?.tags || []).filter(t => !['助手','遊戲','系統','工具','其他','連結','電子紀錄冊','集會助手及指南'].includes(t));
+        if (branches.length) rows.push(['適用支部', branches.join(' / '), 'warn']);
+        const desc = item?.description || (ex && ex.description) || '';
+        if (desc) rows.push(['功能簡介', desc, '']);
+        let u = '';
+        try { u = item?.url ? new URL(item.url).hostname : ''; } catch (_) { u = item?.url || ''; }
+        if (u) rows.push(['系統入口', u, '']);
+      } else {
+        if (ex && ex.deadline) rows.push(['截止', String(ex.deadline), 'warn']);
+        if (ex && ex.audience) rows.push(['對象', String(ex.audience), '']);
+        if (ex && ex.fee) rows.push(['費用', String(ex.fee), '']);
+        if (quota) rows.push(['名額', String(quota), '']);
+      }
       // 頒佈唔再入卡：上方日期行已經有「9月24日 ｜ 港島地域」，再出一欄係重複。
       const rowH = 108, cardH = 92;
       const creditY = H - 46 - safeBottom;
@@ -2719,15 +2790,36 @@
       ctx.fillText(text, L.MX + pad, L.pillY + L.pillH / 2 + 1);
     }
 
-    function posterBadge(ctx, L, badgeImg) {
-      if (!badgeImg || !badgeImg.width) return;
+    function posterBadge(ctx, L, badgeImg, item) {
       const s = L.badge.size;
-      try {
-        // 唔加白框／托底：右上角只貼區 → 地域 → 總會 LOGO 本身。
-        const rr = Math.min(s / badgeImg.width, s / badgeImg.height);
-        const dw = badgeImg.width * rr, dh = badgeImg.height * rr;
-        ctx.drawImage(badgeImg, L.badge.x + (s - dw) / 2, L.badge.y + (s - dh) / 2, dw, dh);
-      } catch (_) { /* 冇徽／解唔到就靜靜略過，唔阻出圖 */ }
+      if (badgeImg && badgeImg.width) {
+        try {
+          // 唔加白框／托底：右上角只貼區 → 地域 → 總會 LOGO 本身。
+          const rr = Math.min(s / badgeImg.width, s / badgeImg.height);
+          const dw = badgeImg.width * rr, dh = badgeImg.height * rr;
+          posterRoundRect(ctx, L.badge.x + (s - dw) / 2, L.badge.y + (s - dh) / 2, dw, dh, 20);
+          ctx.save();
+          ctx.clip();
+          ctx.drawImage(badgeImg, L.badge.x + (s - dw) / 2, L.badge.y + (s - dh) / 2, dw, dh);
+          ctx.restore();
+          return;
+        } catch (_) { /* 冇徽／解唔到就靜靜略過，唔阻出圖 */ }
+      }
+      if (item && isScoutSystemItem(item)) {
+        const branch = (item.tags || []).find(t => ['幼童軍', '童軍', '深資童軍', '樂行童軍', '小童軍', '領袖'].includes(t)) || '系統';
+        const colors = { '幼童軍': '#f59e0b', '童軍': '#8b5cf6', '深資童軍': '#ef4444', '樂行童軍': '#10b981', '小童軍': '#3b82f6', '領袖': '#64748b' };
+        const col = colors[branch] || '#3b82f6';
+        posterRoundRect(ctx, L.badge.x, L.badge.y, s, s, 26);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.fill();
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.font = `900 ${Math.round(s * 0.48)}px ${POSTER_FONT}`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = col;
+        ctx.fillText(branch[0], L.badge.x + s / 2, L.badge.y + s / 2);
+      }
     }
 
     // 大字（WANTED／TOP SECRET）同故障霓虹重影
@@ -2791,6 +2883,15 @@
     }
 
     function posterDateLine(ctx, L, item, design) {
+      if (isScoutSystemItem(item)) {
+        const branch = (item?.tags || []).find(t => ['幼童軍', '童軍', '深資童軍', '樂行童軍', '小童軍', '領袖'].includes(t)) || '';
+        const text = branch ? `適用支部：${branch} ｜ 官方訓練進度規範` : '全體成員 ｜ Scout System 官方規範';
+        ctx.font = `600 28px ${POSTER_FONT}`;
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = design.accent || '#38bdf8';
+        ctx.fillText(text, L.MX, L.dateY);
+        return;
+      }
       const raw = String((item && (item.date || item.captured_date)) || '');
       const dm = raw.match(/(\d{4})-(\d{2})-(\d{2})/);
       const dateLabel = dm ? `${Number(dm[2])}月${Number(dm[3])}日` : raw;
@@ -2831,6 +2932,198 @@
         ctx.fillText(value, L.MX + 26, y + 44);
         y += L.rowH;
       }
+    }
+
+    function drawPosterTagPill(ctx, x, y, text, color, isStory) {
+      const h = isStory ? 44 : 38;
+      const fSize = isStory ? 23 : 20;
+      ctx.font = `600 ${fSize}px ${POSTER_FONT}`;
+      const tw = ctx.measureText(text).width;
+      posterRoundRect(ctx, x, y - h / 2, tw + 28, h, h / 2);
+      ctx.fillStyle = color + '22';
+      ctx.fill();
+      ctx.strokeStyle = color + '66';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = color;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x + 14, y);
+      return tw + 28;
+    }
+
+    // Scout System 小工具專屬功能簡介卡與引導區（全頁面自適應均勻排版，防止上浮重疊）
+    function posterToolShowcase(ctx, L, item, design, badgeImg) {
+      const isStory = !!L.story;
+      const W = L.W, H = L.H;
+      const MX = L.MX, CW = L.CW;
+      const branches = (item?.tags || []).filter(t => !['助手','遊戲','系統','工具','其他','連結','電子紀錄冊','集會助手及指南', '小工具'].includes(t));
+      const branchText = branches.length ? branches.join(' / ') : (item?.branch || '全體成員');
+      const desc = item?.description || '香港童軍數碼工具平台，支援全團進度管理、領袖審批及官方表格自動化。';
+      const accent = design.accent || '#38BDF8';
+
+      // ── 1. 頂部 Header：Pill（左）+ App Icon（右）──
+      const topY = isStory ? 180 : 65;
+      const pillH = isStory ? 56 : 48;
+      const pillW = isStory ? 350 : 320;
+      const kindLabel = itemScoutKind(item) ? (SCOUT_SYSTEM_KINDS.find(k => k.id === itemScoutKind(item))?.label || '助手') : '助手';
+      const pillText = `SCOUT SYSTEM · ${kindLabel}`;
+      posterRoundRect(ctx, MX, topY, pillW, pillH, pillH / 2);
+      ctx.fillStyle = design.pillBg || '#0284C7';
+      ctx.fill();
+      ctx.fillStyle = design.pillFg || '#FFFFFF';
+      ctx.font = `700 ${isStory ? 26 : 22}px ${POSTER_FONT}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(pillText, MX + pillW / 2, topY + pillH / 2 + 1);
+
+      // 右上角 App 圖示
+      const iconSize = isStory ? 120 : 100;
+      const iconX = W - MX - iconSize;
+      const iconY = topY;
+      const branchColors = { '幼童軍': '#F59E0B', '童軍': '#8B5CF6', '深資童軍': '#EF4444', '樂行童軍': '#10B981', '小童軍': '#3B82F6', '領袖': '#64748B' };
+      const bCol = branchColors[branchText] || accent;
+
+      let iconDrawn = false;
+      if (badgeImg && badgeImg.width) {
+        try {
+          const rr = Math.min(iconSize / badgeImg.width, iconSize / badgeImg.height);
+          const dw = badgeImg.width * rr, dh = badgeImg.height * rr;
+          posterRoundRect(ctx, iconX + (iconSize - dw) / 2, iconY + (iconSize - dh) / 2, dw, dh, 22);
+          ctx.save();
+          ctx.clip();
+          ctx.drawImage(badgeImg, iconX + (iconSize - dw) / 2, iconY + (iconSize - dh) / 2, dw, dh);
+          ctx.restore();
+          iconDrawn = true;
+        } catch (_) {}
+      }
+      if (!iconDrawn) {
+        posterRoundRect(ctx, iconX, iconY, iconSize, iconSize, 22);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.fill();
+        ctx.strokeStyle = bCol;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.font = `900 ${Math.round(iconSize * 0.48)}px ${POSTER_FONT}`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = bCol;
+        ctx.fillText(branchText[0], iconX + iconSize / 2, iconY + iconSize / 2);
+      }
+
+      // ── 2. 主標題與副標題 ──────────────────────────
+      const titleY = isStory ? 340 : 185;
+      const titleSize = isStory ? 68 : 58;
+      const titleLh = isStory ? 88 : 74;
+      ctx.font = `900 ${titleSize}px ${POSTER_FONT}`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      const titleLines = posterWrap(ctx, item.title || 'Scout System 小工具', CW, 2);
+      let curTy = titleY;
+      for (const line of titleLines) {
+        ctx.fillStyle = design.titleColor || '#FFFFFF';
+        ctx.fillText(line, MX, curTy);
+        curTy += titleLh;
+      }
+      const actualTitleHeight = (titleLines.length - 1) * titleLh + titleSize;
+
+      // 適用支部 Subtitle
+      const subtitleY = titleY + actualTitleHeight + (isStory ? 20 : 16);
+      ctx.font = `600 ${isStory ? 30 : 26}px ${POSTER_FONT}`;
+      ctx.fillStyle = accent;
+      ctx.fillText(`適用支部：${branchText} ｜ 官方訓練進度規範`, MX, subtitleY);
+      const subtitleBottom = subtitleY + (isStory ? 30 : 26);
+
+      // ── 3. 功能簡介卡片（深色半透明玻璃擬態）───────────
+      const cardY = subtitleBottom + (isStory ? 45 : 34);
+      const cardH = isStory ? (titleLines.length > 1 ? 580 : 640) : (titleLines.length > 1 ? 430 : 470);
+      posterRoundRect(ctx, MX, cardY, CW, cardH, 24);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.fill();
+      ctx.strokeStyle = `${accent}55`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // 卡片標題
+      ctx.font = `700 ${isStory ? 32 : 26}px ${POSTER_FONT}`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = accent;
+      ctx.fillText('💡 系統核心功能與特色', MX + 34, cardY + (isStory ? 36 : 26));
+
+      // 內部分割細線
+      const sepY = cardY + (isStory ? 82 : 64);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.fillRect(MX + 34, sepY, CW - 68, 1.5);
+
+      // 簡介內文（折行渲染）
+      ctx.font = `400 ${isStory ? 32 : 28}px ${POSTER_FONT}`;
+      ctx.fillStyle = '#E2E8F0';
+      const descLines = posterWrap(ctx, desc, CW - 68, isStory ? (titleLines.length > 1 ? 5 : 6) : 4);
+      let descY = sepY + (isStory ? 32 : 24);
+      const descLh = isStory ? 52 : 44;
+      for (const line of descLines) {
+        ctx.fillText(line, MX + 34, descY);
+        descY += descLh;
+      }
+
+      // 卡片底部標籤 Pills
+      const badgeY = cardY + cardH - (isStory ? 45 : 36);
+      let pillX = MX + 34;
+      pillX += drawPosterTagPill(ctx, pillX, badgeY, `適用：${branchText}`, bCol, isStory) + 14;
+      pillX += drawPosterTagPill(ctx, pillX, badgeY, '網頁免安裝', '#10B981', isStory) + 14;
+      if (pillX < MX + CW - 180) {
+        pillX += drawPosterTagPill(ctx, pillX, badgeY, '全港旅團通用', '#38BDF8', isStory) + 14;
+      }
+
+      // ── 4. 分界線 ──────────────────────────────────
+      const divY = cardY + cardH + (isStory ? 45 : 30);
+      ctx.fillStyle = `${accent}66`;
+      ctx.fillRect(MX, divY, CW, 2);
+
+      // ── 5. 下半部 QR Code 與引導區 ─────────────────
+      const qrY = divY + (isStory ? 40 : 26);
+      const qrSize = isStory ? 250 : 210;
+      const qrX = W - MX - qrSize;
+      const url = shareUrlFor(item);
+
+      if (url) {
+        drawPosterQr(ctx, url, qrX, qrY, qrSize);
+
+        // 左側引導文字
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+
+        // 標題
+        ctx.font = `900 ${isStory ? 44 : 36}px ${POSTER_FONT}`;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText('📱 掃描 QR Code', MX, qrY + (isStory ? 20 : 14));
+
+        // 行動按鈕提示
+        ctx.font = `700 ${isStory ? 30 : 25}px ${POSTER_FONT}`;
+        ctx.fillStyle = accent;
+        ctx.fillText('立即開啟雲端系統 ↗', MX, qrY + (isStory ? 80 : 66));
+
+        // 網址
+        let hostname = '';
+        try { hostname = new URL(url).hostname; } catch (_) { hostname = url; }
+        ctx.font = `500 ${isStory ? 24 : 20}px ${POSTER_FONT}`;
+        ctx.fillStyle = '#94A3B8';
+        ctx.fillText(`直達網址：${hostname}`, MX, qrY + (isStory ? 138 : 114));
+
+        // 說明
+        ctx.font = `400 ${isStory ? 22 : 18}px ${POSTER_FONT}`;
+        ctx.fillStyle = '#64748B';
+        ctx.fillText('免下載 App · 手機／電腦跨平台即用', MX, qrY + (isStory ? 182 : 152));
+      }
+
+      // ── 6. 底部落款 ────────────────────────────────
+      const footerY = isStory ? 1750 : 1275;
+      ctx.font = `500 ${isStory ? 24 : 20}px ${POSTER_FONT}`;
+      ctx.fillStyle = '#64748B';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(POSTER_CREDIT, W / 2, footerY);
     }
 
     function posterFooter(ctx, L, item, design) {
@@ -2977,6 +3270,134 @@
         ctx.fillStyle = '#E9D5A8';
         ctx.fillRect(40, 40, L.W - 80, L.H - 80);
       },
+      tool_cyber(ctx, L, design, phase) {
+        if (phase === 'bg') {
+          // 數碼科技深藍黑漸變
+          const grad = ctx.createLinearGradient(0, 0, 0, L.H);
+          grad.addColorStop(0, '#0a1324');
+          grad.addColorStop(0.5, '#060a12');
+          grad.addColorStop(1, '#020408');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, L.W, L.H);
+
+          // 頂部核心科技光暈
+          ctx.save();
+          const glow = ctx.createRadialGradient(L.W / 2, L.safeTop + 140, 40, L.W / 2, L.safeTop + 140, 520);
+          glow.addColorStop(0, 'rgba(56, 189, 248, 0.22)');
+          glow.addColorStop(1, 'rgba(56, 189, 248, 0)');
+          ctx.fillStyle = glow;
+          ctx.fillRect(0, 0, L.W, L.H);
+          ctx.restore();
+
+          // 數碼網格矩陣
+          ctx.save();
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+          ctx.lineWidth = 1.5;
+          const step = 72;
+          for (let x = 0; x <= L.W; x += step) {
+            ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, L.H); ctx.stroke();
+          }
+          for (let y = 0; y <= L.H; y += step) {
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(L.W, y); ctx.stroke();
+          }
+          // 4 隻角高科技定位括號
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+          ctx.lineWidth = 3;
+          const m = 32, len = 40;
+          ctx.beginPath(); ctx.moveTo(m, m + len); ctx.lineTo(m, m); ctx.lineTo(m + len, m); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(L.W - m - len, m); ctx.lineTo(L.W - m, m); ctx.lineTo(L.W - m, m + len); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(m, L.H - m - len); ctx.lineTo(m, L.H - m); ctx.lineTo(m + len, L.H - m); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(L.W - m - len, L.H - m); ctx.lineTo(L.W - m, L.H - m); ctx.lineTo(L.W - m, L.H - m - len); ctx.stroke();
+          ctx.restore();
+        } else if (phase === 'over') {
+          // 霓虹分界線
+          ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
+          ctx.fillRect(L.MX, L.dividerY, L.CW, 3);
+        }
+      },
+      tool_scout_navy(ctx, L, design, phase) {
+        if (phase === 'bg') {
+          // 香港童軍經典深藍漸變
+          const grad = ctx.createLinearGradient(0, 0, 0, L.H);
+          grad.addColorStop(0, '#0d1f3c');
+          grad.addColorStop(0.6, '#081324');
+          grad.addColorStop(1, '#040913');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, L.W, L.H);
+
+          // 溫暖金光
+          ctx.save();
+          const glow = ctx.createRadialGradient(L.W / 2, L.safeTop + 140, 50, L.W / 2, L.safeTop + 140, 540);
+          glow.addColorStop(0, 'rgba(245, 158, 11, 0.16)');
+          glow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+          ctx.fillStyle = glow;
+          ctx.fillRect(0, 0, L.W, L.H);
+          ctx.restore();
+
+          // 雙重金色邊框
+          ctx.save();
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
+          ctx.lineWidth = 3;
+          ctx.strokeRect(32, 32, L.W - 64, L.H - 64);
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.15)';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(42, 42, L.W - 84, L.H - 84);
+
+          // 童軍羅盤同心圓水印
+          const cy = (L.zone.y0 + L.zone.y1) / 2;
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.05)';
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(L.W / 2, cy, 320, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(L.W / 2, cy, 200, 0, Math.PI * 2); ctx.stroke();
+          ctx.restore();
+        } else if (phase === 'over') {
+          ctx.fillStyle = '#F59E0B';
+          ctx.fillRect(L.MX, L.dividerY, L.CW, 4);
+        }
+      },
+      tool_aurora(ctx, L, design, phase) {
+        if (phase === 'bg') {
+          // 極光暗色底
+          ctx.fillStyle = '#090b10';
+          ctx.fillRect(0, 0, L.W, L.H);
+
+          // 3 個有機色彩極光光暈
+          ctx.save();
+          // 紫色
+          let g1 = ctx.createRadialGradient(240, L.safeTop + 200, 40, 240, L.safeTop + 200, 480);
+          g1.addColorStop(0, 'rgba(168, 85, 247, 0.28)');
+          g1.addColorStop(1, 'rgba(168, 85, 247, 0)');
+          ctx.fillStyle = g1;
+          ctx.fillRect(0, 0, L.W, L.H);
+
+          // 皇家藍
+          let g2 = ctx.createRadialGradient(L.W - 220, L.safeTop + 450, 50, L.W - 220, L.safeTop + 450, 520);
+          g2.addColorStop(0, 'rgba(37, 99, 235, 0.25)');
+          g2.addColorStop(1, 'rgba(37, 99, 235, 0)');
+          ctx.fillStyle = g2;
+          ctx.fillRect(0, 0, L.W, L.H);
+
+          // 翠綠
+          let g3 = ctx.createRadialGradient(320, L.H - L.safeBottom - 260, 40, 320, L.H - L.safeBottom - 260, 460);
+          g3.addColorStop(0, 'rgba(16, 185, 129, 0.18)');
+          g3.addColorStop(1, 'rgba(16, 185, 129, 0)');
+          ctx.fillStyle = g3;
+          ctx.fillRect(0, 0, L.W, L.H);
+
+          // 簡約圓角外框
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+          ctx.lineWidth = 2;
+          posterRoundRect(ctx, 32, 32, L.W - 64, L.H - 64, 28);
+          ctx.stroke();
+          ctx.restore();
+        } else if (phase === 'over') {
+          const grad = ctx.createLinearGradient(L.MX, 0, L.MX + L.CW, 0);
+          grad.addColorStop(0, '#A855F7');
+          grad.addColorStop(1, '#38BDF8');
+          ctx.fillStyle = grad;
+          ctx.fillRect(L.MX, L.dividerY, L.CW, 4);
+        }
+      },
     };
 
     // 畫一張海報；同步回 canvas（俾縮圖／預覽都用得）。
@@ -3002,16 +3423,21 @@
         const kind = POSTER_KINDS[design.kind] || POSTER_KINDS.train;
         kind(ctx, L, design, 'bg');
         kind(ctx, L, design, 'deco');
-        posterBadge(ctx, L, o.badgeImg);
-        posterPill(ctx, design.pill, L, design);
-        posterHeadline(ctx, L, design, item);
-        posterTitle(ctx, L, design, posterFitTitle(ctx, item && item.title, L));
-        posterStrip(ctx, L, design);
-        kind(ctx, L, design, 'over');
-        posterDateLine(ctx, L, item, design);
-        posterCards(ctx, L, design);
-        if (L.qr) posterStoryCta(ctx, L, item, design);
-        posterFooter(ctx, L, item, design);
+        const isTool = isScoutSystemItem(item);
+        if (isTool) {
+          posterToolShowcase(ctx, L, item, design, o.badgeImg);
+        } else {
+          posterBadge(ctx, L, o.badgeImg, item);
+          posterPill(ctx, design.pill, L, design);
+          posterHeadline(ctx, L, design, item);
+          posterTitle(ctx, L, design, posterFitTitle(ctx, item && item.title, L));
+          posterStrip(ctx, L, design);
+          kind(ctx, L, design, 'over');
+          posterDateLine(ctx, L, item, design);
+          posterCards(ctx, L, design);
+          if (L.qr) posterStoryCta(ctx, L, item, design);
+          posterFooter(ctx, L, item, design);
+        }
       } catch (err) {
         // 任何一款畫唔到都唔應該拖冧成個流程：回 null，呼叫方自己決定提示
         return null;
@@ -3428,6 +3854,7 @@
 
     function openShare(item) {
       closeShare();
+      const isTool = isScoutSystemItem(item);
       const url = shareUrlFor(item);
       const canWebShare = canUseSystemShare();
       const links = socialLinks(item);
@@ -3436,12 +3863,14 @@
       backdrop.className = 'share-backdrop';
       const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
       const quota = ex?.quota || ex?.places || ex?.limit || '';
-      const previewMeta = [
-        ex?.audience ? `對象：${escapeHtml(ex.audience)}` : '',
-        ex?.fee ? `費用：${escapeHtml(ex.fee)}` : '',
-        quota ? `名額：${escapeHtml(quota)}` : '',
-        ex?.deadline ? `截止：${escapeHtml(ex.deadline)}` : '',
-      ].filter(Boolean).join(' ・ ') || '詳情請見附件';
+      const previewMeta = isTool
+        ? (item.description || 'Scout System 電子系統與工具')
+        : ([
+            ex?.audience ? `對象：${escapeHtml(ex.audience)}` : '',
+            ex?.fee ? `費用：${escapeHtml(ex.fee)}` : '',
+            quota ? `名額：${escapeHtml(quota)}` : '',
+            ex?.deadline ? `截止：${escapeHtml(ex.deadline)}` : '',
+          ].filter(Boolean).join(' ・ ') || '詳情請見附件');
       backdrop.innerHTML = `
         <div class="share-sheet" role="dialog" aria-modal="true" aria-labelledby="share-title">
           <div class="share-head">
@@ -3452,6 +3881,7 @@
             <button type="button" class="share-close" aria-label="關閉">×</button>
           </div>
 
+          ${isTool ? '' : `
           <div class="share-section">
             <button type="button" class="share-ig-btn" data-act="pdf2img">📄 轉換內文做圖</button>
             <div class="share-ig-result" data-role="pdfbox" hidden>
@@ -3479,9 +3909,10 @@
               <p class="share-ig-hint" data-role="pdfsharehint">電腦版：撳「貼去 WhatsApp／Telegram…」會順手複製張圖再開個平台，貼上（Ctrl／⌘+V）就發得。</p>
             </div>
           </div>
+          `}
 
           <div class="share-section">
-            <button type="button" class="share-ig-btn" data-act="ig">🖼 產生 IG 分享圖</button>
+            <button type="button" class="share-ig-btn" data-act="ig">${isTool ? '📱 產生 IG 分享圖 / Story' : '🖼 產生 IG 分享圖'}</button>
             <div class="share-ig-result" data-role="igbox" hidden>
               <img alt="IG 分享圖預覽">
               <div class="share-ig-designs" data-role="igdesigns" role="group" aria-label="揀設計款"></div>
@@ -3648,13 +4079,16 @@
         }
       }
 
-      // 12 款縮圖 picker：第一次顯示先畫縮圖（1080→216，每張幾 ms，縮圖就係實際效果）
+      // 縮圖 picker：第一次顯示先畫縮圖（小工具顯示 3 款專屬底圖，通告顯示 12 款通告底圖）
       function paintIgDesigns() {
         const wrap = sheet.querySelector('[data-role="igdesigns"]');
         if (!wrap) return;
         if (!wrap.dataset.built) {
           wrap.dataset.built = '1';
-          for (const d of POSTER_DESIGNS) {
+          const availableDesigns = isTool
+            ? POSTER_DESIGNS.filter(d => ['tool_cyber', 'tool_scout_navy', 'tool_aurora'].includes(d.id))
+            : POSTER_DESIGNS.filter(d => !['tool_cyber', 'tool_scout_navy', 'tool_aurora'].includes(d.id));
+          for (const d of availableDesigns) {
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.dataset.act = 'ig-design';
@@ -4105,10 +4539,16 @@
         let host = '';
         try { host = new URL(href).hostname; } catch (_) {}
 
+        const isTool = isScoutSystemItem(item);
         // 查 enrich 補充資料（截止 / 對象 / 費用）
         const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
         let extraHtml = '';
-        if (ex) {
+        if (isTool) {
+          const desc = item.description || (ex && ex.description) || '';
+          if (desc) {
+            extraHtml = `<div class="ex-box"><div class="ex-row tool-desc"><span style="color: #60a5fa; margin-right: 6px;">💡</span>${escapeHtml(desc)}</div></div>`;
+          }
+        } else if (ex) {
           const rows = [];
           if (ex.deadline) rows.push(`<div class="ex-row"><span class="ex-ico ex-deadline">⏳</span>截止：${escapeHtml(ex.deadline)}</div>`);
           if (ex.audience) rows.push(`<div class="ex-row"><span class="ex-ico ex-aud">👤</span>對象：${escapeHtml(ex.audience)}</div>`);
@@ -4121,16 +4561,20 @@
         const catLabels = {
           training: '訓練', service: '服務', activity: '活動', competition: '比賽', tools: '小工具', other: '未分類'
         };
-        const kindId = isScoutSystemItem(item) ? itemScoutKind(item) : '';
+        const kindId = isTool ? itemScoutKind(item) : '';
         const kindLabel = SCOUT_SYSTEM_KINDS.find(k => k.id === kindId)?.label || '';
         const kindHtml = kindLabel ? `<span class="cat-tag kind">${escapeHtml(kindLabel)}</span>` : '';
         const archiveHtml = scoutArchiveTagged(item) ? `<span class="cat-tag archive">${SCOUT_ARCHIVE_LABEL}</span>` : '';
-        const catHtml = [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('') + kindHtml + archiveHtml;
+        const catHtml = isTool
+          ? (kindHtml || '<span class="cat-tag kind">助手</span>')
+          : [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('') + kindHtml + archiveHtml;
+        const iconHtml = isTool && item.icon ? `<img class="tool-card-icon" src="${escapeHtml(item.icon)}" alt="" onerror="this.style.display='none'">` : '';
         const card = document.createElement('article');
-        card.className = `card${item._bmGone ? ' bm-gone' : ''}`;
+        card.className = `card${item._bmGone ? ' bm-gone' : ''}${isTool ? ' tool-card' : ''}`;
         card.innerHTML = `
           ${item._bmGone ? '<div class="gone-tag">⚠️ 原站已移除（報唔到，可撳 ★ 取消收藏）</div>' : ''}
           <div class="card-head">
+            ${iconHtml}
             <div class="card-title-wrap">
               <span class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</span>
               <span class="cat-tags">${catHtml}</span>
@@ -4144,18 +4588,19 @@
           </div>
           ${extraHtml}
           <div class="meta-row meta-foot">
-            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">開啟附件</a>
+            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">${isTool ? '進入系統 ↗' : '開啟附件'}</a>
             <div class="card-icons">
               <button class="star-btn${starred ? ' on' : ''}" type="button"
                 aria-pressed="${starred ? 'true' : 'false'}"
                 title="${starred ? '取消收藏' : '加入收藏'}"
                 aria-label="${starred ? '取消收藏' : '加入收藏'}">${starred ? '★' : '☆'}</button>
-              <button class="share-btn" type="button" title="分享呢張通告" aria-label="分享呢張通告">${SHARE_SVG.share}</button>
+              <button class="share-btn" type="button" title="${isTool ? '分享呢個小工具' : '分享呢張通告'}" aria-label="${isTool ? '分享呢個小工具' : '分享呢張通告'}">${SHARE_SVG.share}</button>
             </div>
           </div>
+          ${!isTool ? `
           <div class="card-actions">
             <button class="ss-import" data-ss-url="${escapeHtml(buildScoutSystemImportUrl(item, ex))}">加入 ScoutSystem</button>
-          </div>
+          </div>` : ''}
         `;
         const shareBtn = card.querySelector('.share-btn');
         if (shareBtn) shareBtn.onclick = () => openShare(item);
@@ -4439,7 +4884,7 @@
       const { branches, topics } = pushSelectionState();
       const over = topics.length > PUSH_MAX_TOPICS;
       $('#push-custom-options').hidden = topics.includes('all:new');
-      el.textContent = topics.includes('all:new') ? '全選：有新通告就通知（包括未分類）' : `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
+      el.textContent = topics.includes('all:new') ? '全選：有新消息就通知（包括小工具及未分類）' : `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
       el.classList.toggle('over', over);
       const save = $('#push-save'), enable = $('#push-enable');
       const invalid = !branches.length || !topics.length || over;
@@ -4616,7 +5061,7 @@
           renderPushTopicOptions(selectedValues($('#push-topics')));
         }));
       }
-      $('#push-all').replaceChildren(makePickChip('all:new', '全選：所有新通告', savedTopics.includes('all:new'), 'pick-all', updatePushCount));
+      $('#push-all').replaceChildren(makePickChip('all:new', '全選：所有新消息', savedTopics.includes('all:new'), 'pick-all', updatePushCount));
       renderPushTopicOptions(savedTopics);
     }
 
@@ -4673,14 +5118,210 @@
       });
     }
 
+    function initToolsPreviewModal() {
+      const backdrop = $('#tools-preview-backdrop');
+      const closeBtn = $('#tools-preview-close');
+      const openBtn = $('#btn-open-tools-modal');
+      const cardsWrap = $('#modal-tool-cards');
+      const storyBtn = $('#modal-btn-story-mode');
+      const feedBtn = $('#modal-btn-feed-mode');
+      const dlBtn = $('#modal-btn-download-story');
+      const frame = $('#modal-story-frame');
+      const canvas = $('#modalPosterCanvas');
+
+      if (!backdrop) return;
+
+      const items = [
+        {
+          title: "幼童軍進度追蹤系統",
+          url: "https://cubsbadge.vercel.app/",
+          pdf_url: "https://cubsbadge.vercel.app/",
+          branch: "幼童軍",
+          kind: "助手",
+          date: "2026-09-24",
+          captured_date: "2026-09-24",
+          source_site: "Scout System",
+          region: "Scout System",
+          tags: ["幼童軍", "助手", "小工具"],
+          description: "基於幼童軍訓練綱要，支援全團進度管理、領袖審批、活動履歷申報及金紫荊表格自動填寫系統。",
+          icon: "https://cubsbadge.vercel.app/assets/cub-logo-256.png"
+        },
+        {
+          title: "童軍進度追蹤系統",
+          url: "https://scoutbadge.vercel.app/",
+          pdf_url: "https://scoutbadge.vercel.app/",
+          branch: "童軍",
+          kind: "助手",
+          date: "2026-09-24",
+          captured_date: "2026-09-24",
+          source_site: "Scout System",
+          region: "Scout System",
+          tags: ["童軍", "助手", "小工具"],
+          description: "童軍支部訓練綱要及進度管理，支援總領袖獎章追蹤、成員進度申報、領袖審批及官方表格列印。",
+          icon: "https://scoutbadge.vercel.app/assets/scout-logo-chief-256.png"
+        },
+        {
+          title: "深資童軍進度紀錄",
+          url: "https://vsbadge.vercel.app/",
+          pdf_url: "https://vsbadge.vercel.app/",
+          branch: "深資童軍",
+          kind: "助手",
+          date: "2026-09-24",
+          captured_date: "2026-09-24",
+          source_site: "Scout System",
+          region: "Scout System",
+          tags: ["深資童軍", "助手", "小工具"],
+          description: "深資童軍支部訓練綱要、榮譽十字章與各項考驗進度管理平台。",
+          icon: "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png"
+        },
+        {
+          title: "樂行童軍進度紀錄",
+          url: "https://roverbadge.vercel.app/",
+          pdf_url: "https://roverbadge.vercel.app/",
+          branch: "樂行童軍",
+          kind: "助手",
+          date: "2026-09-24",
+          captured_date: "2026-09-24",
+          source_site: "Scout System",
+          region: "Scout System",
+          tags: ["樂行童軍", "助手", "小工具"],
+          description: "樂行童軍支部進度獎章、自選服務與個人發展目標追蹤系統。",
+          icon: "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png"
+        }
+      ];
+
+      let selectedItem = items[0];
+      let currentMode = 'story'; // 'story' | 'feed'
+      let currentDesign = 'tool_cyber'; // 'tool_cyber' | 'tool_scout_navy' | 'tool_aurora'
+
+      function renderCanvas() {
+        if (!canvas) return;
+        const cv = renderPoster(selectedItem, { mode: currentMode, design: currentDesign });
+        if (!cv) return;
+        canvas.width = cv.width;
+        canvas.height = cv.height;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(cv, 0, 0);
+
+        if (frame) {
+          if (currentMode === 'feed') {
+            frame.style.height = '340px';
+          } else {
+            frame.style.height = '480px';
+          }
+        }
+      }
+
+      function updateDesignBtns() {
+        const dCyber = $('#modal-design-cyber');
+        const dNavy = $('#modal-design-navy');
+        const dAurora = $('#modal-design-aurora');
+        if (dCyber) { dCyber.className = currentDesign === 'tool_cyber' ? 'push-primary' : 'push-secondary'; }
+        if (dNavy) { dNavy.className = currentDesign === 'tool_scout_navy' ? 'push-primary' : 'push-secondary'; }
+        if (dAurora) { dAurora.className = currentDesign === 'tool_aurora' ? 'push-primary' : 'push-secondary'; }
+      }
+
+      function renderCards() {
+        if (!cardsWrap) return;
+        cardsWrap.innerHTML = '';
+        items.forEach(it => {
+          const isSel = it === selectedItem;
+          const card = document.createElement('div');
+          card.style.cssText = `padding: 12px; border-radius: 12px; border: 1.5px solid ${isSel ? '#3b82f6' : 'rgba(255,255,255,0.08)'}; background: ${isSel ? 'rgba(59,130,246,0.12)' : 'rgba(255,255,255,0.03)'}; cursor: pointer; transition: 0.18s;`;
+          card.innerHTML = `
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+              <img src="${it.icon}" alt="" style="width: 38px; height: 38px; border-radius: 8px; object-fit: contain; background: rgba(255,255,255,0.08); padding: 2px; flex-shrink: 0;" onerror="this.src='/icons/badge-96.png'">
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <span class="badge" style="margin: 0;">Scout System</span>
+                  <span class="cat-tag kind" style="font-size: 11px;">${it.kind}</span>
+                  <strong style="font-size: 14.5px; color: #fff;">${it.title}</strong>
+                </div>
+                <p style="margin: 6px 0 0; font-size: 12px; color: #cbd5e1; line-height: 1.45;">${it.description}</p>
+              </div>
+            </div>
+            <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 6px;">
+              <span>支部：<b style="color: #fde68a;">${it.branch}</b> ・ 🌐 ${new URL(it.url).hostname}</span>
+              <a href="${it.url}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline; font-weight: 600;">進入系統 ↗</a>
+            </div>
+          `;
+          card.onclick = (e) => {
+            if (e.target.tagName === 'A') return;
+            selectedItem = it;
+            renderCards();
+            renderCanvas();
+          };
+          cardsWrap.appendChild(card);
+        });
+      }
+
+      function setModal(open) {
+        backdrop.hidden = !open;
+        document.body.classList.toggle('push-sheet-open', open);
+        if (open) {
+          updateDesignBtns();
+          renderCards();
+          renderCanvas();
+        }
+      }
+
+      openBtn?.addEventListener('click', () => setModal(true));
+      closeBtn?.addEventListener('click', () => setModal(false));
+      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) setModal(false); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !backdrop.hidden) setModal(false);
+      });
+
+      $('#modal-design-cyber')?.addEventListener('click', () => {
+        currentDesign = 'tool_cyber';
+        updateDesignBtns();
+        renderCanvas();
+      });
+
+      $('#modal-design-navy')?.addEventListener('click', () => {
+        currentDesign = 'tool_scout_navy';
+        updateDesignBtns();
+        renderCanvas();
+      });
+
+      $('#modal-design-aurora')?.addEventListener('click', () => {
+        currentDesign = 'tool_aurora';
+        updateDesignBtns();
+        renderCanvas();
+      });
+
+      storyBtn?.addEventListener('click', () => {
+        currentMode = 'story';
+        storyBtn.className = 'push-primary';
+        feedBtn.className = 'push-secondary';
+        renderCanvas();
+      });
+
+      feedBtn?.addEventListener('click', () => {
+        currentMode = 'feed';
+        feedBtn.className = 'push-primary';
+        storyBtn.className = 'push-secondary';
+        renderCanvas();
+      });
+
+      dlBtn?.addEventListener('click', () => {
+        if (!canvas) return;
+        const a = document.createElement('a');
+        a.download = `Story-${selectedItem.title}-${currentMode}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      });
+    }
+
     function pushSummaryLabel() {
       const prefs = state.personalPreferences || loadPersonalPreferences();
       const enabled = (() => { try { return localStorage.getItem('scl_push_enabled_v1') === '1'; } catch (_) { return false; } })();
-      if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length) return { text: '🔔 通知', active: false, title: '設定個人化通告通知：先揀支部，再點選關注項目' };
+      if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length) return { text: '🔔 通知', active: false, title: '設定個人化通知：先揀支部，再點選關注項目' };
       return {
         text: `🔔 通知 <span class="chip-n">${prefs.topics.length}</span>`,
         active: enabled,
-        title: `${enabled ? '已啟用' : '已儲存（未啟用）'}：${prefs.topics.includes('all:new') ? '全選：所有新通告' : prefs.branches.join('、') + '・' + prefs.topics.length + ' 個項目'}。按此修改`,
+        title: `${enabled ? '已啟用' : '已儲存（未啟用）'}：${prefs.topics.includes('all:new') ? '全選：所有新消息' : prefs.branches.join('、') + '・' + prefs.topics.length + ' 個項目'}。按此修改`,
       };
     }
 
@@ -4750,7 +5391,7 @@
         const preferences = currentPushPreferences();
         const result = await window.ScoutPushClient.enable(preferences);
         updatePersonalResultsAfterPreferenceChange(result.preferences);
-        setPushStatus(result.preferences.topics.includes('all:new') ? '已啟用全選：有任何新通告就通知，包括未分類通告。' : '已啟用：符合任何一組支部及項目的新通告就會通知。', 'good');
+        setPushStatus(result.preferences.topics.includes('all:new') ? '已啟用全選：有任何新消息就通知，包括小工具及未分類。' : '已啟用：符合任何一組支部及項目的新消息就會通知。', 'good');
       } catch (error) {
         const tone = error?.code === 'permission_denied' ? 'warn' : 'error';
         setPushStatus(error?.message || '未能啟用通知。', tone);
@@ -4761,7 +5402,7 @@
     }
 
     async function disablePushNotifications() {
-      if (!confirm('停止這部裝置的通告通知？本機選項會保留，日後可重新啟用。')) return;
+      if (!confirm('停止這部裝置的通知？本機選項會保留，日後可重新啟用。')) return;
       try {
         setPushStatus('正在停止這部裝置的通知…');
         await window.ScoutPushClient.disable();
@@ -5157,6 +5798,7 @@
 
     initCompactMobileControls();
     initPushSheet();
+    initToolsPreviewModal();
     initRegionToggles();
     renderWindowChips();
     renderScopeChips();
