@@ -44,6 +44,10 @@ ok(html.includes('id="report-opinion"'), '有「有什麼意見」欄');
 ok(html.includes('id="report-name"'), '有選填姓名');
 ok(html.includes('id="report-email"'), '有選填電郵');
 ok(html.includes('id="report-phone"'), '有選填電話');
+ok(html.includes('id="open-report-mobile"') && html.includes('aria-label="問題回報／意見反映"'),
+  '頂欄叮噹旁有 💬 回報 icon');
+ok(html.includes("reportBtn.id = 'open-report-settings'"),
+  '桌面天數列叮噹旁有 💬 回報掣');
 ok(html.includes('id="open-issue-report"') && html.includes('id="open-feedback-report"'),
   '頁尾有問題回報／意見反映入口');
 ok(html.includes('id="open-issue-report-side"') && html.includes('id="open-feedback-report-side"'),
