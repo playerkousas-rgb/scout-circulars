@@ -15,8 +15,9 @@
 - `core.py`：Python 爬蟲主程式
 - `sources.json`：49 個來源映射設定
 - `cache.json`：輸出資料與內部狀態
-- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享（文案＋社交＋IG 分享圖 4:5，另設 📱 Story 版 1080×1920）/ 匿名通知設定）。通告專屬頁：每張通告有深鏈 `?n=<16hex>`（同 push ID 同源），單一 ID 著陸會直接彈出該通告嘅專屬頁（標題＋區徽＋截止/對象/費用/名額＋開附件/分享/複製連結），分享面板「複製連結」一撳攞鏈，貼上 IG Story link sticker 就形成 Story → 圖書館閉環
+- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享（文案＋社交＋IG 分享圖 4:5，另設 📱 Story 版 1080×1920）/ 匿名通知設定 / 問題回報／意見反映）。通告專屬頁：每張通告有深鏈 `?n=<16hex>`（同 push ID 同源），單一 ID 著陸會直接彈出該通告嘅專屬頁（標題＋區徽＋截止/對象/費用/名額＋開附件/分享/複製連結），分享面板「複製連結」一撳攞鏈，貼上 IG Story link sticker 就形成 Story → 圖書館閉環
   - IG 分享圖（2026-09-21；**2026-09-22 由「深藍底＋字」重寫成 12 款設計**）：瀏覽器 canvas 即畫 1080×1350（feed 4:5）／1080×1920（Story），用人者裝置字體同記憶體，**唔經任何 Vercel function／storage**；取代 2026-09-16 移除嘅 server-side render（PyMuPDF）——Vercel 爆容量嘅真兇係 Python 依賴入 bundle（見 VERCEL_EMERGENCY_CLEANUP_2026-09-19.md），唔係圖片儲存，所以 server render 唔會返嚟。12 款、md5 揀款、縮圖 picker 見「分享通告」一節
+  - 問題回報／意見反映（2026-09-24）：頁尾同側欄「網站資料及診斷」入口。問題回報填 **APP + 什麼問題**；意見反映填 **有什麼意見**（例如想要什麼幫助）；**姓名／電郵／電話全部選填**。表單 `POST` 去 Scout Admin 嘅 Apps Script（[playerkousas-rgb/scout-admin](https://github.com/playerkousas-rgb/scout-admin)），無本站後端、唔經 Vercel function。回歸測試：`node test_report_feedback.js`
 - `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
@@ -145,6 +146,7 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 
 ```bash
 node test_search_members.js     # 支部 + 分類配對邏輯（直接由 index.html 抽出，唔係複製一份）
+node test_report_feedback.js    # 問題回報／意見反映 payload 對齊 Scout Admin；預覽頁／Cloudflare 注入已清走
 node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需要 jsdom）
 python test_notify.py           # Push 去重、交集和合併通知邏輯（不會發網絡請求）
 python test_push_common.py      # API 受控 ID 與 endpoint SSRF 防護

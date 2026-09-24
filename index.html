@@ -306,6 +306,31 @@
     .push-privacy { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid rgba(59,130,246,.24); color: var(--muted); font-size: 11px; line-height: 1.55; }
     .personal-banner { margin-top: 12px; padding: 10px 12px; border-radius: 10px; color: #dbeafe; background: rgba(37,99,235,.18); border: 1px solid rgba(96,165,250,.45); font-size: 13px; }
 
+    .footer-link { background: none; border: 0; padding: 0; color: #93c5fd; cursor: pointer; font: inherit; text-decoration: none; }
+    .footer-link:hover { text-decoration: underline; color: #bfdbfe; }
+    .report-sheet { width: min(520px, 100%); }
+    .report-tabs { display: flex; gap: 8px; margin-top: 14px; }
+    .report-tab { flex: 1; border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 12px; padding: 10px 12px; cursor: pointer; font-weight: 700; font-size: 13px; }
+    .report-tab:hover { color: var(--text); background: #12213a; }
+    .report-tab.active { background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: #fff; border-color: #60a5fa; }
+    .report-form { margin-top: 14px; display: grid; gap: 12px; }
+    .report-field { display: flex; flex-direction: column; gap: 6px; }
+    .report-field label { color: #d9e8ff; font-size: 12.5px; font-weight: 700; }
+    .report-field .req { color: #fca5a5; }
+    .report-field input, .report-field textarea, .report-field select {
+      width: 100%; border: 1px solid var(--line); background: #09111f; color: var(--text);
+      border-radius: 12px; padding: 10px 12px; outline: none; font: inherit;
+    }
+    .report-field input:focus, .report-field textarea:focus, .report-field select:focus {
+      border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(59,130,246,.18);
+    }
+    .report-field textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+    .report-pane { display: none; }
+    .report-pane.open { display: block; }
+    .report-opt-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .report-hint { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    @media (max-width: 580px) { .report-opt-row { grid-template-columns: 1fr; } }
+
     /* 手機才使用的收合控制；桌面保留原來所有便利操作。 */
     .mobile-library-bar, .drawer-mobile-header, .mobile-drawer-backdrop, .mobile-section-toggle { display: none; }
 
@@ -549,6 +574,8 @@
           <p class="maintenance-scope">支援分區或全港層級瀏覽</p>
           <div id="sidebar-meta">讀取中…</div>
           <p><a href="errors.html">→ 診斷儀表板</a></p>
+          <p><button type="button" class="footer-link" id="open-issue-report-side">→ 問題回報</button></p>
+          <p><button type="button" class="footer-link" id="open-feedback-report-side">→ 意見反映</button></p>
         </div>
       </details>
     </aside>
@@ -568,14 +595,6 @@
       <section class="panel hero">
         <h2 id="page-title">載入中…</h2>
         <div class="sub" id="page-subtitle">目前支援分區或全港層級瀏覽。</div>
-        <div style="margin-top: 10px; padding: 10px 14px; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); border-radius: 10px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-          <span>📱 <b>Scout System 電子紀錄冊：</b>已注入 4 本紀錄冊卡片及 Story 實時畫布！</span>
-          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <button type="button" id="btn-open-tools-modal" style="padding: 4px 12px; background: #2563eb; color: #fff; border: 1px solid #3b82f6; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer;">🔍 即席對比預覽 (彈窗)</button>
-            <a href="/preview_scout_tools.html" target="_self" style="color: #60a5fa; font-weight: 600; text-decoration: underline; font-size: 12.5px;">👉 專屬獨立預覽頁</a>
-          </div>
-        </div>
-
         <div class="contact-bar" id="contact-bar"></div>
 
         <div class="mobile-section filters-section" id="filters-section">
@@ -627,7 +646,7 @@
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7bb0ff" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <span id="visit-count">累計瀏覽 …</span>
         </div>
-        <div>Copyright &copy; 2026 SCOUT SYSTEM · <a href="stats.html" style="color: var(--muted); text-decoration: none;">統計</a></div>
+        <div>Copyright &copy; 2026 SCOUT SYSTEM · <a href="stats.html" style="color: var(--muted); text-decoration: none;">統計</a> · <button type="button" class="footer-link" id="open-issue-report">問題回報</button> · <button type="button" class="footer-link" id="open-feedback-report">意見反映</button></div>
       </footer>
     </main>
   </div>
@@ -689,47 +708,78 @@
     </section>
   </div>
 
-  <!-- 📱 Scout System 電子紀錄冊卡片及 Story 即席預覽彈窗 -->
-  <div class="push-backdrop" id="tools-preview-backdrop" hidden>
-    <section class="push-sheet" id="tools-preview-sheet" role="dialog" aria-modal="true" style="max-width: 960px; max-height: 90vh;">
+  <!-- 問題回報 / 意見反映：送到 Scout Admin Apps Script（無本站後端） -->
+  <div class="push-backdrop" id="report-backdrop" hidden>
+    <section class="push-sheet report-sheet" id="report-sheet" role="dialog" aria-modal="true" aria-labelledby="report-title">
       <div class="push-heading">
         <div>
-          <h3 style="font-size: 18px; color: #fff;">📱 Scout System 4 本電子紀錄冊卡片與 Story 即席預覽</h3>
-          <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">已收錄幼童軍、童軍、深資童軍、樂行童軍 4 本進度紀錄冊。點選卡片可即時切換右側 Story / Feed 畫布。</p>
+          <h3 id="report-title">問題回報 / 意見反映</h3>
+          <p>送到 Scout Admin，管理員會盡快跟進。姓名同聯絡資料全部選填。</p>
         </div>
-        <button type="button" class="push-close" id="tools-preview-close" aria-label="關閉預覽">×</button>
+        <button type="button" class="push-close" id="report-close" aria-label="關閉">×</button>
       </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 16px; align-items: start;">
-        <!-- 左側：卡片列表 -->
-        <div style="display: flex; flex-direction: column; gap: 12px;" id="modal-tool-cards"></div>
-
-        <!-- 右側：Story 畫布預覽 -->
-        <div style="display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.35); padding: 14px; border-radius: 14px; border: 1px solid var(--line);">
-          <div style="display: flex; gap: 6px; margin-bottom: 8px; width: 100%; justify-content: center; flex-wrap: wrap;">
-            <button type="button" class="push-primary" id="modal-design-cyber" style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px;">🔵 數碼霓虹</button>
-            <button type="button" class="push-secondary" id="modal-design-navy" style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px;">👑 童軍深藍金</button>
-            <button type="button" class="push-secondary" id="modal-design-aurora" style="font-size: 11.5px; padding: 4px 10px; border-radius: 6px;">✨ 極光漸變</button>
-          </div>
-          <div style="display: flex; gap: 8px; margin-bottom: 12px; width: 100%; justify-content: center; flex-wrap: wrap;">
-            <button type="button" class="push-primary" id="modal-btn-story-mode" style="font-size: 12px; padding: 5px 12px; border-radius: 6px;">📱 Story 9:16</button>
-            <button type="button" class="push-secondary" id="modal-btn-feed-mode" style="font-size: 12px; padding: 5px 12px; border-radius: 6px;">🖼️ Feed 4:5</button>
-            <button type="button" class="push-secondary" id="modal-btn-download-story" style="font-size: 12px; padding: 5px 12px; border-radius: 6px;">💾 下載 PNG</button>
-          </div>
-          <div style="width: 270px; height: 480px; border-radius: 18px; overflow: hidden; border: 3px solid #1e293b; background: #000; box-shadow: 0 8px 30px rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;" id="modal-story-frame">
-            <canvas id="modalPosterCanvas" width="1080" height="1920" style="width: 100%; height: 100%; display: block; object-fit: contain;"></canvas>
-          </div>
-          <div style="margin-top: 10px; font-size: 11.5px; color: var(--muted); text-align: center; line-height: 1.4;">
-            ✨ App Logo · 支部識別 · 功能簡介 · 向量 QR 直達 · 落款 <code>@noscout.system</code>
+      <div class="report-tabs" role="tablist">
+        <button type="button" class="report-tab active" role="tab" aria-selected="true" data-pane="issue" id="report-tab-issue">🐛 問題回報</button>
+        <button type="button" class="report-tab" role="tab" aria-selected="false" data-pane="feedback" id="report-tab-feedback">💬 意見反映</button>
+      </div>
+      <form id="report-form" class="report-form" novalidate>
+        <div class="report-field">
+          <label for="report-app">APP <span class="req">*</span></label>
+          <input id="report-app" name="app" list="report-app-list" value="通告圖書館" autocomplete="off">
+          <datalist id="report-app-list">
+            <option value="通告圖書館"></option>
+            <option value="幼童軍進度追蹤系統"></option>
+            <option value="童軍進度追蹤系統"></option>
+            <option value="深資童軍進度紀錄"></option>
+            <option value="樂行童軍進度紀錄"></option>
+            <option value="Scout System 小工具"></option>
+          </datalist>
+        </div>
+        <div class="report-pane open" data-pane="issue" id="report-pane-issue">
+          <div class="report-field">
+            <label for="report-problem">什麼問題 <span class="req">*</span></label>
+            <textarea id="report-problem" name="problem" placeholder="邊個功能出事？點樣重現？"></textarea>
           </div>
         </div>
-      </div>
+        <div class="report-pane" data-pane="feedback" id="report-pane-feedback">
+          <div class="report-field">
+            <label for="report-opinion">有什麼意見 <span class="req">*</span></label>
+            <textarea id="report-opinion" name="opinion" placeholder="例如想要什麼幫助、想加咩功能…"></textarea>
+          </div>
+        </div>
+        <p class="report-hint">以下聯絡資料全部選填，方便管理員回覆你。</p>
+        <div class="report-field">
+          <label for="report-name">姓名（選填）</label>
+          <input id="report-name" name="name" type="text" autocomplete="name" placeholder="可留空">
+        </div>
+        <div class="report-opt-row">
+          <div class="report-field">
+            <label for="report-email">電郵（選填）</label>
+            <input id="report-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+          </div>
+          <div class="report-field">
+            <label for="report-phone">電話（選填）</label>
+            <input id="report-phone" name="phone" type="tel" autocomplete="tel" placeholder="可留空">
+          </div>
+        </div>
+        <div class="push-actions">
+          <button type="submit" class="push-primary" id="report-submit">提交問題回報</button>
+        </div>
+        <div class="push-state" id="report-status" role="status" aria-live="polite"></div>
+        <ul class="push-privacy">
+          <li>資料送到 Scout Admin（Google Sheet），唔經本站伺服器。</li>
+          <li>姓名、電郵、電話全部選填；唔填都可以交。</li>
+        </ul>
+      </form>
     </section>
   </div>
 
   <script src="push-client.js"></script>
   <script>
     const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
+    // Scout Admin：問題回報 / 意見反映唯一接收端（Apps Script Web App，與 scout-admin.git 同一條）
+    const SCOUT_ADMIN_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxj5BDDGgjs559smkK4Z5aYImWYeXbN5af8U1ObON0z9WnsN6QJW4I1XWolhs5kQ_H-UQ/exec';
+    const SCOUT_ADMIN_DEFAULT_APP = '通告圖書館';
     const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/enrich.json';
     // Story 草稿（stories 分支，force-push 維持最近 7 日）：專屬頁 hero 圖熱連結 ——
     // 全部流量/儲存行 GitHub CDN，Vercel 零 byte（結論：唔會再爆 storage）
@@ -5118,199 +5168,162 @@
       });
     }
 
-    function initToolsPreviewModal() {
-      const backdrop = $('#tools-preview-backdrop');
-      const closeBtn = $('#tools-preview-close');
-      const openBtn = $('#btn-open-tools-modal');
-      const cardsWrap = $('#modal-tool-cards');
-      const storyBtn = $('#modal-btn-story-mode');
-      const feedBtn = $('#modal-btn-feed-mode');
-      const dlBtn = $('#modal-btn-download-story');
-      const frame = $('#modal-story-frame');
-      const canvas = $('#modalPosterCanvas');
+    function formatReportContact(name, email, phone) {
+      const parts = [];
+      const n = String(name || '').trim();
+      const e = String(email || '').trim();
+      const p = String(phone || '').trim();
+      if (n) parts.push('姓名：' + n);
+      if (e) parts.push('電郵：' + e);
+      if (p) parts.push('電話：' + p);
+      return parts.join('；');
+    }
 
-      if (!backdrop) return;
+    function issueTitleFromProblem(problem) {
+      const line = String(problem || '').trim().split(/\r?\n/).find(s => s.trim()) || '';
+      const t = line.trim();
+      if (!t) return '問題回報';
+      return t.length > 40 ? t.slice(0, 40) + '…' : t;
+    }
 
-      const items = [
-        {
-          title: "幼童軍進度追蹤系統",
-          url: "https://cubsbadge.vercel.app/",
-          pdf_url: "https://cubsbadge.vercel.app/",
-          branch: "幼童軍",
-          kind: "助手",
-          date: "2026-09-24",
-          captured_date: "2026-09-24",
-          source_site: "Scout System",
-          region: "Scout System",
-          tags: ["幼童軍", "助手", "小工具"],
-          description: "基於幼童軍訓練綱要，支援全團進度管理、領袖審批、活動履歷申報及金紫荊表格自動填寫系統。",
-          icon: "icons/awards/cub_gba-256.avif"
-        },
-        {
-          title: "童軍進度追蹤系統",
-          url: "https://scoutbadge.vercel.app/",
-          pdf_url: "https://scoutbadge.vercel.app/",
-          branch: "童軍",
-          kind: "助手",
-          date: "2026-09-24",
-          captured_date: "2026-09-24",
-          source_site: "Scout System",
-          region: "Scout System",
-          tags: ["童軍", "助手", "小工具"],
-          description: "童軍支部訓練綱要及進度管理，支援總領袖獎章追蹤、成員進度申報、領袖審批及官方表格列印。",
-          icon: "icons/awards/scout_csa-256.avif"
-        },
-        {
-          title: "深資童軍進度紀錄",
-          url: "https://vsbadge.vercel.app/",
-          pdf_url: "https://vsbadge.vercel.app/",
-          branch: "深資童軍",
-          kind: "助手",
-          date: "2026-09-24",
-          captured_date: "2026-09-24",
-          source_site: "Scout System",
-          region: "Scout System",
-          tags: ["深資童軍", "助手", "小工具"],
-          description: "深資童軍支部訓練綱要、榮譽十字章與各項考驗進度管理平台。",
-          icon: "icons/awards/vs_dsa-256.avif"
-        },
-        {
-          title: "樂行童軍進度紀錄",
-          url: "https://roverbadge.vercel.app/",
-          pdf_url: "https://roverbadge.vercel.app/",
-          branch: "樂行童軍",
-          kind: "助手",
-          date: "2026-09-24",
-          captured_date: "2026-09-24",
-          source_site: "Scout System",
-          region: "Scout System",
-          tags: ["樂行童軍", "助手", "小工具"],
-          description: "樂行童軍支部進度獎章、自選服務與個人發展目標追蹤系統。",
-          icon: "icons/awards/rover_bpa-256.avif"
-        }
-      ];
+    function buildIssuePayload({ app, problem, name, email, phone, pageUrl }) {
+      const descBody = String(problem || '').trim();
+      const desc = pageUrl ? (descBody + '\n\n頁面：' + pageUrl) : descBody;
+      return {
+        type: 'issue',
+        sourceApp: String(app || '').trim() || SCOUT_ADMIN_DEFAULT_APP,
+        title: issueTitleFromProblem(descBody),
+        desc,
+        severity: '中',
+        troopId: '',
+        contact: formatReportContact(name, email, phone),
+      };
+    }
 
-      let selectedItem = items[0];
-      let currentMode = 'story'; // 'story' | 'feed'
-      let currentDesign = 'tool_cyber'; // 'tool_cyber' | 'tool_scout_navy' | 'tool_aurora'
+    function buildFeedbackPayload({ app, opinion, name, email, phone }) {
+      return {
+        type: 'feedback',
+        sourceApp: String(app || '').trim() || SCOUT_ADMIN_DEFAULT_APP,
+        fbType: '建議',
+        content: String(opinion || '').trim(),
+        troopId: '',
+        contact: formatReportContact(name, email, phone),
+      };
+    }
 
-      function renderCanvas() {
-        if (!canvas) return;
-        const cv = renderPoster(selectedItem, { mode: currentMode, design: currentDesign });
-        if (!cv) return;
-        canvas.width = cv.width;
-        canvas.height = cv.height;
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(cv, 0, 0);
+    function validateReportForm(kind, fields) {
+      const app = String(fields.app || '').trim();
+      if (!app) return '請填寫 APP 名稱。';
+      if (kind === 'issue') {
+        if (!String(fields.problem || '').trim()) return '請填寫什麼問題。';
+      } else if (!String(fields.opinion || '').trim()) {
+        return '請填寫意見。';
+      }
+      const email = String(fields.email || '').trim();
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '電郵格式唔正確。';
+      return '';
+    }
 
-        if (frame) {
-          if (currentMode === 'feed') {
-            frame.style.height = '340px';
-          } else {
-            frame.style.height = '480px';
-          }
-        }
+    function postScoutAdmin(payload) {
+      return fetch(SCOUT_ADMIN_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    }
+
+    function initReportSheet() {
+      const backdrop = $('#report-backdrop');
+      const form = $('#report-form');
+      const status = $('#report-status');
+      const submitBtn = $('#report-submit');
+      if (!backdrop || !form) return;
+
+      let kind = 'issue';
+      let lastFocus = null;
+
+      function setStatus(text, cls) {
+        if (!status) return;
+        status.textContent = text || '';
+        status.className = 'push-state' + (cls ? ' ' + cls : '');
       }
 
-      function updateDesignBtns() {
-        const dCyber = $('#modal-design-cyber');
-        const dNavy = $('#modal-design-navy');
-        const dAurora = $('#modal-design-aurora');
-        if (dCyber) { dCyber.className = currentDesign === 'tool_cyber' ? 'push-primary' : 'push-secondary'; }
-        if (dNavy) { dNavy.className = currentDesign === 'tool_scout_navy' ? 'push-primary' : 'push-secondary'; }
-        if (dAurora) { dAurora.className = currentDesign === 'tool_aurora' ? 'push-primary' : 'push-secondary'; }
-      }
-
-      function renderCards() {
-        if (!cardsWrap) return;
-        cardsWrap.innerHTML = '';
-        items.forEach(it => {
-          const isSel = it === selectedItem;
-          const card = document.createElement('div');
-          card.style.cssText = `padding: 12px; border-radius: 12px; border: 1.5px solid ${isSel ? '#3b82f6' : 'rgba(255,255,255,0.08)'}; background: ${isSel ? 'rgba(59,130,246,0.12)' : 'rgba(255,255,255,0.03)'}; cursor: pointer; transition: 0.18s;`;
-          card.innerHTML = `
-            <div style="display: flex; align-items: flex-start; gap: 10px;">
-              <img src="${it.icon}" alt="" style="width: 38px; height: 38px; border-radius: 8px; object-fit: contain; background: rgba(255,255,255,0.08); padding: 2px; flex-shrink: 0;" onerror="this.src='/icons/badge-96.png'">
-              <div style="flex: 1; min-width: 0;">
-                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                  <span class="badge" style="margin: 0;">Scout System</span>
-                  <span class="cat-tag kind" style="font-size: 11px;">${it.kind}</span>
-                  <strong style="font-size: 14.5px; color: #fff;">${it.title}</strong>
-                </div>
-                <p style="margin: 6px 0 0; font-size: 12px; color: #cbd5e1; line-height: 1.45;">${it.description}</p>
-              </div>
-            </div>
-            <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 6px;">
-              <span>支部：<b style="color: #fde68a;">${it.branch}</b> ・ 🌐 ${new URL(it.url).hostname}</span>
-              <a href="${it.url}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline; font-weight: 600;">進入系統 ↗</a>
-            </div>
-          `;
-          card.onclick = (e) => {
-            if (e.target.tagName === 'A') return;
-            selectedItem = it;
-            renderCards();
-            renderCanvas();
-          };
-          cardsWrap.appendChild(card);
+      function setKind(next) {
+        kind = next === 'feedback' ? 'feedback' : 'issue';
+        document.querySelectorAll('.report-tab').forEach(btn => {
+          const on = btn.getAttribute('data-pane') === kind;
+          btn.classList.toggle('active', on);
+          btn.setAttribute('aria-selected', on ? 'true' : 'false');
         });
+        document.querySelectorAll('.report-pane').forEach(pane => {
+          pane.classList.toggle('open', pane.getAttribute('data-pane') === kind);
+        });
+        if (submitBtn) submitBtn.textContent = kind === 'issue' ? '提交問題回報' : '提交意見反映';
+        const title = $('#report-title');
+        if (title) title.textContent = kind === 'issue' ? '問題回報' : '意見反映';
+        setStatus('');
       }
 
-      function setModal(open) {
-        backdrop.hidden = !open;
-        document.body.classList.toggle('push-sheet-open', open);
+      function setReportSheet(open, nextKind) {
+        if (open && nextKind) setKind(nextKind);
+        const isOpen = !backdrop.hidden;
+        if (open === isOpen) return;
         if (open) {
-          updateDesignBtns();
-          renderCards();
-          renderCanvas();
+          const push = $('#push-backdrop');
+          if (push && !push.hidden) push.hidden = true;
+        }
+        backdrop.hidden = !open;
+        document.body.classList.toggle('push-sheet-open', open || !$('#push-backdrop')?.hidden);
+        if (open) {
+          lastFocus = document.activeElement;
+          if (!$('#report-app')?.value) $('#report-app').value = SCOUT_ADMIN_DEFAULT_APP;
+          $('#report-close')?.focus();
+        } else if (lastFocus && typeof lastFocus.focus === 'function') {
+          lastFocus.focus();
         }
       }
 
-      openBtn?.addEventListener('click', () => setModal(true));
-      closeBtn?.addEventListener('click', () => setModal(false));
-      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) setModal(false); });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !backdrop.hidden) setModal(false);
+      $('#report-close')?.addEventListener('click', () => setReportSheet(false));
+      backdrop.addEventListener('click', event => { if (event.target === backdrop) setReportSheet(false); });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !backdrop.hidden) setReportSheet(false);
       });
-
-      $('#modal-design-cyber')?.addEventListener('click', () => {
-        currentDesign = 'tool_cyber';
-        updateDesignBtns();
-        renderCanvas();
+      document.querySelectorAll('.report-tab').forEach(btn => {
+        btn.addEventListener('click', () => setKind(btn.getAttribute('data-pane')));
       });
+      $('#open-issue-report')?.addEventListener('click', () => setReportSheet(true, 'issue'));
+      $('#open-feedback-report')?.addEventListener('click', () => setReportSheet(true, 'feedback'));
+      $('#open-issue-report-side')?.addEventListener('click', () => setReportSheet(true, 'issue'));
+      $('#open-feedback-report-side')?.addEventListener('click', () => setReportSheet(true, 'feedback'));
 
-      $('#modal-design-navy')?.addEventListener('click', () => {
-        currentDesign = 'tool_scout_navy';
-        updateDesignBtns();
-        renderCanvas();
-      });
-
-      $('#modal-design-aurora')?.addEventListener('click', () => {
-        currentDesign = 'tool_aurora';
-        updateDesignBtns();
-        renderCanvas();
-      });
-
-      storyBtn?.addEventListener('click', () => {
-        currentMode = 'story';
-        storyBtn.className = 'push-primary';
-        feedBtn.className = 'push-secondary';
-        renderCanvas();
-      });
-
-      feedBtn?.addEventListener('click', () => {
-        currentMode = 'feed';
-        feedBtn.className = 'push-primary';
-        storyBtn.className = 'push-secondary';
-        renderCanvas();
-      });
-
-      dlBtn?.addEventListener('click', () => {
-        if (!canvas) return;
-        const a = document.createElement('a');
-        a.download = `Story-${selectedItem.title}-${currentMode}.png`;
-        a.href = canvas.toDataURL('image/png');
-        a.click();
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const fields = {
+          app: $('#report-app')?.value || '',
+          problem: $('#report-problem')?.value || '',
+          opinion: $('#report-opinion')?.value || '',
+          name: $('#report-name')?.value || '',
+          email: $('#report-email')?.value || '',
+          phone: $('#report-phone')?.value || '',
+        };
+        const err = validateReportForm(kind, fields);
+        if (err) { setStatus(err, 'error'); return; }
+        const payload = kind === 'issue'
+          ? buildIssuePayload({ ...fields, pageUrl: location.href })
+          : buildFeedbackPayload(fields);
+        if (submitBtn) submitBtn.disabled = true;
+        setStatus('提交中…');
+        try {
+          await postScoutAdmin(payload);
+          setStatus(kind === 'issue' ? '問題回報已提交，多謝！管理員會盡快跟進。' : '意見已收到，多謝你！', 'good');
+          if (kind === 'issue' && $('#report-problem')) $('#report-problem').value = '';
+          if (kind === 'feedback' && $('#report-opinion')) $('#report-opinion').value = '';
+        } catch (e) {
+          setStatus('提交失敗，請稍後再試。', 'error');
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+        }
       });
     }
 
@@ -5798,7 +5811,7 @@
 
     initCompactMobileControls();
     initPushSheet();
-    initToolsPreviewModal();
+    initReportSheet();
     initRegionToggles();
     renderWindowChips();
     renderScopeChips();
@@ -5835,5 +5848,5 @@
     loadPushCatalog();
     loadCache();
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff2d8366d1810ac',t:'MTc3OTM1ODc4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
