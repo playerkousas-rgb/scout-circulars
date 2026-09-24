@@ -1109,7 +1109,7 @@
       "title_selector": "a",
       "tag_selector": "",
       "follow_detail_pages": false,
-      "notes": "推廣實用小工具嘅來源：呢度出嘅通告一律歸類「小工具」（見 subscription_tagging.py 嘅 TOOLS_SOURCES）。每個工具嘅支部以站方親手貼嘅標籤為準（標題未必有支部字眼，例如「密碼旗號」適用多個支部）：配置時填 tag_selector 指向工具卡片上嘅支部標籤元素，抓取會自動帶走並用於配對。網址待定——曾用過渡網址 https://website-kappa-black-24.vercel.app/ ，未來會換；換好後喺呢度填 url、將 enabled 改 true，並按實際頁面調整選擇器。"
+      "notes": "推廣實用小工具嘅來源：呢度出嘅通告一律歸類「小工具」（見 subscription_tagging.py 嘅 TOOLS_SOURCES）。每個工具嘅支部以站方親手貼嘅標籤為準（標題未必有支部字眼，例如「密碼旗號」適用多個支部）：配置時填 tag_selector 指向工具卡片上嘅支部標籤元素，抓取會自動帶走並用於配對。標籤或標題若命中「助手／遊戲／系統／工具／其他／連結」，圖書館會歸入 Scout System 內設分類，否則歸「其他」。「小工具」呢四個字唔會被當成內設「工具」。6個月視窗會一併顯示 6 個月以上的項目（一般通告唔適用），卡片一律標「6個月以上」。網址待定——曾用過渡網址 https://website-kappa-black-24.vercel.app/ ，未來會換；換好後喺呢度填 url、將 enabled 改 true，並按實際頁面調整選擇器。"
     }
   }
 }

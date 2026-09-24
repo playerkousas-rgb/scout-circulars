@@ -162,6 +162,8 @@
     .cat-tag.activity { border-color: rgba(245,158,11,.45); background: rgba(180,83,9,.16); color: #fde68a; }
     .cat-tag.competition { border-color: rgba(232,121,249,.5); background: rgba(126,34,206,.18); color: #f5d0fe; }
     .cat-tag.tools { border-color: rgba(103,232,249,.5); background: rgba(8,145,178,.18); color: #a5f3fc; }
+    .cat-tag.kind { border-color: rgba(103,232,249,.4); background: rgba(8,145,178,.12); color: #cffafe; }
+    .cat-tag.archive { border-color: rgba(148,163,184,.4); background: rgba(148,163,184,.12); color: #e2e8f0; }
     .cat-tag.other { border-color: rgba(148,163,184,.4); background: rgba(100,116,139,.15); color: #e2e8f0; }
     /* ★ 收藏分頁：同時間視窗並排，但用金色區分「唔係時間範圍」*/
     .chip-bm { border-color: rgba(250,204,21,.4); color: #facc15; margin-left: 6px; }
@@ -793,6 +795,75 @@
     const CATEGORY_IDS = new Set(['training', 'service', 'activity', 'competition', 'tools']);
     // 來源級分類：呢啲來源出嘅通告一律係「小工具」（同 subscription_tagging.py 嘅 TOOLS_SOURCES 保持一致）
     const TOOLS_SOURCES = new Set(['Scout System']);
+    // Scout System 側欄／分類掣內設，唔靠抓取先出現。命中次序：站方標籤 → 標題，都冇就歸「其他」。
+    // 「小工具」係成個來源嘅分類，唔當內設「工具」，避免全部掉入工具。
+    const SCOUT_SYSTEM_KINDS = [
+      { id: 'assistant', label: '助手' },
+      { id: 'game', label: '遊戲' },
+      { id: 'system', label: '系統' },
+      { id: 'tool', label: '工具' },
+      { id: 'other', label: '其他' },
+      { id: 'link', label: '連結' },
+    ];
+    const SCOUT_KIND_LABELS = {
+      '助手': 'assistant', '小助手': 'assistant', '集會助手': 'assistant',
+      '遊戲': 'game', '小遊戲': 'game',
+      '系統': 'system',
+      '工具': 'tool',
+      '其他': 'other',
+      '連結': 'link', '有用連結': 'link',
+    };
+    const SCOUT_ARCHIVE_LABEL = '6個月以上';
+
+    function isScoutSystemItem(item) {
+      const src = String(item?.source_site || '').trim();
+      if (TOOLS_SOURCES.has(src)) return true;
+      return String(item?.region || '').trim() === 'Scout System';
+    }
+
+    function isScoutKindSource(sourceId) {
+      return String(sourceId || '').startsWith('SCOUT_KIND:');
+    }
+
+    function scoutKindIdFromSource(sourceId) {
+      return isScoutKindSource(sourceId) ? String(sourceId).slice('SCOUT_KIND:'.length) : '';
+    }
+
+    function viewingScoutSystem() {
+      const src = String(state.activeSource || '');
+      return src === 'Scout System' || src === 'REGION:Scout System' || isScoutKindSource(src);
+    }
+
+    function scoutKindTokens(item) {
+      const raw = [];
+      if (Array.isArray(item?.tags)) raw.push(...item.tags);
+      else if (item?.tags) raw.push(item.tags);
+      for (const key of ['kind', 'ss_kind', 'tool_kind', 'ss_category']) {
+        if (item?.[key]) raw.push(item[key]);
+      }
+      return raw.flatMap(value => String(value).split(/[\s,，、|/]+/)).map(token => token.trim()).filter(Boolean);
+    }
+
+    function scoutKindFromText(text) {
+      const value = String(text || '');
+      const bracket = value.match(/[【\[（(]\s*(助手|小助手|集會助手|遊戲|小遊戲|系統|工具|其他|連結|有用連結)\s*[】\]）)]/);
+      if (bracket && SCOUT_KIND_LABELS[bracket[1]]) return SCOUT_KIND_LABELS[bracket[1]];
+      if (value.includes('助手')) return 'assistant';
+      if (value.includes('遊戲')) return 'game';
+      if (value.includes('連結')) return 'link';
+      if (value.includes('系統') && !/scout\s*system/i.test(value)) return 'system';
+      if (value.replace(/小工具/g, '').includes('工具')) return 'tool';
+      return '';
+    }
+
+    function itemScoutKind(item) {
+      if (!isScoutSystemItem(item)) return '';
+      for (const token of scoutKindTokens(item)) {
+        if (SCOUT_KIND_LABELS[token]) return SCOUT_KIND_LABELS[token];
+        if (SCOUT_SYSTEM_KINDS.some(kind => kind.id === token)) return token;
+      }
+      return scoutKindFromText(item?.title || '') || 'other';
+    }
 
     function itemCategories(item, enrich) {
       if (TOOLS_SOURCES.has(String(item?.source_site || '').trim())) return new Set(['tools']);
@@ -985,6 +1056,7 @@
       return state.enabledRegions.has(regionName);
     }
     function isSourceEnabled(sourceName) {
+      if (isScoutKindSource(sourceName)) return isSourceEnabled('Scout System');
       const region = getRegionForSource(sourceName);
       if (region && !isRegionEnabled(region)) return false;
       if (ALWAYS_ENABLED_REGIONS.has(region)) return true;
@@ -993,6 +1065,7 @@
     }
 
     function getRegionForSource(sourceName) {
+      if (isScoutKindSource(sourceName)) return 'Scout System';
       for (const [regionName, sources] of Object.entries(state.regions)) {
         if (sources.includes(sourceName)) return regionName;
       }
@@ -1151,7 +1224,7 @@
           for (const src of filtered) {
             const srcEnabled = isSourceEnabled(src);
             const cnt = (() => {
-              try { return (state.grouped[src]||[]).filter(it => inWindow(it.date||it.captured_date||'')).length; } catch(_) { return 0; }
+              try { return (state.grouped[src]||[]).filter(it => itemInWindow(it)).length; } catch(_) { return 0; }
             })();
             const it = document.createElement('div');
             it.className = `rt-item rt-district-item ${srcEnabled && regionEnabled ? '' : 'disabled'}`;
@@ -1468,13 +1541,20 @@
     function sourceCount(source) {
       if (!isSourceEnabled(source)) return 0;
       const items = state.grouped[source] || [];
-      return items.filter(item => {
-        const dateValue = item.date || item.captured_date || '';
-        return inWindow(dateValue);
-      }).length;
+      return items.filter(item => itemInWindow(item)).length;
+    }
+
+    function scoutKindCount(kindId) {
+      if (!isSourceEnabled('Scout System')) return 0;
+      return (state.grouped['Scout System'] || []).filter(item => itemInWindow(item) && itemScoutKind(item) === kindId).length;
     }
 
     function getBucket(sourceId) {
+      if (isScoutKindSource(sourceId)) {
+        if (!isSourceEnabled('Scout System')) return [];
+        const kind = scoutKindIdFromSource(sourceId);
+        return (state.grouped['Scout System'] || []).filter(item => itemScoutKind(item) === kind);
+      }
       if (sourceId === 'ALL_SOURCES') {
         let all = [];
         for (const src of state.sourceOrder) {
@@ -1503,6 +1583,10 @@
     function getSourceTitle(sourceId) {
       if (sourceId === 'BOOKMARKS') return '★ 我的收藏';
       if (sourceId === 'ALL_SOURCES') return '全港 (所有層級)';
+      if (isScoutKindSource(sourceId)) {
+        const kind = SCOUT_SYSTEM_KINDS.find(item => item.id === scoutKindIdFromSource(sourceId));
+        return `Scout System · ${kind ? kind.label : ''}`;
+      }
       if (sourceId && sourceId.startsWith('REGION:')) return sourceId.substring(7) + ' (全部)';
       return sourceId || '未選擇來源';
     }
@@ -1519,6 +1603,24 @@
       const now = new Date();
       const diff = now.getTime() - d.getTime();
       return diff <= win.days * 24 * 60 * 60 * 1000;
+    }
+
+    // 6個月視窗先額外包含 6 個月以上。只有 Scout System（小工具）適用；通告維持最近 6 個月。
+    function itemInWindow(item) {
+      const dateValue = (item && (item.date || item.captured_date)) || '';
+      if (inWindow(dateValue)) return true;
+      return currentWindow().id === '180d' && isScoutSystemItem(item);
+    }
+
+    function windowStatusLabel() {
+      const win = currentWindow();
+      if (win.id === '180d') return '6個月（小工具含6個月以上）';
+      return win.label;
+    }
+
+    // 只有 Scout System 先有「6個月以上」標籤，而且全部都有。通告唔標。
+    function scoutArchiveTagged(item) {
+      return isScoutSystemItem(item);
     }
 
     function getCurrentItems() {
@@ -1548,14 +1650,21 @@
         items = [...getBucket(state.activeSource)];
       }
 
+      if (isScoutKindSource(state.activeSource)) {
+        const kind = scoutKindIdFromSource(state.activeSource);
+        items = items.filter(item => itemScoutKind(item) === kind);
+      }
+
       items = items.filter(item => {
         const src = item.source_site || '';
         if (src && !isSourceEnabled(src)) return false;
-        const dateValue = item.date || item.captured_date || '';
-        if (!inWindow(dateValue)) return false;
-        if (state.keyword || state.branch !== 'ALL' || state.category !== 'ALL') {
+        if (!itemInWindow(item)) return false;
+        const needSearch = Boolean(state.keyword) || state.branch !== 'ALL';
+        const needCat = !viewingScoutSystem() && state.category !== 'ALL';
+        if (needSearch || needCat) {
           const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-          return matchesSearchQuery(item, ex, state.keyword, state.branch) && matchesCategory(item, ex, state.category);
+          return (!needSearch || matchesSearchQuery(item, ex, state.keyword, state.branch))
+            && (!needCat || matchesCategory(item, ex, state.category));
         }
         return true;
       });
@@ -1579,6 +1688,7 @@
         state.activeSource = 'BOOKMARKS';
       }
       renderWindowChips();
+      renderCategoryChips();
       renderAccordion();
       renderSidebarMeta();
       renderHeader();
@@ -1592,6 +1702,7 @@
         const btn = document.createElement('button');
         btn.className = `chip ${state.activeSource !== 'BOOKMARKS' && state.windowId === win.id ? 'active' : ''}`;
         btn.textContent = win.label;
+        if (win.id === '180d') btn.title = '通告只顯示最近 6 個月。小工具（只有 Scout System）會一併顯示 6 個月以上，卡片都標「6個月以上」。';
         btn.onclick = () => {
           state.windowId = win.id;
           // 由收藏夾撳時間掣 = 想睇返一般通告，順手切返上次嗰個來源
@@ -1599,6 +1710,7 @@
             state.activeSource = state.lastSource || 'ALL_SOURCES';
           }
           renderWindowChips();
+          renderCategoryChips();
           renderAccordion();
           renderSidebarMeta();
           renderHeader();
@@ -1688,10 +1800,28 @@
     }
 
     // 分類標籤：單選，同支部一樣。揀完會同時過濾卡片 + 收藏夾。
+    // 入咗 Scout System 就改顯示內設六類（助手／遊戲／系統／工具／其他／連結），唔再用通告分類。
     function renderCategoryChips() {
       const wrap = $('#category-chips');
       if (!wrap) return;
       wrap.innerHTML = '';
+      const label = wrap.previousElementSibling;
+      if (viewingScoutSystem()) {
+        if (label && label.classList.contains('field-label')) label.textContent = '小工具：';
+        const activeKind = scoutKindIdFromSource(state.activeSource);
+        for (const kind of SCOUT_SYSTEM_KINDS) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `chip chip-category${activeKind === kind.id ? ' active' : ''}`;
+          btn.dataset.cat = kind.id;
+          btn.textContent = kind.label;
+          btn.setAttribute('aria-pressed', activeKind === kind.id ? 'true' : 'false');
+          btn.onclick = () => chooseSource(activeKind === kind.id ? 'Scout System' : `SCOUT_KIND:${kind.id}`);
+          wrap.appendChild(btn);
+        }
+        return;
+      }
+      if (label && label.classList.contains('field-label')) label.textContent = '分類：';
       for (const tag of CATEGORY_TAGS) {
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -1751,6 +1881,7 @@
     function chooseSource(source) {
       state.activeSource = source;
       renderWindowChips();   // 頂欄 ★／收藏掣高亮要跟住郁
+      renderCategoryChips();
       renderAccordion();
       renderHeader();
       renderCards();
@@ -1792,17 +1923,19 @@
 
       const regions = Object.entries(state.regions);
       for (const [regionName, sources] of regions) {
+        const kindQueryHit = regionName === 'Scout System' && !!q && SCOUT_SYSTEM_KINDS.some(kind => kind.label.toLowerCase().includes(q) || kind.id.includes(q));
         const filteredSources = q
-          ? sources.filter(src => src.toLowerCase().includes(q) || regionName.toLowerCase().includes(q))
+          ? sources.filter(src => src.toLowerCase().includes(q) || regionName.toLowerCase().includes(q) || kindQueryHit)
           : sources;
-        if (!filteredSources.length) continue;
+        if (!filteredSources.length && !kindQueryHit) continue;
 
         const regionEnabled = isRegionEnabled(regionName);
         const regionEl = document.createElement('section');
         regionEl.className = `region ${regionEnabled ? '' : 'rt-disabled'}`.trim();
         const isRegionActive = state.activeSource === 'REGION:' + regionName;
-        const shouldOpen = isRegionActive || filteredSources.includes(state.activeSource);
-        if (shouldOpen && regionEnabled) regionEl.classList.add('open');
+        const shouldOpen = isRegionActive || filteredSources.includes(state.activeSource)
+          || (regionName === 'Scout System' && (state.activeSource === 'Scout System' || isScoutKindSource(state.activeSource)));
+        if ((shouldOpen || kindQueryHit) && regionEnabled) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
         if (total > 0 && regionEnabled) regionEl.classList.add('has-updates');
@@ -1833,7 +1966,27 @@
           list.appendChild(allRegionBtn);
         }
 
+        if (regionName === 'Scout System') {
+          const visibleKinds = (!q || regionName.toLowerCase().includes(q) || 'scout system'.includes(q))
+            ? SCOUT_SYSTEM_KINDS
+            : SCOUT_SYSTEM_KINDS.filter(kind => kind.label.toLowerCase().includes(q) || kind.id.includes(q));
+          for (const kind of visibleKinds) {
+            const cnt = regionEnabled ? scoutKindCount(kind.id) : 0;
+            const active = scoutKindIdFromSource(state.activeSource) === kind.id;
+            const kindBtn = document.createElement('button');
+            kindBtn.className = `source-btn ${active ? 'active' : ''} ${cnt > 0 && regionEnabled ? 'has-updates' : ''}`;
+            kindBtn.innerHTML = `<span>${escapeHtml(kind.label)}</span><small>${regionEnabled ? cnt + ' 則' : '已隱藏'}</small>`;
+            kindBtn.disabled = !regionEnabled;
+            kindBtn.onclick = () => {
+              if (!regionEnabled) return;
+              chooseSource('SCOUT_KIND:' + kind.id);
+            };
+            list.appendChild(kindBtn);
+          }
+        }
+
         for (const source of filteredSources) {
+          if (regionName === 'Scout System' && source === 'Scout System') continue;
           const srcEnabled = isSourceEnabled(source);
           const cnt = sourceCount(source);
           const btn = document.createElement('button');
@@ -2128,7 +2281,7 @@
     }
 
     // Byte-mode QR（EC-M、mask 0）。同 Python qrcode 嘅 MODE_8BIT_BYTE 對齊，
-    // 所以 Story 掃出嚟係通告原文附件，唔經圖書館頁。
+    // 所以 Story 同 4:5 掃出嚟都係通告原文附件，唔經圖書館頁。
     const QR_RS = [
       [1,26,16],[1,44,28],[1,70,44],[2,50,32],[2,67,43],[4,43,27],[4,49,31],
       [2,60,38,2,61,39],[3,58,36,2,59,37],[4,69,43,1,70,44],[1,80,50,4,81,51],
@@ -2357,8 +2510,12 @@
       const drawn = mod * dim;
       const ox = x + Math.floor((size - drawn) / 2);
       const oy = y + Math.floor((size - drawn) / 2);
+      // 圓角要留喺靜區入面，唔好削到模組。得呢一塊白底，外面唔再加卡。
+      const inset = Math.floor((size - drawn) / 2) + quiet * mod;
+      const radius = Math.min(20, Math.max(0, inset - 2));
+      posterRoundRect(ctx, x, y, size, size, radius);
       ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(x, y, size, size);
+      ctx.fill();
       ctx.fillStyle = '#111111';
       for (let r = 0; r < n; r++) {
         const row = matrix[r];
@@ -2369,63 +2526,43 @@
       }
     }
 
-    // Story 專用：直連通告 QR（右）＋分類標語（左）。feed 冇 L.cta，唔會畫。
-    //   自動化（有 item.slogan）：成條白帶，左標語右 QR —— 同 Actions Pillow 草稿一樣。
-    //   手動分享（冇標語）：得右邊一張 QR 卡，左邊留返背景，用戶喺 IG 自己加字。
+    // Story 同 4:5 都有直連 QR：得一塊白圓角方，唔加外框、唔加說明字。
+    // 標語只喺自動化 Story（有 item.slogan）先畫喺 QR 左邊，唔托底。
     function posterStoryCta(ctx, L, item, design) {
-      if (!L || !L.cta) return;
+      if (!L || !L.qr) return;
       try {
         const url = shareUrlFor(item);
+        if (url) drawPosterQr(ctx, url, L.qr.x, L.qr.y, L.qr.size);
+      } catch (_) { /* QR 畫唔到都唔可以拖冧成張圖 */ }
+      if (!L.story) return;
+      try {
         const slogan = storySloganFor(item);
-        if (!url && !slogan) return;
-        const z = L.cta;
-        const h = z.y1 - z.y0;
-        if (h < 40) return;
-        const qr = z.qr;
-        const qrX = L.MX + L.CW - qr - 18;
-        const qrY = z.y0 + 10;
-        if (slogan) {
-          posterRoundRect(ctx, L.MX, z.y0, L.CW, h, 22);
-          ctx.fillStyle = 'rgba(255,255,255,.96)';
-          ctx.fill();
-          ctx.fillStyle = (design && design.accent) || '#3b82f6';
-          ctx.fillRect(L.MX, z.y0 + 14, 8, Math.max(8, h - 28));
-        } else {
-          posterRoundRect(ctx, qrX - 18, z.y0, qr + 36, h, 22);
-          ctx.fillStyle = 'rgba(255,255,255,.96)';
-          ctx.fill();
+        if (!slogan) return;
+        const textX = L.MX;
+        const maxW = Math.max(80, L.qr.x - textX - 28);
+        let size = 28;
+        let lines = [slogan];
+        for (const s of [42, 36, 32, 28]) {
+          ctx.font = `700 ${s}px ${POSTER_FONT}`;
+          lines = posterWrap(ctx, slogan, maxW, 2);
+          size = s;
+          if (!lines[lines.length - 1].endsWith('…')) break;
         }
-        if (url) {
-          drawPosterQr(ctx, url, qrX, qrY, qr);
-          ctx.font = `400 18px ${POSTER_FONT}`;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillStyle = '#333333';
-          ctx.fillText('掃碼開原文附件', qrX + qr / 2, z.y1 - 16);
+        const lh = Math.round(size * 1.25);
+        let y = L.qr.y + L.qr.size / 2 - ((lines.length - 1) * lh) / 2;
+        const onLight = !!(design && design.onLight);
+        ctx.font = `700 ${size}px ${POSTER_FONT}`;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.lineWidth = Math.max(4, Math.round(size * 0.14));
+        ctx.strokeStyle = onLight ? 'rgba(255,255,255,.94)' : 'rgba(0,0,0,.72)';
+        ctx.fillStyle = onLight ? '#111111' : '#FFFFFF';
+        for (const line of lines) {
+          try { ctx.strokeText(line, textX, y); } catch (_) {}
+          ctx.fillText(line, textX, y);
+          y += lh;
         }
-        if (slogan) {
-          const textX = L.MX + 28;
-          const maxW = Math.max(80, (url ? qrX : L.MX + L.CW - 16) - textX - 12);
-          let size = 28;
-          let lines = [slogan];
-          for (const s of [42, 36, 32, 28]) {
-            ctx.font = `700 ${s}px ${POSTER_FONT}`;
-            lines = posterWrap(ctx, slogan, maxW, 3);
-            size = s;
-            if (!lines[lines.length - 1].endsWith('…')) break;
-          }
-          const lh = Math.round(size * 1.25);
-          let y = z.y0 + h / 2 - ((lines.length - 1) * lh) / 2;
-          ctx.font = `700 ${size}px ${POSTER_FONT}`;
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'middle';
-          ctx.fillStyle = '#111111';
-          for (const line of lines) {
-            ctx.fillText(line, textX, y);
-            y += lh;
-          }
-        }
-      } catch (_) { /* QR／標語畫唔到都唔可以拖冧成張圖 */ }
+      } catch (_) { /* 標語畫唔到都唔可以拖冧成張圖 */ }
     }
 
     // ── 版面（feed 4:5 / story 9:16 都係同一套錨點，自動適應）─────────────
@@ -2457,17 +2594,22 @@
         badge: { x: W - MX - 176, y: safeTop + 68, size: 176 },
         zone: { x0: MX, x1: W - MX, y0: safeTop + 210, y1: cardsTop - 114 },
       };
-      // Story 先預留 QR 帶（自動化出圖會喺左邊加標語）。feed 4:5 太窄，唔逼落去。
-      if (story) {
-        const qr = 188;
-        const ctaH = qr + 56;
-        const y1 = L.dateY - 28;
-        const y0 = y1 - ctaH;
-        L.cta = { qr, y0, y1 };
-        L.zone.y1 = Math.min(L.zone.y1, y0 - 18);
+      // 兩個版都喺日期行上面、靠右放一塊 QR。標題區收到 QR 上面。
+      // 底邊避開 competition 金線（dividerY = dateY - 40，厚 8）同日期字。
+      {
+        let qr = story ? 216 : 188;
+        const bottom = L.dateY - 52;
+        const minY = L.safeTop + 260; // 區徽底係 safeTop + 244
+        let y = bottom - qr;
+        if (y < minY) {
+          y = minY;
+          qr = Math.max(132, bottom - y);
+        }
+        L.qr = { x: W - MX - qr, y, size: qr };
+        L.zone.y1 = Math.min(L.zone.y1, y - 18);
       }
       // 設計自己嘅預留位：headline（WANTED／TOP SECRET／重影）＋ strip（REWARD 條）
-      // feed 保持原尺。Story 要同時放 QR，標題區低過 160px 就收細裝飾，唔好食晒標題。
+      // feed 裝飾保持原尺。Story 標題區低過 160px 就收細裝飾，唔好食晒標題。
       if (!story) {
         if (design.headline) {
           const hh = Math.max(88, Math.min(170, Math.round((L.zone.y1 - L.zone.y0) * 0.26)));
@@ -2711,68 +2853,40 @@
       return s + '…';
     }
 
-    // ── PDF 內文出圖嘅「落款位」（廣告位）────────────────────────────────
-    // 就用返純文字分享嗰行，一個字都唔改：---經 通告圖書館 v5.11 整理 @noscout.system
-    // 深鏈擺右邊細字 —— 人哋收到圖就知去邊度搵返完整通告同最新截止日期。
-    // 純 canvas，零 function／零 storage／零上傳，所以「無負擔」。
+    // ── PDF 內文出圖嘅落款（廣告位）────────────────────────────────────
+    // 只印呢一句，一個字都唔改：---經 通告圖書館 v5.11 整理 @noscout.system
+    // 通告一定係白底，所以唔再加底色條／灰字。黑字直接印喺原頁最底。
+    // 字級＝而家廣告主字嘅一半（舊 bandH*0.30 嗰級的 1/2）。
+    // 純 canvas，零 function／零 storage／零上傳。任何一步失敗都回原頁。
     function pdfImageFooter(item, pageNum, pageCount) {
-      const site = String((item && item.source_site) || '').trim();
-      const title = String((item && item.title) || '未命名通告').replace(/\s+/g, ' ').trim();
-      let link = '';
-      try { link = String(noticeLinkFor(item) || '').replace(/^https?:\/\//, ''); } catch (_) { link = ''; }
-      return {
-        title: (site ? `【${site}】` : '') + title,
-        page: pageCount > 1 ? `第 ${pageNum} / ${pageCount} 版` : '',
-        credit: SHARE_CREDIT,   // 原樣：---經 通告圖書館 v5.11 整理 @noscout.system
-        linkLine: link ? `完整通告＋最新截止日期：${link}` : '',
-      };
+      return { credit: SHARE_CREDIT };
     }
 
-    // 版面上：PDF 原頁 + 底部「精簡落款」一行
-    // 落款文字＝同分享文案完全一樣嘅一行（---經 通告圖書館 v5.11 整理 @noscout.system），
-    // 右邊細字放該通告嘅深鏈（人哋收到圖可以直接搵返完整通告＋最新截止日期）。
-    // 任何一步失敗都回原頁，唔會因為落款而失去張圖。
     function composePdfImage(pageCanvas, item, pageNum, pageCount, badgeImg) {
       const W = pageCanvas.width, H = pageCanvas.height;
       if (!W || !H) return pageCanvas;
-      const f = pdfImageFooter(item, pageNum, pageCount);
-      const pad = Math.round(W * 0.042);
-      const bandH = Math.max(112, Math.round(W * 0.135));
+      const credit = pdfImageFooter(item, pageNum, pageCount).credit;
       const out = document.createElement('canvas');
-      out.width = W; out.height = H + bandH;
+      out.width = W;
+      out.height = H; // 唔加底色帶
       const ctx = out.getContext('2d');
       if (!ctx) return pageCanvas;
       try {
         ctx.drawImage(pageCanvas, 0, 0);
-        const y0 = H;
-        ctx.fillStyle = '#0d1626';
-        ctx.fillRect(0, y0, W, bandH);
-        // 頂部品牌 accent 幼線（同 app 一致）
-        ctx.fillStyle = '#3b82f6';
-        ctx.fillRect(0, y0, W, Math.max(3, Math.round(W * 0.004)));
+        const oldBand = Math.max(112, Math.round(W * 0.135));
+        const oldCredit = Math.max(24, Math.round(oldBand * 0.30));
+        let size = Math.max(12, Math.round(oldCredit / 2));
+        const padX = Math.max(8, Math.round(W * 0.03));
         ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        // 第一行（主）：落款 —— 就用分享文案嗰句，一個字都唔改
-        const sCredit = Math.max(24, Math.round(bandH * 0.30));
-        ctx.font = `700 ${sCredit}px ${POSTER_FONT}`;
-        ctx.fillStyle = '#cfe0ff';
-        ctx.fillText(posterTruncate(ctx, f.credit, W - pad * 2), pad, y0 + bandH * 0.36);
-        // 第二行：深鏈（細、暗）—— 人哋收到圖搵得返完整通告同最新截止日期
-        if (f.linkLine) {
-          const sLink = Math.max(20, Math.round(bandH * 0.16));
-          ctx.font = `400 ${sLink}px ${POSTER_FONT}`;
-          ctx.fillStyle = '#7c89a3';
-          ctx.fillText(posterTruncate(ctx, f.linkLine, W - pad * 2), pad, y0 + bandH * 0.74);
+        ctx.textBaseline = 'bottom';
+        ctx.fillStyle = '#000000';
+        ctx.font = `400 ${size}px ${POSTER_FONT}`;
+        const maxW = Math.max(20, W - padX * 2);
+        while (size > 10 && ctx.measureText(credit).width > maxW) {
+          size -= 1;
+          ctx.font = `400 ${size}px ${POSTER_FONT}`;
         }
-        // 多版通告：右上角細字標版數（唔阻落款）
-        if (f.page) {
-          const sPage = Math.max(16, Math.round(bandH * 0.15));
-          ctx.font = `400 ${sPage}px ${POSTER_FONT}`;
-          ctx.textAlign = 'right';
-          ctx.fillStyle = '#5f6d85';
-          ctx.fillText(f.page, W - pad, y0 + bandH * 0.30);
-          ctx.textAlign = 'left';
-        }
+        ctx.fillText(credit, padX, H - Math.max(4, Math.round(size * 0.25)));
       } catch (_) {
         return pageCanvas;
       }
@@ -2896,7 +3010,7 @@
         kind(ctx, L, design, 'over');
         posterDateLine(ctx, L, item, design);
         posterCards(ctx, L, design);
-        if (L.cta) posterStoryCta(ctx, L, item, design);
+        if (L.qr) posterStoryCta(ctx, L, item, design);
         posterFooter(ctx, L, item, design);
       } catch (err) {
         // 任何一款畫唔到都唔應該拖冧成個流程：回 null，呼叫方自己決定提示
@@ -3335,7 +3449,7 @@
                 <button type="button" data-act="pdf-next" aria-label="下一版">下一版 ▶</button>
               </div>
               <img alt="通告內容預覽">
-              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖。每張圖底部都印住圖書館落款同呢張通告嘅專屬連結；多版通告可以撳「💾 全部版數」一次過出齊。</p>
+              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖。每張圖底部都印住圖書館落款（黑字、半號、冇底色條）：---經 通告圖書館 v5.11 整理 @noscout.system。多版通告可以撳「💾 全部版數」一次過出齊。</p>
               <div class="share-ig-actions">
                 <a data-role="pdfdl" download>下載圖片</a>
                 <button type="button" data-act="pdf-all" data-role="pdfall">💾 全部版數</button>
@@ -3360,7 +3474,7 @@
               <img alt="IG 分享圖預覽">
               <div class="share-ig-designs" data-role="igdesigns" role="group" aria-label="揀設計款"></div>
               <p class="share-ig-hint">想換款就撳上面嘅縮圖；默認款跟通告分類自動揀（同 Actions 草稿同一款）。</p>
-              <p class="share-ig-hint">Story 版會加直連通告原文嘅 QR（唔經圖書館頁）。分類標語只喺每日自動化 Story 先加；手動出圖 QR 左邊留咗位，可以喺 IG 自己加字。右上角只貼區／地域／總會 LOGO，冇白框。</p>
+              <p class="share-ig-hint">Story 同 4:5 都會加直連通告原文嘅 QR（白圓角方塊，唔經圖書館頁）。分類標語只喺每日自動化 Story 先加，手動出圖唔加字。右上角只貼區／地域／總會 LOGO，冇白框。</p>
               <p class="share-ig-hint">手機可以長撳張圖直接儲存，或者撳「下載圖片」。</p>
               <div class="share-ig-actions">
                 <a data-role="igdl" download>下載圖片</a>
@@ -3421,7 +3535,7 @@
         const c2 = cv.getContext('2d');
         if (!c2) throw new Error('canvas unavailable');
         await page.render({ canvasContext: c2, viewport: vp }).promise;
-        // 落款帶（精簡一行落款＋深鏈）：見 composePdfImage —— 廣告位，零成本
+        // 落款：黑字印喺白底通告最底，只有 SHARE_CREDIT 一句。見 composePdfImage。
         const outCv = composePdfImage(cv, item, num, pdfDoc.numPages, await badgeOnce());
         const blob = await new Promise((res, rej) => outCv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
         return { blob, name: pdfFileNameFor(num) };
@@ -3829,6 +3943,7 @@
           subtitle = '目前顯示全港所有通告。';
         }
       }
+      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。6個月會包含 6 個月以上（通告唔適用）。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
 
@@ -3864,9 +3979,10 @@
       }
       $('#status-line').innerHTML = `
         模式：<code>${scopeLabel}</code>
-        ${state.personalMode && personalDate ? `・日期：<code>${escapeHtml(personalDate)}</code>` : (!exactNotification ? `・視窗：<code>${escapeHtml(currentWindow().label)}</code>` : '')}
+        ${state.personalMode && personalDate ? `・日期：<code>${escapeHtml(personalDate)}</code>` : (!exactNotification ? `・視窗：<code>${escapeHtml(windowStatusLabel())}</code>` : '')}
         ${!exactNotification && !state.personalMode && state.branch !== 'ALL' ? `・支部：<code>${escapeHtml(state.branch)}</code>` : ''}
-        ${!exactNotification && !state.personalMode && state.category !== 'ALL' ? `・分類：<code>${escapeHtml(currentCat?.label || state.category)}</code>` : ''}
+        ${!exactNotification && !state.personalMode && viewingScoutSystem() && scoutKindIdFromSource(state.activeSource) ? `・分類：<code>${escapeHtml(SCOUT_SYSTEM_KINDS.find(k => k.id === scoutKindIdFromSource(state.activeSource))?.label || '')}</code>` : ''}
+        ${!exactNotification && !state.personalMode && !viewingScoutSystem() && state.category !== 'ALL' ? `・分類：<code>${escapeHtml(currentCat?.label || state.category)}</code>` : ''}
         ${!exactNotification && !state.personalMode ? regionInfo : ''}
         ・顯示：<code>${current}</code>
         ・本來源總數：<code>${totalCurrent}</code>
@@ -3960,10 +4076,13 @@
         const branchHint = state.branch !== 'ALL'
           ? `<br><small>目前只顯示「${escapeHtml(state.branch)}」支部。冇 PDF 內文資料嘅舊通告只能靠標題判斷支部，可以撳「全部」再睇。</small>`
           : '';
-        const catHint = state.category !== 'ALL'
+        const catHint = !viewingScoutSystem() && state.category !== 'ALL'
           ? `<br><small>目前只顯示「${escapeHtml(CATEGORY_TAGS.find(c => c.id === state.category)?.label || state.category)}」分類。分類由 enrich.py 嘅 PDF 內文判斷；如果全部係「其他」，可能 enrich.json 仲未補 categories（跑 python enrich.py --backfill-categories）。</small>`
           : '';
-        messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}${catHint}</div>`;
+        const scoutHint = viewingScoutSystem()
+          ? '<br><small>Scout System 內設分類：助手、遊戲、系統、工具、其他、連結。6個月視窗會包含 6 個月以上的小工具（通告唔會）。</small>'
+          : '';
+        messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}${catHint}${scoutHint}</div>`;
         return;
       }
 
@@ -3988,7 +4107,11 @@
         const catLabels = {
           training: '訓練', service: '服務', activity: '活動', competition: '比賽', tools: '小工具', other: '未分類'
         };
-        const catHtml = [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('');
+        const kindId = isScoutSystemItem(item) ? itemScoutKind(item) : '';
+        const kindLabel = SCOUT_SYSTEM_KINDS.find(k => k.id === kindId)?.label || '';
+        const kindHtml = kindLabel ? `<span class="cat-tag kind">${escapeHtml(kindLabel)}</span>` : '';
+        const archiveHtml = scoutArchiveTagged(item) ? `<span class="cat-tag archive">${SCOUT_ARCHIVE_LABEL}</span>` : '';
+        const catHtml = [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('') + kindHtml + archiveHtml;
         const card = document.createElement('article');
         card.className = `card${item._bmGone ? ' bm-gone' : ''}`;
         card.innerHTML = `
@@ -4055,6 +4178,14 @@
         }
         cardsEl.appendChild(card);
       }
+    }
+
+    function ensureScoutSystemShelf() {
+      if (!Array.isArray(state.grouped['Scout System'])) state.grouped['Scout System'] = [];
+      const list = Array.isArray(state.regions['Scout System']) ? state.regions['Scout System'] : [];
+      if (!list.includes('Scout System')) list.push('Scout System');
+      state.regions['Scout System'] = list;
+      if (!state.sourceOrder.includes('Scout System')) state.sourceOrder.push('Scout System');
     }
 
     function pickDefaultSource() {
@@ -4181,6 +4312,7 @@
         for (const source of Object.keys(state.grouped)) {
           if (!state.sourceOrder.includes(source)) state.sourceOrder.push(source);
         }
+        ensureScoutSystemShelf();
 
         pickDefaultSource();
         renderRegionToggles();

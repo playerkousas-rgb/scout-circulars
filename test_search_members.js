@@ -21,9 +21,9 @@ const src = html.slice(start, end);
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(src + `
-  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory };
+  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS };
 `, ctx);
-const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory } = ctx.__exports;
+const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS } = ctx.__exports;
 
 let pass = 0;
 let fail = 0;
@@ -89,9 +89,18 @@ check('關鍵字中但支部唔中 → 唔顯示', matchesSearchQuery({ title: '
 
 // 5.5 分類：由 enrich.py 抽出嚟嘅 categories 決定，唔係靠標題字眼。
 // 個人化 taxonomy 固定為訓練／服務／活動／比賽；舊 competition 資料映射到獨立比賽。
-checkArray('分類標籤 = 全部 + 訓練/服務/活動/比賽/未分類',
+checkArray('分類標籤 = 全部 + 訓練/服務/活動/比賽/小工具/未分類',
   CATEGORY_TAGS.map(t => t.label),
-  ['全部', '訓練', '服務', '活動', '比賽', '未分類']);
+  ['全部', '訓練', '服務', '活動', '比賽', '小工具', '未分類']);
+checkArray('Scout System 內設分類',
+  SCOUT_SYSTEM_KINDS.map(k => k.label),
+  ['助手', '遊戲', '系統', '工具', '其他', '連結']);
+check('站方標籤「遊戲」歸遊戲', itemScoutKind({ source_site: 'Scout System', title: '密碼旗號', tags: ['幼童軍', '遊戲'] }), 'game');
+check('標題【助手】歸助手', itemScoutKind({ source_site: 'Scout System', title: '【助手】集會流程' }), 'assistant');
+check('冇標籤又冇關鍵詞歸其他', itemScoutKind({ source_site: 'Scout System', title: '密碼旗號' }), 'other');
+check('「小工具」唔會被當成內設工具', itemScoutKind({ source_site: 'Scout System', title: '繩結小工具' }), 'other');
+check('通告唔會被標成 Scout System 分類', itemScoutKind({ source_site: '筲箕灣區', title: '【遊戲】通告' }), '');
+check('Scout System 先算小工具來源', isScoutSystemItem({ source_site: 'Scout System', title: 'x' }), true);
 check('分類：enrich categories 有训练 → training',
   matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training', label: '訓練班' }] }, 'training'), true);
 check('分類：enrich categories 有服务 → service',
