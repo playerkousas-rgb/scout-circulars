@@ -3276,13 +3276,11 @@
     //         面板好多時冇社交 app，撳咗好似壞咗），所以電腦改為
     //        「📋 複製圖片 ＋ 開平台 ＋ 貼上（Ctrl/⌘+V）」。呢個係唯一
     //         可以由網頁推圖入社交平台嘅正路 —— 瀏覽器唔容許網站代你上載圖。
-    //   WhatsApp（2026-09-24）：唔再開 web.whatsapp.com —— 用電腦版 app、冇登入
-    //         網頁版嘅人只會見到「下載／掃碼連結」畫面。改為同「分享至 → WhatsApp」
-    //         同一條 api.whatsapp.com 連結（sameAs），有裝電腦版就直接彈開 app，
-    //         同分享文字一模一樣；冇裝嘅，嗰頁都有「使用 WhatsApp Web」入口。
+    //   電腦 WhatsApp／Telegram：文字同圖片共用 share-launch.html，先試 app，
+    //         冇離開頁面就轉網頁；瀏覽器無法準確查安裝狀態，另留手動網頁入口。
     const IMG_SHARE_TARGETS = [
       { id: 'wa', label: 'WhatsApp', sameAs: 'wa' },
-      { id: 'tg', label: 'Telegram', url: 'https://web.telegram.org/a/' },
+      { id: 'tg', label: 'Telegram', sameAs: 'tg' },
       { id: 'fb', label: 'Facebook', url: 'https://www.facebook.com/' },
       { id: 'x', label: 'X', url: 'https://x.com/compose/post' },
     ];
@@ -3377,6 +3375,13 @@
       }
     }
 
+    function desktopShareUrl(target, url, text) {
+      // 放 fragment 而非 query：分享文案唔會送去本站伺服器／access log。
+      const page = new URL('share-launch.html', document.baseURI);
+      page.hash = `target=${target}&url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+      return page.href;
+    }
+
     function socialLinks(item) {
       const url = shareUrlFor(item);
       // 完整文案（詳情連結 + 落款）：每個平台一條過，唔會喺落款後面重複吊住條附件網址
@@ -3386,8 +3391,8 @@
       const eu = encodeURIComponent(url);
       const et = encodeURIComponent(text);
       return [
-        { id: 'wa', label: 'WhatsApp', href: `https://api.whatsapp.com/send?text=${et}` },
-        { id: 'tg', label: 'Telegram', href: `https://t.me/share/url?url=${eu}&text=${etNoUrl}` },
+        { id: 'wa', label: 'WhatsApp', href: isTouchLikeDevice() ? `https://api.whatsapp.com/send?text=${et}` : desktopShareUrl('wa', url, text) },
+        { id: 'tg', label: 'Telegram', href: isTouchLikeDevice() ? `https://t.me/share/url?url=${eu}&text=${etNoUrl}` : desktopShareUrl('tg', url, shareTextFor(item, false)) },
         { id: 'fb', label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${eu}` },
         { id: 'x', label: 'X', href: `https://twitter.com/intent/tweet?text=${et}` },
         { id: 'line', label: 'LINE', href: `https://social-plugins.line.me/lineit/share?url=${eu}&text=${et}` },
@@ -3785,7 +3790,7 @@
           return;
         }
         if (act === 'img-target') {
-          // 電腦版：複製圖片 ＋ 開平台（WhatsApp 直接開電腦版 app），用戶貼上（Ctrl/⌘+V）就發得。
+          // 電腦版：複製圖片 ＋ 開平台（WhatsApp／Telegram 先試 app，再退網頁），用戶貼上（Ctrl/⌘+V）就發得。
           // 手機（有 Web Share）：直接叫系統分享面板，唔玩網頁貼上。
           const kind = el.dataset.kind;
           const blob = kind === 'ig' ? igBlob : pdfBlob;
