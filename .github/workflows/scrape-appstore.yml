@@ -1,0 +1,83 @@
+# ============================================================
+# ⚠️ 未開啟 —— 未來取代 scrape.yml 嘅版本（core 抓取 ＋ 加掃 SCOUT APP STORE）
+#
+# 而家得 workflow_dispatch（人手先會跑），冇 schedule，所以「現在先不要用」係成立的：
+# 唔會自己跑、唔會碰 cache.json、唔使任何新 secrets（appstore 用公開 anon key 唯讀）。
+#
+# 啟用步驟（日後）：
+#   1. 確認 tools/scrape_appstore.py 喺本機／手動 dispatch 試過 OK；
+#   2. 將下面 on.schedule 嘅註解打開（同 scrape.yml 同一 cron）；
+#   3. 刪除／停用 scrape.yml，避免兩條 workflow 雙重 commit。
+#
+# 流程：core.py → scrape_appstore.py（加掃 store）→ enrich.py 增量 → 健康檢查 → commit
+# ============================================================
+
+name: Scout Notice Scraper + App Store（未啟用・未來取代 scrape.yml）
+
+on:
+  # ── 啟用時打開呢段（00:15 HKT = 16:15 UTC，同 scrape.yml 一致）──
+  # schedule:
+  #   - cron: "15 16 * * *"
+
+  # 手動觸發（預備／測試用；而家唯一入口）
+  workflow_dispatch:
+
+concurrency:
+  group: scout-circulars-scrape-and-push
+  cancel-in-progress: false
+
+jobs:
+  scrape-and-enrich:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      PYTHONUTF8: "1"
+      TZ: "Asia/Hong_Kong"
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra poppler-utils
+          pip install -r .github/requirements-scrape.txt pdfplumber pdfminer.six pillow pytesseract pdf2image
+          playwright install chromium
+
+      # ── Step 1: 跑 core.py 抓通告（同 scrape.yml）──
+      - name: Run core scraper
+        run: |
+          python core.py
+
+      # ── Step 1.5: 加掃 SCOUT APP STORE（新）──
+      # anon key 唯讀；baseline 機制保證首次同步唔會派發舊 app 風暴
+      - name: Scrape SCOUT APP STORE catalogue
+        run: |
+          python tools/scrape_appstore.py
+
+      # ── Step 2: enrich 增量（只抽新入庫 PDF）──
+      - name: Run enrich scraper (incremental only)
+        run: |
+          python enrich.py --verbose
+
+      # ── Step 3: 健康檢查 ──
+      - name: Health check (report only)
+        run: |
+          python check_stale.py || true
+
+      # ── Step 4: 提交並推送 ──
+      - name: Commit & push updated cache + enrich + fingerprints
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cache.json enrich.json fingerprints.json
+          git diff --cached --quiet || (git commit -m "🤖 Auto-update circulars + appstore [skip ci]" && git push)

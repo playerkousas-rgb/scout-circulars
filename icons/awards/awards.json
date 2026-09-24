@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-24T11:54:20.381Z",
+  "awards": {
+    "幼童軍": {
+      "slug": "cub_gba",
+      "award_zh": "金紫荊獎章",
+      "award_en": "Golden Bauhinia Award",
+      "icon256": "icons/awards/cub_gba-256.avif",
+      "icon64": "icons/awards/cub_gba-64.avif"
+    },
+    "童軍": {
+      "slug": "scout_csa",
+      "award_zh": "總領袖獎章",
+      "award_en": "Chief Scout's Award",
+      "icon256": "icons/awards/scout_csa-256.avif",
+      "icon64": "icons/awards/scout_csa-64.avif"
+    },
+    "深資童軍": {
+      "slug": "vs_dsa",
+      "award_zh": "榮譽童軍獎章",
+      "award_en": "Dragon Scout Award",
+      "icon256": "icons/awards/vs_dsa-256.avif",
+      "icon64": "icons/awards/vs_dsa-64.avif"
+    },
+    "樂行童軍": {
+      "slug": "rover_bpa",
+      "award_zh": "貝登堡獎章",
+      "award_en": "Baden-Powell Award",
+      "icon256": "icons/awards/rover_bpa-256.avif",
+      "icon64": "icons/awards/rover_bpa-64.avif"
+    }
+  }
+}
