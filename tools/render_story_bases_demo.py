@@ -240,19 +240,12 @@ def badge_for(item):
     return None
 
 
-def paste_badge(img, badge, xy=(904, 68), size=176):
-    """真區徽。托底跟 app 嘅 posterBadge：白色圓角方（radius ≈ 18% 邊長）。
-    唔用圓圈 —— 方徽下面凸個圓出嚟就係之前嘅 bug。"""
+def paste_badge(img, badge, xy=(844, 68), size=176):
+    """真區徽，唔加白框。只貼區／地域／總會 LOGO。"""
     if badge is None:
         return
     x, y = xy
-    r = round(size * 0.18)
-    tile = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    ImageDraw.Draw(tile).rounded_rectangle([0, 0, size - 1, size - 1], radius=r,
-                                           fill=(255, 255, 255, 242))
-    img.paste(tile, (x, y), tile.split()[3])
-    inner = round(size * 0.84)
-    sc = min(inner / badge.width, inner / badge.height)
+    sc = min(size / badge.width, size / badge.height)
     bw, bh = max(1, round(badge.width * sc)), max(1, round(badge.height * sc))
     b2 = badge.resize((bw, bh), Image.LANCZOS)
     img.paste(b2, (x + (size - bw) // 2, y + (size - bh) // 2), b2)

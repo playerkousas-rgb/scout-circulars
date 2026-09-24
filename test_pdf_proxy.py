@@ -35,11 +35,23 @@ CACHE = {
 class FakeResp:
     """模擬 urllib.request.urlopen 嘅 context manager response。"""
 
-    def __init__(self, body: bytes):
+    def __init__(self, body: bytes, headers=None, status=200):
         self._body = body
+        self._pos = 0
+        self.headers = headers or {}
+        self.status = status
 
     def read(self, n=-1):
-        return self._body if n is None or n < 0 else self._body[:n]
+        if n is None or n < 0:
+            data = self._body[self._pos:]
+            self._pos = len(self._body)
+            return data
+        data = self._body[self._pos:self._pos + n]
+        self._pos += len(data)
+        return data
+
+    def getcode(self):
+        return self.status
 
     def __enter__(self):
         return self
@@ -149,6 +161,38 @@ class FetchPdfTests(unittest.TestCase):
         with patch("urllib.request.urlopen", return_value=FakeResp(body)):
             self.assertEqual(pdf_proxy.fetch_pdf("https://www.klcscout.hk/notice/1"), body)
 
+    def test_content_length_over_4mb_is_413_without_reading_body(self):
+        body = b"%PDF-1.4 " + b"x" * 100
+        headers = {"Content-Length": str(pdf_proxy.MAX_PDF_BYTES + 50)}
+        with patch("urllib.request.urlopen", return_value=FakeResp(body, headers=headers)):
+            with self.assertRaises(pdf_proxy.ProxyError) as caught:
+                pdf_proxy.fetch_pdf("https://www.klcscout.hk/notice/1")
+        self.assertEqual(caught.exception.code, "pdf_too_large")
+        self.assertEqual(caught.exception.extra.get("bytes"), pdf_proxy.MAX_PDF_BYTES + 50)
+
+    def test_slice_never_returns_more_than_vercel_cap(self):
+        body = b"%PDF-1.4\n" + b"y" * (pdf_proxy.MAX_PDF_BYTES * 2)
+        with patch("urllib.request.urlopen", return_value=FakeResp(body, status=200)):
+            data, eof = pdf_proxy.fetch_pdf_slice(
+                "https://www.klcscout.hk/notice/1", 0, pdf_proxy.LOCAL_DRAW_MAX,
+            )
+        self.assertLessEqual(len(data), pdf_proxy.MAX_PDF_BYTES)
+        self.assertTrue(data.startswith(b"%PDF"))
+        self.assertFalse(eof)
+
+    def test_slice_past_local_cap_is_rejected(self):
+        with self.assertRaises(pdf_proxy.ProxyError) as caught:
+            pdf_proxy.fetch_pdf_slice("https://www.klcscout.hk/notice/1", pdf_proxy.LOCAL_DRAW_MAX, 10)
+        self.assertEqual(caught.exception.status, 400)
+
+    def test_oversized_total_is_not_pulled_through_slices(self):
+        headers = {"Content-Length": str(pdf_proxy.LOCAL_DRAW_MAX + 8)}
+        body = b"%PDF-1.4 huge"
+        with patch("urllib.request.urlopen", return_value=FakeResp(body, headers=headers, status=200)):
+            with self.assertRaises(pdf_proxy.ProxyError) as caught:
+                pdf_proxy.fetch_pdf_slice("https://www.klcscout.hk/notice/1", 0, 1024)
+        self.assertEqual((caught.exception.status, caught.exception.code), (413, "pdf_too_large"))
+
 
 class HandlerTests(unittest.TestCase):
     def setUp(self):
@@ -178,6 +222,18 @@ class HandlerTests(unittest.TestCase):
         self.assertEqual(h.status, 403)
         payload = json.loads(h.wfile.getvalue().decode("utf-8"))
         self.assertEqual(payload["error"], "not_a_listed_notice")
+
+    def test_slice_query_stays_under_4mb_and_marks_eof(self):
+        body = b"%PDF-1.4 " + b"z" * 300
+        from urllib.parse import quote
+        h = DummyHandler("/api/pdf-proxy?u=" + quote("https://www.klcscout.hk/notice/1", safe="") + "&off=0&n=1000")
+        with patch("urllib.request.urlopen", return_value=FakeResp(body, status=200)):
+            h.do_GET()
+        self.assertEqual(h.status, 200)
+        out = h.wfile.getvalue()
+        self.assertEqual(out, body)
+        self.assertLessEqual(len(out), pdf_proxy.MAX_PDF_BYTES)
+        self.assertEqual(h.sent_headers.get("X-Pdf-EOF"), "1")
 
     def test_cache_index_down_returns_503(self):
         pdf_proxy._cache_urls = set()
