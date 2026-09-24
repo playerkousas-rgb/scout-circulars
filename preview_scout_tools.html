@@ -525,8 +525,8 @@
       const ctx = cv.getContext('2d');
       const item = currentItem;
 
-      const safeTop = isStory ? 250 : 90;
-      const safeBottom = isStory ? 350 : 90;
+      const safeTop = isStory ? 180 : 65;
+      const safeBottom = isStory ? 170 : 75;
       const MX = 70;
       const CW = W - MX * 2;
 
@@ -637,49 +637,57 @@
 
       const accent = currentDesign === 'tool_scout_navy' ? '#F59E0B' : (currentDesign === 'tool_aurora' ? '#A855F7' : '#38BDF8');
 
-      // ── 2. 頂部 Pill ──────────────────────────────────
+      // ── 2. 頂部 Header：Pill（左）+ App Icon（右）──
+      const topY = isStory ? 180 : 65;
+      const pillH = isStory ? 56 : 48;
+      const pillW = isStory ? 350 : 320;
       const pillText = `SCOUT SYSTEM · 助手`;
-      ctx.font = '700 28px sans-serif';
-      roundRect(ctx, MX, safeTop, 360, 56, 28);
+      roundRect(ctx, MX, topY, pillW, pillH, pillH / 2);
       ctx.fillStyle = currentDesign === 'tool_scout_navy' ? '#F59E0B' : (currentDesign === 'tool_aurora' ? '#7C3AED' : '#0284C7');
       ctx.fill();
       ctx.fillStyle = currentDesign === 'tool_scout_navy' ? '#0F172A' : '#ffffff';
+      ctx.font = `700 ${isStory ? 26 : 22}px sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(pillText, MX + 180, safeTop + 29);
+      ctx.fillText(pillText, MX + pillW / 2, topY + pillH / 2 + 1);
 
-      // ── 3. 右上角 App 圖示 ──────────────────────────────
-      const iconSize = 130;
+      // 右上角 App 圖示
+      const iconSize = isStory ? 120 : 100;
       const iconX = W - MX - iconSize;
-      const iconY = safeTop;
-      roundRect(ctx, iconX, iconY, iconSize, iconSize, 26);
+      const iconY = topY;
+      roundRect(ctx, iconX, iconY, iconSize, iconSize, 22);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
       ctx.fill();
       ctx.strokeStyle = item.color;
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      ctx.font = '900 62px "PingFang TC", sans-serif';
+      ctx.font = `900 ${Math.round(iconSize * 0.48)}px "PingFang TC", sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillStyle = item.color;
       ctx.fillText(item.branch[0], iconX + iconSize / 2, iconY + iconSize / 2);
 
-      // ── 4. 主標題 ──────────────────────────────────────
-      ctx.font = '900 66px "PingFang TC", "Microsoft JhengHei", sans-serif';
+      // ── 3. 主標題與副標題 ──────────────────────────
+      const titleY = isStory ? 340 : 185;
+      const titleSize = isStory ? 68 : 58;
+      ctx.font = `900 ${titleSize}px "PingFang TC", "Microsoft JhengHei", sans-serif`;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       ctx.fillStyle = '#ffffff';
-      ctx.fillText(item.title, MX, safeTop + 96);
+      ctx.fillText(item.title, MX, titleY);
+      const titleBottom = titleY + titleSize;
 
-      // ── 5. 適用支部 Subtitle ────────────────────────────
-      ctx.font = '600 30px sans-serif';
+      // 適用支部 Subtitle
+      const subtitleY = titleBottom + (isStory ? 20 : 16);
+      ctx.font = `600 ${isStory ? 30 : 26}px sans-serif`;
       ctx.fillStyle = accent;
-      ctx.fillText(`適用支部：${item.branch} ｜ 官方訓練進度規範`, MX, safeTop + 186);
+      ctx.fillText(`適用支部：${item.branch} ｜ 官方訓練進度規範`, MX, subtitleY);
+      const subtitleBottom = subtitleY + (isStory ? 30 : 26);
 
-      // ── 6. 中間功能簡介卡（玻璃擬態，不截斷）──────────────
-      const cardY = safeTop + 260;
-      const cardH = isStory ? 520 : 380;
+      // ── 4. 功能簡介卡片（深色半透明玻璃擬態）───────────
+      const cardY = subtitleBottom + (isStory ? 45 : 34);
+      const cardH = isStory ? 640 : 470;
       roundRect(ctx, MX, cardY, CW, cardH, 24);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
       ctx.fill();
@@ -687,24 +695,40 @@
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      ctx.font = '700 30px sans-serif';
+      // 卡片標題
+      ctx.font = `700 ${isStory ? 32 : 26}px sans-serif`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
       ctx.fillStyle = accent;
-      ctx.fillText('💡 系統核心功能與特色', MX + 34, cardY + 45);
+      ctx.fillText('💡 系統核心功能與特色', MX + 34, cardY + (isStory ? 36 : 26));
 
-      ctx.font = '400 33px "PingFang TC", "Microsoft JhengHei", sans-serif';
+      // 內部分割細線
+      const sepY = cardY + (isStory ? 82 : 64);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.fillRect(MX + 34, sepY, CW - 68, 1.5);
+
+      // 簡介內文（折行渲染）
+      ctx.font = `400 ${isStory ? 32 : 28}px "PingFang TC", "Microsoft JhengHei", sans-serif`;
       ctx.fillStyle = '#e2e8f0';
-      wrapText(ctx, item.description, MX + 34, cardY + 110, CW - 68, 52, 5);
+      wrapText(ctx, item.description, MX + 34, sepY + (isStory ? 32 : 24), CW - 68, isStory ? 52 : 44, isStory ? 6 : 4);
 
-      // 底部標籤 Pills
-      const badgeY = cardY + cardH - 66;
+      // 卡片底部標籤 Pills
+      const badgeY = cardY + cardH - (isStory ? 45 : 36);
       let px = MX + 34;
-      px += drawBadgePill(ctx, px, badgeY, `適用：${item.branch}`, item.color) + 12;
-      px += drawBadgePill(ctx, px, badgeY, '網頁免安裝', '#10b981') + 12;
-      drawBadgePill(ctx, px, badgeY, '全港旅團通用', '#38bdf8');
+      px += drawBadgePill(ctx, px, badgeY, `適用：${item.branch}`, item.color, isStory) + 14;
+      px += drawBadgePill(ctx, px, badgeY, '網頁免安裝', '#10b981', isStory) + 14;
+      if (px < MX + CW - 180) {
+        drawBadgePill(ctx, px, badgeY, '全港旅團通用', '#38bdf8', isStory);
+      }
 
-      // ── 7. 下半部：真實向量 QR Code 與引導區 ───────────────
-      const qrY = H - safeBottom - 260;
-      const qrSize = 220;
+      // ── 5. 分界線 ──────────────────────────────────
+      const divY = cardY + cardH + (isStory ? 45 : 30);
+      ctx.fillStyle = accent + '66';
+      ctx.fillRect(MX, divY, CW, 2);
+
+      // ── 6. 下半部：真實向量 QR Code 與引導區 ───────────────
+      const qrY = divY + (isStory ? 40 : 26);
+      const qrSize = isStory ? 250 : 210;
       const qrX = W - MX - qrSize;
 
       // QR 白底方塊
@@ -729,35 +753,39 @@
       }
 
       // 引導文案
-      ctx.font = '700 42px "PingFang TC", sans-serif';
+      ctx.font = `900 ${isStory ? 44 : 36}px "PingFang TC", sans-serif`;
       ctx.fillStyle = '#ffffff';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText('掃描 QR Code', MX, qrY + 32);
+      ctx.fillText('📱 掃描 QR Code', MX, qrY + (isStory ? 20 : 14));
 
-      ctx.font = '700 28px sans-serif';
+      ctx.font = `700 ${isStory ? 30 : 25}px sans-serif`;
       ctx.fillStyle = accent;
-      ctx.fillText('立即開啟雲端系統 ↗', MX, qrY + 94);
+      ctx.fillText('立即開啟雲端系統 ↗', MX, qrY + (isStory ? 80 : 66));
 
-      ctx.font = '400 22px sans-serif';
+      ctx.font = `500 ${isStory ? 24 : 20}px sans-serif`;
       ctx.fillStyle = '#94a3b8';
-      ctx.fillText(`直達網址：${new URL(item.url).hostname}`, MX, qrY + 152);
+      ctx.fillText(`直達網址：${new URL(item.url).hostname}`, MX, qrY + (isStory ? 138 : 114));
 
-      // 分隔線
-      ctx.fillStyle = accent + '88';
-      ctx.fillRect(MX, qrY - 24, CW, 2);
+      ctx.font = `400 ${isStory ? 22 : 18}px sans-serif`;
+      ctx.fillStyle = '#64748B';
+      ctx.fillText('免下載 App · 手機／電腦跨平台即用', MX, qrY + (isStory ? 182 : 152));
 
-      // ── 8. 底部宣傳落款 ────────────────────────────────
-      ctx.font = '500 24px sans-serif';
+      // ── 7. 底部宣傳落款 ────────────────────────────────
+      const footerY = isStory ? 1750 : 1275;
+      ctx.font = `500 ${isStory ? 24 : 20}px sans-serif`;
       ctx.fillStyle = '#64748b';
       ctx.textAlign = 'center';
-      ctx.fillText('經 通告圖書館整理 @noscout.system', W / 2, H - (isStory ? 95 : 30));
+      ctx.textBaseline = 'middle';
+      ctx.fillText('經 通告圖書館整理 @noscout.system', W / 2, footerY);
     }
 
-    function drawBadgePill(ctx, x, y, text, color) {
-      ctx.font = '600 22px sans-serif';
+    function drawBadgePill(ctx, x, y, text, color, isStory) {
+      const h = isStory ? 44 : 38;
+      const fSize = isStory ? 23 : 20;
+      ctx.font = `600 ${fSize}px sans-serif`;
       const tw = ctx.measureText(text).width;
-      roundRect(ctx, x, y, tw + 24, 40, 20);
+      roundRect(ctx, x, y - h / 2, tw + 28, h, h / 2);
       ctx.fillStyle = color + '22';
       ctx.fill();
       ctx.strokeStyle = color + '66';
@@ -766,8 +794,8 @@
       ctx.fillStyle = color;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText(text, x + 12, y + 20);
-      return tw + 24;
+      ctx.fillText(text, x + 14, y);
+      return tw + 28;
     }
 
     function wrapText(ctx, text, x, y, maxW, lineH, maxLines) {

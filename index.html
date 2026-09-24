@@ -2934,10 +2934,12 @@
       }
     }
 
-    function drawPosterTagPill(ctx, x, y, text, color) {
-      ctx.font = `600 22px ${POSTER_FONT}`;
+    function drawPosterTagPill(ctx, x, y, text, color, isStory) {
+      const h = isStory ? 44 : 38;
+      const fSize = isStory ? 23 : 20;
+      ctx.font = `600 ${fSize}px ${POSTER_FONT}`;
       const tw = ctx.measureText(text).width;
-      posterRoundRect(ctx, x, y - 19, tw + 24, 38, 19);
+      posterRoundRect(ctx, x, y - h / 2, tw + 28, h, h / 2);
       ctx.fillStyle = color + '22';
       ctx.fill();
       ctx.strokeStyle = color + '66';
@@ -2946,77 +2948,182 @@
       ctx.fillStyle = color;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText(text, x + 12, y);
-      return tw + 24;
+      ctx.fillText(text, x + 14, y);
+      return tw + 28;
     }
 
-    // Scout System 小工具專屬功能簡介卡與引導區（不再截斷至 22 字、不再出白底小通告卡）
-    function posterToolShowcase(ctx, L, item, design) {
+    // Scout System 小工具專屬功能簡介卡與引導區（全頁面自適應均勻排版，防止上浮重疊）
+    function posterToolShowcase(ctx, L, item, design, badgeImg) {
+      const isStory = !!L.story;
+      const W = L.W, H = L.H;
+      const MX = L.MX, CW = L.CW;
       const branches = (item?.tags || []).filter(t => !['助手','遊戲','系統','工具','其他','連結','電子紀錄冊','集會助手及指南', '小工具'].includes(t));
-      const branchText = branches.length ? branches.join(' / ') : '全體成員';
+      const branchText = branches.length ? branches.join(' / ') : (item?.branch || '全體成員');
       const desc = item?.description || '香港童軍數碼工具平台，支援全團進度管理、領袖審批及官方表格自動化。';
+      const accent = design.accent || '#38BDF8';
 
-      // 1. 中間功能簡介卡（深色半透明玻璃擬態）
-      const cardY = L.story ? (L.safeTop + 340) : (L.safeTop + 270);
-      const cardH = Math.max(220, Math.min(L.story ? 440 : 310, (L.qr ? L.qr.y : (L.H - L.safeBottom - 260)) - cardY - 28));
-      posterRoundRect(ctx, L.MX, cardY, L.CW, cardH, 22);
+      // ── 1. 頂部 Header：Pill（左）+ App Icon（右）──
+      const topY = isStory ? 180 : 65;
+      const pillH = isStory ? 56 : 48;
+      const pillW = isStory ? 350 : 320;
+      const kindLabel = itemScoutKind(item) ? (SCOUT_SYSTEM_KINDS.find(k => k.id === itemScoutKind(item))?.label || '助手') : '助手';
+      const pillText = `SCOUT SYSTEM · ${kindLabel}`;
+      posterRoundRect(ctx, MX, topY, pillW, pillH, pillH / 2);
+      ctx.fillStyle = design.pillBg || '#0284C7';
+      ctx.fill();
+      ctx.fillStyle = design.pillFg || '#FFFFFF';
+      ctx.font = `700 ${isStory ? 26 : 22}px ${POSTER_FONT}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(pillText, MX + pillW / 2, topY + pillH / 2 + 1);
+
+      // 右上角 App 圖示
+      const iconSize = isStory ? 120 : 100;
+      const iconX = W - MX - iconSize;
+      const iconY = topY;
+      const branchColors = { '幼童軍': '#F59E0B', '童軍': '#8B5CF6', '深資童軍': '#EF4444', '樂行童軍': '#10B981', '小童軍': '#3B82F6', '領袖': '#64748B' };
+      const bCol = branchColors[branchText] || accent;
+
+      let iconDrawn = false;
+      if (badgeImg && badgeImg.width) {
+        try {
+          const rr = Math.min(iconSize / badgeImg.width, iconSize / badgeImg.height);
+          const dw = badgeImg.width * rr, dh = badgeImg.height * rr;
+          posterRoundRect(ctx, iconX + (iconSize - dw) / 2, iconY + (iconSize - dh) / 2, dw, dh, 22);
+          ctx.save();
+          ctx.clip();
+          ctx.drawImage(badgeImg, iconX + (iconSize - dw) / 2, iconY + (iconSize - dh) / 2, dw, dh);
+          ctx.restore();
+          iconDrawn = true;
+        } catch (_) {}
+      }
+      if (!iconDrawn) {
+        posterRoundRect(ctx, iconX, iconY, iconSize, iconSize, 22);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.fill();
+        ctx.strokeStyle = bCol;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.font = `900 ${Math.round(iconSize * 0.48)}px ${POSTER_FONT}`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = bCol;
+        ctx.fillText(branchText[0], iconX + iconSize / 2, iconY + iconSize / 2);
+      }
+
+      // ── 2. 主標題與副標題 ──────────────────────────
+      const titleY = isStory ? 340 : 185;
+      const titleSize = isStory ? 68 : 58;
+      const titleLh = isStory ? 88 : 74;
+      ctx.font = `900 ${titleSize}px ${POSTER_FONT}`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      const titleLines = posterWrap(ctx, item.title || 'Scout System 小工具', CW, 2);
+      let curTy = titleY;
+      for (const line of titleLines) {
+        ctx.fillStyle = design.titleColor || '#FFFFFF';
+        ctx.fillText(line, MX, curTy);
+        curTy += titleLh;
+      }
+      const actualTitleHeight = (titleLines.length - 1) * titleLh + titleSize;
+
+      // 適用支部 Subtitle
+      const subtitleY = titleY + actualTitleHeight + (isStory ? 20 : 16);
+      ctx.font = `600 ${isStory ? 30 : 26}px ${POSTER_FONT}`;
+      ctx.fillStyle = accent;
+      ctx.fillText(`適用支部：${branchText} ｜ 官方訓練進度規範`, MX, subtitleY);
+      const subtitleBottom = subtitleY + (isStory ? 30 : 26);
+
+      // ── 3. 功能簡介卡片（深色半透明玻璃擬態）───────────
+      const cardY = subtitleBottom + (isStory ? 45 : 34);
+      const cardH = isStory ? (titleLines.length > 1 ? 580 : 640) : (titleLines.length > 1 ? 430 : 470);
+      posterRoundRect(ctx, MX, cardY, CW, cardH, 24);
       ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
       ctx.fill();
-      ctx.strokeStyle = design.accent ? `${design.accent}55` : 'rgba(255, 255, 255, 0.15)';
+      ctx.strokeStyle = `${accent}55`;
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // 卡片小標題
-      ctx.font = `700 28px ${POSTER_FONT}`;
+      // 卡片標題
+      ctx.font = `700 ${isStory ? 32 : 26}px ${POSTER_FONT}`;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillStyle = design.accent || '#38BDF8';
-      ctx.fillText('💡 系統核心功能與特色', L.MX + 30, cardY + 26);
+      ctx.fillStyle = accent;
+      ctx.fillText('💡 系統核心功能與特色', MX + 34, cardY + (isStory ? 36 : 26));
 
-      // 簡介內文（自動折行，不截斷）
-      ctx.font = `400 32px ${POSTER_FONT}`;
+      // 內部分割細線
+      const sepY = cardY + (isStory ? 82 : 64);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.fillRect(MX + 34, sepY, CW - 68, 1.5);
+
+      // 簡介內文（折行渲染）
+      ctx.font = `400 ${isStory ? 32 : 28}px ${POSTER_FONT}`;
       ctx.fillStyle = '#E2E8F0';
-      const maxW = L.CW - 60;
-      const lines = posterWrap(ctx, desc, maxW, L.story ? 4 : 3);
-      let ty = cardY + 74;
-      for (const line of lines) {
-        ctx.fillText(line, L.MX + 30, ty);
-        ty += 46;
+      const descLines = posterWrap(ctx, desc, CW - 68, isStory ? (titleLines.length > 1 ? 5 : 6) : 4);
+      let descY = sepY + (isStory ? 32 : 24);
+      const descLh = isStory ? 52 : 44;
+      for (const line of descLines) {
+        ctx.fillText(line, MX + 34, descY);
+        descY += descLh;
       }
 
-      // 卡片底行特色標籤 Pills
-      const badgeY = cardY + cardH - 38;
-      const branchColors = { '幼童軍': '#F59E0B', '童軍': '#8B5CF6', '深資童軍': '#EF4444', '樂行童軍': '#10B981', '小童軍': '#3B82F6' };
-      const bCol = branchColors[branchText] || design.accent || '#3B82F6';
-      let pillX = L.MX + 30;
-      pillX += drawPosterTagPill(ctx, pillX, badgeY, `適用：${branchText}`, bCol) + 12;
-      pillX += drawPosterTagPill(ctx, pillX, badgeY, '網頁免安裝', '#10B981') + 12;
-      if (pillX < L.MX + L.CW - 140) {
-        drawPosterTagPill(ctx, pillX, badgeY, '官方進度規範', '#38BDF8');
+      // 卡片底部標籤 Pills
+      const badgeY = cardY + cardH - (isStory ? 45 : 36);
+      let pillX = MX + 34;
+      pillX += drawPosterTagPill(ctx, pillX, badgeY, `適用：${branchText}`, bCol, isStory) + 14;
+      pillX += drawPosterTagPill(ctx, pillX, badgeY, '網頁免安裝', '#10B981', isStory) + 14;
+      if (pillX < MX + CW - 180) {
+        pillX += drawPosterTagPill(ctx, pillX, badgeY, '全港旅團通用', '#38BDF8', isStory) + 14;
       }
 
-      // 2. 下半部 QR Code 與引導區
+      // ── 4. 分界線 ──────────────────────────────────
+      const divY = cardY + cardH + (isStory ? 45 : 30);
+      ctx.fillStyle = `${accent}66`;
+      ctx.fillRect(MX, divY, CW, 2);
+
+      // ── 5. 下半部 QR Code 與引導區 ─────────────────
+      const qrY = divY + (isStory ? 40 : 26);
+      const qrSize = isStory ? 250 : 210;
+      const qrX = W - MX - qrSize;
       const url = shareUrlFor(item);
-      if (L.qr && url) {
-        drawPosterQr(ctx, url, L.qr.x, L.qr.y, L.qr.size);
+
+      if (url) {
+        drawPosterQr(ctx, url, qrX, qrY, qrSize);
 
         // 左側引導文字
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-        ctx.font = `700 40px ${POSTER_FONT}`;
+
+        // 標題
+        ctx.font = `900 ${isStory ? 44 : 36}px ${POSTER_FONT}`;
         ctx.fillStyle = '#FFFFFF';
-        ctx.fillText('掃描 QR Code', L.MX, L.qr.y + 24);
+        ctx.fillText('📱 掃描 QR Code', MX, qrY + (isStory ? 20 : 14));
 
-        ctx.font = `700 28px ${POSTER_FONT}`;
-        ctx.fillStyle = design.accent || '#38BDF8';
-        ctx.fillText('立即使用系統 ↗', L.MX, L.qr.y + 84);
+        // 行動按鈕提示
+        ctx.font = `700 ${isStory ? 30 : 25}px ${POSTER_FONT}`;
+        ctx.fillStyle = accent;
+        ctx.fillText('立即開啟雲端系統 ↗', MX, qrY + (isStory ? 80 : 66));
 
+        // 網址
         let hostname = '';
         try { hostname = new URL(url).hostname; } catch (_) { hostname = url; }
-        ctx.font = `400 22px ${POSTER_FONT}`;
+        ctx.font = `500 ${isStory ? 24 : 20}px ${POSTER_FONT}`;
         ctx.fillStyle = '#94A3B8';
-        ctx.fillText(`直達網址：${hostname}`, L.MX, L.qr.y + 130);
+        ctx.fillText(`直達網址：${hostname}`, MX, qrY + (isStory ? 138 : 114));
+
+        // 說明
+        ctx.font = `400 ${isStory ? 22 : 18}px ${POSTER_FONT}`;
+        ctx.fillStyle = '#64748B';
+        ctx.fillText('免下載 App · 手機／電腦跨平台即用', MX, qrY + (isStory ? 182 : 152));
       }
+
+      // ── 6. 底部落款 ────────────────────────────────
+      const footerY = isStory ? 1750 : 1275;
+      ctx.font = `500 ${isStory ? 24 : 20}px ${POSTER_FONT}`;
+      ctx.fillStyle = '#64748B';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(POSTER_CREDIT, W / 2, footerY);
     }
 
     function posterFooter(ctx, L, item, design) {
@@ -3316,24 +3423,21 @@
         const kind = POSTER_KINDS[design.kind] || POSTER_KINDS.train;
         kind(ctx, L, design, 'bg');
         kind(ctx, L, design, 'deco');
-        posterBadge(ctx, L, o.badgeImg, item);
         const isTool = isScoutSystemItem(item);
-        const pillText = isTool
-          ? `Scout System · ${itemScoutKind(item) ? (SCOUT_SYSTEM_KINDS.find(k => k.id === itemScoutKind(item))?.label || '助手') : '助手'}`
-          : design.pill;
-        posterPill(ctx, pillText, L, design);
-        posterHeadline(ctx, L, design, item);
-        posterTitle(ctx, L, design, posterFitTitle(ctx, item && item.title, L));
-        posterStrip(ctx, L, design);
-        kind(ctx, L, design, 'over');
-        posterDateLine(ctx, L, item, design);
         if (isTool) {
-          posterToolShowcase(ctx, L, item, design);
+          posterToolShowcase(ctx, L, item, design, o.badgeImg);
         } else {
+          posterBadge(ctx, L, o.badgeImg, item);
+          posterPill(ctx, design.pill, L, design);
+          posterHeadline(ctx, L, design, item);
+          posterTitle(ctx, L, design, posterFitTitle(ctx, item && item.title, L));
+          posterStrip(ctx, L, design);
+          kind(ctx, L, design, 'over');
+          posterDateLine(ctx, L, item, design);
           posterCards(ctx, L, design);
           if (L.qr) posterStoryCta(ctx, L, item, design);
+          posterFooter(ctx, L, item, design);
         }
-        posterFooter(ctx, L, item, design);
       } catch (err) {
         // 任何一款畫唔到都唔應該拖冧成個流程：回 null，呼叫方自己決定提示
         return null;
