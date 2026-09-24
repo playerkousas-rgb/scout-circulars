@@ -489,4 +489,3 @@ Check 4 一度紅：上傳 231 個檔、4.15 MB（budget 2 MB）。病源係新�
 - 對照你現有 `core.py` 修補崩潰點
 - 併回你原本已成功抓到的來源
 - 補埋 Vercel / Raw CDN / GitHub Actions 實際部署細節
-��節

@@ -7,6 +7,9 @@
   3. Google Drive view 連結 → 直連轉換
   4. 4MB 上限 → 413；非 PDF（HTML 權限頁）→ 415；上游死 → 502
   5. handler：200 帶 edge cache header；403/503 出 JSON
+  6. 只有 Google 網域先改寫做 Drive 直連（灣仔 index.php?…&id= 唔會被當 Drive）
+  7. 分片讀 body 途中斷線 → 502 upstream_unreachable（唔好誤報 503 cache_index_unavailable）
+  8. serve_local.py 借 handler.do_GET（self 係 LocalHandler）都行得通
 用法：python test_pdf_proxy.py
 """
 
@@ -18,6 +21,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "api"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import pdf_proxy  # noqa: E402
 
@@ -28,8 +32,31 @@ CACHE = {
             {"pdf_url": "https://www.klcscout.hk/cportal/uploads/A 品酒工作坊.pdf", "url": "https://www.klcscout.hk/notice/1"},
             {"pdf_url": "https://drive.google.com/file/d/ABC-1_x/view", "url": "https://drive.google.com/file/d/ABC-1_x/view"},
         ],
+        "灣仔區": [
+            {"url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=634"},
+        ],
     },
 }
+WANCHAI = "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=634"
+
+
+class BrokenBodyResp:
+    """header 已經返咗，但讀 body 途中斷線／逾時（上游問題）。"""
+
+    headers = {}
+    status = 206
+
+    def read(self, n=-1):
+        raise TimeoutError("read timed out")
+
+    def getcode(self):
+        return self.status
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return False
 
 
 class FakeResp:
@@ -128,6 +155,16 @@ class ResolveTests(unittest.TestCase):
         out = pdf_proxy.resolve_fetch_url("https://drive.google.com/file/d/ABC-1_x/view")
         self.assertEqual(out, "https://drive.google.com/uc?export=download&id=ABC-1_x")
 
+    def test_only_google_hosts_are_rewritten_to_drive(self):
+        # 之前 [?&]id= 冇睇網域：灣仔 index.php?…&id=634 會變咗去 Drive 攞 id=634
+        self.assertIsNone(pdf_proxy.drive_direct_url(WANCHAI))
+        self.assertEqual(pdf_proxy.resolve_fetch_url(WANCHAI), WANCHAI)
+        self.assertEqual(
+            pdf_proxy.drive_direct_url("https://docs.google.com/uc?export=download&id=Q1-z"),
+            "https://drive.google.com/uc?export=download&id=Q1-z",
+        )
+        self.assertIsNone(pdf_proxy.drive_direct_url("https://evil.example.com/file/d/ABC/view"))
+
     def test_cache_refresh_failure_fails_closed(self):
         pdf_proxy._cache_urls = set()
         pdf_proxy._cache_loaded_at = 0.0
@@ -194,6 +231,13 @@ class FetchPdfTests(unittest.TestCase):
         self.assertEqual((caught.exception.status, caught.exception.code), (413, "pdf_too_large"))
 
 
+    def test_slice_body_read_error_is_502_not_503(self):
+        with patch("urllib.request.urlopen", return_value=BrokenBodyResp()):
+            with self.assertRaises(pdf_proxy.ProxyError) as caught:
+                pdf_proxy.fetch_pdf_slice("https://www.klcscout.hk/notice/1", 0, 1024)
+        self.assertEqual((caught.exception.status, caught.exception.code), (502, "upstream_unreachable"))
+
+
 class HandlerTests(unittest.TestCase):
     def setUp(self):
         pdf_proxy._cache_urls = pdf_proxy.allowed_urls_from_cache(CACHE)
@@ -243,6 +287,61 @@ class HandlerTests(unittest.TestCase):
             h.do_GET()
         self.assertEqual(h.status, 503)
         self.assertIn(b"cache_index_unavailable", h.wfile.getvalue())
+
+
+class ServeLocalCompatTests(unittest.TestCase):
+    """serve_local.py 借 pdf_proxy.handler.do_GET 嚟用，self 係 LocalHandler（唔係 pdf_proxy.handler 子類）。
+
+    2026-09-24：_send_pdf 做咗 handler method，本機一 proxy PDF 就 AttributeError → 空回應。
+    """
+
+    def setUp(self):
+        pdf_proxy._cache_urls = pdf_proxy.allowed_urls_from_cache(CACHE)
+        pdf_proxy._cache_loaded_at = float("inf")
+
+    def tearDown(self):
+        pdf_proxy._cache_urls = set()
+        pdf_proxy._cache_loaded_at = 0.0
+
+    def _local_handler(self, path):
+        import serve_local
+
+        local_cls = serve_local.build_handler(object, object, pdf_proxy.handler)
+        self.assertFalse(issubclass(local_cls, pdf_proxy.handler))
+
+        class Probe(local_cls):
+            def __init__(self, p):  # 唔起 socket
+                self.path = p
+                self.headers = {}
+                self.wfile = io.BytesIO()
+                self.request_version = "HTTP/1.1"
+                self.status = None
+                self.sent_headers = {}
+
+            def send_response(self, code, message=None):  # noqa: N802
+                self.status = code
+
+            def send_header(self, key, value):  # noqa: N802
+                self.sent_headers[key] = value
+
+            def end_headers(self):  # noqa: N802
+                pass
+
+        return Probe(path)
+
+    def test_full_pdf_and_slice_work_through_local_dev_server(self):
+        from urllib.parse import quote
+
+        body = b"%PDF-1.4 local-dev"
+        u = quote("https://www.klcscout.hk/notice/1", safe="")
+        for suffix in ("", "&off=0&n=1000"):
+            with self.subTest(suffix=suffix or "full"):
+                h = self._local_handler("/api/pdf-proxy?u=" + u + suffix)
+                with patch("urllib.request.urlopen", return_value=FakeResp(body)):
+                    h.do_GET()
+                self.assertEqual(h.status, 200)
+                self.assertEqual(h.sent_headers.get("Content-Type"), "application/pdf")
+                self.assertEqual(h.wfile.getvalue(), body)
 
 
 if __name__ == "__main__":

@@ -2929,7 +2929,9 @@
     // 唔入 repo、唔入 Vercel bundle。攞 bytes 先試用戶自己條網（CORS 得就
     // 零 Vercel），唔得先經 /api/pdf-proxy 過橋。4MB 係 Vercel 單次回應上限
     // （保護 function，唔係畫圖上限）；本機最多拼到 20MB 再畫，用用戶自己資源。
-    // 超過 20MB／來源站死／CDN 斷會 toast，唔會靜靜失敗。
+    // 失敗會 toast，而且講明係邊一步（轉換器／下載／讀 PDF／畫圖）出事 ——
+    // 2026-09-24 教訓：之前一律話「來源站連唔到」，其實係畫完圖先撞
+    // 前端 bug（renderPdfPage 用咗未宣告嘅 nav），誤導咗成個排查方向。
     const LOCAL_PDF_MAX = 20 * 1024 * 1024;
     const PROXY_PDF_MAX = 4 * 1024 * 1024;
     const PDFJS_BASE = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4';
@@ -2952,9 +2954,22 @@
       return `${pdfProxyFor(item)}&off=${off}&n=${n}`;
     }
 
+    // 帶 code 嘅 Error：每一步失敗都有自己個 code，toast 靠佢揀字眼（pdfFailMessage）。
+    function pdfError(code, extra) {
+      const err = new Error(code);
+      err.code = code;
+      if (extra) Object.assign(err, extra);
+      return err;
+    }
+
     // 同 api/pdf_proxy.drive_direct_url：Drive 分享頁唔係 PDF bytes。
+    // 只認 Google 網域：之前任何帶 ?id=／&id= 嘅網址（例如灣仔區
+    // index.php?…&id=634）都會被當成 Drive，砌出條假 Drive 連結。
     function driveDirectUrl(url) {
       const s = String(url || '');
+      let host = '';
+      try { host = new URL(s).hostname.toLowerCase(); } catch (_) { return ''; }
+      if (host !== 'drive.google.com' && host !== 'docs.google.com') return '';
       let m = s.match(/\/file\/d\/([\w-]+)/);
       if (!m) m = s.match(/[?&]id=([\w-]+)/);
       if (!m) return '';
@@ -2980,10 +2995,7 @@
       const declared = Number(resp.headers && resp.headers.get && resp.headers.get('content-length'));
       if (Number.isFinite(declared) && declared > cap) {
         try { if (resp.body && resp.body.cancel) resp.body.cancel(); } catch (_) {}
-        const err = new Error('pdf_too_large');
-        err.code = 'pdf_too_large';
-        err.bytes = declared;
-        throw err;
+        throw pdfError('pdf_too_large', { bytes: declared });
       }
       if (resp.body && typeof resp.body.getReader === 'function') {
         const reader = resp.body.getReader();
@@ -2995,10 +3007,7 @@
           total += step.value.byteLength;
           if (total > cap) {
             try { await reader.cancel(); } catch (_) {}
-            const err = new Error('pdf_too_large');
-            err.code = 'pdf_too_large';
-            err.bytes = total;
-            throw err;
+            throw pdfError('pdf_too_large', { bytes: total });
           }
           chunks.push(step.value);
         }
@@ -3007,50 +3016,60 @@
         for (const c of chunks) { out.set(c, o); o += c.byteLength; }
         return out;
       }
-      if (typeof resp.arrayBuffer !== 'function') throw new Error('no_body');
+      if (typeof resp.arrayBuffer !== 'function') throw pdfError('no_body');
       const buf = new Uint8Array(await resp.arrayBuffer());
-      if (buf.byteLength > cap) {
-        const err = new Error('pdf_too_large');
-        err.code = 'pdf_too_large';
-        err.bytes = buf.byteLength;
-        throw err;
-      }
+      if (buf.byteLength > cap) throw pdfError('pdf_too_large', { bytes: buf.byteLength });
       return buf;
     }
 
+    // 先試用戶自己條網：來源有開 CORS（例如 Contentful CDN）就零 Vercel。
+    // 大部分區會站冇 CORS，瀏覽器會即刻拒絕（console 見到一行 CORS 錯誤係正常），
+    // 回 null 就轉用圖書館橋。等 header 最多 8 秒、成個下載最多 60 秒：
+    // 來源站吊住唔回應都唔會拖死個流程。
+    const DIRECT_HEADER_MS = 8000;
+    const DIRECT_BODY_MS = 60000;
     async function tryDirectPdf(url) {
-      const drive = driveDirectUrl(url);
-      const targets = drive ? [drive] : [url];
-      for (const target of targets) {
+      const target = driveDirectUrl(url) || url;
+      const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+      const abortAfter = (ms) => (ctrl ? setTimeout(() => { try { ctrl.abort(); } catch (_) {} }, ms) : null);
+      let timer = abortAfter(DIRECT_HEADER_MS);
+      try {
         let resp;
         try {
-          resp = await fetch(target, { mode: 'cors', credentials: 'omit', redirect: 'follow' });
-        } catch (_) { continue; }
-        if (!resp || !resp.ok) continue;
+          resp = await fetch(target, { mode: 'cors', credentials: 'omit', redirect: 'follow', signal: ctrl ? ctrl.signal : undefined });
+        } catch (_) { return null; }
+        if (!resp || !resp.ok) return null;
+        clearTimeout(timer);
+        timer = abortAfter(DIRECT_BODY_MS);
         try {
           const buf = await responseBytes(resp, LOCAL_PDF_MAX);
           if (isPdfBytes(buf)) return buf;
         } catch (err) {
           if (err && err.code === 'pdf_too_large') throw err;
         }
+        return null;
+      } finally {
+        clearTimeout(timer);
       }
-      return null;
+    }
+
+    // 圖書館橋回錯：讀返 JSON 嘅 error code（upstream_unreachable／not_a_pdf…）；
+    // Vercel 自己出嘅 HTML 錯誤頁（例如 504 逾時）就用 HTTP status 講。
+    async function proxyFailure(resp) {
+      let payload = null;
+      try { payload = await resp.json(); } catch (_) { payload = null; }
+      if (payload && payload.error) {
+        return pdfError(String(payload.error), { status: resp.status, bytes: payload.bytes });
+      }
+      if (resp.status === 413) return pdfError('pdf_too_large', { status: 413 });
+      if (resp.status === 504) return pdfError('proxy_timeout', { status: 504 });
+      return pdfError('proxy_http_' + resp.status, { status: resp.status });
     }
 
     async function loadPdfViaSlices(item, knownSize) {
-      if (knownSize && knownSize > LOCAL_PDF_MAX) {
-        const err = new Error('pdf_too_large');
-        err.code = 'pdf_too_large';
-        err.bytes = knownSize;
-        throw err;
-      }
+      if (knownSize && knownSize > LOCAL_PDF_MAX) throw pdfError('pdf_too_large', { bytes: knownSize });
       const plan = knownSize ? pdfBytePlan(knownSize) : null;
-      if (plan && !plan.ok) {
-        const err = new Error('pdf_too_large');
-        err.code = 'pdf_too_large';
-        err.bytes = knownSize;
-        throw err;
-      }
+      if (plan && !plan.ok) throw pdfError('pdf_too_large', { bytes: knownSize });
       const steps = plan ? plan.chunks : null;
       const parts = [];
       let off = 0;
@@ -3059,23 +3078,15 @@
         const reqOff = steps ? steps[i].off : off;
         const reqN = steps ? steps[i].n : Math.min(PROXY_PDF_MAX, LOCAL_PDF_MAX - off);
         if (reqN < 1 || reqOff >= LOCAL_PDF_MAX) break;
-        const resp = await fetch(pdfSliceUrl(item, reqOff, reqN));
-        if (resp.status === 413) {
-          let extra = null;
-          try { extra = await resp.json(); } catch (_) {}
-          const err = new Error('pdf_too_large');
-          err.code = 'pdf_too_large';
-          err.bytes = extra && extra.bytes;
-          throw err;
-        }
-        if (!resp.ok) throw new Error('slice_failed');
-        const buf = new Uint8Array(await resp.arrayBuffer());
+        let resp;
+        try { resp = await fetch(pdfSliceUrl(item, reqOff, reqN)); }
+        catch (_) { throw pdfError('proxy_unreachable'); }
+        if (!resp.ok) throw await proxyFailure(resp);
+        let buf;
+        try { buf = new Uint8Array(await resp.arrayBuffer()); }
+        catch (_) { throw pdfError('proxy_unreachable'); }
         if (!buf.length) break;
-        if (reqOff === 0 && !isPdfBytes(buf)) {
-          const err = new Error('not_a_pdf');
-          err.code = 'not_a_pdf';
-          throw err;
-        }
+        if (reqOff === 0 && !isPdfBytes(buf)) throw pdfError('not_a_pdf');
         parts.push(buf);
         off = reqOff + buf.length;
         const eof = resp.headers && resp.headers.get && resp.headers.get('X-Pdf-EOF') === '1';
@@ -3086,11 +3097,7 @@
       const out = new Uint8Array(total);
       let o = 0;
       for (const p of parts) { out.set(p, o); o += p.length; }
-      if (!isPdfBytes(out)) {
-        const err = new Error('not_a_pdf');
-        err.code = 'not_a_pdf';
-        throw err;
-      }
+      if (!isPdfBytes(out)) throw pdfError('not_a_pdf');
       return out;
     }
 
@@ -3098,36 +3105,52 @@
     // 大過 4MB 就分片拼返喺本機再畫。
     async function loadNoticePdfBytes(item) {
       const url = shareUrlFor(item);
-      if (!url) throw new Error('no_url');
+      if (!url) throw pdfError('no_url');
       try {
         const direct = await tryDirectPdf(url);
         if (direct) return direct;
       } catch (err) {
         if (err && err.code === 'pdf_too_large') throw err;
       }
-      const full = await fetch(pdfProxyFor(item));
+      let full;
+      try { full = await fetch(pdfProxyFor(item)); }
+      catch (_) { throw pdfError('proxy_unreachable'); }
       const ctype = (full.headers && full.headers.get && full.headers.get('content-type')) || '';
       if (full.ok && !/json/i.test(ctype)) {
-        const buf = await responseBytes(full, LOCAL_PDF_MAX);
+        let buf;
+        try { buf = await responseBytes(full, LOCAL_PDF_MAX); }
+        catch (err) { throw (err && err.code) ? err : pdfError('proxy_unreachable'); }
         if (isPdfBytes(buf)) return buf;
-        const err = new Error('not_a_pdf');
-        err.code = 'not_a_pdf';
-        throw err;
+        throw pdfError('not_a_pdf');
       }
-      let payload = null;
-      try { payload = await full.json(); } catch (_) { payload = null; }
-      if (full.status === 413 || (payload && payload.error === 'pdf_too_large')) {
-        if (payload && payload.bytes > LOCAL_PDF_MAX) {
-          const err = new Error('pdf_too_large');
-          err.code = 'pdf_too_large';
-          err.bytes = payload.bytes;
-          throw err;
-        }
-        return loadPdfViaSlices(item, payload && payload.bytes);
+      const err = await proxyFailure(full);
+      if (err.code === 'pdf_too_large') {
+        if (err.bytes > LOCAL_PDF_MAX) throw err;
+        return loadPdfViaSlices(item, err.bytes);
       }
-      const err = new Error((payload && payload.error) || 'proxy_failed');
-      err.code = (payload && payload.error) || 'proxy_failed';
       throw err;
+    }
+
+    // toast 字眼：講清楚係邊一步出事，用戶先知下一步點做。一律「轉換唔到：」開頭
+    // （20MB 嗰句除外，照舊）；冇對應字眼嘅 code 照印出嚟（例如 proxy_http_500），方便報錯。
+    function pdfFailMessage(err) {
+      const code = String((err && err.code) || '');
+      const tail = '可撳「複製網址」直接開附件。';
+      if (code === 'pdf_too_large') return '呢份 PDF 超過 20MB，本機唔會畫。' + tail;
+      const reasons = {
+        not_a_pdf: '呢個附件唔係 PDF（可能係網頁／Word／Excel／圖片）。' + tail,
+        upstream_unreachable: '圖書館橋攞唔到呢份 PDF（來源站太慢或者擋咗伺服器），請遲啲再試。' + tail,
+        proxy_timeout: '圖書館橋等來源站等到逾時，請遲啲再試。' + tail,
+        not_a_listed_notice: '通告清單啱啱更新咗，請重新整理頁面再試。',
+        cache_index_unavailable: '圖書館橋暫時讀唔到通告清單，請遲啲再試。',
+        proxy_unreachable: '連唔到圖書館橋，請檢查你部機嘅網絡再試。',
+        pdfjs_load_failed: '載入唔到 PDF 轉換器（pdf.js），請檢查網絡或者遲啲再試。',
+        pdf_password: '呢份 PDF 有密碼保護。' + tail,
+        pdf_invalid: '呢份 PDF 讀唔到（檔案可能損壞）。' + tail,
+        pdf_render_failed: 'PDF 下載咗，但畫圖途中出錯（PDF 太複雜或者部機記憶體唔夠）。' + tail,
+      };
+      const why = Object.prototype.hasOwnProperty.call(reasons, code) ? reasons[code] : '';
+      return '轉換唔到：' + (why || `出錯（${code || 'unknown'}）。` + tail);
     }
 
     // ── 圖片分享：電腦同手機走兩條完全唔同嘅路 ──────────────────────────
@@ -3194,13 +3217,14 @@
     }
 
     let toastTimer = null;
-    function showToast(message) {
+    // ms：預設 2.4 秒；錯誤提示字多，呼叫方可以畀長啲時間俾人睇完
+    function showToast(message, ms) {
       let el = document.querySelector('.share-toast');
       if (!el) { el = document.createElement('div'); el.className = 'share-toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
       el.textContent = message;
       el.classList.add('show');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+      toastTimer = setTimeout(() => el.classList.remove('show'), ms || 2400);
     }
 
     async function copyText(text) {
@@ -3444,6 +3468,9 @@
       async function renderPdfPage(num) {
         const box = sheet.querySelector('[data-role="pdfbox"]');
         const status = box.querySelector('[data-role="pdfstatus"]');
+        // ⚠️ 唔好刪：2026-09-23 拆 renderPdfPageBlob 時漏咗呢行，
+        // 之後每次畫完圖都 ReferenceError → 預覽被收埋＋誤報「來源站連唔到」。
+        const nav = box.querySelector('[data-role="pdfnav"]');
         status.textContent = `畫緊第 ${num} 版（共 ${pdfDoc.numPages} 版）…`;
         const { blob, name } = await renderPdfPageBlob(num);
         if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
@@ -3538,28 +3565,38 @@
           box.hidden = false;
           status.textContent = '載入緊轉換器（第一次要幾秒）…';
           try {
-            const pdfjs = await loadPdfJs();
+            // 每一步各自包一層，失敗就帶住嗰步嘅 code（toast 見 pdfFailMessage）
+            let pdfjs;
+            try { pdfjs = await loadPdfJs(); }
+            catch (e) { throw pdfError('pdfjs_load_failed', { cause: e }); }
             status.textContent = '你部機下載緊 PDF（最大 20MB，畫圖唔經伺服器）…';
             const key = shareUrlFor(item);
             if (!pdfDoc || pdfKey !== key) {
               if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} pdfDoc = null; }
               const data = await loadNoticePdfBytes(item);
-              pdfDoc = await pdfjs.getDocument({
-                data,
-                cMapUrl: `${PDFJS_BASE}/cmaps/`,
-                cMapPacked: true,
-              }).promise;
+              status.textContent = '讀緊 PDF…';
+              try {
+                pdfDoc = await pdfjs.getDocument({
+                  data,
+                  cMapUrl: `${PDFJS_BASE}/cmaps/`,
+                  cMapPacked: true,
+                  // 冇嵌入字型（Helvetica／Times 等）嘅 PDF 用 pdf.js 自帶標準字型，手機唔會走樣
+                  standardFontDataUrl: `${PDFJS_BASE}/standard_fonts/`,
+                }).promise;
+              } catch (e) {
+                throw pdfError(e && e.name === 'PasswordException' ? 'pdf_password' : 'pdf_invalid', { cause: e });
+              }
               pdfKey = key;
             }
-            await renderPdfPage(1);
+            try { await renderPdfPage(1); }
+            catch (e) { throw pdfError('pdf_render_failed', { cause: e }); }
           } catch (err) {
             box.hidden = true;
             if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} pdfDoc = null; }
-            if (err && err.code === 'pdf_too_large') {
-              showToast('呢份 PDF 超過 20MB，本機唔會畫。可撳「複製網址」直接開附件。');
-            } else {
-              showToast('轉換唔到：來源站連唔到，或呢個瀏覽器唔支援。可撳「複製網址」直接開附件。');
-            }
+            pdfKey = '';
+            showToast(pdfFailMessage(err), 6000);
+            // 真正原因留喺 console（報錯時開 DevTools 就睇到）
+            try { console.warn('[轉換內文做圖]', (err && err.code) || '', (err && err.cause) || err); } catch (_) {}
           } finally {
             el.disabled = false;
           }
@@ -5008,6 +5045,4 @@
     loadCache();
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff2d8366d1810ac',t:'MTc3OTM1ODc4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
-e=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
