@@ -78,8 +78,21 @@ def allowed_urls_from_cache(cache_obj) -> set:
     return urls
 
 
+_DRIVE_HOSTS = {"drive.google.com", "docs.google.com"}
+
+
 def drive_direct_url(url):
-    """Google Drive 分享連結 → 直接下載連結；認唔出就回 None（同 enrich.py）。"""
+    """Google Drive 分享連結 → 直接下載連結；認唔出就回 None（同 enrich.py）。
+
+    只認 Google 網域（enrich.py 呼叫前都有做同樣檢查）：之前任何帶
+    ?id=／&id= 嘅網址（例如灣仔區 index.php?…&id=634）都會被砌成假 Drive 連結。
+    """
+    try:
+        host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    except ValueError:
+        return None
+    if host not in _DRIVE_HOSTS:
+        return None
     m = re.search(r"/file/d/([\w-]+)", url)
     if not m:
         m = re.search(r"[?&]id=([\w-]+)", url)
@@ -197,34 +210,59 @@ def fetch_pdf_slice(url: str, off: int, n: int) -> tuple[bytes, bool]:
         raise
     except Exception as exc:
         raise ProxyError(502, "upstream_unreachable") from exc
-    with resp_cm as resp:
-        code = getattr(resp, "status", None) or resp.getcode()
-        if code == 416:
-            return b"", True
-        total = _content_range_total(resp) or _content_length(resp)
-        if total is not None and total > LOCAL_DRAW_MAX:
-            raise ProxyError(413, "pdf_too_large", extra={"bytes": total})
-        if code == 206:
+    try:
+        with resp_cm as resp:
+            code = getattr(resp, "status", None) or resp.getcode()
+            if code == 416:
+                return b"", True
+            total = _content_range_total(resp) or _content_length(resp)
+            if total is not None and total > LOCAL_DRAW_MAX:
+                raise ProxyError(413, "pdf_too_large", extra={"bytes": total})
+            if code == 206:
+                data = resp.read(n)
+                if off == 0 and data and not data.startswith(b"%PDF"):
+                    raise ProxyError(415, "not_a_pdf")
+                eof = len(data) < n or (total is not None and off + len(data) >= total)
+                return data, eof
+            # 上游忽略 Range，回 200 全檔。丟棄 off，只回 n，保護 Vercel 回應上限。
+            skipped = 0
+            while skipped < off:
+                chunk = resp.read(min(64 * 1024, off - skipped))
+                if not chunk:
+                    return b"", True
+                skipped += len(chunk)
             data = resp.read(n)
             if off == 0 and data and not data.startswith(b"%PDF"):
                 raise ProxyError(415, "not_a_pdf")
-            eof = len(data) < n or (total is not None and off + len(data) >= total)
+            extra = resp.read(1)
+            eof = not extra
+            if not eof and off + len(data) >= LOCAL_DRAW_MAX:
+                raise ProxyError(413, "pdf_too_large", extra={"bytes": LOCAL_DRAW_MAX + 1})
             return data, eof
-        # 上游忽略 Range，回 200 全檔。丟棄 off，只回 n，保護 Vercel 回應上限。
-        skipped = 0
-        while skipped < off:
-            chunk = resp.read(min(64 * 1024, off - skipped))
-            if not chunk:
-                return b"", True
-            skipped += len(chunk)
-        data = resp.read(n)
-        if off == 0 and data and not data.startswith(b"%PDF"):
-            raise ProxyError(415, "not_a_pdf")
-        extra = resp.read(1)
-        eof = not extra
-        if not eof and off + len(data) >= LOCAL_DRAW_MAX:
-            raise ProxyError(413, "pdf_too_large", extra={"bytes": LOCAL_DRAW_MAX + 1})
-        return data, eof
+    except ProxyError:
+        raise
+    except Exception as exc:
+        # 讀 body 途中斷線／逾時係上游問題：唔好跌落 do_GET 嘅 catch-all，
+        # 嗰度會誤報成 503 cache_index_unavailable。
+        raise ProxyError(502, "upstream_unreachable") from exc
+
+
+def _send_pdf(h: BaseHTTPRequestHandler, data: bytes, eof: bool = True) -> None:
+    # 模組層函數（同 _send_json 一樣），唔好做 handler method：
+    # serve_local.py 係借 handler.do_GET 嚟用（self 係佢自己個 LocalHandler），
+    # 做 method 嘅話本機會 AttributeError → 空回應（2026-09-24 就係咁）。
+    h.send_response(200)
+    h.send_header("Content-Type", "application/pdf")
+    h.send_header("Content-Length", str(len(data)))
+    h.send_header("Access-Control-Allow-Origin", "*")
+    # 通告 PDF 基本唔變：edge CDN cache 一星期，重複出圖零 function 成本。
+    # 分片都 cache：同一片第二個人係 CDN 直出，唔會重跑 function。
+    h.send_header("Cache-Control", "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400")
+    h.send_header("Content-Disposition", "inline")
+    h.send_header("X-Content-Type-Options", "nosniff")
+    h.send_header("X-Pdf-EOF", "1" if eof else "0")
+    h.end_headers()
+    h.wfile.write(data)
 
 
 def _send_json(h: BaseHTTPRequestHandler, status: int, payload: dict) -> None:
@@ -262,7 +300,7 @@ class handler(BaseHTTPRequestHandler):  # noqa: N801 - Vercel function conventio
                 off = _query_int(qs, "off")
                 n = _query_int(qs, "n")
                 data, eof = fetch_pdf_slice(fetch_url, 0 if off is None else off, MAX_PDF_BYTES if n is None else n)
-                self._send_pdf(data, eof=eof)
+                _send_pdf(self, data, eof=eof)
                 return
             data = fetch_pdf(fetch_url)
         except ProxyError as exc:
@@ -272,18 +310,4 @@ class handler(BaseHTTPRequestHandler):  # noqa: N801 - Vercel function conventio
             # raw cache 攞唔到／JSON 異常：fail closed，唔好無名單照 proxy
             _send_json(self, 503, {"ok": False, "error": "cache_index_unavailable"})
             return
-        self._send_pdf(data, eof=True)
-
-    def _send_pdf(self, data: bytes, eof: bool = True) -> None:
-        self.send_response(200)
-        self.send_header("Content-Type", "application/pdf")
-        self.send_header("Content-Length", str(len(data)))
-        self.send_header("Access-Control-Allow-Origin", "*")
-        # 通告 PDF 基本唔變：edge CDN cache 一星期，重複出圖零 function 成本。
-        # 分片都 cache：同一片第二個人係 CDN 直出，唔會重跑 function。
-        self.send_header("Cache-Control", "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400")
-        self.send_header("Content-Disposition", "inline")
-        self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("X-Pdf-EOF", "1" if eof else "0")
-        self.end_headers()
-        self.wfile.write(data)
+        _send_pdf(self, data, eof=True)

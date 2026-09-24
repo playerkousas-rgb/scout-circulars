@@ -60,9 +60,27 @@ let storyIndex = {
   items: [{ k: PDF_B, f: 'stories/2026-09-21/00_train_blue_abc123.png', t: '童軍技能訓練班' }],
 };
 
+// 轉換內文做圖測試用：假 PDF bytes 同假回應
+const PDF_BYTES = new TextEncoder().encode('%PDF-1.4\n% fake notice\n%%EOF\n');
+const pdfResp = (bytes) => ({
+  ok: true, status: 200, body: null,
+  headers: { get: (k) => ({ 'content-type': 'application/pdf', 'content-length': String(bytes.length) })[String(k).toLowerCase()] || null },
+  arrayBuffer: () => Promise.resolve(bytes.slice().buffer),
+});
+const jsonResp = (status, payload) => ({
+  ok: false, status, body: null,
+  headers: { get: (k) => (String(k).toLowerCase() === 'content-type' ? 'application/json' : null) },
+  json: () => Promise.resolve(payload),
+});
+
 function fakeFetch(win) {
   return (u, opts) => {
     const s = String(u);
+    // win.__pdfRoute（測試自己設）：接管 PDF 直連同 /api/pdf-proxy，其餘照舊
+    if (win.__pdfRoute) {
+      const routed = win.__pdfRoute(s, opts);
+      if (routed) return routed;
+    }
     if (s.includes('enrich')) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(enrich) });
     if (s.includes('/stories/stories/index.json')) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(storyIndex) });
     return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(cache) });
@@ -292,7 +310,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
      '再撳同一款：no-op，唔會彈返自動款');
 
-  // ── Story 圖：冇白框、冇頒佈欄、冇絕密黑條、有標語＋直連 QR ──
+  // ── Story 圖：冇白框、冇頒佈欄、冇絕密黑條、有直連 QR；標語只限自動化（2026-09-24）──
   ok(!html.includes("rows.push(['頒佈'"), '資料卡唔再重複頒佈（上方日期行已經有）');
   ok(!html.includes('rgba(255,255,255,.95)'), '區徽唔再加白框');
   ok(!html.includes('兩粒「刪節」黑條') && !html.includes('L.dateY - 150'), '絕密檔案唔再畫兩粒黑色不知名框');
@@ -303,7 +321,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     { headline: null },
   );
   ok(storyL.rows.map(r => r[0]).join(',') === '截止,對象,費用', 'story 資料卡得截止／對象／費用：' + storyL.rows.map(r => r[0]).join(','));
-  ok(storyL.cta && storyL.cta.qr >= 160 && storyL.cta.y0 < storyL.dateY, 'story 預留標語＋QR，唔蓋住日期行');
+  ok(storyL.cta && storyL.cta.qr >= 160 && storyL.cta.y0 < storyL.dateY, 'story 預留 QR 帶（自動化出圖先喺左邊加標語），唔蓋住日期行');
   const feedL = w.eval('posterLayout')(
     { title: 't', date: '2026-09-24', pdf_url: 'https://x/1.pdf' },
     { deadline: '2026-10-01' },
@@ -311,11 +329,38 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     {},
   );
   ok(!feedL.cta && feedL.rows.every(r => r[0] !== '頒佈'), 'feed 唔逼 QR，同樣冇頒佈欄');
-  ok(w.eval('storySloganFor')({ slogan: '自定標語', category: 'training' }) === '自定標語', '已配標語就用返');
+  ok(w.eval('storySloganFor')({ slogan: '自定標語', category: 'training' }) === '自定標語', '自動化排隊時配咗標語就用返');
   const trainLines = ['解鎖新技能','Skill Up!','學多樣，識多樣','今日學，明日用','升級進行中','成為更勁嘅自己','新手都歡迎','學到就係你嘅'];
-  const slogan = w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' });
-  ok(trainLines.includes(slogan), '訓練標語出自八句：' + slogan);
-  ok(w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' }) === slogan, '同一通告標語穩定');
+  ok(w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' }) === '',
+     '手動分享（冇配標語）唔加標語：用戶自己喺 IG 加字，更彈性');
+  ok(w.eval('Object.keys(STORY_SLOGANS).sort().join()') === 'activity,competition,service,training',
+     '標語得四類八句（同 story_queue.STORY_SLOGANS 一致），冇 app 專用「其他」類');
+  {
+    const assigned = w.eval('assignStorySlogans')([{ category: 'training' }, { category: 'training' }, { category: 'other' }]);
+    ok(assigned[0].slogan === trainLines[0] && assigned[1].slogan === trainLines[1] && !assigned[2].slogan,
+       '?batch=1 出圖台照配標語：同分類逐張輪流（同 story_queue.py），「其他」唔配');
+  }
+  {
+    // 真係畫一次：手動 Story 出 QR 卡但冇標語；自動化（item.slogan）先畫標語
+    const texts = [];
+    const proto = w.HTMLCanvasElement.prototype;
+    const origGet = proto.getContext;
+    proto.getContext = function () {
+      const c = origGet.apply(this, arguments);
+      c.fillText = (t) => { texts.push(String(t)); };
+      return c;
+    };
+    const base = { title: '手動測試', pdf_url: PDF_B, url: PDF_B, source_site: '筲箕灣區', region: '港島地域', date: iso(today), category: 'training' };
+    w.eval('renderPoster')(base, { mode: 'story', design: 'auto' });
+    const manualTexts = texts.splice(0);
+    w.eval('renderPoster')(Object.assign({}, base, { slogan: trainLines[3] }), { mode: 'story', design: 'auto' });
+    const autoTexts = texts.splice(0);
+    proto.getContext = origGet;
+    const allLines = Object.values(w.eval('STORY_SLOGANS')).flat();
+    ok(manualTexts.includes('掃碼開原文附件') && !manualTexts.some((t) => allLines.includes(t)),
+       '手動 Story 版：照出直連 QR，但冇標語');
+    ok(autoTexts.includes(trainLines[3]) && autoTexts.includes('掃碼開原文附件'), '自動化 Story（有 item.slogan）：標語＋QR 照畫');
+  }
   const qr = w.eval('posterQrMatrix')('https://scout.org.hk/uploads/B.pdf');
   ok(qr && qr.length === 29 && qr[0].slice(0, 7).join('') === '1111111' && qr[14][14] === 1 && qr[28][28] === 1,
      'Story QR 同 Python qrcode（byte／EC-M／mask 0）對齊，直連通告附件');
@@ -349,8 +394,123 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok($$(d, '[data-role="pdfsocial"] button[data-act="img-target"]').map(b => b.dataset.target).join(',') === 'wa,tg,fb,x',
      'PDF 圖有「貼去 WhatsApp／Telegram／Facebook／X」四個掣（電腦版複製＋開平台）');
   click(w, p2iBtn); await wait(160);
-  ok(d.querySelector('.share-toast') && (d.querySelector('.share-toast').textContent || '').includes('轉換唔到'),
-     'jsdom 載入唔到 pdf.js → 有 toast 回饋，唔會靜靜失敗');
+  ok(d.querySelector('.share-toast') && (d.querySelector('.share-toast').textContent || '').includes('轉換唔到：載入唔到 PDF 轉換器'),
+     'jsdom 載入唔到 pdf.js → toast 講明係轉換器載入唔到（唔再一律話來源站連唔到）');
+
+  // ── 轉換內文做圖：成功路徑（2026-09-24）──
+  // 之前冇測成功路徑：renderPdfPage 用咗未宣告嘅 nav，畫完圖即刻 ReferenceError，
+  // 預覽被收埋再誤報「來源站連唔到」—— 所有通告都中，測試照樣全綠。
+  ok(w.eval('driveDirectUrl')(HTML_F) === '', 'Drive 直連只認 Google 網域：灣仔 index.php?…&id=1 唔會被當 Drive');
+  ok(w.eval('driveDirectUrl')('https://docs.google.com/uc?export=download&id=Q1') === 'https://drive.google.com/uc?export=download&id=Q1',
+     'docs.google.com 嘅 ?id= 照樣認到');
+  {
+    const msg = (code) => w.eval('pdfFailMessage')({ code });
+    ok(msg('pdf_too_large').startsWith('呢份 PDF 超過 20MB'), '20MB 提示照舊');
+    ok(msg('not_a_pdf').includes('唔係 PDF'), 'not_a_pdf → 講明附件唔係 PDF：' + msg('not_a_pdf'));
+    ok(msg('upstream_unreachable').includes('圖書館橋攞唔到'), 'upstream_unreachable → 講明係圖書館橋攞唔到');
+    ok(msg('not_a_listed_notice').includes('重新整理'), 'not_a_listed_notice → 叫用戶重新整理');
+    ok(msg('proxy_timeout').includes('逾時') && msg('pdf_password').includes('密碼') && msg('pdf_render_failed').includes('畫圖途中'),
+       '逾時／密碼／畫圖失敗各有字眼');
+    ok(msg('proxy_http_500').includes('proxy_http_500') && msg('constructor').includes('constructor'),
+       '未知 code 照印出嚟方便報錯（唔會撞 Object.prototype）');
+    ok(['not_a_pdf', 'upstream_unreachable', 'proxy_unreachable', 'pdfjs_load_failed', 'pdf_invalid', 'x']
+         .every((c) => msg(c).startsWith('轉換唔到：')), '失敗提示一律「轉換唔到：」開頭');
+  }
+  {
+    const domP = boot();
+    const wP = domP.window, dP = wP.document;
+    await wait(700);
+    const calls = { direct: [], proxy: [], getDocument: [], destroyed: 0 };
+    let proxyMode = 'ok', directMode = 'cors_block';
+    wP.__pdfRoute = (u, opts) => {
+      if (u.startsWith('/api/pdf-proxy?u=')) {
+        calls.proxy.push(u);
+        if (proxyMode === 'ok') return Promise.resolve(pdfResp(PDF_BYTES));
+        if (proxyMode === 'not_a_pdf') return Promise.resolve(jsonResp(415, { ok: false, error: 'not_a_pdf' }));
+        if (proxyMode === 'upstream') return Promise.resolve(jsonResp(502, { ok: false, error: 'upstream_unreachable' }));
+        if (proxyMode === 'vercel504') {
+          return Promise.resolve({ ok: false, status: 504, body: null, headers: { get: () => 'text/html' },
+            json: () => Promise.reject(new SyntaxError('Unexpected token <')) });
+        }
+        if (proxyMode === 'offline') return Promise.reject(new TypeError('Failed to fetch'));
+      }
+      if (/^https?:\/\/[^/]*scout\.org\.hk\/uploads\//.test(u) || u.startsWith('https://drive.google.com/uc?')) {
+        calls.direct.push({ u, signal: !!(opts && opts.signal) });
+        if (directMode === 'cors_ok') return Promise.resolve(pdfResp(PDF_BYTES));
+        return Promise.reject(new TypeError('Failed to fetch'));   // 冇 CORS：瀏覽器即刻拒絕
+      }
+      return null;
+    };
+    // 假 pdf.js：3 版，每版 600×800
+    wP.__fakePdfjs = {
+      GlobalWorkerOptions: {},
+      getDocument: (o) => {
+        calls.getDocument.push(o);
+        return { promise: Promise.resolve({
+          numPages: 3,
+          getPage: () => Promise.resolve({
+            getViewport: ({ scale }) => ({ width: 600 * scale, height: 800 * scale }),
+            render: () => ({ promise: Promise.resolve() }),
+          }),
+          destroy: () => { calls.destroyed++; },
+        }) };
+      },
+    };
+    wP.eval('pdfjsPromise = Promise.resolve(window.__fakePdfjs)');
+    const openPdf = async (title) => {
+      $$(dP, '.share-close').forEach((b) => click(wP, b));
+      $$(dP, '.share-toast').forEach((t) => t.remove());
+      const card = cards(dP).find((c) => c.querySelector('h3').textContent === title);
+      click(wP, card.querySelector('.share-btn')); await wait(60);
+      const sh = dP.querySelector('.share-sheet');
+      click(wP, sh.querySelector('[data-act="pdf2img"]')); await wait(250);
+      return sh;
+    };
+    const toastText = () => (dP.querySelector('.share-toast')?.textContent || '');
+
+    // (a) 冇 CORS 嘅區會站 → 圖書館橋 → 畫到第 1 版，多版有換版掣
+    let sh = await openPdf('童軍技能訓練班');
+    let box = sh.querySelector('[data-role="pdfbox"]');
+    const nav = box.querySelector('[data-role="pdfnav"]');
+    ok(calls.direct.length === 1 && calls.direct[0].signal, '先試用戶自己條網（帶 AbortController，唔會吊死）');
+    ok(calls.proxy.length === 1, '冇 CORS → 轉用圖書館橋');
+    ok(calls.getDocument.length === 1 && w.eval('isPdfBytes')(calls.getDocument[0].data)
+       && /standard_fonts\/$/.test(calls.getDocument[0].standardFontDataUrl || ''),
+       'pdf.js 收到 %PDF bytes（連 cMap／標準字型設定）');
+    ok(!box.hidden && box.querySelector('img').src === 'blob:fake', '成功畫圖：預覽保留，唔會畫完即刻收埋');
+    ok(box.querySelector('[data-role="pdfpage"]').textContent === '第 1 / 3 版', '版數標示：第 1 / 3 版');
+    ok(!nav.hidden && nav.querySelector('[data-act="pdf-prev"]').disabled && !nav.querySelector('[data-act="pdf-next"]').disabled,
+       '多版 PDF 顯示換版掣（第 1 版：上一版 disabled、下一版可撳）');
+    ok(!toastText().includes('轉換唔到'), '成功路徑冇「轉換唔到」誤報：' + toastText());
+    ok(box.querySelector('[data-role="pdfdl"]').download.endsWith('-p1.png'), '下載檔名帶版數 -p1.png');
+    click(wP, nav.querySelector('[data-act="pdf-next"]')); await wait(120);
+    ok(box.querySelector('[data-role="pdfpage"]').textContent === '第 2 / 3 版'
+       && !nav.querySelector('[data-act="pdf-prev"]').disabled
+       && box.querySelector('[data-role="pdfdl"]').download.endsWith('-p2.png'),
+       '撳「下一版」→ 第 2 / 3 版，上一版解鎖，下載檔名 -p2.png');
+    ok(!toastText(), '換版冇錯誤提示');
+
+    // (b) 來源有 CORS（例如 Contentful）→ 用戶自己條網就夠，唔使經 Vercel
+    directMode = 'cors_ok'; calls.proxy.length = 0;
+    sh = await openPdf('幼童軍繩結章訓練班');
+    box = sh.querySelector('[data-role="pdfbox"]');
+    ok(!box.hidden && calls.proxy.length === 0, 'CORS 開咗嘅來源：本機直接下載，零 Vercel');
+    directMode = 'cors_block';
+
+    // (c) 每種失敗講清楚原因（之前一律「來源站連唔到」）
+    const failCase = async (mode, expect, label) => {
+      proxyMode = mode;
+      const sh2 = await openPdf('旅團註冊須知');
+      const t = toastText();
+      ok(sh2.querySelector('[data-role="pdfbox"]').hidden && t.includes(expect), label + '：' + t);
+    };
+    await failCase('not_a_pdf', '唔係 PDF', '圖書館橋回 415 not_a_pdf');
+    await failCase('upstream', '圖書館橋攞唔到', '圖書館橋回 502 upstream_unreachable');
+    await failCase('vercel504', '逾時', 'Vercel 504（HTML 錯誤頁，唔係 JSON）');
+    await failCase('offline', '連唔到圖書館橋', '部機斷網（fetch reject）');
+    proxyMode = 'ok';
+    domP.window.close();
+  }
 
   // ── PDF 落款（廣告位，2026-09-22）：同純文字分享同一句落款＋該通告深鏈 ──
   const footer = w.eval('pdfImageFooter({source_site:"筲箕灣區",title:"童軍技能訓練班",pdf_url:"' + PDF_B + '",url:"' + PDF_B + '"},2,3)');
