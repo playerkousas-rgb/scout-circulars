@@ -49621,5 +49621,61 @@
         "score": 1.0
       }
     ]
+  },
+  "https://drive.google.com/file/d/1mH4dEPfRruLLtIbqD1u7meVRzkKCDYWP/view": {
+    "source": "油尖區",
+    "title": "編號..033-2026",
+    "deadline": "2026-10-23",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "社區服務"
+        ]
+      },
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "會操"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:competition",
+      "category:service"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "會操"
+        ]
+      },
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "社區服務"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-09-25 04:03:56",
+    "enrich_version": "3.2"
   }
 }

@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-24 05:00:08",
+  "last_updated": "2026-09-25 03:59:00",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4838,
+    "total_notices": 4844,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -12378,6 +12378,15 @@
       }
     ],
     "灣仔區": [
+      {
+        "title": "區會 26/9 – 2/10/2026辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=635%3A26-9-2-10-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=635%3A26-9-2-10-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-09-25",
+        "captured_date": "2026-09-25",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
       {
         "title": "活動延期-香港童軍總會115周年 - 灣仔東銅六十五載情誼童樂日",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=634%3A115-4&catid=51&lang=zh-tw&Itemid=1210",
@@ -28161,6 +28170,15 @@
     ],
     "油尖區": [
       {
+        "title": "最進步童軍獎勵計劃2026",
+        "url": "https://drive.google.com/file/d/1mH4dEPfRruLLtIbqD1u7meVRzkKCDYWP/view",
+        "pdf_url": "https://drive.google.com/file/d/1mH4dEPfRruLLtIbqD1u7meVRzkKCDYWP/view",
+        "date": "2026-09-25",
+        "captured_date": "2026-09-25",
+        "source_site": "油尖區",
+        "region": "九龍地域"
+      },
+      {
         "title": "油尖區百年童行-童軍115追蹤挑戰賽",
         "url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
         "pdf_url": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
@@ -43646,22 +43664,6 @@
     ],
     "Scout System": [
       {
-        "title": "幼童軍進度追蹤系統",
-        "url": "https://cubsbadge.vercel.app/",
-        "pdf_url": "https://cubsbadge.vercel.app/",
-        "date": "2026-09-24",
-        "captured_date": "2026-09-24",
-        "source_site": "Scout System",
-        "region": "Scout System",
-        "tags": [
-          "幼童軍",
-          "電子紀錄冊",
-          "助手"
-        ],
-        "description": "基於幼童軍訓練綱要，支援全團進度管理、領袖審批、活動履歷申報及金紫荊表格自動填寫系統。",
-        "icon": "icons/awards/cub_gba-256.avif"
-      },
-      {
         "title": "童軍進度追蹤系統",
         "url": "https://scoutbadge.vercel.app/",
         "pdf_url": "https://scoutbadge.vercel.app/",
@@ -43673,9 +43675,7 @@
           "童軍",
           "電子紀錄冊",
           "助手"
-        ],
-        "description": "童軍支部訓練綱要及進度管理，支援總領袖獎章追蹤、成員進度申報、領袖審批及官方表格列印。",
-        "icon": "icons/awards/scout_csa-256.avif"
+        ]
       },
       {
         "title": "深資童軍進度紀錄",
@@ -43689,9 +43689,7 @@
           "深資童軍",
           "電子紀錄冊",
           "助手"
-        ],
-        "description": "深資童軍支部訓練綱要、榮譽十字章與各項考驗進度管理平台。",
-        "icon": "icons/awards/vs_dsa-256.avif"
+        ]
       },
       {
         "title": "樂行童軍進度紀錄",
@@ -43705,76 +43703,38 @@
           "樂行童軍",
           "電子紀錄冊",
           "助手"
-        ],
-        "description": "樂行童軍支部進度獎章、自選服務與個人發展目標追蹤系統。",
-        "icon": "icons/awards/rover_bpa-256.avif"
+        ]
+      },
+      {
+        "title": "幼童軍進度追蹤系統",
+        "url": "https://cubsbadge.vercel.app/",
+        "pdf_url": "https://cubsbadge.vercel.app/",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "電子紀錄冊",
+          "助手"
+        ]
       }
     ]
   },
   "notices": [
     {
-      "title": "幼童軍進度追蹤系統",
-      "url": "https://cubsbadge.vercel.app/",
-      "pdf_url": "https://cubsbadge.vercel.app/",
-      "date": "2026-09-24",
-      "captured_date": "2026-09-24",
-      "source_site": "Scout System",
-      "region": "Scout System",
-      "tags": [
-        "幼童軍",
-        "電子紀錄冊",
-        "助手"
-      ],
-      "description": "基於幼童軍訓練綱要，支援全團進度管理、領袖審批、活動履歷申報及金紫荊表格自動填寫系統。",
-      "icon": "icons/awards/cub_gba-256.avif"
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=635%3A26-9-2-10-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 26/9 – 2/10/2026辦公時間",
+      "captured_date": "2026-09-25"
     },
     {
-      "title": "童軍進度追蹤系統",
-      "url": "https://scoutbadge.vercel.app/",
-      "pdf_url": "https://scoutbadge.vercel.app/",
-      "date": "2026-09-24",
-      "captured_date": "2026-09-24",
-      "source_site": "Scout System",
-      "region": "Scout System",
-      "tags": [
-        "童軍",
-        "電子紀錄冊",
-        "助手"
-      ],
-      "description": "童軍支部訓練綱要及進度管理，支援總領袖獎章追蹤、成員進度申報、領袖審批及官方表格列印。",
-      "icon": "icons/awards/scout_csa-256.avif"
-    },
-    {
-      "title": "深資童軍進度紀錄",
-      "url": "https://vsbadge.vercel.app/",
-      "pdf_url": "https://vsbadge.vercel.app/",
-      "date": "2026-09-24",
-      "captured_date": "2026-09-24",
-      "source_site": "Scout System",
-      "region": "Scout System",
-      "tags": [
-        "深資童軍",
-        "電子紀錄冊",
-        "助手"
-      ],
-      "description": "深資童軍支部訓練綱要、榮譽十字章與各項考驗進度管理平台。",
-      "icon": "icons/awards/vs_dsa-256.avif"
-    },
-    {
-      "title": "樂行童軍進度紀錄",
-      "url": "https://roverbadge.vercel.app/",
-      "pdf_url": "https://roverbadge.vercel.app/",
-      "date": "2026-09-24",
-      "captured_date": "2026-09-24",
-      "source_site": "Scout System",
-      "region": "Scout System",
-      "tags": [
-        "樂行童軍",
-        "電子紀錄冊",
-        "助手"
-      ],
-      "description": "樂行童軍支部進度獎章、自選服務與個人發展目標追蹤系統。",
-      "icon": "icons/awards/rover_bpa-256.avif"
+      "source_site": "油尖區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1mH4dEPfRruLLtIbqD1u7meVRzkKCDYWP/view",
+      "title": "最進步童軍獎勵計劃2026",
+      "captured_date": "2026-09-25"
     },
     {
       "source_site": "柴灣區",
@@ -43789,6 +43749,54 @@
       "pdf_url": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/09/CHW-2627-17_Operation115：「童」守護-‧-安心社區嘉年華.pdf",
       "title": "香港童軍115周年認可活動 Operation115:「童」守護 ‧ 安心社區嘉年華 - 點擊下載通告",
       "captured_date": "2026-09-24"
+    },
+    {
+      "source_site": "Scout System",
+      "region": "Scout System",
+      "pdf_url": "https://scoutbadge.vercel.app/",
+      "title": "童軍進度追蹤系統",
+      "captured_date": "2026-09-24",
+      "tags": [
+        "童軍",
+        "電子紀錄冊",
+        "助手"
+      ]
+    },
+    {
+      "source_site": "Scout System",
+      "region": "Scout System",
+      "pdf_url": "https://vsbadge.vercel.app/",
+      "title": "深資童軍進度紀錄",
+      "captured_date": "2026-09-24",
+      "tags": [
+        "深資童軍",
+        "電子紀錄冊",
+        "助手"
+      ]
+    },
+    {
+      "source_site": "Scout System",
+      "region": "Scout System",
+      "pdf_url": "https://roverbadge.vercel.app/",
+      "title": "樂行童軍進度紀錄",
+      "captured_date": "2026-09-24",
+      "tags": [
+        "樂行童軍",
+        "電子紀錄冊",
+        "助手"
+      ]
+    },
+    {
+      "source_site": "Scout System",
+      "region": "Scout System",
+      "pdf_url": "https://cubsbadge.vercel.app/",
+      "title": "幼童軍進度追蹤系統",
+      "captured_date": "2026-09-24",
+      "tags": [
+        "幼童軍",
+        "電子紀錄冊",
+        "助手"
+      ]
     },
     {
       "source_site": "總會",
@@ -77771,17 +77779,51 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-24 05:00:08",
-      "new": 0,
-      "updated": 3509,
+      "updated_at": "2026-09-25 03:59:00",
+      "new": 2,
+      "updated": 84,
       "daily_new": 2,
-      "skipped": 4,
+      "skipped": 38,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
