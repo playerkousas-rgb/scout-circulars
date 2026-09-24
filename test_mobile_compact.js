@@ -2,7 +2,7 @@
 //   用法： npm i jsdom && node test_mobile_compact.js
 //
 // 重點驗證：
-//   1. 頂欄有 ☰／★／🔔，★ 撳得入收藏夾、有數字、同桌面收藏掣同步
+//   1. 頂欄有 ☰／★／🔔／💬，★ 撳得入收藏夾、有數字、同桌面收藏掣同步；💬 喺叮噹隔籬開回報表單
 //   2. 頂欄 position: sticky（碌到底都撳到）
 //   3. ScoutSystem 接入＋卡片「加入 ScoutSystem」手機唔顯示（CSS 隱藏，DOM 保留）
 //   4. 天數旁邊嘅收藏／通知掣手機唔顯示（已搬去頂欄，DOM 保留俾桌面用）
@@ -48,8 +48,8 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', {bubbles: tr
      '頂欄 sticky 長期置頂');
   ok(mobileCss.includes('.scoutsystem-section { display: none !important; }'),
      'ScoutSystem 接入手機唔顯示');
-  ok(mobileCss.includes('#window-chips .chip-bm, #window-chips #open-push-settings { display: none; }'),
-     '天數旁邊嘅收藏／通知手機唔再重複佔位');
+  ok(mobileCss.includes('#window-chips .chip-bm, #window-chips #open-push-settings, #window-chips #open-report-settings { display: none; }'),
+     '天數旁邊嘅收藏／通知／回報手機唔再重複佔位');
   ok(mobileCss.includes('#branch-chips { display: grid; grid-template-columns: repeat(5, 1fr);'),
      '支部 9 粒掣固定兩行（5+4）');
   ok(mobileCss.includes('#category-chips, #window-chips { display: grid; grid-template-columns: repeat(6, 1fr);'),
@@ -84,6 +84,9 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', {bubbles: tr
   ok(!!bmTop && bmTop.closest('.mobile-top-actions'), '頂欄有 ★ 收藏 icon');
   ok(!!d.querySelector('#open-library-menu') && !!d.querySelector('#open-push-mobile'),
      '頂欄齊 ☰／🔔');
+  const reportTop = d.querySelector('#open-report-mobile');
+  ok(!!reportTop && reportTop.closest('.mobile-top-actions') && reportTop.previousElementSibling?.id === 'open-push-mobile',
+     '頂欄 💬 喺叮噹隔籬');
   const bmCount = d.querySelector('#mobile-bm-count');
   ok(!!bmCount && bmCount.hidden, '未收藏時數字收起');
 
@@ -134,6 +137,11 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', {bubbles: tr
   const opener = d.querySelector('#window-chips #open-push-settings');
   ok(!!opener && opener.previousElementSibling.classList.contains('chip-bm'),
      '通知掣仍然喺收藏掣隔籬（DOM 保留）');
+  const reportChip = d.querySelector('#window-chips #open-report-settings');
+  ok(!!reportChip && reportChip.previousElementSibling?.id === 'open-push-settings',
+     '桌面 💬 回報掣喺叮噹隔籬（DOM 保留，手機 CSS 隱藏）');
+  click(w, reportTop); await wait(40);
+  ok(!d.querySelector('#report-backdrop').hidden, '頂欄 💬 開到回報表單');
   ok(!!d.querySelector('#scoutsystem-url'), 'ScoutSystem 設定輸入框 DOM 保留（桌面用）');
 
   console.log(fail ? `\n❌ ${fail} 項失敗` : '\n🎉 全部通過');
