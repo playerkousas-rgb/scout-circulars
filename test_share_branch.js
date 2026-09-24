@@ -310,7 +310,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
      '再撳同一款：no-op，唔會彈返自動款');
 
-  // ── Story 圖：冇白框、冇頒佈欄、冇絕密黑條、有標語＋直連 QR ──
+  // ── Story 圖：冇白框、冇頒佈欄、冇絕密黑條、有直連 QR；標語只限自動化（2026-09-24）──
   ok(!html.includes("rows.push(['頒佈'"), '資料卡唔再重複頒佈（上方日期行已經有）');
   ok(!html.includes('rgba(255,255,255,.95)'), '區徽唔再加白框');
   ok(!html.includes('兩粒「刪節」黑條') && !html.includes('L.dateY - 150'), '絕密檔案唔再畫兩粒黑色不知名框');
@@ -321,7 +321,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     { headline: null },
   );
   ok(storyL.rows.map(r => r[0]).join(',') === '截止,對象,費用', 'story 資料卡得截止／對象／費用：' + storyL.rows.map(r => r[0]).join(','));
-  ok(storyL.cta && storyL.cta.qr >= 160 && storyL.cta.y0 < storyL.dateY, 'story 預留標語＋QR，唔蓋住日期行');
+  ok(storyL.cta && storyL.cta.qr >= 160 && storyL.cta.y0 < storyL.dateY, 'story 預留 QR 帶（自動化出圖先喺左邊加標語），唔蓋住日期行');
   const feedL = w.eval('posterLayout')(
     { title: 't', date: '2026-09-24', pdf_url: 'https://x/1.pdf' },
     { deadline: '2026-10-01' },
@@ -329,11 +329,38 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     {},
   );
   ok(!feedL.cta && feedL.rows.every(r => r[0] !== '頒佈'), 'feed 唔逼 QR，同樣冇頒佈欄');
-  ok(w.eval('storySloganFor')({ slogan: '自定標語', category: 'training' }) === '自定標語', '已配標語就用返');
+  ok(w.eval('storySloganFor')({ slogan: '自定標語', category: 'training' }) === '自定標語', '自動化排隊時配咗標語就用返');
   const trainLines = ['解鎖新技能','Skill Up!','學多樣，識多樣','今日學，明日用','升級進行中','成為更勁嘅自己','新手都歡迎','學到就係你嘅'];
-  const slogan = w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' });
-  ok(trainLines.includes(slogan), '訓練標語出自八句：' + slogan);
-  ok(w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' }) === slogan, '同一通告標語穩定');
+  ok(w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' }) === '',
+     '手動分享（冇配標語）唔加標語：用戶自己喺 IG 加字，更彈性');
+  ok(w.eval('Object.keys(STORY_SLOGANS).sort().join()') === 'activity,competition,service,training',
+     '標語得四類八句（同 story_queue.STORY_SLOGANS 一致），冇 app 專用「其他」類');
+  {
+    const assigned = w.eval('assignStorySlogans')([{ category: 'training' }, { category: 'training' }, { category: 'other' }]);
+    ok(assigned[0].slogan === trainLines[0] && assigned[1].slogan === trainLines[1] && !assigned[2].slogan,
+       '?batch=1 出圖台照配標語：同分類逐張輪流（同 story_queue.py），「其他」唔配');
+  }
+  {
+    // 真係畫一次：手動 Story 出 QR 卡但冇標語；自動化（item.slogan）先畫標語
+    const texts = [];
+    const proto = w.HTMLCanvasElement.prototype;
+    const origGet = proto.getContext;
+    proto.getContext = function () {
+      const c = origGet.apply(this, arguments);
+      c.fillText = (t) => { texts.push(String(t)); };
+      return c;
+    };
+    const base = { title: '手動測試', pdf_url: PDF_B, url: PDF_B, source_site: '筲箕灣區', region: '港島地域', date: iso(today), category: 'training' };
+    w.eval('renderPoster')(base, { mode: 'story', design: 'auto' });
+    const manualTexts = texts.splice(0);
+    w.eval('renderPoster')(Object.assign({}, base, { slogan: trainLines[3] }), { mode: 'story', design: 'auto' });
+    const autoTexts = texts.splice(0);
+    proto.getContext = origGet;
+    const allLines = Object.values(w.eval('STORY_SLOGANS')).flat();
+    ok(manualTexts.includes('掃碼開原文附件') && !manualTexts.some((t) => allLines.includes(t)),
+       '手動 Story 版：照出直連 QR，但冇標語');
+    ok(autoTexts.includes(trainLines[3]) && autoTexts.includes('掃碼開原文附件'), '自動化 Story（有 item.slogan）：標語＋QR 照畫');
+  }
   const qr = w.eval('posterQrMatrix')('https://scout.org.hk/uploads/B.pdf');
   ok(qr && qr.length === 29 && qr[0].slice(0, 7).join('') === '1111111' && qr[14][14] === 1 && qr[28][28] === 1,
      'Story QR 同 Python qrcode（byte／EC-M／mask 0）對齊，直連通告附件');

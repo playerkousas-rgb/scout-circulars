@@ -2098,26 +2098,21 @@
     }
 
 
-    // ── Story 標語（同 story_queue.STORY_SLOGANS 八句；other 只俾 app 單張分享）──
+    // ── Story 標語（同 story_queue.STORY_SLOGANS 四類八句）──────────────────
+    // 只有自動化先加：Actions story_queue.py，同埋 ?batch=1 出圖台（前端版
+    // story_queue，排好隊先 assignStorySlogans 逐張配 item.slogan）。
+    // app 分享面板手動出圖唔加標語，用戶自己喺 IG 加字更彈性（2026-09-24 決定），
+    // 所以冇「其他」類，亦唔再按網址估一句。
     const STORY_SLOGANS = {
       training: ['解鎖新技能','Skill Up!','學多樣，識多樣','今日學，明日用','升級進行中','成為更勁嘅自己','新手都歡迎','學到就係你嘅'],
       activity: ['一齊玩，一齊記住','下一個回憶就係呢個','講少啲，做多啲','唔好淨係睇，嚟體驗啦','名額有限，報咗先算','今次唔嚟，下次後悔','新嘗試，等緊你','Join Us，齊齊出動'],
       service: ['一齊做好事','小行動，大意義','出一分力，多一點好','一齊做，影響更大','付出時間，收穫更多','為呢度加點好','行動，就係改變','Do Good Together'],
       competition: ['挑戰一下自己','係時候Show實力','突破自己嘅界限','唔試點知得唔得','團隊一齊，上！','為自己而戰','輸贏以外，係經歷','Ready？Go！'],
-      other: ['最新通告，即開原文','有新消息，睇清楚','通告到，唔好錯過','原文喺度，掃碼睇','一齊睇最新安排','詳情喺原文附件','開原文，先知詳情','新通告，記住睇'],
     };
 
-    function storySloganFor(item, ex) {
-      if (item && item.slogan) return String(item.slogan);
-      let cat = String((item && item.category) || '');
-      if (!STORY_SLOGANS[cat]) {
-        try { cat = batchCategory(item, ex || null); } catch (_) { cat = 'other'; }
-      }
-      const lines = STORY_SLOGANS[cat] || STORY_SLOGANS.other;
-      const key = String((item && (item.pdf_url || item.url)) || (item && item.title) || '');
-      let v = 0;
-      for (const ch of md5Hex(key)) v = (v * 16 + parseInt(ch, 16)) % lines.length;
-      return lines[v];
+    // 自動化配咗先有（item.slogan）；手動分享嘅通告冇配 → ''（唔加標語）
+    function storySloganFor(item) {
+      return item && item.slogan ? String(item.slogan) : '';
     }
 
     function assignStorySlogans(items) {
@@ -2374,24 +2369,32 @@
       }
     }
 
-    // Story 專用：分類標語 + 直連通告 QR。feed 冇 L.cta，唔會畫。
-    function posterStoryCta(ctx, L, item, design, ex) {
+    // Story 專用：直連通告 QR（右）＋分類標語（左）。feed 冇 L.cta，唔會畫。
+    //   自動化（有 item.slogan）：成條白帶，左標語右 QR —— 同 Actions Pillow 草稿一樣。
+    //   手動分享（冇標語）：得右邊一張 QR 卡，左邊留返背景，用戶喺 IG 自己加字。
+    function posterStoryCta(ctx, L, item, design) {
       if (!L || !L.cta) return;
       try {
         const url = shareUrlFor(item);
-        const slogan = storySloganFor(item, ex);
+        const slogan = storySloganFor(item);
         if (!url && !slogan) return;
         const z = L.cta;
         const h = z.y1 - z.y0;
         if (h < 40) return;
-        posterRoundRect(ctx, L.MX, z.y0, L.CW, h, 22);
-        ctx.fillStyle = 'rgba(255,255,255,.96)';
-        ctx.fill();
-        ctx.fillStyle = (design && design.accent) || '#3b82f6';
-        ctx.fillRect(L.MX, z.y0 + 14, 8, Math.max(8, h - 28));
         const qr = z.qr;
         const qrX = L.MX + L.CW - qr - 18;
         const qrY = z.y0 + 10;
+        if (slogan) {
+          posterRoundRect(ctx, L.MX, z.y0, L.CW, h, 22);
+          ctx.fillStyle = 'rgba(255,255,255,.96)';
+          ctx.fill();
+          ctx.fillStyle = (design && design.accent) || '#3b82f6';
+          ctx.fillRect(L.MX, z.y0 + 14, 8, Math.max(8, h - 28));
+        } else {
+          posterRoundRect(ctx, qrX - 18, z.y0, qr + 36, h, 22);
+          ctx.fillStyle = 'rgba(255,255,255,.96)';
+          ctx.fill();
+        }
         if (url) {
           drawPosterQr(ctx, url, qrX, qrY, qr);
           ctx.font = `400 18px ${POSTER_FONT}`;
@@ -2454,7 +2457,7 @@
         badge: { x: W - MX - 176, y: safeTop + 68, size: 176 },
         zone: { x0: MX, x1: W - MX, y0: safeTop + 210, y1: cardsTop - 114 },
       };
-      // Story 先預留標語＋直連通告 QR。feed 4:5 太窄，唔逼落去。
+      // Story 先預留 QR 帶（自動化出圖會喺左邊加標語）。feed 4:5 太窄，唔逼落去。
       if (story) {
         const qr = 188;
         const ctaH = qr + 56;
@@ -2893,7 +2896,7 @@
         kind(ctx, L, design, 'over');
         posterDateLine(ctx, L, item, design);
         posterCards(ctx, L, design);
-        if (L.cta) posterStoryCta(ctx, L, item, design, ex);
+        if (L.cta) posterStoryCta(ctx, L, item, design);
         posterFooter(ctx, L, item, design);
       } catch (err) {
         // 任何一款畫唔到都唔應該拖冧成個流程：回 null，呼叫方自己決定提示
@@ -3357,7 +3360,7 @@
               <img alt="IG 分享圖預覽">
               <div class="share-ig-designs" data-role="igdesigns" role="group" aria-label="揀設計款"></div>
               <p class="share-ig-hint">想換款就撳上面嘅縮圖；默認款跟通告分類自動揀（同 Actions 草稿同一款）。</p>
-              <p class="share-ig-hint">Story 版會加分類標語，同埋直連通告原文嘅 QR（唔經圖書館頁）。右上角只貼區／地域／總會 LOGO，冇白框。</p>
+              <p class="share-ig-hint">Story 版會加直連通告原文嘅 QR（唔經圖書館頁）。分類標語只喺每日自動化 Story 先加；手動出圖 QR 左邊留咗位，可以喺 IG 自己加字。右上角只貼區／地域／總會 LOGO，冇白框。</p>
               <p class="share-ig-hint">手機可以長撳張圖直接儲存，或者撳「下載圖片」。</p>
               <div class="share-ig-actions">
                 <a data-role="igdl" download>下載圖片</a>
