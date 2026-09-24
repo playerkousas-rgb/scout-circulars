@@ -31,7 +31,9 @@
       "SUPABASE_ANON_KEY",
       "ADMIN_EMAIL",
       "ADMIN_AUTH_PASSWORD"
-    ]
+    ],
+    "same_project_as_circulars_push": true,
+    "same_project_note": "用戶 2026-09-24 確認：通告圖書館 push_subscriptions 同 App Store 共用此 project；故 repo 現有 SUPABASE_SERVICE_KEY secret 即此 project 嘅 service key（新格式可為 sb_secret_…，舊格式 eyJ… role=service_role）。改名（display name）唔影響；ref／subdomain 唔可以改（URL 同所有 key 綁定 ref）。"
   },
   "pages": [
     {

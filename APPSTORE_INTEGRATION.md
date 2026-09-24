@@ -14,6 +14,12 @@
   - `submissions`：匿名**讀唔到**；投稿只可經 `submit_work(jsonb)`、批核只可經 `review_work(uuid, boolean)`（admin）。
 - RPC：`bump_clicks`／`bump_stars`／`bump_hearts`（匿名可調，fire-and-forget 統計）。
 - 寫入憑證（service_role key／admin 密碼）**唔喺** website repo——要喺 Supabase Dashboard 攞。
+- **同一 project 確認（2026-09-24 用戶）**：圖書館 push（`push_subscriptions`）同 App Store 共用此
+  Supabase project。因此 repo 現有 `SUPABASE_SERVICE_KEY` secret 本来就係呢個 project 嘅
+  service key（新格式 `sb_secret_…`／舊格式 `eyJ…` role=service_role）；`update-store-icons.yml`
+  已加 fallback：`STORE_SERVICE_KEY || SUPABASE_SERVICE_KEY`。
+- **改名注意**：Supabase display name 改「SCOUTAPPSTORE」零影響；ref／subdomain
+  （`visqyeskdauipodudpxz`）唔可以改——URL 同所有 API key 都綁定 ref，改即全滅。
 
 ## 階段劃分
 
