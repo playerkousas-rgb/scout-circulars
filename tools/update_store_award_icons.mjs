@@ -35,9 +35,10 @@ const TARGETS = [
 
 async function bearerToken() {
   if (process.env.STORE_SERVICE_KEY) return process.env.STORE_SERVICE_KEY;
-  const email = process.env.STORE_ADMIN_EMAIL;
+  // email 預設用 appstore.json 記低嘅 admin email，secrets 淨係需要密碼
+  const email = process.env.STORE_ADMIN_EMAIL || store._meta.admin_email;
   const password = process.env.STORE_ADMIN_PASSWORD;
-  if (!email || !password) throw new Error('要 STORE_SERVICE_KEY，或 STORE_ADMIN_EMAIL＋STORE_ADMIN_PASSWORD');
+  if (!password) throw new Error('要 STORE_SERVICE_KEY，或 STORE_ADMIN_PASSWORD（email 預設 ' + email + '）');
   const res = await fetch(`${URL0}/auth/v1/token?grant_type=password`, {
     method: 'POST',
     headers: { apikey: ANON, 'Content-Type': 'application/json' },
