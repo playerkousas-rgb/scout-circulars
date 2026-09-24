@@ -229,48 +229,58 @@ def paste_badge(img: Image.Image, badge: Image.Image | None):
     img.paste(fitted, (x + (size - bw) // 2, y + (size - bh) // 2), fitted)
 
 
-def draw_story_cta(img: Image.Image, draw: ImageDraw.ImageDraw, item: dict, accent: str):
-    """Add the category's encouragement and a scan-friendly QR to the original attachment."""
+def _qr_stamp(url: str, size: int) -> Image.Image:
+    """One rounded white square. Quiet zone is the plate; corners stay inside it."""
+    qr = qrcode.QRCode(error_correction=ERROR_CORRECT_M, box_size=8, border=4)
+    qr.add_data(url)
+    qr.make(fit=True)
+    modules = qr.modules_count + 8  # border=4 on each side
+    quiet_px = 4 * size / modules
+    radius = int(min(20, max(0, quiet_px - 2)))
+    qr_img = qr.make_image(fill_color="#111111", back_color="#FFFFFF").get_image().convert("RGBA")
+    qr_img = qr_img.resize((size, size), Image.Resampling.NEAREST)
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, size - 1, size - 1), radius=radius, fill=255)
+    stamp = Image.new("RGBA", (size, size), (255, 255, 255, 255))
+    stamp.paste(qr_img, (0, 0))
+    stamp.putalpha(mask)
+    return stamp
+
+
+def draw_story_cta(img: Image.Image, draw: ImageDraw.ImageDraw, item: dict, accent: str, dark: bool = False):
+    """Right-side scan stamp: one rounded white square, no outer plate, no caption."""
     _load_story_helpers()
     attachment_url = story_attachment_url(item)
     if not attachment_url:
         raise ValueError("Story QR requires the original attachment URL")
-    qr = qrcode.QRCode(error_correction=ERROR_CORRECT_M, box_size=8, border=4)
-    qr.add_data(attachment_url)
-    qr.make(fit=True)
-    qr_img = qr.make_image(fill_color="#111111", back_color="#FFFFFF").get_image().convert("RGB")
-    qr_size = 250
-    qr_img = qr_img.resize((qr_size, qr_size), Image.Resampling.NEAREST)
-
-    panel = [60, 1090, 1020, 1372]
-    draw.rounded_rectangle(panel, radius=24, fill=(255, 255, 255, 246), outline=accent, width=3)
-    draw.rounded_rectangle([60, panel[1], 82, panel[3]], radius=10, fill=accent)
+    qr_size = 220
+    stamp = _qr_stamp(attachment_url, qr_size)
+    qr_x = W - 60 - qr_size
+    qr_y = 1380 - 36 - qr_size  # above the data cards, clear of the gold rule
+    img.paste(stamp, (qr_x, qr_y), stamp)
 
     slogan = story_slogan(item)
-    text_x, max_width = 108, 620
-    for size in (46, 42, 38, 34):
+    text_x, max_width = 60, qr_x - 60 - 28
+    size = 34
+    lines = [slogan]
+    for size in (42, 36, 32, 28):
         font = _font(size)
         lines = wrap_cjk(draw, slogan, font, max_width, 2)
         if len(lines) < 2 or not lines[-1].endswith("…"):
             break
+    font = _font(size)
     line_height = int(size * 1.25)
-    text_height = line_height * len(lines)
-    text_y = panel[1] + max(0, (panel[3] - panel[1] - text_height) // 2)
+    text_y = qr_y + max(0, (qr_size - line_height * len(lines)) // 2)
+    fill = "#FFFFFF" if dark else "#111111"
+    stroke = "#111111" if dark else "#FFFFFF"
     for line in lines:
-        draw.text((text_x, text_y), line, fill="#111111", font=font)
+        draw.text((text_x, text_y), line, fill=fill, font=font, stroke_width=3, stroke_fill=stroke)
         text_y += line_height
-
-    qr_x, qr_y = 770, 1094
-    img.paste(qr_img, (qr_x, qr_y))
-    qr_label = "掃碼開原文附件"
-    qr_font = _font(20)
-    label_width = text_w(draw, qr_label, qr_font)
-    draw.text((qr_x + (qr_size - label_width) / 2, 1345), qr_label, fill="#333333", font=qr_font)
 
 
 def draw_bottom(draw, item: dict, accent: str, dark: bool, img: Image.Image):
-    """QR／鼓勵字句 callout + 實數據卡：截止／對象／費用。頒佈日期已喺上方日期行。"""
-    draw_story_cta(img, draw, item, accent)
+    """QR／鼓勵字句 + 實數據卡：截止／對象／費用。頒佈日期已喺上方日期行。"""
+    draw_story_cta(img, draw, item, accent, dark)
     rows = [
         ("截止", item.get("deadline") or "詳情見內文"),
         ("對象", item.get("audience") or "見通告"),
@@ -313,7 +323,7 @@ def t_competition_gold(item, img, draw, badge):
     draw_pill(draw, "比賽", (60, 80), "#FFD700", "#000000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#FFD700", (80, 500, 1000, 1080), outline="#000000")
-    draw.rectangle([60, 1288, 1020, 1296], fill="#FFD700")
+    draw.rectangle([60, 1348, 1020, 1356], fill="#FFD700")
     draw_bottom(draw, item, "#FFD700", True, img)
 
 

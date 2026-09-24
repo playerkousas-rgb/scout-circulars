@@ -34,12 +34,17 @@ const cache = {
   last_updated: iso(today),
   data: {
     筲箕灣區: [
+      mk('半年前舊通告', 'https://example.test/old-circ', '筲箕灣區', daysAgo(200), '港島地域'),
       mk('幼童軍繩結章訓練班', PDF_A, '筲箕灣區', iso(today), '港島地域'),           // audience: 幼童軍
       mk('童軍技能訓練班', PDF_B, '筲箕灣區', iso(today), '港島地域'),               // audience: 童軍、領袖
       mk('深資童軍海上旅程', PDF_C, '筲箕灣區', daysAgo(20), '港島地域'),           // 冇 enrich → 標題：深資童軍
       mk('旅團註冊須知', PDF_D, '筲箕灣區', iso(today), '港島地域'),                 // 冇 enrich → 標題冇任何支部詞
       mk('樂行童軍暨領袖交流日', PDF_E, '筲箕灣區', iso(today), '港島地域'),       // audience: 所有成員
       mk('灣仔區網頁通告', HTML_F, '筲箕灣區', iso(today), '港島地域'),            // 網頁，唔係 PDF
+    ],
+    'Scout System': [
+      Object.assign(mk('舊密碼遊戲', 'https://example.test/old-game', 'Scout System', daysAgo(200), 'Scout System'), { tags: ['遊戲', '幼童軍'] }),
+      Object.assign(mk('【助手】集會流程', 'https://example.test/helper', 'Scout System', daysAgo(40), 'Scout System'), {}),
     ],
   },
   _meta: { expected_empty_sources: [], last_run: { error_sources: [] } },
@@ -310,10 +315,11 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(designBtns.find(b => b.dataset.id === 'unc_topsecret').classList.contains('active'),
      '再撳同一款：no-op，唔會彈返自動款');
 
-  // ── Story 圖：冇白框、冇頒佈欄、冇絕密黑條、有直連 QR；標語只限自動化（2026-09-24）──
+  // ── Story／4:5：冇白框、冇頒佈欄、冇絕密黑條、兩邊都有直連 QR；標語只限自動化（2026-09-24）──
   ok(!html.includes("rows.push(['頒佈'"), '資料卡唔再重複頒佈（上方日期行已經有）');
   ok(!html.includes('rgba(255,255,255,.95)'), '區徽唔再加白框');
   ok(!html.includes('兩粒「刪節」黑條') && !html.includes('L.dateY - 150'), '絕密檔案唔再畫兩粒黑色不知名框');
+  ok(!html.includes('掃碼開原文附件'), 'QR 冇說明字，得白圓角方');
   const storyL = w.eval('posterLayout')(
     { title: '港島通告', date: '2026-09-24', region: '港島地域', pdf_url: 'https://x/1.pdf', source_site: '港島地域' },
     { deadline: '2026-10-01', audience: '童軍', fee: 'HK$10' },
@@ -321,14 +327,23 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     { headline: null },
   );
   ok(storyL.rows.map(r => r[0]).join(',') === '截止,對象,費用', 'story 資料卡得截止／對象／費用：' + storyL.rows.map(r => r[0]).join(','));
-  ok(storyL.cta && storyL.cta.qr >= 160 && storyL.cta.y0 < storyL.dateY, 'story 預留 QR 帶（自動化出圖先喺左邊加標語），唔蓋住日期行');
+  ok(storyL.qr && storyL.qr.size >= 180
+     && storyL.qr.y + storyL.qr.size <= storyL.dateY - 40
+     && storyL.qr.x + storyL.qr.size === storyL.W - storyL.MX
+     && storyL.zone.y1 <= storyL.qr.y - 8
+     && storyL.qr.y >= storyL.badge.y + storyL.badge.size,
+     'story 靠右預留 QR，唔蓋日期行、標題、區徽');
   const feedL = w.eval('posterLayout')(
     { title: 't', date: '2026-09-24', pdf_url: 'https://x/1.pdf' },
     { deadline: '2026-10-01' },
     'feed',
     {},
   );
-  ok(!feedL.cta && feedL.rows.every(r => r[0] !== '頒佈'), 'feed 唔逼 QR，同樣冇頒佈欄');
+  ok(feedL.qr && feedL.qr.size >= 160
+     && feedL.qr.y + feedL.qr.size <= feedL.dateY - 40
+     && feedL.zone.y1 <= feedL.qr.y - 8
+     && feedL.rows.every(r => r[0] !== '頒佈'),
+     '4:5 同樣有 QR，唔蓋日期行／標題，亦冇頒佈欄');
   ok(w.eval('storySloganFor')({ slogan: '自定標語', category: 'training' }) === '自定標語', '自動化排隊時配咗標語就用返');
   const trainLines = ['解鎖新技能','Skill Up!','學多樣，識多樣','今日學，明日用','升級進行中','成為更勁嘅自己','新手都歡迎','學到就係你嘅'];
   ok(w.eval('storySloganFor')({ pdf_url: 'https://x/1.pdf', category: 'training' }) === '',
@@ -341,7 +356,19 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
        '?batch=1 出圖台照配標語：同分類逐張輪流（同 story_queue.py），「其他」唔配');
   }
   {
-    // 真係畫一次：手動 Story 出 QR 卡但冇標語；自動化（item.slogan）先畫標語
+    // 真係畫一次：兩個版都係一塊直連 QR，冇說明字、冇第二層白底；標語只限自動化 Story
+    const paints = [];
+    const stub = {
+      fillStyle: '',
+      beginPath() {}, moveTo() {}, arcTo() {}, closePath() {},
+      fill() { paints.push(['fill', this.fillStyle]); },
+      fillRect() { paints.push(['rect', this.fillStyle]); },
+    };
+    w.drawPosterQr(stub, PDF_B, 10, 20, 200);
+    ok(paints.filter((p) => p[0] === 'fill' && p[1] === '#FFFFFF').length === 1
+       && !paints.some((p) => p[0] === 'rect' && p[1] === '#FFFFFF')
+       && paints.some((p) => p[0] === 'rect' && p[1] === '#111111'),
+       'QR 得一塊白圓角方，模組係黑格，冇第二層白底');
     const texts = [];
     const proto = w.HTMLCanvasElement.prototype;
     const origGet = proto.getContext;
@@ -350,16 +377,41 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
       c.fillText = (t) => { texts.push(String(t)); };
       return c;
     };
+    w.eval(`
+      window.__qrCalls = [];
+      window.__origDrawPosterQr = drawPosterQr;
+      drawPosterQr = function(ctx, url, x, y, size) {
+        window.__qrCalls.push({ url, x, y, size });
+        return window.__origDrawPosterQr(ctx, url, x, y, size);
+      };
+    `);
     const base = { title: '手動測試', pdf_url: PDF_B, url: PDF_B, source_site: '筲箕灣區', region: '港島地域', date: iso(today), category: 'training' };
     w.eval('renderPoster')(base, { mode: 'story', design: 'auto' });
     const manualTexts = texts.splice(0);
+    const manualQr = w.__qrCalls.splice(0);
     w.eval('renderPoster')(Object.assign({}, base, { slogan: trainLines[3] }), { mode: 'story', design: 'auto' });
     const autoTexts = texts.splice(0);
+    const autoQr = w.__qrCalls.splice(0);
+    w.eval('renderPoster')(base, { mode: 'feed', design: 'auto' });
+    const feedTexts = texts.splice(0);
+    const feedQr = w.__qrCalls.splice(0);
     proto.getContext = origGet;
+    w.eval('drawPosterQr = window.__origDrawPosterQr');
     const allLines = Object.values(w.eval('STORY_SLOGANS')).flat();
-    ok(manualTexts.includes('掃碼開原文附件') && !manualTexts.some((t) => allLines.includes(t)),
-       '手動 Story 版：照出直連 QR，但冇標語');
-    ok(autoTexts.includes(trainLines[3]) && autoTexts.includes('掃碼開原文附件'), '自動化 Story（有 item.slogan）：標語＋QR 照畫');
+    const exB = w.eval('state').enrich[PDF_B] || null;
+    const design0 = w.eval('POSTER_DESIGNS')[0];
+    const storyLay = w.eval('posterLayout')(base, exB, 'story', design0);
+    const feedLay = w.eval('posterLayout')(base, exB, 'feed', design0);
+    ok(manualQr.length === 1 && manualQr[0].url === PDF_B
+       && manualQr[0].x === storyLay.qr.x && manualQr[0].y === storyLay.qr.y && manualQr[0].size === storyLay.qr.size
+       && !manualTexts.includes('掃碼開原文附件') && !manualTexts.some((t) => allLines.includes(t)),
+       '手動 Story 版：預留位一塊直連 QR，冇說明字、冇標語');
+    ok(autoQr.length === 1 && autoTexts.includes(trainLines[3]) && !autoTexts.includes('掃碼開原文附件'),
+       '自動化 Story（有 item.slogan）：標語＋QR，冇說明字');
+    ok(feedQr.length === 1 && feedQr[0].url === PDF_B
+       && feedQr[0].x === feedLay.qr.x && feedQr[0].y === feedLay.qr.y && feedQr[0].size === feedLay.qr.size
+       && !feedTexts.includes('掃碼開原文附件') && !feedTexts.some((t) => allLines.includes(t)),
+       '4:5 同樣一塊直連 QR，冇說明字、冇標語');
   }
   const qr = w.eval('posterQrMatrix')('https://scout.org.hk/uploads/B.pdf');
   ok(qr && qr.length === 29 && qr[0].slice(0, 7).join('') === '1111111' && qr[14][14] === 1 && qr[28][28] === 1,
@@ -512,16 +564,12 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     domP.window.close();
   }
 
-  // ── PDF 落款（廣告位，2026-09-22）：同純文字分享同一句落款＋該通告深鏈 ──
+  // ── PDF 落款：只印分享文案嗰句，黑字、半號、唔加底色條 ──
   const footer = w.eval('pdfImageFooter({source_site:"筲箕灣區",title:"童軍技能訓練班",pdf_url:"' + PDF_B + '",url:"' + PDF_B + '"},2,3)');
-  ok(footer.title === '【筲箕灣區】童軍技能訓練班', '（保留）落款資料仲有【區會】標題：' + footer.title);
   ok(footer.credit === '---經 通告圖書館 v5.11 整理 @noscout.system',
-     '精簡落款＝純文字分享嗰行原樣（連開頭 ---）：' + footer.credit);
-  ok(/^完整通告＋最新截止日期：example\.org\/\?n=[0-9a-f]{16}$/.test(footer.linkLine),
-     '深鏈擺右邊細字（人哋收到圖照樣搵得返）：' + footer.linkLine);
-  ok(footer.page === '第 2 / 3 版', '多版 PDF 會標明版本：' + footer.page);
-  ok(w.eval('pdfImageFooter({title:"單版通告"},{pdf_url:"x",url:"x"},1,1).page') === '',
-     '單版 PDF 唔會多餘標「第 1 / 1 版」');
+     '落款只得分享文案嗰句（連開頭 ---）：' + footer.credit);
+  ok(!footer.linkLine && !footer.page && !footer.title,
+     '唔再印深鏈、版數、標題');
   ok(html.includes('composePdfImage(cv, item, num, pdfDoc.numPages'), 'renderPdfPage 真係用 composePdfImage 落款');
   // ── PDF 內文本機生圖：全部版數一次過出（2026-09-23）──
   ok(html.includes('data-act="pdf-all"'), '有「💾 全部版數」掣');
@@ -531,8 +579,11 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(/await new Promise\(\(r\) => setTimeout\(r, 320\)\);\s*\/\/ 畀瀏覽器逐張落載/.test(html),
      '唔支援資料夾時逐張下載（320ms 間隔，唔會互相取消）');
   ok(html.includes('每張圖底部都印住圖書館落款'), '提示講明每版都有落款');
-  ok(/bandH = Math\.max\(112, Math\.round\(W \* 0\.135\)\)/.test(html),
-     '落款帶收窄（原本 17% 高大藍帶 → 13.5%，兩行細字）');
+  ok(/oldCredit \/ 2/.test(html.slice(html.indexOf('function composePdfImage'), html.indexOf('function composePdfImage') + 1600)),
+     '落款字級用而家廣告主字嘅一半');
+  ok(!html.slice(html.indexOf('function composePdfImage'), html.indexOf('function composePdfImage') + 1600).includes('#0d1626'),
+     '唔再加深藍底色條');
+  ok(html.includes("ctx.fillStyle = '#000000'"), '落款用黑字印喺白底通告上');
   ok(!/pdfImageFooter\(item, pageNum, pageCount\)[\s\S]{0,400}badgeImg\.width/.test(
        html.slice(html.indexOf('function composePdfImage'), html.indexOf('function composePdfImage') + 2600)),
      '精簡落款唔再畫區徽大格（純文字，唔搶通告版面）');
@@ -732,6 +783,34 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   ok(cards(d).length === 0, '收藏夾都受支部標籤過濾（B 唔係幼童軍 → 0 張）');
   click(w, chip(d, '童軍')); await wait(50);
   ok(cards(d).length === 1, '收藏夾：童軍 → 1 張');
+
+  // ── Scout System 內設分類 + 6個月包含 6 個月以上（通告唔適用）──
+  {
+    const domS = boot();
+    const wS = domS.window, dS = wS.document;
+    await wait(800);
+    const kindLabels = ['助手', '遊戲', '系統', '工具', '其他', '連結'];
+    const sideKinds = $$(dS, '.source-btn span').map(s => s.textContent.trim()).filter(t => kindLabels.includes(t));
+    ok(JSON.stringify(sideKinds) === JSON.stringify(kindLabels),
+       'Scout System 側欄內設六類：' + sideKinds.join(' '));
+    click(wS, $$(dS, '#window-chips .chip').find(b => b.textContent.trim() === '6個月'));
+    await wait(80);
+    ok(titles(dS).includes('舊密碼遊戲'), '6個月視窗包含 6 個月以上的 Scout System');
+    ok(!titles(dS).includes('半年前舊通告'), '6個月視窗唔包含 6 個月以上的通告');
+    const oldCard = cards(dS).find(c => c.querySelector('h3').textContent === '舊密碼遊戲');
+    ok(!!oldCard && oldCard.textContent.includes('6個月以上') && oldCard.textContent.includes('遊戲'),
+       'Scout System 卡片標「6個月以上」同內設分類');
+    click(wS, $$(dS, '.source-btn').find(b => b.querySelector('span')?.textContent.trim() === '遊戲'));
+    await wait(80);
+    ok(titles(dS).includes('舊密碼遊戲') && !titles(dS).includes('【助手】集會流程'),
+       '撳「遊戲」只見遊戲：' + titles(dS).join(' | '));
+    const kindChips = $$(dS, '#category-chips .chip').map(c => c.textContent.trim());
+    ok(JSON.stringify(kindChips) === JSON.stringify(kindLabels),
+       '入咗 Scout System，分類掣改成內設六類：' + kindChips.join(' '));
+    ok($$(dS, '#category-chips .chip').find(c => c.textContent.trim() === '遊戲').classList.contains('active'),
+       '遊戲分類掣呈 active');
+    domS.window.close();
+  }
 
   console.log(fail ? `\n❌ ${fail} 項失敗` : '\n🎉 全部通過');
   process.exit(fail ? 1 : 0);

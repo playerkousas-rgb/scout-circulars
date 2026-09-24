@@ -27,4 +27,28 @@ now = '2026-09-09T18:00:00+08:00';
 assert(!context.inWindow('2026-09-08'));
 days = 7;
 assert(context.inWindow('2026-09-08'), 'still available under 7天, not deleted');
+
+// 6個月視窗：只有 Scout System 會包含 6 個月以上；通告唔會。
+const archiveSrc = declaration('isScoutSystemItem') + '\n' + declaration('itemInWindow');
+let archiveDays = 180;
+let archiveId = '180d';
+const archiveCtx = vm.createContext({
+  Date: TestDate,
+  TOOLS_SOURCES: new Set(['Scout System']),
+  currentWindow: () => ({ days: archiveDays, id: archiveId }),
+  inWindow: context.inWindow,
+});
+vm.runInContext(archiveSrc, archiveCtx);
+const oldTool = { source_site: 'Scout System', date: '2026-01-01' };
+const oldNotice = { source_site: '筲箕灣區', region: '港島地域', date: '2026-01-01' };
+now = '2026-09-08T12:00:00+08:00';
+assert(archiveCtx.itemInWindow(oldTool), '6個月視窗包含 6 個月以上的 Scout System');
+assert(!archiveCtx.itemInWindow(oldNotice), '6個月視窗唔包含 6 個月以上的通告');
+archiveId = '30d';
+archiveDays = 30;
+assert(!archiveCtx.itemInWindow(oldTool), '較短視窗仍然隱藏舊小工具');
+archiveId = '180d';
+archiveDays = 180;
+assert(archiveCtx.itemInWindow({ source_site: 'Scout System' }), '冇日期嘅 Scout System 都喺 6個月視窗出現');
+assert(archiveCtx.isScoutSystemItem({ region: 'Scout System', source_site: '其他' }), 'region=Scout System 都算小工具');
 console.log('🎉 Hong Kong date-only 今天 midnight boundary and 7天 retention passed');
