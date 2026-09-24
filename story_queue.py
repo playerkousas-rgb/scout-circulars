@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """由 cache.json 生成「今日 Story 清單」story-queue.json。
 
-排程（見 .github/workflows/story-queue.yml）刻意放喺日間先行：
-  - 凌晨 00:15 HKT GitHub scrape（scrape.yml）
-  - 朝早 05:00 HKT 本機補底（run-local-scrape-logged.bat）
-兩輪都完成之後先挑「今日新入庫」（captured_date = 今日，HKT 計）通告，
-按截止日期由近到遠排序，攞頭 --limit 條。
+只挑 HKT 今日新入庫（captured_date = 今日）而且 Story 必要資料齊全嘅通告：
+標題、頒佈日期、來源、分類、地域、原文附件連結、截止、對象、費用。缺任何一項就跳過，
+避免將佔位字或估算內容畫上 Story。唔設張數上限；可用正數 --limit 作手動測試。
 
-每條 item 除咗基本資料，仲會 join 埋 enrich.json（deadline/audience/fee）
-同分好 category（training/service/activity/competition/other），俾
-tools/render_story_templates.py 直接食出 Story 草稿圖。「Scout System」
-小工具唔會入清單（佢哋唔係通告）。
+每條合資格 item 會 join enrich.json（deadline/audience/fee）同分好 category
+（training/service/activity/competition），供 renderer 出圖；無法歸類及「Scout System」
+小工具都唔會入清單。每日自動流程只由 story-draft.yml 一次生成、
+出圖及發佈；本檔亦保留畀手動 workflow_dispatch 更新清單。
 
 stdlib only，無第三方依賴，無網絡存取。
 """
@@ -77,9 +75,99 @@ def enrich_for(enrich: dict | None, item: dict) -> dict | None:
     return enrich.get(item.get("pdf_url")) or enrich.get(item.get("url"))
 
 
-def pick_today(cache: dict, today: str, enrich: dict | None = None) -> list[dict]:
-    """由 cache.json 結構揀出 captured_date == today 嘅通告，按截止日排序。"""
+def story_attachment_url(item: dict) -> str:
+    """Story QR 直連原文附件；優先 pdf_url，欠缺時退回 url。"""
+    for key in ("pdf_url", "url"):
+        value = str(item.get(key) or "").strip()
+        if value:
+            return value
+    return ""
+
+
+STORY_SLOGANS = {
+    "training": (
+        "解鎖新技能",
+        "Skill Up!",
+        "學多樣，識多樣",
+        "今日學，明日用",
+        "升級進行中",
+        "成為更勁嘅自己",
+        "新手都歡迎",
+        "學到就係你嘅",
+    ),
+    "activity": (
+        "一齊玩，一齊記住",
+        "下一個回憶就係呢個",
+        "講少啲，做多啲",
+        "唔好淨係睇，嚟體驗啦",
+        "名額有限，報咗先算",
+        "今次唔嚟，下次後悔",
+        "新嘗試，等緊你",
+        "Join Us，齊齊出動",
+    ),
+    "service": (
+        "一齊做好事",
+        "小行動，大意義",
+        "出一分力，多一點好",
+        "一齊做，影響更大",
+        "付出時間，收穫更多",
+        "為呢度加點好",
+        "行動，就係改變",
+        "Do Good Together",
+    ),
+    "competition": (
+        "挑戰一下自己",
+        "係時候Show實力",
+        "突破自己嘅界限",
+        "唔試點知得唔得",
+        "團隊一齊，上！",
+        "為自己而戰",
+        "輸贏以外，係經歷",
+        "Ready？Go！",
+    ),
+}
+
+def story_slogan_candidates(item: dict) -> tuple[str, ...]:
+    """Return all lines for the classified Story category."""
+    category = str(item.get("category") or classify_category(item, None))
+    if category not in STORY_SLOGANS:
+        raise ValueError(f"Story requires a classified category: {category or 'missing'}")
+    return STORY_SLOGANS[category]
+
+
+def story_slogan_for_slot(category: str, slot: int) -> str:
+    """The category's fixed copy at this slot; no extra signup claims."""
+    lines = STORY_SLOGANS[category] if category in STORY_SLOGANS else ()
+    if not lines:
+        raise ValueError(f"Story requires a classified category: {category or 'missing'}")
+    return lines[slot % len(lines)]
+
+
+def assign_story_slogans(items: list[dict]) -> list[dict]:
+    """同一日同分類逐張輪流用下一句，唔會同一日撞句。"""
+    seen: dict[str, int] = {}
+    for item in items:
+        category = str(item.get("category") or "")
+        if category not in STORY_SLOGANS:
+            continue
+        slot = seen.get(category, 0)
+        seen[category] = slot + 1
+        item["slogan"] = story_slogan_for_slot(category, slot)
+    return items
+
+
+def story_slogan(item: dict) -> str:
+    """Return the assigned line; items outside a day's batch fall back to slot 0."""
+    if item.get("slogan"):
+        return str(item["slogan"])
+    category = str(item.get("category") or classify_category(item, None))
+    return story_slogan_for_slot(category, 0)
+
+
+def _today_candidates(cache: dict, today: str, enrich: dict | None = None) -> tuple[list[dict], int]:
+    """Return (complete candidates, incomplete count) for today, excluding tools."""
     items: list[dict] = []
+    incomplete = 0
     for section, arr in (cache.get("data") or {}).items():
         if not isinstance(arr, list):
             continue
@@ -92,33 +180,57 @@ def pick_today(cache: dict, today: str, enrich: dict | None = None) -> list[dict
             category = classify_category(it, ex)
             if category == "tools":
                 continue  # 小工具唔係通告，唔出 Story
-            items.append({
-                "title": it.get("title") or "未命名通告",
-                "url": it.get("url") or "",
-                "pdf_url": it.get("pdf_url") or "",
+            if category not in STORY_SLOGANS:
+                incomplete += 1  # 未能歸入四個 Story 分類，唔用「其他」估估下
+                continue
+
+            source_site = str(it.get("source_site") or section).strip()
+            item = {
+                "title": str(it.get("title") or "").strip(),
+                "url": str(it.get("url") or it.get("pdf_url") or "").strip(),
+                "pdf_url": str(it.get("pdf_url") or "").strip(),
                 # 條目冇寫 region 就用番 cache.json 嘅 section 名
-                "region": it.get("region") or section,
-                "source_site": it.get("source_site") or "",
-                "date": str(it.get("date") or "")[:10],
+                "region": str(it.get("region") or section or source_site).strip(),
+                "source_site": source_site,
+                "date": str(it.get("date") or "")[:10].strip(),
                 "captured_date": str(it.get("captured_date") or "")[:10],
-                "deadline": str((ex or {}).get("deadline") or "")[:10],
-                "audience": str((ex or {}).get("audience") or ""),
-                "fee": str((ex or {}).get("fee") or ""),
+                "deadline": str((ex or {}).get("deadline") or "")[:10].strip(),
+                "audience": str((ex or {}).get("audience") or "").strip(),
+                "fee": str((ex or {}).get("fee") or "").strip(),
                 "category": category,
-            })
+            }
+            # 這些正是 Story 底部資料卡及來源標籤會顯示的欄位；
+            # 不以「詳情見內文／見通告／—」等版面佔位字冒充齊料。
+            required = ("title", "date", "source_site", "region", "category", "url",
+                        "deadline", "audience", "fee")
+            if any(not item[field] for field in required):
+                incomplete += 1
+                continue
+            items.append(item)
     items.sort(key=lambda x: (x["date"] or NO_DATE, x["source_site"], x["title"]))
-    return items
+    return items, incomplete
 
 
-def build_queue(cache: dict, today: str, limit: int,
+def pick_today(cache: dict, today: str, enrich: dict | None = None) -> list[dict]:
+    """只回傳 captured_date == today 且所需 Story 欄位齊全嘅通告。"""
+    return _today_candidates(cache, today, enrich)[0]
+
+
+def build_queue(cache: dict, today: str, limit: int | None = None,
                 now: datetime | None = None, enrich: dict | None = None) -> dict:
-    picked = pick_today(cache, today, enrich)[:limit]
+    candidates, incomplete = _today_candidates(cache, today, enrich)
+    # 預設／--limit 0 都係不限張數；正數只供明確手動測試。
+    picked = candidates[:limit] if limit is not None and limit > 0 else candidates
+    # 排好隊先配標語：同一日同分類逐張用下一句，穩定又唔會撞句。
+    assign_story_slogans(picked)
     generated = (now or datetime.now(HKT)).astimezone(HKT)
     return {
-        "version": 1,
+        "version": 2,
         "today": today,
         "generated_at": generated.strftime("%Y-%m-%d %H:%M:%S %z"),
         "cache_last_updated": cache.get("last_updated") or "",
+        "candidate_count": len(candidates) + incomplete,
+        "skipped_incomplete": incomplete,
         "count": len(picked),
         "items": picked,
     }
@@ -128,9 +240,10 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="生成今日 Story 清單 story-queue.json")
     ap.add_argument("--cache", default="cache.json", help="cache.json 路徑")
     ap.add_argument("--enrich", default=None,
-                    help="enrich.json 路徑（預設：cache.json 同目錄嘅 enrich.json；冇就 skip join）")
+                    help="enrich.json 路徑（預設：cache.json 同目錄；缺少截止／對象／費用資料嘅項目會跳過）")
     ap.add_argument("--out", default="story-queue.json", help="輸出路徑")
-    ap.add_argument("--limit", type=int, default=20, help="最多幾多張（預設 20）")
+    ap.add_argument("--limit", type=int, default=0,
+                    help="最多幾多張；預設 0＝所有齊料通告，不設上限（正數只供手動測試）")
     ap.add_argument("--today", default=None,
                     help="覆寫『今日』（YYYY-MM-DD，主要俾測試用；預設 HKT 今日）")
     args = ap.parse_args(argv)
@@ -151,13 +264,16 @@ def main(argv: list[str] | None = None) -> int:
         try:
             enrich = json.loads(enrich_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
-            print(f"⚠️ enrich.json 讀唔到，deadline/audience/fee 會留空", file=sys.stderr)
+            print("⚠️ enrich.json 讀唔到；缺 deadline/audience/fee 嘅通告會視為不齊並跳過", file=sys.stderr)
 
     today = args.today or today_hkt()
     queue = build_queue(cache, today, args.limit, enrich=enrich)
     Path(args.out).write_text(
         json.dumps(queue, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"✅ story-queue.json：{queue['count']} 張（{today} 新入庫，按截止日排序）")
+    print(
+        f"✅ story-queue.json：{queue['count']} 張齊料通告；"
+        f"今日候選 {queue['candidate_count']} 張，跳過資料不齊 {queue['skipped_incomplete']} 張。"
+    )
     return 0
 
 

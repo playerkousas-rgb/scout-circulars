@@ -1,44 +1,48 @@
 # ============================================================
-# Story 草稿出圖（每日 20 張 1080×1920 PNG）— 中間路：
-#   畫圖全自動（呢度），發佈半自動（admin 17:30 喺 app 揀啱嘅貼 Story +
-#   link sticker）。原因：IG Graph API 出嘅 Story 貼唔到 link sticker，
-#   「撳 Story 入圖書館專屬頁」呢個閉環只有人手貼先保得住。
+# Daily Instagram Story + retained manual Story Drafts.
+# One scheduled run at 15:30 HKT (07:30 UTC); no auto retry, backfill, or requeue.
+# GitHub's schedule queue delay is intentionally allowed for by this time.
 #
-# 觸發：Story Queue workflow 行完（workflow_run）＋ 15:55 HKT 保底 cron。
+# Only complete cards are included: title, issue date, source, category, region,
+# original attachment, deadline, audience, and fee. There is no local count cap;
+# Instagram's own account/API limits still apply.
 #
-# 草稿去邊：force-push 去 `stories` 分支（獨立分支、歷史得 1 個 commit），
-#   main 分支 git 歷史零 PNG bloat。raw.githubusercontent 可以直接喺手機開。
-#
-# Vercel 紅線：Pillow 只裝喺 GitHub runner（同台機裝 Playwright 嗰個
-#   workflow 一樣），api/ 零改動，bundle guard 繼續綠。
+# Each image includes a QR straight to the source attachment and a category-aware Cantonese CTA.
+# PNG + JPEG assets are force-pushed once to the `stories` branch. PNG keeps the
+# notice-detail hero feature working; public JPEG URLs are fetched by Meta.
+# Manual Run remains available and defaults to preview/draft-only (no IG post);
+# scheduled runs publish. No images enter the main branch or Vercel deployment.
 # ============================================================
 
-name: Story Drafts
+name: Instagram Story + Drafts
 
 on:
-  workflow_run:
-    workflows: ["Story Queue"]
-    types: [completed]
   schedule:
-    # 15:55 HKT（07:55 UTC）保底：就算 queue workflow 故障，保底班都會
-    # 自己 rebuild queue 再出圖
-    - cron: "55 7 * * *"
+    - cron: "30 7 * * *"
   workflow_dispatch:
+    inputs:
+      publish:
+        description: "Also publish to Instagram (default: update drafts only)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
 
 concurrency:
-  group: scout-circulars-story-drafts
-  cancel-in-progress: true
+  # Serialize scheduled and manual runs; both update the same stories branch.
+  group: scout-circulars-story-assets
+  cancel-in-progress: false
 
 jobs:
-  draft:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+  story:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 60
     env:
       PYTHONUTF8: "1"
       TZ: "Asia/Hong_Kong"
-    timeout-minutes: 15
+      PUBLISH_STORIES: ${{ github.event_name == 'schedule' || inputs.publish }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -48,36 +52,110 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 中文字體（冇咗就全部豆腐）
+      - name: Install CJK font and image renderer
         run: |
-          sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          python -m pip install --disable-pip-version-check pillow 'qrcode[pil]'
 
-      - name: Pillow（只係 runner 用；同 Vercel bundle 無關）
-        run: pip install pillow
-
-      - name: 更新今日 queue 兼出 9 款草稿
+      - name: Build today's complete queue (no count cap)
+        id: queue
         run: |
-          python3 story_queue.py
-          python3 tools/render_story_templates.py
+          python3 story_queue.py --limit 0 --out "$RUNNER_TEMP/story-queue.json"
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          from pathlib import Path
+          q = json.loads(Path(os.environ["RUNNER_TEMP"], "story-queue.json").read_text(encoding="utf-8"))
+          print(f"today={q['today']}")
+          print(f"count={q['count']}")
+          print(f"candidate_count={q['candidate_count']}")
+          print(f"skipped_incomplete={q['skipped_incomplete']}")
+          PY
 
-      - name: Force-push 草稿去 stories 分支（留最近 7 日＋index.json，main 歷史零 bloat）
+      - name: Validate Instagram publishing configuration
+        if: steps.queue.outputs.count != '0' && env.PUBLISH_STORIES == 'true'
+        env:
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
         run: |
-          TODAY=$(date +%F)
-          # checkout 會換走成個 working tree，先搬 index 砌手落 /tmp
-          cp tools/render_story_templates.py /tmp/build_index.py
+          if [ -z "$INSTAGRAM_USER_ID" ]; then
+            echo "::error::Configure the INSTAGRAM_USER_ID GitHub Actions secret (numeric Instagram professional-account ID)."
+            exit 1
+          fi
+          if [ -z "$INSTAGRAM_ACCESS_TOKEN" ]; then
+            echo "::error::Configure the INSTAGRAM_ACCESS_TOKEN GitHub Actions secret. Do not paste tokens into workflow logs or chat."
+            exit 1
+          fi
+
+      - name: Render every eligible Story as PNG and JPEG
+        if: steps.queue.outputs.count != '0'
+        run: |
+          python3 tools/render_story_templates.py \
+            --queue "$RUNNER_TEMP/story-queue.json" \
+            --out "$RUNNER_TEMP/story-output" \
+            --limit 0
+
+      - name: Upload manual preview (does not publish)
+        if: github.event_name == 'workflow_dispatch' && steps.queue.outputs.count != '0' && env.PUBLISH_STORIES != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: story-preview-${{ steps.queue.outputs.today }}
+          path: ${{ runner.temp }}/story-output/${{ steps.queue.outputs.today }}/
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Update public stories branch (also retained for manual drafts)
+        if: steps.queue.outputs.count != '0'
+        env:
+          TODAY: ${{ steps.queue.outputs.today }}
+        run: |
+          set -euo pipefail
+          cp tools/render_story_templates.py "$RUNNER_TEMP/build_story_index.py"
+          cp .github/scripts/publish_instagram_stories.py "$RUNNER_TEMP/publish_instagram_stories.py"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if git fetch --depth 1 origin stories:stories-tmp 2>/dev/null; then
-            git checkout -f stories-tmp          # 分支已有：疊加今日，舊日保留
+            git checkout -f stories-tmp
           else
-            git checkout --orphan stories-tmp    # 第一浸：全新分支
+            git checkout --orphan stories-tmp
             git rm -rf . >/dev/null 2>&1 || true
           fi
           mkdir -p "stories/$TODAY"
-          cp -r "output/$TODAY/." "stories/$TODAY/"
-          # 留最近 7 日（YYYY-MM-DD 排得起字串序）
-          (cd stories && ls -1d 20*/ 2>/dev/null | sort -r | tail -n +8 | xargs -r rm -rf)
-          python3 /tmp/build_index.py --build-index stories
+          cp -R "$RUNNER_TEMP/story-output/$TODAY/." "stories/$TODAY/"
+          # Keep the latest seven days for the notice-detail hero feature.
+          mapfile -t old_days < <(find stories -mindepth 1 -maxdepth 1 -type d -name '20??-??-??' -printf '%f\n' | sort -r | tail -n +8)
+          for day in "${old_days[@]}"; do rm -rf "stories/$day"; done
+          python3 "$RUNNER_TEMP/build_story_index.py" --build-index stories
           git add stories/
-          git commit -qm "📚 story drafts $TODAY [skip ci]" || echo "冇新草稿"
+          git commit -qm "📲 Instagram Story assets $TODAY [skip ci]"
           git push --force origin HEAD:stories
+
+      - name: Publish every eligible Instagram Story (one attempt each)
+        if: steps.queue.outputs.count != '0' && env.PUBLISH_STORIES == 'true'
+        env:
+          TODAY: ${{ steps.queue.outputs.today }}
+          STORY_IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/stories/stories/${{ steps.queue.outputs.today }}/
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_GRAPH_API_BASE: ${{ vars.INSTAGRAM_GRAPH_API_BASE || 'https://graph.facebook.com' }}
+          INSTAGRAM_GRAPH_API_VERSION: ${{ vars.INSTAGRAM_GRAPH_API_VERSION || 'v25.0' }}
+        run: |
+          python3 "$RUNNER_TEMP/publish_instagram_stories.py" \
+            --manifest "stories/$TODAY/manifest.json" \
+            --base-url "$STORY_IMAGE_BASE_URL"
+
+      - name: Run summary
+        if: always()
+        run: |
+          if [ -z "${{ steps.queue.outputs.count }}" ]; then
+            echo "Queue step did not produce outputs; check the earlier failure log." >> "$GITHUB_STEP_SUMMARY"
+          elif [ "${{ steps.queue.outputs.count }}" = "0" ]; then
+            echo "No complete notices; no post, retry, backfill, or requeue." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Selected ${{ steps.queue.outputs.count }} complete notices out of ${{ steps.queue.outputs.candidate_count }} today; skipped incomplete: ${{ steps.queue.outputs.skipped_incomplete }}." >> "$GITHUB_STEP_SUMMARY"
+            if [ "$PUBLISH_STORIES" = "true" ]; then
+              echo "Scheduled/manual publish mode; each notice gets one API attempt. Failed posts are not retried." >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "Manual preview mode only; no image was published." >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
