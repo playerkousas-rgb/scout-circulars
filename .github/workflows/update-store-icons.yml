@@ -1,0 +1,29 @@
+# 一次性測試寫入：將 App Store 4 本進度紀錄冊嘅 icon 換成最高獎章 AVIF。
+# 需要 repo secret：STORE_SERVICE_KEY（Supabase service_role key）
+# 或者 STORE_ADMIN_EMAIL + STORE_ADMIN_PASSWORD（走 auth 路由）。
+# 觸發：Actions 頁面手動 Run workflow；ICON_BASE 可改做 branch raw（merge 前測試用）。
+name: update-store-icons
+
+on:
+  workflow_dispatch:
+    inputs:
+      icon_base:
+        description: 'AVIF raw base URL（留空用 main）'
+        required: false
+        default: ''
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Update store icons
+        env:
+          STORE_SERVICE_KEY: ${{ secrets.STORE_SERVICE_KEY }}
+          STORE_ADMIN_EMAIL: ${{ secrets.STORE_ADMIN_EMAIL }}
+          STORE_ADMIN_PASSWORD: ${{ secrets.STORE_ADMIN_PASSWORD }}
+          ICON_BASE: ${{ github.event.inputs.icon_base }}
+        run: node tools/update_store_award_icons.mjs
