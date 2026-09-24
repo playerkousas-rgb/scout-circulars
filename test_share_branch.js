@@ -110,9 +110,11 @@ function boot(qs = '', opts = {}) {
       }
       // 「貼去平台」開新分頁（jsdom 冇實作 window.open）
       win.__opened = [];
+      win.__calls = [];   // 'clip' / 'open' 先後次序（剪貼板一定要喺開新分頁之前寫）
       win.open = (url) => {
         const tab = { location: { href: url || '' }, closed: false, close() { this.closed = true; } };
         win.__opened.push(tab);
+        win.__calls.push('open');
         return tab;
       };
       if (typeof win.ClipboardItem === 'undefined') {
@@ -136,7 +138,7 @@ function boot(qs = '', opts = {}) {
       win.HTMLCanvasElement.prototype.toBlob = function (cb) { cb(new win.Blob(['png'], { type: 'image/png' })); };
       Object.defineProperty(win.navigator, 'clipboard', { value: {
         writeText: (t) => { clip.text = t; return Promise.resolve(); },
-        write: (items) => { clip.items = items; return Promise.resolve(); },
+        write: (items) => { clip.items = items; win.__calls.push('clip'); return Promise.resolve(); },
       }, configurable: true });
     },
   });
@@ -220,8 +222,22 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   let sheet = d.querySelector('.share-sheet');
   ok(!!sheet, '撳分享 → 彈出分享面板');
   ok(sheet.querySelector('#share-title').textContent === '童軍技能訓練班', '面板標題係該通告');
+  // 2026-09-24 用戶話「呢堆字全都不用了」：文案預覽、PDF／IG 標題同兩句 IG 說明全部拎走
+  {
+    const REMOVED = ['分享文案預覽', '通告內容出圖', '12 款設計・本機即畫', '想換款就撳上面嘅縮圖',
+      'Story 同 4:5 都會加直連通告原文嘅 QR', '分類標語只喺每日自動化 Story 先加', '右上角只貼區／地域／總會 LOGO'];
+    ok(REMOVED.every((t) => !sheet.textContent.includes(t) && !html.includes(t)),
+       '分享面板唔再有文案預覽標題、PDF／IG 標題同 IG 說明字');
+    ok(!sheet.querySelector('pre'), '分享文案預覽框（<pre>）已拎走（文案照樣用「複製文字」／WhatsApp 等掣分享）');
+    ok($$(d, '.share-sheet h4').map((h) => h.textContent.trim()).join('|') === '分享至',
+       '面板淨返「分享至」一個小標題：' + $$(d, '.share-sheet h4').map((h) => h.textContent.trim()).join('|'));
+    ok(!!sheet.querySelector('[data-act="pdf2img"]') && !!sheet.querySelector('[data-act="ig"]'),
+       '拎走標題之後「轉換內文做圖」同「產生 IG 分享圖」兩粒掣照舊喺度');
+  }
   const linkLabels = $$(d, '.share-sheet a[data-act="link"]').map(a => a.textContent.trim());
   ok(JSON.stringify(linkLabels) === JSON.stringify(['WhatsApp', 'Telegram', 'Facebook', 'X', 'LINE', '電郵']), '社交平台連結齊全：' + linkLabels.join(' '));
+  ok($$(d, '.share-sheet a.wa')[0].href.startsWith('https://api.whatsapp.com/'), '手機 WhatsApp 保持官方分享連結');
+  ok($$(d, '.share-sheet a.tg')[0].href.startsWith('https://t.me/share/url?'), '手機 Telegram 保持官方分享連結');
   const waHref = decodeURIComponent($$(d, '.share-sheet a.wa')[0].href);
   ok(waHref.includes(PDF_B) && waHref.includes('童軍技能訓練班') && waHref.includes('【筲箕灣區】'), 'WhatsApp 文字含區會、標題、附件直連');
   ok(waHref.includes('【筲箕灣區】童軍技能訓練班童軍、領袖'), '精簡格式：對象直接黐住標題（B 只有對象）');
@@ -610,6 +626,11 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     const cardD = [...dD.querySelectorAll('#cards .card')].find(c => c.querySelector('h3').textContent === '童軍技能訓練班');
     click(wD, cardD.querySelector('.share-btn')); await wait(60);
     const sheetD = dD.querySelector('.share-sheet');
+    for (const id of ['wa', 'tg']) {
+      const href = new URL(sheetD.querySelector('a.share-opt.' + id).href);
+      ok(href.pathname === '/share-launch.html' && new URLSearchParams(href.hash.slice(1)).get('target') === id,
+         '電腦文字分享 ' + id + ' 先用 app-first 分享頁');
+    }
     click(wD, sheetD.querySelector('[data-act="ig"]')); await wait(90);
     const boxD = sheetD.querySelector('[data-role="igbox"]');
     ok(boxD && !boxD.hidden, '電腦版：照樣出到 IG 圖預覽');
@@ -620,13 +641,35 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     ok(domD.clip.items && domD.clip.items.length === 1, '「複製圖片」真係寫咗 ClipboardItem 落剪貼板');
     ok((dD.querySelector('.share-toast')?.textContent || '').includes('已複製圖片'), '複製完有 toast 提你貼去邊');
     click(wD, sheetD.querySelector('[data-role="igsocial"] button[data-target="tg"]')); await wait(60);
-    ok(wD.__opened.length === 1 && wD.__opened[0].location.href === 'https://web.telegram.org/a/',
-       '撳「貼去 Telegram」→ 開 Telegram 網頁預備貼圖');
+    ok(wD.__opened.length === 1 && wD.__opened[0].location.href === sheetD.querySelector('a.share-opt.tg').href,
+       '撳「貼去 Telegram」→ 同文字分享共用 app-first 分享頁');
     ok(domD.clip.items.length === 1 && (dD.querySelector('.share-toast')?.textContent || '').includes('Ctrl'),
        '同時複製咗圖片，toast 教貼上（Ctrl／⌘+V）');
     click(wD, sheetD.querySelector('[data-role="pdfsocial"] button[data-target="wa"]')); await wait(40);
     ok((dD.querySelector('.share-toast')?.textContent || '').includes('請先產生圖片'),
        '未出 PDF 圖就撳「貼去 WhatsApp」→ 有提示，唔會靜靜冇反應');
+    // 文字／圖片共用 app-first 分享頁，圖片保持先複製後開頁。
+    {
+      const waTextHref = sheetD.querySelector('a.share-opt.wa').href;
+      const openedBefore = wD.__opened.length;
+      wD.__calls.length = 0;
+      domD.clip.items = null;
+      click(wD, sheetD.querySelector('[data-role="igsocial"] button[data-target="wa"]')); await wait(60);
+      const tab = wD.__opened[openedBefore];
+      ok(wD.__opened.length === openedBefore + 1 && tab && tab.location.href === waTextHref,
+         '撳「貼去 WhatsApp」→ 開同分享文字一模一樣嘅 WhatsApp 連結：' + (tab && tab.location.href.slice(0, 48)));
+      ok(tab && tab.location.href.startsWith('https://example.org/share-launch.html#target=wa&') && !tab.location.href.includes('web.whatsapp.com'),
+         '先開 app-first 分享頁，唔會一開始就開 WhatsApp Web');
+      ok(decodeURIComponent((tab && tab.location.href) || '').includes('【筲箕灣區】童軍技能訓練班'),
+         'WhatsApp 開到之後文案（區會＋標題＋詳情連結）已預填，貼圖一齊發');
+      ok(domD.clip.items && domD.clip.items.length === 1, '開 WhatsApp 之前已經複製咗張圖');
+      ok(wD.__calls.join(',') === 'clip,open',
+         '先寫剪貼板、後開新分頁（唔好等新分頁搶咗焦點／用咗 user activation 先複製）：' + wD.__calls.join(','));
+      ok(tab && tab.opener === null, '新分頁切斷 opener（等同 rel=noopener）');
+      const t = dD.querySelector('.share-toast')?.textContent || '';
+      ok(t.includes('WhatsApp') && t.includes('揀對話') && t.includes('Ctrl'),
+         'toast 教：WhatsApp 開咗之後揀對話、Ctrl／⌘+V 貼上：' + t);
+    }
   }
 
   // ── 今日草稿出圖台（?batch=1）：本機批次出圖 ──────────────────────

@@ -181,6 +181,15 @@ node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／�
   嘅 AVIF）直貼右上角（唔加白框），fallback 鏈 區 → 地域 → 總會。Story 版另加直連原文 QR。
   分類標語**只喺自動化先加**（Actions 每日 Story，同埋 `?batch=1` 出圖台）；分享面板手動出圖
   唔加標語，QR 左邊留位，用戶喺 IG 自己加字更彈性（2026-09-24 決定）。
+- **電腦分享先試 app、再退網頁（2026-09-24）**：WhatsApp／Telegram 嘅「分享至」同 PDF／IG 圖「貼去」
+  共用 `share-launch.html`。先試 `whatsapp:`／`tg:`，頁面仍有焦點且可見 2.5 秒就轉去真正網頁版，
+  唔經下載頁。文案／連結會帶去 app 同網頁版（Telegram Web A 用 `tgaddr`）。
+  瀏覽器唔提供安裝／啟動結果：失焦、隱藏或離頁會取消自動跳轉，避免 app 開咗後又開網頁；
+  如果只係取消系統提示，請用一直可見嘅「改用網頁版」。亦可以「再試開電腦版」。
+  網頁版仍可能要登入；唔會代用戶登入或發送。分享資料只放 URL fragment，唔送本站伺服器。
+  圖片先開始寫剪貼板、再開分享頁，揀對話後 Ctrl／⌘+V 貼圖；唔會用文案覆蓋剪貼板張圖。
+  Facebook／X 繼續開網頁，LINE 用官方分享連結，電郵用系統 `mailto:`（無法猜用戶嘅 webmail）。
+  手機連結／系統分享保持原狀。分享面板維持精簡，冇加返文案預覽框同各區說明字。
 > 「分享圖片」（PDF → JPG）功能已於 2026-09-16 移除：附加價值有限，而佢令每個 Vercel
 > deployment 嘅 function bundle 包埋 PyMuPDF（約 110MB），直接導致 Functions Storage
 > 爆額（見下文「Vercel 用量」一節）。分享連結、複製網址／文字等功能不受影響。

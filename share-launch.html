@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>開啟分享 · 通告圖書館</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: light-dark(#f4f7f6, #111b18); color: light-dark(#18352a, #edf6f1); }
+    main { max-width: 32rem; margin: 24px; padding: 32px; border: 1px solid #78958866; border-radius: 20px; }
+    h1 { font-size: 1.5rem; margin-top: 0; }
+    p { line-height: 1.7; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+    a { color: inherit; }
+    nav a { padding: 12px 18px; border: 1px solid #789588; border-radius: 10px; text-decoration: none; }
+    #app { background: #176a4b; color: white; border-color: #176a4b; }
+    small { line-height: 1.6; display: block; opacity: .8; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <h1 id="title">開啟分享</h1>
+  <p id="status" role="status" aria-live="polite">準備開啟分享…</p>
+  <nav id="actions" hidden aria-label="分享方式">
+    <a id="app">再試開電腦版</a>
+    <a id="web">改用網頁版</a>
+  </nav>
+  <p id="paste" hidden>分享圖片：揀好對話後，按 Ctrl／⌘+V 貼上圖片，再確認發送。</p>
+  <small>瀏覽器可能會問「開啟應用程式？」。如果取消咗提示、或者 app 冇開到，請撳「改用網頁版」。網頁版可能需要登入。</small>
+  <noscript><p>請啟用 JavaScript，或自行開啟 WhatsApp／Telegram 再貼上。</p></noscript>
+</main>
+<script>
+'use strict';
+
+// Fixed destinations only. Never accept arbitrary app/web URLs from the fragment.
+function desktopShareDestinations(hash) {
+  const params = new URLSearchParams(hash.replace(/^#/, ''));
+  const target = params.get('target');
+  const text = params.get('text') || '';
+  const url = params.get('url') || '';
+  if ((target !== 'wa' && target !== 'tg') || !text || text.length + url.length > 20000) return null;
+  const et = encodeURIComponent(text);
+  if (target === 'wa') return {
+    label: 'WhatsApp',
+    app: `whatsapp://send?text=${et}`,
+    web: `https://web.whatsapp.com/send?text=${et}`,
+  };
+  // Telegram Web A consumes tgaddr after login (Main.tsx / processDeepLink).
+  const app = `tg://msg_url?url=${encodeURIComponent(url)}&text=${et}`;
+  return { label: 'Telegram', app, web: `https://web.telegram.org/a/#?tgaddr=${encodeURIComponent(app)}` };
+}
+
+// There is no browser API for installed apps or custom-protocol success.
+// A visible, focused page times out to web. Blur/hidden/pagehide cancels the
+// timer permanently: never send a user to web behind an app or OS prompt.
+// A cancelled prompt can also blur, so the manual web link stays available.
+function createDesktopShareLauncher(dest, env, status) {
+  let timer = null;
+  let started = false;
+  let stopped = false;
+  function stop() {
+    stopped = true;
+    if (timer !== null) env.clearTimeout(timer);
+    timer = null;
+    env.removeEventListener('blur', stop);
+    env.removeEventListener('pagehide', stop);
+    env.removeEventListener('focus', start);
+    env.document.removeEventListener('visibilitychange', visibility);
+  }
+  function visibility() {
+    if (env.document.hidden) stop();
+  }
+  function start() {
+    if (started || stopped || env.document.hidden || !env.document.hasFocus()) return;
+    started = true;
+    env.addEventListener('blur', stop);
+    env.addEventListener('pagehide', stop);
+    env.document.addEventListener('visibilitychange', visibility);
+    timer = env.setTimeout(() => {
+      const canFallback = !stopped && !env.document.hidden && env.document.hasFocus();
+      stop();
+      if (canFallback) {
+        status.textContent = '未偵測到離開瀏覽器，正轉去網頁版…';
+        env.location.replace(dest.web);
+      }
+    }, 2500);
+    status.textContent = `正嘗試開啟 ${dest.label} 電腦版；冇反應會轉去網頁版。`;
+    try { env.location.assign(dest.app); } catch (_) { /* timer supplies web fallback */ }
+  }
+  env.addEventListener('focus', start);
+  start();
+  return stop;
+}
+
+const dest = desktopShareDestinations(location.hash);
+const status = document.getElementById('status');
+if (!dest) {
+  status.textContent = '分享資料唔完整，請返回通告圖書館再撳分享。';
+} else {
+  document.title = `開啟 ${dest.label} · 通告圖書館`;
+  document.getElementById('title').textContent = `開啟 ${dest.label}`;
+  const appLink = document.getElementById('app');
+  const webLink = document.getElementById('web');
+  appLink.href = dest.app;
+  webLink.href = dest.web;
+  document.getElementById('actions').hidden = false;
+  document.getElementById('paste').hidden = false;
+  let stop = createDesktopShareLauncher(dest, window, status);
+  appLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    stop();
+    stop = createDesktopShareLauncher(dest, window, status);
+  });
+  webLink.addEventListener('click', () => stop());
+}
+</script>
+</body>
+</html>
