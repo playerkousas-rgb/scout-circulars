@@ -15,7 +15,7 @@
 - `core.py`：Python 爬蟲主程式
 - `sources.json`：49 個來源映射設定
 - `cache.json`：輸出資料與內部狀態
-- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享（文案＋社交＋IG 分享圖 4:5，另設 📱 Story 版 1080×1920）/ 匿名通知設定 / 問題回報／意見反映）。通告專屬頁：每張通告有深鏈 `?n=<16hex>`（同 push ID 同源），單一 ID 著陸會直接彈出該通告嘅專屬頁（標題＋區徽＋截止/對象/費用/名額＋開附件/分享/複製連結），分享面板「複製連結」一撳攞鏈，貼上 IG Story link sticker 就形成 Story → 圖書館閉環
+- `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享（文案＋社交＋IG 分享圖 4:5，另設 📱 Story 版 1080×1920＋內文轉圖，多版可一次過分享／合併成一份多頁 PDF）/ 匿名通知設定 / 問題回報／意見反映）。通告專屬頁：每張通告有深鏈 `?n=<16hex>`（同 push ID 同源），單一 ID 著陸會直接彈出該通告嘅專屬頁（標題＋區徽＋截止/對象/費用/名額＋開附件/分享/複製連結），分享面板「複製連結」一撳攞鏈，貼上 IG Story link sticker 就形成 Story → 圖書館閉環
   - IG 分享圖（2026-09-21；**2026-09-22 由「深藍底＋字」重寫成 12 款設計**）：瀏覽器 canvas 即畫 1080×1350（feed 4:5）／1080×1920（Story），用人者裝置字體同記憶體，**唔經任何 Vercel function／storage**；取代 2026-09-16 移除嘅 server-side render（PyMuPDF）——Vercel 爆容量嘅真兇係 Python 依賴入 bundle（見 VERCEL_EMERGENCY_CLEANUP_2026-09-19.md），唔係圖片儲存，所以 server render 唔會返嚟。12 款、md5 揀款、縮圖 picker 見「分享通告」一節
   - 問題回報／意見反映（2026-09-24）：頂欄叮噹旁一粒 **💬**（手機 sticky 頂欄；桌面喺 🔔 通知隔籬）。入去已經有兩個分頁，唔另外加下拉。頁尾／側欄文字入口保留。問題回報填 **APP + 什麼問題**；意見反映填 **有什麼意見**（例如想要什麼幫助）；**姓名／電郵／電話全部選填**。表單 `POST` 去 Scout Admin 嘅 Apps Script（[playerkousas-rgb/scout-admin](https://github.com/playerkousas-rgb/scout-admin)），無本站後端、唔經 Vercel function。回歸測試：`node test_report_feedback.js`
 - `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
@@ -186,13 +186,31 @@ node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／�
   嘅 AVIF）直貼右上角（唔加白框），fallback 鏈 區 → 地域 → 總會。Story 版另加直連原文 QR。
   分類標語**只喺自動化先加**（Actions 每日 Story，同埋 `?batch=1` 出圖台）；分享面板手動出圖
   唔加標語，QR 左邊留位，用戶喺 IG 自己加字更彈性（2026-09-24 決定）。
+- **內文轉圖（PDF → 圖）多版處理（2026-09-25）**：撳「📄 轉換內文做圖」之後，
+  多版通告會多三粒掣：
+  - 「📤 分享全部版數」（手機）：一個 Web Share 面板載晒所有版嘅 PNG，
+    揀 WhatsApp 就一次過傳晒（換版編號喺檔名），**唔會再加任何文字**。
+  - 「📄 合併成一份 PDF」：喺用戶部機砌一份真多頁 PDF（`buildPdfBytes`，
+    零依賴：每版 JPEG 用 `DCTDecode` 直嵌，xref 偏移自己寫）——一個檔案＝全部版。
+    合併好出「⬇️ 下載 PDF」（可以直接拖入 WhatsApp Web／電腦版對話）同
+    「📤 分享 PDF」（手機）。**點解要 PDF**：瀏覽器剪貼板一次只放得「一張」圖
+    （Chrome 明文限制），所以多過一版冇可能靠 Ctrl+V 一次過貼晒；PDF 唔會被
+    WhatsApp 二次壓縮，收件人一開就睇齊。
+  - 「💾 全部版數」照舊逐版存 PNG（File System Access／逐張下載）。
+  單版通告維持原狀（下載圖片／複製圖片／分享圖片）。
+- **圖片分享唔加文字（2026-09-25）**：IG 圖同內文圖嘅「貼去 WhatsApp／Telegram…」
+  改用 `share-launch.html#target=…&mode=image`：只複製張圖、只開平台本身，
+  **唔會預填任何文案**（張圖已經有齊內文，再加文字好奇怪）。`mode=image` 明文
+  拒絕 `text`／`url`（防第日有人偷偷加返）。系統分享（手機）本身就只傳檔案。
 - **電腦分享先試 app、再退網頁（2026-09-24）**：WhatsApp／Telegram 嘅「分享至」同 PDF／IG 圖「貼去」
   共用 `share-launch.html`。先試 `whatsapp:`／`tg:`，頁面仍有焦點且可見 2.5 秒就轉去真正網頁版，
-  唔經下載頁。文案／連結會帶去 app 同網頁版（Telegram Web A 用 `tgaddr`）。
+  唔經下載頁。文字分享會帶文案／連結去 app 同網頁版（Telegram Web A 用 `tgaddr`）；
+  圖片分享用 `mode=image`，唔帶文字（見上）。
   瀏覽器唔提供安裝／啟動結果：失焦、隱藏或離頁會取消自動跳轉，避免 app 開咗後又開網頁；
   如果只係取消系統提示，請用一直可見嘅「改用網頁版」。亦可以「再試開電腦版」。
   網頁版仍可能要登入；唔會代用戶登入或發送。分享資料只放 URL fragment，唔送本站伺服器。
-  圖片先開始寫剪貼板、再開分享頁，揀對話後 Ctrl／⌘+V 貼圖；唔會用文案覆蓋剪貼板張圖。
+  圖片先開始寫剪貼板、再開分享頁，揀對話後 Ctrl／⌘+V 貼圖；唔會用文案覆蓋剪貼板張圖，
+  亦唔會幫用戶預填文字。
   Facebook／X 繼續開網頁，LINE 用官方分享連結，電郵用系統 `mailto:`（無法猜用戶嘅 webmail）。
   手機連結／系統分享保持原狀。分享面板維持精簡，冇加返文案預覽框同各區說明字。
 > 「分享圖片」（PDF → JPG）功能已於 2026-09-16 移除：附加價值有限，而佢令每個 Vercel

@@ -385,6 +385,10 @@
     .share-ig-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .share-ig-actions a, .share-ig-actions button { flex: 1 1 112px; min-width: 0; text-align: center; padding: 10px 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; }
     .share-ig-actions a:hover, .share-ig-actions button:hover { background: rgba(255,255,255,.1); }
+    /* [hidden] 一定要贏：作者寫嘅 display:flex／grid 會蓋過瀏覽器預設嘅
+       [hidden]{display:none}，所以單版嘅換版掣、手機版嘅「貼去…」列以前照樣顯示。
+       2026-09-25 一次過修正（新增嘅多版 PDF 區塊都靠呢句）。 */
+    .share-sheet [hidden] { display: none !important; }
     /* 電腦版「貼去平台」：一撳複製圖片＋開平台，貼上即發 */
     .share-ig-shareto { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
     .share-ig-shareto span { color: var(--muted); font-size: 12px; }
@@ -3542,7 +3546,112 @@
     // 前端 bug（renderPdfPage 用咗未宣告嘅 nav），誤導咗成個排查方向。
     const LOCAL_PDF_MAX = 20 * 1024 * 1024;
     const PROXY_PDF_MAX = 4 * 1024 * 1024;
+    const PDF_PREVIEW_WIDTH = 1240;   // 預覽圖／逐版 PNG 闊度
+    const PDF_IMAGE_WIDTH = 1654;     // A4 @200dpi：PDF 放大睇字都清
+    const PDF_IMAGE_DPI = 200;        // PDF 入面嘅實際尺寸（點 = 像素 × 72 / dpi）
     const PDFJS_BASE = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4';
+
+    // ── 多版合一：喺瀏覽器砌一份真 PDF（零依賴、零 function）─────────────
+    //
+    // 點解要 PDF：瀏覽器剪貼板一次只放得「一張」圖（Chrome 明文限制），所以
+    // 多過一版嘅通告冇可能靠 Ctrl+V 一次過貼晒。一份多頁 PDF ＝ 一個檔案載齊
+    // 所有版：WhatsApp 當文件傳（唔會被二次壓縮），收件人一開就睇齊全部版，
+    // 亦可以一次過拖入 WhatsApp Web／電腦版。每版照樣印住圖書館落款。
+    // 全部喺用戶部機做，唔會經過 Vercel／storage。
+    function pdfLatinBytes(str) {
+      const out = new Uint8Array(str.length);
+      for (let i = 0; i < str.length; i++) out[i] = str.charCodeAt(i) & 0xFF;
+      return out;
+    }
+
+    // PDF 文字（標題等）用 UTF-16BE 十六進位寫，中文唔會亂碼
+    function pdfHexText(str) {
+      let hex = 'FEFF';
+      for (const ch of String(str == null ? '' : str)) {
+        const cp = ch.codePointAt(0);
+        if (cp > 0xFFFF) {
+          const v = cp - 0x10000;
+          hex += (0xD800 + (v >> 10)).toString(16).toUpperCase().padStart(4, '0');
+          hex += (0xDC00 + (v & 0x3FF)).toString(16).toUpperCase().padStart(4, '0');
+        } else {
+          hex += cp.toString(16).toUpperCase().padStart(4, '0');
+        }
+      }
+      return '<' + hex + '>';
+    }
+
+    function pdfDateStamp(d) {
+      const p2 = (n) => String(n).padStart(2, '0');
+      const tz = -d.getTimezoneOffset();
+      const sign = tz >= 0 ? '+' : '-';
+      return `D:${d.getFullYear()}${p2(d.getMonth() + 1)}${p2(d.getDate())}`
+        + `${p2(d.getHours())}${p2(d.getMinutes())}${p2(d.getSeconds())}`
+        + `${sign}${p2(Math.floor(Math.abs(tz) / 60))}'${p2(Math.abs(tz) % 60)}'`;
+    }
+
+    // pages: [{ bytes: Uint8Array(JPEG), width, height }] → PDF 檔案 bytes。
+    // 純函數（唔掂 DOM），可以直接測：xref 偏移一定要準，唔係 PDF 開唔到。
+    function buildPdfBytes(pages, meta) {
+      const list = (pages || []).filter((p) => p && p.bytes && p.bytes.length
+        && Number(p.width) > 0 && Number(p.height) > 0);
+      if (!list.length) return null;
+      const chunks = [];
+      let offset = 0;
+      const push = (part) => {
+        const bytes = typeof part === 'string' ? pdfLatinBytes(part) : part;
+        chunks.push(bytes);
+        offset += bytes.length;
+      };
+      const info = meta || {};
+      const bodies = [];
+      const imageById = new Map();
+      // 物件編號：1 Catalog、2 Pages、3 Info；之後每版 3 個（Page／Image／Contents）
+      const pageIds = list.map((_, i) => 4 + i * 3);
+      bodies[1] = '<< /Type /Catalog /Pages 2 0 R >>';
+      bodies[2] = `<< /Type /Pages /Kids [${pageIds.map((id) => `${id} 0 R`).join(' ')}] /Count ${list.length} >>`;
+      const infoParts = ['/Producer ' + pdfHexText('通告圖書館（瀏覽器本機出）')];
+      if (info.title) infoParts.push('/Title ' + pdfHexText(info.title));
+      if (info.creator) infoParts.push('/Creator ' + pdfHexText(info.creator));
+      infoParts.push('/CreationDate (' + pdfDateStamp(info.date || new Date()) + ')');
+      bodies[3] = `<< ${infoParts.join(' ')} >>`;
+      list.forEach((page, i) => {
+        const pid = pageIds[i];
+        const w = Math.round(page.width), h = Math.round(page.height);
+        const pw = Math.round(w * 72 / PDF_IMAGE_DPI * 100) / 100;
+        const ph = Math.round(h * 72 / PDF_IMAGE_DPI * 100) / 100;
+        const content = `q ${pw} 0 0 ${ph} 0 0 cm /Im0 Do Q`;
+        bodies[pid] = `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pw} ${ph}]`
+          + ` /Resources << /XObject << /Im0 ${pid + 1} 0 R >> >> /Contents ${pid + 2} 0 R >>`;
+        bodies[pid + 2] = `<< /Length ${content.length} >>\nstream\n${content}\nendstream`;
+        imageById.set(pid + 1, page);
+      });
+      const maxId = 3 + list.length * 3;
+      const offsets = new Array(maxId + 1).fill(0);
+      push('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+      for (let id = 1; id <= maxId; id++) {
+        offsets[id] = offset;
+        const img = imageById.get(id);
+        if (img) {
+          push(`${id} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${Math.round(img.width)}`
+            + ` /Height ${Math.round(img.height)} /ColorSpace /DeviceRGB /BitsPerComponent 8`
+            + ` /Filter /DCTDecode /Length ${img.bytes.length} >>\nstream\n`);
+          push(img.bytes);
+          push('\nendstream\nendobj\n');
+        } else {
+          push(`${id} 0 obj\n${bodies[id]}\nendobj\n`);
+        }
+      }
+      const xrefOffset = offset;
+      let xref = `xref\n0 ${maxId + 1}\n0000000000 65535 f \n`;
+      for (let id = 1; id <= maxId; id++) xref += `${String(offsets[id]).padStart(10, '0')} 00000 n \n`;
+      push(xref);
+      push(`trailer\n<< /Size ${maxId + 1} /Root 1 0 R /Info 3 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`);
+      const total = chunks.reduce((sum, c) => sum + c.length, 0);
+      const out = new Uint8Array(total);
+      let at = 0;
+      for (const c of chunks) { out.set(c, at); at += c.length; }
+      return out;
+    }
     let pdfjsPromise = null;
     function loadPdfJs() {
       if (!pdfjsPromise) {
@@ -3767,23 +3876,27 @@
     //         面板好多時冇社交 app，撳咗好似壞咗），所以電腦改為
     //        「📋 複製圖片 ＋ 開平台 ＋ 貼上（Ctrl/⌘+V）」。呢個係唯一
     //         可以由網頁推圖入社交平台嘅正路 —— 瀏覽器唔容許網站代你上載圖。
-    //   電腦 WhatsApp／Telegram：文字同圖片共用 share-launch.html，先試 app，
+    //   電腦 WhatsApp／Telegram：文字同圖片都用 share-launch.html，先試 app，
     //         冇離開頁面就轉網頁；瀏覽器無法準確查安裝狀態，另留手動網頁入口。
+    //         但 2026-09-25 用戶話「圖片已經有齊內文，再加文字好奇怪」：
+    //         圖片分享改用 share-launch.html 嘅 image 模式（唔帶任何 text／url），
+    //         只開平台本身，用戶揀對話 → 貼圖 → 發送，一個字都唔會多。
     const IMG_SHARE_TARGETS = [
-      { id: 'wa', label: 'WhatsApp', sameAs: 'wa' },
-      { id: 'tg', label: 'Telegram', sameAs: 'tg' },
+      { id: 'wa', label: 'WhatsApp', launch: true },
+      { id: 'tg', label: 'Telegram', launch: true },
       { id: 'fb', label: 'Facebook', url: 'https://www.facebook.com/' },
       { id: 'x', label: 'X', url: 'https://x.com/compose/post' },
     ];
 
-    // 「貼去…」要開嘅網址。sameAs＝借用「分享至」嗰粒掣（socialLinks）同一條，
-    // 保證同分享文字行為一致（文案＋詳情連結會預填埋，貼圖之後一齊發）。
-    function imgShareTargetUrl(target, item) {
-      if (target && target.sameAs) {
-        const link = socialLinks(item).find((l) => l.id === target.sameAs);
-        if (link) return link.href;
+    // 「貼去…」要開嘅網址：圖片分享一律唔預填文字（唔會偷偷幫用戶加文案）。
+    function imgShareTargetUrl(target) {
+      if (!target) return '';
+      if (target.launch) {
+        const page = new URL('share-launch.html', document.baseURI);
+        page.hash = `target=${target.id}&mode=image`;
+        return page.href;
       }
-      return (target && target.url) || '';
+      return target.url || '';
     }
 
     // 兩種掣幾時出：手機出系統分享；電腦出「貼去…」（複製＋開網頁）。
@@ -3822,6 +3935,16 @@
       const state = ui || imageShareUi(isTouchLikeDevice(), canShareImageFiles());
       const sysBtn = box.querySelector('[data-act="share-file"]');
       if (sysBtn) sysBtn.hidden = !state.system;
+      // 多版：一次過交晒所有版落同一個系統分享面板（WhatsApp 一次過收到全部圖）。
+      // 唔支援多檔分享嘅瀏覽器唔出呢粒掣，唔會撳完冇反應。
+      const pagesBtn = box.querySelector('[data-role="pdfsharepages"]');
+      if (pagesBtn) {
+        const pages = Number(pagesBtn.dataset.pages || '0');
+        pagesBtn.hidden = !(state.system && pages > 1 && canShareManyImageFiles(pages));
+      }
+      // 合併好嘅 PDF：手機可以直接分享個檔案（dataset.shareable 由合併嗰步設定）
+      const pdfFileBtn = box.querySelector('[data-role="pdfsharefile"]');
+      if (pdfFileBtn) pdfFileBtn.hidden = !(state.system && pdfFileBtn.dataset.shareable === '1');
       const social = box.querySelector('.share-ig-shareto');
       if (social) social.hidden = !state.social;
       // 「貼上（Ctrl/⌘+V）」呢句提示只有電腦版啱用
@@ -3830,9 +3953,58 @@
     }
 
     async function shareImageFile(blob, fileName, title) {
-      await navigator.share({
-        files: [new File([blob], fileName, { type: 'image/png' })],
-        title: title || '通告',
+      await shareFiles([new File([blob], fileName, { type: 'image/png' })], title);
+    }
+
+    // 系統分享（手機）：一律唔帶文字 —— 張圖已經有齊內文，再加文案會好奇怪
+    //（2026-09-25 用戶要求）。title 只係分享面板嘅標題，唔會變成訊息內容。
+    async function shareFiles(files, title) {
+      await navigator.share({ files, title: title || '通告' });
+    }
+
+    // 多版一次過分享：一個系統面板交晒所有版（WhatsApp 收到全部圖，唔使逐版傳）。
+    async function shareImageFiles(items, title) {
+      const files = items.map(({ blob, name }) => new File([blob], name, { type: 'image/png' }));
+      await shareFiles(files, title);
+    }
+
+    // 一次過分享多張圖／一個檔案得唔得？唔支援就唔出嗰粒掣，唔會撳完冇反應。
+    function canShareFilesList(files) {
+      try {
+        return typeof navigator.share === 'function' && typeof navigator.canShare === 'function'
+          && navigator.canShare({ files });
+      } catch (_) { return false; }
+    }
+
+    function canShareManyImageFiles(count) {
+      if (count < 2) return false;
+      const probe = [];
+      for (let i = 0; i < count; i++) probe.push(new File([''], `x${i}.png`, { type: 'image/png' }));
+      return canShareFilesList(probe);
+    }
+
+    function canShareDocument(blob, name) {
+      if (!blob) return false;
+      const type = blob.type || 'application/pdf';
+      return canShareFilesList([new File([blob], name || 'file', { type })]);
+    }
+
+    // 電腦版一次過傳檔：個「下載 PDF」掣同時可以拖——直接拖入 WhatsApp Web／
+    // 電腦版對話就會上載成個檔案（一份 PDF 載齊所有版），唔使先存落資料夾。
+    // 拖放係網頁唯一可以「一個動作」交檔案去另一個 app 嘅方法：瀏覽器唔容許
+    // 網站代用戶上載／發送任何嘢。
+    function attachFileDragSource(el, getFile) {
+      if (!el || el.dataset.dragsrc === '1') return;
+      el.dataset.dragsrc = '1';
+      el.setAttribute('draggable', 'true');
+      el.addEventListener('dragstart', (e) => {
+        const file = getFile();
+        const dt = e.dataTransfer;
+        if (!file || !dt || !dt.items || typeof dt.items.add !== 'function') return;
+        try {
+          dt.items.add(file);
+          dt.effectAllowed = 'copy';
+        } catch (_) { /* 唔支援就淨係當普通連結拖 */ }
       });
     }
 
@@ -3957,13 +4129,20 @@
                 <button type="button" data-act="pdf-next" aria-label="下一版">下一版 ▶</button>
               </div>
               <img alt="通告內容預覽">
-              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖。每張圖底部都印住圖書館落款（黑字、半號、冇底色條）：---經 通告圖書館 v5.11 整理 @noscout.system。多版通告可以撳「💾 全部版數」一次過出齊。</p>
+              <p class="share-ig-hint">手機長撳張圖就直接儲存／轉發；多版通告可以㩒上一版／下一版逐版出圖，或者「分享全部版數」／「合併成一份 PDF」一次過出齊。每張圖底部都印住圖書館落款（黑字、半號、冇底色條）：---經 通告圖書館 v5.11 整理 @noscout.system。</p>
               <div class="share-ig-actions">
                 <a data-role="pdfdl" download>下載圖片</a>
-                <button type="button" data-act="pdf-all" data-role="pdfall">💾 全部版數</button>
+                <button type="button" data-act="pdf-all" data-role="pdfall" hidden>💾 全部版數</button>
+                <button type="button" data-act="pdf-merge" data-role="pdfmerge" hidden>📄 合併成一份 PDF</button>
                 <button type="button" data-act="copy-image" data-kind="pdf" data-role="pdfcopy">📋 複製圖片</button>
                 <button type="button" data-act="share-file" data-kind="pdf" data-role="pdfshare" hidden>📤 分享圖片</button>
+                <button type="button" data-act="share-pages" data-kind="pdf" data-role="pdfsharepages" hidden>📤 分享全部版數</button>
               </div>
+              <div class="share-ig-actions" data-role="pdfmergeout" hidden>
+                <a data-role="pdfdlfile" download>⬇️ 下載 PDF</a>
+                <button type="button" data-act="share-pdf" data-kind="pdf" data-role="pdfsharefile" hidden>📤 分享 PDF</button>
+              </div>
+              <p class="share-ig-hint" data-role="pdfmergehint" hidden></p>
               <div class="share-ig-shareto" data-role="pdfsocial" hidden>
                 <span>貼去：</span>
                 <button type="button" data-act="img-target" data-kind="pdf" data-target="wa">WhatsApp</button>
@@ -3971,7 +4150,7 @@
                 <button type="button" data-act="img-target" data-kind="pdf" data-target="fb">Facebook</button>
                 <button type="button" data-act="img-target" data-kind="pdf" data-target="x">X</button>
               </div>
-              <p class="share-ig-hint" data-role="pdfsharehint">電腦版：撳「貼去 WhatsApp／Telegram…」會順手複製張圖再開個平台，貼上（Ctrl／⌘+V）就發得。</p>
+              <p class="share-ig-hint" data-role="pdfsharehint">電腦版：撳「貼去 WhatsApp／Telegram…」會複製張圖再開個平台（唔會預填任何文字），揀對話後貼上（Ctrl／⌘+V）就發得。多版嘅就撳「📄 合併成一份 PDF」，再一次過拖入對話。</p>
             </div>
           </div>
           `}
@@ -4023,17 +4202,35 @@
       let pdfDoc = null;  // pdf.js document（關面板 destroy 釋放記憶體）
       let pdfKey = '';
       let pdfPage = 1;
+      let pdfFileBlob = null;  // 合併好嘅多頁 PDF（一次過分享／拖入 WhatsApp 用）
+      let pdfFileUrl = null;
+
+      // 合併結果出返嚟／收返埋（換通告或者關面板都要清）
+      function resetMergedPdf(box) {
+        if (pdfFileUrl) { try { URL.revokeObjectURL(pdfFileUrl); } catch (_) {} }
+        pdfFileUrl = null;
+        pdfFileBlob = null;
+        if (!box) return;
+        const out = box.querySelector('[data-role="pdfmergeout"]');
+        if (out) out.hidden = true;
+        const hint = box.querySelector('[data-role="pdfmergehint"]');
+        if (hint) { hint.hidden = true; hint.textContent = ''; }
+        const btn = box.querySelector('[data-role="pdfsharefile"]');
+        if (btn) { btn.dataset.shareable = ''; btn.hidden = true; }
+        const status = box.querySelector('[data-role="pdfstatus"]');
+        if (status) status.textContent = '';
+      }
 
       function badgeOnce() {
         if (!badgePromise) badgePromise = orgBadgeImgFor(item).catch(() => null);
         return badgePromise;
       }
 
-      // 畫一版（唔碰 UI）：回 { blob, name } —— 單版預覽同「全部版數」共用
-      async function renderPdfPageBlob(num) {
+      // 畫一版做 canvas（唔碰 UI）：預覽圖、逐版 PNG、合併 PDF 共用同一條路
+      async function renderPdfPageCanvas(num, targetWidth) {
         const page = await pdfDoc.getPage(num);
         const base = page.getViewport({ scale: 1 });
-        const scale = Math.min(2, 1240 / base.width);
+        const scale = Math.min(3, (targetWidth || PDF_PREVIEW_WIDTH) / base.width);
         const vp = page.getViewport({ scale });
         const cv = document.createElement('canvas');
         cv.width = Math.ceil(vp.width);
@@ -4042,13 +4239,61 @@
         if (!c2) throw new Error('canvas unavailable');
         await page.render({ canvasContext: c2, viewport: vp }).promise;
         // 落款：黑字印喺白底通告最底，只有 SHARE_CREDIT 一句。見 composePdfImage。
-        const outCv = composePdfImage(cv, item, num, pdfDoc.numPages, await badgeOnce());
-        const blob = await new Promise((res, rej) => outCv.toBlob((b) => (b ? res(b) : rej(new Error('toBlob failed'))), 'image/png'));
-        return { blob, name: pdfFileNameFor(num) };
+        return composePdfImage(cv, item, num, pdfDoc.numPages, await badgeOnce());
+      }
+
+      function canvasBlob(canvas, type, quality) {
+        return new Promise((res, rej) => canvas.toBlob(
+          (b) => (b ? res(b) : rej(new Error('toBlob failed'))), type, quality));
+      }
+
+      async function blobBytes(blob) {
+        if (typeof blob.arrayBuffer === 'function') return new Uint8Array(await blob.arrayBuffer());
+        return new Uint8Array(await new Promise((res, rej) => {
+          const fr = new FileReader();
+          fr.onload = () => res(fr.result);
+          fr.onerror = () => rej(new Error('blob read failed'));
+          fr.readAsArrayBuffer(blob);
+        }));
+      }
+
+      // 一版（唔碰 UI）：回 { blob, name } —— 單版預覽同「全部版數」共用
+      async function renderPdfPageBlob(num) {
+        const outCv = await renderPdfPageCanvas(num, PDF_PREVIEW_WIDTH);
+        return { blob: await canvasBlob(outCv, 'image/png'), name: pdfFileNameFor(num) };
+      }
+
+      // 一版 JPEG（PDF 直接嵌入用：DCTDecode 唔使壓縮庫，瀏覽器原生 toBlob 就得）
+      async function renderPdfPageJpeg(num) {
+        const cv = await renderPdfPageCanvas(num, PDF_IMAGE_WIDTH);
+        const blob = await canvasBlob(cv, 'image/jpeg', 0.92);
+        const bytes = await blobBytes(blob);
+        return { bytes, width: cv.width, height: cv.height };
+      }
+
+      // 全部版合併成一份多頁 PDF（一個檔案＝全部版）
+      async function mergePdfFile(status) {
+        const total = pdfDoc.numPages;
+        const pages = [];
+        for (let n = 1; n <= total; n++) {
+          if (status) status.textContent = `合併緊第 ${n}/${total} 版…`;
+          pages.push(await renderPdfPageJpeg(n));
+        }
+        const bytes = buildPdfBytes(pages, {
+          title: item.title || '未命名通告',
+          creator: item.source_site || '',
+          date: new Date(),
+        });
+        if (!bytes) throw new Error('empty pdf');
+        return new Blob([bytes], { type: 'application/pdf' });
       }
 
       function pdfFileNameFor(num) {
         return igFileNameFor(item, false).replace(/\.png$/, `-p${num}.png`);
+      }
+
+      function pdfDocumentFileName() {
+        return igFileNameFor(item, false).replace(/\.png$/, '.pdf');
       }
 
       // 全部版數一次過出（Chrome／Edge 揀個資料夾就寫晒入去；其他瀏覽器逐張下載）
@@ -4094,7 +4339,8 @@
         // ⚠️ 唔好刪：2026-09-23 拆 renderPdfPageBlob 時漏咗呢行，
         // 之後每次畫完圖都 ReferenceError → 預覽被收埋＋誤報「來源站連唔到」。
         const nav = box.querySelector('[data-role="pdfnav"]');
-        status.textContent = `畫緊第 ${num} 版（共 ${pdfDoc.numPages} 版）…`;
+        const total = pdfDoc.numPages;
+        status.textContent = `畫緊第 ${num} 版（共 ${total} 版）…`;
         const { blob, name } = await renderPdfPageBlob(num);
         if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
         pdfImgUrl = URL.createObjectURL(blob);
@@ -4104,10 +4350,18 @@
         dl.href = pdfImgUrl;
         dl.download = name;
         pdfPage = num;
-        box.querySelector('[data-role="pdfpage"]').textContent = `第 ${num} / ${pdfDoc.numPages} 版`;
-        nav.hidden = pdfDoc.numPages <= 1;
+        box.querySelector('[data-role="pdfpage"]').textContent = `第 ${num} / ${total} 版`;
+        nav.hidden = total <= 1;
         nav.querySelector('[data-act="pdf-prev"]').disabled = num <= 1;
-        nav.querySelector('[data-act="pdf-next"]').disabled = num >= pdfDoc.numPages;
+        nav.querySelector('[data-act="pdf-next"]').disabled = num >= total;
+        // 多版先出「全部版數」「合併成一份 PDF」「一次過分享全部版數」
+        const multi = total > 1;
+        box.querySelector('[data-role="pdfall"]').hidden = !multi;
+        box.querySelector('[data-role="pdfmerge"]').hidden = !multi;
+        box.querySelector('[data-role="pdfshare"]').textContent = multi ? '📤 分享此版' : '📤 分享圖片';
+        const pagesBtn = box.querySelector('[data-role="pdfsharepages"]');
+        pagesBtn.dataset.pages = String(total);
+        pagesBtn.textContent = `📤 分享全部 ${total} 版`;
         applyImageShareUi(box);
         status.textContent = '';
       }
@@ -4199,6 +4453,7 @@
             const key = shareUrlFor(item);
             if (!pdfDoc || pdfKey !== key) {
               if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} pdfDoc = null; }
+              resetMergedPdf(box);   // 換文件：之前合併好嘅 PDF 唔啱用
               const data = await loadNoticePdfBytes(item);
               status.textContent = '讀緊 PDF…';
               try {
@@ -4239,6 +4494,90 @@
             showToast('出圖途中出錯，試下逐版下載。');
           } finally {
             el.disabled = false;
+          }
+          return;
+        }
+        if (act === 'pdf-merge') {
+          // 全部版合成一份多頁 PDF：一個檔案＝一次過傳晒所有版
+          //（WhatsApp 當文件傳，唔會被二次壓縮，收件人一開就睇齊）
+          const box = sheet.querySelector('[data-role="pdfbox"]');
+          const status = box.querySelector('[data-role="pdfstatus"]');
+          if (!pdfDoc) return;
+          el.disabled = true;
+          try {
+            resetMergedPdf(box);
+            const blob = await mergePdfFile(status);
+            const name = pdfDocumentFileName();
+            pdfFileBlob = blob;
+            pdfFileUrl = URL.createObjectURL(blob);
+            const dl = box.querySelector('[data-role="pdfdlfile"]');
+            dl.href = pdfFileUrl;
+            dl.download = name;
+            dl.textContent = `⬇️ 下載 PDF（共 ${pdfDoc.numPages} 版）`;
+            attachFileDragSource(dl, () => (pdfFileBlob
+              ? new File([pdfFileBlob], pdfDocumentFileName(), { type: 'application/pdf' }) : null));
+            const shareBtn = box.querySelector('[data-role="pdfsharefile"]');
+            shareBtn.dataset.shareable = canShareDocument(blob, name) ? '1' : '';
+            box.querySelector('[data-role="pdfmergeout"]').hidden = false;
+            const hint = box.querySelector('[data-role="pdfmergehint"]');
+            hint.hidden = false;
+            hint.textContent = shareBtn.dataset.shareable === '1'
+              ? `PDF 好咗（共 ${pdfDoc.numPages} 版）：撳「📤 分享 PDF」一次過傳去 WhatsApp 等 app，唔會再加文字。`
+              : `PDF 好咗（共 ${pdfDoc.numPages} 版）：撳「⬇️ 下載 PDF」，或者直接將嗰粒掣拖入 WhatsApp／Telegram 對話（一個檔案，全部版齊）。`;
+            status.textContent = `✅ 合併好一份 PDF（共 ${pdfDoc.numPages} 版）。`;
+            applyImageShareUi(box);
+          } catch (err) {
+            status.textContent = '';
+            showToast('合併 PDF 出錯，可以改用「💾 全部版數」逐版下載。');
+            try { console.warn('[合併 PDF]', err); } catch (_) {}
+          } finally {
+            el.disabled = false;
+          }
+          return;
+        }
+        if (act === 'share-pages') {
+          // 手機：一次過交晒所有版落系統分享面板（WhatsApp 一次過收到全部圖，冇文字）
+          const box = sheet.querySelector('[data-role="pdfbox"]');
+          const status = box.querySelector('[data-role="pdfstatus"]');
+          if (!pdfDoc) return;
+          el.disabled = true;
+          try {
+            const total = pdfDoc.numPages;
+            const items = [];
+            for (let n = 1; n <= total; n++) {
+              status.textContent = `出圖中 ${n}/${total}…（跟住彈系統分享，一次過傳晒）`;
+              items.push(await renderPdfPageBlob(n));
+            }
+            status.textContent = '開緊系統分享…';
+            await shareImageFiles(items, item.title || '通告');
+            status.textContent = `✅ 分享咗 ${total} 版（冇加任何文字）。`;
+          } catch (err) {
+            if (err && err.name === 'AbortError') {
+              status.textContent = '已取消分享。';
+            } else {
+              status.textContent = '';
+              showToast('一次過分享唔到，可以改用「📄 合併成一份 PDF」。');
+              try { console.warn('[分享全部版數]', err); } catch (_) {}
+            }
+          } finally {
+            el.disabled = false;
+          }
+          return;
+        }
+        if (act === 'share-pdf') {
+          const box = sheet.querySelector('[data-role="pdfbox"]');
+          const status = box.querySelector('[data-role="pdfstatus"]');
+          if (!pdfFileBlob) { showToast('請先撳「📄 合併成一份 PDF」。'); return; }
+          try {
+            await shareFiles([new File([pdfFileBlob], pdfDocumentFileName(), { type: 'application/pdf' })],
+              item.title || '通告');
+            status.textContent = '✅ 分享咗 PDF（全部版一個檔案）。';
+          } catch (err) {
+            if (err && err.name === 'AbortError') status.textContent = '已取消分享。';
+            else {
+              status.textContent = '';
+              showToast('分享 PDF 唔到，可以撳「⬇️ 下載 PDF」。');
+            }
           }
           return;
         }
@@ -4290,7 +4629,9 @@
         }
         if (act === 'img-target') {
           // 電腦版：複製圖片 ＋ 開平台（WhatsApp／Telegram 先試 app，再退網頁），用戶貼上（Ctrl/⌘+V）就發得。
-          // 手機（有 Web Share）：直接叫系統分享面板，唔玩網頁貼上。
+          // 圖片分享唔會預填任何文字（2026-09-25 用戶要求：張圖已經有齊內文，
+          // 再加文案好奇怪）——平台用無參數嘅入口，貼上、發送，就係咁簡單。
+          // 手機（有 Web Share）：直接叫系統分享面板（檔案分享本身已經冇文字），唔玩網頁貼上。
           const kind = el.dataset.kind;
           const blob = kind === 'ig' ? igBlob : pdfBlob;
           const target = IMG_SHARE_TARGETS.find((t) => t.id === el.dataset.target);
@@ -4311,14 +4652,13 @@
           //   Firefox／Safari 寫剪貼板要今次撳掣嘅 user activation，而 window.open 可能已經用咗佢。
           //   copyImageBlob 喺第一個 await 之前已經 call 咗 clipboard.write，所以前面唔好加 await。
           const copying = copyImageBlob(blob);
-          const targetUrl = imgShareTargetUrl(target, item);
+          const targetUrl = imgShareTargetUrl(target);
           let popup = null;
           try { popup = window.open(targetUrl, '_blank'); } catch (_) { popup = null; }
           if (popup) { try { popup.opener = null; } catch (_) {} }   // 等同 rel="noopener"
           const copied = await copying;
-          if (copied && popup && target.sameAs) showToast(`已複製圖片：${target.label} 開咗之後揀對話，貼上（Ctrl／⌘+V）就發得。`);
-          else if (copied && popup) showToast(`已複製圖片：喺 ${target.label} 貼上（Ctrl／⌘+V）就發得。`);
-          else if (copied) showToast(`已複製圖片：自己開 ${target.label} 貼上就得。`);
+          if (copied && popup) showToast(`已複製圖片：${target.label} 開咗之後揀對話，貼上（Ctrl／⌘+V）就發得（唔會加文字）。`);
+          else if (copied) showToast(`已複製圖片：自己開 ${target.label} 貼上就得（唔會加文字）。`);
           else if (popup) showToast(`已開 ${target.label}：請先撳「下載圖片」，再喺嗰邊上載。`);
           else showToast('複製唔到圖片，請用「下載圖片」再上載。');
           return;
@@ -4399,6 +4739,7 @@
         document.removeEventListener('keydown', onKey);
         if (igUrl) { try { URL.revokeObjectURL(igUrl); } catch (_) {} }
         if (pdfImgUrl) { try { URL.revokeObjectURL(pdfImgUrl); } catch (_) {} }
+        if (pdfFileUrl) { try { URL.revokeObjectURL(pdfFileUrl); } catch (_) {} }
         if (pdfDoc) { try { pdfDoc.destroy(); } catch (_) {} }
       } };
       sheet.querySelector('.share-close').focus();
