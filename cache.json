@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-09-26 04:01:11",
+  "last_updated": "2026-09-26 05:00:07",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4851,
+    "total_notices": 4853,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -25575,6 +25575,24 @@
     ],
     "九龍城區": [
       {
+        "title": "訓練班內容",
+        "url": "https://scoutsinfohub.org.hk/ScoutTrainingScheme/pdf-zh/Pursuit/BackwoodsCook.pdf",
+        "pdf_url": "https://scoutsinfohub.org.hk/ScoutTrainingScheme/pdf-zh/Pursuit/BackwoodsCook.pdf",
+        "date": "2026-09-26",
+        "captured_date": "2026-09-26",
+        "source_site": "九龍城區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "童軍原野烹飪章( 教導組及技能組) 訓練班",
+        "url": "https://www.klcscout.hk/cportal/uploads/童軍原野烹飪章(技能組)訓練班_訓練班通告.pdf",
+        "pdf_url": "https://www.klcscout.hk/cportal/uploads/童軍原野烹飪章(技能組)訓練班_訓練班通告.pdf",
+        "date": "2026-09-26",
+        "captured_date": "2026-09-26",
+        "source_site": "九龍城區",
+        "region": "九龍地域"
+      },
+      {
         "title": "品酒工作坊(11月)",
         "url": "https://www.klcscout.hk/cportal/uploads/D09_品酒工作坊(11月)通告2026.pdf",
         "pdf_url": "https://www.klcscout.hk/cportal/uploads/D09_品酒工作坊(11月)通告2026.pdf",
@@ -43811,6 +43829,20 @@
       "region": "九龍地域",
       "pdf_url": "https://www.scout-kowloontong.org/notice/2026/KLG26-06SA.pdf",
       "title": "童軍消防章訓練班-接納通知書",
+      "captured_date": "2026-09-26"
+    },
+    {
+      "source_site": "九龍城區",
+      "region": "九龍地域",
+      "pdf_url": "https://scoutsinfohub.org.hk/ScoutTrainingScheme/pdf-zh/Pursuit/BackwoodsCook.pdf",
+      "title": "訓練班內容",
+      "captured_date": "2026-09-26"
+    },
+    {
+      "source_site": "九龍城區",
+      "region": "九龍地域",
+      "pdf_url": "https://www.klcscout.hk/cportal/uploads/童軍原野烹飪章(技能組)訓練班_訓練班通告.pdf",
+      "title": "童軍原野烹飪章( 教導組及技能組) 訓練班",
       "captured_date": "2026-09-26"
     },
     {
@@ -77891,51 +77923,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-26 04:01:11",
-      "new": 4,
-      "updated": 155,
-      "daily_new": 4,
-      "skipped": 38,
+      "updated_at": "2026-09-26 05:00:07",
+      "new": 2,
+      "updated": 3513,
+      "daily_new": 6,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
