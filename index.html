@@ -2334,6 +2334,13 @@
     ];
     const POSTER_DESIGN_BY_ID = {};
     for (const _d of POSTER_DESIGNS) POSTER_DESIGN_BY_ID[_d.id] = _d;
+
+    // 款嘅適用範圍（單一來源）：小工具（Scout System）用 3 款工具底圖，通告用 12 款。
+    // 分享面板同「今日草稿出圖台」都跟呢個規則 —— 出圖台只出通告，
+    // 之前直接 map POSTER_DESIGNS，列出咗 3 款永遠用唔到嘅小工具款（2026-09-25 修）。
+    function posterDesignsFor(isTool) {
+      return POSTER_DESIGNS.filter((d) => (isTool ? d.cat === 'tools' : d.cat !== 'tools'));
+    }
     const POSTER_POOLS = {
       training: ['train_blue', 'train_orange', 'train_green'],
       competition: ['competition_gold_black'],
@@ -4404,9 +4411,7 @@
         if (!wrap) return;
         if (!wrap.dataset.built) {
           wrap.dataset.built = '1';
-          const availableDesigns = isTool
-            ? POSTER_DESIGNS.filter(d => ['tool_cyber', 'tool_scout_navy', 'tool_aurora'].includes(d.id))
-            : POSTER_DESIGNS.filter(d => !['tool_cyber', 'tool_scout_navy', 'tool_aurora'].includes(d.id));
+          const availableDesigns = posterDesignsFor(isTool);
           for (const d of availableDesigns) {
             const btn = document.createElement('button');
             btn.type = 'button';
@@ -4971,8 +4976,10 @@
         const kindLabel = SCOUT_SYSTEM_KINDS.find(k => k.id === kindId)?.label || '';
         const kindHtml = kindLabel ? `<span class="cat-tag kind">${escapeHtml(kindLabel)}</span>` : '';
         const archiveHtml = scoutArchiveTagged(item) ? `<span class="cat-tag archive">${SCOUT_ARCHIVE_LABEL}</span>` : '';
+        // ⚠️ 兩邊都要帶 archiveHtml：scoutArchiveTagged 只會對 Scout System（＝isTool）
+        // 回 true，之前只喺「非工具」分支加，所以「6個月以上」標籤永遠都畫唔出（2026-09-25 修）。
         const catHtml = isTool
-          ? (kindHtml || '<span class="cat-tag kind">助手</span>')
+          ? (kindHtml || '<span class="cat-tag kind">助手</span>') + archiveHtml
           : [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('') + kindHtml + archiveHtml;
         const iconHtml = isTool && item.icon ? `<img class="tool-card-icon" src="${escapeHtml(item.icon)}" alt="" onerror="this.style.display='none'">` : '';
         const card = document.createElement('article');
@@ -6022,7 +6029,7 @@
           <div class="batch-tools">
             <label>款：<select data-role="batchdesign">
               <option value="auto">自動（跟分類，同草稿一致）</option>
-              ${POSTER_DESIGNS.map((d) => `<option value="${d.id}">${d.label}</option>`).join('')}
+              ${posterDesignsFor(false).map((d) => `<option value="${d.id}">${d.label}</option>`).join('')}
             </select></label>
             <label>日期：<input type="date" data-role="batchdate"></label>
             <label>範圍：<select data-role="batchrange">

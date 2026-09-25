@@ -814,8 +814,13 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     ok(figs.length === 5, `出圖台列出今日 5 張（實際 ${figs.length}）—— ?limit 可以收窄（純函數測試已蓋）`);
     ok(figs.every(f => f.querySelector('button')), '每張卡都有「⬇ 下載」掣');
     const sel = view.querySelector('[data-role="batchdesign"]');
-    ok(sel && sel.options.length === 13 && sel.options[0].value === 'auto',
-       '款選擇器＝自動＋12 款');
+    // 出圖台只出通告 → 款清單＝自動＋12 款通告設計；3 款小工具設計唔應該出現
+    //（2026-09-25 之前直接 map POSTER_DESIGNS，列出 16 個選項含 3 款永遠用唔到嘅）。
+    const selVals = sel ? [...sel.options].map(o => o.value) : [];
+    ok(selVals.length === 13 && selVals[0] === 'auto'
+       && domB.window.eval('posterDesignsFor(false)').every(d => selVals.includes(d.id))
+       && domB.window.eval('posterDesignsFor(true)').every(d => !selVals.includes(d.id)),
+       '款選擇器＝自動＋12 款通告設計（冇小工具款）：' + selVals.length + ' 個選項');
     click(domB.window, view.querySelector('[data-role="batchmode"]'));
     await wait(80);
     ok(view.querySelector('[data-role="batchmode"]').textContent.includes('4:5'),
