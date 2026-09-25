@@ -516,6 +516,37 @@ Check 4 一度紅：上傳 231 個檔、4.15 MB（budget 2 MB）。病源係新�
    等佢日後自動清。
 
 
+## 已知待處理（2026-09-25 發現，刻意未修）
+
+### `cache.json` 有 24 筆標題係 `view`（港島南區）
+
+- 位置：`cache.json` → `data.港島南區`，24 筆 Drive 連結通告，`captured_date` 全部 `2026-05-21`。
+- 成因：2026-05 舊版 `fallback_title_from_url()` 攞 Drive URL 尾段（`/file/d/<id>/view` →
+  `"view"`）做標題。`core.py` 已經修好（`URL_TAIL_NOT_A_FILENAME` / `looks_like_opaque_id`），
+  新抓嘅唔會再中 —— 但**已入庫嘅記錄唔會再被抓**（來源頁已經唔列出嗰 24 條），
+  `core.py` 又用 `(source_site, pdf_url)` 認「已存在」，所以錯標題會永遠留低，
+  6 個月視窗照樣顯示 24 張「view」卡。
+- 影響：`python test_url_title_fallback.py` 同一項、`ci-proposed/test.yml` 嘅
+  cache 完整性守門會紅（呢個係「正確嘅紅」）。
+- 修法（一行，工具早已經寫好，對照表逐份 PDF 核實過）：
+
+  ```bash
+  python fix_hks_titles.py --dry-run   # 睇會改邊 24 筆（應該全中，冇漏）
+  python fix_hks_titles.py             # 寫入 cache.json（會留 .bak 備份，已 gitignore）
+  ```
+
+  想自動化：`ci-proposed/scrape-hks-titles.patch` 會喺每日爬蟲流程加
+  `python fix_hks_titles.py`（乾淨時 no-op，唔會阻礙之後任何一次跑），
+  由同一個 writer 改 `cache.json`，避免 PR 同 bot 撞（見 `ci-proposed/README.md` 第 3 節）。
+- 2026-09-25 決定：**暫時唔修**（唔喺 PR 手改 bot 每日重寫嘅 `cache.json`）。
+
+### 測試 workflow 未安裝（所以上面嘅腐化冇人叫）
+
+`.github/workflows/` 冇 `test.yml`：Arena 用嘅 GitHub App 冇 `workflows` 權限，
+push 含 workflow 改動嘅 commit 會被 GitHub 拒絕，所以 `ci-proposed/test.yml`
+要你自己 `cp` 入去。2026-09-25 已把清單由 8 個測試檔補齊到 **28 個**
+（另外 15 個由來冇跑過，期望值已經腐化過，詳見 `ci-proposed/README.md`）。
+
 ## 下一步建議
 
 如果你把你現有 repo 貼上來，我可以下一輪直接做：
