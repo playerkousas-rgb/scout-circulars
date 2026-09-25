@@ -54,6 +54,21 @@ test('Telegram Web A tgaddr 同 app deep link 一致、文案及 URL 無重複�
 for (const invalid of ['', '#target=evil&text=x', params('wa', ''), params('tg', 'x'.repeat(20001))]) {
   test('拒絕無效／過長資料：' + invalid.slice(0, 40), () => assert.equal(w.desktopShareDestinations(invalid), null));
 }
+// 圖片分享（mode=image）：唔帶任何文字，只開平台本身。張圖已經有齊內文，
+// 再加預填文案好奇怪（2026-09-25 用戶要求）。
+const waImg = w.desktopShareDestinations('#target=wa&mode=image');
+const tgImg = w.desktopShareDestinations('#target=tg&mode=image');
+test('圖片模式：WhatsApp／Telegram 開返平台本身，冇任何預填文字', () => {
+  assert.equal(waImg.app, 'whatsapp://');
+  assert.equal(waImg.web, 'https://web.whatsapp.com/');
+  assert.equal(tgImg.app, 'tg://');
+  assert.equal(tgImg.web, 'https://web.telegram.org/');
+  assert.ok(waImg.image && tgImg.image);
+  assert.ok(!JSON.stringify([waImg, tgImg]).includes('text='));
+});
+for (const bad of ['#target=wa&mode=image&text=hi', '#target=tg&mode=image&url=https://x.test', '#target=fb&mode=image']) {
+  test('圖片模式唔准偷加文字／唔准其他平台：' + bad.slice(0, 34), () => assert.equal(w.desktopShareDestinations(bad), null));
+}
 test('唔接受任意 redirect／app URL', () => {
   const dest = w.desktopShareDestinations(params('wa', '<script>alert(1)</script>') + '&web=https://evil.org&app=javascript:alert(1)');
   assert.equal(new URL(dest.web).hostname, 'web.whatsapp.com');

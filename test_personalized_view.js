@@ -68,12 +68,15 @@ setTimeout(async () => {
     assert.strictEqual(branchInputs.length, 8);
     assert.deepStrictEqual([...branchInputs].filter(i => i.checked).map(i => i.value), ['領袖'], 'saved branch is pre-ticked');
     const generalLabels = [...d.querySelectorAll('[data-branch="領袖"] .push-general-section .pick-chip')].map(el => el.textContent.replace('✓', '').trim());
-    assert.deepStrictEqual(generalLabels, ['服務', '大露營', '營火會', '其他活動', '所有比賽'], '服務／活動／比賽 stay as they were');
+    // 2026-09-25：catalog 3.1.0 起「小工具」係獨立分類（每個支部各有一個
+    // branch:<支部>:category:tools 項目），所以 general section 多咗一粒「小工具」。
+    assert.deepStrictEqual(generalLabels, ['服務', '大露營', '營火會', '其他活動', '所有比賽', '小工具'], '服務／活動／比賽／小工具 stay as they were');
+    assert(d.querySelector('input[value="branch:領袖:category:tools"]').checked === false, '小工具 chip 預設未剔');
     assert(d.querySelector('#push-topics input[value="branch:領袖:category:service"]').checked, 'saved topic is pre-ticked');
     // 訓練：先按支部；領袖分木章／非木章。
     const leaderBlock = d.querySelector('#push-topics .push-branch-block[data-branch="領袖"]');
     assert(leaderBlock, 'training list is grouped by the ticked branch');
-    assert.deepStrictEqual([...leaderBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['服務', '活動', '比賽', '訓練', '木章訓練班', '非木章訓練班'], '領袖 training is split into wood badge / non-wood badge');
+    assert.deepStrictEqual([...leaderBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['服務', '活動', '比賽', '小工具', '訓練', '木章訓練班', '非木章訓練班'], '領袖 training is split into wood badge / non-wood badge（小工具係獨立分類）');
     assert(leaderBlock.querySelector('input[value="training:領袖:木章"]') && leaderBlock.querySelector('input[value="training:領袖:非木章"]'), 'each 領袖 section has an "all" tick');
     const leaderOptions = [...leaderBlock.querySelectorAll('.pick-chip')].map(el => el.textContent.replace('✓', '').trim());
     assert(leaderOptions.includes('地圖閱讀'), 'base item label is visible');
@@ -202,7 +205,9 @@ setTimeout(async () => {
     assert.strictEqual(dom.window.localStorage.getItem('scl_push_client_token_v1'), 'existing-token');
     assert.strictEqual(synced.length, 1, 'reset does not sync an empty subscription');
     assert.strictEqual(disables, 0, 'reset does not unsubscribe');
-    assert(d.querySelector('#push-edit-help').textContent.includes('原有選項會保留'));
+    // 2026-09-25：說明句改短做「更改後儲存即可；「重新設定」只清空面板，儲存前不會改動訂閱。」
+    //（同一個意思：儲存之前現有訂閱唔會被改動）。斷言跟現行字眼，唔再釘死舊寫法。
+    assert(d.querySelector('#push-edit-help').textContent.includes('儲存前不會改動訂閱'));
     assert(d.querySelector('#push-status').textContent.includes('尚未改動'));
 
     // Applying a replacement after resetting removes old branch selections.
@@ -233,7 +238,10 @@ setTimeout(async () => {
     assert(d.querySelector('link[rel="manifest"]'), 'home-screen standalone manifest is linked');
     d.querySelector('#push-close').click();
     assert.strictEqual(d.querySelector('#push-backdrop').hidden, true, 'settings sheet closes');
-    assert(d.querySelector('#push-settings').textContent.includes('不收集姓名'));
+    // 2026-09-25：私隱列由「不收集姓名／電郵／電話」縮短做「私隱：設定先留在本機 LocalStorage。」
+    // 匿名承諾改由行為守住：面板一個自由文字欄都冇（上面已斷言），所以根本收唔到姓名／電話。
+    assert(d.querySelector('#push-settings').textContent.includes('私隱：設定先留在本機')
+       && d.querySelectorAll('#push-settings input:not([type="checkbox"]), #push-settings textarea').length === 0);
     assert(d.querySelector('#open-library-menu'), 'mobile region drawer opener exists');
     const maintenance = d.querySelector('#site-maintenance');
     assert(maintenance && !maintenance.open, 'low-frequency site diagnostics start collapsed');

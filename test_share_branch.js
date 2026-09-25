@@ -102,7 +102,10 @@ function boot(qs = '', opts = {}) {
     beforeParse(win) {
       win.fetch = fakeFetch(win);
       win.alert = () => {}; win.confirm = () => true;
-      win.URL.createObjectURL = () => 'blob:fake'; win.URL.revokeObjectURL = () => {};
+      // 記低每個 objectURL blob：測試要驗合併出嚟嘅係咪真 application/pdf
+      win.__objectUrls = [];
+      win.URL.createObjectURL = (blob) => { win.__objectUrls.push(blob); return 'blob:fake'; };
+      win.URL.revokeObjectURL = () => {};
       if (opts.touch === false) {
         // 冇 touch 特徵（isTouchLikeDevice() → false），即係電腦版
         try { delete win.ontouchstart; } catch (_) {}
@@ -455,6 +458,8 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
      === 'https://drive.google.com/uc?export=download&id=ABC-1_x',
      'Drive 分享頁轉直連，本機先試自己條網');
   ok(html.includes('loadNoticePdfBytes'), '轉換內文做圖經本機下載（直接／分片），唔再硬食 4MB 全檔');
+  ok(html.includes('.share-sheet [hidden] { display: none !important; }'),
+     '分享面板嘅 [hidden] 有 !important（作者嘅 display:flex/grid 唔會蓋過隱藏）');
   const p2iBtn = sheet.querySelector('[data-act="pdf2img"]');
   ok(!!p2iBtn && !!sheet.querySelector('[data-role="pdfshare"]'), '分享面板有「轉換內文做圖」掣＋其「分享圖片」掣');
   ok(!!sheet.querySelector('[data-role="pdfcopy"]') && !!sheet.querySelector('[data-role="pdfdl"]'),
@@ -577,6 +582,56 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     await failCase('vercel504', '逾時', 'Vercel 504（HTML 錯誤頁，唔係 JSON）');
     await failCase('offline', '連唔到圖書館橋', '部機斷網（fetch reject）');
     proxyMode = 'ok';
+
+    // (d) 多版一次過：合併成一份 PDF（剪貼板做唔到嘅嘢）
+    sh = await openPdf('童軍技能訓練班');
+    box = sh.querySelector('[data-role="pdfbox"]');
+    const mergeBtn = box.querySelector('[data-role="pdfmerge"]');
+    const pagesBtn = box.querySelector('[data-role="pdfsharepages"]');
+    ok(mergeBtn && !mergeBtn.hidden, '多版通告第 1 版畫完就出「📄 合併成一份 PDF」掣');
+    ok(pagesBtn && !pagesBtn.hidden && pagesBtn.dataset.pages === '3' && pagesBtn.textContent.includes('3'),
+       '有「📤 分享全部 3 版」掣（一次過交晒落系統分享面板）');
+    ok(box.querySelector('[data-role="pdfshare"]').textContent.includes('此版'),
+       '多版時「分享圖片」標明「分享此版」（唔會以為 share 晒全部）');
+    wP.__objectUrls.length = 0;
+    click(wP, mergeBtn); await wait(600);
+    const mergedBlob = wP.__objectUrls.filter((b) => b && b.type === 'application/pdf').pop();
+    ok(!!mergedBlob && mergedBlob.size > 200, '合併真係出一份 application/pdf blob');
+    const mergedSrc = mergedBlob ? Buffer.from(await mergedBlob.arrayBuffer()).toString('latin1') : '';
+    ok(mergedSrc.includes('/Count 3') && mergedSrc.endsWith('%%EOF\n'), '合併嘅 PDF 3 版、完整（有 %%EOF）');
+    const dlFile = box.querySelector('[data-role="pdfdlfile"]');
+    ok(!box.querySelector('[data-role="pdfmergeout"]').hidden && dlFile.download.endsWith('.pdf')
+       && dlFile.textContent.includes('3 版'), '合併好出「下載 PDF（共 3 版）」連結');
+    ok(dlFile.getAttribute('draggable') === 'true', '「下載 PDF」可以直接拖入 WhatsApp 對話');
+    {
+      const added = [];
+      const ev = new wP.Event('dragstart', { bubbles: true });
+      ev.dataTransfer = { items: { add: (f) => added.push(f) }, effectAllowed: '' };
+      dlFile.dispatchEvent(ev);
+      ok(added.length === 1 && added[0].type === 'application/pdf' && added[0].name.endsWith('.pdf'),
+         '拖放帶住真 PDF 檔（一份檔案＝全部版）');
+    }
+
+    // (e) 手機：一次過分享全部版數（一個面板交 3 張圖，唔加任何文字）
+    wP.__shared.length = 0;
+    click(wP, pagesBtn); await wait(900);
+    const shared = wP.__shared[wP.__shared.length - 1];
+    ok(wP.__shared.length === 1 && shared && shared.files && shared.files.length === 3,
+       '撳一次「分享全部版數」→ 一個系統分享面板載晒 3 版');
+    ok(shared.files.map((f) => f.name.replace(/^.*-p(\d)\.png$/, 'p$1')).join(',') === 'p1,p2,p3'
+       && shared.files.every((f) => f.type === 'image/png'), '三版齊（檔名帶版數）');
+    ok(!shared.text && !shared.url, '系統分享唔加任何文字／連結（張圖已經有齊內文）');
+    ok((box.querySelector('[data-role="pdfstatus"]').textContent || '').includes('3 版'),
+       '分享完有狀態講明分享咗幾多版');
+
+    // (f) 手機：分享合併好嘅 PDF
+    wP.__shared.length = 0;
+    click(wP, box.querySelector('[data-role="pdfsharefile"]')); await wait(150);
+    const pdfShared = wP.__shared[wP.__shared.length - 1];
+    ok(wP.__shared.length === 1 && pdfShared.files.length === 1
+       && pdfShared.files[0].type === 'application/pdf' && pdfShared.files[0].name.endsWith('.pdf'),
+       '「分享 PDF」一個檔案載齊所有版（WhatsApp 當文件收）');
+    ok(!pdfShared.text && !pdfShared.url, '分享 PDF 都唔會加文字');
     domP.window.close();
   }
 
@@ -612,6 +667,38 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     ok(out === fakePage, '落款畫唔到（環境唔支援）就原圖照出，唔會冇咗張圖');
   }
 
+  // ── 多版合一 PDF（2026-09-25）──────────────────────────────────
+  // 用戶回報：多過一版冇可能一次過貼（瀏覽器剪貼板一次只載得「一張」圖）。
+  // 解法＝合併成一份多頁 PDF：一個檔案載齊所有版，WhatsApp 當文件傳唔會被壓縮。
+  {
+    const jpeg = (n) => { const b = new Uint8Array(64); for (let i = 0; i < b.length; i++) b[i] = (i * 7 + n) & 0xFF; return b; };
+    const src = Buffer.from(w.eval('buildPdfBytes')([
+      { bytes: jpeg(1), width: 1654, height: 2339 },
+      { bytes: jpeg(2), width: 1654, height: 2339 },
+      { bytes: jpeg(3), width: 1654, height: 2339 },
+    ], { title: '童軍技能訓練班', creator: '筲箕灣區', date: new Date(0) })).toString('latin1');
+    ok(src.startsWith('%PDF-1.4'), 'PDF 檔頭正確');
+    ok(src.endsWith('%%EOF\n') && src.includes('/Count 3') && src.includes('/Filter /DCTDecode'),
+       'PDF 目錄寫住 3 版、每版 JPEG 直嵌（DCTDecode，唔使壓縮庫）');
+    ok(src.includes('/MediaBox [0 0 595.44 842.04]'), 'A4 通告（1654×2339px @200dpi）出返 A4 尺寸');
+    ok(src.includes('/Title <FEFF'), 'PDF 標題用 UTF-16BE 十六進位（中文唔亂碼）');
+    const startxref = Number(src.slice(src.lastIndexOf('startxref')).split('\n')[1].trim());
+    ok(src.slice(startxref, startxref + 4) === 'xref', 'startxref 真係指到 xref 表');
+    const lines = src.slice(startxref, src.indexOf('trailer', startxref)).split('\n').filter((l) => l);
+    // 15 行 = 'xref' + 子節標頭 + 13 個登記（物件 0 免費 + 12 個物件：3 固定 + 3×3）
+    let offsetsOk = lines.length === 15 && lines[1] === '0 13';
+    for (let id = 1; id <= 12 && offsetsOk; id++) {
+      const off = Number(lines[2 + id].slice(0, 10));
+      offsetsOk = src.slice(off, off + `${id} 0 obj`.length) === `${id} 0 obj`;
+    }
+    ok(offsetsOk, 'xref 每個物件偏移都準（錯一個字元 PDF 就開唔到）');
+    const onePage = Buffer.from(w.eval('buildPdfBytes')([{ bytes: jpeg(9), width: 10, height: 10 }], {}));
+    ok(onePage.includes(Buffer.from(jpeg(9))), '每版 JPEG bytes 原封不動嵌入 PDF');
+    ok(w.eval('buildPdfBytes')([], {}) === null
+       && w.eval('buildPdfBytes')([{ bytes: new Uint8Array(0), width: 1, height: 1 }], {}) === null,
+       '冇有效版面就唔砌 PDF（唔會出爛檔）');
+  }
+
   // ── 圖片分享掣規則：手機＝系統分享；電腦＝複製圖片＋「貼去平台」 ──
   const uiMobile = w.eval('imageShareUi(true,true)'), uiMobileNoShare = w.eval('imageShareUi(true,false)'), uiDesktop = w.eval('imageShareUi(false,true)');
   ok(uiMobile.system === true && uiMobile.social === false, '手機＋支援 Web Share → 出「分享圖片」，唔出「貼去…」');
@@ -640,9 +727,13 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     click(wD, boxD.querySelector('[data-role="igcopy"]')); await wait(40);
     ok(domD.clip.items && domD.clip.items.length === 1, '「複製圖片」真係寫咗 ClipboardItem 落剪貼板');
     ok((dD.querySelector('.share-toast')?.textContent || '').includes('已複製圖片'), '複製完有 toast 提你貼去邊');
+    const imgHref = (id) => wD.eval('imgShareTargetUrl')({ id, label: id, launch: true });
     click(wD, sheetD.querySelector('[data-role="igsocial"] button[data-target="tg"]')); await wait(60);
-    ok(wD.__opened.length === 1 && wD.__opened[0].location.href === sheetD.querySelector('a.share-opt.tg').href,
-       '撳「貼去 Telegram」→ 同文字分享共用 app-first 分享頁');
+    ok(wD.__opened.length === 1 && wD.__opened[0].location.href === imgHref('tg'),
+       '撳「貼去 Telegram」→ 開 app-first 分享頁嘅圖片模式（唔帶文案）');
+    ok(wD.__opened[0].location.href !== sheetD.querySelector('a.share-opt.tg').href
+       && !wD.__opened[0].location.href.includes('text=') && !wD.__opened[0].location.href.includes('url='),
+       '圖片分享唔再用文字分享嗰條連結：fragment 冇 text／url（唔會預填文案）');
     ok(domD.clip.items.length === 1 && (dD.querySelector('.share-toast')?.textContent || '').includes('Ctrl'),
        '同時複製咗圖片，toast 教貼上（Ctrl／⌘+V）');
     click(wD, sheetD.querySelector('[data-role="pdfsocial"] button[data-target="wa"]')); await wait(40);
@@ -656,19 +747,21 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
       domD.clip.items = null;
       click(wD, sheetD.querySelector('[data-role="igsocial"] button[data-target="wa"]')); await wait(60);
       const tab = wD.__opened[openedBefore];
-      ok(wD.__opened.length === openedBefore + 1 && tab && tab.location.href === waTextHref,
-         '撳「貼去 WhatsApp」→ 開同分享文字一模一樣嘅 WhatsApp 連結：' + (tab && tab.location.href.slice(0, 48)));
+      ok(wD.__opened.length === openedBefore + 1 && tab && tab.location.href === imgHref('wa'),
+         '撳「貼去 WhatsApp」→ 開 share-launch.html 圖片模式：' + (tab && tab.location.href.slice(0, 64)));
       ok(tab && tab.location.href.startsWith('https://example.org/share-launch.html#target=wa&') && !tab.location.href.includes('web.whatsapp.com'),
          '先開 app-first 分享頁，唔會一開始就開 WhatsApp Web');
-      ok(decodeURIComponent((tab && tab.location.href) || '').includes('【筲箕灣區】童軍技能訓練班'),
-         'WhatsApp 開到之後文案（區會＋標題＋詳情連結）已預填，貼圖一齊發');
+      ok(tab && tab.location.href !== waTextHref
+         && !tab.location.href.includes('text=') && !tab.location.href.includes('url=')
+         && !decodeURIComponent(tab.location.href).includes('童軍技能訓練班'),
+         '圖片分享冇任何預填文字（2026-09-25 用戶要求：張圖已經有齊內文）');
       ok(domD.clip.items && domD.clip.items.length === 1, '開 WhatsApp 之前已經複製咗張圖');
       ok(wD.__calls.join(',') === 'clip,open',
          '先寫剪貼板、後開新分頁（唔好等新分頁搶咗焦點／用咗 user activation 先複製）：' + wD.__calls.join(','));
       ok(tab && tab.opener === null, '新分頁切斷 opener（等同 rel=noopener）');
       const t = dD.querySelector('.share-toast')?.textContent || '';
-      ok(t.includes('WhatsApp') && t.includes('揀對話') && t.includes('Ctrl'),
-         'toast 教：WhatsApp 開咗之後揀對話、Ctrl／⌘+V 貼上：' + t);
+      ok(t.includes('WhatsApp') && t.includes('揀對話') && t.includes('Ctrl') && t.includes('唔會加文字'),
+         'toast 教：WhatsApp 開咗之後揀對話、Ctrl／⌘+V 貼上，而且唔會加文字：' + t);
     }
   }
 
@@ -721,8 +814,13 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     ok(figs.length === 5, `出圖台列出今日 5 張（實際 ${figs.length}）—— ?limit 可以收窄（純函數測試已蓋）`);
     ok(figs.every(f => f.querySelector('button')), '每張卡都有「⬇ 下載」掣');
     const sel = view.querySelector('[data-role="batchdesign"]');
-    ok(sel && sel.options.length === 13 && sel.options[0].value === 'auto',
-       '款選擇器＝自動＋12 款');
+    // 出圖台只出通告 → 款清單＝自動＋12 款通告設計；3 款小工具設計唔應該出現
+    //（2026-09-25 之前直接 map POSTER_DESIGNS，列出 16 個選項含 3 款永遠用唔到嘅）。
+    const selVals = sel ? [...sel.options].map(o => o.value) : [];
+    ok(selVals.length === 13 && selVals[0] === 'auto'
+       && domB.window.eval('posterDesignsFor(false)').every(d => selVals.includes(d.id))
+       && domB.window.eval('posterDesignsFor(true)').every(d => !selVals.includes(d.id)),
+       '款選擇器＝自動＋12 款通告設計（冇小工具款）：' + selVals.length + ' 個選項');
     click(domB.window, view.querySelector('[data-role="batchmode"]'));
     await wait(80);
     ok(view.querySelector('[data-role="batchmode"]').textContent.includes('4:5'),

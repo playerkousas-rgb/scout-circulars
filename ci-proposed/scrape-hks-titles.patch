@@ -1,0 +1,22 @@
+diff --git a/.github/workflows/scrape.yml b/.github/workflows/scrape.yml
+index e46e9c5..ba0cdf4 100644
+--- a/.github/workflows/scrape.yml
++++ b/.github/workflows/scrape.yml
+@@ -74,6 +74,17 @@ jobs:
+         run: |
+           python enrich.py --verbose
+ 
++      # ── Step 2.5: 修復歷史污染標題（一次性工具，冇嘢改就係 no-op）──
++      # 背景：2026-05 港島南區 24 筆通告嘅標題寫咗做 "view"（Drive 連結嘅
++      # URL 尾段）。core.py 之後已修好（URL_TAIL_NOT_A_FILENAME／
++      # looks_like_opaque_id），但**已經入庫嘅記錄唔會再被抓**（來源頁唔再
++      # 列出、existing_keys 又當佢哋已存在），所以錯標題會永遠留喺 cache。
++      # fix_hks_titles.py 用逐份 PDF 核實過嘅 file id → 真標題對照表修正，
++      # 冇嘢要改就即刻 exit 0，唔會動 cache.json，亦唔會寫備份。
++      # （測試 test_url_title_fallback.py 同 cache 完整性守門就係靠呢步轉綠。）
++      - name: Repair legacy junk titles (no-op when clean)
++        run: python fix_hks_titles.py
++
+       # ── Step 3: 健康檢查（報告記錄在 Action log）──
+       - name: Health check (report only)
+         run: |

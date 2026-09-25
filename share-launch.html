@@ -40,7 +40,18 @@ function desktopShareDestinations(hash) {
   const target = params.get('target');
   const text = params.get('text') || '';
   const url = params.get('url') || '';
-  if ((target !== 'wa' && target !== 'tg') || !text || text.length + url.length > 20000) return null;
+  if (target !== 'wa' && target !== 'tg') return null;
+  // 圖片分享（mode=image）：唔帶任何文字／連結，淨係開平台本身。張圖已經有齊
+  // 內文（2026-09-25 用戶要求：再預填文案好奇怪），用戶自己揀對話、貼上就發。
+  // 呢個模式明文拒絕 text／url，防止第日有人偷偷喺圖片分享加返文案。
+  if (params.get('mode') === 'image') {
+    if (text || url) return null;
+    if (target === 'wa') {
+      return { image: true, label: 'WhatsApp', app: 'whatsapp://', web: 'https://web.whatsapp.com/' };
+    }
+    return { image: true, label: 'Telegram', app: 'tg://', web: 'https://web.telegram.org/' };
+  }
+  if (!text || text.length + url.length > 20000) return null;
   const et = encodeURIComponent(text);
   if (target === 'wa') return {
     label: 'WhatsApp',
@@ -106,7 +117,10 @@ if (!dest) {
   appLink.href = dest.app;
   webLink.href = dest.web;
   document.getElementById('actions').hidden = false;
-  document.getElementById('paste').hidden = false;
+  // 只有圖片分享先要貼上（文字分享嘅文案已經喺 app／網頁版預填好）
+  const paste = document.getElementById('paste');
+  paste.hidden = !dest.image;
+  if (dest.image) paste.textContent = '分享圖片：揀好對話後，按 Ctrl／⌘+V 貼上圖片，再確認發送（唔會加任何文字）。';
   let stop = createDesktopShareLauncher(dest, window, status);
   appLink.addEventListener('click', (event) => {
     event.preventDefault();

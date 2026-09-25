@@ -9,6 +9,19 @@
 #
 # 全部測試都係離線嘅（用重建 DOM / mock），唔會連外網、
 # 唔會打區會網站，所以可以放心每次 push 都跑。
+#
+# 2026-09-25 補：之前呢個清單只列咗 8 個測試檔，另外 12 個（share-launch、
+# mobile_compact、personalized_view、push_client、report_feedback、sw、
+# time_windows、pdf_proxy、push_common、tools_category、notify、
+# story_queue、publish_instagram_stories、tko_notice_blocks、tme_title_mismatch）
+# 從來冇跑過，所以佢哋嘅期望值靜靜腐化（例如 catalog 3.1.0 加咗「小工具」
+# 之後 push 面板多咗一粒 chip，冇人知）。而家全部列齊。
+#
+# ⚠️ 裝完第一次跑，「URL 標題 fallback」同「cache.json 完整性檢查」會紅：
+#    cache.json 而家真係有 24 筆標題係 "view"（港島南區，captured 2026-05-21）。
+#    core.py 已修好（新抓嘅唔會再中），但舊資料要用一次性工具清：
+#        python fix_hks_titles.py            # 先 --dry-run 睇會改咩
+#    跑完之後兩個檢查都會綠。呢個紅係「正確嘅紅」—— 就係呢個 workflow 想捉嘅嘢。
 # ============================================================
 
 name: Tests
@@ -70,6 +83,30 @@ jobs:
       - name: 將軍澳區內頁 meta refresh 跳轉 + placeholder 升級（v5.6.24）
         run: python test_meta_refresh_detail.py
 
+      - name: tko 通告區塊切分
+        run: python test_tko_notice_blocks.py
+
+      - name: TME 標題錯配防護
+        run: python test_tme_title_mismatch.py
+
+      - name: Scout System 小工具分類 + 訂閱標籤
+        run: python test_tools_category.py
+
+      - name: 個人化訂閱目錄／push_common 驗證
+        run: python test_push_common.py
+
+      - name: 通知發送（無 pywebpush 時自動 skip 加密相關個案）
+        run: python test_notify.py
+
+      - name: PDF byte bridge（/api/pdf-proxy）
+        run: python test_pdf_proxy.py
+
+      - name: Story 隊列挑選邏輯
+        run: python test_story_queue.py
+
+      - name: 發佈 IG Story 流程
+        run: python test_publish_instagram_stories.py
+
       # ── 前端測試 ──
       - name: 診斷儀表板 errors.html
         run: node test_errors_dashboard.js
@@ -80,8 +117,29 @@ jobs:
       - name: 支部標籤 + 分享面板 index.html
         run: node test_share_branch.js
 
+      - name: 分享啟動頁 share-launch.html（app-first，圖片模式唔帶文字）
+        run: node test_share_launch.js
+
       - name: 支部配對邏輯（由 index.html 抽出）
         run: node test_search_members.js
+
+      - name: 手機收合 UI／抽屜
+        run: node test_mobile_compact.js
+
+      - name: 通知設定面板 + 精確 ?n= 結果頁
+        run: node test_personalized_view.js
+
+      - name: Push client LocalStorage／訂閱生命周期
+        run: node test_push_client.js
+
+      - name: 問題回報／意見反映 payload
+        run: node test_report_feedback.js
+
+      - name: Service worker 通知 payload
+        run: node test_sw.js
+
+      - name: 時間視窗邊界
+        run: node test_time_windows.js
 
       - name: PWA 圖示／manifest／通知 badge 一致性
         run: node test_icons.js
