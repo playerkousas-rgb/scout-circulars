@@ -310,6 +310,8 @@
 
     .footer-link { background: none; border: 0; padding: 0; color: #93c5fd; cursor: pointer; font: inherit; text-decoration: none; }
     .footer-link:hover { text-decoration: underline; color: #bfdbfe; }
+    .site-footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 13px; }
+    .footer-disclaimer { margin-top: 14px; padding: 12px 14px; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 10px; line-height: 1.7; color: #8ea2c6; font-size: 12px; text-align: center; max-width: 760px; margin-left: auto; margin-right: auto; }
     .report-sheet { width: min(520px, 100%); }
     .report-tabs { display: flex; gap: 8px; margin-top: 14px; }
     .report-tab { flex: 1; border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 12px; padding: 10px 12px; cursor: pointer; font-weight: 700; font-size: 13px; }
@@ -538,7 +540,9 @@
       .card .gone-tag { font-size: 11px; }
       /* 加入 ScoutSystem 只喺電腦出現：手機卡片唔留呢行 */
       .card-actions { display: none; }
-      .content > footer { display: none; }
+      /* 手機版 footer 必須顯示版權及免責聲明（之前 display:none 導致手機睇唔到） */
+      .content > footer { display: block; margin-top: 24px; padding: 16px 12px 24px; font-size: 12px; }
+      .content > footer .footer-disclaimer { margin-top: 12px; padding: 12px; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 10px; line-height: 1.7; color: #8ea2c6; text-align: left; max-width: 760px; margin-left: auto; margin-right: auto; }
     }
   </style>
 </head>
@@ -650,12 +654,13 @@
 
       <section id="messages"></section>
       <section class="cards" id="cards"></section>
-      <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 13px;">
+      <footer class="site-footer">
         <div id="visit-counter" style="margin-bottom: 8px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.04); border: 1px solid var(--line);">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7bb0ff" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <span id="visit-count">累計瀏覽 …</span>
         </div>
         <div>Copyright &copy; 2026 SCOUT SYSTEM · <a href="stats.html" style="color: var(--muted); text-decoration: none;">統計</a> · <button type="button" class="footer-link" id="open-issue-report">問題回報</button> · <button type="button" class="footer-link" id="open-feedback-report">意見反映</button></div>
+        <div class="footer-disclaimer">本網站為非官方獨立工具，旨在方便成員瀏覽公開資訊，與香港童軍總會無任何官方從屬關係。所有通告版權歸香港童軍總會所有。</div>
       </footer>
     </main>
   </div>
