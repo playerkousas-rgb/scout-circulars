@@ -50161,5 +50161,24 @@
     "title_check": "verified",
     "enriched_at": "2026-09-26 05:07:44",
     "enrich_version": "3.2"
+  },
+  "https://www.tmescout.org.hk/file/notice/TME_A_26_04.pdf": {
+    "source": "屯門東區",
+    "title": "「「1+1」童軍成員拓展計劃」通告",
+    "deadline": "2027-12-31",
+    "audience": "童軍",
+    "fee": "全免",
+    "categories": [],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-28 03:49:58",
+    "enrich_version": "3.2"
   }
 }
