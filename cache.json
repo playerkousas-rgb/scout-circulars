@@ -1,13 +1,31 @@
 {
-  "last_updated": "2026-09-28 05:00:10",
+  "last_updated": "2026-09-29 05:00:18",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4855,
+    "total_notices": 4857,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "新界地域大露營2026 - 跨步前行‧童展創新 紀念品訂購(修訂)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26205/Jam04.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26205/Jam04.pdf",
+        "date": "2026-09-29",
+        "captured_date": "2026-09-29",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "NTR SCOUT WALK 2026慈善步行籌款(修訂)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26203/Special16.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26203/Special16.pdf",
+        "date": "2026-09-29",
+        "captured_date": "2026-09-29",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "第11屆斯里蘭卡大露營",
         "url": "https://scout.org.hk/uploads/tc/circulars/26145/CIR_1426_Chi_11thNationalScoutJamboree2027_SRILANKA.pdf",
@@ -43822,6 +43840,20 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26205/Jam04.pdf",
+      "title": "新界地域大露營2026 - 跨步前行‧童展創新 紀念品訂購(修訂)",
+      "captured_date": "2026-09-29"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26203/Special16.pdf",
+      "title": "NTR SCOUT WALK 2026慈善步行籌款(修訂)",
+      "captured_date": "2026-09-29"
+    },
+    {
       "source_site": "屯門東區",
       "region": "新界地域",
       "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_04.pdf",
@@ -77955,9 +77987,9 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-09-28 05:00:10",
-      "new": 1,
-      "updated": 3493,
+      "updated_at": "2026-09-29 05:00:18",
+      "new": 2,
+      "updated": 3502,
       "daily_new": 2,
       "skipped": 4,
       "processed": 46,
