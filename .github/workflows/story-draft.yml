@@ -73,10 +73,15 @@ jobs:
           PY
 
       - name: Validate Instagram publishing configuration
-        if: steps.queue.outputs.count != '0' && env.PUBLISH_STORIES == 'true'
+        # Runs on every publish-mode run, even with zero complete notices, so an
+        # expired or misconfigured token surfaces early instead of on the first
+        # day something is actually ready to post. Read-only; publishes nothing.
+        if: env.PUBLISH_STORIES == 'true'
         env:
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_GRAPH_API_BASE: ${{ vars.INSTAGRAM_GRAPH_API_BASE || 'https://graph.facebook.com' }}
+          INSTAGRAM_GRAPH_API_VERSION: ${{ vars.INSTAGRAM_GRAPH_API_VERSION || 'v25.0' }}
         run: |
           if [ -z "$INSTAGRAM_USER_ID" ]; then
             echo "::error::Configure the INSTAGRAM_USER_ID GitHub Actions secret (numeric Instagram professional-account ID)."
@@ -86,6 +91,20 @@ jobs:
             echo "::error::Configure the INSTAGRAM_ACCESS_TOKEN GitHub Actions secret. Do not paste tokens into workflow logs or chat."
             exit 1
           fi
+          # Read-only credential check: fetch the account username. The token is
+          # sent as form data, never echoed; GitHub also masks secrets in logs.
+          status=$(curl -sS -o "$RUNNER_TEMP/ig_check.json" -w '%{http_code}' -G \
+            "$INSTAGRAM_GRAPH_API_BASE/$INSTAGRAM_GRAPH_API_VERSION/$INSTAGRAM_USER_ID" \
+            --data-urlencode "fields=id,username" \
+            --data-urlencode "access_token=$INSTAGRAM_ACCESS_TOKEN")
+          if [ "$status" != "200" ]; then
+            echo "::error::Instagram Graph API credential check failed (HTTP $status). Verify INSTAGRAM_USER_ID and INSTAGRAM_ACCESS_TOKEN (validity, account type, permissions)."
+            cat "$RUNNER_TEMP/ig_check.json" || true
+            exit 1
+          fi
+          username=$(python3 -c "import json,os;print(json.load(open(os.environ['RUNNER_TEMP']+'/ig_check.json')).get('username',''))")
+          echo "✅ Instagram credentials verified for account: @${username}"
+          echo "Instagram credentials verified for account: @${username}" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Render every eligible Story as PNG and JPEG
         if: steps.queue.outputs.count != '0'
