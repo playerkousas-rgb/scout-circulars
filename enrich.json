@@ -50339,5 +50339,109 @@
     "title_check": "corrected",
     "enriched_at": "2026-09-29 05:07:47",
     "enrich_version": "3.2"
+  },
+  "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf": {
+    "source": "黃大仙區",
+    "title": "Game Night系列活動",
+    "deadline": "2026-10-07",
+    "audience": "深資童軍、樂行童軍、童軍",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "活動"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "活動"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-30 04:50:42",
+    "enrich_version": "3.2"
+  },
+  "https://www.nkcscout.org/media/notice/20260929_133156.pdf": {
+    "source": "北葵涌區",
+    "title": "童軍露營訓練班",
+    "deadline": "2026-10-23",
+    "audience": "童軍",
+    "fee": "HK$250",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-camping-badge",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-camping-badge",
+        "label": "露營章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：露營(技能組)專章",
+          "標題／內文：露營訓練班"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-09-30 04:50:45",
+    "enrich_version": "3.2"
   }
 }
