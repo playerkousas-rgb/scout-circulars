@@ -1,7 +1,13 @@
 # ============================================================
 # Daily Instagram Story + retained manual Story Drafts.
-# One scheduled run at 15:30 HKT (07:30 UTC); no auto retry, backfill, or requeue.
-# GitHub's schedule queue delay is intentionally allowed for by this time.
+# One scheduled run at 12:00 HKT (04:00 UTC); no auto retry, backfill, or requeue.
+#
+# Why 12:00 HKT: story_queue.py只揀 captured_date = 執行當刻嘅 HKT 今日，所以個 run
+# 一定要喺「scrape 完」同「HKT 當日 24:00」之間。scrape.yml 排 00:15 HKT，實際延遲後
+# 約 03:00-06:00 HKT 收工；而 GitHub schedule queue 近月延遲 5-8 鐘。
+# 12:00 HKT 起計：最快即刻跑（cache 已更新 6 個鐘），最慢延 8 鐘都只係 20:00 HKT，
+# 仍然同日，唔會因為跨過 00:00 HKT 而令當日通告被永久跳過。
+# （之前 15:30 HKT 排程 + 8 鐘延遲 = 23:40 HKT，已經貼住跨日邊緣。）
 #
 # Only complete cards are included: title, issue date, source, category, region,
 # original attachment, deadline, audience, and fee. There is no local count cap;
@@ -18,7 +24,7 @@ name: Instagram Story + Drafts
 
 on:
   schedule:
-    - cron: "30 7 * * *"
+    - cron: "0 4 * * *"
   workflow_dispatch:
     inputs:
       publish:
