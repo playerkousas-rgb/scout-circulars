@@ -50485,5 +50485,443 @@
     "title_check": "corrected",
     "enriched_at": "2026-10-01 04:52:57",
     "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26249/Youth59.pdf": {
+    "source": "總會",
+    "title": "蘇格蘭風笛及鼓樂興趣工作坊",
+    "deadline": "2026-12-04",
+    "audience": "深資童軍、樂行童軍、童軍、領袖",
+    "fee": "HK$100",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-01 05:06:42",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26218/T6426_Oct_C_7th_WB3.pdf": {
+    "source": "總會",
+    "title": "訓練署 第 64/2026 號通告",
+    "deadline": "2026-12-09",
+    "audience": "領袖",
+    "fee": "HK$550",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班",
+          "技能訓練",
+          "培訓"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:wood-module-3",
+      "training:領袖:木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班",
+          "技能訓練",
+          "培訓"
+        ]
+      },
+      {
+        "id": "course:wood-module-3",
+        "label": "領導及管理（單元3）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：領導及管理訓練班",
+          "標題／內文：單元3"
+        ]
+      },
+      {
+        "id": "training:領袖:木章",
+        "label": "所有木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-01 05:06:44",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26240/T6526_Oct_C_SASCampfireLeader2027.pdf": {
+    "source": "總會",
+    "title": "訓練署 第 65/2026 號通告",
+    "deadline": "2026-12-01",
+    "audience": "深資童軍、樂行童軍、領袖、會務委員",
+    "fee": "HK$110",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊",
+          "課程"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:會務委員",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊",
+          "課程"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-01 05:06:49",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26236/Admin13.pdf": {
+    "source": "總會",
+    "title": "行政通告第 13/2026號",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-01 05:06:53",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26252/PRG21_26.pdf": {
+    "source": "總會",
+    "title": "幼童軍射箭章(三級制)訓練班 (活動通告第21/26號)",
+    "deadline": "2026-12-21",
+    "audience": "幼童軍",
+    "fee": "HK$75",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-archery-badge",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:cub-archery-badge",
+        "label": "射箭章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：射箭章"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-01 05:06:56",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26223/Adm22_26_Announcement.pdf": {
+    "source": "總會",
+    "title": "行政通告第22/26號",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-01 05:06:58",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26251/KR12_26.pdf": {
+    "source": "總會",
+    "title": "行政通告第 12/26 號",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [],
+    "branch_tags": [],
+    "subscription_tags": [],
+    "subscription_tag_details": [],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-01 05:07:02",
+    "enrich_version": "3.2"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26253/PRG22_26.pdf": {
+    "source": "總會",
+    "title": "「踩出地平線」海外單車遊分享會 (活動通告第22/26號)",
+    "deadline": "2026-11-04",
+    "audience": "深資童軍、樂行童軍、童軍、領袖、會務委員",
+    "fee": "HK$15",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "課程"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:會務委員",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "課程"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.1.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-01 05:07:04",
+    "enrich_version": "3.2"
   }
 }

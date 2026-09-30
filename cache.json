@@ -1,13 +1,85 @@
 {
-  "last_updated": "2026-10-01 04:48:05",
+  "last_updated": "2026-10-01 05:00:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4860,
+    "total_notices": 4868,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "蘇格蘭風笛及鼓樂興趣工作坊",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26249/Youth59.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26249/Youth59.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "第7屆領導及管理訓練班(單元3)(T64/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26218/T6426_Oct_C_7th_WB3.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26218/T6426_Oct_C_7th_WB3.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "童軍技能評審計劃營火領袖系列工作坊-營火歌曲同唱聚(T65/2026)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26240/T6526_Oct_C_SASCampfireLeader2027.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26240/T6526_Oct_C_SASCampfireLeader2027.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "新界地域公布(2026年10月)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26236/Admin13.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26236/Admin13.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "幼童軍射箭章(三級制)訓練班 (活動通告第21/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26252/PRG21_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26252/PRG21_26.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域總部公布(2026年10月)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26223/Adm22_26_Announcement.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26223/Adm22_26_Announcement.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地域公布 ( )",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26251/KR12_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26251/KR12_26.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "「踩出地平線」海外單車遊分享會 (活動通告第22/26號)",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26253/PRG22_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26253/PRG22_26.pdf",
+        "date": "2026-10-01",
+        "captured_date": "2026-10-01",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "新界地域大露營2026 - 跨步前行‧童展創新 紀念品訂購(修訂)",
         "url": "https://scout.org.hk/uploads/tc/circulars/26205/Jam04.pdf",
@@ -43867,6 +43939,62 @@
   },
   "notices": [
     {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26249/Youth59.pdf",
+      "title": "蘇格蘭風笛及鼓樂興趣工作坊",
+      "captured_date": "2026-10-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26218/T6426_Oct_C_7th_WB3.pdf",
+      "title": "第7屆領導及管理訓練班(單元3)(T64/2026)",
+      "captured_date": "2026-10-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26240/T6526_Oct_C_SASCampfireLeader2027.pdf",
+      "title": "童軍技能評審計劃營火領袖系列工作坊-營火歌曲同唱聚(T65/2026)",
+      "captured_date": "2026-10-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26236/Admin13.pdf",
+      "title": "新界地域公布(2026年10月)",
+      "captured_date": "2026-10-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26252/PRG21_26.pdf",
+      "title": "幼童軍射箭章(三級制)訓練班 (活動通告第21/26號)",
+      "captured_date": "2026-10-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26223/Adm22_26_Announcement.pdf",
+      "title": "地域總部公布(2026年10月)",
+      "captured_date": "2026-10-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26251/KR12_26.pdf",
+      "title": "地域公布 ( )",
+      "captured_date": "2026-10-01"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26253/PRG22_26.pdf",
+      "title": "「踩出地平線」海外單車遊分享會 (活動通告第22/26號)",
+      "captured_date": "2026-10-01"
+    },
+    {
       "source_site": "油尖區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1QZ95NGEcW7IJEL79muicG4bghCyA5Tcf/view",
@@ -78035,51 +78163,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-01 04:48:05",
-      "new": 1,
-      "updated": 175,
-      "daily_new": 1,
-      "skipped": 38,
+      "updated_at": "2026-10-01 05:00:06",
+      "new": 8,
+      "updated": 3490,
+      "daily_new": 9,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
