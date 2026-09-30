@@ -2,9 +2,10 @@
  "version": 1,
  "days": [
   "2026-09-22",
-  "2026-09-23"
+  "2026-09-23",
+  "2026-09-30"
  ],
- "updated_at": "2026-09-23T13:09:16.450170+00:00",
+ "updated_at": "2026-09-30T12:16:44.374600+00:00",
  "items": [
   {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
@@ -32,9 +33,19 @@
    "t": "深資童軍消防訓練班 接納通知書"
   },
   {
+   "k": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
+   "f": "stories/2026-09-30/01_activity_army_29d17a.png",
+   "t": "Game Night系列活動"
+  },
+  {
    "k": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
    "f": "stories/2026-09-23/04_activity_army_7cc3c9.png",
    "t": "新修訂支部訓練綱要(P22/2026)"
+  },
+  {
+   "k": "https://www.nkcscout.org/media/notice/20260929_133156.pdf",
+   "f": "stories/2026-09-30/00_train_blue_55b7a5.png",
+   "t": "童軍露營訓練班"
   }
  ]
 }

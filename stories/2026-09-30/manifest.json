@@ -1,0 +1,30 @@
+{
+  "today": "2026-09-30",
+  "queue_generated_at": "2026-09-30 20:16:42 +0800",
+  "items": [
+    {
+      "file": "00_train_blue_55b7a5.png",
+      "instagram_file": "00_train_blue_55b7a5.jpg",
+      "template": "train_blue",
+      "category": "training",
+      "title": "童軍露營訓練班",
+      "source_site": "北葵涌區",
+      "url": "https://www.nkcscout.org/media/notice/20260929_133156.pdf",
+      "pdf_url": "https://www.nkcscout.org/media/notice/20260929_133156.pdf",
+      "attachment_url": "https://www.nkcscout.org/media/notice/20260929_133156.pdf",
+      "slogan": "解鎖新技能"
+    },
+    {
+      "file": "01_activity_army_29d17a.png",
+      "instagram_file": "01_activity_army_29d17a.jpg",
+      "template": "activity_army",
+      "category": "activity",
+      "title": "Game Night系列活動",
+      "source_site": "黃大仙區",
+      "url": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
+      "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
+      "attachment_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
+      "slogan": "一齊玩，一齊記住"
+    }
+  ]
+}
