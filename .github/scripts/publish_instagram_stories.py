@@ -7,6 +7,17 @@ Each item gets one container-create call and one publish call. There are no
 retries, delayed retries, or re-queue operations; a failed item is reported and
 processing continues with the next distinct item.
 
+Container creation is asynchronous: Meta downloads and processes `image_url`
+in the background, so the container only becomes publishable once its
+`status_code` reaches FINISHED. Publishing earlier returns HTTP 400 with
+`code 9007 / error_subcode 2207027` ("媒體素材尚未準備好發佈"), which is exactly
+how the 2026-10-01 scheduled run lost all five Stories. Between the single
+create call and the single publish call this script therefore polls
+`GET /{container-id}?fields=status_code,status`. That poll is a readiness wait
+required by Meta's API, not a publish retry: each item still gets exactly one
+create attempt and one publish attempt, and ERROR/EXPIRED containers are
+reported with Meta's own reason instead of being re-created.
+
 Required environment variables (set as GitHub Actions secrets):
   INSTAGRAM_USER_ID       Instagram professional-account user ID
   INSTAGRAM_ACCESS_TOKEN  token with content-publishing permission
@@ -22,6 +33,7 @@ import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode, urlsplit
@@ -34,6 +46,15 @@ ALLOWED_API_BASES = {
     "https://graph.instagram.com",
 }
 TIMEOUT_SECONDS = 60
+# Readiness wait between the one create call and the one publish call.
+# Meta finishes a 1080x1920 JPEG in seconds; 120s of headroom covers a slow
+# fetch of raw.githubusercontent.com without letting a stuck container hang
+# the whole run (5 stuck items worst case = 10 minutes, inside the 60-minute
+# job timeout).
+STATUS_POLL_INTERVAL_SECONDS = 3.0
+STATUS_POLL_TIMEOUT_SECONDS = 120.0
+READY_STATUS = "FINISHED"
+DEAD_STATUSES = {"ERROR", "EXPIRED"}
 
 
 class PublishError(RuntimeError):
@@ -104,6 +125,67 @@ def _post_graph(edge: str, fields: dict[str, str], *, user_id: str, token: str,
         raise PublishError(f"Meta API connection failed: {reason}") from exc
 
 
+def _get_graph(node: str, params: dict[str, str], *, token: str,
+               api_base: str, api_version: str) -> dict:
+    url = f"{api_base}/{api_version}/{node}?{urlencode(params)}"
+    request = Request(
+        url,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "User-Agent": "scout-circulars-instagram-story/1.0",
+        },
+        method="GET",
+    )
+    try:
+        with urlopen(request, timeout=TIMEOUT_SECONDS) as response:
+            return _parse_json_response(response.read(), token)
+    except HTTPError as exc:
+        body = exc.read(2048).decode("utf-8", errors="replace").replace(token, "[redacted]")
+        detail = body[:1000] if body else str(exc.reason)
+        raise PublishError(f"Meta API HTTP {exc.code}: {detail}") from exc
+    except URLError as exc:
+        reason = str(exc.reason).replace(token, "[redacted]")
+        raise PublishError(f"Meta API connection failed: {reason}") from exc
+
+
+def _wait_until_finished(creation_id: str, *, token: str, api_base: str,
+                         api_version: str, sleep=None, monotonic=None) -> str:
+    """Block until the media container is publishable.
+
+    Returns the final status_code (always FINISHED) or raises PublishError with
+    Meta's own status text, so an unreachable or rejected image is diagnosed in
+    the run log instead of surfacing as an opaque 9007/2207027 publish failure.
+    """
+    # Resolved at call time so tests can patch the clock and the sleeper.
+    sleep = sleep or time.sleep
+    monotonic = monotonic or time.monotonic
+    deadline = monotonic() + STATUS_POLL_TIMEOUT_SECONDS
+    status_code = ""
+    while True:
+        payload = _get_graph(
+            creation_id,
+            {"fields": "status_code,status"},
+            token=token,
+            api_base=api_base,
+            api_version=api_version,
+        )
+        status_code = str(payload.get("status_code") or "").strip().upper()
+        detail = str(payload.get("status") or "").strip()
+        if status_code == READY_STATUS:
+            return status_code
+        if status_code in DEAD_STATUSES:
+            raise PublishError(
+                f"Media container {status_code}: {detail or 'Meta gave no status detail'}"
+            )
+        if monotonic() >= deadline:
+            raise PublishError(
+                f"Media container still {status_code or 'UNKNOWN'} after "
+                f"{int(STATUS_POLL_TIMEOUT_SECONDS)}s"
+                + (f": {detail}" if detail else "")
+            )
+        sleep(STATUS_POLL_INTERVAL_SECONDS)
+
+
 def _image_url(base_url: str, filename: str) -> str:
     parsed = urlsplit(base_url)
     if parsed.scheme != "https" or not parsed.netloc or parsed.query or parsed.fragment:
@@ -140,7 +222,8 @@ def _manifest_items(manifest_path: Path) -> list[dict]:
 
 
 def publish_manifest(manifest_path: Path, base_url: str,
-                     env: dict[str, str] | None = None) -> tuple[int, int]:
+                     env: dict[str, str] | None = None,
+                     sleep=None) -> tuple[int, int]:
     items = _manifest_items(manifest_path)
     if not items:
         print("No eligible Story images; nothing to publish.")
@@ -167,6 +250,18 @@ def publish_manifest(manifest_path: Path, base_url: str,
             if not creation_id:
                 raise PublishError("Meta API did not return a media container ID")
 
+            # Readiness wait, not a retry: Meta rejects media_publish until the
+            # container finishes downloading and processing image_url.
+            wait_started = time.monotonic()
+            _wait_until_finished(
+                creation_id,
+                token=token,
+                api_base=api_base,
+                api_version=api_version,
+                sleep=sleep,
+            )
+            ready_after = time.monotonic() - wait_started
+
             result = _post_graph(
                 "media_publish",
                 {"creation_id": creation_id},
@@ -179,7 +274,10 @@ def publish_manifest(manifest_path: Path, base_url: str,
             if not media_id:
                 raise PublishError("Meta API did not return a published media ID")
             published += 1
-            print(f"✅ Published Story {published}/{len(items)}: {title} (media {media_id})")
+            print(
+                f"✅ Published Story {published}/{len(items)}: {title} "
+                f"(media {media_id}, container ready in {ready_after:.1f}s)"
+            )
         except PublishError as exc:
             # This item is not retried or re-queued. Continue once with the next
             # distinct complete notice, then return a failing run summary.

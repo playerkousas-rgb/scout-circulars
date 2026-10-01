@@ -13,6 +13,12 @@
 # original attachment, deadline, audience, and fee. There is no local count cap;
 # Instagram's own account/API limits still apply.
 #
+# Publishing waits for each media container to reach status_code=FINISHED before
+# calling media_publish (Meta processes image_url asynchronously). That readiness
+# wait is not a retry — one create attempt and one publish attempt per notice —
+# but without it Meta answers 9007/2207027「媒體素材尚未準備好發佈」, which wiped
+# out all five Stories on 2026-10-01.
+#
 # Each image includes a QR straight to the source attachment and a category-aware Cantonese CTA.
 # PNG + JPEG assets are force-pushed once to the `stories` branch. PNG keeps the
 # notice-detail hero feature working; public JPEG URLs are fetched by Meta.
