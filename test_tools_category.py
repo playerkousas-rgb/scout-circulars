@@ -151,11 +151,13 @@ class KeywordExpansionTests(unittest.TestCase):
             "2026年度模範童軍選舉",
             "呈交童軍旅賬目資料",
             "地域總部公布(2026年9月)",
+            "地域總部公佈(2026年9月)",
             "2026年傑出旅團獎勵計劃-獲獎名單公布",
         ]:
             with self.subTest(title=title):
-                got = [c["id"] for c in extract_categories(title)]
-                self.assertEqual(got, ["announcement"])
+                categories = extract_categories(title)
+                self.assertEqual([c["id"] for c in categories], ["announcement"])
+                self.assertEqual(categories[0]["label"], "公布")
 
 
 @unittest.skipUnless(core, "core.py 依賴（requests/bs4）未安裝，跳過隔離測試")

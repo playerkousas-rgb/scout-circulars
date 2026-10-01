@@ -168,7 +168,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
 
   // ── 1.5 分類標籤 ──
   const catLabels = $$(d, '#category-chips .chip').map(c => c.textContent.trim());
-  ok(JSON.stringify(catLabels) === JSON.stringify(['全部', '訓練', '服務', '活動', '比賽', '小工具', '未分類']),
+  ok(JSON.stringify(catLabels) === JSON.stringify(['全部', '訓練', '服務', '活動', '比賽', '小工具', '公布', '未分類']),
      '分類標籤次序正確：' + catLabels.join(' '));
   ok(cards(d).length === 5, `分類標籤未影響預設「今天」5 張（實際 ${cards(d).length}）`);
   click(w, $$(d, '#category-chips .chip').find(c => c.textContent.trim() === '訓練')); await wait(50);
@@ -264,8 +264,15 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   // IG 分享圖（2026-09-21）：client-side canvas 版。紅線不變：唔准 server-side render endpoint
   ok(!html.includes('/api/render'), '保持紅線：index.html 唔引用 /api/render（Vercel bundle 維持瘦身）');
   ok(html.includes('renderIgImage') && html.includes('canvas.toBlob'), 'IG 圖用 client-side canvas 產生（toBlob→objectURL）');
+  ok(/const baseName = BASE_IMAGE_FOR\[use\];[\s\S]*await storyBaseImgFor\(baseName\)[\s\S]*renderPoster\(item, \{ mode: igMode, design: use, badgeImg, baseImg \}\)/.test(html),
+     'IG 正式分享圖會等 POST STORY AI 底圖載好再 render（唔係只有縮圖有新款色）');
+  ok(w.eval('itemCategories({title:"地域總部公布"}, {categories:[]}).has("announcement")')
+     && w.eval('itemCategories({title:"地域總部公佈"}, null).has("announcement")'),
+     '公布／公佈同舊空 enrich 都即時歸「公布」，唔會顯示未分類');
   const igBtn = sheet.querySelector('[data-act="ig"]');
   ok(!!igBtn, '分享面板有「產生 IG 分享圖」掣');
+  // jsdom 唔會真下載／decode WebP；令 loader 即時走正式 fallback，避免等網絡 timeout。
+  w.eval('storyBaseImgFor = async () => null');
   click(w, igBtn); await wait(80);
   const igBox = sheet.querySelector('[data-role="igbox"]');
   ok(igBox && !igBox.hidden, '產生完顯示預覽區');
