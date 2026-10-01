@@ -93,6 +93,14 @@ const client = win.ScoutPushClient;
   await client.enable({ branches: [], topics: ['all:new'] });
   assert.deepStrictEqual(requestBodies[requestBodies.length - 1].topics, ['all:new']);
   assert.deepStrictEqual([...client.loadPreferences().topics], ['all:new']);
+  // 2026-10-01：全選拆做兩個獨立剔項，兩個都唔使揀支部。
+  assert.deepStrictEqual([...client.MASTER_TOPIC_IDS], ['all:new', 'all:notices', 'all:tools']);
+  for (const topic of ['all:notices', 'all:tools']) {
+    await client.enable({ branches: [], topics: [topic] });
+    assert.deepStrictEqual(requestBodies[requestBodies.length - 1].topics, [topic], `${topic} 可以唔揀支部`);
+  }
+  await client.enable({ branches: [], topics: ['all:notices', 'all:tools'] });
+  assert.deepStrictEqual(requestBodies[requestBodies.length - 1].topics, ['all:notices', 'all:tools']);
   await client.sync({ branches: ['家長', '小童軍'], topics: ['branch:家長:activity:other', 'branch:小童軍:category:competition'] });
   assert.deepStrictEqual(requestBodies[requestBodies.length - 1].topics, ['branch:家長:activity:other', 'branch:小童軍:category:competition']);
   await assert.rejects(client.enable({ branches: [], topics: ['activity:other'] }), error => error.code === 'missing_branch');

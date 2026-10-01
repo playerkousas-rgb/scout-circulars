@@ -27,6 +27,10 @@ MAX_REQUEST_BYTES = 24 * 1024
 MAX_ENDPOINT_LENGTH = 2048
 MAX_CLIENT_TOKEN_LENGTH = 128
 MAX_TOPICS = 60
+# Branch-agnostic "select all" switches.  2026-10-01 split the single all:new
+# into an independent 通告 tick and 小工具 tick; all:new stays valid so already
+# stored subscriptions keep working without a migration.
+MASTER_TOPIC_IDS = ("all:new", "all:notices", "all:tools")
 
 # Web Push endpoints are later contacted by GitHub Actions.  Restricting them
 # to browser push providers prevents the subscription endpoint from becoming
@@ -141,6 +145,12 @@ def validate_preferences(body: Mapping[str, Any]) -> Tuple[List[str], List[str],
         # Keep the existing database 1..8 branch constraint; all:new controls
         # matching, including untagged audiences, not this compatibility array.
         return [entry["id"] for entry in catalog["branches"]], ["all:new"], str(catalog.get("version", ""))
+    masters = [topic for topic in topics if topic in MASTER_TOPIC_IDS]
+    if masters and not branches:
+        # all:notices / all:tools never look at branch_ids when matching, but
+        # the table still requires 1..8 entries, so record every branch rather
+        # than rejecting a perfectly valid "just tick select-all" preference.
+        branches = [entry["id"] for entry in catalog["branches"]]
     if not branches:
         raise ApiError(400, "missing_branch", "請至少選擇一個支部")
     if not topics:

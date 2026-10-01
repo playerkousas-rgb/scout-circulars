@@ -163,7 +163,6 @@
     .cat-tag.competition { border-color: rgba(232,121,249,.5); background: rgba(126,34,206,.18); color: #f5d0fe; }
     .cat-tag.tools { border-color: rgba(103,232,249,.5); background: rgba(8,145,178,.18); color: #a5f3fc; }
     .cat-tag.kind { border-color: rgba(103,232,249,.4); background: rgba(8,145,178,.12); color: #cffafe; }
-    .cat-tag.archive { border-color: rgba(148,163,184,.4); background: rgba(148,163,184,.12); color: #e2e8f0; }
     .cat-tag.other { border-color: rgba(148,163,184,.4); background: rgba(100,116,139,.15); color: #e2e8f0; }
     /* ★ 收藏分頁：同時間視窗並排，但用金色區分「唔係時間範圍」*/
     .chip-bm { border-color: rgba(250,204,21,.4); color: #facc15; margin-left: 6px; }
@@ -687,7 +686,8 @@
       <p class="push-state warn" id="push-testing-notice"><strong>通知系統仍在測試中：</strong>推送可能延遲或遺漏，建議每天到圖書館瀏覽有沒有通告更新，不要只依賴通知。</p>
 
       <div class="push-block">
-        <div class="pick-chips" id="push-all" role="group" aria-label="通知所有新消息"></div>
+        <div class="pick-chips" id="push-all" role="group" aria-label="全選：通告／小工具"></div>
+        <small class="push-help">兩個都剔＝所有新消息。全選唔分支部；小工具只按支部細分。</small>
       </div>
       <div id="push-custom-options">
         <div class="push-block">
@@ -816,6 +816,12 @@
       { id: '90d', label: '3個月', days: 90 },
       { id: '180d', label: '6個月', days: 180 },
     ];
+    // 小工具（Scout System）唔再以日期分類：工具係長期資產，唔似通告會過期。
+    // 淨係兩個掣——「今天」（今日新上架）同「之前發布」（全部，包括今天）。
+    const TOOLS_TIME_WINDOWS = [
+      { id: 'tools-today', label: '今天', days: 1 },
+      { id: 'tools-all', label: '之前發布', days: null },
+    ];
 
     // ── 支部篩選 ──────────────────────────────────────────────
     // 用戶唔使再打字揀成員：一排支部標籤，撳一個即刻過濾。
@@ -938,7 +944,6 @@
       '其他': 'other',
       '連結': 'link', '有用連結': 'link',
     };
-    const SCOUT_ARCHIVE_LABEL = '6個月以上';
 
     function isScoutSystemItem(item) {
       const src = String(item?.source_site || '').trim();
@@ -1050,12 +1055,41 @@
       }
     }
 
+    // ── 全選剔項 ───────────────────────────────────────────────
+    // 2026-10-01：單一「全選：所有新消息」拆開做兩個互相獨立嘅剔項。
+    //   all:notices → 小工具以外嘅所有新通告（含公布／未分類），不限支部
+    //   all:tools   → 所有支部嘅小工具，不限支部（小工具只按支部細分）
+    // 兩個都剔 == 舊版 all:new；舊設定會自動顯示成兩個都剔，唔使用戶重做。
+    const PUSH_MASTER_TOPICS = [
+      { id: 'all:notices', label: '全選：所有通告', title: '小工具以外嘅所有新通告（包括公布及未分類），唔分支部' },
+      { id: 'all:tools', label: '全選：所有小工具', title: '所有支部嘅小工具；小工具只按支部細分，冇其他子分類' },
+    ];
+    const PUSH_LEGACY_ALL_ID = 'all:new';
+    const PUSH_MASTER_IDS = new Set([PUSH_LEGACY_ALL_ID, ...PUSH_MASTER_TOPICS.map(topic => topic.id)]);
+
+    function pushMasterIdsIn(topics) {
+      return (topics || []).filter(id => PUSH_MASTER_IDS.has(id));
+    }
+
+    // 一條消息係咪「小工具」：來源最權威（Scout System），enrich 標籤做後備。
+    function isToolsNotice(item, enrich) {
+      if (isScoutSystemItem(item)) return true;
+      const tags = enrich?.subscription_tags;
+      return Array.isArray(tags) && tags.includes('category:tools');
+    }
+
     function matchesPersonalPreferences(item, enrich, preferences) {
       if (!preferences) return false;
-      if (preferences.topics?.includes('all:new')) return true;
+      const topics = preferences.topics || [];
+      // 全選：通告同小工具各有一個獨立剔項，兩個都剔＝所有新消息（＝舊版 all:new）。
+      if (topics.includes('all:new')) return true;
+      const tools = isToolsNotice(item, enrich);
+      if (tools && topics.includes('all:tools')) return true;
+      if (!tools && topics.includes('all:notices')) return true;
       if (!Array.isArray(enrich?.branch_tags) || !Array.isArray(enrich?.subscription_tags)) return false;
       const branches = new Set(preferences.branches || []);
-      return (preferences.topics || []).some(id => {
+      return topics.some(id => {
+        if (PUSH_MASTER_IDS.has(id)) return false;
         const topic = state.pushCatalog?.topics?.find(topic => topic.id === id);
         if (!topic) return false;
         const scope = topic.branches || [];
@@ -1085,7 +1119,7 @@
 
     function getPersonalItems() {
       const prefs = state.personalPreferences || loadPersonalPreferences();
-      if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length) return [];
+      if ((!prefs?.branches?.length && !pushMasterIdsIn(prefs?.topics).length) || !prefs?.topics?.length) return [];
       const date = validPersonalDate(state.personalDate);
       let items = [];
       for (const source of state.sourceOrder) items = items.concat(state.grouped[source] || []);
@@ -1117,6 +1151,8 @@
       activeSource: null,
       keyword: '',
       windowId: '1d',
+      // 小工具唔以日期分類：預設「之前發布」＝全部已發布嘅小工具（包括今天）。
+      toolsWindowId: 'tools-all',
       searchRegionKeyword: '',
       searchScope: 'current', // 'current' | 'global'
       branch: 'ALL',     // 支部標籤（單選）：'ALL' | '小童軍' | '幼童軍' | …
@@ -1671,12 +1707,14 @@
     function sourceCount(source) {
       if (!isSourceEnabled(source)) return 0;
       const items = state.grouped[source] || [];
+      // 小工具嘅側欄數字唔跟通告視窗：寫住幾多件，撳入去就真係見到幾多件。
+      if (source === 'Scout System') return items.filter(toolInToolsWindow).length;
       return items.filter(item => itemInWindow(item)).length;
     }
 
     function scoutKindCount(kindId) {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(item => itemInWindow(item) && itemScoutKind(item) === kindId).length;
+      return (state.grouped['Scout System'] || []).filter(item => toolInToolsWindow(item) && itemScoutKind(item) === kindId).length;
     }
 
     function getBucket(sourceId) {
@@ -1725,32 +1763,40 @@
       return TIME_WINDOWS.find(x => x.id === state.windowId) || TIME_WINDOWS[2];
     }
 
-    function inWindow(itemDate) {
-      const win = currentWindow();
-      if (win.days == null) return true;
+    // 小工具專用視窗：唔分日期，淨係「今天」／「之前發布」（days == null＝全部）。
+    function currentToolsWindow() {
+      return TOOLS_TIME_WINDOWS.find(x => x.id === state.toolsWindowId) || TOOLS_TIME_WINDOWS[1];
+    }
+
+    function withinDays(itemDate, days) {
+      if (days == null) return true;
       const d = parseDate(itemDate);
       if (!d) return false;
       const now = new Date();
       const diff = now.getTime() - d.getTime();
-      return diff <= win.days * 24 * 60 * 60 * 1000;
+      return diff <= days * 24 * 60 * 60 * 1000;
     }
 
-    // 6個月視窗先額外包含 6 個月以上。只有 Scout System（小工具）適用；通告維持最近 6 個月。
+    function inWindow(itemDate) {
+      return withinDays(itemDate, currentWindow().days);
+    }
+
+    // 小工具只睇自己嗰兩個掣：「之前發布」＝全部（冇日期嘅舊工具都留低），
+    // 「今天」＝今日新上架。側欄數字永遠用呢個，撳入去見到幾多件就寫幾多件。
+    function toolInToolsWindow(item) {
+      return withinDays((item && (item.date || item.captured_date)) || '', currentToolsWindow().days);
+    }
+
+    // 2026-10-01：小工具（Scout System）取消以日期分類——不過淨係喺小工具分頁。
+    // 全港／地域／區會嗰邊照跟通告視窗，唔會一撳「今天」就成版舊工具跳出嚟。
     function itemInWindow(item) {
       const dateValue = (item && (item.date || item.captured_date)) || '';
-      if (inWindow(dateValue)) return true;
-      return currentWindow().id === '180d' && isScoutSystemItem(item);
+      if (isScoutSystemItem(item) && viewingScoutSystem()) return toolInToolsWindow(item);
+      return inWindow(dateValue);
     }
 
     function windowStatusLabel() {
-      const win = currentWindow();
-      if (win.id === '180d') return '6個月（小工具含6個月以上）';
-      return win.label;
-    }
-
-    // 只有 Scout System 先有「6個月以上」標籤，而且全部都有。通告唔標。
-    function scoutArchiveTagged(item) {
-      return isScoutSystemItem(item);
+      return viewingScoutSystem() ? currentToolsWindow().label : currentWindow().label;
     }
 
     function getCurrentItems() {
@@ -1828,13 +1874,18 @@
     function renderWindowChips() {
       const wrap = $('#window-chips');
       wrap.innerHTML = '';
-      for (const win of TIME_WINDOWS) {
+      // 小工具分頁唔用日期視窗，改用「今天／之前發布」兩個掣。
+      const toolsView = viewingScoutSystem();
+      const windows = toolsView ? TOOLS_TIME_WINDOWS : TIME_WINDOWS;
+      const activeWindowId = toolsView ? state.toolsWindowId : state.windowId;
+      for (const win of windows) {
         const btn = document.createElement('button');
-        btn.className = `chip ${state.activeSource !== 'BOOKMARKS' && state.windowId === win.id ? 'active' : ''}`;
+        btn.className = `chip ${state.activeSource !== 'BOOKMARKS' && activeWindowId === win.id ? 'active' : ''}`;
         btn.textContent = win.label;
-        if (win.id === '180d') btn.title = '通告只顯示最近 6 個月。小工具（只有 Scout System）會一併顯示 6 個月以上，卡片都標「6個月以上」。';
+        if (toolsView) btn.title = win.days == null ? '顯示全部已發布嘅小工具（包括今天）' : '只顯示今日新上架嘅小工具';
         btn.onclick = () => {
-          state.windowId = win.id;
+          if (toolsView) state.toolsWindowId = win.id;
+          else state.windowId = win.id;
           // 由收藏夾撳時間掣 = 想睇返一般通告，順手切返上次嗰個來源
           if (state.activeSource === 'BOOKMARKS') {
             state.activeSource = state.lastSource || 'ALL_SOURCES';
@@ -4982,7 +5033,7 @@
           subtitle = '目前顯示全港所有通告。';
         }
       }
-      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。6個月會包含 6 個月以上（通告唔適用）。';
+      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。小工具唔以日期分類，只分「今天」同「之前發布」。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
 
@@ -5049,7 +5100,7 @@
       } else if (state.personalMode) {
         const prefs = state.personalPreferences || loadPersonalPreferences();
         const when = validPersonalDate(state.personalDate);
-        const chosen = prefs?.topics?.includes('all:new') || (prefs?.branches?.length && prefs?.topics?.length);
+        const chosen = pushMasterIdsIn(prefs?.topics).length > 0 || (prefs?.branches?.length && prefs?.topics?.length);
         messagesEl.innerHTML = `<div class="personal-banner">🔔 ${when ? `${escapeHtml(when)} 的` : ''}個人化結果只使用本機儲存的受控設定。${chosen ? '' : '找不到本機設定；請在下方重新選擇支部和項目。'} <a href="/" style="text-decoration:underline;">返回一般瀏覽</a></div>`;
         if (!items.length) {
           messagesEl.innerHTML += '<div class="msg">這個通知批次沒有仍可可靠配對的通告。通告可能已移除，或你已在這部裝置更改了通知設定。</div>';
@@ -5119,7 +5170,7 @@
           ? `<br><small>目前只顯示「${escapeHtml(CATEGORY_TAGS.find(c => c.id === state.category)?.label || state.category)}」分類。分類由 enrich.py 嘅 PDF 內文判斷；如果全部係「其他」，可能 enrich.json 仲未補 categories（跑 python enrich.py --backfill-categories）。</small>`
           : '';
         const scoutHint = viewingScoutSystem()
-          ? '<br><small>Scout System 內設分類：助手、遊戲、系統、工具、其他、連結。6個月視窗會包含 6 個月以上的小工具（通告唔會）。</small>'
+          ? '<br><small>Scout System 內設分類：助手、遊戲、系統、工具、其他、連結。小工具唔以日期分類：撳「之前發布」就會見到全部。</small>'
           : '';
         messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}${catHint}${scoutHint}</div>`;
         return;
@@ -5156,12 +5207,11 @@
         const kindId = isTool ? itemScoutKind(item) : '';
         const kindLabel = SCOUT_SYSTEM_KINDS.find(k => k.id === kindId)?.label || '';
         const kindHtml = kindLabel ? `<span class="cat-tag kind">${escapeHtml(kindLabel)}</span>` : '';
-        const archiveHtml = scoutArchiveTagged(item) ? `<span class="cat-tag archive">${SCOUT_ARCHIVE_LABEL}</span>` : '';
-        // ⚠️ 兩邊都要帶 archiveHtml：scoutArchiveTagged 只會對 Scout System（＝isTool）
-        // 回 true，之前只喺「非工具」分支加，所以「6個月以上」標籤永遠都畫唔出（2026-09-25 修）。
+        // 2026-10-01：小工具取消日期分類，「6個月以上」標籤一併移除——
+        // 既然冇咗 6 個月視窗嘅概念，貼喺每張工具卡上面就淨係噪音。
         const catHtml = isTool
-          ? (kindHtml || '<span class="cat-tag kind">助手</span>') + archiveHtml
-          : [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('') + kindHtml + archiveHtml;
+          ? (kindHtml || '<span class="cat-tag kind">助手</span>')
+          : [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('') + kindHtml;
         const iconHtml = isTool && item.icon ? `<img class="tool-card-icon" src="${escapeHtml(item.icon)}" alt="" onerror="this.style.display='none'">` : '';
         const card = document.createElement('article');
         card.className = `card${item._bmGone ? ' bm-gone' : ''}${isTool ? ' tool-card' : ''}`;
@@ -5414,6 +5464,7 @@
     // 擺喺揀選清單最底，等佢哋可以揀剩晒前面幾類、淨係唔剔呢個。
     const PUSH_GENERAL_ORDER = ['服務', '活動', '比賽', '小工具', '公布'];
     const PUSH_LEADER_SECTION_ORDER = ['木章訓練班', '非木章訓練班'];
+    const PUSH_TOOLS_GROUP = '小工具';
 
     function getCatalogUrl() {
       const params = new URLSearchParams(location.search);
@@ -5467,25 +5518,62 @@
       return label;
     }
 
+    // 目前剔咗邊啲全選掣（all:notices／all:tools）。
+    function selectedPushMasters() {
+      return selectedValues($('#push-all'));
+    }
+
+    function pushTopicGroup(topicId) {
+      return state.pushCatalog?.topics?.find(topic => topic.id === topicId)?.group || '';
+    }
+
     function pushSelectionState() {
-      if (selectedValues($('#push-all')).includes('all:new')) {
-        return { branches: (state.pushCatalog?.branches || []).map(branch => branch.id), topics: ['all:new'] };
-      }
-      return { branches: selectedValues($('#push-branches')), topics: selectedValues($('#push-topics')) };
+      const masters = selectedPushMasters();
+      const picked = selectedValues($('#push-branches'));
+      // 被全選包住嘅逐項選擇只係收埋咗（方便取消全選時原樣復原），
+      // 唔應該一齊儲存——否則一剔全選就會白白食掉 60 個項目配額。
+      const extras = selectedValues($('#push-topics')).filter(id => !pushGroupCovered(pushTopicGroup(id)));
+      const topics = [...masters, ...extras];
+      // 全選＝所有支部：淨係剔全選、冇揀支部時補返全部支部，
+      // 因為 schema 要求 branch_ids 1..8，而全選本身唔靠支部配對。
+      const branches = masters.length && !picked.length
+        ? (state.pushCatalog?.branches || []).map(branch => branch.id)
+        : picked;
+      return { branches, topics };
     }
 
     function updatePushCount() {
       const el = $('#push-count');
       if (!el) return;
+      const masters = selectedPushMasters();
       const { branches, topics } = pushSelectionState();
       const over = topics.length > PUSH_MAX_TOPICS;
-      $('#push-custom-options').hidden = topics.includes('all:new');
-      el.textContent = topics.includes('all:new') ? '全選：有新消息就通知（包括小工具、公布及未分類）' : `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
+      const extra = topics.filter(id => !PUSH_MASTER_IDS.has(id)).length;
+      // 兩個全選都剔＝已經包晒，下面冇嘢好揀。
+      $('#push-custom-options').hidden = masters.length >= PUSH_MASTER_TOPICS.length;
+      const names = PUSH_MASTER_TOPICS.filter(topic => masters.includes(topic.id))
+        .map(topic => topic.label.replace('全選：', ''));
+      if (names.length >= PUSH_MASTER_TOPICS.length) {
+        el.textContent = '全選：所有通告 ＋ 所有小工具（即係所有新消息）';
+      } else if (names.length) {
+        el.textContent = `全選：${names.join('＋')}${extra ? `・另加 ${branches.length} 個支部・${extra} 個項目` : ''}`;
+      } else {
+        el.textContent = `已選 ${branches.length} 個支部・${extra} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
+      }
       el.classList.toggle('over', over);
       const save = $('#push-save'), enable = $('#push-enable');
-      const invalid = !branches.length || !topics.length || over;
+      const invalid = over || (!masters.length && (!branches.length || !extra));
       if (save) save.disabled = invalid;
       if (enable) enable.disabled = invalid || enable.dataset.unsupported === '1';
+    }
+
+    // 已經被全選掣包住嘅組別唔使再逐個剔：
+    // 剔「所有通告」就收起小工具以外嘅組別，剔「所有小工具」就收起小工具組別。
+    // 刻意用 hidden 而唔係唔畫出嚟：取消全選時原本剔過嘅項目要一個不漏咁返晒嚟。
+    function pushGroupCovered(group) {
+      const masters = selectedPushMasters();
+      if (group === PUSH_TOOLS_GROUP) return masters.includes('all:tools');
+      return masters.includes('all:notices');
     }
 
     function renderPushGeneralOptions(container, branchId, wanted) {
@@ -5495,6 +5583,8 @@
         if (!topics.length) continue;
         const section = document.createElement('div');
         section.className = 'push-section-block push-general-section';
+        section.dataset.group = group;
+        section.hidden = pushGroupCovered(group);
         const title = document.createElement('div');
         title.className = 'push-section-title';
         title.textContent = group;
@@ -5572,6 +5662,12 @@
       refreshHint();
     }
 
+    // 支部區塊永遠入 DOM（收埋嘅剔選要記得住），但成組都被全選包住時唔好淨係留個支部名。
+    function appendPushBranchBlock(wrap, block, head) {
+      block.hidden = ![...block.children].some(child => child !== head && !child.hidden);
+      wrap.appendChild(block);
+    }
+
     // 訓練：先按已選支部分區塊；每個區塊有「所有 X 訓練」＋綱要分組嘅徽章／訓練班。
     // 領袖再分「木章訓練班」／「非木章訓練班」兩個 section。
     function renderPushTopicOptions(selectedTopics = []) {
@@ -5600,11 +5696,18 @@
         head.appendChild(strong);
         block.appendChild(head);
         renderPushGeneralOptions(block, branchId, wanted);
-        if (branchId === '家長') { wrap.appendChild(block); continue; }
+        if (branchId === '家長') { appendPushBranchBlock(wrap, block, head); continue; }
+        // 訓練整組一齊收埋／出返：剔咗「全選：所有通告」就連訓練都包埋，
+        // 面板只剩低「小工具」逐個支部揀（小工具只按支部細分）。
+        const trainingWrap = document.createElement('div');
+        trainingWrap.className = 'push-training-wrap';
+        trainingWrap.dataset.group = '訓練';
+        trainingWrap.hidden = pushGroupCovered('訓練');
+        block.appendChild(trainingWrap);
         const trainingTitle = document.createElement('div');
         trainingTitle.className = 'push-section-title';
         trainingTitle.textContent = '訓練';
-        block.appendChild(trainingTitle);
+        trainingWrap.appendChild(trainingTitle);
 
         // 只屬呢個支部（或首個已選支部）嘅項目，避免共用徽章重複出現。
         const owned = topic => Array.isArray(topic.branches) && !topic.branches.includes('*')
@@ -5621,10 +5724,10 @@
           const none = document.createElement('div');
           none.className = 'push-help';
           none.textContent = '這個支部暫時沒有受控訓練項目；可選上方活動、服務或比賽。';
-          block.appendChild(none);
+          trainingWrap.appendChild(none);
         }
         for (const sectionName of sectionNames) {
-          let container = block;
+          let container = trainingWrap;
           if (sectionName) {
             container = document.createElement('div');
             container.className = 'push-section-block';
@@ -5632,13 +5735,13 @@
             title.className = 'push-section-title';
             title.textContent = sectionName;
             container.appendChild(title);
-            block.appendChild(container);
+            trainingWrap.appendChild(container);
           }
           const allTopic = trainingAll.find(topic => (topic.section || '') === sectionName) || null;
           const list = courses.filter(topic => (topic.section || '') === sectionName);
           renderPushTrainingList(container, allTopic, list, wanted);
         }
-        wrap.appendChild(block);
+        appendPushBranchBlock(wrap, block, head);
       }
       updatePushCount();
     }
@@ -5649,7 +5752,14 @@
       const saved = preferences || state.personalPreferences || loadPersonalPreferences() || { branches: [], topics: [] };
       const wantedBranches = new Set(saved.branches || []);
       const allowedTopicIds = new Set((state.pushCatalog.topics || []).map(topic => topic.id));
-      const savedTopics = (saved.topics || []).filter(id => allowedTopicIds.has(id));
+      let savedTopics = (saved.topics || []).filter(id => allowedTopicIds.has(id));
+      // 舊版單一「全選」→ 顯示成兩個都剔；下次儲存就會寫返新嘅一對 ID。
+      if (savedTopics.includes(PUSH_LEGACY_ALL_ID)) {
+        savedTopics = [...new Set([
+          ...savedTopics.filter(id => id !== PUSH_LEGACY_ALL_ID),
+          ...PUSH_MASTER_TOPICS.map(topic => topic.id),
+        ])];
+      }
       branchWrap.replaceChildren();
       for (const branch of state.pushCatalog.branches || []) {
         branchWrap.appendChild(makePickChip(branch.id, branch.label, wantedBranches.has(branch.id), 'pick-branch', () => {
@@ -5657,7 +5767,14 @@
           renderPushTopicOptions(selectedValues($('#push-topics')));
         }));
       }
-      $('#push-all').replaceChildren(makePickChip('all:new', '全選：所有新消息', savedTopics.includes('all:new'), 'pick-all', updatePushCount));
+      // 兩個獨立全選掣：剔其中一個，下面只會剩低未被包住嗰部分可以逐項揀。
+      $('#push-all').replaceChildren(...PUSH_MASTER_TOPICS.map(master => {
+        const chip = makePickChip(master.id, master.label, savedTopics.includes(master.id), 'pick-all', () => {
+          renderPushTopicOptions(selectedValues($('#push-topics')));
+        });
+        chip.title = master.title;
+        return chip;
+      }));
       renderPushTopicOptions(savedTopics);
     }
 
@@ -5882,14 +5999,26 @@
       });
     }
 
+    // 一句講晒已儲存嘅設定：兩個全選掣各自寫明，其餘照報支部／項目數。
+    function pushPreferenceSummary(prefs) {
+      const topics = prefs?.topics || [];
+      if (topics.includes(PUSH_LEGACY_ALL_ID)) return '全選：所有通告＋所有小工具';
+      const names = PUSH_MASTER_TOPICS.filter(master => topics.includes(master.id))
+        .map(master => master.label.replace('全選：', ''));
+      const extra = topics.filter(id => !PUSH_MASTER_IDS.has(id)).length;
+      if (names.length >= PUSH_MASTER_TOPICS.length) return '全選：所有通告＋所有小工具';
+      if (names.length) return `全選：${names.join('＋')}${extra ? `，另加 ${extra} 個項目` : ''}`;
+      return `${(prefs?.branches || []).join('、')}・${extra} 個項目`;
+    }
+
     function pushSummaryLabel() {
       const prefs = state.personalPreferences || loadPersonalPreferences();
       const enabled = (() => { try { return localStorage.getItem('scl_push_enabled_v1') === '1'; } catch (_) { return false; } })();
-      if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length) return { text: '🔔 通知', active: false, title: '設定個人化通知：先揀支部，再點選關注項目' };
+      if ((!prefs?.branches?.length && !pushMasterIdsIn(prefs?.topics).length) || !prefs?.topics?.length) return { text: '🔔 通知', active: false, title: '設定個人化通知：先揀支部，再點選關注項目' };
       return {
         text: `🔔 通知 <span class="chip-n">${prefs.topics.length}</span>`,
         active: enabled,
-        title: `${enabled ? '已啟用' : '已儲存（未啟用）'}：${prefs.topics.includes('all:new') ? '全選：所有新消息' : prefs.branches.join('、') + '・' + prefs.topics.length + ' 個項目'}。按此修改`,
+        title: `${enabled ? '已啟用' : '已儲存（未啟用）'}：${pushPreferenceSummary(prefs)}。按此修改`,
       };
     }
 
@@ -5959,7 +6088,9 @@
         const preferences = currentPushPreferences();
         const result = await window.ScoutPushClient.enable(preferences);
         updatePersonalResultsAfterPreferenceChange(result.preferences);
-        setPushStatus(result.preferences.topics.includes('all:new') ? '已啟用全選：有任何新消息就通知，包括小工具、公布及未分類。' : '已啟用：符合任何一組支部及項目的新消息就會通知。', 'good');
+        setPushStatus(pushMasterIdsIn(result.preferences.topics).length
+          ? `已啟用 ${pushPreferenceSummary(result.preferences)}；全選唔分支部。`
+          : '已啟用：符合任何一組支部及項目的新消息就會通知。', 'good');
       } catch (error) {
         const tone = error?.code === 'permission_denied' ? 'warn' : 'error';
         setPushStatus(error?.message || '未能啟用通知。', tone);
@@ -5999,7 +6130,7 @@
           navigator.serviceWorker.addEventListener('message', event => {
             if (event.data?.type !== 'scout-push-subscription-change') return;
             const prefs = loadPersonalPreferences();
-            if ((!prefs?.branches?.length && !prefs?.topics?.includes('all:new')) || !prefs?.topics?.length || !window.ScoutPushClient) return;
+            if ((!prefs?.branches?.length && !pushMasterIdsIn(prefs?.topics).length) || !prefs?.topics?.length || !window.ScoutPushClient) return;
             window.ScoutPushClient.sync(prefs, { resubscribe: true })
               .then(() => refreshPushStatus())
               .catch(() => setPushStatus('瀏覽器通知地址已改變；請按「更新通知設定」重新同步。', 'warn'));
