@@ -2836,7 +2836,7 @@
     }
 
     // ── 版面（feed 4:5 / story 9:16 都係同一套錨點，自動適應）─────────────
-    function posterLayout(item, ex, mode, design) {
+    function posterLayout(item, ex, mode, design, hasBase) {
       const story = mode === 'story';
       const W = POSTER_W, H = story ? POSTER_STORY_H : POSTER_H;
       const safeTop = story ? 250 : 0, safeBottom = story ? 360 : 0;
@@ -2891,7 +2891,14 @@
       }
       // 設計自己嘅預留位：headline（WANTED／TOP SECRET／重影）＋ strip（REWARD 條）
       // feed 裝飾保持原尺。Story 標題區低過 160px 就收細裝飾，唔好食晒標題。
-      if (!story) {
+      // ⚠️ 用緊真 AI 底圖（hasBase）就乜都唔預留：底圖本身已經有晒風格，
+      // 再畫 headline 會變「標題出兩次」（unc_glitch 嘅 ghost ＝ 標題重影，
+      // 疊喺底圖上面就係重覆兩行標題）。同 Python render_story_templates.py
+      // 嘅 base 分支一致 —— base 路線從來唔畫 headline／REWARD strip。
+      if (hasBase) {
+        // 唔設 L.headline／L.strip：posterHeadline／posterStrip 見冇位自然跳過，
+        // 成個 headline band 讓返俾標題區（zone 更大，大標題更有位抖）。
+      } else if (!story) {
         if (design.headline) {
           const hh = Math.max(88, Math.min(170, Math.round((L.zone.y1 - L.zone.y0) * 0.26)));
           L.headline = { y0: L.zone.y0 - 12, y1: L.zone.y0 - 12 + hh };
@@ -3624,7 +3631,10 @@
       const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
       const designId = resolvePosterDesignId(item, ex, o);
       const design = POSTER_DESIGN_BY_ID[designId] || POSTER_DESIGNS[0];
-      const L = posterLayout(item, ex, mode, design);
+      // 真 AI 底圖接得到先叫 hasBase：layout 要早過繪圖知道，先可以唔預留
+      // headline／strip 位（否則 unc_glitch 嘅 ghost headline 會將標題畫多一次）。
+      const hasBase = !!(BASE_IMAGE_FOR[design.id] && o.baseImg);
+      const L = posterLayout(item, ex, mode, design, hasBase);
       L.key = String((item && (item.pdf_url || item.url)) || (item && item.title) || '');
       const scale = o.scale && o.scale > 0 && o.scale !== 1 ? o.scale : 1;
       const canvas = document.createElement('canvas');
@@ -3639,8 +3649,7 @@
         // 底圖必須喺最底層：接到真 AI 底圖（o.baseImg）就蓋過向量 bg 階段，
         // 先貼底圖，先至輪到 pill／徽／標題／資料卡（全部喺下面照舊畫）；
         // 載唔到／冇傳就靜靜退返原本嘅向量 bg，唔會出白圖。
-        const baseName = BASE_IMAGE_FOR[design.id];
-        if (baseName && o.baseImg) {
+        if (hasBase) {
           ctx.drawImage(o.baseImg, 0, 0, L.W, L.H);
           if (storyBaseNeedsPlate(ctx, o.baseImg, [L.zone.x0, L.zone.y0, L.zone.x1, L.zone.y1], design.id)) {
             storyBaseSoftPlate(ctx, [L.zone.x0, L.zone.y0, L.zone.x1, L.zone.y1], design.titleColor === '#FFFFFF');
