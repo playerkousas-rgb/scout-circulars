@@ -281,7 +281,7 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     # 1、2）。「公佈」係畀成員訂閱時可以剔走嘅行政類別，唔會變成 Story。
     if is_reference_document(title, text):
         reference_hits = _term_hits(title, REFERENCE_TITLE_TERMS) or _term_hits(text, REFERENCE_TITLE_TERMS)
-        return [_make_category("announcement", "公佈", reference_hits)]
+        return [_make_category("announcement", "公布", reference_hits)]
 
     # 優先序 3：訓練（訓練班／工作坊／考驗日／課程）
     training = title_hits["training"] or text_hits["training"]
@@ -305,7 +305,7 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
 
     # 2026-10-01：最後兜底都歸類做「公佈」（而唔係乜都冇），等呢類通告都可以喺
     # 訂閱設定度俾成員揀「唔想收」——呢班通常係成員最唔想睇嘅行政類一次性通告。
-    return [_make_category("announcement", "公佈", [])]
+    return [_make_category("announcement", "公布", [])]
 
 
 def _scan_branch_tokens(value: Any, catalog: Mapping[str, Any]) -> Set[str]:

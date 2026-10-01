@@ -115,8 +115,8 @@
     },
     {
       "id": "branch:小童軍:category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "branch-topic",
       "branches": [
         "小童軍"
@@ -181,8 +181,8 @@
     },
     {
       "id": "branch:幼童軍:category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "branch-topic",
       "branches": [
         "幼童軍"
@@ -247,8 +247,8 @@
     },
     {
       "id": "branch:童軍:category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "branch-topic",
       "branches": [
         "童軍"
@@ -313,8 +313,8 @@
     },
     {
       "id": "branch:深資童軍:category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "branch-topic",
       "branches": [
         "深資童軍"
@@ -379,8 +379,8 @@
     },
     {
       "id": "branch:樂行童軍:category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "branch-topic",
       "branches": [
         "樂行童軍"
@@ -445,8 +445,8 @@
     },
     {
       "id": "branch:領袖:category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "branch-topic",
       "branches": [
         "領袖"
@@ -555,8 +555,8 @@
     },
     {
       "id": "branch:會務委員:category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "branch-topic",
       "branches": [
         "會務委員"
@@ -756,8 +756,8 @@
     },
     {
       "id": "category:announcement",
-      "label": "公佈",
-      "group": "公佈",
+      "label": "公布",
+      "group": "公布",
       "kind": "category",
       "branches": [
         "小童軍",
