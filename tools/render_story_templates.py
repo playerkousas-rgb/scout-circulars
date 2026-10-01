@@ -14,8 +14,9 @@ PNG 供 Stories branch／通告專屬頁顯示；JPEG 供 Instagram Graph API（
   - 中文要靠 Noto Sans CJK（workflow 會 apt install fonts-noto-cjk）；
   - 底部有 credit（同 app poster 同款），唔係「NoScout.System」。
 
-每日 15:30 HKT 自動流程會將 JPEG 經 Instagram Graph API 發佈；API 發佈唔支援
-link sticker。PNG 仍供通告專屬頁及手動 Story Drafts 流程重用。
+每日 12:00 HKT 自動流程會將 JPEG 經 Instagram Graph API 發佈；API 發佈唔支援
+link sticker。每類會先用本身嘅底圖；同日同類需要重覆款時，會按次序借用
+三張「通告」AI 底圖，盡量避免重覆。PNG 仍供通告專屬頁及手動 Story Drafts 流程重用。
 
 需要：pip install pillow 'qrcode[pil]'。CLI：--queue story-queue.json --out output
 產物：output/<today>/NN_<template>_<hash>.png/.jpg + manifest.json
@@ -30,12 +31,18 @@ import random
 import sys
 from pathlib import Path
 
+# This script is run as ``python tools/render_story_templates.py`` by Actions,
+# so add the repository root before importing the stdlib-only batch allocator.
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from story_template_pool import pick_daily_template_names
+
 import qrcode
 from qrcode.constants import ERROR_CORRECT_M
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageStat
 
 W, H = 1080, 1920
-ROOT = Path(__file__).resolve().parent.parent
 BASES_DIR = ROOT / "story-bases"
 story_attachment_url = None
 story_slogan = None
@@ -486,13 +493,30 @@ def t_service_wanted(item, img, draw, badge):
     _wanted_base(item, img, draw, badge, "服務")
 
 
+# The three former「通告」templates can be used as overflow artwork by a
+# training/activity/service/competition Story. Keep the pill truthful: the base
+# may be generic, but its notice category, CTA and data are not.
+_TEMPLATE_CATEGORY_LABELS = {
+    "training": "訓練",
+    "competition": "比賽",
+    "activity": "活動",
+    "service": "服務",
+    "other": "通告",
+    "announcement": "通告",
+}
+
+
+def template_category_label(item: dict) -> str:
+    return _TEMPLATE_CATEGORY_LABELS.get(str(item.get("category") or ""), "通告")
+
+
 def t_unc_scope(item, img, draw, badge):
     zone = (90, 470, 990, 1050)
     if paint_base_background(img, "unc_scope"):
         color, outline, plate = auto_title_style(img, zone, "unc_scope")
         if plate:
             apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
-        draw_pill(draw, "其他", (60, 80), "#FF0000")
+        draw_pill(draw, template_category_label(item), (60, 80), "#FF0000")
         paste_badge(img, badge)
         draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
         draw_bottom(draw, item, "#FF0000", True, img)
@@ -503,7 +527,7 @@ def t_unc_scope(item, img, draw, badge):
         draw.ellipse([cx - r, cy - r, cx + r, cy + r], outline="#FF0000", width=2)
     draw.line([(cx - 600, cy), (cx + 600, cy)], fill="#FF0000", width=2)
     draw.line([(cx, cy - 600), (cx, cy + 600)], fill="#FF0000", width=2)
-    draw_pill(draw, "其他", (60, 80), "#FF0000")
+    draw_pill(draw, template_category_label(item), (60, 80), "#FF0000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#FFFFFF", zone)
     draw_bottom(draw, item, "#FF0000", True, img)
@@ -515,7 +539,7 @@ def t_unc_topsecret(item, img, draw, badge):
         color, outline, plate = auto_title_style(img, zone, "unc_topsecret")
         if plate:
             apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
-        draw_pill(draw, "其他", (60, 80), "#8B0000")
+        draw_pill(draw, template_category_label(item), (60, 80), "#8B0000")
         paste_badge(img, badge)
         draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
         draw_bottom(draw, item, "#8B0000", False, img)
@@ -527,7 +551,7 @@ def t_unc_topsecret(item, img, draw, badge):
     sd.text((10, 20), "TOP SECRET", fill="#8B0000", font=_font(96))
     stamp = stamp.rotate(-14, expand=True)
     img.paste(stamp, (90, 230), stamp)
-    draw_pill(draw, "其他", (60, 80), "#8B0000")
+    draw_pill(draw, template_category_label(item), (60, 80), "#8B0000")
     paste_badge(img, badge)
     draw_title_block(draw, item.get("title", ""), "#111111", zone)
     draw_bottom(draw, item, "#8B0000", False, img)
@@ -540,7 +564,7 @@ def t_unc_glitch(item, img, draw, badge):
         color, outline, plate = auto_title_style(img, zone, "unc_glitch")
         if plate:
             apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
-        draw_pill(draw, "其他", (60, 80), "#00FFFF", "#000000")
+        draw_pill(draw, template_category_label(item), (60, 80), "#00FFFF", "#000000")
         paste_badge(img, badge)
         draw_title_block(draw, title, color, zone, outline=outline)
         draw_bottom(draw, item, "#00FFFF", True, img)
@@ -552,7 +576,7 @@ def t_unc_glitch(item, img, draw, badge):
     gf = _font(84)
     draw.text((66, 306), ghost, fill="#00FFFF", font=gf)
     draw.text((58, 298), ghost, fill="#FF00FF", font=gf)
-    draw_pill(draw, "其他", (60, 80), "#00FFFF", "#000000")
+    draw_pill(draw, template_category_label(item), (60, 80), "#00FFFF", "#000000")
     paste_badge(img, badge)
     draw_title_block(draw, title, "#FFFFFF", zone)
     draw_bottom(draw, item, "#00FFFF", True, img)
@@ -605,14 +629,43 @@ POOL_NAMES = {
 }
 
 
+# Resolve a selected name back to its renderer. Keep this derived from POOLS /
+# POOL_NAMES so the manual palette and Actions renderer cannot drift apart.
+TEMPLATE_BY_NAME = {
+    name: func
+    for category, names in POOL_NAMES.items()
+    for name, func in zip(names, POOLS[category])
+}
+
+
 def pick_template(item: dict):
-    """hash(url) 定款：同一張通告永遠出同一款，唔會每日變樣。"""
+    """Legacy/manual one-item selection: hash(url) keeps its style stable."""
     cat = item.get("category") if item.get("category") in POOLS else "other"
     pool = POOLS[cat]
     key = str(item.get("pdf_url") or item.get("url") or item.get("title") or "")
     h = int(hashlib.md5(key.encode("utf-8")).hexdigest(), 16)
     i = h % len(pool)
     return cat, POOL_NAMES[cat][i], pool[i]
+
+
+def pick_daily_templates(items: list[dict]) -> list[tuple[str, str, object]]:
+    """Pick every template in a daily batch without needlessly repeating art.
+
+    A category uses its own visual base(s) first. On the next same-category
+    Story, the three former「通告」AI bases are borrowed, once each across the
+    entire day. The notice is *not* reclassified: its real category still
+    controls its pill, QR CTA and copy. After all applicable bases are used,
+    the selection cycles deterministically.
+    """
+    daily_names = pick_daily_template_names(items)
+    choices: list[tuple[str, str, object]] = []
+    for item, name in zip(items, daily_names):
+        if name is None:
+            choices.append(pick_template(item))
+            continue
+        category = str(item.get("category") or "other")
+        choices.append((category, name, TEMPLATE_BY_NAME[name]))
+    return choices
 
 
 def build_index(stories_root: Path) -> Path:
@@ -677,8 +730,10 @@ def main(argv: list[str] | None = None) -> int:
     manifest = {"today": today, "queue_generated_at": queue.get("generated_at", ""), "items": []}
     queue_items = queue.get("items") or []
     items = queue_items[: args.limit] if args.limit > 0 else queue_items
-    for idx, item in enumerate(items):
-        cat, tname, func = pick_template(item)
+    # Allocate the whole daily batch together: borrow a never-used「通告」base
+    # only when a category would otherwise repeat one of its own bases.
+    template_choices = pick_daily_templates(items)
+    for idx, (item, (cat, tname, func)) in enumerate(zip(items, template_choices)):
         img = Image.new("RGB", (W, H), "#FFFFFF")
         draw = ImageDraw.Draw(img, "RGBA")
         func(item, img, draw, badge_for(item, orgs))

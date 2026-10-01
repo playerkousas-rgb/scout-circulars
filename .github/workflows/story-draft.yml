@@ -146,7 +146,10 @@ jobs:
           TODAY: ${{ steps.queue.outputs.today }}
         run: |
           set -euo pipefail
+          # build_story_index.py imports the stdlib-only batch allocator too;
+          # keep its sibling beside the copied script after we checkout `stories`.
           cp tools/render_story_templates.py "$RUNNER_TEMP/build_story_index.py"
+          cp story_template_pool.py "$RUNNER_TEMP/story_template_pool.py"
           cp .github/scripts/publish_instagram_stories.py "$RUNNER_TEMP/publish_instagram_stories.py"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
