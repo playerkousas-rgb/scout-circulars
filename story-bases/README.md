@@ -11,9 +11,11 @@
 | `competition_gold_black.webp` | 黑 × 金黃筆觸 | 比賽 competition | 中段漆黑 |
 | `activity_army.webp` | 軍綠地形圖 | 活動 activity | 中段深綠 |
 | `service_wanted.webp` | 舊羊皮紙 | 服務 service | 中央米黃 |
-| `unc_scope.webp` | 黑 × 紅瞄準環 | 通告 other | 中央漆黑 |
-| `unc_topsecret.webp` | 深底 × 牛皮紙 | 通告 other | 紙面淺色 |
-| `unc_glitch.webp` | 黑 × 青洋紅故障 | 通告 other | 中央漆黑 |
+| `unc_scope.webp` | 黑 × 紅瞄準環 | 通告 other；**自動出圖 overflow** | 中央漆黑 |
+| `unc_topsecret.webp` | 深底 × 牛皮紙 | 通告 other；**自動出圖 overflow** | 紙面淺色 |
+| `unc_glitch.webp` | 黑 × 青洋紅故障 | 通告 other；**自動出圖 overflow** | 中央漆黑 |
+
+自動 Story 仍然只收訓練／活動／服務／比賽四類；唔會因為有呢三款而將普通「通告」加進 queue。相反，當同一日同一分類已經用完本身的底圖、再用會重覆時，renderer 會依序借用以上三款，並保留原通告的正確分類標籤和 CTA；三款都借過才重覆。
 
 體積：9 張合共約 **1.05 MB**（WebP q82）。喺 `.vercelignore` 擋住 → **Vercel 零 byte**，
 由 raw.githubusercontent 或本機 runner 直接讀。
