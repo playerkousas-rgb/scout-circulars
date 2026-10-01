@@ -144,7 +144,9 @@ class KeywordExpansionTests(unittest.TestCase):
                 got = [c["id"] for c in extract_categories(title)]
                 self.assertIn(want, got, got)
 
-    def test_administrative_titles_stay_unclassified(self):
+    def test_administrative_titles_become_announcement(self):
+        """2026-10-01：新增「公佈」分類做行政類通告嘅兜底，唔再係空分類——
+        等成員訂閱設定時可以揀唔要呢類佢哋最唔想睇嘅一次性行政通告。"""
         for title in [
             "2026年度模範童軍選舉",
             "呈交童軍旅賬目資料",
@@ -152,7 +154,8 @@ class KeywordExpansionTests(unittest.TestCase):
             "2026年傑出旅團獎勵計劃-獲獎名單公布",
         ]:
             with self.subTest(title=title):
-                self.assertEqual(extract_categories(title), [])
+                got = [c["id"] for c in extract_categories(title)]
+                self.assertEqual(got, ["announcement"])
 
 
 @unittest.skipUnless(core, "core.py 依賴（requests/bs4）未安裝，跳過隔離測試")

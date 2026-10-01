@@ -4,8 +4,8 @@
 
 The catalogue is deliberately controlled: a user can only subscribe to a
 verified official course/badge or one of the agreed broad categories
-(training, service, activity, competition). This keeps a new or odd local course name from
-creating an unreliable push subscription.
+(training, service, activity, competition, announcement). This keeps a new or
+odd local course name from creating an unreliable push subscription.
 """
 
 from __future__ import annotations
@@ -31,10 +31,39 @@ TRAINING_TERMS = [
 SERVICE_TERMS = [
     "社區服務", "服務計劃", "義工服務", "志願服務", "服務活動", "服務日", "服務隊", "服務團",
     "義工招募", "公益服務", "社會服務", "探訪", "捐血", "籌款",
+    # 2026-10-01 加：區會常用「XX(服務邀請)」做標題，招募童軍/領袖做義務工作人員
+    # 幫手搞活動（例如「油尖區百年童行-童軍115追蹤挑戰賽(服務邀請)」），之前漏咗
+    # 呢個詞令成份通告淨係撞中 COMPETITION_TERMS（賽事個名），完全走漏服務訊號。
+    "服務邀請", "義工邀請",
 ]
+# 2026-10-01 用戶要求：淨係撞中「服務／工作人員／義工」就必定係服務（唔使成個
+# 片語一字不漏），務求「XX比賽工作人員招募」「XX開放日服務」呢類標題都歸得到
+# 服務——但「服務組」要剔除，因為嗰個係童軍專章嘅分組標籤（技能組／服務組），
+# 成句通常其實係訓練班（例如「童軍消防(服務組)專章訓練班」），唔係招義工。
+SERVICE_BARE_TERMS = ["服務", "工作人員", "義工"]
+SERVICE_BARE_EXCLUDE_TERM = "服務組"
+
+# 標題出現呢啲詞＝通告本身係「招募人手幫手」，唔係比賽／訓練報名表格，即使標題
+# 重複埋賽事個名（例如「...挑戰賽(服務邀請)」）都好，都唔應該再撞埋 competition／
+# training：報緊名嗰班人去做義工，唔係去比賽或受訓。見 extract_categories。
+SERVICE_INVITATION_TERMS = ["服務邀請", "義工邀請"]
 # 比賽是獨立興趣／瀏覽分類，不再含糊併入「其他活動」。只收明確賽事詞，
 # 免得一般「挑戰」或機構名稱造成誤推。
-COMPETITION_TERMS = ["比賽", "競賽", "公開賽", "錦標賽", "邀請賽", "挑戰賽", "會操", "練習賽", "體驗賽"]
+# 2026-10-01 擴充：補返實測 cache 入面出現、但舊清單漏咗嘅複合賽事詞（例如
+# 「XX選拔賽」「XX田徑賽」「XX友誼賽」「XX大賽」同單獨「錦標」），同
+# story_queue.py 嘅 _RE_COMPETITION 對齊。刻意唔收單獨「賽」字——「賽馬會」
+# 呢類贊助機構名會變成假陽性。
+COMPETITION_TERMS = [
+    "比賽", "競賽", "公開賽", "錦標賽", "邀請賽", "挑戰賽", "會操", "練習賽", "體驗賽",
+    "選拔賽", "田徑賽", "友誼賽", "大賽", "錦標", "實體賽",
+    # 2026-10-01 用戶再次確認：「成績公佈」「結果公佈」「公佈結果」（連埋「公布」
+    # 異體字）本身就代表緊一場賽事出咗成績，一定算比賽類，唔理個標題有冇再講
+    # 多一次「比賽」「錦標賽」呢啲字——即使淨係得呢幾隻字都要贏過「公佈」兜底。
+    # 服務／捐血／服務獎呢類通告唔會中招，因為服務檢查行先過比賽（見下面優先
+    # 序），「XX服務獎...成績公布」會先撞中「服務」裸字而歸服務，唔會變比賽。
+    "成績公佈", "成績公布", "結果公佈", "結果公布", "公佈結果", "公布結果",
+]
+
 BIG_CAMP_TERMS = ["大露營", "大型露營", "童軍大露營"]
 CAMPFIRE_TERMS = ["營火會", "campfire"]
 OTHER_ACTIVITY_TERMS = [
@@ -123,6 +152,19 @@ def _term_hits(value: Any, terms: Iterable[str]) -> List[str]:
     return hits
 
 
+def _service_signal_hits(value: Any) -> List[str]:
+    """SERVICE_BARE_TERMS 係裸字（唔使成個片語），但要先剔走「服務組」先再比對，
+    否則「童軍消防(服務組)專章訓練班」呢類訓練班通告會被誤判做服務。"""
+    haystack = normalize(value)
+    haystack_no_group = haystack.replace(normalize(SERVICE_BARE_EXCLUDE_TERM), "")
+    hits: List[str] = []
+    for term in SERVICE_BARE_TERMS:
+        needle = normalize(term)
+        if needle and needle in haystack_no_group and term not in hits:
+            hits.append(term)
+    return hits
+
+
 def _badge_stem(label: str) -> str:
     """「模擬飛行章」→「模擬飛行」; anything that is not a badge name → ''."""
     label = str(label or "").strip()
@@ -174,22 +216,34 @@ def is_reference_document(title: Any, text: Any = "") -> bool:
 
 
 def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dict[str, Any]]:
-    """Classify into training, service, activity and competition.
+    """Classify into exactly one of training / service / activity / competition
+    / announcement.
 
-    A workshop and a training class deliberately share the ``training`` tag.
-    ``activity`` has exactly three subtypes: big camp, campfire and other;
-    an explicit competition is a separate top-level category. More than one
-    category can be valid for one circular. Notices from a TOOLS_SOURCES
-    source are always ``tools`` regardless of wording.
+    2026-10-01（用戶決定）：一篇通告淨係可以有一個分類，唔再容許「又訓練又
+    比賽」「又比賽又服務」咁樣同時顯示兩個標籤。撞中幾個分類嘅字眼時，按
+    固定優先序淨揀一個：服務 > 比賽 > 公佈 > 訓練 > 活動（活動之下 big_camp／
+    campfire／其他三揀一，跟返原本邏輯）。行政性質、純公告類通告冇撞中服務
+    ／比賽／訓練／活動任何關鍵詞，一律兜底歸類做「公佈」（announcement）——
+    呢個係成員訂閱時可以揀唔要嘅分類，但永遠唔會輸畀「成績公佈算比賽類」呢
+    條規則，因為服務／比賽嘅檢查行先。Notices from a TOOLS_SOURCES source are
+    always ``tools`` regardless of wording.
     """
     source_name = str(source or "").strip()
     if source_name in TOOLS_SOURCES:
         return [_make_category("tools", "小工具", [f"來源：{source_name}"])]
     title = str(title or "")
     text = str(text or "")
+
+    # 標題明確話係「服務邀請／義工邀請」＝呢張通告本身就係招募義工，一定淨係
+    # 服務，唔會因為標題重複咗賽事個名（...挑戰賽）或掛住訓練字眼就變成
+    # 比賽／訓練（2026-10-01：用戶報告「又比賽又服務」唔應該出現）。
+    invitation_hits = _term_hits(title, SERVICE_INVITATION_TERMS)
+    if invitation_hits:
+        return [_make_category("service", "服務", invitation_hits)]
+
     title_hits = {
         "training": _term_hits(title, TRAINING_TERMS),
-        "service": _term_hits(title, SERVICE_TERMS),
+        "service": _term_hits(title, SERVICE_TERMS) + _service_signal_hits(title),
         "competition": _term_hits(title, COMPETITION_TERMS),
         "big_camp": _term_hits(title, BIG_CAMP_TERMS),
         "campfire": _term_hits(title, CAMPFIRE_TERMS),
@@ -199,50 +253,59 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     # not used to override an obvious reference/calendar document title.
     text_hits = {
         "training": _term_hits(text, TRAINING_TERMS),
-        "service": _term_hits(text, SERVICE_TERMS),
+        "service": _term_hits(text, SERVICE_TERMS) + _service_signal_hits(text),
         "competition": _term_hits(text, COMPETITION_TERMS),
         "big_camp": _term_hits(text, BIG_CAMP_TERMS),
         "campfire": _term_hits(text, CAMPFIRE_TERMS),
         "other": _term_hits(text, OTHER_ACTIVITY_TERMS),
     }
-    title_is_reference = is_reference_document(title, text)
-    # Calendars, rules and lists are not a new course/service/event themselves.
-    # Returning no category also prevents "all training" from being notified for
-    # a quarterly timetable rather than a registration opportunity.
-    if title_is_reference:
-        return []
 
-    result: List[Dict[str, Any]] = []
-    training = [] if title_is_reference else (title_hits["training"] or text_hits["training"])
-    if training:
-        result.append(_make_category("training", "訓練", training))
-
+    # 優先序 1：服務（撞中「服務／工作人員／義工」裸字或任何 SERVICE_TERMS 片語）
+    # 2026-10-01：呢兩個檢查刻意擺喺 is_reference_document 判斷之前——「成績
+    # 公佈算比賽類」，一張「XX比賽-結果公布」或「XX比賽-參賽名單」嘅通告唔應
+    # 該因為標題撞中「結果公布／名單」等行政文件字眼就被截咗去「公佈」，服務
+    # ／比賽嘅明確訊號必須贏過泛用嘅行政文件判斷。
     service = title_hits["service"] or text_hits["service"]
     if service:
-        result.append(_make_category("service", "服務", service))
+        return [_make_category("service", "服務", service)]
 
+    # 優先序 2：比賽（明確賽事詞，例如「XX錦標賽」「XX盃」「XX成績公布」）
     competition = title_hits["competition"] or text_hits["competition"]
     if competition:
-        result.append(_make_category("competition", "比賽", competition))
+        return [_make_category("competition", "比賽", competition)]
 
+    # Calendars, rules and lists are not a new course/service/event themselves.
+    # 行政性質、純公告類通告（委員會會議紀錄、選舉、總部公布、交數、行事曆等）
+    # 歸入「公佈」——呢個分類刻意擺喺訓練／活動之前，但喺服務／比賽之後，令
+    # 「比賽結果公布」「比賽參賽名單」呢類通告唔會被呢度截咗去（見上面優先序
+    # 1、2）。「公佈」係畀成員訂閱時可以剔走嘅行政類別，唔會變成 Story。
+    if is_reference_document(title, text):
+        reference_hits = _term_hits(title, REFERENCE_TITLE_TERMS) or _term_hits(text, REFERENCE_TITLE_TERMS)
+        return [_make_category("announcement", "公佈", reference_hits)]
+
+    # 優先序 3：訓練（訓練班／工作坊／考驗日／課程）
+    training = title_hits["training"] or text_hits["training"]
+    if training:
+        return [_make_category("training", "訓練", training)]
+
+    # 優先序 4：活動——big_camp／campfire／其他三揀一，維持原本邏輯
     big_camp = title_hits["big_camp"] or text_hits["big_camp"]
-    campfire = title_hits["campfire"] or text_hits["campfire"]
-    # Activity subtypes are mutually exclusive for a clean subscription choice.
-    # A named 大露營／營火會 remains useful even if its notice also mentions
-    # service or training. A clear competition is never also put in 活動: users
-    # who opted into a camp/campfire should not receive a contest by accident.
-    if not competition and big_camp:
-        result.append(_make_category("activity", "活動", big_camp, "big_camp"))
-    elif not competition and campfire:
-        result.append(_make_category("activity", "活動", campfire, "campfire"))
-    elif not training and not service and not competition:
-        # Broad words such as 「活動」 are only trusted in a title.  PDF body
-        # text commonly mentions an unrelated activity in every type of notice.
-        other = title_hits["other"] or (text_hits["other"] if not normalize(title) else [])
-        if other:
-            result.append(_make_category("activity", "活動", other, "other"))
+    if big_camp:
+        return [_make_category("activity", "活動", big_camp, "big_camp")]
 
-    return result
+    campfire = title_hits["campfire"] or text_hits["campfire"]
+    if campfire:
+        return [_make_category("activity", "活動", campfire, "campfire")]
+
+    # Broad words such as 「活動」 are only trusted in a title.  PDF body
+    # text commonly mentions an unrelated activity in every type of notice.
+    other = title_hits["other"] or (text_hits["other"] if not normalize(title) else [])
+    if other:
+        return [_make_category("activity", "活動", other, "other")]
+
+    # 2026-10-01：最後兜底都歸類做「公佈」（而唔係乜都冇），等呢類通告都可以喺
+    # 訂閱設定度俾成員揀「唔想收」——呢班通常係成員最唔想睇嘅行政類一次性通告。
+    return [_make_category("announcement", "公佈", [])]
 
 
 def _scan_branch_tokens(value: Any, catalog: Mapping[str, Any]) -> Set[str]:
@@ -330,6 +393,7 @@ def extract_subscription_metadata(
         "service": "category:service",
         "competition": "category:competition",
         "tools": "category:tools",
+        "announcement": "category:announcement",
     }
     for category in categories:
         topic_id = category_mapping.get(category.get("id"))

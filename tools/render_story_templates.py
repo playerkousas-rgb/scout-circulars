@@ -32,12 +32,98 @@ from pathlib import Path
 
 import qrcode
 from qrcode.constants import ERROR_CORRECT_M
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageStat
 
 W, H = 1080, 1920
 ROOT = Path(__file__).resolve().parent.parent
+BASES_DIR = ROOT / "story-bases"
 story_attachment_url = None
 story_slogan = None
+
+
+# ── AI 底圖（story-bases/*.webp）：底圖一定喺最底層，先貼底圖先畫字 ──────
+# 2026-10-01：9 款向量背景正式換成真‧AI 底圖。底圖缺檔（例如淺 clone 冇
+# 落 story-bases，或者用戶未幫某一款出到底圖）就靜靜退返返舊向量畫法，
+# 唔會因為冧咗一張底圖累埋成個 Story 流程 fail 晒。
+_BASE_IMG_CACHE: dict[str, "Image.Image | None"] = {}
+
+
+def load_base_image(name: str) -> "Image.Image | None":
+    """讀 story-bases/<name>.{webp,png,jpg}，1080×1920；搵唔到就 None（行 fallback）。"""
+    if name in _BASE_IMG_CACHE:
+        cached = _BASE_IMG_CACHE[name]
+        return cached.copy() if cached is not None else None
+    for ext in (".webp", ".png", ".jpg"):
+        p = BASES_DIR / f"{name}{ext}"
+        if p.exists():
+            try:
+                img = Image.open(p).convert("RGB")
+                if img.size != (W, H):
+                    img = img.resize((W, H), Image.Resampling.LANCZOS)
+                _BASE_IMG_CACHE[name] = img
+                return img.copy()
+            except OSError:
+                break
+    _BASE_IMG_CACHE[name] = None
+    return None
+
+
+def zone_stats(img: "Image.Image", zone: tuple[int, int, int, int]) -> tuple[float, float]:
+    """標題區 (平均亮度, 標準差)。標準差大＝底圖好多花紋，字要有底板墊住先穩陣。"""
+    x0, y0, x1, y1 = zone
+    strip = img.crop((x0, y0, x1, y1)).convert("L").resize((48, 48))
+    st = ImageStat.Stat(strip)
+    return st.mean[0], st.stddev[0]
+
+
+def apply_soft_plate(img: "Image.Image", zone: tuple[int, int, int, int], dark_plate: bool,
+                     feather: int = 56, alpha: int = 214) -> None:
+    """喺標題區後面加一塊半透明柔邊底板（唔會洗白底圖，仍然見到質感），原地更新 img。"""
+    x0, y0, x1, y1 = zone
+    mask = Image.new("L", img.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle(
+        [x0 + 26, y0 + 26, x1 - 26, y1 - 26], radius=40, fill=alpha)
+    mask = mask.filter(ImageFilter.GaussianBlur(feather))
+    layer = Image.new("RGB", img.size, (10, 12, 16) if dark_plate else (252, 252, 250))
+    img.paste(Image.composite(layer, img, mask), (0, 0))
+
+
+# 9 款底圖已實測嘅標題字色／描邊／要唔要底板（IG出圖-交接-2026-09-23.md §5）。
+# 新底圖（唔喺呢個表，例如用戶之後自己加嘅款）就行動態亮度探測頂住，唔會出嚟睇唔到字。
+BASE_TITLE_STYLE = {
+    "train_blue": ("#111111", "#FFFFFF", True),
+    "train_orange": ("#111111", "#FFFFFF", False),
+    "train_green": ("#111111", "#FFFFFF", True),
+    "competition_gold_black": ("#FFD700", "#000000", False),
+    "activity_army": ("#FFFFFF", "#000000", False),
+    "service_wanted": ("#3D1E00", "#F2E4C8", True),
+    "unc_scope": ("#FFFFFF", "#000000", False),
+    "unc_topsecret": ("#111111", "#F2E4C8", True),
+    "unc_glitch": ("#FFFFFF", "#000000", False),
+}
+
+
+def auto_title_style(img: "Image.Image", zone: tuple[int, int, int, int],
+                     name: str) -> tuple[str, str, bool]:
+    """回 (字色, 描邊色, 要唔要底板)。有實測數據用實測；未知底圖就探測亮度/雜亂度。"""
+    if name in BASE_TITLE_STYLE:
+        return BASE_TITLE_STYLE[name]
+    luma, sd = zone_stats(img, zone)
+    if luma > 150:
+        return ("#111111", "#FFFFFF", sd >= 38)
+    if luma < 95:
+        return ("#FFFFFF", "#000000", False)
+    return ("#111111", "#FFFFFF", True) if luma > 122 else ("#FFFFFF", "#000000", True)
+
+
+def paint_base_background(img: "Image.Image", name: str) -> bool:
+    """底圖必須係最底層：成功就即刻 paste 做返個底，先至畀後面畫 pill／徽／標題／資料卡。
+    回 True＝已貼底圖（跟手用 auto_title_style 攞字色）；False＝搵唔到，caller 行舊向量款。"""
+    base = load_base_image(name)
+    if base is None:
+        return False
+    img.paste(base, (0, 0))
+    return True
 
 
 def _load_story_helpers():
@@ -306,28 +392,60 @@ def draw_bottom(draw, item: dict, accent: str, dark: bool, img: Image.Image):
 
 
 # ── 12 款模板 ─────────────────────────────────────────────────────
-def t_train(color_hex):
+def t_train(name, color_hex):
+    zone = (70, 480, 1010, 1080)
+
     def render(item, img, draw, badge):
+        if paint_base_background(img, name):
+            color, outline, plate = auto_title_style(img, zone, name)
+            if plate:
+                apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
+            draw_pill(draw, "訓練", (60, 80), color_hex)
+            paste_badge(img, badge)
+            draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
+            draw_bottom(draw, item, color_hex, False, img)
+            return
         draw.rectangle([0, 0, W, H], fill="#FFFFFF")
         draw.polygon([(0, 760), (W, 540), (W, 1320), (0, 1560)], fill=color_hex)
         draw_pill(draw, "訓練", (60, 80), color_hex)
         paste_badge(img, badge)
-        draw_title_block(draw, item.get("title", ""), "#111111", (70, 480, 1010, 1080))
+        draw_title_block(draw, item.get("title", ""), "#111111", zone)
         draw_bottom(draw, item, color_hex, False, img)
     return render
 
 
 def t_competition_gold(item, img, draw, badge):
+    zone = (80, 500, 1000, 1080)
+    if paint_base_background(img, "competition_gold_black"):
+        color, outline, plate = auto_title_style(img, zone, "competition_gold_black")
+        if plate:
+            apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
+        draw_pill(draw, "比賽", (60, 80), "#FFD700", "#000000")
+        paste_badge(img, badge)
+        draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
+        draw.rectangle([60, 1348, 1020, 1356], fill="#FFD700")
+        draw_bottom(draw, item, "#FFD700", True, img)
+        return
     draw.rectangle([0, 0, W, H], fill="#0A0A0A")
     draw.rectangle([30, 30, W - 30, H - 30], outline="#FFD700", width=4)
     draw_pill(draw, "比賽", (60, 80), "#FFD700", "#000000")
     paste_badge(img, badge)
-    draw_title_block(draw, item.get("title", ""), "#FFD700", (80, 500, 1000, 1080), outline="#000000")
+    draw_title_block(draw, item.get("title", ""), "#FFD700", zone, outline="#000000")
     draw.rectangle([60, 1348, 1020, 1356], fill="#FFD700")
     draw_bottom(draw, item, "#FFD700", True, img)
 
 
 def t_activity_army(item, img, draw, badge):
+    zone = (70, 470, 1010, 1030)
+    if paint_base_background(img, "activity_army"):
+        color, outline, plate = auto_title_style(img, zone, "activity_army")
+        if plate:
+            apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
+        draw_pill(draw, "活動", (60, 80), "#A6FF00", "#000000")
+        paste_badge(img, badge)
+        draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
+        draw_bottom(draw, item, "#A6FF00", True, img)
+        return
     rng = random.Random(hashlib.md5(str(item.get("pdf_url") or item.get("url") or "").encode()).hexdigest())
     draw.rectangle([0, 0, W, H], fill="#2D3A2E")
     for i in range(0, H, 120):
@@ -336,11 +454,23 @@ def t_activity_army(item, img, draw, badge):
     draw.ellipse([300, 480, 780, 960], outline="#A6FF00", width=2)
     draw_pill(draw, "活動", (60, 80), "#A6FF00", "#000000")
     paste_badge(img, badge)
-    draw_title_block(draw, item.get("title", ""), "#FFFFFF", (70, 470, 1010, 1030))
+    draw_title_block(draw, item.get("title", ""), "#FFFFFF", zone)
     draw_bottom(draw, item, "#A6FF00", True, img)
 
 
 def _wanted_base(item, img, draw, badge, pill_text):
+    zone = (90, 480, 990, 1050)
+    # 得 service_wanted.webp 一張羊皮紙底圖；「服務」同「其他」款共用同一張底圖，
+    # 淨係 pill 文字／分類唔同（同舊向量版一樣嘅設計決定）。
+    if paint_base_background(img, "service_wanted"):
+        color, outline, plate = auto_title_style(img, zone, "service_wanted")
+        if plate:
+            apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
+        draw_pill(draw, pill_text, (60, 80), "#3D1E00")
+        paste_badge(img, badge)
+        draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
+        draw_bottom(draw, item, "#8B5A2B", False, img)
+        return
     draw.rectangle([0, 0, W, H], fill="#E9D5A8")
     draw.rectangle([20, 20, W - 20, H - 20], outline="#8B5A2B", width=6)
     f = _font(120)
@@ -348,7 +478,7 @@ def _wanted_base(item, img, draw, badge, pill_text):
     draw.text((60 + (W - 320 - tw) / 2, 96), "WANTED", fill="#3D1E00", font=f)
     draw_pill(draw, pill_text, (60, 80), "#3D1E00")
     paste_badge(img, badge)
-    draw_title_block(draw, item.get("title", ""), "#1b1206", (90, 480, 990, 1050))
+    draw_title_block(draw, item.get("title", ""), "#1b1206", zone)
     draw_bottom(draw, item, "#8B5A2B", False, img)
 
 
@@ -357,6 +487,16 @@ def t_service_wanted(item, img, draw, badge):
 
 
 def t_unc_scope(item, img, draw, badge):
+    zone = (90, 470, 990, 1050)
+    if paint_base_background(img, "unc_scope"):
+        color, outline, plate = auto_title_style(img, zone, "unc_scope")
+        if plate:
+            apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
+        draw_pill(draw, "其他", (60, 80), "#FF0000")
+        paste_badge(img, badge)
+        draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
+        draw_bottom(draw, item, "#FF0000", True, img)
+        return
     draw.rectangle([0, 0, W, H], fill="#000000")
     cx, cy = W // 2, 760
     for r in (200, 350, 500):
@@ -365,11 +505,21 @@ def t_unc_scope(item, img, draw, badge):
     draw.line([(cx, cy - 600), (cx, cy + 600)], fill="#FF0000", width=2)
     draw_pill(draw, "其他", (60, 80), "#FF0000")
     paste_badge(img, badge)
-    draw_title_block(draw, item.get("title", ""), "#FFFFFF", (90, 470, 990, 1050))
+    draw_title_block(draw, item.get("title", ""), "#FFFFFF", zone)
     draw_bottom(draw, item, "#FF0000", True, img)
 
 
 def t_unc_topsecret(item, img, draw, badge):
+    zone = (120, 500, 960, 1060)
+    if paint_base_background(img, "unc_topsecret"):
+        color, outline, plate = auto_title_style(img, zone, "unc_topsecret")
+        if plate:
+            apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
+        draw_pill(draw, "其他", (60, 80), "#8B0000")
+        paste_badge(img, badge)
+        draw_title_block(draw, item.get("title", ""), color, zone, outline=outline)
+        draw_bottom(draw, item, "#8B0000", False, img)
+        return
     draw.rectangle([0, 0, W, H], fill="#000000")
     draw.rectangle([40, 200, 1040, 1650], fill="#C9B896")
     stamp = Image.new("RGBA", (760, 220), (0, 0, 0, 0))
@@ -379,22 +529,32 @@ def t_unc_topsecret(item, img, draw, badge):
     img.paste(stamp, (90, 230), stamp)
     draw_pill(draw, "其他", (60, 80), "#8B0000")
     paste_badge(img, badge)
-    draw_title_block(draw, item.get("title", ""), "#111111", (120, 500, 960, 1060))
+    draw_title_block(draw, item.get("title", ""), "#111111", zone)
     draw_bottom(draw, item, "#8B0000", False, img)
 
 
 def t_unc_glitch(item, img, draw, badge):
+    zone = (70, 470, 1010, 1050)
+    title = str(item.get("title") or "UNEXPECTED EVENT")
+    if paint_base_background(img, "unc_glitch"):
+        color, outline, plate = auto_title_style(img, zone, "unc_glitch")
+        if plate:
+            apply_soft_plate(img, zone, dark_plate=(color == "#FFFFFF"))
+        draw_pill(draw, "其他", (60, 80), "#00FFFF", "#000000")
+        paste_badge(img, badge)
+        draw_title_block(draw, title, color, zone, outline=outline)
+        draw_bottom(draw, item, "#00FFFF", True, img)
+        return
     draw.rectangle([0, 0, W, H], fill="#000000")
     for y in range(0, H, 4):
         draw.line([(0, y), (W, y)], fill=(20, 20, 20))
-    title = str(item.get("title") or "UNEXPECTED EVENT")
     ghost = title[:14]
     gf = _font(84)
     draw.text((66, 306), ghost, fill="#00FFFF", font=gf)
     draw.text((58, 298), ghost, fill="#FF00FF", font=gf)
     draw_pill(draw, "其他", (60, 80), "#00FFFF", "#000000")
     paste_badge(img, badge)
-    draw_title_block(draw, title, "#FFFFFF", (70, 470, 1010, 1050))
+    draw_title_block(draw, title, "#FFFFFF", zone)
     draw_bottom(draw, item, "#00FFFF", True, img)
 
 
@@ -427,7 +587,8 @@ def t_unc_wanted_blackfin(item, img, draw, badge):
 
 
 POOLS = {
-    "training": [t_train("#0066FF"), t_train("#FF6B00"), t_train("#00C950")],
+    "training": [t_train("train_blue", "#0066FF"), t_train("train_orange", "#FF6B00"),
+                 t_train("train_green", "#00C950")],
     "competition": [t_competition_gold],
     "activity": [t_activity_army],
     "service": [t_service_wanted],

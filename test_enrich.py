@@ -126,9 +126,9 @@ def main():
         ["training"],
     )
     passed += test(
-        "標題：出現排除詞『訓練行事曆』→ 唔會因為內文有訓練班而分類",
+        "標題：出現排除詞『訓練行事曆』→ 唔會因為內文有訓練班而分類，歸公佈",
         [c["id"] for c in extract_categories("活動與訓練行事曆", "訓練班：繩結訓練班")],
-        [],
+        ["announcement"],
     )
 
     # 內文判斷（標題空／弱時先使用）
@@ -148,14 +148,14 @@ def main():
         [("competition", None)],
     )
     passed += test(
-        "內文：標題及內文都冇清楚字眼 → 空",
+        "內文：標題及內文都冇清楚字眼 → 兜底歸公佈",
         [c["id"] for c in extract_categories("", "只係一般通告\n下載附件")],
-        [],
+        ["announcement"],
     )
     passed += test(
-        "內文：有「訓練行事曆」唔當訓練班",
+        "內文：有「訓練行事曆」唔當訓練班，歸公佈",
         [c["id"] for c in extract_categories("", "活動與訓練行事曆\n一覽表")],
-        [],
+        ["announcement"],
     )
 
     # ── 個人化受控 tag：核心名稱／正式變體而非後綴逐字比較 ──
@@ -255,9 +255,9 @@ def main():
         ),
     )
     passed += test(
-        "訓練行事曆不產生任何訂閱 tag",
+        "訓練行事曆唔會當訓練班，變成可剔走嘅公佈 tag",
         extract_subscription_metadata("童軍訓練班一覽表")["subscription_tags"],
-        [],
+        ["category:announcement"],
     )
 
     # ── 列表標題 vs PDF 雙重認證（寧願不改，不要亂改）──
