@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-02 05:00:51",
+  "last_updated": "2026-10-02 05:06:51",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4868,
+    "total_notices": 4870,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -27138,6 +27138,24 @@
     ],
     "深旺區": [
       {
+        "title": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >--團報名表",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606_幼童軍支部主席盾錦標賽2026_報名表.xlsx",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606_幼童軍支部主席盾錦標賽2026_報名表.xlsx",
+        "date": "2026-10-02",
+        "captured_date": "2026-10-02",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606 幼童軍支部主席盾錦標賽2026.pdf",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606 幼童軍支部主席盾錦標賽2026.pdf",
+        "date": "2026-10-02",
+        "captured_date": "2026-10-02",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
         "title": "童軍消防訓練班 接納通知書",
         "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf",
         "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf",
@@ -43938,6 +43956,20 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606_幼童軍支部主席盾錦標賽2026_報名表.xlsx",
+      "title": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >--團報名表",
+      "captured_date": "2026-10-02"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606 幼童軍支部主席盾錦標賽2026.pdf",
+      "title": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >",
+      "captured_date": "2026-10-02"
+    },
     {
       "source_site": "總會",
       "region": "總會",
@@ -78163,51 +78195,17 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-02 05:00:51",
-      "new": 0,
-      "updated": 192,
-      "daily_new": 0,
-      "skipped": 38,
+      "updated_at": "2026-10-02 05:06:51",
+      "new": 2,
+      "updated": 3484,
+      "daily_new": 2,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "雙魚區",
-        "壁峰區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
