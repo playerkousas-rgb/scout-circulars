@@ -166,7 +166,8 @@ class NotifyMatchingTests(unittest.TestCase):
 
     def test_catalog_parent_options_and_branch_first_choices(self):
         self.assertEqual(matching_topics_for_branches([]), [])
-        choices = [t for t in matching_topics_for_branches(["家長"]) if t["kind"] != "all"]
+        # all / all-notices / all-tools 係唔分支部嘅全選掣，唔屬於支部清單選項。
+        choices = [t for t in matching_topics_for_branches(["家長"]) if not str(t["kind"]).startswith("all")]
         self.assertTrue(choices)
         self.assertTrue(all(t["group"] in {"活動", "比賽"} for t in choices))
         choices = {t["id"] for t in matching_topics_for_branches(["家長", "童軍"])}
@@ -203,6 +204,46 @@ class NotifyMatchingTests(unittest.TestCase):
         self.assertEqual(matching_groups([sub], [], [], {}, set()), {})
         scoped = {"branch_ids": ["家長"], "topic_ids": ["branch:家長:activity:other"]}
         self.assertFalse(subscription_matches(scoped, {}))
+
+    def test_select_all_splits_notices_and_tools(self):
+        """2026-10-01：全選拆做「所有通告」同「所有小工具」兩個獨立剔項。"""
+        tool = {"title": "密碼旗號", "source_site": "Scout System", "pdf_url": "https://example.test/tool"}
+        notice = {"title": "童軍繩結訓練班", "source_site": "總會", "pdf_url": "https://example.test/n.pdf"}
+        tool_meta = notice_metadata(tool, {})
+        notice_meta = notice_metadata(notice, {})
+        self.assertTrue(tool_meta["is_tools"])
+        self.assertFalse(notice_meta["is_tools"])
+
+        notices_only = {"branch_ids": [], "topic_ids": ["all:notices"]}
+        tools_only = {"branch_ids": [], "topic_ids": ["all:tools"]}
+        both = {"branch_ids": [], "topic_ids": ["all:notices", "all:tools"]}
+        legacy = {"branch_ids": [], "topic_ids": ["all:new"]}
+
+        self.assertTrue(subscription_matches(notices_only, notice_meta))
+        self.assertFalse(subscription_matches(notices_only, tool_meta))
+        self.assertTrue(subscription_matches(tools_only, tool_meta))
+        self.assertFalse(subscription_matches(tools_only, notice_meta))
+        for subscription in (both, legacy):
+            self.assertTrue(subscription_matches(subscription, notice_meta))
+            self.assertTrue(subscription_matches(subscription, tool_meta))
+
+        # 冇任何標籤嘅通告都屬「通告」嗰邊，唔會兩邊都收唔到。
+        self.assertTrue(subscription_matches(notices_only, {}))
+        self.assertFalse(subscription_matches(tools_only, {}))
+
+        # 來源係權威：enrich 舊版未寫 category:tools 都唔會當成通告。
+        stale_enrich = {tool["pdf_url"]: {"branch_tags": ["童軍"], "subscription_tags": ["category:service"]}}
+        stale_meta = notice_metadata(tool, stale_enrich)
+        self.assertTrue(stale_meta["is_tools"])
+        self.assertTrue(subscription_matches(tools_only, stale_meta))
+        self.assertFalse(subscription_matches(notices_only, stale_meta))
+
+        # 全選同逐項選擇可以並存：小工具全收，通告照舊要支部 AND 項目命中。
+        mixed = {"branch_ids": ["家長"], "topic_ids": ["all:tools", "branch:家長:activity:other"]}
+        self.assertTrue(subscription_matches(mixed, tool_meta))
+        self.assertTrue(subscription_matches(mixed, {"branch_tags": ["家長"], "topic_tags": ["activity:other"]}))
+        self.assertFalse(subscription_matches(mixed, {"branch_tags": ["童軍"], "topic_tags": ["activity:other"]}))
+        self.assertFalse(subscription_matches(mixed, notice_meta))
 
     @unittest.skipUnless(TEST_VAPID_PEM, "cryptography not installed")
     def test_webpush_retains_each_message_for_three_days(self):

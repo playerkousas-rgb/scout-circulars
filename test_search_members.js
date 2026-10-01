@@ -89,9 +89,9 @@ check('關鍵字中但支部唔中 → 唔顯示', matchesSearchQuery({ title: '
 
 // 5.5 分類：由 enrich.py 抽出嚟嘅 categories 決定，唔係靠標題字眼。
 // 個人化 taxonomy 固定為訓練／服務／活動／比賽；舊 competition 資料映射到獨立比賽。
-checkArray('分類標籤 = 全部 + 訓練/服務/活動/比賽/小工具/未分類',
+checkArray('分類標籤 = 全部 + 訓練/服務/活動/比賽/小工具/公布/未分類',
   CATEGORY_TAGS.map(t => t.label),
-  ['全部', '訓練', '服務', '活動', '比賽', '小工具', '未分類']);
+  ['全部', '訓練', '服務', '活動', '比賽', '小工具', '公布', '未分類']);
 checkArray('Scout System 內設分類',
   SCOUT_SYSTEM_KINDS.map(k => k.label),
   ['助手', '遊戲', '系統', '工具', '其他', '連結']);
@@ -118,7 +118,9 @@ check('分類：一隻通告可以同時屬訓練 + 服務',
   matchesCategory({ title: '標題無關鍵詞' }, { categories: [{ id: 'training' }, { id: 'service' }] }, 'service'), true);
 check('分類：標題有「訓練班」但 enrich 未分類 → 唔會靠標題誤判',
   matchesCategory({ title: '童軍繩結訓練班' }, null, 'training'), false);
-check('分類：enrich 冇 categories → other', matchesCategory({ title: '旅團註冊須知' }, {}, 'other'), true);
+// 2026-10-01：新增「公布」做行政類兜底，所以冇 categories 嘅通告由「未分類」改歸「公布」。
+check('分類：enrich 冇 categories → announcement', matchesCategory({ title: '旅團註冊須知' }, {}, 'announcement'), true);
+check('分類：enrich 冇 categories 唔再當未分類', matchesCategory({ title: '旅團註冊須知' }, {}, 'other'), false);
 check('分類：ALL 永遠命中', matchesCategory({ title: '乜都冇' }, null, 'ALL'), true);
 
 // 6. 使用 repo 真實資料作回歸測試：所有「童軍」結果都必須有精確 token（audience 或標題）。

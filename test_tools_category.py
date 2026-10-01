@@ -118,6 +118,16 @@ class PushMatchingTests(unittest.TestCase):
     def test_all_new_still_receives_tools(self):
         self.assertTrue(notify.subscription_matches({"branch_ids": [], "topic_ids": ["all:new"]}, self.meta))
 
+    def test_select_all_tools_is_separate_from_select_all_notices(self):
+        """2026-10-01：訂閱推送分開「全選所有通告」同「全選小工具」。"""
+        tools_only = {"branch_ids": [], "topic_ids": ["all:tools"]}
+        notices_only = {"branch_ids": [], "topic_ids": ["all:notices"]}
+        self.assertTrue(notify.subscription_matches(tools_only, self.meta))
+        self.assertFalse(notify.subscription_matches(notices_only, self.meta))
+        notice_meta = notify.notice_metadata(make_item("童軍繩結訓練班", source="總會"), {})
+        self.assertTrue(notify.subscription_matches(notices_only, notice_meta))
+        self.assertFalse(notify.subscription_matches(tools_only, notice_meta))
+
     def test_catalog_contains_tools_options(self):
         by_id = load_catalog()["_topic_by_id"]
         self.assertIn("category:tools", by_id)
@@ -126,6 +136,12 @@ class PushMatchingTests(unittest.TestCase):
         self.assertEqual(entry.get("group"), "小工具")
         # 既有政策：家長只有活動及比賽 → 唔應該有小工具選項
         self.assertNotIn("branch:家長:category:tools", by_id)
+        # 全選掣：通告同小工具各有一個受控 ID，舊版 all:new 保留相容。
+        for topic_id, kind in (("all:notices", "all-notices"), ("all:tools", "all-tools"), ("all:new", "all")):
+            self.assertIn(topic_id, by_id)
+            self.assertEqual(by_id[topic_id].get("kind"), kind)
+            self.assertEqual(by_id[topic_id].get("branches"), ["*"])
+        self.assertTrue(by_id["all:new"].get("legacy"), "舊版全選唔應該再出現喺新選單")
 
 
 class KeywordExpansionTests(unittest.TestCase):

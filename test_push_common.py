@@ -43,6 +43,29 @@ class PushCommonTests(unittest.TestCase):
         with self.assertRaises(ApiError):
             validate_preferences({"branches": [], "topics": ["all:new", "forged"]})
 
+    def test_split_select_all_is_branch_agnostic_but_schema_compatible(self):
+        """2026-10-01：all:notices／all:tools 唔靠支部配對，但 schema 要 1..8 個支部。"""
+        for topic in ("all:notices", "all:tools"):
+            with self.subTest(topic=topic):
+                branches, topics, _ = validate_preferences({"branches": [], "topics": [topic]})
+                self.assertEqual(topics, [topic])
+                self.assertEqual(len(branches), 8)
+        branches, topics, _ = validate_preferences({"branches": [], "topics": ["all:notices", "all:tools"]})
+        self.assertEqual(topics, ["all:notices", "all:tools"])
+        self.assertEqual(len(branches), 8)
+        # 全選 + 逐項：已揀支部要原樣保留，唔好悄悄擴散到全部支部。
+        branches, topics, _ = validate_preferences(
+            {"branches": ["家長"], "topics": ["all:tools", "branch:家長:activity:other"]}
+        )
+        self.assertEqual(branches, ["家長"])
+        self.assertEqual(topics, ["all:tools", "branch:家長:activity:other"])
+        # 支部／項目唔夾嘅組合照舊拒收。
+        with self.assertRaises(ApiError):
+            validate_preferences({"branches": [], "topics": ["all:tools", "forged"]})
+        with self.assertRaises(ApiError) as caught:
+            validate_preferences({"branches": ["家長"], "topics": ["all:tools", "training:童軍"]})
+        self.assertEqual(caught.exception.code, "incompatible_choice")
+
     def test_rejects_free_text_tag(self):
         with self.assertRaises(ApiError) as caught:
             validate_preferences({"branches": ["童軍"], "topics": ["my custom tag"]})

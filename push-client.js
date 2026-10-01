@@ -12,6 +12,9 @@
   const PREF_KEY = 'scl_push_preferences_v1';
   const TOKEN_KEY = 'scl_push_client_token_v1';
   const ENABLED_KEY = 'scl_push_enabled_v1';
+  // Branch-agnostic "select all" ticks: 通告 and 小工具 are independent since
+  // 2026-10-01; all:new is the legacy single tick that equals both.
+  const MASTER_TOPIC_IDS = ['all:new', 'all:notices', 'all:tools'];
 
   class PushClientError extends Error {
     constructor(message, code) {
@@ -203,7 +206,7 @@
   function validatePreferences(preferences) {
     const branches = uniqueStrings(preferences && preferences.branches);
     const topics = uniqueStrings(preferences && preferences.topics);
-    if (!branches.length && !topics.includes('all:new')) throw new PushClientError('請至少選擇一個支部。', 'missing_branch');
+    if (!branches.length && !topics.some(topic => MASTER_TOPIC_IDS.includes(topic))) throw new PushClientError('請至少選擇一個支部。', 'missing_branch');
     if (!topics.length) throw new PushClientError('請至少選擇一個關注項目。', 'missing_topic');
     return { ...preferences, branches, topics };
   }
@@ -296,6 +299,7 @@
 
   global.ScoutPushClient = Object.freeze({
     PREF_KEY,
+    MASTER_TOPIC_IDS: Object.freeze([...MASTER_TOPIC_IDS]),
     loadPreferences,
     savePreferences,
     isSupported,

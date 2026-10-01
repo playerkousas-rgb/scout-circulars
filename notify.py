@@ -32,7 +32,7 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
-from subscription_tagging import extract_subscription_metadata, load_catalog
+from subscription_tagging import TOOLS_SOURCES, extract_subscription_metadata, load_catalog
 
 ROOT = Path(__file__).resolve().parent
 CACHE_PATH = ROOT / "cache.json"
@@ -47,6 +47,14 @@ DEFAULT_SITE_URL = "https://scout-circulars.vercel.app"
 # instead of relying on busy days staying rare (a 120-match day is ~4.6 KB
 # and already trips 413 Payload Too Large on some push services).
 MAX_PAYLOAD_NOTICE_IDS = 60
+# 2026-10-01：「全選」拆成兩個互相獨立嘅剔項。
+#   all:notices → 小工具以外嘅所有新通告（含公布／未分類），不限支部
+#   all:tools   → 所有支部嘅小工具，不限支部
+# 兩個都剔 == 舊版 all:new。all:new 保留相容，舊訂閱唔使重新設定。
+MASTER_ALL = "all:new"
+MASTER_NOTICES = "all:notices"
+MASTER_TOOLS = "all:tools"
+MASTER_TOPIC_IDS = frozenset({MASTER_ALL, MASTER_NOTICES, MASTER_TOOLS})
 
 
 class NotificationError(Exception):
@@ -207,6 +215,9 @@ def notice_metadata(item: Mapping[str, Any], enrich: Mapping[str, Any]) -> Dict[
     return {
         "branch_tags": branch_tags,
         "topic_tags": topic_tags,
+        # 來源係權威答案：就算 enrich.json 係舊版、未寫 category:tools，
+        # Scout System 出嘅嘢一樣當小工具，唔會被 all:notices 誤收。
+        "is_tools": notice_source(item) in TOOLS_SOURCES or "category:tools" in topic_tags,
         "deadline": str(extra.get("deadline") or ""),
         "fee": str(extra.get("fee") or ""),
         "audience": str(extra.get("audience") or ""),
@@ -217,13 +228,20 @@ def notice_metadata(item: Mapping[str, Any], enrich: Mapping[str, Any]) -> Dict[
 def subscription_matches(subscription: Mapping[str, Any], metadata: Mapping[str, Any]) -> bool:
     """OR across selected branch/topic pairs; never cross-match two pairs.
 
-    Legacy generic IDs remain supported using their catalog scope. The explicit
-    all:new mode includes notices without tags, but discovery/delivery deduping
-    still happens in matching_groups and find_new_notices.
+    Legacy generic IDs remain supported using their catalog scope. The three
+    explicit "select all" modes (all:new, all:notices, all:tools) are
+    deliberately branch-agnostic and also include notices without tags, but
+    discovery/delivery deduping still happens in matching_groups and
+    find_new_notices.
     """
     branches = set(subscription.get("branch_ids") or [])
     topics = set(subscription.get("topic_ids") or [])
-    if "all:new" in topics:
+    if MASTER_ALL in topics:
+        return True
+    is_tools = bool(metadata.get("is_tools")) or "category:tools" in set(metadata.get("topic_tags") or [])
+    if MASTER_TOOLS in topics and is_tools:
+        return True
+    if MASTER_NOTICES in topics and not is_tools:
         return True
     notice_branches = set(metadata.get("branch_tags") or [])
     notice_topics = set(metadata.get("topic_tags") or [])

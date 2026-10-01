@@ -932,7 +932,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
   click(w, chip(d, '童軍')); await wait(50);
   ok(cards(d).length === 1, '收藏夾：童軍 → 1 張');
 
-  // ── Scout System 內設分類 + 6個月包含 6 個月以上（通告唔適用）──
+  // ── Scout System 內設分類 + 小工具取消日期分類（只有今天／之前發布）──
   {
     const domS = boot();
     const wS = domS.window, dS = wS.document;
@@ -941,17 +941,32 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     const sideKinds = $$(dS, '.source-btn span').map(s => s.textContent.trim()).filter(t => kindLabels.includes(t));
     ok(JSON.stringify(sideKinds) === JSON.stringify(kindLabels),
        'Scout System 側欄內設六類：' + sideKinds.join(' '));
-    click(wS, $$(dS, '#window-chips .chip').find(b => b.textContent.trim() === '6個月'));
-    await wait(80);
-    ok(titles(dS).includes('舊密碼遊戲'), '6個月視窗包含 6 個月以上的 Scout System');
-    ok(!titles(dS).includes('半年前舊通告'), '6個月視窗唔包含 6 個月以上的通告');
-    const oldCard = cards(dS).find(c => c.querySelector('h3').textContent === '舊密碼遊戲');
-    ok(!!oldCard && oldCard.textContent.includes('6個月以上') && oldCard.textContent.includes('遊戲'),
-       'Scout System 卡片標「6個月以上」同內設分類');
+    // 預設「全港 × 今天」：小工具照跟通告視窗，唔會成版舊工具跳出嚟；
+    // 但側欄數字一律報小工具真實件數（2 件），唔會寫 0 令人以為冇嘢。
+    ok(!titles(dS).includes('舊密碼遊戲'), '全港「今天」唔會出半年前嘅小工具');
+    const ssBtn = $$(dS, '.region > button').find(b => b.textContent.includes('Scout System'));
+    ok(!!ssBtn && /2/.test(ssBtn.querySelector('.count-badge')?.textContent || ''),
+       '側欄 Scout System 數字唔跟通告視窗，照報 2 件');
     click(wS, $$(dS, '.source-btn').find(b => b.querySelector('span')?.textContent.trim() === '遊戲'));
     await wait(80);
+    const winChips = () => $$(dS, '#window-chips .chip')
+      .filter(c => !/chip-(bm|push|report)/.test(c.className));
+    const winLabels = winChips().map(c => c.textContent.trim());
+    ok(JSON.stringify(winLabels) === JSON.stringify(['今天', '之前發布']),
+       '入咗小工具，時間掣只剩今天／之前發布：' + winLabels.join(' '));
+    ok(winChips().find(c => c.textContent.trim() === '之前發布').classList.contains('active'),
+       '小工具預設「之前發布」＝全部');
     ok(titles(dS).includes('舊密碼遊戲') && !titles(dS).includes('【助手】集會流程'),
-       '撳「遊戲」只見遊戲：' + titles(dS).join(' | '));
+       '撳「遊戲」只見遊戲（半年前都照出）：' + titles(dS).join(' | '));
+    const oldCard = cards(dS).find(c => c.querySelector('h3').textContent === '舊密碼遊戲');
+    ok(!!oldCard && !oldCard.textContent.includes('6個月以上') && oldCard.textContent.includes('遊戲'),
+       '小工具卡片唔再標「6個月以上」，只標內設分類');
+    click(wS, winChips().find(c => c.textContent.trim() === '今天'));
+    await wait(80);
+    ok(!titles(dS).includes('舊密碼遊戲'), '撳「今天」只剩今日上架嘅小工具');
+    click(wS, winChips().find(c => c.textContent.trim() === '之前發布'));
+    await wait(80);
+    ok(titles(dS).includes('舊密碼遊戲'), '撳返「之前發布」全部小工具返晒嚟');
     const kindChips = $$(dS, '#category-chips .chip').map(c => c.textContent.trim());
     ok(JSON.stringify(kindChips) === JSON.stringify(kindLabels),
        '入咗 Scout System，分類掣改成內設六類：' + kindChips.join(' '));

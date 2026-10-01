@@ -70,13 +70,14 @@ setTimeout(async () => {
     const generalLabels = [...d.querySelectorAll('[data-branch="領袖"] .push-general-section .pick-chip')].map(el => el.textContent.replace('✓', '').trim());
     // 2026-09-25：catalog 3.1.0 起「小工具」係獨立分類（每個支部各有一個
     // branch:<支部>:category:tools 項目），所以 general section 多咗一粒「小工具」。
-    assert.deepStrictEqual(generalLabels, ['服務', '大露營', '營火會', '其他活動', '所有比賽', '小工具'], '服務／活動／比賽／小工具 stay as they were');
+    // 2026-10-01：再加「公布」擺最尾。
+    assert.deepStrictEqual(generalLabels, ['服務', '大露營', '營火會', '其他活動', '所有比賽', '小工具', '公布'], '服務／活動／比賽／小工具／公布 stay as they were');
     assert(d.querySelector('input[value="branch:領袖:category:tools"]').checked === false, '小工具 chip 預設未剔');
     assert(d.querySelector('#push-topics input[value="branch:領袖:category:service"]').checked, 'saved topic is pre-ticked');
     // 訓練：先按支部；領袖分木章／非木章。
     const leaderBlock = d.querySelector('#push-topics .push-branch-block[data-branch="領袖"]');
     assert(leaderBlock, 'training list is grouped by the ticked branch');
-    assert.deepStrictEqual([...leaderBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['服務', '活動', '比賽', '小工具', '訓練', '木章訓練班', '非木章訓練班'], '領袖 training is split into wood badge / non-wood badge（小工具係獨立分類）');
+    assert.deepStrictEqual([...leaderBlock.querySelectorAll('.push-section-title')].map(el => el.textContent), ['服務', '活動', '比賽', '小工具', '公布', '訓練', '木章訓練班', '非木章訓練班'], '領袖 training is split into wood badge / non-wood badge（小工具係獨立分類）');
     assert(leaderBlock.querySelector('input[value="training:領袖:木章"]') && leaderBlock.querySelector('input[value="training:領袖:非木章"]'), 'each 領袖 section has an "all" tick');
     const leaderOptions = [...leaderBlock.querySelectorAll('.pick-chip')].map(el => el.textContent.replace('✓', '').trim());
     assert(leaderOptions.includes('地圖閱讀'), 'base item label is visible');
@@ -136,28 +137,80 @@ setTimeout(async () => {
     for (const branches of [['家長'], ['小童軍'], ['家長', '小童軍']]) {
       assert(dom.window.matchesPersonalPreferences({}, { branch_tags: branches, subscription_tags: ['activity:other'] }, bothActivities));
     }
-    const all = d.querySelector('#push-all input');
-    all.click();
-    assert(d.querySelector('#push-custom-options').hidden);
+    // ── 2026-10-01：全選拆成兩個獨立剔項 ───────────────────────
+    // 「全選：所有通告」＝小工具以外全部；「全選：所有小工具」＝所有支部嘅小工具。
+    const masterInputs = [...d.querySelectorAll('#push-all input')];
+    assert.deepStrictEqual(masterInputs.map(i => i.value), ['all:notices', 'all:tools'], '全選分做通告同小工具兩粒掣');
+    assert.deepStrictEqual(
+      [...d.querySelectorAll('#push-all .pick-chip')].map(el => el.textContent.replace('✓', '').trim()),
+      ['全選：所有通告', '全選：所有小工具'],
+    );
+    const allNotices = masterInputs[0];
+    const allTools = masterInputs[1];
+    const toolsChip = () => d.querySelector('#push-topics input[value="branch:小童軍:category:tools"]');
+    const visibleSectionTitles = () => [...d.querySelectorAll('#push-topics .push-section-title')]
+      .filter(el => !el.closest('[hidden]')).map(el => el.textContent);
+
+    // 只剔「所有通告」：下面淨係剩低小工具可以逐個支部揀（小工具分支部 ONLY）。
+    allNotices.click();
+    assert(!d.querySelector('#push-custom-options').hidden, '剔一個全選唔會收埋成個面板');
+    assert.deepStrictEqual([...new Set(visibleSectionTitles())], ['小工具'], '剔「所有通告」後只剩小工具可揀');
+    assert(toolsChip() && !toolsChip().closest('[hidden]'), '小工具逐個支部仍然揀得到');
+    assert.deepStrictEqual([...dom.window.currentPushPreferences().topics], ['all:notices'], '被包住嘅逐項選擇唔會重複儲存');
+
+    // 兩個都剔 = 所有新消息，冇嘢再揀。
+    allTools.click();
+    assert(d.querySelector('#push-custom-options').hidden, '兩個都剔就收埋逐項面板');
     assert(!d.querySelector('#push-save').disabled);
-    assert.strictEqual(dom.window.currentPushPreferences().topics[0], 'all:new');
-    assert.strictEqual(dom.window.currentPushPreferences().topics.length, 1);
-    assert.strictEqual(dom.window.currentPushPreferences().branches.length, 8);
-    assert(dom.window.matchesPersonalPreferences({}, null, dom.window.currentPushPreferences()), 'all includes untagged notices');
-    all.click();
+    assert.deepStrictEqual([...dom.window.currentPushPreferences().topics].sort(), ['all:notices', 'all:tools']);
+    assert(d.querySelector('#push-count').textContent.includes('所有新消息'));
+    const bothPrefs = dom.window.currentPushPreferences();
+    assert(dom.window.matchesPersonalPreferences({}, null, bothPrefs), 'all includes untagged notices');
+    assert(dom.window.matchesPersonalPreferences({ source_site: 'Scout System' }, null, bothPrefs), 'all includes 小工具');
+
+    // 只剔「所有小工具」：通告嗰邊返晒嚟，小工具嗰組收埋。
+    allNotices.click();
     assert(!d.querySelector('#push-custom-options').hidden);
+    assert(!visibleSectionTitles().includes('小工具'), '剔「所有小工具」後小工具組收埋');
+    for (const title of ['活動', '比賽', '訓練']) assert(visibleSectionTitles().includes(title), `${title} 返晒嚟`);
+    assert.deepStrictEqual(
+      [...dom.window.currentPushPreferences().topics].sort(),
+      ['all:tools', ...prefs.topics].sort(),
+      '取消一個全選，原本剔過嘅逐項選擇一個不漏咁返嚟',
+    );
+
+    // 全選唔分支部；逐項配對照舊要支部命中。
+    const toolItem = { source_site: 'Scout System' };
+    const noticeEnrich = { branch_tags: ['童軍'], subscription_tags: ['category:training'] };
+    const toolsOnly = { branches: [], topics: ['all:tools'] };
+    const noticesOnly = { branches: [], topics: ['all:notices'] };
+    assert(dom.window.matchesPersonalPreferences(toolItem, null, toolsOnly), 'all:tools 收小工具');
+    assert(!dom.window.matchesPersonalPreferences({}, noticeEnrich, toolsOnly), 'all:tools 唔收通告');
+    assert(dom.window.matchesPersonalPreferences({}, noticeEnrich, noticesOnly), 'all:notices 收通告');
+    assert(!dom.window.matchesPersonalPreferences(toolItem, null, noticesOnly), 'all:notices 唔收小工具');
+    assert(dom.window.matchesPersonalPreferences({}, { subscription_tags: ['category:tools'], branch_tags: [] }, toolsOnly),
+      'enrich 標籤 category:tools 都算小工具');
+
+    allTools.click();
     assert.deepStrictEqual([...dom.window.currentPushPreferences().topics].sort(), [...prefs.topics].sort(), 'turning all off restores unsaved specific choices');
     childBranch.click();
     assert(d.querySelector('input[value="branch:家長:activity:other"]').checked);
     parentBranch.click();
     assert.strictEqual(d.querySelectorAll('#push-topics input').length, 0);
     assert(d.querySelector('#push-save').disabled);
-    all.click();
+    allNotices.click();
+    allTools.click();
     assert(!d.querySelector('#push-save').disabled, 'all works with no individual branches selected');
+    assert.strictEqual(dom.window.currentPushPreferences().branches.length, 8, '全選＝所有支部');
     const savedAll = dom.window.ScoutPushClient.savePreferences(dom.window.currentPushPreferences());
     dom.window.renderPushOptions(savedAll);
-    assert(d.querySelector('#push-all input').checked, 'all survives preference reload');
+    assert([...d.querySelectorAll('#push-all input')].every(input => input.checked), 'all survives preference reload');
     assert(d.querySelector('#push-custom-options').hidden);
+    // 舊版單一 all:new 自動顯示成兩個都剔，唔使用戶重新設定。
+    dom.window.renderPushOptions({ branches: [], topics: ['all:new'] });
+    assert([...d.querySelectorAll('#push-all input')].every(input => input.checked), 'legacy all:new migrates to both ticks');
+    assert.deepStrictEqual([...dom.window.currentPushPreferences().topics].sort(), ['all:notices', 'all:tools']);
+    assert(dom.window.matchesPersonalPreferences({}, null, { branches: [], topics: ['all:new'] }), 'legacy all:new still matches everything');
     // Legacy shared activity choices migrate only to originally selected branches.
     dom.window.renderPushOptions({ branches: ['家長', '小童軍'], topics: ['activity:other'] });
     assert(d.querySelector('input[value="branch:家長:activity:other"]').checked);
