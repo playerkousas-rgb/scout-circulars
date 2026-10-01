@@ -13,6 +13,16 @@
 # original attachment, deadline, audience, and fee. There is no local count cap;
 # Instagram's own account/API limits still apply.
 #
+# Publishing is gated on verified conditions rather than on a guessed delay,
+# after 2026-10-01 lost all five Stories to 9007/2207027「媒體素材尚未準備好發佈」:
+#   1. the JPEG must be fetchable from the public internet (checked from the
+#      runner against the immutable commit URL) before Meta is given the URL;
+#   2. the media container must report status_code=FINISHED before publishing;
+#   3. a container that comes back ERROR/EXPIRED/stuck is rebuilt once — it was
+#      never posted, so this cannot duplicate a Story;
+#   4. media_publish itself stays a single attempt per Story.
+# Stories are still never re-queued, back-filled, or carried to another day.
+#
 # Each image includes a QR straight to the source attachment and a category-aware Cantonese CTA.
 # PNG + JPEG assets are force-pushed once to the `stories` branch. PNG keeps the
 # notice-detail hero feature working; public JPEG URLs are fetched by Meta.
@@ -130,6 +140,7 @@ jobs:
           retention-days: 3
 
       - name: Update public stories branch (also retained for manual drafts)
+        id: stories_branch
         if: steps.queue.outputs.count != '0'
         env:
           TODAY: ${{ steps.queue.outputs.today }}
@@ -154,12 +165,16 @@ jobs:
           git add stories/
           git commit -qm "📲 Instagram Story assets $TODAY [skip ci]"
           git push --force origin HEAD:stories
+          # Publish from the immutable commit URL, not the branch ref: a branch
+          # path on raw.githubusercontent can serve a stale/404 edge response
+          # for minutes after a force-push, and Meta fetches that URL itself.
+          echo "stories_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Publish every eligible Instagram Story (one attempt each)
+      - name: Publish every eligible Instagram Story (verified ready, posted once)
         if: steps.queue.outputs.count != '0' && env.PUBLISH_STORIES == 'true'
         env:
           TODAY: ${{ steps.queue.outputs.today }}
-          STORY_IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/stories/stories/${{ steps.queue.outputs.today }}/
+          STORY_IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.stories_branch.outputs.stories_sha }}/stories/${{ steps.queue.outputs.today }}/
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_GRAPH_API_BASE: ${{ vars.INSTAGRAM_GRAPH_API_BASE || 'https://graph.facebook.com' }}
@@ -179,7 +194,7 @@ jobs:
           else
             echo "Selected ${{ steps.queue.outputs.count }} complete notices out of ${{ steps.queue.outputs.candidate_count }} today; skipped incomplete: ${{ steps.queue.outputs.skipped_incomplete }}." >> "$GITHUB_STEP_SUMMARY"
             if [ "$PUBLISH_STORIES" = "true" ]; then
-              echo "Scheduled/manual publish mode; each notice gets one API attempt. Failed posts are not retried." >> "$GITHUB_STEP_SUMMARY"
+              echo "Scheduled/manual publish mode; each notice is published once after its image and media container are verified ready. A dead container is rebuilt once; a failed publish is never repeated and the notice is not re-queued." >> "$GITHUB_STEP_SUMMARY"
             else
               echo "Manual preview mode only; no image was published." >> "$GITHUB_STEP_SUMMARY"
             fi
