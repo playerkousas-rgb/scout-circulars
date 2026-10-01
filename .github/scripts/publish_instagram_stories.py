@@ -82,6 +82,13 @@ JPEG_MAGIC = b"\xff\xd8\xff"
 CONTAINER_ATTEMPTS = 2
 CONTAINER_RETRY_PAUSE_SECONDS = 10.0
 
+# Meta rejects Story images above 8MB. The 2026-10-01 AI backgrounds pushed the
+# JPEGs from ~130KB to ~630KB (3-5x heavier than the old vector art, which is
+# what exposed the missing readiness wait). That is still 12x under the cap, but
+# a future heavier base should fail loudly here instead of becoming another
+# opaque Graph API error.
+MAX_IMAGE_BYTES = 8 * 1024 * 1024
+
 
 class PublishError(RuntimeError):
     """A single configuration, transport, or Graph API error."""
@@ -308,8 +315,18 @@ def _manifest_items(manifest_path: Path) -> list[dict]:
         filename = str(item.get("instagram_file") or "")
         if not re.fullmatch(r"[A-Za-z0-9_-]+\.jpg", filename, flags=re.IGNORECASE):
             raise PublishError(f"Manifest item {index + 1} has no valid instagram_file JPEG")
-        if not (manifest_path.parent / filename).is_file():
+        local_file = manifest_path.parent / filename
+        if not local_file.is_file():
             raise PublishError(f"Manifest JPEG is missing: {filename}")
+        size = local_file.stat().st_size
+        if not size:
+            raise PublishError(f"Manifest JPEG is empty: {filename}")
+        if size > MAX_IMAGE_BYTES:
+            raise PublishError(
+                f"Story image {filename} is {size / 1048576:.1f}MB, over Meta's "
+                f"{MAX_IMAGE_BYTES // 1048576}MB limit — lighten the story-bases "
+                f"artwork or lower the JPEG quality in tools/render_story_templates.py"
+            )
         if not str(item.get("title") or "").strip():
             raise PublishError(f"Manifest item {index + 1} has no title")
     return items

@@ -348,6 +348,30 @@ class TestPublisher(unittest.TestCase):
             ]
             self.assertEqual(len(publish_calls), 2)
 
+    def test_oversized_image_is_rejected_before_any_api_call(self):
+        """Guard for heavier story-bases artwork: fail with a readable reason,
+        not another opaque Graph API error."""
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            manifest = _write_manifest(root)
+            heavy = root / "00_training_000000.jpg"
+            heavy.write_bytes(JPEG_BODY + b"\0" * (publisher.MAX_IMAGE_BYTES + 1 - len(JPEG_BODY)))
+            with patch.object(publisher, "urlopen") as mock:
+                with self.assertRaisesRegex(publisher.PublishError, "over Meta's 8MB limit"):
+                    publisher.publish_manifest(
+                        manifest, "https://raw.githubusercontent.com/a/b/sha/stories/2026-10-01/", self.ENV)
+            mock.assert_not_called()
+
+    def test_todays_real_image_sizes_are_accepted(self):
+        """2026-10-01 AI backgrounds are 3-5x heavier than the old vector art
+        (129KB -> 407KB for the same train_blue template) but still valid."""
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            manifest = _write_manifest(root)
+            (root / "00_training_000000.jpg").write_bytes(
+                JPEG_BODY + b"\0" * (626 * 1024 - len(JPEG_BODY)))
+            self.assertEqual(len(publisher._manifest_items(manifest)), 1)
+
     def test_empty_queue_does_not_require_secrets_or_call_api(self):
         with tempfile.TemporaryDirectory() as td:
             manifest = Path(td) / "manifest.json"

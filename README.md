@@ -40,7 +40,8 @@
   2. 圖片 URL 改用 **commit SHA 嘅 raw 連結**（唔再用 `stories` branch ref）：branch 路徑 force-push 之後，raw CDN 可以幾分鐘內都仲回舊嘢或者 404
   3. **container 要 `status_code=FINISHED` 先 `media_publish`**（每 3 秒 poll 一次、上限 120 秒）
   4. container 變 `ERROR`／`EXPIRED`／卡死 → **重建一次**。嗰個 container 從來冇 post 過，所以重建唔會出雙份；`media_publish` 本身就維持**一次過、唔重試**（佢係唯一「可能已經出咗」嘅 call）
-  通告本身依然**唔會重新排隊、唔補發、唔順延到第二日**。成功會 log「image live in Xs / container ready in Xs」。原有手動 `workflow_dispatch` 保留，預設只出草稿／preview artifact，不發 IG；明確選 `publish=true` 才會手動發佈。專屬頁讀取 branch 級 `stories/index.json` 顯示最近 7 日 PNG hero，raw.githubusercontent 承載圖片，Vercel 儲存零新增。Instagram 發佈所需 `INSTAGRAM_USER_ID`、`INSTAGRAM_ACCESS_TOKEN` 只放 GitHub Actions Secrets；Facebook Login 預設用 `graph.facebook.com`，Instagram Login 可用 repo variable `INSTAGRAM_GRAPH_API_BASE=https://graph.instagram.com`。Meta API 不支援 Story link sticker
+  通告本身依然**唔會重新排隊、唔補發、唔順延到第二日**。成功會 log「image live in Xs / container ready in Xs」。另設 8MB 本機閘：Meta 上限 8MB，而 2026-10-01 換 AI 底圖之後 JPEG 由 ~130KB 升到 ~630KB（同一個 `train_blue` 模板 129KB → 407KB，重 3.2 倍），仲有 12 倍水位；將來底圖再重撞到頂，會喺出圖後即刻講明「要減底圖重量或者調低 `tools/render_story_templates.py` 嘅 JPEG quality」，唔會又變成一個謎。
+  **順帶一提 2026-10-01 嗰次全軍覆沒嘅真正次序**：AI 底圖（commit `a5e4db7`，10-01 12:10 HKT merge）唔係兇手，張圖驗過係正常 baseline JPEG／1080×1920／YCbCr 三通道／冇 ICC；佢只係令 Meta 多咗幾秒處理，於是揭穿咗一個一直都喺度、靠「圖細所以僥倖贏 race」瞞住嘅 bug——create container 之後完全冇等就 publish。所以**唔應該退返向量底圖**，要修嘅係個流程。原有手動 `workflow_dispatch` 保留，預設只出草稿／preview artifact，不發 IG；明確選 `publish=true` 才會手動發佈。專屬頁讀取 branch 級 `stories/index.json` 顯示最近 7 日 PNG hero，raw.githubusercontent 承載圖片，Vercel 儲存零新增。Instagram 發佈所需 `INSTAGRAM_USER_ID`、`INSTAGRAM_ACCESS_TOKEN` 只放 GitHub Actions Secrets；Facebook Login 預設用 `graph.facebook.com`，Instagram Login 可用 repo variable `INSTAGRAM_GRAPH_API_BASE=https://graph.instagram.com`。Meta API 不支援 Story link sticker
 
 ## 圖示
 
