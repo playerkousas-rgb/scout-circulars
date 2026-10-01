@@ -28,9 +28,17 @@ NO_DATE = "9999-99-99"
 
 TOOLS_SOURCES = {"Scout System"}  # 同 index.html TOOLS_SOURCES 同步；小工具唔出 Story
 
-_RE_COMPETITION = re.compile(r"比賽|錦標賽|大賽|競賽|錦標")
+# 2026-10-01：加返「選拔賽／田徑賽／友誼賽／實體賽」同「成績公佈／結果公佈／
+# 公佈結果」（連「公布」異體字），同 subscription_tagging.COMPETITION_TERMS
+# 對齊（一樣刻意唔收單獨「賽」字，避免「賽馬會」呢類贊助機構名誤中）。
+_RE_COMPETITION = re.compile(
+    r"比賽|錦標賽|大賽|競賽|錦標|選拔賽|田徑賽|友誼賽|實體賽|"
+    r"成績公佈|成績公布|結果公佈|結果公布|公佈結果|公布結果"
+)
 _RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會")
-_RE_SERVICE = re.compile(r"服務|義工|義務")
+# 2026-10-01：同 subscription_tagging.SERVICE_BARE_TERMS 對齊——「服務」係裸字就算，
+# 但要剔除「服務組」（童軍專章嘅分組標籤，唔係招義工，例如「XX章(服務組)訓練班」）。
+_RE_SERVICE = re.compile(r"服務(?!組)|工作人員|義工|義務")
 _RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集")
 
 
@@ -56,13 +64,22 @@ def classify_category(item: dict, ex: dict | None) -> str:
                 return "competition"
             if cid in ("training", "service", "activity"):
                 return cid
+            # 2026-10-01：新增「公佈」分類（行政性質、純公告通告）——呢度一定要
+            # 明確 return，唔可以淨係跌落去用標題關鍵字兜底，否則一張已經由
+            # enrich 判定為「公佈」嘅通告（例如含「名單」「行事曆」）仍然有機會
+            # 因為標題撞中 _RE_ACTIVITY／_RE_TRAINING 嘅字眼而錯誤變返做 Story。
+            # 「公佈」唔在 STORY_SLOGANS 入面，_today_candidates() 會自動跳過。
+            if cid == "announcement":
+                return "announcement"
+    # 2026-10-01：優先序改做 服務 > 比賽 > 訓練 > 活動（同 subscription_tagging.
+    # extract_categories 對齊，一篇通告淨係可以有一個分類，唔再比賽／訓練雙標籤）。
     title = str(item.get("title") or "")
+    if _RE_SERVICE.search(title):
+        return "service"
     if _RE_COMPETITION.search(title):
         return "competition"
     if _RE_TRAINING.search(title):
         return "training"
-    if _RE_SERVICE.search(title):
-        return "service"
     if _RE_ACTIVITY.search(title):
         return "activity"
     return "other"

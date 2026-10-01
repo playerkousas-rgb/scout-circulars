@@ -226,6 +226,11 @@
     .meta-row .host { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .meta-row .link { color: #cfe3ff; }
     code { background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 8px; }
+    /* 2026-10-01：ScoutSystem 接入未完成，桌面版都好似手機版咁全版本隱藏；
+       手機版本身喺 @media (max-width: 980px) 入面已經有 .scoutsystem-section
+       { display: none !important; }，呢度加返一條唔限 viewport 嘅版本，令桌面版
+       都隱藏埋。做完先刪返呢行同手機版嗰行一齊走。 */
+    .scoutsystem-section { display: none !important; }
     .ss-connect { margin-top: 12px; padding: 12px; border-radius: 14px; border: 1px solid rgba(59,130,246,.35); background: rgba(59,130,246,.08); display: grid; gap: 8px; }
     .ss-connect-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .ss-connect input { flex: 1; min-width: 260px; border: 1px solid var(--line); background: #09111f; color: var(--text); border-radius: 12px; padding: 10px 12px; outline: none; }
@@ -341,6 +346,10 @@
     /* ── 分享 ─────────────────────────────────────────────── */
     .card-actions { display: flex; gap: 8px; }
     .card-actions .ss-import { flex: 1; }
+    /* 2026-10-01：ScoutSystem 接入未完成，桌面版都好似手機版咁隱藏卡片嘅
+       「加入 ScoutSystem」掣（手機本身已經用 .card-actions{display:none} 隱藏咗）。
+       做完先刪返呢行。 */
+    .card-actions { display: none !important; }
     /* 分享掣得返 icon（同收藏 ★ 一齊放卡片底行），文字靠 title/aria-label */
     .share-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
                  border: 1px solid var(--line); background: #0b1424; color: #cfe3ff; border-radius: 10px; padding: 0; cursor: pointer; }
@@ -901,9 +910,13 @@
       { id: 'activity', label: '活動' },
       { id: 'competition', label: '比賽' },
       { id: 'tools', label: '小工具' },
+      // 2026-10-01 新增：行政性質、純公告通告（委員會紀錄、選舉、總部公布等），
+      // 成員訂閱設定可以揀唔要——放喺「未分類」之前，因為加咗呢類之後，
+      // 「未分類」理應好少再出現。
+      { id: 'announcement', label: '公佈' },
       { id: 'other', label: '未分類' },
     ];
-    const CATEGORY_IDS = new Set(['training', 'service', 'activity', 'competition', 'tools']);
+    const CATEGORY_IDS = new Set(['training', 'service', 'activity', 'competition', 'tools', 'announcement']);
     // 來源級分類：呢啲來源出嘅通告一律係「小工具」（同 subscription_tagging.py 嘅 TOOLS_SOURCES 保持一致）
     const TOOLS_SOURCES = new Set(['Scout System']);
     // Scout System 側欄／分類掣內設，唔靠抓取先出現。命中次序：站方標籤 → 標題，都冇就歸「其他」。
@@ -2213,6 +2226,119 @@
       });
     }
 
+    // ── 9 張 AI 底圖（story-bases/*.webp）：接入 IG 分享面板＋出圖台 ──────
+    // 底圖 .vercelignore 擋住冇入 Vercel bundle，App 由 raw.githubusercontent 讀
+    // （有 ACAO:* ，crossOrigin='anonymous' 唔會整污 canvas，toBlob/toDataURL
+    // 正常用）；raw 載唔到就試 jsDelivr；兩條都唔得就 resolve null，
+    // renderPoster 自動退返原本嘅向量款，唔會出白圖／爆流程。
+    // 同 Python tools/render_story_templates.py 嘅 BASE_TITLE_STYLE 對齊。
+    const STORY_BASE_REPO = 'playerkousas-rgb/scout-circulars';
+    const STORY_BASE_URLS = (name) => [
+      `https://raw.githubusercontent.com/${STORY_BASE_REPO}/main/story-bases/${name}.webp`,
+      `https://cdn.jsdelivr.net/gh/${STORY_BASE_REPO}@main/story-bases/${name}.webp`,
+    ];
+    const BASE_IMAGE_FOR = {
+      train_blue: 'train_blue', train_orange: 'train_orange', train_green: 'train_green',
+      competition_gold_black: 'competition_gold_black', activity_army: 'activity_army',
+      service_wanted: 'service_wanted', unc_wanted_parchment: 'service_wanted',
+      unc_scope: 'unc_scope', unc_topsecret: 'unc_topsecret', unc_glitch: 'unc_glitch',
+    };
+    // 邊幾款要喺標題區後面加半透明柔邊底板（花紋夠撞先加）—— 同 Python
+    // tools/render_story_templates.py 嘅 BASE_TITLE_STYLE 第三個值對齊；
+    // design.titleColor／titleOutline 已經同底圖實測結果夾好，唔使喺度再覆蓋。
+    // 唔喺呢個表嘅底圖（例如用戶之後自己加嘅新款）會行 storyBaseZoneStats 探測。
+    const BASE_NEEDS_PLATE = new Set(['train_blue', 'train_green', 'service_wanted', 'unc_topsecret']);
+    // 已經人手核實過嘅 9 款底圖檔名（唔喺呢度嘅底圖先會行 storyBaseZoneStats 探測雜亂度）。
+    const KNOWN_STORY_BASE_NAMES = new Set(Object.values(BASE_IMAGE_FOR));
+    // Resolved-image sync cache：已解碼完先會有嘢，俾縮圖 picker 同步讀。
+    const STORY_BASE_IMG_CACHE = {};
+    const _storyBaseImgPromises = {};
+    function loadImageFrom(urls, timeoutMs = 3500) {
+      const tryOne = (i) => new Promise((resolve) => {
+        if (i >= urls.length) return resolve(null);
+        const im = new Image();
+        im.crossOrigin = 'anonymous';
+        const bail = setTimeout(() => resolve(null), timeoutMs);
+        im.onload = () => { clearTimeout(bail); resolve(im); };
+        im.onerror = () => { clearTimeout(bail); resolve(null); };
+        im.src = urls[i];
+      });
+      return (async () => {
+        for (let i = 0; i < urls.length; i++) {
+          const im = await tryOne(i);
+          if (im) return im;
+        }
+        return null;
+      })();
+    }
+    function storyBaseImgFor(name) {
+      if (!name) return Promise.resolve(null);
+      if (STORY_BASE_IMG_CACHE[name] !== undefined) return Promise.resolve(STORY_BASE_IMG_CACHE[name]);
+      if (!_storyBaseImgPromises[name]) {
+        _storyBaseImgPromises[name] = loadImageFrom(STORY_BASE_URLS(name)).then((im) => {
+          STORY_BASE_IMG_CACHE[name] = im;
+          return im;
+        });
+      }
+      return _storyBaseImgPromises[name];
+    }
+    // 出圖台／分享面板一開就靜靜background 預載 9 張，令縮圖 picker 盡快由
+    // 向量底換做真底圖（唔阻主流程，失敗都唔會有任何提示）。
+    let _storyBasesWarmed = false;
+    function warmStoryBaseImages(onEachReady) {
+      if (_storyBasesWarmed) return;
+      _storyBasesWarmed = true;
+      const names = [...new Set(Object.values(BASE_IMAGE_FOR))];
+      for (const name of names) {
+        storyBaseImgFor(name).then((im) => { if (im && onEachReady) onEachReady(); });
+      }
+    }
+    // 標題區自動字色／底板（有實測數據跟實測；新底圖冇記錄就探測亮度/雜亂度，
+    // 同 Python 版 auto_title_style 對齊）。
+    function storyBaseZoneStats(ctx, img, zone) {
+      const [x0, y0, x1, y1] = zone;
+      const w = Math.max(1, Math.round(x1 - x0)), h = Math.max(1, Math.round(y1 - y0));
+      const off = document.createElement('canvas');
+      off.width = w; off.height = h;
+      const octx = off.getContext('2d');
+      if (!octx) return [128, 20];
+      try {
+        octx.drawImage(img, x0, y0, w, h, 0, 0, w, h);
+        const { data } = octx.getImageData(0, 0, w, h);
+        let sum = 0, sumSq = 0, n = 0;
+        for (let i = 0; i < data.length; i += 4 * 37) { // 取樣，唔使逐粒像素
+          const l = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+          sum += l; sumSq += l * l; n++;
+        }
+        const mean = n ? sum / n : 128;
+        const variance = n ? Math.max(0, sumSq / n - mean * mean) : 0;
+        return [mean, Math.sqrt(variance)];
+      } catch (_) {
+        return [128, 20]; // canvas 污咗（CORS）就用中性值，唔好整死成個流程
+      }
+    }
+    function storyBaseNeedsPlate(ctx, img, zone, designId) {
+      // 用底圖「檔名」判斷（唔係 design id）：幾個 design 共用同一張底圖（例如
+      // unc_wanted_parchment 借用 service_wanted 嘅圖）要共享同一個底板判斷，
+      // 唔會因為揀咗邊個 design id 而漏畫／多畫咗塊底板。
+      const baseName = BASE_IMAGE_FOR[designId];
+      if (!baseName) return false;
+      if (BASE_NEEDS_PLATE.has(baseName)) return true;
+      if (KNOWN_STORY_BASE_NAMES.has(baseName)) return false; // 已知 9 款，表入面冇就代表唔使
+      const [, sd] = storyBaseZoneStats(ctx, img, zone); // 未知新底圖：探測雜亂度
+      return sd >= 36;
+    }
+    // 標題區後面加半透明柔邊底板（花紋撞字先加，唔會洗白底圖質感）。
+    function storyBaseSoftPlate(ctx, zone, darkPlate) {
+      const [x0, y0, x1, y1] = zone;
+      ctx.save();
+      ctx.filter = 'blur(28px)';
+      ctx.fillStyle = darkPlate ? 'rgba(10,12,16,0.72)' : 'rgba(252,252,250,0.78)';
+      posterRoundRect(ctx, x0 + 26, y0 + 26, (x1 - x0) - 52, (y1 - y0) - 52, 40);
+      ctx.fill();
+      ctx.restore();
+    }
+
     // 分享文案（v5.11 精簡三行格式）：
     //   第 1 行：【區會】標題＋對象｜費用｜名額 X｜截止 YYYY-MM-DD（第一項資料直接黐住標題，其餘 ｜ 分隔）
     //   第 2 行：詳情：附件直連（Telegram 用 url 參數渲染，所以可省略）
@@ -3483,12 +3609,17 @@
 
     // 畫一張海報；同步回 canvas（俾縮圖／預覽都用得）。
     // opts: { mode:'feed'|'story', design:<id>|'auto', scale, badgeImg }
+    function resolvePosterDesignId(item, ex, opts) {
+      const o = opts || {};
+      const wanted = o.design && o.design !== 'auto' ? o.design : null;
+      return wanted && POSTER_DESIGN_BY_ID[wanted] ? wanted : posterAutoDesignId(item, ex);
+    }
+
     function renderPoster(item, opts) {
       const o = opts || {};
       const mode = o.mode === 'story' ? 'story' : 'feed';
       const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
-      const wanted = o.design && o.design !== 'auto' ? o.design : null;
-      const designId = wanted && POSTER_DESIGN_BY_ID[wanted] ? wanted : posterAutoDesignId(item, ex);
+      const designId = resolvePosterDesignId(item, ex, o);
       const design = POSTER_DESIGN_BY_ID[designId] || POSTER_DESIGNS[0];
       const L = posterLayout(item, ex, mode, design);
       L.key = String((item && (item.pdf_url || item.url)) || (item && item.title) || '');
@@ -3502,7 +3633,18 @@
       if (scale !== 1 && typeof ctx.scale === 'function') ctx.scale(scale, scale);
       try {
         const kind = POSTER_KINDS[design.kind] || POSTER_KINDS.train;
-        kind(ctx, L, design, 'bg');
+        // 底圖必須喺最底層：接到真 AI 底圖（o.baseImg）就蓋過向量 bg 階段，
+        // 先貼底圖，先至輪到 pill／徽／標題／資料卡（全部喺下面照舊畫）；
+        // 載唔到／冇傳就靜靜退返原本嘅向量 bg，唔會出白圖。
+        const baseName = BASE_IMAGE_FOR[design.id];
+        if (baseName && o.baseImg) {
+          ctx.drawImage(o.baseImg, 0, 0, L.W, L.H);
+          if (storyBaseNeedsPlate(ctx, o.baseImg, [L.zone.x0, L.zone.y0, L.zone.x1, L.zone.y1], design.id)) {
+            storyBaseSoftPlate(ctx, [L.zone.x0, L.zone.y0, L.zone.x1, L.zone.y1], design.titleColor === '#FFFFFF');
+          }
+        } else {
+          kind(ctx, L, design, 'bg');
+        }
         kind(ctx, L, design, 'deco');
         const isTool = isScoutSystemItem(item);
         if (isTool) {
@@ -3534,7 +3676,16 @@
       if (badgeImg === undefined) {
         try { badgeImg = await orgBadgeImgFor(item); } catch (_) { badgeImg = null; }
       }
-      const canvas = renderPoster(item, Object.assign({}, o, { mode: story ? 'story' : 'feed', badgeImg }));
+      // AI 底圖都要喺出正式圖之前 decode 好；逐款揀邊張底圖再 await，
+      // 載唔到就 null，renderPoster 自動退返向量 bg。
+      let baseImg = o.baseImg;
+      if (baseImg === undefined) {
+        const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+        const designId = resolvePosterDesignId(item, ex, Object.assign({}, o, { mode: story ? 'story' : 'feed' }));
+        const baseName = BASE_IMAGE_FOR[designId];
+        try { baseImg = baseName ? await storyBaseImgFor(baseName) : null; } catch (_) { baseImg = null; }
+      }
+      const canvas = renderPoster(item, Object.assign({}, o, { mode: story ? 'story' : 'feed', badgeImg, baseImg }));
       if (!canvas || typeof canvas.toBlob !== 'function') return Promise.reject(new Error('canvas unavailable'));
       return new Promise((resolve, reject) => {
         canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('toBlob failed'))), 'image/png');
@@ -4416,6 +4567,7 @@
         if (!wrap) return;
         if (!wrap.dataset.built) {
           wrap.dataset.built = '1';
+          wrap.innerHTML = '';
           const availableDesigns = posterDesignsFor(isTool);
           for (const d of availableDesigns) {
             const btn = document.createElement('button');
@@ -4424,7 +4576,9 @@
             btn.dataset.id = d.id;
             btn.title = d.label + '（撳一撳即換款）';
             try {
-              const thumb = renderPoster(item, { mode: 'feed', design: d.id, scale: 0.2, badgeImg: null });
+              const baseName = BASE_IMAGE_FOR[d.id];
+              const baseImg = baseName ? (STORY_BASE_IMG_CACHE[baseName] || null) : null;
+              const thumb = renderPoster(item, { mode: 'feed', design: d.id, scale: 0.2, badgeImg: null, baseImg });
               if (thumb && typeof thumb.toDataURL === 'function') {
                 const im = document.createElement('img');
                 im.alt = d.label;
@@ -4437,6 +4591,9 @@
             btn.appendChild(cap);
             wrap.appendChild(btn);
           }
+          // 底圖未解碼完都照畫（向量 bg 頂住），解碼完一張就靜靜重畫縮圖條，
+          // 由向量底換做真底圖，唔使用戶撳嘢都自動升級。
+          warmStoryBaseImages(() => { wrap.dataset.built = ''; paintIgDesigns(); });
         }
         for (const btn of wrap.querySelectorAll('button')) {
           btn.classList.toggle('active', btn.dataset.id === igDesign);
@@ -5234,7 +5391,9 @@
     // training（某支部所有訓練；領袖再分木章／非木章 section）、course（該支部
     // 訓練綱要內的徽章／訓練班，subgroup 為綱要分組）。全部都係點一下即剔。
     const PUSH_MAX_TOPICS = 60; // 與 api/push_common.py MAX_TOPICS 及 schema.sql 同步
-    const PUSH_GENERAL_ORDER = ['服務', '活動', '比賽', '小工具'];
+    // 2026-10-01：加「公佈」擺最尾——呢類通常係成員最唔想收嘅行政類通告，
+    // 擺喺揀選清單最底，等佢哋可以揀剩晒前面幾類、淨係唔剔呢個。
+    const PUSH_GENERAL_ORDER = ['服務', '活動', '比賽', '小工具', '公佈'];
     const PUSH_LEADER_SECTION_ORDER = ['木章訓練班', '非木章訓練班'];
 
     function getCatalogUrl() {
@@ -5302,7 +5461,7 @@
       const { branches, topics } = pushSelectionState();
       const over = topics.length > PUSH_MAX_TOPICS;
       $('#push-custom-options').hidden = topics.includes('all:new');
-      el.textContent = topics.includes('all:new') ? '全選：有新消息就通知（包括小工具及未分類）' : `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
+      el.textContent = topics.includes('all:new') ? '全選：有新消息就通知（包括小工具、公佈及未分類）' : `已選 ${branches.length} 個支部・${topics.length} 個項目${over ? `（最多 ${PUSH_MAX_TOPICS} 個）` : ''}`;
       el.classList.toggle('over', over);
       const save = $('#push-save'), enable = $('#push-enable');
       const invalid = !branches.length || !topics.length || over;
@@ -5781,7 +5940,7 @@
         const preferences = currentPushPreferences();
         const result = await window.ScoutPushClient.enable(preferences);
         updatePersonalResultsAfterPreferenceChange(result.preferences);
-        setPushStatus(result.preferences.topics.includes('all:new') ? '已啟用全選：有任何新消息就通知，包括小工具及未分類。' : '已啟用：符合任何一組支部及項目的新消息就會通知。', 'good');
+        setPushStatus(result.preferences.topics.includes('all:new') ? '已啟用全選：有任何新消息就通知，包括小工具、公佈及未分類。' : '已啟用：符合任何一組支部及項目的新消息就會通知。', 'good');
       } catch (error) {
         const tone = error?.code === 'permission_denied' ? 'warn' : 'error';
         setPushStatus(error?.message || '未能啟用通知。', tone);
