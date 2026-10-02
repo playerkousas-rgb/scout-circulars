@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-02 05:06:51",
+  "last_updated": "2026-10-03 04:41:55",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4870,
+    "total_notices": 4883,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -25328,6 +25328,15 @@
     ],
     "紅磡區": [
       {
+        "title": "D-26-05 - 26年10月區會公布 【New】",
+        "url": "https://drive.google.com/file/d/1oMlpM4-zWT55El6nDlyCfNigHX89e7aN/view",
+        "pdf_url": "https://drive.google.com/file/d/1oMlpM4-zWT55El6nDlyCfNigHX89e7aN/view",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
+      {
         "title": "D-26-04 - 26年9月區會公布",
         "url": "https://drive.google.com/file/d/1teJTA8atSfLAQ0d1l9hNcuclxwWb-Zbp/view",
         "pdf_url": "https://drive.google.com/file/d/1teJTA8atSfLAQ0d1l9hNcuclxwWb-Zbp/view",
@@ -25337,7 +25346,7 @@
         "region": "九龍地域"
       },
       {
-        "title": "【New】",
+        "title": "S-26-04 - 童軍沿繩下降章(技能組)訓練班 【New】",
         "url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
         "pdf_url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
         "date": "2026-09-02",
@@ -36004,6 +36013,15 @@
     ],
     "荃灣區": [
       {
+        "title": "社區服務 – 明愛慈善賣物會(荃灣區)2026",
+        "url": "https://www.twdscout.org.hk/documents/notices/A022026.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/A022026.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
         "title": "荃灣區小童軍活動 - 童心歡聚慶中秋",
         "url": "https://www.twdscout.org.hk/documents/notices/T202608.pdf",
         "pdf_url": "https://www.twdscout.org.hk/documents/notices/T202608.pdf",
@@ -37655,6 +37673,105 @@
     ],
     "離島區": [],
     "新界東地域": [
+      {
+        "title": "第95屆營藝訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7fC5KvaKWObL9cXrjMlRb2/abca7a1097e2cc8baaf08deb75fe0ccd/Trg_cir_16-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7fC5KvaKWObL9cXrjMlRb2/abca7a1097e2cc8baaf08deb75fe0ccd/Trg_cir_16-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第8屆初級航空活動章訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3NCJI5wDnR9wndaVeI1QRN/9a9cee0de88ad453d2fc01cae10ab213/St_cir_23-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3NCJI5wDnR9wndaVeI1QRN/9a9cee0de88ad453d2fc01cae10ab213/St_cir_23-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第48屆美勞創作訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Fk7SQsl73ugyaQWIKCTYK/4e4be62b37f1e483ce87f85b8e5542e3/Trg_cir_15-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Fk7SQsl73ugyaQWIKCTYK/4e4be62b37f1e483ce87f85b8e5542e3/Trg_cir_15-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第12屆四級童軍標準艇訓練",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3ViKslZCotVQxoEmDqTjgX/cdd1278a2e9f3f19ee677bfb4107eb5c/St_cir_25-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3ViKslZCotVQxoEmDqTjgX/cdd1278a2e9f3f19ee677bfb4107eb5c/St_cir_25-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第110屆童軍運動基本原則訓練班(單元1A及1B)",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3w87kNUH8PDhYfTkSqG6vF/55e536414923a7a5d90d4ef1a97a1d3e/Trg_cir_14-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3w87kNUH8PDhYfTkSqG6vF/55e536414923a7a5d90d4ef1a97a1d3e/Trg_cir_14-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "第10屆海童軍工作坊",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "童軍支部急救章訓練班",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3EuP5KOlfagUiuTBub7yzy/458be61391feaa68d8603671af46e09c/Prg_cir_20-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3EuP5KOlfagUiuTBub7yzy/458be61391feaa68d8603671af46e09c/Prg_cir_20-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "相機拍攝技巧工作坊及作品分享",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/42Kx45bimQp0SK6RYCGhqN/73b5cae60f6b95b77781d93f4b1e4081/Pr_cir_05-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/42Kx45bimQp0SK6RYCGhqN/73b5cae60f6b95b77781d93f4b1e4081/Pr_cir_05-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "海外及內地活動津貼計劃",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/0OsIIqZEc4THK157If5oi/1c2ab734c41b28c43b3ca2fae54eb9e8/Spec_cir_30-26_full_.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/0OsIIqZEc4THK157If5oi/1c2ab734c41b28c43b3ca2fae54eb9e8/Spec_cir_30-26_full_.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "更新登記郵寄每月通告",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4NLW6L33tyj0Y3NYiOEQs4/9f33db3bd25985d8cc177d394dbfa595/Adm_cir_19-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4NLW6L33tyj0Y3NYiOEQs4/9f33db3bd25985d8cc177d394dbfa595/Adm_cir_19-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
+      {
+        "title": "新界東地域樂行童軍支部活動 - 「調酒工作坊暨聖誕派對大聚集」",
+        "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/60dLuSCbjIcYbh9KIkMdPV/edf6b514b11938c06c26dde87f40fc93/St_cir_26-26.pdf",
+        "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/60dLuSCbjIcYbh9KIkMdPV/edf6b514b11938c06c26dde87f40fc93/St_cir_26-26.pdf",
+        "date": "2026-10-03",
+        "captured_date": "2026-10-03",
+        "source_site": "新界東地域",
+        "region": "新界東地域"
+      },
       {
         "title": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(修訂)",
         "url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
@@ -43957,6 +44074,97 @@
   },
   "notices": [
     {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/A022026.pdf",
+      "title": "社區服務 – 明愛慈善賣物會(荃灣區)2026",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1oMlpM4-zWT55El6nDlyCfNigHX89e7aN/view",
+      "title": "D-26-05 - 26年10月區會公布 【New】",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/7fC5KvaKWObL9cXrjMlRb2/abca7a1097e2cc8baaf08deb75fe0ccd/Trg_cir_16-26.pdf",
+      "title": "第95屆營藝訓練班",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3NCJI5wDnR9wndaVeI1QRN/9a9cee0de88ad453d2fc01cae10ab213/St_cir_23-26.pdf",
+      "title": "第8屆初級航空活動章訓練班",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/Fk7SQsl73ugyaQWIKCTYK/4e4be62b37f1e483ce87f85b8e5542e3/Trg_cir_15-26.pdf",
+      "title": "第48屆美勞創作訓練班",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3ViKslZCotVQxoEmDqTjgX/cdd1278a2e9f3f19ee677bfb4107eb5c/St_cir_25-26.pdf",
+      "title": "第12屆四級童軍標準艇訓練",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3w87kNUH8PDhYfTkSqG6vF/55e536414923a7a5d90d4ef1a97a1d3e/Trg_cir_14-26.pdf",
+      "title": "第110屆童軍運動基本原則訓練班(單元1A及1B)",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf",
+      "title": "第10屆海童軍工作坊",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/3EuP5KOlfagUiuTBub7yzy/458be61391feaa68d8603671af46e09c/Prg_cir_20-26.pdf",
+      "title": "童軍支部急救章訓練班",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/42Kx45bimQp0SK6RYCGhqN/73b5cae60f6b95b77781d93f4b1e4081/Pr_cir_05-26.pdf",
+      "title": "相機拍攝技巧工作坊及作品分享",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/0OsIIqZEc4THK157If5oi/1c2ab734c41b28c43b3ca2fae54eb9e8/Spec_cir_30-26_full_.pdf",
+      "title": "海外及內地活動津貼計劃",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/4NLW6L33tyj0Y3NYiOEQs4/9f33db3bd25985d8cc177d394dbfa595/Adm_cir_19-26.pdf",
+      "title": "更新登記郵寄每月通告",
+      "captured_date": "2026-10-03"
+    },
+    {
+      "source_site": "新界東地域",
+      "region": "新界東地域",
+      "pdf_url": "https://assets.ctfassets.net/g8bhf0l3d7iq/60dLuSCbjIcYbh9KIkMdPV/edf6b514b11938c06c26dde87f40fc93/St_cir_26-26.pdf",
+      "title": "新界東地域樂行童軍支部活動 - 「調酒工作坊暨聖誕派對大聚集」",
+      "captured_date": "2026-10-03"
+    },
+    {
       "source_site": "深旺區",
       "region": "九龍地域",
       "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606_幼童軍支部主席盾錦標賽2026_報名表.xlsx",
@@ -45996,7 +46204,7 @@
       "source_site": "紅磡區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1c0F8ecvFf4K8-gYOH0xqMpk2ylkTIqnP/view",
-      "title": "【New】",
+      "title": "S-26-04 - 童軍沿繩下降章(技能組)訓練班 【New】",
       "captured_date": "2026-09-02"
     },
     {
@@ -78195,17 +78403,50 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-02 05:06:51",
-      "new": 2,
-      "updated": 3484,
-      "daily_new": 2,
-      "skipped": 4,
+      "updated_at": "2026-10-03 04:41:55",
+      "new": 13,
+      "updated": 148,
+      "daily_new": 13,
+      "skipped": 37,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
         "離島區 (expected_empty)",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]

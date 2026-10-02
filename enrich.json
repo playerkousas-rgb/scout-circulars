@@ -50964,5 +50964,1042 @@
     "title_check": "verified",
     "enriched_at": "2026-10-02 05:13:21",
     "enrich_version": "3.2"
+  },
+  "https://drive.google.com/file/d/1oMlpM4-zWT55El6nDlyCfNigHX89e7aN/view": {
+    "source": "紅磡區",
+    "title": "致 :各旅長/旅負責領袖",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "考驗"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "考驗"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-03 04:46:38",
+    "enrich_version": "3.2"
+  },
+  "https://www.twdscout.org.hk/documents/notices/A022026.pdf": {
+    "source": "荃灣區",
+    "title": "社區服務 – 明愛慈善賣物會(荃灣區)2026",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "社區服務",
+          "服務"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:service"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "社區服務",
+          "服務"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:46:43",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/7fC5KvaKWObL9cXrjMlRb2/abca7a1097e2cc8baaf08deb75fe0ccd/Trg_cir_16-26.pdf": {
+    "source": "新界東地域",
+    "title": "第95屆營藝訓練班",
+    "deadline": "2027-01-15",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "HK$350",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-basic-training",
+      "course:leader-campcraft",
+      "course:wood-module-1",
+      "training:會務委員",
+      "training:童軍",
+      "training:領袖:木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-basic-training",
+        "label": "領袖基本",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：領袖初級訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-campcraft",
+        "label": "營藝",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：營藝訓練",
+          "標題／內文：營藝訓練班"
+        ]
+      },
+      {
+        "id": "course:wood-module-1",
+        "label": "童軍運動基本原則（單元1A／1B）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍運動基本原則",
+          "標題／內文：單元1b"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:木章",
+        "label": "所有木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:46:46",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/3NCJI5wDnR9wndaVeI1QRN/9a9cee0de88ad453d2fc01cae10ab213/St_cir_23-26.pdf": {
+    "source": "新界東地域",
+    "title": "第8屆初級航空活動章訓練班",
+    "deadline": "2026-10-26",
+    "audience": "童軍",
+    "fee": "HK$25",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-advanced-air-activities-badge",
+      "course:scout-basic-air-activities-badge",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-advanced-air-activities-badge",
+        "label": "高級航空活動章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：高級航空活動章"
+        ]
+      },
+      {
+        "id": "course:scout-basic-air-activities-badge",
+        "label": "初級航空活動章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：初級航空活動章",
+          "標題／內文：初級航空活動章訓練班",
+          "標題／內文：初級航空活動章訓練"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:46:49",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/Fk7SQsl73ugyaQWIKCTYK/4e4be62b37f1e483ce87f85b8e5542e3/Trg_cir_15-26.pdf": {
+    "source": "新界東地域",
+    "title": "第48屆美勞創作訓練班",
+    "deadline": "2027-01-22",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "HK$90",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-art-handcraft",
+      "course:leader-basic-training",
+      "course:wood-module-1",
+      "training:會務委員",
+      "training:童軍",
+      "training:領袖:木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-art-handcraft",
+        "label": "美勞創作",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：美勞創作訓練班",
+          "標題／內文：美勞創作訓練"
+        ]
+      },
+      {
+        "id": "course:leader-basic-training",
+        "label": "領袖基本",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：領袖初級訓練班"
+        ]
+      },
+      {
+        "id": "course:wood-module-1",
+        "label": "童軍運動基本原則（單元1A／1B）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍運動基本原則",
+          "標題／內文：單元1b"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:木章",
+        "label": "所有木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:46:52",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/3ViKslZCotVQxoEmDqTjgX/cdd1278a2e9f3f19ee677bfb4107eb5c/St_cir_25-26.pdf": {
+    "source": "新界東地域",
+    "title": "第12屆四級童軍標準艇訓練",
+    "deadline": "2026-12-11",
+    "audience": "深資童軍、童軍、領袖",
+    "fee": "HK$340",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-standard-boat-instructor",
+      "course:scout-boatswain-badge",
+      "course:scout-sailor-badge",
+      "course:scout-standard-boat",
+      "course:shared-boatswain-badge",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-standard-boat-instructor",
+        "label": "童軍標準艇教練員",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍標準艇教練員"
+        ]
+      },
+      {
+        "id": "course:scout-boatswain-badge",
+        "label": "水手長章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：水手長章"
+        ]
+      },
+      {
+        "id": "course:scout-sailor-badge",
+        "label": "水手章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：水手章"
+        ]
+      },
+      {
+        "id": "course:scout-standard-boat",
+        "label": "童軍標準艇",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍標準艇",
+          "標題／內文：童軍標準艇訓練班",
+          "標題／內文：童軍標準艇訓練"
+        ]
+      },
+      {
+        "id": "course:shared-boatswain-badge",
+        "label": "水手長章／副舵手章／舵手章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：水手長章"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:46:56",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/3w87kNUH8PDhYfTkSqG6vF/55e536414923a7a5d90d4ef1a97a1d3e/Trg_cir_14-26.pdf": {
+    "source": "新界東地域",
+    "title": "第110屆童軍運動基本原則訓練班(單元1A及1B)",
+    "deadline": "2026-12-18",
+    "audience": "深資童軍、樂行童軍、童軍、領袖、會務委員",
+    "fee": "HK$10",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:wood-module-1",
+      "training:會務委員",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:wood-module-1",
+        "label": "童軍運動基本原則（單元1A／1B）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍運動基本原則",
+          "標題／內文：單元1a"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:木章",
+        "label": "所有木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:46:58",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf": {
+    "source": "新界東地域",
+    "title": "支部通告第24/2026號",
+    "deadline": "2026-10-30",
+    "audience": "深資童軍、樂行童軍、童軍、領袖",
+    "fee": "HK$40",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班",
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班",
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-03 04:47:01",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/3EuP5KOlfagUiuTBub7yzy/458be61391feaa68d8603671af46e09c/Prg_cir_20-26.pdf": {
+    "source": "新界東地域",
+    "title": "童軍支部急救章訓練班",
+    "deadline": "2026-10-30",
+    "audience": "童軍",
+    "fee": "HK$105",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-first-aid-badge",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-first-aid-badge",
+        "label": "急救章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：急救章",
+          "標題／內文：急救章訓練班",
+          "標題／內文：急救章訓練"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:47:03",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/42Kx45bimQp0SK6RYCGhqN/73b5cae60f6b95b77781d93f4b1e4081/Pr_cir_05-26.pdf": {
+    "source": "新界東地域",
+    "title": "相機拍攝技巧工作坊及作品分享",
+    "deadline": "2026-11-20",
+    "audience": "深資童軍、樂行童軍、童軍、領袖、會務委員",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:會務委員",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:47:07",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/0OsIIqZEc4THK157If5oi/1c2ab734c41b28c43b3ca2fae54eb9e8/Spec_cir_30-26_full_.pdf": {
+    "source": "新界東地域",
+    "title": "海外及內地活動津貼計劃",
+    "deadline": "",
+    "audience": "領袖",
+    "fee": "HK$100",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班",
+          "技能訓練",
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:wood-module-1",
+      "course:wood-module-3",
+      "training:領袖:木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班",
+          "技能訓練",
+          "工作坊"
+        ]
+      },
+      {
+        "id": "course:wood-module-1",
+        "label": "童軍運動基本原則（單元1A／1B）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍運動基本原則",
+          "標題／內文：單元1a"
+        ]
+      },
+      {
+        "id": "course:wood-module-3",
+        "label": "領導及管理（單元3）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：領導及管理訓練班",
+          "標題／內文：單元3"
+        ]
+      },
+      {
+        "id": "training:領袖:木章",
+        "label": "所有木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:47:11",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/4NLW6L33tyj0Y3NYiOEQs4/9f33db3bd25985d8cc177d394dbfa595/Adm_cir_19-26.pdf": {
+    "source": "新界東地域",
+    "title": "更新登記郵寄每月通告",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "服務"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:service"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "服務"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:47:15",
+    "enrich_version": "3.2"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/60dLuSCbjIcYbh9KIkMdPV/edf6b514b11938c06c26dde87f40fc93/St_cir_26-26.pdf": {
+    "source": "新界東地域",
+    "title": "新界東地域樂行童軍支部活動 - 「調酒工作坊暨聖誕派對大聚集」",
+    "deadline": "2026-11-27",
+    "audience": "深資童軍、樂行童軍、童軍、領袖",
+    "fee": "HK$120",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-03 04:47:18",
+    "enrich_version": "3.2"
   }
 }
