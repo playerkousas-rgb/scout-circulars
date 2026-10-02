@@ -4,9 +4,10 @@
   "2026-09-22",
   "2026-09-23",
   "2026-09-30",
-  "2026-10-01"
+  "2026-10-01",
+  "2026-10-02"
  ],
- "updated_at": "2026-10-01T13:31:06.416044+00:00",
+ "updated_at": "2026-10-02T10:05:52.764474+00:00",
  "items": [
   {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
@@ -32,6 +33,11 @@
    "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2604_深資童軍消防訓練班_接納通知書.pdf",
    "f": "stories/2026-09-23/02_train_green_167826.png",
    "t": "深資童軍消防訓練班 接納通知書"
+  },
+  {
+   "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606 幼童軍支部主席盾錦標賽2026.pdf",
+   "f": "stories/2026-10-02/00_service_wanted_17bd98.png",
+   "t": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >"
   },
   {
    "k": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
