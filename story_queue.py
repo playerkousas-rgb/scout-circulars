@@ -39,13 +39,13 @@ _RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考�
 # 2026-10-01：同 subscription_tagging.SERVICE_BARE_TERMS 對齊——「服務」係裸字就算，
 # 但要剔除「服務組」（童軍專章嘅分組標籤，唔係招義工，例如「XX章(服務組)訓練班」）。
 _RE_SERVICE = re.compile(r"服務(?!組)|工作人員|義工|義務")
-_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索")
+_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會")
 
 # 2026-10-03 用戶規則：童軍獎勵、津貼計劃等算公布；同樂日、考察團、代表團等算活動
 _RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼")
 _RE_AWARD_PLAN = re.compile(r"獎勵計劃")
 _RE_YOUTH_AWARD = re.compile(r"青年獎勵")
-_RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索")
+_RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會")
 
 
 def today_hkt(now: datetime | None = None) -> str:

@@ -53592,23 +53592,28 @@
     "fee": "全免",
     "categories": [
       {
-        "id": "announcement",
-        "label": "公布",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "分享會"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:announcement"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:announcement",
-        "label": "公布",
-        "group": "公布",
-        "kind": "category",
-        "evidence": []
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "分享會"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
