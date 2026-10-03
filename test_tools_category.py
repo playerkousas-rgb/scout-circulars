@@ -160,6 +160,38 @@ class KeywordExpansionTests(unittest.TestCase):
                 got = [c["id"] for c in extract_categories(title)]
                 self.assertIn(want, got, got)
 
+    def test_announcement_keyword_in_title_beats_pdf_body(self):
+        """2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布（明確字眼以標題為準）。
+
+        個案：總會「總部公告」（內文有「社會服務」）同紅磡區「D-26-05 區會公布」
+        （內文有「考驗」）被 PDF 內文字眼搶去服務／訓練。標題公布字眼要贏。
+        「成績公布／結果公布」係賽果＝比賽，唔可以變公布。
+        """
+        cases = [
+            ("總部公告", "訓練署\n余永健先生獲委任，童軍知友社總監（社會服務及內部協調）。", "announcement"),
+            ("D-26-05 - 26年10月區會公布 【New】", "區總部公布\n所屬支部成員考驗及相關事務", "announcement"),
+            ("地域總部公佈(2026年9月)", "", "announcement"),
+            ("香港童軍115周年—新界地域步操及升旗比賽2026 - 成績公布", "", "competition"),
+            ("成績公佈", "", "competition"),
+        ]
+        for title, text, want in cases:
+            with self.subTest(title=title):
+                got = [c["id"] for c in extract_categories(title, text)]
+                self.assertEqual(got, [want], got)
+        meta = extract_subscription_metadata("總部公告", "社會服務", "")
+        self.assertEqual(meta["subscription_tags"], ["category:announcement"])
+        self.assertNotIn("category:service", meta["subscription_tags"])
+
+    def test_title_keywords_beat_pdf_body_keywords(self):
+        """標題有明確字眼（訓練／服務／比賽）就以標題為準，內文唔可以搶走。"""
+        cases = [
+            ("第95屆營藝訓練班", "社會服務：本區服務日", "training"),
+            ("社區服務隊招募", "訓練班：繩結訓練班", "service"),
+        ]
+        for title, text, want in cases:
+            with self.subTest(title=title):
+                self.assertEqual([c["id"] for c in extract_categories(title, text)], [want])
+
     def test_administrative_titles_become_announcement(self):
         """2026-10-01：新增「公佈」分類做行政類通告嘅兜底，唔再係空分類——
         等成員訂閱設定時可以揀唔要呢類佢哋最唔想睇嘅一次性行政通告。"""

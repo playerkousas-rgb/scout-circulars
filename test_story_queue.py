@@ -172,6 +172,26 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
         picked = sq.pick_today(cache, TODAY, enrich)
         self.assertEqual(picked[0]["category"], "competition")
 
+    def test_announcement_keyword_in_title_wins(self):
+        """2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布。
+
+        同 subscription_tagging.extract_categories 對齊——「成績公布」等賽果除外。
+        """
+        cases = [("總部公告", "announcement"),
+                 ("D-26-05 - 26年10月區會公布 【New】", "announcement"),
+                 ("地域總部公佈(2026年9月)", "announcement"),
+                 ("香港童軍115周年步操比賽2026 - 成績公布", "competition"),
+                 ("成績公佈", "competition")]
+        for title, want in cases:
+            item = _item(title=title)
+            got = sq.classify_category(item, None)
+            self.assertEqual(got, want, f"{title} 應該係 {want} 而係 {got}")
+
+        # 公布類唔會出 Story（冇 slogan）
+        announced = _item(title="總部公告")
+        cache = _cache({"筲箕灣區": [announced]})
+        self.assertEqual(sq.pick_today(cache, TODAY, _enrich([announced])), [])
+
     def test_category_title_fallback_keywords(self):
         cases = [("全港射擊錦標賽", "competition"), ("領袖訓練工作坊", "training"),
                  ("海灘清潔服務日", "service"), ("秋季遠足活動", "activity")]

@@ -123,7 +123,10 @@ python core.py --force
 if errorlevel 1 goto failed
 
 echo [%date% %time%] enrich.py : incremental PDF text extraction
-python enrich.py --verbose
+REM --apply-title-fixes: list titles that do not match the PDF (e.g. "D-26-05 - ...")----
+REM get written back as the PDF's real title, and re-applied on later runs.
+REM Field lines / circular numbers are refused by enrich.heading_looks_like_title.
+python enrich.py --verbose --apply-title-fixes
 if errorlevel 1 goto failed
 
 REM -- [8] commit + push whatever changed ------------------------------

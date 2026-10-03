@@ -6192,11 +6192,16 @@
     // 同 story_queue.py classify_category 一樣嘅語義（保持兩邊出嘅清單一致）
     const BATCH_TOOLS_SOURCES = new Set(['Scout System']);
     const BATCH_RE = {
-      competition: /比賽|錦標賽|大賽|競賽|錦標/,
+      // 2026-10-03：同 story_queue.py／subscription_tagging.py 對齊——「成績公布」
+      // 等賽果片語屬比賽；標題有「公告／公布／公佈」就係公布（見 batchCategory）。
+      competition: /比賽|錦標賽|大賽|競賽|錦標|選拔賽|田徑賽|友誼賽|實體賽|成績公布|成績公佈|結果公布|結果公佈|公布結果|公佈結果|賽果公布|賽果公佈/,
       training: /訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會/,
       service: /服務|義工|義務/,
       activity: /活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會/,
       announcement_override: /童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼|獎勵計劃/,
+      // 標題有「公告／公布／公佈」＝公布；下面先用 announcement_result 遮蓋賽果片語。
+      announcement_title: /公告|公布|公佈/,
+      announcement_result: /成績公布|成績公佈|結果公布|結果公佈|公布結果|公佈結果|賽果公布|賽果公佈/,
       youth_award: /青年獎勵/,
       activity_strong: /同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會/,
     };
@@ -6213,6 +6218,9 @@
         }
       }
       const title = String((item && item.title) || '');
+      // 2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布（明確字眼以標題為準）；
+      // 「成績公布／結果公布」係賽果＝比賽，所以先把呢啲片語遮走先檢查。
+      if (BATCH_RE.announcement_title.test(title.replace(BATCH_RE.announcement_result, ''))) return 'announcement';
       if (!BATCH_RE.youth_award.test(title) && BATCH_RE.announcement_override.test(title)) return 'announcement';
       if (BATCH_RE.activity_strong.test(title)) return 'activity';
       for (const id of ['competition', 'training', 'service', 'activity']) {

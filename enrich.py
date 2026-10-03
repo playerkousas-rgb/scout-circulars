@@ -14,7 +14,9 @@ enrich.py — B 補充爬蟲（截止日期 / 對象 / 費用 / 個人化標籤�
     全庫 1500/4795 條），所以會逐層剝後綴再搵，唔好製造假警報。
     真係搵唔到，先至考慮用 PDF 標題改正（corrected）；PDF 太少字／抽唔到標題
     就維持原樣（unverified）。永遠唔改 pdf_url、captured_date，唔當新通告。
-    ⚠️ 改正預設**只報告、唔寫入**；要真寫回 cache.json 請加 --apply-title-fixes。
+    ⚠️ 改正預設**只報告、唔寫入**；要真寫回 cache.json 請加 --apply-title-fixes
+    （每日 workflow／本機 run 已經開咗；更正會記住原本列表標題，之後每次 run
+    重新套用，唔會被下一次全量抓取蓋走）。
     （舊版 log 無條件印「已改正」，但寫入係死嘅——cache_dirty 設咗從來冇用過——
      所以 cache.json 一個字都冇變。呢類靜默失敗正正係呢個 repo 最怕嘅。）
   - 個人化只使用「支部＋官方課程／服務／活動／比賽」標籤，不按地域或旅團推論。
@@ -58,7 +60,11 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.2"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
+ENRICH_VERSION = "3.3"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
+# 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
+# （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
+# 更正確更正會記錄 listing_title，之後每次 run 重新套用（見
+# reapply_stored_title_fixes），令 cache 重建都唔會失去正確名稱。
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -114,7 +120,7 @@ def compact(s):
 
 _TITLE_PUNCT_RE = re.compile(r"[「」『』\"“”'（）()\[\]【】\-–—/／:：,.。、·•*＊]")
 _LETTERHEAD_RE = re.compile(
-    r"香港童軍總會|Scout Association|電話|傳真|\bTel\b|\bFax\b|"
+    r"香港童軍總會|Scout Association|電話|傳真|\bTel\b|\bFax\b|\bE-?mail\b|電郵|"
     r"www\.|https?://|檔號|發文者|受文者|內部傳閱"
 )
 _HEADING_SKIP_RE = re.compile(
@@ -124,15 +130,35 @@ _HEADING_SKIP_RE = re.compile(
     # 再被 reconcile 当成「正確標題」写回列表（柴灣區深資童軍原野烹飪個案）。
     # ⚠️ 一定要錨定做「欄位名形態」（後面跟冒號或數字），唔可以用裸字「截止日期」：
     #    真標題入面會出現呢四個字，例如「區會提名截止日期」通告。
-    r"截止日期[:：\d]|截止[:：]|^日期[:：]|^時間[:：]|^地點[:：]|^對象[:：]|^名額[:：]"
+    r"截止日期[:：\d]|截止[:：]|^日期[:：]|^時間[:：]|^地點[:：]|^對象[:：]|^名額[:：]|"
+    # 2026-10-03 加：區會通告嘅「由／致／知會／編號」係公函欄位名，唔係標題。
+    # 紅磡區「區總部公布」個案：PDF 開頭係信頭「由：區總監／致：各旅長／旅負責
+    # 領袖／知會：…／編號：HHD-D-26-05」，舊版因為「致：各旅長／旅負責領袖」
+    # 長度過關而揀咗佢做 PDF 標題，令核對誤判「corrected」，差啲改錯名。
+    r"^(?:由|致|知會|副本|受文者|發文者|檔號|編號|日期|時間|地點|對象|名額)"
+    r"\s*(?:E-?mail|Email)?\s*[:：]|"
+    # 通訊欄位（地址／電話／傳真／網址／電郵）都唔係標題
+    r"^(?:地址|地址及網址|電話|傳真|網址|電郵|辦事處地址)\s*[:：]"
+)
+# 「總部公告」「區總部公布」呢類真標題短過 6 個字，唔可以當雜訊濾走。
+# 只有含「公告／公布／公佈」嘅短行先獲豁免（3 字起，避免單字雜訊）——「通告」
+# 兩個字本身成日係分類標籤（「行政通告」），維持原本 6 字下限。
+_HEADING_SHORT_OK_RE = re.compile(r"公告|公布|公佈")
+# 2026-10-03：通告檔號行（「行政通告第 13/2026號」「訓練署 第 64/2026 號通告」
+# 「通告第 19/2026 號」）。佢係編號，唔係標題；舊版好多時揀咗佢，於是核對把
+# 好標題（飛鏢同樂日、第10屆海童軍工作坊、總部公告…）誤判成「要改正」。
+_CIRCULAR_NUMBER_RE = re.compile(
+    r"^.{0,10}第\s*\d{1,4}\s*[/\-–—]\s*\d{1,4}\s*[號号]?\s*(?:通告)?$"
 )
 # 「截止日期」以前喺呢度做 hint，令一條欄位行贏過真標題，已移除。
 # 2026-10-01 擴充：舊版淨係識「比賽」兩個字做埋，「XX挑戰賽」「XX錦標賽」呢類
 # 長詞嘅真標題完全冇 hint 撞中，於是會輸俾另一行啱啱好撞中「招募」嘅內文句子
 # （見「油尖區百年童行-童軍115追蹤挑戰賽(服務邀請)」錯判成通告標題個案）。
 # 詞表同 subscription_tagging.COMPETITION_TERMS／SERVICE_INVITATION_TERMS 對齊。
+# 2026-10-03 加公告／公布／公佈：呢啲係最典型嘅通告標題字眼（用戶：明確字眼
+# 以標題為準），偏偏舊版冇佢哋，令「區總部公布」「總部公告」等真標題輸畀欄位行。
 _HEADING_HINT_RE = re.compile(
-    r"通告|訓練班|工作坊|提名|比賽|競賽|公開賽|錦標賽|邀請賽|挑戰賽|會操|練習賽|體驗賽|"
+    r"通告|公告|公布|公佈|訓練班|工作坊|提名|比賽|競賽|公開賽|錦標賽|邀請賽|挑戰賽|會操|練習賽|體驗賽|"
     r"感謝狀|招募|課程|服務邀請|義工邀請"
 )
 # 列表頁 scrape 落嚟嘅連結標籤後綴：呢啲字永遠唔會出現喺 PDF 內文，
@@ -180,7 +206,8 @@ def extract_pdf_heading(text: str) -> str:
     candidates = []
     for line in lines:
         compact_line = compact(line)
-        if len(compact_line) < 6 or len(line) > 80:
+        short_ok = len(compact_line) >= 3 and bool(_HEADING_SHORT_OK_RE.search(compact_line))
+        if (len(compact_line) < 6 and not short_ok) or len(line) > 80:
             continue
         if not re.search(r"[\u4e00-\u9fff]", line):
             continue
@@ -192,12 +219,34 @@ def extract_pdf_heading(text: str) -> str:
             continue
         if _CIRCULAR_CODE_RE.match(line.strip()):
             continue
+        # 2026-10-03：檔號行（「行政通告第 13/2026號」）唔係標題
+        if _CIRCULAR_NUMBER_RE.match(compact_line):
+            continue
         candidates.append(line)
 
     if not candidates:
         return ""
     hinted = [line for line in candidates if _HEADING_HINT_RE.search(line)]
     return (hinted or candidates)[0]
+
+
+def heading_looks_like_title(text: str) -> bool:
+    """寫回 cache 前嘅最後防線：似通告標題嘅先至夠膽寫。
+
+    抽取器已經避開大部分欄位／檔號行，但舊版 enrich.json 仲留住一堆亂抽嘅
+    「更正」（地址、表格行、節目時間表），所以寫入前再檢查一次形狀：
+    長度合理、唔係欄位／檔號／信頭、冇日期時間同表格符號。
+    """
+    line = compact(nfkc(text or "")).strip()
+    if not line or len(line) > 40:
+        return False
+    if _HEADING_SKIP_RE.search(line) or _CIRCULAR_NUMBER_RE.match(line) or _CIRCULAR_CODE_RE.match(line):
+        return False
+    if _LETTERHEAD_RE.search(line):
+        return False
+    if re.search(r"[|>»«\u3008\u3009]|\d{1,2}\s*月\s*\d{1,2}\s*日|\d{1,2}:\d{2}|\d{3,4}\s*[-–—]\s*\d{3,4}", line):
+        return False
+    return True
 
 
 def title_variants(listing: str) -> list:
@@ -257,6 +306,52 @@ def reconcile_listing_title(listing: str, pdf_text: str) -> dict:
     if heading and similarity < TITLE_SIMILARITY_THRESHOLD:
         return {"title": heading, "status": "corrected", "pdf_heading": heading, "similarity": similarity}
     return {"title": listing, "status": "unverified", "pdf_heading": heading, "similarity": similarity}
+
+
+def _cache_title_for(cache: dict, url: str) -> str:
+    """cache 入面呢個 url 而家顯示緊嘅標題（搵唔到就空字串）。"""
+    if not url or not isinstance(cache, dict):
+        return ""
+    for arr in (cache.get("data") or {}).values():
+        if not isinstance(arr, list):
+            continue
+        for item in arr:
+            if isinstance(item, dict) and (item.get("pdf_url") or item.get("url") or "") == url:
+                return str(item.get("title") or "")
+    return ""
+
+
+def reapply_stored_title_fixes(cache: dict, enrich: dict) -> int:
+    """把已核實嘅 PDF 標題重新寫返 cache.json（零下載）。
+
+    core.py 每次抓取都會用列表頁標題重建 cache.json（連 --force），所以之前
+    寫入嘅標題更正會被蓋走。呢度趁每次 enrich run 重新套用一次，令 PDF 真標題
+    長期有效——2026-10-03 用戶要求：「名字應該是區總部公布」。
+
+    安全閘（唔想再有靜默失敗）：
+      1. 只處理有記錄 `listing_title`（即係新版核對過）嘅更正——舊版 enrich.json
+         留住嘅欄位／檔號亂抽更正冇呢個欄位，永遠唔會套用；
+      2. 更正標題要通過 heading_looks_like_title()；
+      3. 只有當 cache 標題仍然係原本嘅列表標題（即係未被其他嘢改過）先寫——
+         列表標題日後改咗就唔會覆蓋。
+    回傳今次實際寫入幾多條。
+    """
+    fixed = 0
+    for url, entry in (enrich or {}).items():
+        if not isinstance(entry, dict) or entry.get("title_check") != "corrected":
+            continue
+        listing_title = str(entry.get("listing_title") or "")
+        corrected = str(entry.get("title") or "")
+        if not listing_title or not corrected or listing_title == corrected:
+            continue
+        if not heading_looks_like_title(corrected):
+            continue
+        if _cache_title_for(cache, url) != listing_title:
+            continue
+        if apply_title_to_cache(cache, url, corrected):
+            fixed += 1
+            print(f"   📝 重新套用已核實標題：{listing_title[:28]} → {corrected[:28]}")
+    return fixed
 
 
 def apply_title_to_cache(cache: dict, url: str, new_title: str) -> bool:
@@ -400,6 +495,20 @@ def extract_after_label(text, label_keys, stop_keys, max_len=120):
     return ""
 
 
+def _recipient_scope(text):
+    """公函式通告嘅收件人欄（「致：各旅長／旅負責領袖」）。
+
+    2026-10-03：區會通告成日冇「參加資格／對象」label，但開頭「致：」就係收件人
+    （紅磡區「區總部公布」個案）。只認行首嘅「致／受文者」＋冒號，而且只睇頭 15 行，
+    避免內文「致謝」等字眼誤中；「知會：」係副本，刻意唔當對象。
+    """
+    for line in (text or "").split("\n")[:15]:
+        match = re.match(r"^(?:致|受文者)\s*[:：]\s*(.+)$", compact(line))
+        if match:
+            return match.group(1)
+    return ""
+
+
 def extract_audience(text):
     """對象：只從明確『參加資格/對象』label 附近辨識支部主體。
     主體離不開：小童軍/幼童軍/童軍/深資童軍/樂行童軍/領袖/家長/成年成員/公眾。
@@ -424,6 +533,10 @@ def extract_audience(text):
         lines_after=2,
         stop_keys=["費用", "收費", "名額", "報名", "截止", "日期", "辦法"],
     )
+    if not scope:
+        # 冇「參加資格／對象」label 時，先睇公函收件人欄（「致：…」）；
+        # 都冇就寧願漏抽。
+        scope = _recipient_scope(text)
     if not scope:
         return ""  # 無明確 label，寧願漏抽
 
@@ -840,9 +953,15 @@ def main():
             # 5/23 教訓：同一 session 連環下載最易觸發站點封鎖
             time.sleep(random.uniform(1.5, 4.0))
         print(f"[{source}] {title[:36]}")
+        listing_title = title  # 核對前嘅列表標題：更正一旦寫入，要用嚟記住原貌
         res = enrich_one(url, title=title, use_ocr=not args.no_ocr, verbose=args.verbose, source=source)
         verified_title = res.get("_verified_title") or title
         title_check = res.get("_title_check") or "unverified"
+        if title_check == "corrected" and verified_title != title and not heading_looks_like_title(verified_title):
+            # 抽出嚟嘅嘢唔似標題（欄位／檔號／表格行）→ 寧願唔改，當未核實
+            title_check = "unverified"
+            verified_title = title
+            res["_title_check"] = title_check
         if title_check == "corrected" and verified_title != title:
             sim = res.get("_title_similarity", 0)
             if args.apply_title_fixes:
@@ -880,6 +999,10 @@ def main():
             "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "enrich_version": ENRICH_VERSION,
         }
+        if title_check == "corrected" and title != listing_title:
+            # 記住原本列表標題：cache 每次重建都會用返列表標題，靠呢個欄位
+            # 之後先可以安全地重新套用更正（見 reapply_stored_title_fixes）。
+            enrich[url]["listing_title"] = listing_title
         tag = res.get("_error") or res.get("_method")
         got = [k for k in ("deadline", "audience", "fee", "categories", "subscription_tags") if res.get(k)]
         cats = "、".join(c.get("label", "") for c in (res.get("categories") or []))
@@ -895,6 +1018,15 @@ def main():
               ensure_ascii=False, indent=2)
     print(f"\n✅ 完成：處理 {done} 條，抽到內容 {ok} 條 → {ENRICH_FILE}")
 
+    # 2026-10-03：core.py 每次抓取（包括 --force）都會用列表頁標題重建
+    # cache.json，之前寫入嘅更正會被蓋走。呢度零下載重新套用已核實嘅更正，
+    # 令「區總部公布」等 PDF 真標題長期有效。
+    if args.apply_title_fixes:
+        reapplied = reapply_stored_title_fixes(cache, enrich)
+        if reapplied:
+            cache_dirty = True
+            print(f"📝 重新套用 {reapplied} 個已核實嘅 PDF 標題（cache 之前被列表標題蓋走）")
+
     # 2026-09-14：呢個寫入之前完全冇接上（cache_dirty 設咗從來冇讀過），
     # 所以 PR #19 個「標題雙重認證」實際上從未改過 cache.json。
     # 而家明確接上，但只喺 --apply-title-fixes 先至會觸發，預設仍然淨係報告。
@@ -902,7 +1034,7 @@ def main():
         with open(CACHE_FILE, "w", encoding="utf-8") as f:
             json.dump(cache, f, ensure_ascii=False, indent=2)
             f.write("\n")
-        print(f"📝 已把 {title_corrections} 個核對過嘅標題寫回 {CACHE_FILE}")
+        print(f"📝 已更新 {CACHE_FILE}（今次新寫入 {title_corrections} 個核對過嘅標題）")
 
     if args.report:
         write_report(enrich)

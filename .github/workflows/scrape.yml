@@ -70,9 +70,13 @@ jobs:
           python core.py
 
       # ── Step 2: 跑 enrich.py 增量抽新入庫通告的文字 ──
+      # --apply-title-fixes：列表標題同 PDF 真標題對唔上（例如「D-26-05 - 26年10月
+      # 區會公布 【New】」其實係「區總部公布」）就寫返 cache.json，並記錄原本列表
+      # 標題，之後每次 run 重新套用（core.py 重建 cache 都唔會蓋走）。欄位／檔號／
+      # 表格行唔會寫入（enrich.heading_looks_like_title 把關）。
       - name: Run enrich scraper (incremental only)
         run: |
-          python enrich.py --verbose
+          python enrich.py --verbose --apply-title-fixes
 
       # ── Step 3: 健康檢查（報告記錄在 Action log）──
       - name: Health check (report only)

@@ -13,6 +13,7 @@ from enrich import (
     extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories,
     compact_title, title_similarity, extract_pdf_heading, reconcile_listing_title,
     apply_title_to_cache, title_variants, listing_supported_by_pdf,
+    heading_looks_like_title, reapply_stored_title_fixes,
     TITLE_SIMILARITY_THRESHOLD,
 )
 from subscription_tagging import extract_subscription_metadata, load_catalog
@@ -380,6 +381,100 @@ def main():
         "欄位過濾唔好誤殺：標題含「截止日期」四字仍然抽到",
         extract_pdf_heading(merit_pdf),
         merit,
+    )
+
+    # ── 2026-10-03 用戶個案：總會「總部公告」＋紅磡區「區總部公布」 ──
+    # 兩個都係公布類通告，但舊版標題抽出揀咗檔號／公函欄位，令 (1) 分類被
+    # PDF 內文搶走、(2) 核對誤判「corrected」。呢度釘死修正後嘅行為。
+    acr_pdf = (
+        "行政署 第 21/2026 號通告\n"
+        "總部公告\n"
+        "訓練署\n"
+        "﹙一﹚ 余永健先生由 2026 年 10 月 1 日起，獲委任為總部總監。\n"
+        "童軍知友社\n"
+        "﹙二﹚ 鄺志立先生獲委任為助理總部總監（項目）。\n"
+    )
+    passed += test(
+        "PDF 標題：檔號行（行政署 第 21/2026 號通告）唔可以當標題",
+        extract_pdf_heading(acr_pdf),
+        "總部公告",
+    )
+    passed += test(
+        "對證：列表標題「總部公告」＝PDF 標題 → 維持，唔好改成檔號",
+        (reconcile_listing_title("總部公告", acr_pdf)["status"],
+         reconcile_listing_title("總部公告", acr_pdf)["title"]),
+        ("verified", "總部公告"),
+    )
+    hhd_pdf = (
+        "香港童軍總會紅磡區\n"
+        "Scout Association of Hong Kong – Hung Hom District\n"
+        "網址 Web Site：https://www.scout.org.hk/hhd\n"
+        "電話 Tel.：2712 3841\n"
+        "地址：九龍馬頭圍邨芙蓉樓地下 104 室\n"
+        "由 ：區總監\n"
+        "致 ：各旅長／旅負責領袖\n"
+        "知會：區各級總監及領袖\n"
+        "日期：2026 年 10 月 1 日\n"
+        "編號：HHD-D-26-05\n"
+        "區總部公布\n"
+        "（一） 區總部更改開放時間\n"
+    )
+    passed += test(
+        "PDF 標題：公函欄位（由／致／知會／編號）唔可以當標題",
+        extract_pdf_heading(hhd_pdf),
+        "區總部公布",
+    )
+    hhd = reconcile_listing_title("D-26-05 - 26年10月區會公布 【New】", hhd_pdf)
+    passed += test(
+        "對證：區會公布 → 用 PDF 真標題「區總部公布」",
+        (hhd["status"], hhd["title"]),
+        ("corrected", "區總部公布"),
+    )
+    for noise in ("致 :各旅長/旅負責領袖", "行政通告第 13/2026號", "通告第 19/2026 號",
+                  "截止日期: 2026年11月20日(星期五)", "遊戲節目 / 招募配對 11 月28日 六 1115-1230"):
+        passed += test(
+            f"寫入前防線：唔似標題嘅「{noise[:12]}…」唔會寫回 cache",
+            heading_looks_like_title(noise),
+            False,
+        )
+    passed += test(
+        "寫入前防線：正常標題可以寫回 cache",
+        heading_looks_like_title("區總部公布") and heading_looks_like_title("第95屆營藝訓練班"),
+        True,
+    )
+
+    # ── 已核實更正會喺 cache 被列表標題蓋走之後重新套用 ──
+    fix_cache = {"data": {"紅磡區": [
+        {"title": "D-26-05 - 26年10月區會公布 【New】", "pdf_url": "https://example/hhd.pdf",
+         "url": "https://example/hhd.pdf", "captured_date": "2026-10-03"},
+    ]}}
+    fix_enrich = {"https://example/hhd.pdf": {
+        "title": "區總部公布", "listing_title": "D-26-05 - 26年10月區會公布 【New】",
+        "title_check": "corrected",
+    }}
+    passed += test(
+        "重新套用：cache 被列表標題蓋走 → 寫返已核實標題",
+        (reapply_stored_title_fixes(fix_cache, fix_enrich),
+         fix_cache["data"]["紅磡區"][0]["title"]),
+        (1, "區總部公布"),
+    )
+    passed += test(
+        "重新套用：已經係正確標題 → 唔會重複寫",
+        reapply_stored_title_fixes(fix_cache, fix_enrich),
+        0,
+    )
+    legacy_enrich = {"https://example/old.pdf": {
+        "title": "截止日期: 2026年11月20日(星期五)", "title_check": "corrected",
+    }}
+    legacy_cache = {"data": {"柴灣區": [
+        {"title": "深資童軍原野烹飪暨營藝考驗", "pdf_url": "https://example/old.pdf",
+         "url": "https://example/old.pdf", "captured_date": "2026-09-13"},
+    ]}}
+    passed += test(
+        "重新套用：舊版冇 listing_title 嘅亂抽更正永遠唔會套用",
+        (reapply_stored_title_fixes(legacy_cache, legacy_enrich),
+         legacy_cache["data"]["柴灣區"][0]["title"]),
+        (0, "深資童軍原野烹飪暨營藝考驗"),
     )
 
     # ── 格式正規化 ──
