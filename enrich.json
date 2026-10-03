@@ -51813,13 +51813,11 @@
     "fee": "HK$100",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
+          "津貼計劃"
         ]
       }
     ],
@@ -51827,50 +51825,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:training",
-      "course:wood-module-1",
-      "course:wood-module-3",
-      "training:領袖:木章"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
-        ]
-      },
-      {
-        "id": "course:wood-module-1",
-        "label": "童軍運動基本原則（單元1A／1B）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍運動基本原則",
-          "標題／內文：單元1a"
-        ]
-      },
-      {
-        "id": "course:wood-module-3",
-        "label": "領導及管理（單元3）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：領導及管理訓練班",
-          "標題／內文：單元3"
-        ]
-      },
-      {
-        "id": "training:領袖:木章",
-        "label": "所有木章訓練班",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "類別：木章訓練班"
+          "津貼計劃"
         ]
       }
     ],
@@ -52050,12 +52014,13 @@
     "fee": "HK$10",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "考驗"
-        ]
+          "同樂日"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
@@ -52065,56 +52030,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:training",
-      "training:樂行童軍",
-      "training:深資童軍",
-      "training:童軍",
-      "training:領袖:非木章"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "考驗"
-        ]
-      },
-      {
-        "id": "training:樂行童軍",
-        "label": "所有樂行童軍訓練",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：樂行童軍"
-        ]
-      },
-      {
-        "id": "training:深資童軍",
-        "label": "所有深資童軍訓練",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：深資童軍"
-        ]
-      },
-      {
-        "id": "training:童軍",
-        "label": "所有童軍訓練",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：童軍"
-        ]
-      },
-      {
-        "id": "training:領袖:非木章",
-        "label": "所有非木章訓練班",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：領袖"
+          "同樂日"
         ]
       }
     ],
@@ -53144,25 +53069,32 @@
     "fee": "HK$200",
     "categories": [
       {
-        "id": "announcement",
-        "label": "公布",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "考察團",
+          "童探索"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
       "童軍"
     ],
     "subscription_tags": [
-      "category:announcement"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:announcement",
-        "label": "公布",
-        "group": "公布",
-        "kind": "category",
-        "evidence": []
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "考察團",
+          "童探索"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
@@ -53180,26 +53112,29 @@
     "fee": "",
     "categories": [
       {
-        "id": "service",
-        "label": "服務",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "服務"
-        ]
+          "考察團",
+          "童探索"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:service"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:service",
-        "label": "服務",
-        "group": "服務",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "服務"
+          "考察團",
+          "童探索"
         ]
       }
     ],
@@ -53312,13 +53247,11 @@
     "fee": "HK$100",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
+          "津貼計劃"
         ]
       }
     ],
@@ -53326,50 +53259,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:training",
-      "course:wood-module-1",
-      "course:wood-module-3",
-      "training:領袖:木章"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
-        ]
-      },
-      {
-        "id": "course:wood-module-1",
-        "label": "童軍運動基本原則（單元1A／1B）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍運動基本原則",
-          "標題／內文：單元1a"
-        ]
-      },
-      {
-        "id": "course:wood-module-3",
-        "label": "領導及管理（單元3）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：領導及管理訓練班",
-          "標題／內文：單元3"
-        ]
-      },
-      {
-        "id": "training:領袖:木章",
-        "label": "所有木章訓練班",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "類別：木章訓練班"
+          "津貼計劃"
         ]
       }
     ],
@@ -53509,26 +53408,27 @@
     "fee": "",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "挑戰賽"
-        ]
+          "同樂日"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:competition"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "挑戰賽"
+          "同樂日"
         ]
       }
     ],
@@ -53547,13 +53447,13 @@
     "fee": "HK$120",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "比賽",
-          "挑戰賽"
-        ]
+          "同樂日"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
@@ -53562,17 +53462,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:competition"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "比賽",
-          "挑戰賽"
+          "同樂日"
         ]
       }
     ],
@@ -53788,11 +53687,11 @@
     "fee": "",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "會操"
+          "童軍獎勵"
         ]
       }
     ],
@@ -53800,16 +53699,16 @@
       "童軍"
     ],
     "subscription_tags": [
-      "category:competition"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "會操"
+          "童軍獎勵"
         ]
       }
     ],
