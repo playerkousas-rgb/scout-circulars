@@ -65,9 +65,10 @@ jobs:
           python tools/scrape_appstore.py
 
       # ── Step 2: enrich 增量（只抽新入庫 PDF）──
+      # --apply-title-fixes 同 scrape.yml 一致：PDF 真標題會寫返 cache.json
       - name: Run enrich scraper (incremental only)
         run: |
-          python enrich.py --verbose
+          python enrich.py --verbose --apply-title-fixes
 
       # ── Step 3: 健康檢查 ──
       - name: Health check (report only)

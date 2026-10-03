@@ -106,6 +106,18 @@ ANNOUNCEMENT_OVERRIDE_EXCLUDE_TERMS = [
     "青年獎勵",  # 香港青年獎勵計劃係訓練，唔係公布
 ]
 
+# 2026-10-03 用戶規則：「標題有明確字眼就以標題為準——公告／公布這些明顯是公布類」。
+# 標題出現「公告／公布／公佈」＝公布類，毋須等下載 PDF 內文；即使內文提及
+# 社會服務／訓練／比賽都唔可以拉走（個案：總會「總部公告」被內文「社會服務」
+# 搶去服務；紅磡區「D-26-05 區會公布」被內文「考驗」搶去訓練）。
+# ⚠️ 「成績公布／結果公布／公佈結果」係賽果＝比賽類（2026-10-01 已定），
+#    所以要比對之前先遮蓋呢啲片語，剩返嘅「公布」先算標題明確字眼。
+ANNOUNCEMENT_TITLE_TERMS = ["公告", "公布", "公佈"]
+ANNOUNCEMENT_TITLE_RESULT_PHRASES = [
+    "成績公布", "成績公佈", "結果公布", "結果公佈",
+    "公佈結果", "公布結果", "賽果公布", "賽果公佈",
+]
+
 # 來源級分類：呢啲來源發布嘅通告一律歸類「小工具」，唔使靠標題關鍵詞。
 # 注意：分類固定係小工具，但**支部照行正常抽取**——每個工具本身有支部標籤
 # （例如「幼童軍計時器」），由標題／對象抽出；抽唔到就同其他通告一樣入未分類，
@@ -200,6 +212,19 @@ def _service_signal_hits(value: Any) -> List[str]:
     return hits
 
 
+def _announcement_title_hits(value: Any) -> List[str]:
+    """標題出現「公告／公布／公佈」＝公布類；「成績公布」等賽果片語除外。
+
+    同 _mask_term 一樣：先遮蓋會被其他分類認領嘅片語，再搵剩低嘅明確字眼。
+    """
+    haystack = normalize(value)
+    for phrase in ANNOUNCEMENT_TITLE_RESULT_PHRASES:
+        needle = normalize(phrase)
+        if needle:
+            haystack = haystack.replace(needle, "\u2400")
+    return _term_hits(haystack, ANNOUNCEMENT_TITLE_TERMS)
+
+
 def _badge_stem(label: str) -> str:
     """「模擬飛行章」→「模擬飛行」; anything that is not a badge name → ''."""
     label = str(label or "").strip()
@@ -258,8 +283,11 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
       - 同樂日、考察團、代表團、交流團、訪問團、童探索等一律算活動
       - 童軍獎勵、旅團獎勵、優異旅團、傑出旅團、功績獎勵、服務獎勵、津貼計劃、
         獎勵計劃（排除青年獎勵）一律算公布
-      - 優先序：服務邀請 > 公布覆蓋 > 強活動 > 服務 > 比賽 > 公布(行事曆等)
-        > 訓練 > 活動 > 兜底公布
+      - 標題有「公告／公布／公佈」＝公布（「成績公布／結果公布」等賽果除外）
+      - 標題有明確字眼（服務／比賽／訓練／大露營／營火會）就以標題為準，
+        PDF 內文只係標題睇唔出時嘅後備
+      - 優先序：服務邀請 > 標題公布 > 公布覆蓋 > 強活動 > 標題類別（服務 >
+        比賽 > 公布(行事曆等) > 訓練 > 露營／營火會）> 內文類別 > 兜底公布
     """
     source_name = str(source or "").strip()
     if source_name in TOOLS_SOURCES:
@@ -273,6 +301,13 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     invitation_hits = _term_hits(title, SERVICE_INVITATION_TERMS)
     if invitation_hits:
         return [_make_category("service", "服務", invitation_hits)]
+
+    # 2026-10-03：標題有「公告／公布／公佈」＝公布（用戶：明確字眼以標題為準）。
+    # 排喺服務／比賽／訓練之前——唔可以再被 PDF 內文嘅「社會服務」「考驗」
+    # 拉去做服務或訓練。
+    announcement_title_hits = _announcement_title_hits(title)
+    if announcement_title_hits:
+        return [_make_category("announcement", "公布", announcement_title_hits)]
 
     # 2026-10-03：公布覆蓋——童軍獎勵、津貼計劃等算公布
     # 檢查標題是否命中覆蓋詞，且未命中排除詞（青年獎勵）
@@ -319,21 +354,39 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
         "other": _term_hits(text, OTHER_ACTIVITY_TERMS),
     }
 
-    # 優先序：服務（撞中「服務／工作人員／義工」裸字或任何 SERVICE_TERMS 片語）
-    # 2026-10-01：呢兩個檢查刻意擺喺 is_reference_document 判斷之前——「成績
-    # 公佈算比賽類」，一張「XX比賽-結果公布」或「XX比賽-參賽名單」嘅通告唔應
-    # 該因為標題撞中「結果公布／名單」等行政文件字眼就被截咗去「公佈」，服務
-    # ／比賽嘅明確訊號必須贏過泛用嘅行政文件判斷。
-    # 2026-10-03：公布覆蓋已在上面處理，強活動亦已處理，所以這裡的服務／比賽
-    # 不會覆蓋同樂日／考察團／童軍獎勵／津貼計劃。
-    service = title_hits["service"] or text_hits["service"]
-    if service:
-        return [_make_category("service", "服務", service)]
+    # 2026-10-03 用戶規則：「有明確字眼時應該先以標題字眼作準」。
+    # 標題一旦有服務／比賽／訓練／大露營／營火會嘅明確字眼，就直接用標題
+    # 分類，唔再由 PDF 內文嘅其他字眼搶走（個案：總會「總部公告」內文有
+    # 「社會服務」、紅磡區「區會公布」內文有「考驗」）。
+    # 標題內部維持原有優先序：服務 > 比賽 > 行政文件 → 公布 > 訓練 > 露營／營火。
+    title_decisive = (
+        title_hits["service"] or title_hits["competition"] or title_hits["training"]
+        or title_hits["big_camp"] or title_hits["campfire"]
+    )
+    if title_decisive:
+        # 2026-10-01：服務／比賽刻意擺喺 is_reference_document 之前——「成績
+        # 公佈算比賽類」，一張「XX比賽-結果公布」或「XX比賽-參賽名單」嘅通告
+        # 唔應該因為標題撞中「結果公布／名單」等行政文件字眼就被截咗去「公佈」。
+        if title_hits["service"]:
+            return [_make_category("service", "服務", title_hits["service"])]
+        if title_hits["competition"]:
+            return [_make_category("competition", "比賽", title_hits["competition"])]
+        # Calendars, rules and lists are not a new course/service/event themselves.
+        if is_reference_document(title, ""):
+            return [_make_category("announcement", "公布", _term_hits(title, REFERENCE_TITLE_TERMS))]
+        if title_hits["training"]:
+            return [_make_category("training", "訓練", title_hits["training"])]
+        if title_hits["big_camp"]:
+            return [_make_category("activity", "活動", title_hits["big_camp"], "big_camp")]
+        return [_make_category("activity", "活動", title_hits["campfire"], "campfire")]
+
+    # 標題睇唔出（冇明確字眼）先用 PDF 內文補充，次序同以前一樣。
+    if text_hits["service"]:
+        return [_make_category("service", "服務", text_hits["service"])]
 
     # 優先序：比賽（明確賽事詞，例如「XX錦標賽」「XX盃」「XX成績公布」）
-    competition = title_hits["competition"] or text_hits["competition"]
-    if competition:
-        return [_make_category("competition", "比賽", competition)]
+    if text_hits["competition"]:
+        return [_make_category("competition", "比賽", text_hits["competition"])]
 
     # Calendars, rules and lists are not a new course/service/event themselves.
     if is_reference_document(title, text):
@@ -341,18 +394,15 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
         return [_make_category("announcement", "公布", reference_hits)]
 
     # 優先序：訓練（訓練班／工作坊／考驗日／課程）
-    training = title_hits["training"] or text_hits["training"]
-    if training:
-        return [_make_category("training", "訓練", training)]
+    if text_hits["training"]:
+        return [_make_category("training", "訓練", text_hits["training"])]
 
     # 優先序：活動——big_camp／campfire／其他三揀一，維持原本邏輯
-    big_camp = title_hits["big_camp"] or text_hits["big_camp"]
-    if big_camp:
-        return [_make_category("activity", "活動", big_camp, "big_camp")]
+    if text_hits["big_camp"]:
+        return [_make_category("activity", "活動", text_hits["big_camp"], "big_camp")]
 
-    campfire = title_hits["campfire"] or text_hits["campfire"]
-    if campfire:
-        return [_make_category("activity", "活動", campfire, "campfire")]
+    if text_hits["campfire"]:
+        return [_make_category("activity", "活動", text_hits["campfire"], "campfire")]
 
     # Broad words such as 「活動」 are only trusted in a title.  PDF body
     # text commonly mentions an unrelated activity in every type of notice.

@@ -147,9 +147,12 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 搜尋列仲有一排**分類**標籤：**全部／訓練／服務／活動／比賽／小工具／公布／未分類**。活動只涵蓋大露營、營火會及其他活動；比賽是獨立分類。舊資料的 direct `competition`（或舊 `activity:competition`）會向後相容顯示為「比賽」。
 
 - **分類次序：先睇標題，標題唔肯定先至加 PDF 內文**。標題通常最多關鍵資訊（例如「童軍繩結訓練班」「射箭公開賽」「社區服務隊招募」）。
-  - 標題有強證據（明確字眼）→ 直接分類。
+  - 標題有強證據（明確字眼）→ 直接分類，**唔會**被 PDF 內文其他字眼搶走。
+  - **2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布**（例如「總部公告」「區總部公布」「D-26-05 - …區會公布」），排喺服務／比賽／訓練之前。
+    唯一例外係賽果：「成績公布／結果公布／公佈結果／賽果公布」＝比賽類（2026-10-01 定咗）。
   - 標題得弱證據（例如「訓練日」「盃」）或者睇唔出 → 先用 PDF 內文補充。
   - 標題出現「行事曆／一覽／名單／章程」呢類排除詞 → 唔當活動本體。
+  - 三份規則要同步改：`subscription_tagging.py`（權威）、`story_queue.py`（Story 清單）、`index.html` 出圖台 `BATCH_RE`／`batchCategory`（`?batch=1`）。測試：`test_tools_category.py`、`test_story_queue.py`、`test_batch_category.js`。
 - `enrich.json` 每條會多一個 `categories` 欄：`[{id, label, score, evidence}...]`；前端直接用呢個欄位過濾／排序。
 - 一隻通告可以同時屬於多個類別（例如「社區服務計劃暨義工訓練」→ 服務 + 訓練班）。
 - 每日 GitHub Action / 本機 `python enrich.py` 會自動為**新通告**填 `categories`。
@@ -161,6 +164,21 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 - 想調整分類規則，改 `subscription_tagging.py` 的受控分類詞表；不要為罕見／不可靠的名稱加推播匹配。
 - 分類係 PDF 內文級估算，唔一定 100% 準；重要通告請開附件確認。
 
+### 列表標題 vs PDF 標題（`--apply-title-fixes`）
+
+`enrich.py` 會攞列表頁標題去 PDF 內文核對；對唔上而 PDF 標題夠清楚（相似度 < 90%）
+就會「更正」。2026-10-03 起每日 Action 同本機 `run-local-scrape.bat` 都加咗
+`--apply-title-fixes`，更正會寫入 `cache.json`（例：「D-26-05 - 26年10月區會公布 【New】」
+→ PDF 真標題「區總部公布」）。
+
+- 更正會記錄 `listing_title`（原本列表標題）；之後每次 `enrich.py` run 零下載
+  「重新套用」一次（`reapply_stored_title_fixes`），因為 `core.py`（尤其 `--force`）
+  每日都會用列表標題重建 `cache.json`，否則更正第二日就會被蓋走。
+- 護欄：`heading_looks_like_title()` —— 公函欄位（由／致／知會／編號…）、檔號行
+  （「行政通告第 13/2026號」）、欄位行（截止日期…）、表格／時間表行一律唔會寫入；
+  舊版 enrich.json 冇 `listing_title` 嘅亂抽更正永遠唔會套用。
+- 唔想要自動改名：把 workflow／.bat 嘅 `--apply-title-fixes` 移走即可（預設只報告）。
+
 執行回歸測試：
 
 ```bash
@@ -168,6 +186,7 @@ node test_search_members.js     # 支部 + 分類配對邏輯（直接由 index.
 node test_report_feedback.js    # 問題回報／意見反映 payload 對齊 Scout Admin；預覽頁／Cloudflare 注入已清走
 node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需要 jsdom）
 node test_time_windows.js       # 「今天」午夜界線；小工具唔以日期分類（今天／之前發布）
+node test_batch_category.js     # 出圖台 ?batch=1 分類（公告／公布規則，直接由 index.html 抽出）
 python test_notify.py           # Push 去重、交集和合併通知邏輯（不會發網絡請求）
 python test_push_common.py      # API 受控 ID 與 endpoint SSRF 防護
 python test_tools_category.py   # 「小工具」分類、全選通告／全選小工具兩個剔項
@@ -333,7 +352,7 @@ python serve_local.py            # http://localhost:8000/index.html，/api/push-
 
 1. 由 GitHub 下載最新（`git pull --rebase --autostash`）
 2. `python core.py --force` —— 全網重新巡邏，唔理 cache 有幾 fresh
-3. `python enrich.py --verbose` —— 增量抽 PDF 文字
+3. `python enrich.py --verbose --apply-title-fixes` —— 增量抽 PDF 文字（連 PDF 標題更正）
 4. 有任何改動 → `commit` + `push`。完。
 
 **移除咗嘅兩個閘門**（舊版靠呢兩個決定「推唔推」，正正係「網站時間戳唔郁」嘅根源）：

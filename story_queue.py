@@ -33,7 +33,7 @@ TOOLS_SOURCES = {"Scout System"}  # 同 index.html TOOLS_SOURCES 同步；小工
 # 對齊（一樣刻意唔收單獨「賽」字，避免「賽馬會」呢類贊助機構名誤中）。
 _RE_COMPETITION = re.compile(
     r"比賽|錦標賽|大賽|競賽|錦標|選拔賽|田徑賽|友誼賽|實體賽|"
-    r"成績公佈|成績公布|結果公佈|結果公布|公佈結果|公布結果"
+    r"成績公佈|成績公布|結果公佈|結果公布|公佈結果|公布結果|賽果公佈|賽果公布"
 )
 _RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|青年獎勵")
 # 2026-10-01：同 subscription_tagging.SERVICE_BARE_TERMS 對齊——「服務」係裸字就算，
@@ -43,6 +43,10 @@ _RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂�
 
 # 2026-10-03 用戶規則：童軍獎勵、津貼計劃等算公布；同樂日、考察團、代表團等算活動
 _RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼")
+# 2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布（明確字眼以標題為準）。
+# 「成績公布／結果公布／公佈結果」係賽果＝比賽，所以先遮蓋先。
+_RE_ANNOUNCEMENT_TITLE = re.compile(r"公告|公布|公佈")
+_RE_ANNOUNCEMENT_RESULT = re.compile(r"成績公布|成績公佈|結果公布|結果公佈|公佈結果|公布結果|賽果公布|賽果公佈")
 _RE_AWARD_PLAN = re.compile(r"獎勵計劃")
 _RE_YOUTH_AWARD = re.compile(r"青年獎勵")
 _RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會")
@@ -77,9 +81,12 @@ def classify_category(item: dict, ex: dict | None) -> str:
             # 「公佈」唔在 STORY_SLOGANS 入面，_today_candidates() 會自動跳過。
             if cid == "announcement":
                 return "announcement"
-    # 2026-10-03：優先序改做 公布覆蓋(童軍獎勵/津貼計劃) > 強活動(同樂日/考察團/代表團/童探索) > 服務 > 比賽 > 訓練 > 活動
+    # 2026-10-03：優先序改做 標題公布(公告/公布) > 公布覆蓋(童軍獎勵/津貼計劃) > 強活動(同樂日/考察團/代表團/童探索) > 服務 > 比賽 > 訓練 > 活動
     # 同 subscription_tagging.extract_categories 對齊。
     title = str(item.get("title") or "")
+    # 標題有「公告／公布／公佈」＝公布；「成績公布」等賽果片語遮蓋後唔算。
+    if _RE_ANNOUNCEMENT_TITLE.search(_RE_ANNOUNCEMENT_RESULT.sub("", title)):
+        return "announcement"
     # 青年獎勵計劃（AYP）係訓練，唔係公布，所以排除
     if not _RE_YOUTH_AWARD.search(title):
         if _RE_ANNOUNCEMENT_OVERRIDE.search(title) or _RE_AWARD_PLAN.search(title):

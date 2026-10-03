@@ -141,6 +141,9 @@ jobs:
       - name: 時間視窗邊界
         run: node test_time_windows.js
 
+      - name: 出圖台 ?batch=1 分類（公告／公布規則，直接由 index.html 抽出）
+        run: node test_batch_category.js
+
       - name: PWA 圖示／manifest／通知 badge 一致性
         run: node test_icons.js
 

@@ -805,6 +805,14 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
        && w.eval('batchCategory')({ title: '義工服務日', source_site: 'x' }, null) === 'service'
        && w.eval('batchCategory')({ title: '隨意標題', source_site: 'x' }, null) === 'other',
        '冇 enrich 時按標題關鍵字分類（比賽／服務／其他）');
+    // 2026-10-03：標題有「公告／公布／公佈」＝公布（同 story_queue.py 對齊）；
+    // 「成績公布／結果公布」係賽果＝比賽，唔可以被當成公布。
+    ok(w.eval('batchCategory')({ title: '總部公告', source_site: 'x' }, null) === 'announcement'
+       && w.eval('batchCategory')({ title: 'D-26-05 - 26年10月區會公布 【New】', source_site: 'x' }, null) === 'announcement'
+       && w.eval('batchCategory')({ title: '地域總部公佈(2026年9月)', source_site: 'x' }, null) === 'announcement'
+       && w.eval('batchCategory')({ title: '香港童軍115周年步操比賽2026 - 成績公布', source_site: 'x' }, null) === 'competition'
+       && w.eval('batchCategory')({ title: '成績公佈', source_site: 'x' }, null) === 'competition',
+       '標題「公告／公布」＝公布；「成績公布／結果公布」仍然係比賽');
     ok(/^02_unc_scope_柴灣區-\d{8}\.png$/.test(w.eval('batchFileName')({ source_site: '柴灣區', date: '2026-09-22' }, 2, false, 'unc_scope')),
        '檔名有次序＋款＋區會＋日期，唔會撞名：' + w.eval('batchFileName')({ source_site: '柴灣區', date: '2026-09-22' }, 2, false, 'unc_scope'));
   }
