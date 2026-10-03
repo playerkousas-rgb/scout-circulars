@@ -35,11 +35,17 @@ _RE_COMPETITION = re.compile(
     r"比賽|錦標賽|大賽|競賽|錦標|選拔賽|田徑賽|友誼賽|實體賽|"
     r"成績公佈|成績公布|結果公佈|結果公布|公佈結果|公布結果"
 )
-_RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會")
+_RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|青年獎勵")
 # 2026-10-01：同 subscription_tagging.SERVICE_BARE_TERMS 對齊——「服務」係裸字就算，
 # 但要剔除「服務組」（童軍專章嘅分組標籤，唔係招義工，例如「XX章(服務組)訓練班」）。
 _RE_SERVICE = re.compile(r"服務(?!組)|工作人員|義工|義務")
-_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集")
+_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會")
+
+# 2026-10-03 用戶規則：童軍獎勵、津貼計劃等算公布；同樂日、考察團、代表團等算活動
+_RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼")
+_RE_AWARD_PLAN = re.compile(r"獎勵計劃")
+_RE_YOUTH_AWARD = re.compile(r"青年獎勵")
+_RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會")
 
 
 def today_hkt(now: datetime | None = None) -> str:
@@ -71,9 +77,15 @@ def classify_category(item: dict, ex: dict | None) -> str:
             # 「公佈」唔在 STORY_SLOGANS 入面，_today_candidates() 會自動跳過。
             if cid == "announcement":
                 return "announcement"
-    # 2026-10-01：優先序改做 服務 > 比賽 > 訓練 > 活動（同 subscription_tagging.
-    # extract_categories 對齊，一篇通告淨係可以有一個分類，唔再比賽／訓練雙標籤）。
+    # 2026-10-03：優先序改做 公布覆蓋(童軍獎勵/津貼計劃) > 強活動(同樂日/考察團/代表團/童探索) > 服務 > 比賽 > 訓練 > 活動
+    # 同 subscription_tagging.extract_categories 對齊。
     title = str(item.get("title") or "")
+    # 青年獎勵計劃（AYP）係訓練，唔係公布，所以排除
+    if not _RE_YOUTH_AWARD.search(title):
+        if _RE_ANNOUNCEMENT_OVERRIDE.search(title) or _RE_AWARD_PLAN.search(title):
+            return "announcement"
+    if _RE_ACTIVITY_STRONG.search(title):
+        return "activity"
     if _RE_SERVICE.search(title):
         return "service"
     if _RE_COMPETITION.search(title):

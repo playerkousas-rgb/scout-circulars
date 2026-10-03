@@ -27,6 +27,9 @@ TRAINING_TERMS = [
     # 2026-09-14 擴充：「考驗」涵蓋各章考驗日／考驗營；「課程」涵蓋「…課程」通告。
     # （單個「章」字刻意唔收：實測會引入獎章申請／訂購表格／使用手冊等行政文件，寧漏勿錯。）
     "考驗", "課程",
+    # 2026-10-03 擴充：簡介會、迎新等常見訓練相關詞，確保青年獎勵計劃迎新簡介會等仍屬訓練
+    "簡介會", "迎新",
+    "青年獎勵",  # 香港青年獎勵計劃本身係訓練，唔係公布（配合排除）
 ]
 SERVICE_TERMS = [
     "社區服務", "服務計劃", "義工服務", "志願服務", "服務活動", "服務日", "服務隊", "服務團",
@@ -69,6 +72,38 @@ CAMPFIRE_TERMS = ["營火會", "campfire"]
 OTHER_ACTIVITY_TERMS = [
     "活動", "嘉年華", "繽紛日", "旅程", "參觀", "典禮", "日營", "露營", "遠足", "交流日", "旅行", "開放日",
     "體驗日",
+    # 2026-10-03 用戶規則：同樂日、考察團、代表團等算活動
+    "同樂日",
+    "考察團", "代表團", "交流團", "訪問團", "參訪團",
+    "童探索",
+    # 2026-10-03 用戶追加：分享會算活動
+    "分享會",
+]
+
+# 2026-10-03 新增：強活動詞（同樂日、考察團、代表團等）——呢啲標題一律算活動，
+# 即使內文含有訓練／比賽字眼（例如「攀樹同樂日」內文提到挑戰賽）都要歸活動。
+ACTIVITY_STRONG_TERMS = [
+    "同樂日",
+    "考察團", "代表團", "交流團", "訪問團", "參訪團",
+    "童探索",
+    # 2026-10-03 用戶追加：分享會算活動
+    "分享會",
+]
+
+# 2026-10-03 新增：公布覆蓋詞——童軍獎勵、津貼計劃等算公布，即使內文含有訓練／
+# 服務／比賽字眼都要歸公布。青年獎勵計劃（AYP）除外，佢本身係訓練。
+ANNOUNCEMENT_OVERRIDE_TERMS = [
+    "童軍獎勵",
+    "旅團獎勵",
+    "優異旅團",
+    "傑出旅團",
+    "功績獎勵",
+    "服務獎勵",
+    "津貼計劃",
+    "獎勵計劃",  # 通用獎勵計劃（配合青年獎勵排除，見 extract_categories）
+]
+ANNOUNCEMENT_OVERRIDE_EXCLUDE_TERMS = [
+    "青年獎勵",  # 香港青年獎勵計劃係訓練，唔係公布
 ]
 
 # 來源級分類：呢啲來源發布嘅通告一律歸類「小工具」，唔使靠標題關鍵詞。
@@ -219,14 +254,12 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     """Classify into exactly one of training / service / activity / competition
     / announcement.
 
-    2026-10-01（用戶決定）：一篇通告淨係可以有一個分類，唔再容許「又訓練又
-    比賽」「又比賽又服務」咁樣同時顯示兩個標籤。撞中幾個分類嘅字眼時，按
-    固定優先序淨揀一個：服務 > 比賽 > 公佈 > 訓練 > 活動（活動之下 big_camp／
-    campfire／其他三揀一，跟返原本邏輯）。行政性質、純公告類通告冇撞中服務
-    ／比賽／訓練／活動任何關鍵詞，一律兜底歸類做「公佈」（announcement）——
-    呢個係成員訂閱時可以揀唔要嘅分類，但永遠唔會輸畀「成績公佈算比賽類」呢
-    條規則，因為服務／比賽嘅檢查行先。Notices from a TOOLS_SOURCES source are
-    always ``tools`` regardless of wording.
+    2026-10-03（用戶決定）：
+      - 同樂日、考察團、代表團、交流團、訪問團、童探索等一律算活動
+      - 童軍獎勵、旅團獎勵、優異旅團、傑出旅團、功績獎勵、服務獎勵、津貼計劃、
+        獎勵計劃（排除青年獎勵）一律算公布
+      - 優先序：服務邀請 > 公布覆蓋 > 強活動 > 服務 > 比賽 > 公布(行事曆等)
+        > 訓練 > 活動 > 兜底公布
     """
     source_name = str(source or "").strip()
     if source_name in TOOLS_SOURCES:
@@ -240,6 +273,32 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     invitation_hits = _term_hits(title, SERVICE_INVITATION_TERMS)
     if invitation_hits:
         return [_make_category("service", "服務", invitation_hits)]
+
+    # 2026-10-03：公布覆蓋——童軍獎勵、津貼計劃等算公布
+    # 檢查標題是否命中覆蓋詞，且未命中排除詞（青年獎勵）
+    ann_override_hits = _term_hits(title, ANNOUNCEMENT_OVERRIDE_TERMS)
+    # 排除青年獎勵計劃（AYP）——佢係訓練，唔係公布
+    exclude_hits = _term_hits(title, ANNOUNCEMENT_OVERRIDE_EXCLUDE_TERMS)
+    if ann_override_hits and not exclude_hits:
+        # 特別處理「獎勵計劃」：如果標題只有「獎勵計劃」但同時包含青年獎勵，已排除
+        return [_make_category("announcement", "公布", ann_override_hits)]
+    # 津貼計劃有時寫成「津貼」+「計劃」分開，標題含「津貼」都算公布（避免漏）
+    # 但要避免誤中「津貼先導計劃」以外的訓練？用戶明確話津貼計劃算公布，所以放寬
+    if _term_hits(title, ["津貼計劃", "津貼"]):
+        # 若標題同時有青年獎勵排除，則不算（雖然津貼不會有青年獎勵）
+        if not exclude_hits:
+            # 確保標題真的有津貼字樣，避免內文誤觸
+            return [_make_category("announcement", "公布", _term_hits(title, ["津貼計劃", "津貼"]))]
+
+    # 2026-10-03：強活動詞——同樂日、考察團、代表團等一律算活動
+    strong_activity_hits = _term_hits(title, ACTIVITY_STRONG_TERMS)
+    if strong_activity_hits:
+        # 判斷子類型：大露營／營火會優先，否則 other
+        if _term_hits(title, BIG_CAMP_TERMS):
+            return [_make_category("activity", "活動", strong_activity_hits + _term_hits(title, BIG_CAMP_TERMS), "big_camp")]
+        if _term_hits(title, CAMPFIRE_TERMS):
+            return [_make_category("activity", "活動", strong_activity_hits + _term_hits(title, CAMPFIRE_TERMS), "campfire")]
+        return [_make_category("activity", "活動", strong_activity_hits, "other")]
 
     title_hits = {
         "training": _term_hits(title, TRAINING_TERMS),
@@ -260,35 +319,33 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
         "other": _term_hits(text, OTHER_ACTIVITY_TERMS),
     }
 
-    # 優先序 1：服務（撞中「服務／工作人員／義工」裸字或任何 SERVICE_TERMS 片語）
+    # 優先序：服務（撞中「服務／工作人員／義工」裸字或任何 SERVICE_TERMS 片語）
     # 2026-10-01：呢兩個檢查刻意擺喺 is_reference_document 判斷之前——「成績
     # 公佈算比賽類」，一張「XX比賽-結果公布」或「XX比賽-參賽名單」嘅通告唔應
     # 該因為標題撞中「結果公布／名單」等行政文件字眼就被截咗去「公佈」，服務
     # ／比賽嘅明確訊號必須贏過泛用嘅行政文件判斷。
+    # 2026-10-03：公布覆蓋已在上面處理，強活動亦已處理，所以這裡的服務／比賽
+    # 不會覆蓋同樂日／考察團／童軍獎勵／津貼計劃。
     service = title_hits["service"] or text_hits["service"]
     if service:
         return [_make_category("service", "服務", service)]
 
-    # 優先序 2：比賽（明確賽事詞，例如「XX錦標賽」「XX盃」「XX成績公布」）
+    # 優先序：比賽（明確賽事詞，例如「XX錦標賽」「XX盃」「XX成績公布」）
     competition = title_hits["competition"] or text_hits["competition"]
     if competition:
         return [_make_category("competition", "比賽", competition)]
 
     # Calendars, rules and lists are not a new course/service/event themselves.
-    # 行政性質、純公告類通告（委員會會議紀錄、選舉、總部公布、交數、行事曆等）
-    # 歸入「公佈」——呢個分類刻意擺喺訓練／活動之前，但喺服務／比賽之後，令
-    # 「比賽結果公布」「比賽參賽名單」呢類通告唔會被呢度截咗去（見上面優先序
-    # 1、2）。「公佈」係畀成員訂閱時可以剔走嘅行政類別，唔會變成 Story。
     if is_reference_document(title, text):
         reference_hits = _term_hits(title, REFERENCE_TITLE_TERMS) or _term_hits(text, REFERENCE_TITLE_TERMS)
         return [_make_category("announcement", "公布", reference_hits)]
 
-    # 優先序 3：訓練（訓練班／工作坊／考驗日／課程）
+    # 優先序：訓練（訓練班／工作坊／考驗日／課程）
     training = title_hits["training"] or text_hits["training"]
     if training:
         return [_make_category("training", "訓練", training)]
 
-    # 優先序 4：活動——big_camp／campfire／其他三揀一，維持原本邏輯
+    # 優先序：活動——big_camp／campfire／其他三揀一，維持原本邏輯
     big_camp = title_hits["big_camp"] or text_hits["big_camp"]
     if big_camp:
         return [_make_category("activity", "活動", big_camp, "big_camp")]
@@ -303,8 +360,7 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     if other:
         return [_make_category("activity", "活動", other, "other")]
 
-    # 2026-10-01：最後兜底都歸類做「公佈」（而唔係乜都冇），等呢類通告都可以喺
-    # 訂閱設定度俾成員揀「唔想收」——呢班通常係成員最唔想睇嘅行政類一次性通告。
+    # 兜底公布
     return [_make_category("announcement", "公布", [])]
 
 
