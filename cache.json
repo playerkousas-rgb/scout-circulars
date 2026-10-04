@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-04 03:12:16",
+  "last_updated": "2026-10-05 03:34:53",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4914,
+    "total_notices": 4918,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -24048,6 +24048,42 @@
     ],
     "九龍地域": [
       {
+        "title": "幼童軍射箭章(三級制)訓練班",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
+        "date": "2026-10-05",
+        "captured_date": "2026-10-05",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "地域公布 (1/10/2026)",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/KR12_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KR12_26.pdf",
+        "date": "2026-10-05",
+        "captured_date": "2026-10-05",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "九龍地域雙月刊第36卷第5期",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/Bulletin_R36i5_L.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/Bulletin_R36i5_L.pdf",
+        "date": "2026-10-05",
+        "captured_date": "2026-10-05",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "「踩出地平線」海外單車遊分享會",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/PRG22_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/PRG22_26.pdf",
+        "date": "2026-10-05",
+        "captured_date": "2026-10-05",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
         "title": "深資童軍射箭訓練班",
         "url": "https://krscout.org/wp-content/uploads/2026/09/PRG13_26.pdf",
         "pdf_url": "https://krscout.org/wp-content/uploads/2026/09/PRG13_26.pdf",
@@ -44352,6 +44388,34 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
+      "title": "幼童軍射箭章(三級制)訓練班",
+      "captured_date": "2026-10-05"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KR12_26.pdf",
+      "title": "地域公布 (1/10/2026)",
+      "captured_date": "2026-10-05"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/Bulletin_R36i5_L.pdf",
+      "title": "九龍地域雙月刊第36卷第5期",
+      "captured_date": "2026-10-05"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/PRG22_26.pdf",
+      "title": "「踩出地平線」海外單車遊分享會",
+      "captured_date": "2026-10-05"
+    },
     {
       "source_site": "沙田東區",
       "region": "新界東地域",
@@ -78899,27 +78963,29 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-04 03:12:16",
-      "new": 1,
-      "updated": 68,
-      "daily_new": 1,
-      "skipped": 38,
+      "updated_at": "2026-10-05 03:34:53",
+      "new": 4,
+      "updated": 122,
+      "daily_new": 4,
+      "skipped": 47,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
+        "總會",
         "港島地域",
-        "灣仔區",
+        "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
         "港島北區",
-        "九龍地域",
         "紅磡區",
         "何文田區",
+        "九龍城區",
         "九龍塘區",
         "旺角區",
+        "深旺區",
         "深水埗東區",
         "深水埗西區",
         "油尖區",
@@ -78931,10 +78997,14 @@
         "將軍澳區",
         "觀塘區",
         "鯉魚門區",
+        "新界地域",
+        "元朗東區",
         "元朗西區",
         "十八鄉區",
-        "北葵涌區",
+        "屯門西區",
         "屯門東區",
+        "荃灣區",
+        "南葵涌區",
         "離島區 (expected_empty)",
         "新界東地域",
         "雙魚區",
@@ -78943,8 +79013,11 @@
         "大埔南區",
         "沙田西區",
         "沙田南區",
+        "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",
+        "慈雲山區",
+        "青衣區",
         "Scout System (disabled)"
       ]
     }
