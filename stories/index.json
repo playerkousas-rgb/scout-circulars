@@ -6,9 +6,10 @@
   "2026-09-30",
   "2026-10-01",
   "2026-10-02",
-  "2026-10-03"
+  "2026-10-03",
+  "2026-10-05"
  ],
- "updated_at": "2026-10-03T09:29:10.322042+00:00",
+ "updated_at": "2026-10-05T10:54:54.700062+00:00",
  "items": [
   {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf",
@@ -89,6 +90,16 @@
    "k": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
    "f": "stories/2026-09-30/01_activity_army_29d17a.png",
    "t": "Game Night系列活動"
+  },
+  {
+   "k": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
+   "f": "stories/2026-10-05/01_train_blue_2e98d9.png",
+   "t": "幼童軍射箭章(三級制)訓練班"
+  },
+  {
+   "k": "https://krscout.org/wp-content/uploads/2026/10/PRG22_26.pdf",
+   "f": "stories/2026-10-05/00_activity_army_0eac9f.png",
+   "t": "「踩出地平線」海外單車遊分享會"
   },
   {
    "k": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
