@@ -1,13 +1,148 @@
 {
-  "last_updated": "2026-10-05 05:00:06",
+  "last_updated": "2026-10-06 05:00:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4920,
+    "total_notices": 4951,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域總部公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26235/SP17.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26235/SP17.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地質生態導賞員訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "提交2025/2026年度賬目結算表",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26227/Adm24.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26227/Adm24.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "卓越領袖嘉許計劃2027",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26232/Adm28.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26232/Adm28.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "卓越領袖嘉許計劃2026 - 獲嘉許名單",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26230/Adm26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26230/Adm26.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "三級童軍標準艇訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2027年童軍獎券籌募活動 - 回條",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26229/Adm25-app.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26229/Adm25-app.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2027年童軍獎券籌募活動",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "香港童軍115周年—新界地域步操及升旗比賽2026 - 成績公布",
         "url": "https://scout.org.hk/uploads/tc/circulars/26306/Special20.pdf",
@@ -9424,6 +9559,15 @@
       }
     ],
     "港島地域": [
+      {
+        "title": "地域總部公布",
+        "url": "https://www.scout.org.hk/uploads/tc/circulars/26223/adm22_26_announcement.pdf",
+        "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26223/adm22_26_announcement.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "港島地域",
+        "region": "港島地域"
+      },
       {
         "title": "渣打香港馬拉松2027-工作人員大招募-報名表格(總會/地域/區領袖或委員適用)",
         "url": "https://www.scout.org.hk/uploads/tc/circulars/26080/Sp18_26_SCHKMAppform2027_Ind.xls",
@@ -29369,6 +29513,141 @@
     ],
     "東九龍地域": [
       {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5656",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5656",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5657",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5657",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域總部公布",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5642",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5642",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5649",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5649",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5655",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5655",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "提交2025/2026年度賬目結算表",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5643",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5643",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5647",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5647",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "卓越領袖嘉許計劃2027",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5646",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5646",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "卓越領袖嘉許計劃2026 - 獲嘉許名單",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5644",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5644",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5645",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5645",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "三級童軍標準艇訓練班",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "「東九50時間錦囊」盲盒訂購",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5648",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5648",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "2027年童軍獎券籌募活動 - 回條",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5651",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5651",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
+        "title": "2027年童軍獎券籌募活動",
+        "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5650",
+        "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5650",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "東九龍地域",
+        "region": "東九龍地域"
+      },
+      {
         "title": "香港童軍115周年暨東九龍地域50周年之海陸空嘉年華 - 報名表格",
         "url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5639",
         "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5639",
@@ -44406,6 +44685,223 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+      "title": "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+      "title": "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf",
+      "title": "東九龍地域總部公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26235/SP17.pdf",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
+      "title": "地質生態導賞員訓練班",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf",
+      "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26227/Adm24.pdf",
+      "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
+      "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26232/Adm28.pdf",
+      "title": "卓越領袖嘉許計劃2027",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26230/Adm26.pdf",
+      "title": "卓越領袖嘉許計劃2026 - 獲嘉許名單",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
+      "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
+      "title": "三級童軍標準艇訓練班",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26229/Adm25-app.pdf",
+      "title": "2027年童軍獎券籌募活動 - 回條",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
+      "title": "2027年童軍獎券籌募活動",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "港島地域",
+      "region": "港島地域",
+      "pdf_url": "https://www.scout.org.hk/uploads/tc/circulars/26223/adm22_26_announcement.pdf",
+      "title": "地域總部公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5656",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5657",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5642",
+      "title": "東九龍地域總部公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5649",
+      "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5655",
+      "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654",
+      "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5643",
+      "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5647",
+      "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5646",
+      "title": "卓越領袖嘉許計劃2027",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5644",
+      "title": "卓越領袖嘉許計劃2026 - 獲嘉許名單",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5645",
+      "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653",
+      "title": "三級童軍標準艇訓練班",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5648",
+      "title": "「東九50時間錦囊」盲盒訂購",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5651",
+      "title": "2027年童軍獎券籌募活動 - 回條",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "東九龍地域",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5650",
+      "title": "2027年童軍獎券籌募活動",
+      "captured_date": "2026-10-06"
+    },
     {
       "source_site": "南葵涌區",
       "region": "新界地域",
@@ -78995,10 +79491,10 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-05 05:00:06",
-      "new": 2,
-      "updated": 3513,
-      "daily_new": 6,
+      "updated_at": "2026-10-06 05:00:06",
+      "new": 31,
+      "updated": 3487,
+      "daily_new": 31,
       "skipped": 4,
       "processed": 46,
       "playwright_used": 2,
