@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-06 05:00:06",
+  "last_updated": "2026-10-06 06:36:36",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
@@ -8,24 +8,6 @@
   },
   "data": {
     "總會": [
-      {
-        "title": "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
       {
         "title": "東九龍地域總部公布",
         "url": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf",
@@ -45,15 +27,6 @@
         "region": "總會"
       },
       {
-        "title": "地質生態導賞員訓練班",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
         "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
         "url": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf",
@@ -66,6 +39,24 @@
         "title": "提交2025/2026年度賬目結算表",
         "url": "https://scout.org.hk/uploads/tc/circulars/26227/Adm24.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26227/Adm24.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "地質生態導賞員訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -108,15 +99,6 @@
         "region": "總會"
       },
       {
-        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
         "title": "三級童軍標準艇訓練班",
         "url": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
@@ -138,6 +120,24 @@
         "title": "2027年童軍獎券籌募活動",
         "url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -44688,20 +44688,6 @@
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
-      "title": "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
-      "title": "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf",
       "title": "東九龍地域總部公布",
       "captured_date": "2026-10-06"
@@ -44716,13 +44702,6 @@
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
-      "title": "地質生態導賞員訓練班",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf",
       "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
       "captured_date": "2026-10-06"
@@ -44732,6 +44711,20 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26227/Adm24.pdf",
       "title": "提交2025/2026年度賬目結算表",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
+      "title": "地質生態導賞員訓練班",
       "captured_date": "2026-10-06"
     },
     {
@@ -44765,13 +44758,6 @@
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
       "title": "三級童軍標準艇訓練班",
       "captured_date": "2026-10-06"
@@ -44788,6 +44774,20 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
       "title": "2027年童軍獎券籌募活動",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+      "title": "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+      "title": "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
       "captured_date": "2026-10-06"
     },
     {
@@ -79491,17 +79491,53 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-06 05:00:06",
-      "new": 31,
-      "updated": 3487,
+      "updated_at": "2026-10-06 06:36:36",
+      "new": 0,
+      "updated": 0,
       "daily_new": 31,
-      "skipped": 4,
+      "skipped": 40,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
