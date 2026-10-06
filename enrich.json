@@ -54301,7 +54301,7 @@
     "source": "總會",
     "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
     "deadline": "2026-12-18",
-    "audience": "幼童軍、深資童軍、樂行童軍、童軍、領袖",
+    "audience": "幼童軍、深資童軍、樂行童軍、童軍、領袖、會務委員",
     "fee": "全免",
     "categories": [
       {
@@ -54313,6 +54313,7 @@
     ],
     "branch_tags": [
       "幼童軍",
+      "會務委員",
       "樂行童軍",
       "深資童軍",
       "童軍",
@@ -54415,11 +54416,11 @@
     "fee": "",
     "categories": [
       {
-        "id": "service",
-        "label": "服務",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "服務"
+          "嘉許計劃"
         ]
       }
     ],
@@ -54427,16 +54428,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:service"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:service",
-        "label": "服務",
-        "group": "服務",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "服務"
+          "嘉許計劃"
         ]
       }
     ],
@@ -54495,26 +54496,26 @@
     "fee": "",
     "categories": [
       {
-        "id": "service",
-        "label": "服務",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "服務"
+          "名單"
         ]
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:service"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:service",
-        "label": "服務",
-        "group": "服務",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "服務"
+          "名單"
         ]
       }
     ],
@@ -54662,7 +54663,7 @@
   "https://scout.org.hk/uploads/tc/circulars/26229/Adm25-app.pdf": {
     "source": "總會",
     "title": "2027年童軍獎券籌募活動 - 回條",
-    "deadline": "",
+    "deadline": "2026-11-30",
     "audience": "",
     "fee": "",
     "categories": [
@@ -54703,7 +54704,7 @@
   "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf": {
     "source": "總會",
     "title": "2027年童軍獎券籌募活動",
-    "deadline": "",
+    "deadline": "2026-11-30",
     "audience": "",
     "fee": "",
     "categories": [
@@ -54779,5 +54780,673 @@
     "enriched_at": "2026-10-06 05:07:59",
     "enrich_version": "3.3",
     "listing_title": "地域總部公布(2026年10月)"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5656": {
+    "source": "東九龍地域",
+    "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "行事曆"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "行事曆"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:30",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5657": {
+    "source": "東九龍地域",
+    "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "行事曆"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "行事曆"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:30",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5642": {
+    "source": "東九龍地域",
+    "title": "東九龍地域總部公布",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "公布"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "公布"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:30",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5649": {
+    "source": "東九龍地域",
+    "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽",
+          "成績公布"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽",
+          "成績公布"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:30",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26235/SP17.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5655": {
+    "source": "東九龍地域",
+    "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+    "deadline": "2026-12-19",
+    "audience": "領袖、會務委員",
+    "fee": "",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:會務委員",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:30",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654": {
+    "source": "東九龍地域",
+    "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事",
+    "deadline": "2026-12-18",
+    "audience": "幼童軍、深資童軍、樂行童軍、童軍、領袖、會務委員",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5643": {
+    "source": "東九龍地域",
+    "title": "提交2025/2026年度賬目結算表",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26227/Adm24.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5647": {
+    "source": "東九龍地域",
+    "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
+    "deadline": "",
+    "audience": "領袖",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5646": {
+    "source": "東九龍地域",
+    "title": "卓越領袖嘉許計劃2027",
+    "deadline": "2027-04-15",
+    "audience": "領袖",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "嘉許計劃"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "嘉許計劃"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26232/Adm28.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5644": {
+    "source": "東九龍地域",
+    "title": "卓越領袖嘉許計劃2026 - 獲嘉許名單",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "名單"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "名單"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26230/Adm26.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5645": {
+    "source": "東九龍地域",
+    "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "名單"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "名單"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653": {
+    "source": "東九龍地域",
+    "title": "三級童軍標準艇訓練班",
+    "deadline": "2026-12-11",
+    "audience": "童軍、領袖",
+    "fee": "HK$160",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-boatswain-badge",
+      "course:scout-sailor-badge",
+      "course:scout-standard-boat",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-boatswain-badge",
+        "label": "水手長章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：水手長章"
+        ]
+      },
+      {
+        "id": "course:scout-sailor-badge",
+        "label": "水手章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：水手章"
+        ]
+      },
+      {
+        "id": "course:scout-standard-boat",
+        "label": "童軍標準艇",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍標準艇",
+          "標題／內文：童軍標準艇訓練班",
+          "標題／內文：童軍標準艇訓練"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5651": {
+    "source": "東九龍地域",
+    "title": "2027年童軍獎券籌募活動 - 回條",
+    "deadline": "2026-11-30",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "活動"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "活動"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26229/Adm25-app.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5650": {
+    "source": "東九龍地域",
+    "title": "2027年童軍獎券籌募活動",
+    "deadline": "2026-11-30",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "活動"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "活動"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:31",
+    "enrich_version": "3.4",
+    "derived_from": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5648": {
+    "source": "東九龍地域",
+    "title": "「東九50時間錦囊」盲盒訂購",
+    "audience": "",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-06 11:00:01",
+    "enrich_version": "3.4",
+    "derived_from": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5648（PDF 全文人手核實）",
+    "deadline": "2027-03-15",
+    "fee": "HK$50",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   }
 }

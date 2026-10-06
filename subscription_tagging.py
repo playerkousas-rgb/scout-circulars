@@ -101,6 +101,11 @@ ANNOUNCEMENT_OVERRIDE_TERMS = [
     "服務獎勵",
     "津貼計劃",
     "獎勵計劃",  # 通用獎勵計劃（配合青年獎勵排除，見 extract_categories）
+    # 2026-10-06：地域「卓越領袖嘉許計劃」呢類表揚計劃＝公布，唔可以由內文
+    # 「服務記錄／服務或事工」搶去服務。個案：東九龍地域 26232 Adm28.pdf
+    # 被判「服務」，但同一份通告嘅附錄（26233）同 2026 年獲嘉許名單（26230）
+    # 都係「公布」——同一件事三個標籤。
+    "嘉許計劃",
 ]
 ANNOUNCEMENT_OVERRIDE_EXCLUDE_TERMS = [
     "青年獎勵",  # 香港青年獎勵計劃係訓練，唔係公布
@@ -424,6 +429,16 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     # 歸咗「比賽」——但用戶規則係「標題有明確字眼就以標題為準」。
     if title_hits["other"] and not is_reference_document(title, ""):
         return [_make_category("activity", "活動", title_hits["other"], "other")]
+
+    # 2026-10-06：標題只有參考文件字眼（名單／行事曆／章程／指引）→ 公布，
+    # 唔可以再由 PDF 內文嘅「服務」「比賽」字眼搶走。
+    # 個案：「傑出表現成員地域總監嘉許2026 - 獲嘉許名單」（26231）被判「服務」，
+    # 來源係內文一句「無私奉獻的服務精神」；但同一日、同一系列嘅
+    # 「卓越領袖嘉許計劃2026 - 獲嘉許名單」（26230）就係「公布」——同一類文件兩個標籤。
+    # 注意：真正嘅賽果（「成績公布／結果公布」）屬比賽，喺上面 title_decisive 已經
+    # 截住；呢個檢查只影響標題冇更強字眼、但含名單／行事曆等字嘅通告。
+    if is_reference_document(title, ""):
+        return [_make_category("announcement", "公布", _term_hits(title, REFERENCE_TITLE_TERMS))]
 
     # 標題睇唔出（冇明確字眼）先用 PDF 內文補充，次序同以前一樣。
     if text_hits["service"]:

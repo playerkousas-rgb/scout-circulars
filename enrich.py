@@ -554,6 +554,24 @@ def extract_deadline(text, tables=None):
             d = find_date(block)
             if d:
                 return d
+    # 2026-10-06：冇「截止」字眼，但寫住「…日或之前（交回／遞交／提交）」
+    # 逐行試；同一行搵唔到就先後拼埋隔籬一行（PDF 換行會將日期同「或之前」分開），
+    # 但日期同動作之間唔可以跨句號／分號（見 _DEADLINE_DATE_BEFORE_RE）。
+    for i, line in enumerate(lines):
+        if not _DEADLINE_BEFORE_PHRASE_RE.search(compact(line)):
+            continue
+        windows = [line]
+        if i:
+            windows.append(lines[i - 1] + line)
+        if i + 1 < len(lines):
+            windows.append(line + lines[i + 1])
+        for window in windows:
+            m = _DEADLINE_DATE_BEFORE_RE.search(compact(window))
+            if not m:
+                continue
+            d = find_date(m.group(1))
+            if d:
+                return d
     # 「已截止」也算明確訊息
     for c, block in candidate_blocks:
         if "已截止" in compact(block):
@@ -607,6 +625,19 @@ def find_date(s):
 # 有表格結構就直接讀「截止日期」欄，唔使猜。
 _TABLE_DEADLINE_HEADER_RE = re.compile(r"截止")
 _TABLE_FEE_HEADER_RE = re.compile(r"^(?:費用|班費|收費|報名費|活動費用|團費)")
+# 2026-10-06：好多通告唔寫「截止」兩個字，而係「必須於 2026 年 11 月 30 日
+# （星期一）或之前填妥回條，交回…」。個案：東九龍地域 26228「2027年童軍獎券
+# 籌募活動」——舊版完全抽唔到截止日（前端顯示空白，但內文白紙黑字寫住 11 月 30 日）。
+# 只認「（日期）…或之前」同時有交回／遞交／提交／寄回／電郵／傳真等動作嘅行，
+# 而且要行內（或緊接一行）有完整年份日期，唔會亂認「每年的 6 月 30 日前提交」。
+_DEADLINE_BEFORE_PHRASE_RE = re.compile(r"或之前|之前|前(?:交回|遞交|提交|呈交|寄回|寄交|回覆|電郵|傳真)")
+# 「（完整日期）…（最多 16 個字，例如『（星期一）』）…或之前／前交回」
+# 中間唔可以跨句號／分號——防止「每年 6 月 30 日前提交。…2026 年 10 月 31 日呈交」
+# 呢種前後兩句被當成一句。
+_DEADLINE_DATE_BEFORE_RE = re.compile(
+    r"(20\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日)[^。；\n]{0,16}?"
+    r"(?:或之前|之前|前(?:交回|遞交|提交|呈交|寄回|寄交|回覆|電郵|傳真))"
+)
 
 
 def _table_column_first_value(tables, header_re, max_header_rows=4):
@@ -709,6 +740,7 @@ def extract_audience(text):
         label_keys=["參加資格", "參加對象", "對象", "資格"],
         lines_after=2,
         stop_keys=["費用", "收費", "名額", "報名", "截止", "日期", "辦法"],
+        follow_list=True,   # 2026-10-06：資格通常係（1）（2）（3）多行清單
     )
     if not scope:
         # 冇「參加資格／對象」label 時，先睇公函收件人欄（「致：…」）；
@@ -746,10 +778,19 @@ def extract_audience(text):
     return "、".join(ordered)
 
 
-def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None):
+# 2026-10-06：「參加資格」呢類欄位後面通常係（1）（2）（3）… 編號清單，
+# 每項一行，全部加埋先知有邊幾個支部／身分（個案：26241「一個石籃的故事」
+# 舊版只抽到前 2 行，漏咗「持有有效委任狀之會務委員」）。
+_LIST_ITEM_RE = re.compile(r"^(?:（\d{1,2}）|\(\d{1,2}\)|\d{1,2}[.、)）]|[•·])")
+
+
+def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None,
+                       follow_list=False, max_follow=6):
     """回傳 label 那行（冒號後）+ 之後 N 行的合併文字。
     若提供 stop_keys：合併後續行時，一遇到含 stop 詞的行就停，
-    避免把下一個欄位（如『報名辦法』）的內容撈進來。"""
+    避免把下一個欄位（如『報名辦法』）的內容撈進來。
+    follow_list=True（只係「參加資格／對象」用）：之後嘅行如果係
+    （1）（2）… 編號清單就繼續讀，最多多讀 max_follow 行。"""
     stop_keys = stop_keys or []
     lines = text.split("\n")
     for i, line in enumerate(lines):
@@ -762,6 +803,22 @@ def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None):
                 if any(k in compact(nl) for k in stop_keys):
                     break
                 tail_parts.append(nl)
+            if follow_list:
+                n = i + 1 + lines_after
+                extra = 0
+                while n < len(lines) and extra < max_follow:
+                    nxt = lines[n]
+                    c2 = compact(nxt)
+                    if not c2:
+                        n += 1
+                        continue
+                    if any(k in c2 for k in stop_keys):
+                        break
+                    if not _LIST_ITEM_RE.match(c2):
+                        break
+                    tail_parts.append(nxt)
+                    extra += 1
+                    n += 1
             return head + " " + " ".join(tail_parts)
     return ""
 
@@ -785,7 +842,9 @@ def extract_fee(text, tables=None):
     """
     scope = locate_label_scope(
         text,
-        label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用", "報名費用"],
+        # 2026-10-06：加「售價」——紀念品／盲盒訂購類通告寫「售價：每個港幣 50 元」
+        # （個案：東九龍地域「東九50時間錦囊」盲盒訂購），舊版會漏咗費用。
+        label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用", "報名費用", "售價"],
         lines_after=2,
     )
     value = _fee_from_scope(scope)

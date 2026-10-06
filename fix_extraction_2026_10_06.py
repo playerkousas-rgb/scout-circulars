@@ -41,7 +41,19 @@
     - 分類：標題有明確活動字眼時以標題為準（獎券籌募活動唔再被內文「比賽」搶走）
     - 課程標籤：唔再由「持有…資歷／由…擔任」呢類資格句抽出
 
-呢支 script 只負責清走已經寫入 cache.json / enrich.json 嘅污染，零下載。
+第二批（同日，以今日通告為例）程式碼修復
+----------------------------------------
+    - extract_deadline()：「（日期）…或之前（交回／遞交／提交／電郵…）」冇「截止」
+      兩個字都抽得到（26228 獎券活動 → 2026-11-30）；日期同動作唔可以跨句號／分號，
+      所以「每年 6 月 30 日前提交」＋下一段「2026 年 10 月 31 日呈交」唔會亂抽（26227）。
+    - extract_fee()：加「售價」標籤（盲盒訂購 → HK$50）。
+    - extract_audience()：參加資格係（1）（2）（3）多行清單時全部讀（26241 唔會漏
+      「持有有效委任狀之會務委員」）。
+    - 分類：標題有「嘉許計劃」＝公布（26232 唔會再被內文「服務記錄」搶去服務）；
+      標題只有參考文件字眼（名單／行事曆／章程／指引）＝公布（26231 唔會再被內文
+      「服務精神」搶去服務）；「成績公布」等賽果仍然係比賽。
+
+呢支 script 只負責清走／補返已經寫入 cache.json / enrich.json 嘅資料，零下載。
 
 用法
 ----
@@ -49,13 +61,22 @@
     python fix_extraction_2026_10_06.py             # 實際寫入
 
 （可重複執行：第二次 run 會顯示「已經乾淨」。）
+
+第二批（今日通告）會做四件事：
+    6. 按新規則重算分類／標籤：26232 → 公布、26231 → 公布
+    7. 補 26228／26229 嘅截止日 2026-11-30（人手核對 PDF 全文）
+    8. 東九龍地域 14 條 ?wpdmdl= 通告：由總會站同一份通告搬欄位（記 derived_from）
+    9. 東九龍地域獨有嘅「東九50時間錦囊」盲盒訂購：人手核實（截止 2027-03-15、
+       售價 HK$50）
 """
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 from pathlib import Path
 
+from enrich import ENRICH_VERSION
 from subscription_tagging import extract_subscription_metadata, load_catalog
 
 BASE_DIR = Path(__file__).parent
@@ -94,6 +115,72 @@ RAFFLE_URLS = {
     f"{HQ}/26228/Adm25.pdf": "2027年童軍獎券籌募活動",
     f"{HQ}/26229/Adm25-app.pdf": "2027年童軍獎券籌募活動 - 回條",
 }
+
+# ── 第二批（同日）：今日通告本身 ─────────────────────────────────
+# 6. 分類重算（標題已足夠，毋須內文）：兩條「同一類文件唔同標籤」個案
+#    （2026-10-06 最新規則：標題有『嘉許計劃』／參考文件字眼（名單…）＝公布）
+TODAY_TITLE_RECOMPUTE = {
+    # 內文「前線領袖在童軍旅的服務記錄」搶去「服務」→ 公布
+    # （同一計劃嘅附錄 26233 同 2026 年獲嘉許名單 26230 都係公布）
+    f"{HQ}/26232/Adm28.pdf": "卓越領袖嘉許計劃2027",
+    # 內文「無私奉獻的服務精神」搶去「服務」→ 公布（同 26230 一致）
+    f"{HQ}/26231/Adm27.pdf": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+}
+
+# 7. 人手核實欄位（PDF 全文已逐字核對）：Adm25／Adm25-app 內文寫「必須於
+#    2026 年 11 月 30 日（星期一）或之前填妥夾附回條，交回東九龍地域總部辦事處」，
+#    舊版因為冇「截止」兩個字而抽唔到。新版 extract_deadline 已經認得呢種寫法
+#    （見 test_enrich.py），呢度係幫今日已入庫嘅記錄補返。
+TODAY_CURATED_FIELDS = {
+    f"{HQ}/26228/Adm25.pdf": {"deadline": "2026-11-30"},
+    f"{HQ}/26229/Adm25-app.pdf": {"deadline": "2026-11-30"},
+}
+
+# 8. 人手核實對象（PDF 全文已核對）：26241「一個石籃的故事」嘅「參加資格」係
+#    （1）幼童軍、童軍、深資童軍及樂行童軍支部成員（2）各級領袖（3）會務委員
+#    （4）親友（5）各界人士；舊版只讀 label 之後 2 行，漏咗會務委員。
+#    新版 extract_audience 會讀埋（1）（2）（3）… 清單（見 test_enrich.py），
+#    呢度係幫今日已入庫嘅記錄補返，並同時重算支部標籤。
+TODAY_CURATED_AUDIENCE = {
+    f"{HQ}/26241/SA70.pdf": "幼童軍、深資童軍、樂行童軍、童軍、領袖、會務委員",
+}
+
+# 8. 東九龍地域今日 15 條全部係 /circulars/download/?wpdmdl=NNNN（3.4 之前 enrich
+#    永遠跳過）→ 其中 14 條同總會站係同一份通告（直連 .pdf），欄位直接搬過去，
+#    令今日嘅分區 copy 即刻有截止／對象／費用／分類。搬過去之後會記低 derived_from，
+#    下一次 enrich（已支援 ?wpdmdl=）會自己下載核對。
+EKR_TWIN = {
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5656": f"{HQ}/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5657": f"{HQ}/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5642": f"{HQ}/26226/Adm23.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5649": f"{HQ}/26235/SP17.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5655": f"{HQ}/26242/SA71.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654": f"{HQ}/26241/SA70.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5643": f"{HQ}/26227/Adm24.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5647": f"{HQ}/26233/Adm28-app.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5646": f"{HQ}/26232/Adm28.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5644": f"{HQ}/26230/Adm26.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5645": f"{HQ}/26231/Adm27.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653": f"{HQ}/26239/SA69.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5651": f"{HQ}/26229/Adm25-app.pdf",
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5650": f"{HQ}/26228/Adm25.pdf",
+}
+
+# 9. 東九龍地域獨有（總會站冇同一份）：由 wpdmdl PDF 全文人手核實
+#    「東九50時間錦囊」盲盒訂購 —— 售價每個 HK$50、截止訂購日期 2027-03-15
+EKR_ONLY = {
+    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5648": {
+        "title": "「東九50時間錦囊」盲盒訂購",
+        "fields": {"deadline": "2027-03-15", "fee": "HK$50"},
+    },
+}
+
+# 由孖生 entry 搬過去嘅欄位（其餘欄位（enriched_at／title_check…）重新填）
+CLONE_KEYS = (
+    "deadline", "audience", "fee", "categories", "branch_tags",
+    "subscription_tags", "subscription_tag_details", "subscription_catalog_version",
+    "method",
+)
 
 
 def find_cache_items(cache, url):
@@ -184,11 +271,12 @@ def main():
         if isinstance(entry, dict) and drop_noise_tag(entry, topic_id):
             changes.append(f"enrich.json 移除課程標籤（只喺資格／工作人員句出現）：{topic_id}")
 
-    for url, title in RAFFLE_URLS.items():
+    def apply_title_categories(url, title):
+        """按標題重算分類／訂閱標籤（保留原有支部標籤，因為標題＋對象先抽得出）。"""
         entry = enrich.get(url)
         if not isinstance(entry, dict):
-            continue
-        meta = extract_subscription_metadata(title, "")
+            return
+        meta = extract_subscription_metadata(title, "", entry.get("audience", ""))
         if entry.get("categories") != meta["categories"]:
             before = [c.get("label") for c in (entry.get("categories") or [])] or ["—"]
             after = [c.get("label") for c in meta["categories"]] or ["—"]
@@ -198,6 +286,99 @@ def main():
         entry["subscription_tags"] = meta["subscription_tags"]
         entry["subscription_tag_details"] = meta["subscription_tag_details"]
         entry["subscription_catalog_version"] = str(catalog.get("version", ""))
+
+    for url, title in RAFFLE_URLS.items():
+        apply_title_categories(url, title)
+
+    # ── 第二批（同日）：今日通告 ──
+    for url, title in TODAY_TITLE_RECOMPUTE.items():
+        apply_title_categories(url, title)
+
+    for url, fields in TODAY_CURATED_FIELDS.items():
+        entry = enrich.get(url)
+        if not isinstance(entry, dict):
+            continue
+        for key, value in fields.items():
+            if value and entry.get(key) != value:
+                changes.append(f"enrich.json {key}（『…或之前交回』句，人手核實）：{entry.get(key) or '—'} → {value}")
+                entry[key] = value
+
+    for url, audience in TODAY_CURATED_AUDIENCE.items():
+        entry = enrich.get(url)
+        if not isinstance(entry, dict):
+            continue
+        if entry.get("audience") != audience:
+            changes.append(f"enrich.json 對象（附件資格清單第 (3) 項，人手核實）：{entry.get('audience') or '—'} → {audience}")
+            entry["audience"] = audience
+        meta = extract_subscription_metadata(entry.get("title") or "", "", audience)
+        if entry.get("branch_tags") != sorted(set(entry.get("branch_tags") or []) | set(meta["branch_tags"])):
+            entry["branch_tags"] = sorted(set(entry.get("branch_tags") or []) | set(meta["branch_tags"]))
+            changes.append(f"  ↳ 重算支部標籤：{entry['branch_tags']}")
+
+    # 東九龍地域（?wpdmdl=）：由總會站同一份通告搬欄位。
+    # 已經搬過嘅（derived_from 對得上）會由孖生 entry 重新同步，令第二次 run
+    # 都會跟到孖生 entry 嘅最新狀態（例如孖生補咗對象之後）。
+    for ekr_url, hq_url in EKR_TWIN.items():
+        twin = enrich.get(hq_url)
+        items = find_cache_items(cache, ekr_url)
+        if not isinstance(twin, dict) or not items:
+            changes.append(f"enrich.json ⚠️ 跳過（搵唔到孖生 entry 或 cache 通告）：{ekr_url}")
+            continue
+        title = items[0].get("title") or twin.get("title") or ""
+        entry = enrich.get(ekr_url)
+        is_new = not isinstance(entry, dict)
+        if not is_new and entry.get("derived_from") != hq_url:
+            continue                       # 有人手改過／唔係我哋搬嘅 → 唔好覆蓋
+        if is_new:
+            entry = {"source": items[0].get("source_site") or "東九龍地域", "title": title}
+        for key in CLONE_KEYS:
+            if key in twin and entry.get(key) != twin[key]:
+                entry[key] = twin[key]
+                if not is_new:
+                    changes.append(f"enrich.json 同步孖生欄位 {key}：{title[:30]}")
+        if is_new:
+            changes.append(f"enrich.json 新增（東九龍地域 wpdmdl，欄位由同一份總會通告搬過去）：{title[:34]}")
+        entry.update({
+            "source": items[0].get("source_site") or "東九龍地域",
+            "title": title,
+            "error": "",
+            "title_check": "verified",
+            "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "enrich_version": ENRICH_VERSION,
+            "derived_from": hq_url,
+        })
+        enrich[ekr_url] = entry
+
+    # 東九龍地域獨有：由 PDF 全文人手核實
+    for ekr_url, spec in EKR_ONLY.items():
+        if ekr_url in enrich:
+            continue
+        items = find_cache_items(cache, ekr_url)
+        if not items:
+            continue
+        title = spec["title"] or items[0].get("title") or ""
+        meta = extract_subscription_metadata(title, "")
+        entry = {
+            "source": items[0].get("source_site") or "東九龍地域",
+            "title": title,
+            "audience": "",
+            "method": "text",
+            "error": "",
+            "title_check": "verified",
+            "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "enrich_version": ENRICH_VERSION,
+            "derived_from": ekr_url + "（PDF 全文人手核實）",
+        }
+        entry.update(spec["fields"])
+        entry.update({
+            "categories": meta["categories"],
+            "branch_tags": meta["branch_tags"],
+            "subscription_tags": meta["subscription_tags"],
+            "subscription_tag_details": meta["subscription_tag_details"],
+            "subscription_catalog_version": str(catalog.get("version", "")),
+        })
+        enrich[ekr_url] = entry
+        changes.append(f"enrich.json 新增（東九龍地域獨有，人手核實）：{title}")
 
     if not changes:
         print("✅ 已經乾淨，冇嘢要改。")
