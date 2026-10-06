@@ -93,6 +93,19 @@ ACTIVITY_STRONG_TERMS = [
     "石籃的故事",
 ]
 
+# 2026-10-06 用戶規則：「香港童軍大會操」＝全港週年大會操（Scout Rally）本身，
+# 係一個活動／典禮，唔係比賽。舊規則因為「會操」喺 COMPETITION_TERMS 入面，
+# 令「2026年香港童軍大會操(四)」「香港童軍大會操荃灣區會旅遊巴士安排」呢類
+# 通告一律變「比賽」——訂咗「所有比賽」嘅訂閱者會收到旅遊巴士安排呢類資訊。
+# 用戶指示：標題有「香港童軍大會操」一律算活動；唯一例外係失物認領（見下面）。
+# 刻意只收全名「香港童軍大會操」：其他會操（例如「九龍地域會操」）未經用戶
+# 確認，唔好順手改（見 extract_categories）。
+RALLY_ACTIVITY_TERMS = ["香港童軍大會操"]
+
+# 2026-10-06 用戶規則：失物認領／失物待領通告係行政公告＝公布，就算標題掛住
+# 活動或賽事個名（「…大會操失物認領安排」「國際賽船大會-失物待領」）都一樣。
+LOST_PROPERTY_TERMS = ["失物認領", "失物待領", "失物領回", "失物處理"]
+
 # 2026-10-03 新增：公布覆蓋詞——童軍獎勵、津貼計劃等算公布，即使內文含有訓練／
 # 服務／比賽字眼都要歸公布。青年獎勵計劃（AYP）除外，佢本身係訓練。
 ANNOUNCEMENT_OVERRIDE_TERMS = [
@@ -331,14 +344,43 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
       - 標題有「公告／公布／公佈」＝公布（「成績公布／結果公布」等賽果除外）
       - 標題有明確字眼（服務／比賽／訓練／大露營／營火會）就以標題為準，
         PDF 內文只係標題睇唔出時嘅後備
-      - 優先序：服務邀請 > 標題公布 > 公布覆蓋 > 強活動 > 標題類別（服務 >
-        比賽 > 公布(行事曆等) > 訓練 > 露營／營火會）> 內文類別 > 兜底公布
+      - 優先序：失物認領(公布) > 香港童軍大會操(活動) > 服務邀請 > 標題公布 >
+        公布覆蓋 > 強活動 > 標題類別（服務 > 比賽 > 公布(行事曆等) > 訓練 >
+        露營／營火會）> 內文類別 > 兜底公布
+
+    2026-10-06（用戶決定）：
+      - 標題有「香港童軍大會操」一律算活動——大會操係週年活動／典禮，唔係比賽
+        （「會操」喺 COMPETITION_TERMS 入面會搶走呢類通告）
+      - 唯一例外：失物認領／失物待領通告係行政公告＝公布
     """
     source_name = str(source or "").strip()
     if source_name in TOOLS_SOURCES:
         return [_make_category("tools", "小工具", [f"來源：{source_name}"])]
     title = str(title or "")
     text = str(text or "")
+
+    # 2026-10-06 用戶規則：失物認領／失物待領＝行政公告（公布），優先過一切
+    # 活動／賽事字眼——「…大會操失物認領安排」「國際賽船大會-失物待領」都係
+    # 叫返啲失物，唔係活動本身。呢個係「大會操＝活動」規則嘅唯一例外。
+    lost_property_hits = _term_hits(title, LOST_PROPERTY_TERMS)
+    if lost_property_hits:
+        return [_make_category("announcement", "公布", lost_property_hits)]
+
+    # 2026-10-06 用戶規則：標題有「香港童軍大會操」＝活動。大會操係全港週年
+    # 活動／典禮，唔係比賽；因為「會操」喺 COMPETITION_TERMS 入面，唔喺呢度
+    # 先截住就會變「比賽」（個案：總會「2026年香港童軍大會操(四)」、
+    # 荃灣區「香港童軍大會操荃灣區會旅遊巴士安排」）。用戶只收全名
+    # 「香港童軍大會操」，地域／聯隊會操（「九龍地域會操」「聯隊週年大會操」）
+    # 刻意唔跟——嗰啲多數同步操比賽通告混埋一齊，未經用戶確認唔好順手改。
+    # 用戶同日補充：「有服務XX 一定是歸服務」——大會操嘅服務邀請／義務工作
+    # 人員招募仍然係服務，唔會被大會操規則食咗；「服務獎勵」呢類表揚通告除外
+    # （2026-10-03 用戶規則：服務獎勵＝公布，唔係招義工）。
+    rally_hits = _term_hits(title, RALLY_ACTIVITY_TERMS)
+    if rally_hits:
+        rally_service_hits = _term_hits(title, SERVICE_TERMS) + _service_signal_hits(title)
+        if rally_service_hits and not _term_hits(title, ANNOUNCEMENT_OVERRIDE_TERMS):
+            return [_make_category("service", "服務", rally_service_hits)]
+        return [_make_category("activity", "活動", rally_hits, "other")]
 
     # 標題明確話係「服務邀請／義工邀請」＝呢張通告本身就係招募義工，一定淨係
     # 服務，唔會因為標題重複咗賽事個名（...挑戰賽）或掛住訓練字眼就變成

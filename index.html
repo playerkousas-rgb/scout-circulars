@@ -6241,6 +6241,11 @@
       youth_award: /青年獎勵/,
       // 2026-10-06：石籃保育體驗活動（標題雖名「故事」，PDF 寫明是可報名活動）。
       activity_strong: /同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|石籃的故事/,
+      // 2026-10-06 用戶規則：「香港童軍大會操」＝活動（大會操係週年活動／典禮，
+      // 唔係比賽）；失物認領／失物待領＝公布（唯一例外）。
+      // 同 subscription_tagging.py／story_queue.py 對齊。
+      rally_activity: /香港童軍大會操/,
+      lost_property: /失物認領|失物待領|失物領回|失物處理/,
     };
 
     function batchCategory(item, ex) {
@@ -6255,6 +6260,15 @@
         }
       }
       const title = String((item && item.title) || '');
+      // 2026-10-06 用戶規則：失物認領／失物待領＝公布（行政公告），優先過一切；
+      // 「香港童軍大會操」＝活動（大會操本身係活動，唔係比賽）；但「有服務XX
+      // 一定是歸服務」，所以大會操嘅服務邀請／義工招募仍然歸服務（「服務獎勵」
+      // 呢類表揚通告除外）。
+      if (BATCH_RE.lost_property.test(title)) return 'announcement';
+      if (BATCH_RE.rally_activity.test(title)) {
+        if (BATCH_RE.service.test(title) && !BATCH_RE.announcement_override.test(title)) return 'service';
+        return 'activity';
+      }
       // 2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布（明確字眼以標題為準）；
       // 「成績公布／結果公布」係賽果＝比賽，所以先把呢啲片語遮走先檢查。
       if (BATCH_RE.announcement_title.test(title.replace(BATCH_RE.announcement_result, ''))) return 'announcement';

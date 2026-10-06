@@ -52,6 +52,11 @@ _RE_YOUTH_AWARD = re.compile(r"青年獎勵")
 # 2026-10-06：用戶點名「一個石籃的故事」係保育體驗活動；標題本身冇「活動」二字，
 # 所以加到強活動規則，避免富內容嘅 Story 標題兜底成 other／公布。
 _RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|石籃的故事")
+# 2026-10-06 用戶規則：「香港童軍大會操」＝活動（大會操係週年活動／典禮，唔係
+# 比賽）；失物認領／失物待領＝公布（唯一例外）。同
+# subscription_tagging.RALLY_ACTIVITY_TERMS／LOST_PROPERTY_TERMS 對齊。
+_RE_RALLY_ACTIVITY = re.compile(r"香港童軍大會操")
+_RE_LOST_PROPERTY = re.compile(r"失物認領|失物待領|失物領回|失物處理")
 
 
 def today_hkt(now: datetime | None = None) -> str:
@@ -84,8 +89,19 @@ def classify_category(item: dict, ex: dict | None) -> str:
             if cid == "announcement":
                 return "announcement"
     # 2026-10-03：優先序改做 標題公布(公告/公布) > 公布覆蓋(童軍獎勵/津貼計劃) > 強活動(同樂日/考察團/代表團/童探索) > 服務 > 比賽 > 訓練 > 活動
+    # 2026-10-06：最前面加 失物認領(公布) > 香港童軍大會操(活動)。
     # 同 subscription_tagging.extract_categories 對齊。
     title = str(item.get("title") or "")
+    # 2026-10-06 用戶規則：失物認領／失物待領＝公布（行政公告），優先過一切。
+    if _RE_LOST_PROPERTY.search(title):
+        return "announcement"
+    # 2026-10-06 用戶規則：「香港童軍大會操」＝活動，唔係比賽；但「有服務XX
+    # 一定是歸服務」，所以大會操嘅服務邀請／義工招募仍然歸服務（「服務獎勵」
+    # 呢類表揚通告除外，見 _RE_ANNOUNCEMENT_OVERRIDE）。
+    if _RE_RALLY_ACTIVITY.search(title):
+        if _RE_SERVICE.search(title) and not _RE_ANNOUNCEMENT_OVERRIDE.search(title):
+            return "service"
+        return "activity"
     # 標題有「公告／公布／公佈」＝公布；「成績公布」等賽果片語遮蓋後唔算。
     if _RE_ANNOUNCEMENT_TITLE.search(_RE_ANNOUNCEMENT_RESULT.sub("", title)):
         return "announcement"
