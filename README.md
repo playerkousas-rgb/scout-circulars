@@ -241,6 +241,43 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   （二）補 26228／26229 截止日 2026-11-30、26241 對象。
 - **防止未來誤分類**：`石籃的故事` 加入受控強活動詞；總會／地域來源日後遇到同類標題時，會按活動處理。分類回歸測試覆蓋有／無 PDF 文字兩種情況；本次不改歷史資料。
 
+**2026-10-06（第三批：用戶點名「大會操」分類）**：
+
+用戶點名兩條通告——總會「2026年香港童軍大會操(四)」（26332）同荃灣區「香港童軍大會操
+荃灣區會旅遊巴士安排」（A202603）——兩條都被判「比賽」。根因：`COMPETITION_TERMS`
+收咗「會操」（為咗「步操比賽會操」呢類賽事），於是任何標題有「會操」二字嘅通告
+都會先撞中比賽。但**香港童軍大會操（Scout Rally）係全港週年活動／典禮**，訂咗
+「所有比賽」嘅訂閱者會收到旅遊巴士安排呢類資訊。
+
+| 規則 | 內容 |
+|---|---|
+| `RALLY_ACTIVITY_TERMS = ["香港童軍大會操"]` | 標題有「香港童軍大會操」一律＝**活動**（`activity/other`），內文有「比賽」字眼都唔可以搶走（標題為準）。用戶理由：比賽可以算活動嘅一種，活動唔一定係比賽；訂「比賽」嘅人想睇嘅係真正賽事，大會操唔係 |
+| **「有服務XX 一定是歸服務」**（用戶同日補充） | 大會操嘅服務邀請／義工招募／義務工作人員招募仍然＝**服務**，唔會被大會操規則食咗。「服務獎勵」呢類表揚通告除外（2026-10-03 規則：服務獎勵＝公布） |
+| `LOST_PROPERTY_TERMS`（失物認領／失物待領／失物領回／失物處理） | 失物通告係行政公告＝**公布**，即使標題掛住大會操或賽事個名（「…大會操失物認領安排」「國際賽船大會-失物待領」） |
+| 用戶確認：**只收全名「香港童軍大會操」** | 「九龍地域會操」「聯隊週年大會操」等其他會操唔跟呢條規則，維持原判（有測試釘住）。用戶指出呢類地域通告好多時同步操比賽混埋一齊，所以唔放寬 |
+
+優先序（`extract_categories()`）：失物認領(公布) > 香港童軍大會操(服務 > 活動) > 服務邀請 > 標題公布 > 公布覆蓋 > 強活動 > …
+
+三個分類器同步改（否則前端出圖台同 IG Story 會同 app 行開）：
+`subscription_tagging.extract_categories()`（enrich → 推播／分類）、
+`story_queue.classify_category()`（IG Story 候選）、`index.html batchCategory()`（?batch=1 出圖台）。
+
+資料欠帳由 `python fix_rally_categories_2026_10_06.py`（先 `--dry-run`）補正：11 條
+大會操／失物認領通告由標題重算分類，訂閱標籤 `category:competition → activity:other`；
+其他欄位（截止／費用／對象／`enrich_version`）一個字都冇改，所以舊 entry 之後仍然可以
+用 `--backfill-categories` 執返落 PDF 重抽。零下載、唔改 `cache.json`。
+
+**同日追認：「服務獎勵應該歸獎勵」**。規則本身冇改（`服務獎勵` 一直喺
+`ANNOUNCEMENT_OVERRIDE_TERMS` 入面，同童軍獎勵／旅團獎勵／優異旅團／傑出旅團／
+功績獎勵／津貼計劃／嘉許計劃一樣＝公布；青年獎勵計劃除外＝訓練），但 enrich.json
+有兩條規則生效前抽嘅舊 entry 仲掛住「服務」：總會「地域服務獎勵計劃 - 附件(一)」
+兩個 copy（25976／26061）。呢個唔係純顯示問題——`notify.py notice_metadata()` 係
+**存量標籤優先**（`extra.get("subscription_tags") or fallback[...]`），所以佢哋會推畀
+訂「服務」嘅人。`python fix_award_categories_2026_10_06.py` 已補正（服務 → 公布，
+`category:service → category:announcement`），同一套 surgical patch，同樣零下載。
+完全冇存檔分類嘅舊 entry 唔使補：notify.py 對佢哋會用標題 fallback，前端
+`itemCategories()` 對空陣列亦兜底做「公布」。
+
 ### 用戶名單（2026-10-06）逐條對照：規則改咗乜、測試釘死喺邊
 
 | 用戶指出嘅通告 | 當日錯乜 | 規則修正 | 回歸測試（`test_enrich.py`） |
@@ -303,6 +340,10 @@ node test_push_client.js        # LocalStorage／匿名 subscription lifecycle�
 node test_sw.js                 # Service Worker 只接受同源精確圖書館結果 URL
 node test_icons.js              # manifest／<head>／sw.js 引用嘅圖示檔案存在、PNG 尺寸正確、badge 係單色 PNG
 node test_personalized_view.js  # 受控下拉 + 精確 ?n= 推播結果頁／手機收合 UI（需要 jsdom）
+python test_enrich.py           # enrich 欄位抽取 + 分類規則（包括 ⑧ 大會操＝活動／失物認領＝公布）
+python test_story_queue.py      # IG Story 候選挑選 + 分類兜底（同 enrich 規則對齊）
+python test_rally_categories_2026_10_06.py  # 大會操＝活動、失物認領＝公布：規則 + enrich.json 存量資料
+python test_award_categories_2026_10_06.py  # 獎勵／津貼／嘉許一類（包括服務獎勵）＝公布：規則 + 存量資料
 ```
 
 ## 匿名個人化 Web Push

@@ -206,6 +206,34 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
         self.assertEqual(sq.pick_today(_cache({"筲箕灣區": [unclassified]}), TODAY,
                                        _enrich([unclassified])), [])
 
+    def test_rally_is_activity_and_lost_property_is_announcement(self):
+        """2026-10-06 用戶規則：「香港童軍大會操」＝活動；失物認領＝公布。
+
+        同 subscription_tagging.extract_categories 對齊——大會操係週年活動／
+        典禮，唔係比賽（舊版因為「會操」呢類賽事詞會判 other／比賽）；
+        失物認領通告係行政公告，係「大會操＝活動」嘅唯一例外。
+        """
+        cases = [("2026年香港童軍大會操(四)", "activity"),
+                 ("2026 年香港童軍大會操", "activity"),
+                 ("參與2026年香港童軍大會操暨午宴活動", "activity"),
+                 ("香港童軍大會操荃灣區會旅遊巴士安排", "activity"),
+                 ("2026年香港童軍大會操失物認領安排", "announcement"),
+                 ("香港童軍115周年國際賽船大會-失物待領", "announcement"),
+                 # 用戶：「有服務XX 一定是歸服務」——贏過大會操＝活動
+                 ("2026年香港童軍大會操(五) - 服務邀請", "service"),
+                 ("香港童軍大會操義工招募", "service")]
+        for title, want in cases:
+            got = sq.classify_category(_item(title=title), None)
+            self.assertEqual(got, want, f"{title} 應該係 {want} 而係 {got}")
+
+        # 大會操係活動 → 會出 Story（有 slogan）；失物認領係公布 → 唔出 Story
+        rally = _item(title="2026年香港童軍大會操(四)")
+        self.assertEqual(len(sq.pick_today(_cache({"總會": [rally]}), TODAY,
+                                           _enrich([rally]))), 1)
+        lost = _item(title="2026年香港童軍大會操失物認領安排")
+        self.assertEqual(sq.pick_today(_cache({"總會": [lost]}), TODAY,
+                                       _enrich([lost])), [])
+
 
 class TestBuildQueue(unittest.TestCase):
     def test_default_has_no_count_limit_and_reports_skipped_items(self):
