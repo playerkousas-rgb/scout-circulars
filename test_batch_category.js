@@ -55,6 +55,7 @@ const cases = [
   ['某某錦標賽通告', 'competition'],
   ['義工服務日', 'service'],
   ['飛鏢同樂日', 'activity'],
+  ['東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事', 'activity'],
   ['領袖訓練工作坊', 'training'],
   ['隨意標題', 'other'],
 ];

@@ -60,10 +60,10 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.4"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
+ENRICH_VERSION = "3.6"  # PDF 標題／表格／對象／訂閱分類規則版本
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
 # （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
-# 更正確更正會記錄 listing_title，之後每次 run 重新套用（見
+# 標題更正會記錄 listing_title，之後每次 run 重新套用（見
 # reapply_stored_title_fixes），令 cache 重建都唔會失去正確名稱。
 # 3.4（2026-10-06）：三個修正（用戶報告：東九龍地域批次「抽取好奇怪、標籤有問題」）：
 #   1. 表格列（「13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰」）同內文指示句
@@ -74,6 +74,10 @@ ENRICH_VERSION = "3.4"  # 列表標題 vs PDF 雙重認證；只改錯名，唔�
 #      fee_from_tables），唔再由 3 行窗口攞第一個日期（＝第一堂日期）。
 #   另外 collect_targets 而家接受 WordPress Download Manager 連結
 #   （?wpdmdl=…），東九龍地域等來源終於會被 enrich。
+# 3.5（2026-10-06）：把「石籃的故事」這類明確報名活動由兜底「公布」改為「活動」。
+# 3.6（2026-10-06）：收件人郵寄地址唔再抽成參加對象；未成年同意書內嘅家長／監護人
+#   唔再當活動對象。預設增量只套用到新／未完整通告，不會因版本升級改寫已完整舊資料；
+#   需要重抽歷史資料時必須明確執行 backfill。
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -724,11 +728,20 @@ def _recipient_scope(text):
     2026-10-03：區會通告成日冇「參加資格／對象」label，但開頭「致：」就係收件人
     （紅磡區「區總部公布」個案）。只認行首嘅「致／受文者」＋冒號，而且只睇頭 15 行，
     避免內文「致謝」等字眼誤中；「知會：」係副本，刻意唔當對象。
+    2026-10-06：報名回條嘅「致：地域總部辦事處…香港童軍中心…室」係郵寄地址，
+    唔係參加對象；有地址特徵而冇明確成員／職務稱謂時唔可以抽成「童軍」。
     """
+    address_terms = ("辦事處", "香港童軍中心", "柯士甸道", "西貢公路", "郵政信箱", "樓", "室")
+    audience_terms = ("旅長", "負責領袖", "領袖", "隊長", "成員", "童軍人士", "童軍旅", "會務委員", "家長")
     for line in (text or "").split("\n")[:15]:
         match = re.match(r"^(?:致|受文者)\s*[:：]\s*(.+)$", compact(line))
-        if match:
-            return match.group(1)
+        if not match:
+            continue
+        recipient = match.group(1)
+        if (any(term in recipient for term in address_terms)
+                and not any(term in recipient for term in audience_terms)):
+            continue
+        return recipient
     return ""
 
 
@@ -765,6 +778,9 @@ def extract_audience(text):
         return ""  # 無明確 label，寧願漏抽
 
     c = compact(scope)
+    # 家長／監護人喺資格段好多時只係簽同意書（例如 18 歲以下參加者），
+    # 唔代表家長本身係活動對象。遮走呢類表格要求，仍然保留「家長可參加」等真正對象字眼。
+    c = re.sub(r"(?:家長|監護人)(?:[/／]監護人)?(?:同意書|同意)", "", c)
     # 主體辨識（次序由窄到闊，避免「童軍」吃掉「幼童軍/深資童軍」）
     found = []
     rules = [
@@ -1064,11 +1080,10 @@ def enrich_one(url, title="", use_ocr=True, verbose=False, source=""):
 
 # ─── 主流程 ───────────────────────────────────────────────
 # 除咗 .pdf 之外仲可以直接攞到 PDF bytes 嘅下載端點。
-# 2026-10-06：東九龍地域（140 條，全部）用 WordPress Download Manager
-# （/circulars/download/?wpdmdl=NNNN）發通告，URL 唔會以 .pdf 結尾，所以
-# collect_targets 一直跳過佢哋 —— 結果該來源全部通告冇截止／對象／費用／分類，
-# 前端於是把每一張都顯示成「公布」。下載返嚟照樣要過 %PDF magic bytes，
-# 唔係 PDF 就當 not_pdf（唔會亂塞內容）。
+# 2026-10-06：東九龍地域通告用 WordPress Download Manager
+# （/circulars/download/?wpdmdl=NNNN），URL 唔會以 .pdf 結尾；舊版 collect_targets
+# 因此曾經跳過呢類連結，前端 fallback 顯示「公布」。而家接受呢種 URL，下載返嚟
+# 照樣要過 %PDF magic bytes，唔係 PDF 就當 not_pdf（唔會亂塞內容）。
 _ENRICHABLE_URL_RE = re.compile(r"[?&]wpdmdl=\d+", re.I)
 
 
@@ -1084,11 +1099,10 @@ def is_enrichable_url(url: str) -> bool:
     return bool(_ENRICHABLE_URL_RE.search(url))
 
 
-# 2026-10-06：預設（增量）模式嘅補漏窗（日）。每日 workflow 只跑增量，一旦某個
-# 來源／URL 形狀之前被 collect_targets 靜靜跳過（例如東九龍地域嘅 ?wpdmdl= 下載
-# 連結，140 條全部冇 enrich），佢哋永遠唔會補做。有咗呢個窗口，最近 N 日入庫而
-# enrich.json 仍然冇紀錄嘅通告會自動執返；已經有當前版本標籤嘅唔會重抽。
-# 實測成本：最近 7 日只有 0–2 條係仍然唔 enrichable（.docx／.xlsx 報名表）。
+# 2026-10-06：預設（增量）模式嘅補漏窗（日）。每日 workflow 只跑增量；
+# 過去被 collect_targets 跳過嘅 URL 形狀（例如 ?wpdmdl=）即使修好入場閘，舊資料
+# 都唔會自動返轉頭補。有咗呢個窗口，最近 N 日入庫而 enrich.json 仍然冇紀錄嘅
+# 通告會自動執返；已經有當前版本標籤嘅唔會重抽。歷史欠帳仍可用 --backfill。
 INCREMENTAL_CATCHUP_DAYS = 7
 
 
@@ -1149,10 +1163,10 @@ def summarize_skipped_links(cache, target_date, do_all, do_backfill, do_backfill
                             catchup_days=INCREMENTAL_CATCHUP_DAYS):
     """回傳「連結形狀未支援所以唔會 enrich」嘅統計：[(來源, 條數, 例子URL)]。
 
-    2026-10-06（用戶個案）：東九龍地域 140 條全部用 WordPress Download Manager
-    （?wpdmdl=），collect_targets 以前只認 `.pdf` 尾，靜靜跳過——個來源就永遠
-    冇截止／對象／費用／分類，而且冇任何訊息提示。呢個函數將「靜默跳過」變成
-    每次 run 都印出嚟嘅警號，等下一次有新來源／新連結形狀時即刻見到。
+    2026-10-06（用戶個案）：東九龍地域大量通告用 WordPress Download Manager
+    （?wpdmdl=），舊版 collect_targets 只認 `.pdf` 尾，靜靜跳過而且冇警號。
+    呢個函數將「靜默跳過」變成每次 run 都印出嚟嘅警號，等下一次有新來源／新連結
+    形狀時即刻見到。
     """
     counts = {}
     for source, arr in (cache.get("data") or {}).items():
@@ -1182,6 +1196,26 @@ def summarize_skipped_links(cache, target_date, do_all, do_backfill, do_backfill
             entry = counts.setdefault(source, [0, url])
             entry[0] += 1
     return sorted(((s, c, u) for s, (c, u) in counts.items()), key=lambda x: -x[1])
+
+
+def has_current_enrichment_tags(entry, require_enrich_version=True):
+    """Whether a cached entry has complete current tag metadata.
+
+    Default incremental runs are forward-only: a code-version bump alone must
+    not rewrite already-complete historical entries. Explicit category backfill
+    may require the current extractor version.
+    """
+    if not isinstance(entry, dict):
+        entry = {}
+    complete = (
+        "categories" in entry
+        and "branch_tags" in entry
+        and "subscription_tags" in entry
+        and entry.get("subscription_catalog_version") == CURRENT_SUBSCRIPTION_CATALOG_VERSION
+    )
+    if require_enrich_version:
+        return complete and entry.get("enrich_version") == ENRICH_VERSION
+    return complete
 
 
 def summarize_cross_source_consistency(cache, enrich, target_date,
@@ -1328,29 +1362,24 @@ def main():
             err = (_entry(u).get("error") or "")
             return args.backfill and err.startswith("download")
 
-        def _has_current_tags(u):
-            entry = _entry(u)
-            # 空 array 也是已判斷結果；以欄位存在＋目前 catalog version 為準，
-            # 否則一張不屬四類的通告會被每天重下載。升級 taxonomy（例如新增
-            # 獨立比賽）時，--backfill-categories 也會重建舊版本 metadata。
-            # 2026-10-06：再加 `enrich_version`——抽 PDF 嘅規則（標題、表格
-            # 截止／費用、課程標籤過濾）一升級，最近 7 日窗口內用舊版抽出嘅
-            # 結果就會自動重抽一次。冇呢個檢查，改完規則都只會影響將來嘅新
-            # 通告，舊 entry 因為 catalog version 冇變而永遠唔會重算。
-            return (
-                "categories" in entry
-                and "branch_tags" in entry
-                and "subscription_tags" in entry
-                and entry.get("subscription_catalog_version") == CURRENT_SUBSCRIPTION_CATALOG_VERSION
-                and entry.get("enrich_version") == ENRICH_VERSION
-            )
-
         if args.backfill_categories:
-            targets = [t for t in targets if not _has_current_tags(t[2])]
+            # Explicit backfill may refresh old metadata produced by a previous extractor.
+            targets = [
+                t for t in targets
+                if not has_current_enrichment_tags(_entry(t[2]), require_enrich_version=True)
+            ]
         elif args.backfill:
             targets = [t for t in targets if t[2] not in enrich or _retryable_error(t[2])]
         else:
-            targets = [t for t in targets if t[2] not in enrich or not _has_current_tags(t[2])]
+            # Forward-only default: a code-version bump alone never rewrites a
+            # completed historical entry. New/missing or structurally incomplete
+            # notices in the catch-up window still get processed; explicit
+            # --backfill-categories remains available for intentional history refresh.
+            targets = [
+                t for t in targets
+                if t[2] not in enrich
+                or not has_current_enrichment_tags(_entry(t[2]), require_enrich_version=False)
+            ]
 
     if args.limit:
         targets = targets[:args.limit]
@@ -1361,7 +1390,7 @@ def main():
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
 
     # 「靜默跳過」警號：連結形狀未支援嘅通告（今次唔會 enrich、亦唔會有人知）。
-    # 東九龍地域 140 條 ?wpdmdl= 就係咁樣整整一個來源冇數據；而家每次 run 都印。
+    # 讓新來源／新連結格式持續可見，避免再出現一整個來源漏咗 enrich 但 log 無提示。
     skipped = summarize_skipped_links(cache, today, args.all, args.backfill, args.backfill_categories)
     if skipped:
         total_skipped = sum(c for _, c, _ in skipped)

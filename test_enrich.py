@@ -18,6 +18,7 @@ from enrich import (
     is_enrichable_url, skip_reason, summarize_skipped_links, collect_targets,
     summarize_cross_source_consistency,
     TITLE_SIMILARITY_THRESHOLD, INCREMENTAL_CATCHUP_DAYS,
+    CURRENT_SUBSCRIPTION_CATALOG_VERSION, has_current_enrichment_tags,
 )
 from subscription_tagging import extract_subscription_metadata, load_catalog
 
@@ -57,6 +58,21 @@ def main():
         "對象：由窄到闊，避免童軍吃掉幼童軍",
         extract_audience("參加對象：幼童軍、童軍"),
         "幼童軍、童軍",
+    )
+    passed += test(
+        "對象：家長只喺未成年同意書出現，唔當參加對象",
+        extract_audience("參加資格：童軍、領袖\n18歲以下參加者必須簽署家長／監護人同意書（RT06）。"),
+        "童軍、領袖",
+    )
+    passed += test(
+        "對象：回條『致：』郵寄地址嘅童軍中心唔當參加對象",
+        extract_audience("回條\n致：東九龍地域總部辦事處九龍柯士甸道童軍徑香港童軍中心 9 樓 923 室\n傳真：2302 1168"),
+        "",
+    )
+    passed += test(
+        "對象：真正『致：各旅長／旅負責領袖』收件人仍然會抽領袖",
+        extract_audience("致：各旅長／旅負責領袖\n區總部公布"),
+        "領袖",
     )
 
     # ── 截止日期：必須有『截止』，否則寧願空 ──
@@ -761,6 +777,23 @@ def main():
         "公布",
     )
 
+    # ── 預設增量只處理未處理／不完整通告；歷史版本只喺明確 backfill 更新 ──
+    legacy_complete_entry = {
+        "categories": [], "branch_tags": [], "subscription_tags": [],
+        "subscription_catalog_version": CURRENT_SUBSCRIPTION_CATALOG_VERSION,
+        "enrich_version": "3.4",
+    }
+    passed += test(
+        "增量升 extractor version 唔會重寫已完整的舊通告",
+        has_current_enrichment_tags(legacy_complete_entry, require_enrich_version=False),
+        True,
+    )
+    passed += test(
+        "明確補分類時仍會識別舊 extractor version",
+        has_current_enrichment_tags(legacy_complete_entry, require_enrich_version=True),
+        False,
+    )
+
     # ── 2026-10-06：連結形狀（唔可以再有來源靜默跳過）────────────────
     passed += test(
         "連結：東九龍地域 ?wpdmdl= 下載連結＝可 enrich",
@@ -886,6 +919,7 @@ def main():
         "童軍標準艇教練員楊劍聰先生擔任班領導人，歡迎各合資格的童軍成員及領袖踴躍參加。\n"
         "（二）參加資格：（1）持有有效童軍紀錄冊之童軍、深資童軍及樂行童軍成員；"
         "或持有有效領袖委任書或教練員委任證之各級領袖；\n"
+        "（4）18 歲以下之參加者必須簽署家長／監護人同意書（RT06）。\n"
         "（7）考獲本訓練班證書等同完成「童軍／深資童軍支部海上活動徽章—水手長章」的要求。\n"
     )
     passed += test(
@@ -898,8 +932,14 @@ def main():
         (fee_from_tables(boat3_table), normalize_fee(extract_fee(boat3_text, tables=boat3_table))),
         ("HK$160", "HK$160"),
     )
+    boat3_audience = extract_audience(boat3_text)
+    passed += test(
+        "③ 26239：參加資格讀齊童軍／深資童軍／樂行童軍／領袖",
+        boat3_audience,
+        "深資童軍、樂行童軍、童軍、領袖",
+    )
     boat3_tags = extract_subscription_metadata("三級童軍標準艇訓練班", boat3_text,
-                                               "童軍、領袖")["subscription_tags"]
+                                               boat3_audience)["subscription_tags"]
     passed += test(
         "③ 26239：唔會抽『童軍標準艇教練員』（只喺『由…擔任班領導人』句出現）",
         "course:leader-standard-boat-instructor" in boat3_tags,
@@ -920,7 +960,10 @@ def main():
         "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班\n"
         "（二）參加資格：（1） 持有有效領袖委任書或教練員委任證之各級領袖；\n"
         "（2） 持有有效委任證之會務委員；或\n"
+        "（3） 各界人士。\n"
+        "（4） 童軍人士必須持有有效游泳測試證明書（未持有者可向各地域查詢有關游泳測試安排）。\n"
         "（5） 持有獨木舟教練資歷、遊樂船隻二級操作人證書或同等資歷將獲優先考慮。\n"
+        "（6） 本地域轄下成員將獲優先考慮。\n"
     )
     geo_title = "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班"
     passed += test(
@@ -928,17 +971,18 @@ def main():
         (deadline_from_tables(geo_table), fee_from_tables(geo_table)),
         ("2026-12-19", ""),
     )
+    geo_audience = extract_audience(geo_text)
     passed += test(
-        "④ 26242：對象讀齊（1）（2）… 清單 → 領袖、會務委員",
-        extract_audience(geo_text),
-        "領袖、會務委員",
+        "④ 26242：對象讀齊參加資格清單，包括『童軍人士』",
+        geo_audience,
+        "童軍、領袖、會務委員",
     )
-    geo_tags = extract_subscription_metadata(geo_title, geo_text, "領袖、會務委員")["subscription_tags"]
+    geo_tags = extract_subscription_metadata(geo_title, geo_text, geo_audience)["subscription_tags"]
     passed += test(
-        "④ 26242：冇『獨木舟教練』標籤（資格句）；標題計劃名唔會被縮短",
-        ("course:leader-canoe-instructor" in geo_tags,
+        "④ 26242：冇『獨木舟教練』標籤；童軍對象保留、標題不縮短",
+        ("course:leader-canoe-instructor" in geo_tags, "training:童軍" in geo_tags,
          reconcile_listing_title(geo_title, geo_text, pdf_meta_title=geo_title)["title"]),
-        (False, geo_title),
+        (False, True, geo_title),
     )
 
     # ⑤ 26228 獎券籌募活動：分類＝活動（唔可以被內文『比賽』搶走）；出現兩次要一致
@@ -969,9 +1013,12 @@ def main():
         {"比賽"},
     )
 
-    # ⑦ 26241 一個石籃的故事：標籤只有公布、冇課程標籤、對象／截止／費用齊
+    # ⑦ 26241 一個石籃的故事：PDF 明確係保育體驗活動，唔可以兜底成公布；
+    # 對象／截止／費用仍然要如實抽出，而且不應由內文誤加課程標籤。
     stone_text = (
         "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事\n"
+        "適逢地域成立 50 周年，白沙灣譚華正海上活動中心特舉辦「一個石籃的故事」活動，\n"
+        "參加者將參與石籃編織及放置，參加者踴躍參加，詳情如下。\n"
         "（五） 參加資格 ： （1） 6 歲或以上持有有效紀錄冊之幼童軍、童軍、深資童軍及樂行童軍支部成員；\n"
         "（2） 持有有效領袖委任書或教練員委任證之各級領袖；\n"
         "（3） 持有有效委任狀之會務委員；\n"
@@ -983,9 +1030,14 @@ def main():
     stone_meta = extract_subscription_metadata(stone_title, stone_text,
                                                extract_audience(stone_text))
     passed += test(
-        "⑦ 26241：分類＝公布、標籤只有 announcement（內文有『活動』都唔會亂變）",
+        "⑦ 26241：石籃保育報名活動＝活動，唔會錯標成公布／訓練",
         ([c["label"] for c in stone_meta["categories"]], stone_meta["subscription_tags"]),
-        (["公布"], ["category:announcement"]),
+        (["活動"], ["activity:other"]),
+    )
+    passed += test(
+        "⑦ 26241：PDF 未下載時也按活動名稱分類，唔會兜底成公布",
+        [c["label"] for c in extract_categories(stone_title, "")],
+        ["活動"],
     )
     passed += test(
         "⑦ 26241：對象（含會務委員）、截止 2026-12-18、費用全免",
