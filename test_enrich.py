@@ -16,6 +16,7 @@ from enrich import (
     heading_looks_like_title, reapply_stored_title_fixes,
     looks_like_table_row, deadline_from_tables, fee_from_tables,
     is_enrichable_url, skip_reason, summarize_skipped_links, collect_targets,
+    summarize_cross_source_consistency,
     TITLE_SIMILARITY_THRESHOLD, INCREMENTAL_CATCHUP_DAYS,
 )
 from subscription_tagging import extract_subscription_metadata, load_catalog
@@ -821,6 +822,210 @@ def main():
         "警號：未支援連結會計入 summarize_skipped_links（唔會靜默）",
         summarize_skipped_links(link_cache, "2026-10-06", False, False, False),
         [("東九龍地域", 1, "https://x/a/報名表.xlsx")],
+    )
+
+    # ══ 2026-10-06 用戶名單（7 條）逐條回歸：文字全部由當日 PDF 原地抄出 ══
+    # 名單：三級童軍標準艇訓練班／東九龍地域50周年暨賽馬會童「SING」匯航計劃 -
+    #       地質生態導賞員訓練班／2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班
+    #       楊劍聰／13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰／
+    #       2027年童軍獎券籌募活動（出現兩次）／東九龍地域步操、團呼及快樂傘比賽2026
+    #       - 成績公布／東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事
+
+    # ① 26243 行事曆：文字層只有表格 → 表格列永遠唔可以做標題
+    sea_calendar_text = (
+        "Calendar of Events - 2026/2027 YEAR\n"
+        "Oct 2026 to Jan 2027 EVENT\n"
+        "2026\tOct\t10, 11, 17, 18, 24-25\t四級童軍標準艇訓練班\t楊劍聰\n"
+        "\t\t17\t風帆賽事先修研習班（A）\t曾昭溢\n"
+        "請以劃線支票支付訓練班／活動費用，抬頭請書\n"
+    )
+    sea_listing = "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆"
+    passed += test(
+        "① 26243：表格列（2026 Oct 10, 11…）唔可以被當成 PDF 標題",
+        (extract_pdf_heading(sea_calendar_text),
+         looks_like_table_row("2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰")),
+        ("", True),
+    )
+    passed += test(
+        "① 26243：列表標題（行事曆）＋metadata 一致 → verified，唔會改名",
+        reconcile_listing_title(sea_listing, sea_calendar_text, pdf_meta_title=sea_listing)["status"],
+        "verified",
+    )
+    passed += test(
+        "① 26243：行事曆分類＝公布，內文全部課程都唔會變訂閱標籤",
+        ([c["label"] for c in extract_categories(sea_listing, sea_calendar_text)],
+         extract_subscription_metadata(sea_listing, sea_calendar_text)["subscription_tags"]),
+        (["公布"], ["category:announcement"]),
+    )
+
+    # ② 26244 SING 行事曆：同樣係表格列標題個案
+    sing_row = "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰"
+    sing_listing = ("香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) "
+                    "賽馬會童「SING」匯航計劃 - 活動與訓練行事曆")
+    passed += test(
+        "② 26244：表格列（13, 17, 20, 23, 31…）唔可以被當成 PDF 標題",
+        (extract_pdf_heading(sing_row + "\n（一）日期：\n2027年1月13日 三 香港童軍中心 5 1900-2200 $300 10 2026年12月19日\n"),
+         looks_like_table_row(sing_row)),
+        ("", True),
+    )
+    passed += test(
+        "② 26244：列表標題係 PDF 標題嘅超集（帶計劃名）→ 維持列表標題",
+        reconcile_listing_title(sing_listing, "地質生態導賞員訓練班\n（一）日期：", pdf_meta_title=sing_listing)["status"],
+        "verified",
+    )
+
+    # ③ 26239 三級童軍標準艇訓練班：表格截止日／費用／課程標籤
+    boat3_table = [[
+        ["日期", "星期", "時間", "費用($)", "名額", "截止日期"],
+        ["2027年1月2日", "六", "0900至1700", "160", "14", "2026年12月11日"],
+        ["2027年1月3日", "日", "0900至1700", "160", "14", "2026年12月11日"],
+    ]]
+    boat3_text = (
+        "三級童軍標準艇訓練班\n"
+        "地域將於 2027 年 1 月在白沙灣譚華正海上活動中心舉辦上述訓練班，由香港童軍總會註冊中級"
+        "童軍標準艇教練員楊劍聰先生擔任班領導人，歡迎各合資格的童軍成員及領袖踴躍參加。\n"
+        "（二）參加資格：（1）持有有效童軍紀錄冊之童軍、深資童軍及樂行童軍成員；"
+        "或持有有效領袖委任書或教練員委任證之各級領袖；\n"
+        "（7）考獲本訓練班證書等同完成「童軍／深資童軍支部海上活動徽章—水手長章」的要求。\n"
+    )
+    passed += test(
+        "③ 26239：截止日期＝表格『截止日期』欄（唔係第一堂 2027-01-02）",
+        (deadline_from_tables(boat3_table), extract_deadline(boat3_text, tables=boat3_table)),
+        ("2026-12-11", "2026-12-11"),
+    )
+    passed += test(
+        "③ 26239：費用＝表格『費用($)』欄 → HK$160",
+        (fee_from_tables(boat3_table), normalize_fee(extract_fee(boat3_text, tables=boat3_table))),
+        ("HK$160", "HK$160"),
+    )
+    boat3_tags = extract_subscription_metadata("三級童軍標準艇訓練班", boat3_text,
+                                               "童軍、領袖")["subscription_tags"]
+    passed += test(
+        "③ 26239：唔會抽『童軍標準艇教練員』（只喺『由…擔任班領導人』句出現）",
+        "course:leader-standard-boat-instructor" in boat3_tags,
+        False,
+    )
+    passed += test(
+        "③ 26239：真正嘅課程（標準艇／水手長章）仍然保留",
+        ("course:scout-standard-boat" in boat3_tags, "course:scout-boatswain-badge" in boat3_tags),
+        (True, True),
+    )
+
+    # ④ 26242 地質生態導賞員訓練班：按金唔算費用；資格句唔算課程標籤
+    geo_table = [[
+        ["日期", "星期", "地點", "堂數", "時間", "按金", "名額", "截止日期"],
+        ["2027年1月13日", "三", "香港童軍中心", "5", "1900-2200", "$300", "10", "2026年12月19日"],
+    ]]
+    geo_text = (
+        "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班\n"
+        "（二）參加資格：（1） 持有有效領袖委任書或教練員委任證之各級領袖；\n"
+        "（2） 持有有效委任證之會務委員；或\n"
+        "（5） 持有獨木舟教練資歷、遊樂船隻二級操作人證書或同等資歷將獲優先考慮。\n"
+    )
+    geo_title = "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班"
+    passed += test(
+        "④ 26242：截止日期＝表格欄 2026-12-19；按金（$300）唔會當費用",
+        (deadline_from_tables(geo_table), fee_from_tables(geo_table)),
+        ("2026-12-19", ""),
+    )
+    passed += test(
+        "④ 26242：對象讀齊（1）（2）… 清單 → 領袖、會務委員",
+        extract_audience(geo_text),
+        "領袖、會務委員",
+    )
+    geo_tags = extract_subscription_metadata(geo_title, geo_text, "領袖、會務委員")["subscription_tags"]
+    passed += test(
+        "④ 26242：冇『獨木舟教練』標籤（資格句）；標題計劃名唔會被縮短",
+        ("course:leader-canoe-instructor" in geo_tags,
+         reconcile_listing_title(geo_title, geo_text, pdf_meta_title=geo_title)["title"]),
+        (False, geo_title),
+    )
+
+    # ⑤ 26228 獎券籌募活動：分類＝活動（唔可以被內文『比賽』搶走）；出現兩次要一致
+    raffle_text = (
+        "2027 年童軍獎券籌募活動將於 2027 年 1 月 17 日（星期日）至 3 月 5 日（星期 五 ） 期間舉行，"
+        "每張獎券售價為 港幣 10 元正，童軍旅收益之分賬為實際銷售額之 65%。\n"
+        "各旅長／負責領袖必須於 2026 年 11 月 30 日（星期一） 或之前 填妥夾附回條，"
+        "交回東九龍地域總部辦事處。\n"
+        "有意參與獎券銷售獎勵比賽的童軍旅請留意總會稍後發出之獎券籌募通告。\n"
+    )
+    passed += test(
+        "⑤ 26228：分類＝活動（主通告同回條兩個 copy 一致）",
+        ([c["label"] for c in extract_categories("2027年童軍獎券籌募活動", raffle_text)],
+         [c["label"] for c in extract_categories("2027年童軍獎券籌募活動 - 回條", raffle_text)]),
+        (["活動"], ["活動"]),
+    )
+    passed += test(
+        "⑤ 26228：截止日＝『…或之前交回』句 2026-11-30；售價＝HK$10",
+        (extract_deadline(raffle_text), extract_fee(raffle_text)),
+        ("2026-11-30", "HK$10"),
+    )
+
+    # ⑥ 26235／26316 成績公布：兩個來源嘅標題都歸『比賽』（一致）
+    passed += test(
+        "⑥ 26235／26316：『成績公布』兩個來源都係比賽，唔會一個比賽一個公布",
+        ({extract_categories("東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布", "")[0]["label"],
+          extract_categories("快樂傘、團呼、升旗、步操及隊列比賽成績公布", "")[0]["label"]}),
+        {"比賽"},
+    )
+
+    # ⑦ 26241 一個石籃的故事：標籤只有公布、冇課程標籤、對象／截止／費用齊
+    stone_text = (
+        "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事\n"
+        "（五） 參加資格 ： （1） 6 歲或以上持有有效紀錄冊之幼童軍、童軍、深資童軍及樂行童軍支部成員；\n"
+        "（2） 持有有效領袖委任書或教練員委任證之各級領袖；\n"
+        "（3） 持有有效委任狀之會務委員；\n"
+        "（4） 以上各合資格童軍人士的 6 歲或以上親友；或\n"
+        "（六） 費 用 ： 全免\n"
+        "（八） 截止日期 ： 2026 年 12 月 18 日（星期五）\n"
+    )
+    stone_title = "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事"
+    stone_meta = extract_subscription_metadata(stone_title, stone_text,
+                                               extract_audience(stone_text))
+    passed += test(
+        "⑦ 26241：分類＝公布、標籤只有 announcement（內文有『活動』都唔會亂變）",
+        ([c["label"] for c in stone_meta["categories"]], stone_meta["subscription_tags"]),
+        (["公布"], ["category:announcement"]),
+    )
+    passed += test(
+        "⑦ 26241：對象（含會務委員）、截止 2026-12-18、費用全免",
+        (extract_audience(stone_text), extract_deadline(stone_text), extract_fee(stone_text)),
+        ("幼童軍、深資童軍、樂行童軍、童軍、領袖、會務委員", "2026-12-18", "全免"),
+    )
+
+    # ── 跨來源一致性（同一通告出現喺總會站＋地域站）──
+    twin_cache = {"data": {
+        "總會": [{"title": "2027年童軍獎券籌募活動", "pdf_url": "https://hq/Adm25.pdf",
+                  "captured_date": "2026-10-06"}],
+        "東九龍地域": [{"title": "2027年童軍獎券籌募活動", "pdf_url": "https://ekr/?wpdmdl=5650",
+                        "captured_date": "2026-10-06"}],
+    }}
+    passed += test(
+        "跨來源：一邊『比賽』一邊『活動』→ 報出嚟",
+        [(cap, title, sorted(s.split("|")[0] for s in sig.values())) for cap, title, sig, _ in
+         summarize_cross_source_consistency(
+             twin_cache,
+             {"https://hq/Adm25.pdf": {"categories": [{"label": "比賽"}], "deadline": "", "fee": ""},
+              "https://ekr/?wpdmdl=5650": {"categories": [{"label": "活動"}], "deadline": "", "fee": ""}},
+             "2026-10-06")],
+        [("2026-10-06", "2027年童軍獎券籌募活動", ["比賽", "活動"])],   # sorted() 按碼位
+    )
+    passed += test(
+        "跨來源：一邊有資料、一邊完全未抽（東九龍地域個案）→ 報出嚟",
+        summarize_cross_source_consistency(
+            twin_cache,
+            {"https://hq/Adm25.pdf": {"categories": [{"label": "活動"}], "deadline": "2026-11-30", "fee": ""}},
+            "2026-10-06")[0][3],
+        ["東九龍地域"],
+    )
+    passed += test(
+        "跨來源：兩邊一致 → 唔會誤報",
+        summarize_cross_source_consistency(
+            twin_cache,
+            {"https://hq/Adm25.pdf": {"categories": [{"label": "活動"}], "deadline": "2026-11-30", "fee": ""},
+             "https://ekr/?wpdmdl=5650": {"categories": [{"label": "活動"}], "deadline": "2026-11-30", "fee": ""}},
+            "2026-10-06"),
+        [],
     )
 
     # ── 格式正規化 ──

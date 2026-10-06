@@ -244,6 +244,15 @@ _TABLE_ROW_DATE_LEAD_RE = re.compile(r"^(?:20\d{2}\s*年\s*)?\d{1,2}\s*月\s*\d{
 _NUMBER_TOKEN_RE = re.compile(r"\d+")
 # 內文指示句（繳費、交表、注意事項）同理唔係標題。
 _BODY_INSTRUCTION_RE = re.compile(r"^(?:請|敬希|敬請|填妥|連同|如有|如欲)")
+# 欄位標籤行（「（一）日期：」「（二）參加資格：」「費 用：」…）係分段標題，
+# 唔係通告標題。2026-10-06 個案：行事曆 PDF 大標題係圖，文字層第一個似樣嘅
+# 候選就係「（一）日期：」——雖然最終冇寫返 cache，但同樣可以誤導更正。
+_SECTION_LABEL_RE = re.compile(
+    r"^[（(]?(?:[0-9０-９]{1,2}|[一二三四五六七八九十]{1,3})[）).、]?"
+    r"(?:日期|時間|地點|費用|收費|班費|名額|資格|對象|內容|參加辦法|報名辦法|報名|"
+    r"備註|其他|詳情|服裝|集合|解散|交通|獎項|查詢)"
+    r"[：:]?$"
+)
 TITLE_SIMILARITY_THRESHOLD = 0.90
 
 
@@ -308,6 +317,9 @@ def extract_pdf_heading(text: str) -> str:
         # 內文指示句（「請以劃線支票支付…」）唔係標題。
         if looks_like_table_row(line) or _BODY_INSTRUCTION_RE.match(compact_line):
             continue
+        # 2026-10-06：欄位標籤行（「（一）日期：」「（二）參加資格：」）唔係標題
+        if _SECTION_LABEL_RE.match(compact_line):
+            continue
         if re.fullmatch(r"20\d{2}年\d{1,2}月\d{1,2}日", compact_line):
             continue
         if _CIRCULAR_CODE_RE.match(line.strip()):
@@ -336,6 +348,9 @@ def heading_looks_like_title(text: str) -> bool:
     # 2026-10-06：表格列（用戶個案嘅「13, 17, 20, 23, 31 地質生態導賞員訓練班
     # 楊劍聰」）同內文指示句都唔可以寫返 cache.json 當標題。
     if looks_like_table_row(line) or _BODY_INSTRUCTION_RE.match(line):
+        return False
+    # 2026-10-06：欄位標籤行（「（一）日期：」）唔可以寫返 cache 做標題
+    if _SECTION_LABEL_RE.match(line):
         return False
     if _HEADING_SKIP_RE.search(line) or _CIRCULAR_NUMBER_RE.match(line) or _CIRCULAR_CODE_RE.match(line):
         return False
@@ -1169,6 +1184,58 @@ def summarize_skipped_links(cache, target_date, do_all, do_backfill, do_backfill
     return sorted(((s, c, u) for s, (c, u) in counts.items()), key=lambda x: -x[1])
 
 
+def summarize_cross_source_consistency(cache, enrich, target_date,
+                                       catchup_days=INCREMENTAL_CATCHUP_DAYS):
+    """同一通告出現喺多個來源（總會站鏡像地域通告）時，兩份 entry 應該有同樣嘅
+    分類／截止／費用；唔一致就報出嚟（只報告，唔改數據）。
+
+    2026-10-06（用戶名單）：「2027年童軍獎券籌募活動」出現兩次，一次『比賽』
+    一次『活動』；「…成績公布」一次『比賽』一次冇資料。呢個檢查會每次 run
+    自動捉返呢類分歧——同標題＋同 captured_date 先算同一份通告。
+    """
+    groups = {}
+    for source, arr in (cache.get("data") or {}).items():
+        if not isinstance(arr, list):
+            continue
+        for it in arr:
+            if not isinstance(it, dict):
+                continue
+            url = it.get("pdf_url") or it.get("url") or ""
+            cap = str(it.get("captured_date", ""))[:10]
+            if catchup_days > 0:
+                try:
+                    lower = (datetime.date.fromisoformat(target_date)
+                             - datetime.timedelta(days=catchup_days)).isoformat()
+                except ValueError:
+                    lower = target_date
+                if not (lower <= cap <= target_date):
+                    continue
+            elif cap != target_date:
+                continue
+            title = compact_title(it.get("title") or "")
+            if not title:
+                continue
+            groups.setdefault((title, cap), []).append((source, enrich.get(url)))
+
+    problems = []
+    for (title, cap), items in groups.items():
+        sources = {source for source, _ in items}
+        if len(sources) < 2:
+            continue
+        signatures = {}
+        missing = []
+        for source, entry in items:
+            if isinstance(entry, dict):
+                cats = "／".join(sorted(c.get("label", "") for c in (entry.get("categories") or []))) or "—"
+                signatures[source] = f"{cats}|{entry.get('deadline') or '—'}|{entry.get('fee') or '—'}"
+            elif source not in missing:
+                missing.append(source)      # 同一通告，但呢個來源完全冇抽過
+        mismatch = len(set(signatures.values())) > 1
+        if mismatch or missing:
+            problems.append((cap, title, signatures, sorted(missing)))
+    return sorted(problems, key=lambda x: (x[0], x[1]))
+
+
 def check_environment(args):
     """啟動自檢：缺 pdfplumber 直接停；缺 OCR 元件只警告。"""
     print("🔧 環境自檢…")
@@ -1394,6 +1461,17 @@ def main():
         summary = "、".join(f"{src} {err} {n} 條" for (src, err), n in
                             sorted(error_counts.items(), key=lambda kv: -kv[1]))
         print(f"⚠️  今次有 {sum(error_counts.values())} 條抽唔到：{summary}")
+
+    # 收尾報告：同一通告出現喺多個來源（鏡像）時，兩份抽出嚟嘅分類／截止／費用
+    # 應該一樣；唔一樣即係規則有分歧（用戶名單：同一份通告一邊『比賽』一邊『活動』）。
+    inconsistent = summarize_cross_source_consistency(cache, enrich, today)
+    if inconsistent:
+        print(f"⚠️  同一通告喺多個來源但結果唔齊／唔同：{len(inconsistent)} 組")
+        for cap, title, signatures, missing in inconsistent[:5]:
+            detail = "；".join(f"{src}={sig}" for src, sig in sorted(signatures.items()))
+            tail = f"｜未抽：{'、'.join(missing)}" if missing else ""
+            print(f"     {cap} {title[:26]}｜{detail}{tail}")
+        print("     （同標題＋同 captured_date＝同一份通告；兩邊應該一致，唔一致要查規則）")
 
     # 2026-10-03：core.py 每次抓取（包括 --force）都會用列表頁標題重建
     # cache.json，之前寫入嘅更正會被蓋走。呢度零下載重新套用已核實嘅更正，
