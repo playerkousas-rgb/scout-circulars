@@ -1700,8 +1700,10 @@
       return regions;
     }
 
-    function badgeHtml(n) {
-      return `<span class="count-badge ${n > 0 ? 'hot' : ''}">${n}</span>`;
+    // hot ＝「有更新」綠燈；預設跟件數，但小工具要另外用 sourceUpdateCount()
+    // 淨係今日有新上架先著燈（見 2026-10-06 改動）。
+    function badgeHtml(n, hot = n > 0) {
+      return `<span class="count-badge ${hot ? 'hot' : ''}">${n}</span>`;
     }
 
     function sourceCount(source) {
@@ -1715,6 +1717,20 @@
     function scoutKindCount(kindId) {
       if (!isSourceEnabled('Scout System')) return 0;
       return (state.grouped['Scout System'] || []).filter(item => toolInToolsWindow(item) && itemScoutKind(item) === kindId).length;
+    }
+
+    // ── 「有更新」燈號（綠色高亮 + hot badge）──────────────────────
+    // 通告：跟目前時間視窗（今天／7天／…），同以前一樣。
+    // 小工具（Scout System）：只跟「今日新上架」。工具係長期資產，「之前發布」
+    // 永遠有貨，所以用件數做燈號等於 24 小時長著 —— 今日冇新嘢就唔應該著燈。
+    function sourceUpdateCount(source) {
+      if (source === 'Scout System') return scoutSystemNewTodayCount();
+      return sourceCount(source);
+    }
+
+    function scoutKindUpdateCount(kindId) {
+      if (!isSourceEnabled('Scout System')) return 0;
+      return (state.grouped['Scout System'] || []).filter(item => toolIsNewToday(item) && itemScoutKind(item) === kindId).length;
     }
 
     function getBucket(sourceId) {
@@ -1785,6 +1801,18 @@
     // 「今天」＝今日新上架。側欄數字永遠用呢個，撳入去見到幾多件就寫幾多件。
     function toolInToolsWindow(item) {
       return withinDays((item && (item.date || item.captured_date)) || '', currentToolsWindow().days);
+    }
+
+    // 「今日新上架」＝小工具視窗「今天」嗰個門檻（days: 1，HKT 日起計），
+    // 唔理用戶而家揀咗邊個掣：側欄燈號只認今日。
+    function toolIsNewToday(item) {
+      const todayWindow = TOOLS_TIME_WINDOWS.find(x => x.id === 'tools-today') || TOOLS_TIME_WINDOWS[0];
+      return withinDays((item && (item.date || item.captured_date)) || '', todayWindow && todayWindow.days != null ? todayWindow.days : 1);
+    }
+
+    function scoutSystemNewTodayCount() {
+      if (!isSourceEnabled('Scout System')) return 0;
+      return (state.grouped['Scout System'] || []).filter(toolIsNewToday).length;
     }
 
     // 2026-10-01：小工具（Scout System）取消以日期分類——不過淨係喺小工具分頁。
@@ -2102,10 +2130,11 @@
         const allEl = document.createElement('section');
         allEl.className = 'region';
         const totalAll = state.sourceOrder.reduce((sum, src) => sum + sourceCount(src), 0);
+        const updatesAll = state.sourceOrder.reduce((sum, src) => sum + sourceUpdateCount(src), 0);
         
         const allBtn = document.createElement('button');
-        allBtn.innerHTML = `<span>全港 (所有層級)</span>${badgeHtml(totalAll)}`;
-        if (totalAll > 0) allEl.classList.add('has-updates');
+        allBtn.innerHTML = `<span>全港 (所有層級)</span>${badgeHtml(totalAll, updatesAll > 0)}`;
+        if (updatesAll > 0) allEl.classList.add('has-updates');
         if (state.activeSource === 'ALL_SOURCES') allEl.classList.add('open');
         allBtn.onclick = () => chooseSource('ALL_SOURCES');
         allEl.appendChild(allBtn);
@@ -2129,10 +2158,14 @@
         if ((shouldOpen || kindQueryHit) && regionEnabled) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
-        if (total > 0 && regionEnabled) regionEl.classList.add('has-updates');
+        // 燈號同件數分開：Scout System 件數永遠有（之前發布），但今日冇新上架就唔著燈。
+        const updates = filteredSources.reduce((sum, src) => sum + sourceUpdateCount(src), 0);
+        if (updates > 0 && regionEnabled) regionEl.classList.add('has-updates');
         const header = document.createElement('button');
-        header.innerHTML = `<span>${escapeHtml(regionName)}${regionEnabled ? '' : ' (已隱藏)'}</span>${badgeHtml(regionEnabled ? total : 0)}`;
-        header.title = regionEnabled ? `點擊展開/收起 ${regionName}` : `${regionName} 已關閉，請到上方「地域開關」重新開啟`;
+        header.innerHTML = `<span>${escapeHtml(regionName)}${regionEnabled ? '' : ' (已隱藏)'}</span>${badgeHtml(regionEnabled ? total : 0, regionEnabled && updates > 0)}`;
+        header.title = regionEnabled
+          ? `點擊展開/收起 ${regionName}${regionName === 'Scout System' && updates === 0 ? '（今日冇新上架）' : ''}`
+          : `${regionName} 已關閉，請到上方「地域開關」重新開啟`;
         header.onclick = () => {
           if (!regionEnabled) {
             toggleRegion(regionName, true);
@@ -2147,7 +2180,7 @@
         
         if (filteredSources.length > 1 || true) {
           const allRegionBtn = document.createElement('button');
-          allRegionBtn.className = `source-btn ${isRegionActive ? 'active' : ''} ${total > 0 && regionEnabled ? 'has-updates' : ''}`;
+          allRegionBtn.className = `source-btn ${isRegionActive ? 'active' : ''} ${updates > 0 && regionEnabled ? 'has-updates' : ''}`;
           allRegionBtn.innerHTML = `<span>全部 (${escapeHtml(regionName)})</span><small>${regionEnabled ? total + ' 則' : '已隱藏'}</small>`;
           allRegionBtn.disabled = !regionEnabled;
           allRegionBtn.onclick = () => {
@@ -2163,9 +2196,11 @@
             : SCOUT_SYSTEM_KINDS.filter(kind => kind.label.toLowerCase().includes(q) || kind.id.includes(q));
           for (const kind of visibleKinds) {
             const cnt = regionEnabled ? scoutKindCount(kind.id) : 0;
+            // 內設六類嘅燈號：今日有該類新工具先著
+            const fresh = regionEnabled ? scoutKindUpdateCount(kind.id) : 0;
             const active = scoutKindIdFromSource(state.activeSource) === kind.id;
             const kindBtn = document.createElement('button');
-            kindBtn.className = `source-btn ${active ? 'active' : ''} ${cnt > 0 && regionEnabled ? 'has-updates' : ''}`;
+            kindBtn.className = `source-btn ${active ? 'active' : ''} ${fresh > 0 && regionEnabled ? 'has-updates' : ''}`;
             kindBtn.innerHTML = `<span>${escapeHtml(kind.label)}</span><small>${regionEnabled ? cnt + ' 則' : '已隱藏'}</small>`;
             kindBtn.disabled = !regionEnabled;
             kindBtn.onclick = () => {
@@ -2180,9 +2215,10 @@
           if (regionName === 'Scout System' && source === 'Scout System') continue;
           const srcEnabled = isSourceEnabled(source);
           const cnt = sourceCount(source);
+          const fresh = sourceUpdateCount(source);   // 燈號：小工具只認今日新上架
           const btn = document.createElement('button');
           const reallyEnabled = regionEnabled && srcEnabled;
-          btn.className = `source-btn ${state.activeSource === source ? 'active' : ''} ${cnt > 0 && reallyEnabled ? 'has-updates' : ''}`;
+          btn.className = `source-btn ${state.activeSource === source ? 'active' : ''} ${fresh > 0 && reallyEnabled ? 'has-updates' : ''}`;
           let smallText = '';
           if (!regionEnabled) smallText = '地域已關';
           else if (!srcEnabled) smallText = '已隱藏（區會開關）';

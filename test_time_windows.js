@@ -37,6 +37,7 @@ const toolsSrc = [
   declaration('withinDays'),
   declaration('inWindow'),
   declaration('toolInToolsWindow'),
+  declaration('toolIsNewToday'),
   declaration('itemInWindow'),
 ].join('\n');
 let noticeDays = 1;
@@ -100,4 +101,27 @@ assert(toolsCtx.toolInToolsWindow(undatedTool), '冇日期嘅工具都計入側�
 toolsWindowId = 'tools-today';
 assert(!toolsCtx.toolInToolsWindow(oldTool), '小工具揀咗「今天」，側欄數字跟住收窄');
 
-console.log('🎉 Hong Kong date-only 今天 midnight boundary, 7天 retention and dateless 小工具 windows passed');
+// ── 2026-10-06：Scout System 側欄「有更新」綠燈只認今日新上架 ──────────
+// 側欄數字照報全部件數（tools-all），但燈號用 toolIsNewToday()：
+// 今日冇新上架就唔好著燈，過咗 HKT 午夜即刻熄（唔係等足 24 小時）。
+toolsWindowId = 'tools-all';
+now = '2026-09-08T12:00:00+08:00';
+assert(toolsCtx.toolIsNewToday(todayTool), '今日上架嘅工具 → 著燈');
+assert(!toolsCtx.toolIsNewToday(oldTool), '舊工具 → 唔著燈（就算「之前發布」照出佢）');
+assert(!toolsCtx.toolIsNewToday(undatedTool), '冇日期嘅工具唔當今日 → 唔著燈');
+now = '2026-09-08T23:59:59+08:00';
+assert(toolsCtx.toolIsNewToday(todayTool), '當晚 23:59 仲著燈');
+now = '2026-09-09T00:00:00.000+08:00';
+assert(toolsCtx.toolIsNewToday(todayTool), 'HKT midnight 邊界包含喺內（同通告視窗一致）');
+now = '2026-09-09T00:00:00.001+08:00';
+assert(!toolsCtx.toolIsNewToday(todayTool), '過咗 HKT 午夜就熄燈，唔係等足 24 小時');
+now = '2026-09-09T18:00:00+08:00';
+assert(!toolsCtx.toolIsNewToday(todayTool), '第二日全日都唔著燈');
+toolsWindowId = 'tools-today';
+now = '2026-09-08T12:00:00+08:00';
+assert(toolsCtx.toolIsNewToday(todayTool), '燈號唔理用戶揀咗邊個小工具掣（今日照著）');
+assert(!toolsCtx.toolIsNewToday(oldTool), '燈號唔理用戶揀咗邊個小工具掣（舊嘢照熄）');
+toolsWindowId = 'tools-all';
+assert(toolsCtx.toolInToolsWindow(oldTool), '側欄件數仍然報晒全部工具（燈號同件數分開）');
+
+console.log('🎉 Hong Kong date-only 今天 midnight boundary, 7天 retention, dateless 小工具 windows and Scout System 今日新上架 light passed');

@@ -141,6 +141,15 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   - 離開小工具分頁（全港／地域／區會混合清單）時，小工具照跟通告視窗，
     唔會一撳「今天」就成版舊工具跳出嚟；但左欄 Scout System 嘅數字永遠報小工具視窗嘅真實件數，
     撳入去見到幾多件就寫幾多件。
+- **「有更新」綠燈（2026-10-06 用戶規則：Scout System 唔好一直著燈）**：側欄嘅綠色高亮
+  （`.region.has-updates`／`.source-btn.has-updates`）同發光數字 badge（`.count-badge.hot`）
+  同「件數」分開計。通告照舊跟目前時間視窗；**Scout System 只認「今日新上架」**
+  （`toolIsNewToday()`＝小工具「今天」掣嗰個 days: 1、HKT 日起計嘅門檻）。
+  小工具係長期資產，「之前發布」永遠有貨，用件數做燈號等於 24 小時長著；
+  而家今日冇新上架 → Scout System 一欄、六個內設分類、「全部 (Scout System)」全部熄燈，
+  過咗 HKT 午夜即刻熄（唔係等足 24 小時），但**數字照報全部件數**（撳入去見到幾多件就寫幾多件），
+  Scout System 一欄嘅 tooltip 會寫「（今日冇新上架）」。全港列嘅燈號同樣只計今日新上架嘅小工具。
+  回歸測試：`node test_scout_system_light.js`
 
 ## 通告分類
 
@@ -284,7 +293,8 @@ PDF 唔同（兩個 URL 送到嘅係同一份 PDF），而係 enrich 嘅**入場
 node test_search_members.js     # 支部 + 分類配對邏輯（直接由 index.html 抽出，唔係複製一份）
 node test_report_feedback.js    # 問題回報／意見反映 payload 對齊 Scout Admin；預覽頁／Cloudflare 注入已清走
 node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需要 jsdom）
-node test_time_windows.js       # 「今天」午夜界線；小工具唔以日期分類（今天／之前發布）
+node test_time_windows.js       # 「今天」午夜界線；小工具唔以日期分類（今天／之前發布）；Scout System 綠燈只認今日新上架
+node test_scout_system_light.js # Scout System 側欄綠燈：今日冇新上架就熄燈，但件數照報（需要 jsdom）
 node test_batch_category.js     # 出圖台 ?batch=1 分類（公告／公布規則，直接由 index.html 抽出）
 python test_notify.py           # Push 去重、交集和合併通知邏輯（不會發網絡請求）
 python test_push_common.py      # API 受控 ID 與 endpoint SSRF 防護
