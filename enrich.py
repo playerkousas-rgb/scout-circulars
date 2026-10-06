@@ -60,11 +60,20 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.3"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
+ENRICH_VERSION = "3.4"  # 列表標題 vs PDF 雙重認證；只改錯名，唔改連結
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
 # （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
 # 更正確更正會記錄 listing_title，之後每次 run 重新套用（見
 # reapply_stored_title_fixes），令 cache 重建都唔會失去正確名稱。
+# 3.4（2026-10-06）：三個修正（用戶報告：東九龍地域批次「抽取好奇怪、標籤有問題」）：
+#   1. 表格列（「13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰」）同內文指示句
+#      唔可以當 PDF 標題（looks_like_table_row / _BODY_INSTRUCTION_RE）；
+#   2. PDF metadata 標題用嚟確認列表標題，列表標題係 PDF 標題超集時維持列表
+#      （見 reconcile_listing_title）；
+#   3. 表格通告直接讀「截止日期」「費用」欄（deadline_from_tables /
+#      fee_from_tables），唔再由 3 行窗口攞第一個日期（＝第一堂日期）。
+#   另外 collect_targets 而家接受 WordPress Download Manager 連結
+#   （?wpdmdl=…），東九龍地域等來源終於會被 enrich。
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -87,6 +96,47 @@ def pdf_text_via_pdfplumber(pdf_bytes):
             return nfkc("\n".join((p.extract_text() or "") for p in pages))
     except Exception:
         return ""
+
+
+def pdf_meta_title_via_pdfplumber(pdf_bytes):
+    """PDF metadata 標題（發通告嗰個人入嘅通告名）。
+
+    2026-10-06：行事曆類 PDF 嘅大標題可能係圖（唔喺文字層），但 metadata 標題
+    通常就係通告全名。呢個值只會用嚟「確認」列表標題（見 reconcile_listing_title），
+    永遠唔會覆蓋——fix_hks_titles.py 記錄過有來源會沿用舊檔 metadata 名。
+    """
+    try:
+        import pdfplumber
+        with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
+            info = pdf.metadata or {}
+            return nfkc(str(info.get("Title") or "")).strip()
+    except Exception:
+        return ""
+
+
+def pdf_tables_via_pdfplumber(pdf_bytes, max_pages=3):
+    """頭幾頁嘅表格（pdfplumber 預設 lattice：有框線先當表格）。
+
+    2026-10-06：通告正文好多時係「日期／時間／費用／名額／截止日期」表格，
+    純文字流抽欄位會將表頭同資料列連成一串，於是把第一堂日期當成截止日期。
+    有表格結構就唔使猜。
+    """
+    try:
+        import pdfplumber
+        tables = []
+        with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
+            for page in pdf.pages[:max_pages]:
+                for table in page.extract_tables() or []:
+                    rows = [
+                        [nfkc(str(cell or "")).replace("\n", " ").strip() for cell in row]
+                        for row in table
+                        if row
+                    ]
+                    if any(any(cell for cell in row) for row in rows):
+                        tables.append(rows)
+        return tables
+    except Exception:
+        return []
 
 
 def pdf_text_via_ocr(pdf_bytes, lang="chi_tra+eng"):
@@ -167,7 +217,55 @@ _LINK_SUFFIX_RE = re.compile(r"\s*[-–—]\s*[^-–—]{1,12}$")
 _CIRCULAR_CODE_RE = re.compile(
     r"^[A-Za-z]{2,5}[/\-_\s]+(?:[A-Za-z]{1,4}[/\-_\s]+)*\d{2,4}[/\-_\s]+\d{2,4}[A-Za-z]?$"
 )
+# ── 2026-10-06：表格列／內文指示句唔係標題 ────────────────────────────
+# 用戶個案（東九龍地域 2026-10-06 批次）：總會兩個「活動與訓練行事曆」PDF 嘅
+# 大標題係圖（唔喺文字層），pdfplumber 抽到嘅第一批文字就係表格列，於是
+#   「2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰」
+#   「13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰」
+# 因為含「訓練班」而喺 _HEADING_HINT_RE 加分，贏過其他候選行，再被當成
+# 「PDF 真標題」寫返 cache.json —— 結果：一個行事曆嘅標題變成一行表格，
+# 分類跟住錯（行事曆被當成「訓練」）、內文全部課程標籤都抽埋落一個通告度。
+# 呢啲行有共同形狀：開頭係日期清單／英文月份／表頭字眼，一律唔可以當標題。
+_TABLE_ROW_LEAD_RE = re.compile(
+    r"^(?:20\d{2})?(?:"                                                   # 年份可以痴住月份（compact 咗嘅文字）
+    r"(?:\d{1,2}\s*[,，、]\s*)+\d{1,2}"                                   # 13, 17, 20, 23, 31
+    r"|\d{1,2}[-–—]\d{1,2}(?:[/／]\d{1,2})?"                              # 24-25、16-17/1
+    r"|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)"           # 2026 Oct …（英文行事曆）
+    r"|(?:YEAR|MONTH|DATE|EVENT|C\.L\.)"                                   # 表頭英文字
+    r")",
+    re.I,
+)
+# 行首係一個獨立日數（後面有空格）：「17 風帆賽事先修研習班（A） 曾昭溢」。
+# 注意：中文標題嘅數字通常痴住後面（「50周年」），所以唔會誤殺。
+_TABLE_ROW_BARE_DAY_RE = re.compile(r"^\s*(?:20\d{2}\s+)?\d{1,2}\s+\S")
+# 完整日期開頭而且同一行仲有兩個以上數字格（「2027年1月24日 日 待定 160 14
+# 2026年12月11日」）＝表格列。單純以「2026年10月…」開頭嘅真標題唔會被殺。
+_TABLE_ROW_DATE_LEAD_RE = re.compile(r"^(?:20\d{2}\s*年\s*)?\d{1,2}\s*月\s*\d{1,2}\s*日")
+_NUMBER_TOKEN_RE = re.compile(r"\d+")
+# 內文指示句（繳費、交表、注意事項）同理唔係標題。
+_BODY_INSTRUCTION_RE = re.compile(r"^(?:請|敬希|敬請|填妥|連同|如有|如欲)")
+# 欄位標籤行（「（一）日期：」「（二）參加資格：」「費 用：」…）係分段標題，
+# 唔係通告標題。2026-10-06 個案：行事曆 PDF 大標題係圖，文字層第一個似樣嘅
+# 候選就係「（一）日期：」——雖然最終冇寫返 cache，但同樣可以誤導更正。
+_SECTION_LABEL_RE = re.compile(
+    r"^[（(]?(?:[0-9０-９]{1,2}|[一二三四五六七八九十]{1,3})[）).、]?"
+    r"(?:日期|時間|地點|費用|收費|班費|名額|資格|對象|內容|參加辦法|報名辦法|報名|"
+    r"備註|其他|詳情|服裝|集合|解散|交通|獎項|查詢)"
+    r"[：:]?$"
+)
 TITLE_SIMILARITY_THRESHOLD = 0.90
+
+
+def looks_like_table_row(line: str) -> bool:
+    """呢行係咪表格列（日期清單／英文月份表頭）——永遠唔可以當通告標題。"""
+    text = compact(line)
+    if not text:
+        return False
+    if _TABLE_ROW_LEAD_RE.match(text):
+        return True
+    if _TABLE_ROW_BARE_DAY_RE.match(line or ""):
+        return True
+    return bool(_TABLE_ROW_DATE_LEAD_RE.match(text) and len(_NUMBER_TOKEN_RE.findall(text)) >= 3)
 
 
 def compact_title(value: str) -> str:
@@ -215,6 +313,13 @@ def extract_pdf_heading(text: str) -> str:
             continue
         if _HEADING_SKIP_RE.search(compact_line):
             continue
+        # 2026-10-06：表格列（「13, 17, 20, 23, 31 …」「2026 Oct 10, 11 …」）同
+        # 內文指示句（「請以劃線支票支付…」）唔係標題。
+        if looks_like_table_row(line) or _BODY_INSTRUCTION_RE.match(compact_line):
+            continue
+        # 2026-10-06：欄位標籤行（「（一）日期：」「（二）參加資格：」）唔係標題
+        if _SECTION_LABEL_RE.match(compact_line):
+            continue
         if re.fullmatch(r"20\d{2}年\d{1,2}月\d{1,2}日", compact_line):
             continue
         if _CIRCULAR_CODE_RE.match(line.strip()):
@@ -239,6 +344,13 @@ def heading_looks_like_title(text: str) -> bool:
     """
     line = compact(nfkc(text or "")).strip()
     if not line or len(line) > 40:
+        return False
+    # 2026-10-06：表格列（用戶個案嘅「13, 17, 20, 23, 31 地質生態導賞員訓練班
+    # 楊劍聰」）同內文指示句都唔可以寫返 cache.json 當標題。
+    if looks_like_table_row(line) or _BODY_INSTRUCTION_RE.match(line):
+        return False
+    # 2026-10-06：欄位標籤行（「（一）日期：」）唔可以寫返 cache 做標題
+    if _SECTION_LABEL_RE.match(line):
         return False
     if _HEADING_SKIP_RE.search(line) or _CIRCULAR_NUMBER_RE.match(line) or _CIRCULAR_CODE_RE.match(line):
         return False
@@ -288,20 +400,44 @@ def listing_supported_by_pdf(listing: str, pdf_text: str, heading: str = "") -> 
     return False
 
 
-def reconcile_listing_title(listing: str, pdf_text: str) -> dict:
+def heading_contained_in_listing(listing: str, heading: str) -> bool:
+    """PDF 標題係列表標題嘅一部分？
+
+    2026-10-06 個案：「東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員
+    訓練班」（列表）vs「地質生態導賞員訓練班」（PDF 標題）。舊版因為相似度
+    0.5 < 0.9 就當列表標題錯，縮短成 PDF 標題——但列表標題只係多咗計劃名，
+    更完整。呢類「PDF 標題係列表標題子字串」嘅情況一律維持列表標題。
+    """
+    hay = compact_title(listing)
+    needle = compact_title(heading)
+    return bool(needle) and len(needle) >= 6 and needle in hay
+
+
+def reconcile_listing_title(listing: str, pdf_text: str, pdf_meta_title: str = "") -> dict:
     """列表標題 vs PDF。回傳 {title, status, pdf_heading, similarity}。
 
     status:
-      verified   — 列表標題出現喺 PDF 或同 PDF 標題 ≥90% 相似，維持列表
+      verified   — 列表標題出現喺 PDF、同 PDF 標題 ≥90% 相似、或者係 PDF 標題嘅
+                   超集（列表標題更完整）；亦包括 PDF metadata 標題同列表標題一致
       corrected  — 對唔上，而且 PDF 標題夠清楚，改用 PDF
       unverified — PDF 太少字／抽唔到標題，維持列表（寧願唔改）
+
+    2026-10-06：只用 PDF 自帶嘅 metadata 標題做「確認」（metadata 可能係舊檔
+    另存時留下嘅錯名——見 fix_hks_titles.py，所以永遠唔會攞佢做更正內容）；
+    行事曆類 PDF 嘅大標題有時係圖，文字層只剩表格，靠 metadata 先認得返。
     """
     listing = nfkc(listing or "").strip()
     heading = extract_pdf_heading(pdf_text)
     similarity = title_similarity(listing, heading) if heading else 0.0
+    meta = nfkc(pdf_meta_title or "").strip()
+    if meta and len(compact(meta)) >= 6 and title_similarity(listing, meta) >= TITLE_SIMILARITY_THRESHOLD:
+        return {"title": listing, "status": "verified", "pdf_heading": heading,
+                "similarity": similarity, "pdf_meta_title": meta}
     if not pdf_text or len(compact(pdf_text)) < 20:
         return {"title": listing, "status": "unverified", "pdf_heading": heading, "similarity": similarity}
     if listing_supported_by_pdf(listing, pdf_text, heading):
+        return {"title": listing, "status": "verified", "pdf_heading": heading, "similarity": similarity}
+    if heading_contained_in_listing(listing, heading):
         return {"title": listing, "status": "verified", "pdf_heading": heading, "similarity": similarity}
     if heading and similarity < TITLE_SIMILARITY_THRESHOLD:
         return {"title": heading, "status": "corrected", "pdf_heading": heading, "similarity": similarity}
@@ -399,7 +535,7 @@ def extract_categories(title, text):
     return classify_subscription_categories(title, text)
 
 
-def extract_deadline(text):
+def extract_deadline(text, tables=None):
     """截止日期：搵含『截止』的行，回傳第一個帶有效日期者。
 
     設計原則（非常重要）：
@@ -407,7 +543,11 @@ def extract_deadline(text):
       - 只認「截止」相關 label，不認「報名日期」等可能係開始日期的字樣
       - 優先匹配明確 label（截止日期 / 截止報名日期 / 報名截止日期），
         再 fallback 到任何含截止的行
+      - 2026-10-06：表格有『截止日期』欄就先用表格嗰個（見 deadline_from_tables）
     """
+    table_value = deadline_from_tables(tables) if tables else ""
+    if table_value:
+        return table_value
     lines = text.split("\n")
     candidate_blocks = []
     for i, line in enumerate(lines):
@@ -427,6 +567,24 @@ def extract_deadline(text):
     for c, block in candidate_blocks:
         if "截止" in c:
             d = find_date(block)
+            if d:
+                return d
+    # 2026-10-06：冇「截止」字眼，但寫住「…日或之前（交回／遞交／提交）」
+    # 逐行試；同一行搵唔到就先後拼埋隔籬一行（PDF 換行會將日期同「或之前」分開），
+    # 但日期同動作之間唔可以跨句號／分號（見 _DEADLINE_DATE_BEFORE_RE）。
+    for i, line in enumerate(lines):
+        if not _DEADLINE_BEFORE_PHRASE_RE.search(compact(line)):
+            continue
+        windows = [line]
+        if i:
+            windows.append(lines[i - 1] + line)
+        if i + 1 < len(lines):
+            windows.append(line + lines[i + 1])
+        for window in windows:
+            m = _DEADLINE_DATE_BEFORE_RE.search(compact(window))
+            if not m:
+                continue
+            d = find_date(m.group(1))
             if d:
                 return d
     # 「已截止」也算明確訊息
@@ -473,6 +631,71 @@ def find_date(s):
         if _valid_date(int(y), int(mo), int(d)):
             return f"{y}-{int(mo):02d}-{int(d):02d}"
     return ""
+
+
+# ─── 表格欄位（2026-10-06）──────────────────────────────────
+# 通告正文係表格時，表頭同資料列會被 pdfplumber 排成相連文字，於是
+# 「日期 星期 時間 費用 名額 截止日期」之後就跟住「2027年1月2日 六 … 2026年12月11日」。
+# 舊版 extract_deadline 喺呢個 3 行窗口攞第一個日期＝第一堂日期（唔係截止日）。
+# 有表格結構就直接讀「截止日期」欄，唔使猜。
+_TABLE_DEADLINE_HEADER_RE = re.compile(r"截止")
+_TABLE_FEE_HEADER_RE = re.compile(r"^(?:費用|班費|收費|報名費|活動費用|團費)")
+# 2026-10-06：好多通告唔寫「截止」兩個字，而係「必須於 2026 年 11 月 30 日
+# （星期一）或之前填妥回條，交回…」。個案：東九龍地域 26228「2027年童軍獎券
+# 籌募活動」——舊版完全抽唔到截止日（前端顯示空白，但內文白紙黑字寫住 11 月 30 日）。
+# 只認「（日期）…或之前」同時有交回／遞交／提交／寄回／電郵／傳真等動作嘅行，
+# 而且要行內（或緊接一行）有完整年份日期，唔會亂認「每年的 6 月 30 日前提交」。
+_DEADLINE_BEFORE_PHRASE_RE = re.compile(r"或之前|之前|前(?:交回|遞交|提交|呈交|寄回|寄交|回覆|電郵|傳真)")
+# 「（完整日期）…（最多 16 個字，例如『（星期一）』）…或之前／前交回」
+# 中間唔可以跨句號／分號——防止「每年 6 月 30 日前提交。…2026 年 10 月 31 日呈交」
+# 呢種前後兩句被當成一句。
+_DEADLINE_DATE_BEFORE_RE = re.compile(
+    r"(20\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日)[^。；\n]{0,16}?"
+    r"(?:或之前|之前|前(?:交回|遞交|提交|呈交|寄回|寄交|回覆|電郵|傳真))"
+)
+
+
+def _table_column_first_value(tables, header_re, max_header_rows=4):
+    """喺表格搵表頭含指定字眼嘅欄，回傳該欄第一個非空值。"""
+    for rows in tables or []:
+        column = None
+        start = 0
+        for i, row in enumerate(rows[:max_header_rows]):
+            for j, cell in enumerate(row):
+                if header_re.search(compact(cell)):
+                    column, start = j, i + 1
+                    break
+            if column is not None:
+                break
+        if column is None:
+            continue
+        for row in rows[start:]:
+            if column < len(row):
+                value = str(row[column] or "").strip()
+                if value:
+                    return value
+    return ""
+
+
+def deadline_from_tables(tables):
+    """表格『截止日期』欄嘅第一個日期（抽唔到就回空字串，唔猜）。"""
+    value = _table_column_first_value(tables, _TABLE_DEADLINE_HEADER_RE)
+    return find_date(value) if value else ""
+
+
+def fee_from_tables(tables):
+    """表格『費用／班費／收費』欄嘅第一個金額。
+
+    只認個欄名，唔會攞「按金」（可退）或者「名額」；純數字欄位（例如 160）
+    喺童軍通告一律當港幣。
+    """
+    value = _table_column_first_value(tables, _TABLE_FEE_HEADER_RE)
+    if not value:
+        return ""
+    bare = compact(value)
+    if re.fullmatch(r"[\d,]+(?:\.\d+)?", bare):
+        return f"HK${bare}"
+    return normalize_fee(value)
 
 
 def extract_after_label(text, label_keys, stop_keys, max_len=120):
@@ -532,6 +755,7 @@ def extract_audience(text):
         label_keys=["參加資格", "參加對象", "對象", "資格"],
         lines_after=2,
         stop_keys=["費用", "收費", "名額", "報名", "截止", "日期", "辦法"],
+        follow_list=True,   # 2026-10-06：資格通常係（1）（2）（3）多行清單
     )
     if not scope:
         # 冇「參加資格／對象」label 時，先睇公函收件人欄（「致：…」）；
@@ -569,10 +793,19 @@ def extract_audience(text):
     return "、".join(ordered)
 
 
-def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None):
+# 2026-10-06：「參加資格」呢類欄位後面通常係（1）（2）（3）… 編號清單，
+# 每項一行，全部加埋先知有邊幾個支部／身分（個案：26241「一個石籃的故事」
+# 舊版只抽到前 2 行，漏咗「持有有效委任狀之會務委員」）。
+_LIST_ITEM_RE = re.compile(r"^(?:（\d{1,2}）|\(\d{1,2}\)|\d{1,2}[.、)）]|[•·])")
+
+
+def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None,
+                       follow_list=False, max_follow=6):
     """回傳 label 那行（冒號後）+ 之後 N 行的合併文字。
     若提供 stop_keys：合併後續行時，一遇到含 stop 詞的行就停，
-    避免把下一個欄位（如『報名辦法』）的內容撈進來。"""
+    避免把下一個欄位（如『報名辦法』）的內容撈進來。
+    follow_list=True（只係「參加資格／對象」用）：之後嘅行如果係
+    （1）（2）… 編號清單就繼續讀，最多多讀 max_follow 行。"""
     stop_keys = stop_keys or []
     lines = text.split("\n")
     for i, line in enumerate(lines):
@@ -585,6 +818,22 @@ def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None):
                 if any(k in compact(nl) for k in stop_keys):
                     break
                 tail_parts.append(nl)
+            if follow_list:
+                n = i + 1 + lines_after
+                extra = 0
+                while n < len(lines) and extra < max_follow:
+                    nxt = lines[n]
+                    c2 = compact(nxt)
+                    if not c2:
+                        n += 1
+                        continue
+                    if any(k in c2 for k in stop_keys):
+                        break
+                    if not _LIST_ITEM_RE.match(c2):
+                        break
+                    tail_parts.append(nxt)
+                    extra += 1
+                    n += 1
             return head + " " + " ".join(tail_parts)
     return ""
 
@@ -597,19 +846,30 @@ FEE_PATTERNS = [
     r"[\d,]+\s*元(?:正)?",
 ]
 
-def extract_fee(text):
+def extract_fee(text, tables=None):
     """費用：抽『費用 label』附近的金額。
     v2 改動：
       - 擴大 label 關鍵詞，包括「費用」「收費」「報名費」「活動費用」「費用全免」等
       - 優先判斷全免 / 豁免
       - 抽到兩個金額且一個剛好是另一個的一半 → 用細嗰個（半費資助）
       - 否則保留兩個（應付身份差價）
+    2026-10-06：內文抽唔到（例如費用只出現喺表格嘅「費用($)」欄）→ 讀表格欄。
     """
     scope = locate_label_scope(
         text,
-        label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用", "報名費用"],
+        # 2026-10-06：加「售價」——紀念品／盲盒訂購類通告寫「售價：每個港幣 50 元」
+        # （個案：東九龍地域「東九50時間錦囊」盲盒訂購），舊版會漏咗費用。
+        label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用", "報名費用", "售價"],
         lines_after=2,
     )
+    value = _fee_from_scope(scope)
+    if value:
+        return value
+    return fee_from_tables(tables) if tables else ""
+
+
+def _fee_from_scope(scope: str) -> str:
+    """由『費用』label 附近嘅文字抽金額（scope 空＝抽唔到）。"""
     if not scope:
         return ""
     c = compact(scope)
@@ -691,14 +951,18 @@ def clean_value(v, max_len):
     return v
 
 
-def extract_fields(text, title="", source=""):
-    """Extract display fields and the stable IDs used for personalised push."""
+def extract_fields(text, title="", source="", tables=None):
+    """Extract display fields and the stable IDs used for personalised push.
+
+    ``tables`` 係 pdf_tables_via_pdfplumber() 嘅輸出（可選）：表格通告嘅
+    截止／費用準好多（見 deadline_from_tables / fee_from_tables）。
+    """
     audience = extract_audience(text)
     subscription = extract_subscription_metadata(title, text, audience, source=source)
     return {
-        "deadline": extract_deadline(text),
+        "deadline": extract_deadline(text, tables=tables),
         "audience": audience,
-        "fee": extract_fee(text),
+        "fee": extract_fee(text, tables=tables),
         "categories": subscription["categories"],
         "branch_tags": subscription["branch_tags"],
         "subscription_tags": subscription["subscription_tags"],
@@ -769,8 +1033,11 @@ def enrich_one(url, title="", use_ocr=True, verbose=False, source=""):
         return _empty_enrichment(title, "not_pdf", source=source)
 
     text = pdf_text_via_pdfplumber(data)
+    # 2026-10-06：PDF metadata 標題（用嚟確認列表標題）+ 表格（截止／費用欄）。
+    meta_title = pdf_meta_title_via_pdfplumber(data)
+    tables = pdf_tables_via_pdfplumber(data)
     method = "text"
-    probe = extract_fields(text, title, source=source)
+    probe = extract_fields(text, title, source=source, tables=tables)
 
     # 文字抽唔到任何欄位 + 文字本身太少 → 可能圖片型 → OCR
     has_any = any(probe[k] for k in ("deadline", "audience", "fee"))
@@ -782,23 +1049,56 @@ def enrich_one(url, title="", use_ocr=True, verbose=False, source=""):
             method = "ocr"
             text = ocr_text
 
-    check = reconcile_listing_title(title, text)
+    check = reconcile_listing_title(title, text, pdf_meta_title=meta_title)
     verified_title = check["title"]
-    fields = extract_fields(text, verified_title, source=source)
+    fields = extract_fields(text, verified_title, source=source, tables=tables)
     fields["_method"] = method
     fields["_verified_title"] = verified_title
     fields["_title_check"] = check["status"]
     fields["_pdf_heading"] = check.get("pdf_heading") or ""
     fields["_title_similarity"] = check.get("similarity") or 0.0
+    if check.get("pdf_meta_title"):
+        fields["_pdf_meta_title"] = check["pdf_meta_title"]
     return fields
 
 
 # ─── 主流程 ───────────────────────────────────────────────
-def collect_targets(cache, target_date, do_all, do_backfill, do_backfill_categories=False):
+# 除咗 .pdf 之外仲可以直接攞到 PDF bytes 嘅下載端點。
+# 2026-10-06：東九龍地域（140 條，全部）用 WordPress Download Manager
+# （/circulars/download/?wpdmdl=NNNN）發通告，URL 唔會以 .pdf 結尾，所以
+# collect_targets 一直跳過佢哋 —— 結果該來源全部通告冇截止／對象／費用／分類，
+# 前端於是把每一張都顯示成「公布」。下載返嚟照樣要過 %PDF magic bytes，
+# 唔係 PDF 就當 not_pdf（唔會亂塞內容）。
+_ENRICHABLE_URL_RE = re.compile(r"[?&]wpdmdl=\d+", re.I)
+
+
+def url_path_lower(url: str) -> str:
+    return (url or "").split("#")[0].split("?")[0].lower()
+
+
+def is_enrichable_url(url: str) -> bool:
+    """呢個 URL 值唔值得下載去抽 PDF 內文。"""
+    url = url or ""
+    if url_path_lower(url).endswith(".pdf"):
+        return True
+    return bool(_ENRICHABLE_URL_RE.search(url))
+
+
+# 2026-10-06：預設（增量）模式嘅補漏窗（日）。每日 workflow 只跑增量，一旦某個
+# 來源／URL 形狀之前被 collect_targets 靜靜跳過（例如東九龍地域嘅 ?wpdmdl= 下載
+# 連結，140 條全部冇 enrich），佢哋永遠唔會補做。有咗呢個窗口，最近 N 日入庫而
+# enrich.json 仍然冇紀錄嘅通告會自動執返；已經有當前版本標籤嘅唔會重抽。
+# 實測成本：最近 7 日只有 0–2 條係仍然唔 enrichable（.docx／.xlsx 報名表）。
+INCREMENTAL_CATCHUP_DAYS = 7
+
+
+def collect_targets(cache, target_date, do_all, do_backfill, do_backfill_categories=False,
+                    catchup_days=INCREMENTAL_CATCHUP_DAYS):
     """回傳要處理的 [(source, title, pdf_url)]
 
     四種模式：
-      - 預設（增量）：只抓 captured_date == target_date 的當天新通告
+      - 預設（增量）：抓 captured_date == target_date 的當天新通告，
+        另外補做最近 catchup_days 日仍然冇 enrich 紀錄嘅通告（見上）
       - --backfill：  抓「所有日期」但稍後跳過已 enrich 的，用來補歷史欠帳（如 5/23 批次匯入的舊通告）
       - --backfill-categories：抓「所有日期」但只處理缺 categories 或舊 taxonomy 嘅
       - --all：       強制全量重抽（連已 enrich 的也重抽；重！極少用）
@@ -814,15 +1114,126 @@ def collect_targets(cache, target_date, do_all, do_backfill, do_backfill_categor
             if is_drive:
                 if not drive_direct_url(url):
                     continue          # 認唔出格式就唔猜
-            elif not url.lower().endswith(".pdf"):
+            elif not is_enrichable_url(url):
                 continue
-            # 預設模式：只看今日；--all / --backfill / --backfill-categories 則不分日期全收
+            # 預設模式：今日 + 最近 catchup_days 日嘅補漏窗；
+            # --all / --backfill / --backfill-categories 則不分日期全收
             if not do_all and not do_backfill and not do_backfill_categories:
-                cap = it.get("captured_date", "")
-                if cap != target_date:
+                cap = str(it.get("captured_date", ""))[:10]
+                if catchup_days > 0:
+                    try:
+                        lower = (
+                            datetime.date.fromisoformat(target_date) - datetime.timedelta(days=catchup_days)
+                        ).isoformat()
+                    except ValueError:
+                        lower = target_date
+                    if not (lower <= cap <= target_date):
+                        continue
+                elif cap != target_date:
                     continue
             out.append((source, it.get("title", ""), url))
     return out
+
+
+def skip_reason(url: str) -> str:
+    """未支援連結嘅原因（用嚟喺警號入面分類，方便判斷係設定問題定係真係冇 PDF）。"""
+    name = url_path_lower(url).rsplit("/", 1)[-1]
+    if "." in name:
+        ext = name.rsplit(".", 1)[-1]
+        if ext and all(ch.isalnum() for ch in ext) and len(ext) <= 5:
+            return f".{ext}"
+    return "網頁／無檔案尾綴"
+
+
+def summarize_skipped_links(cache, target_date, do_all, do_backfill, do_backfill_categories,
+                            catchup_days=INCREMENTAL_CATCHUP_DAYS):
+    """回傳「連結形狀未支援所以唔會 enrich」嘅統計：[(來源, 條數, 例子URL)]。
+
+    2026-10-06（用戶個案）：東九龍地域 140 條全部用 WordPress Download Manager
+    （?wpdmdl=），collect_targets 以前只認 `.pdf` 尾，靜靜跳過——個來源就永遠
+    冇截止／對象／費用／分類，而且冇任何訊息提示。呢個函數將「靜默跳過」變成
+    每次 run 都印出嚟嘅警號，等下一次有新來源／新連結形狀時即刻見到。
+    """
+    counts = {}
+    for source, arr in (cache.get("data") or {}).items():
+        if not isinstance(arr, list):
+            continue
+        for it in arr:
+            if not isinstance(it, dict):
+                continue
+            url = it.get("pdf_url") or it.get("url") or ""
+            if "drive.google" in url or "docs.google" in url:
+                if drive_direct_url(url):
+                    continue            # Drive 支援，唔算跳過
+            elif is_enrichable_url(url):
+                continue
+            if not do_all and not do_backfill and not do_backfill_categories:
+                cap = str(it.get("captured_date", ""))[:10]
+                if catchup_days > 0:
+                    try:
+                        lower = (datetime.date.fromisoformat(target_date)
+                                 - datetime.timedelta(days=catchup_days)).isoformat()
+                    except ValueError:
+                        lower = target_date
+                    if not (lower <= cap <= target_date):
+                        continue
+                elif cap != target_date:
+                    continue
+            entry = counts.setdefault(source, [0, url])
+            entry[0] += 1
+    return sorted(((s, c, u) for s, (c, u) in counts.items()), key=lambda x: -x[1])
+
+
+def summarize_cross_source_consistency(cache, enrich, target_date,
+                                       catchup_days=INCREMENTAL_CATCHUP_DAYS):
+    """同一通告出現喺多個來源（總會站鏡像地域通告）時，兩份 entry 應該有同樣嘅
+    分類／截止／費用；唔一致就報出嚟（只報告，唔改數據）。
+
+    2026-10-06（用戶名單）：「2027年童軍獎券籌募活動」出現兩次，一次『比賽』
+    一次『活動』；「…成績公布」一次『比賽』一次冇資料。呢個檢查會每次 run
+    自動捉返呢類分歧——同標題＋同 captured_date 先算同一份通告。
+    """
+    groups = {}
+    for source, arr in (cache.get("data") or {}).items():
+        if not isinstance(arr, list):
+            continue
+        for it in arr:
+            if not isinstance(it, dict):
+                continue
+            url = it.get("pdf_url") or it.get("url") or ""
+            cap = str(it.get("captured_date", ""))[:10]
+            if catchup_days > 0:
+                try:
+                    lower = (datetime.date.fromisoformat(target_date)
+                             - datetime.timedelta(days=catchup_days)).isoformat()
+                except ValueError:
+                    lower = target_date
+                if not (lower <= cap <= target_date):
+                    continue
+            elif cap != target_date:
+                continue
+            title = compact_title(it.get("title") or "")
+            if not title:
+                continue
+            groups.setdefault((title, cap), []).append((source, enrich.get(url)))
+
+    problems = []
+    for (title, cap), items in groups.items():
+        sources = {source for source, _ in items}
+        if len(sources) < 2:
+            continue
+        signatures = {}
+        missing = []
+        for source, entry in items:
+            if isinstance(entry, dict):
+                cats = "／".join(sorted(c.get("label", "") for c in (entry.get("categories") or []))) or "—"
+                signatures[source] = f"{cats}|{entry.get('deadline') or '—'}|{entry.get('fee') or '—'}"
+            elif source not in missing:
+                missing.append(source)      # 同一通告，但呢個來源完全冇抽過
+        mismatch = len(set(signatures.values())) > 1
+        if mismatch or missing:
+            problems.append((cap, title, signatures, sorted(missing)))
+    return sorted(problems, key=lambda x: (x[0], x[1]))
 
 
 def check_environment(args):
@@ -922,11 +1333,16 @@ def main():
             # 空 array 也是已判斷結果；以欄位存在＋目前 catalog version 為準，
             # 否則一張不屬四類的通告會被每天重下載。升級 taxonomy（例如新增
             # 獨立比賽）時，--backfill-categories 也會重建舊版本 metadata。
+            # 2026-10-06：再加 `enrich_version`——抽 PDF 嘅規則（標題、表格
+            # 截止／費用、課程標籤過濾）一升級，最近 7 日窗口內用舊版抽出嘅
+            # 結果就會自動重抽一次。冇呢個檢查，改完規則都只會影響將來嘅新
+            # 通告，舊 entry 因為 catalog version 冇變而永遠唔會重算。
             return (
                 "categories" in entry
                 and "branch_tags" in entry
                 and "subscription_tags" in entry
                 and entry.get("subscription_catalog_version") == CURRENT_SUBSCRIPTION_CATALOG_VERSION
+                and entry.get("enrich_version") == ENRICH_VERSION
             )
 
         if args.backfill_categories:
@@ -944,9 +1360,28 @@ def main():
           + (f"，captured_date={today}" if not args.all and not args.backfill else "") + "）")
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
 
+    # 「靜默跳過」警號：連結形狀未支援嘅通告（今次唔會 enrich、亦唔會有人知）。
+    # 東九龍地域 140 條 ?wpdmdl= 就係咁樣整整一個來源冇數據；而家每次 run 都印。
+    skipped = summarize_skipped_links(cache, today, args.all, args.backfill, args.backfill_categories)
+    if skipped:
+        total_skipped = sum(c for _, c, _ in skipped)
+        reasons = {}
+        for _, count, url in skipped:
+            key = skip_reason(url)
+            reasons[key] = reasons.get(key, 0) + count
+        reason_text = "、".join(f"{k} {v} 條" for k, v in sorted(reasons.items(), key=lambda kv: -kv[1]))
+        top = "、".join(f"{s} {c} 條" for s, c, _ in skipped[:6])
+        print(f"⏭  連結形狀未支援（唔會 enrich）：{total_skipped} 條（{reason_text}）")
+        print(f"    來源：{top}")
+        print(f"    例：{skipped[0][2][:96]}")
+        print("    如果某個來源整批落喺呢度，檢查 sources.json 嘅 selector（攞到嘅係")
+        print("    檔案連結定係文章頁），再喺 enrich.py is_enrichable_url() 加新形狀")
+        print("    ＋補 test_enrich.py 回歸測試。\n")
+
     done = ok = 0
     cache_dirty = False
     title_corrections = 0
+    error_counts = {}   # (來源, 錯誤) → 條數；收尾一次過報，唔會再靜默失敗
     for idx, (source, title, url) in enumerate(targets):
         if idx > 0:
             # v2.4: 下載之間加隨機延遲（同 core.py 標準）——
@@ -1010,6 +1445,8 @@ def main():
         print(f"   [{tag}] 截止={res.get('deadline') or '—'} | "
               f"對象={(res.get('audience') or '—')[:20]} | 費用={(res.get('fee') or '—')[:20]} | "
               f"分類={cats or '—'} | 訂閱={sub_tags or '—'}")
+        if res.get("_error"):
+            error_counts[(source, res["_error"])] = error_counts.get((source, res["_error"]), 0) + 1
         done += 1
         if got:
             ok += 1
@@ -1017,6 +1454,24 @@ def main():
     json.dump(enrich, open(ENRICH_FILE, "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
     print(f"\n✅ 完成：處理 {done} 條，抽到內容 {ok} 條 → {ENRICH_FILE}")
+
+    # 收尾報告：失敗原因要一眼睇到（唔好再出現「某個來源永遠冇數據但冇人知」）。
+    # not_pdf 尤其重要——多數係 WPDM／Drive 之類要 cookie 或改 headers 嘅下載端點。
+    if error_counts:
+        summary = "、".join(f"{src} {err} {n} 條" for (src, err), n in
+                            sorted(error_counts.items(), key=lambda kv: -kv[1]))
+        print(f"⚠️  今次有 {sum(error_counts.values())} 條抽唔到：{summary}")
+
+    # 收尾報告：同一通告出現喺多個來源（鏡像）時，兩份抽出嚟嘅分類／截止／費用
+    # 應該一樣；唔一樣即係規則有分歧（用戶名單：同一份通告一邊『比賽』一邊『活動』）。
+    inconsistent = summarize_cross_source_consistency(cache, enrich, today)
+    if inconsistent:
+        print(f"⚠️  同一通告喺多個來源但結果唔齊／唔同：{len(inconsistent)} 組")
+        for cap, title, signatures, missing in inconsistent[:5]:
+            detail = "；".join(f"{src}={sig}" for src, sig in sorted(signatures.items()))
+            tail = f"｜未抽：{'、'.join(missing)}" if missing else ""
+            print(f"     {cap} {title[:26]}｜{detail}{tail}")
+        print("     （同標題＋同 captured_date＝同一份通告；兩邊應該一致，唔一致要查規則）")
 
     # 2026-10-03：core.py 每次抓取（包括 --force）都會用列表頁標題重建
     # cache.json，之前寫入嘅更正會被蓋走。呢度零下載重新套用已核實嘅更正，

@@ -101,6 +101,11 @@ ANNOUNCEMENT_OVERRIDE_TERMS = [
     "服務獎勵",
     "津貼計劃",
     "獎勵計劃",  # 通用獎勵計劃（配合青年獎勵排除，見 extract_categories）
+    # 2026-10-06：地域「卓越領袖嘉許計劃」呢類表揚計劃＝公布，唔可以由內文
+    # 「服務記錄／服務或事工」搶去服務。個案：東九龍地域 26232 Adm28.pdf
+    # 被判「服務」，但同一份通告嘅附錄（26233）同 2026 年獲嘉許名單（26230）
+    # 都係「公布」——同一件事三個標籤。
+    "嘉許計劃",
 ]
 ANNOUNCEMENT_OVERRIDE_EXCLUDE_TERMS = [
     "青年獎勵",  # 香港青年獎勵計劃係訓練，唔係公布
@@ -256,6 +261,43 @@ def _mask_term(value: Any, term: str) -> str:
     return haystack.replace(needle, "\u2400") if needle else haystack
 
 
+# 2026-10-06：課程／徽章標籤唔應該由「資格／優先考慮／由…擔任」呢類句子抽出。
+_COURSE_REQUIREMENT_TERMS = (
+    "持有", "資格", "資歷", "優先", "同等", "必須", "擔任", "班領導人",
+)
+_COURSE_CONTEXT_WINDOW = 14
+
+
+def _course_hit_is_requirement_noise(combined: str, hit: str, title: str) -> bool:
+    """呢個課程／徽章名係咪只喺「資格／優先／工作人員」句子出現過？
+
+    用戶個案（2026-10-06）：
+      - 「東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班」
+        內文「持有獨木舟教練資歷…將獲優先考慮」→ 舊版抽咗「獨木舟教練」課程標籤；
+      - 「三級童軍標準艇訓練班」內文「由…註冊中級童軍標準艇教練員楊劍聰先生
+        擔任班領導人」→ 舊版抽咗「童軍標準艇教練員」。
+    呢啲只係報名資格／導師資歷描述，唔係通告本身開辦嘅課程；訂閱者收到會莫名其妙。
+    標題有講嘅一律保留（標題永遠最權威），內文只要有「一個」非資格句出現都保留。
+    """
+    needle = normalize(hit)
+    if not needle:
+        return True
+    if needle in normalize(title):
+        return False
+    haystack = normalize(combined)
+    start = 0
+    while True:
+        index = haystack.find(needle, start)
+        if index < 0:
+            return True     # 所有出現位置都喺資格句 → 當雜訊
+        window = haystack[
+            max(0, index - _COURSE_CONTEXT_WINDOW): index + len(needle) + _COURSE_CONTEXT_WINDOW
+        ]
+        if not any(term in window for term in _COURSE_REQUIREMENT_TERMS):
+            return False
+        start = index + 1
+
+
 def _make_category(tag_id: str, label: str, evidence: Iterable[str], subtype: str = "") -> Dict[str, Any]:
     result = {
         "id": tag_id,
@@ -379,6 +421,24 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
         if title_hits["big_camp"]:
             return [_make_category("activity", "活動", title_hits["big_camp"], "big_camp")]
         return [_make_category("activity", "活動", title_hits["campfire"], "campfire")]
+
+    # 2026-10-06：標題有明確活動字眼（活動／嘉年華／開放日／體驗日／分享會…）
+    # 但冇更強字眼（服務／比賽／訓練／大露營／營火會／參考文件）→ 以標題為準歸
+    # 「活動」，唔可以由 PDF 內文嘅字眼搶走。
+    # 個案：「2027年童軍獎券籌募活動」內文有一句「獎券銷售獎勵比賽」，舊版因此
+    # 歸咗「比賽」——但用戶規則係「標題有明確字眼就以標題為準」。
+    if title_hits["other"] and not is_reference_document(title, ""):
+        return [_make_category("activity", "活動", title_hits["other"], "other")]
+
+    # 2026-10-06：標題只有參考文件字眼（名單／行事曆／章程／指引）→ 公布，
+    # 唔可以再由 PDF 內文嘅「服務」「比賽」字眼搶走。
+    # 個案：「傑出表現成員地域總監嘉許2026 - 獲嘉許名單」（26231）被判「服務」，
+    # 來源係內文一句「無私奉獻的服務精神」；但同一日、同一系列嘅
+    # 「卓越領袖嘉許計劃2026 - 獲嘉許名單」（26230）就係「公布」——同一類文件兩個標籤。
+    # 注意：真正嘅賽果（「成績公布／結果公布」）屬比賽，喺上面 title_decisive 已經
+    # 截住；呢個檢查只影響標題冇更強字眼、但含名單／行事曆等字嘅通告。
+    if is_reference_document(title, ""):
+        return [_make_category("announcement", "公布", _term_hits(title, REFERENCE_TITLE_TERMS))]
 
     # 標題睇唔出（冇明確字眼）先用 PDF 內文補充，次序同以前一樣。
     if text_hits["service"]:
@@ -535,6 +595,9 @@ def extract_subscription_metadata(
             if _badge_stem(blocked):
                 haystack = _mask_term(haystack, _badge_stem(blocked))
         hits = _term_hits(haystack, [*(topic.get("aliases", []) or []), *variants])
+        # 2026-10-06：剔除只喺「持有…資格／由…擔任」句子出現嘅課程名
+        # （用未遮蓋嘅 combined 睇上下文）。
+        hits = [hit for hit in hits if not _course_hit_is_requirement_noise(combined, hit, title)]
         if hits:
             course_entries.append((topic, hits))
 
