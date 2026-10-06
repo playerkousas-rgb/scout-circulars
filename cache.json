@@ -1,13 +1,31 @@
 {
-  "last_updated": "2026-10-06 06:36:36",
+  "last_updated": "2026-10-07 04:57:57",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 4951,
+    "total_notices": 4955,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
     "總會": [
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
       {
         "title": "東九龍地域總部公布",
         "url": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf",
@@ -21,6 +39,15 @@
         "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布",
         "url": "https://scout.org.hk/uploads/tc/circulars/26235/SP17.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26235/SP17.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -48,15 +75,6 @@
         "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
         "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -120,24 +138,6 @@
         "title": "2027年童軍獎券籌募活動",
         "url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -28809,7 +28809,7 @@
     ],
     "油尖區": [
       {
-        "title": "油尖區百年童行-童軍115追蹤挑戰賽(服務邀請)",
+        "title": "【服務邀請—童軍115追蹤挑戰賽】",
         "url": "https://drive.google.com/file/d/1QZ95NGEcW7IJEL79muicG4bghCyA5Tcf/view",
         "pdf_url": "https://drive.google.com/file/d/1QZ95NGEcW7IJEL79muicG4bghCyA5Tcf/view",
         "date": "2026-10-01",
@@ -36598,6 +36598,15 @@
     ],
     "荃灣區": [
       {
+        "title": "香港童軍大會操荃灣區會旅遊巴士安排",
+        "url": "https://www.twdscout.org.hk/documents/notices/A202603.pdf",
+        "pdf_url": "https://www.twdscout.org.hk/documents/notices/A202603.pdf",
+        "date": "2026-10-07",
+        "captured_date": "2026-10-07",
+        "source_site": "荃灣區",
+        "region": "新界地域"
+      },
+      {
         "title": "社區服務 – 明愛慈善賣物會(荃灣區)2026",
         "url": "https://www.twdscout.org.hk/documents/notices/A022026.pdf",
         "pdf_url": "https://www.twdscout.org.hk/documents/notices/A022026.pdf",
@@ -40226,6 +40235,33 @@
       }
     ],
     "大埔北區": [
+      {
+        "title": "香港童軍115周年 – 幼童軍度假營2026 大埔北區資助計劃 - 連結",
+        "url": "https://tpnscout.org/wp-content/uploads/2026/10/香港童軍115周年-–-幼童軍度假營2026-大埔北區資助計劃.pdf",
+        "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/10/香港童軍115周年-–-幼童軍度假營2026-大埔北區資助計劃.pdf",
+        "date": "2026-10-07",
+        "captured_date": "2026-10-07",
+        "source_site": "大埔北區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2026/27年度大埔北區幼童軍主席盃技能比賽",
+        "url": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_CS_2627_011_幼童軍主席盃技能比賽.pdf",
+        "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_CS_2627_011_幼童軍主席盃技能比賽.pdf",
+        "date": "2026-10-07",
+        "captured_date": "2026-10-07",
+        "source_site": "大埔北區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2026/27 年度大埔北區小童軍區總監挑戰盃比賽",
+        "url": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_GS_2627_010_小童軍區總監挑戰盃比賽.pdf",
+        "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_GS_2627_010_小童軍區總監挑戰盃比賽.pdf",
+        "date": "2026-10-07",
+        "captured_date": "2026-10-07",
+        "source_site": "大埔北區",
+        "region": "新界東地域"
+      },
       {
         "title": "童軍 露營章訓練班",
         "url": "https://tpnscout.org/%E7%AB%A5%E8%BB%8D-%E9%9C%B2%E7%87%9F%E7%AB%A0%E8%A8%93%E7%B7%B4%E7%8F%AD/",
@@ -44686,6 +44722,48 @@
   },
   "notices": [
     {
+      "source_site": "荃灣區",
+      "region": "新界地域",
+      "pdf_url": "https://www.twdscout.org.hk/documents/notices/A202603.pdf",
+      "title": "香港童軍大會操荃灣區會旅遊巴士安排",
+      "captured_date": "2026-10-07"
+    },
+    {
+      "source_site": "大埔北區",
+      "region": "新界東地域",
+      "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/10/香港童軍115周年-–-幼童軍度假營2026-大埔北區資助計劃.pdf",
+      "title": "香港童軍115周年 – 幼童軍度假營2026 大埔北區資助計劃 - 連結",
+      "captured_date": "2026-10-07"
+    },
+    {
+      "source_site": "大埔北區",
+      "region": "新界東地域",
+      "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_CS_2627_011_幼童軍主席盃技能比賽.pdf",
+      "title": "2026/27年度大埔北區幼童軍主席盃技能比賽",
+      "captured_date": "2026-10-07"
+    },
+    {
+      "source_site": "大埔北區",
+      "region": "新界東地域",
+      "pdf_url": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_GS_2627_010_小童軍區總監挑戰盃比賽.pdf",
+      "title": "2026/27 年度大埔北區小童軍區總監挑戰盃比賽",
+      "captured_date": "2026-10-07"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
+      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
+      "captured_date": "2026-10-06"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26226/Adm23.pdf",
@@ -44697,6 +44775,13 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26235/SP17.pdf",
       "title": "東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
+      "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
       "captured_date": "2026-10-06"
     },
     {
@@ -44718,13 +44803,6 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
       "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf",
-      "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
       "captured_date": "2026-10-06"
     },
     {
@@ -44774,20 +44852,6 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26228/Adm25.pdf",
       "title": "2027年童軍獎券籌募活動",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
-      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
-      "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
       "captured_date": "2026-10-06"
     },
     {
@@ -45326,7 +45390,7 @@
       "source_site": "油尖區",
       "region": "九龍地域",
       "pdf_url": "https://drive.google.com/file/d/1QZ95NGEcW7IJEL79muicG4bghCyA5Tcf/view",
-      "title": "油尖區百年童行-童軍115追蹤挑戰賽(服務邀請)",
+      "title": "【服務邀請—童軍115追蹤挑戰賽】",
       "captured_date": "2026-10-01"
     },
     {
@@ -79491,27 +79555,30 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-06 06:36:36",
-      "new": 0,
-      "updated": 0,
-      "daily_new": 31,
-      "skipped": 40,
+      "updated_at": "2026-10-07 04:57:57",
+      "new": 4,
+      "updated": 171,
+      "daily_new": 4,
+      "skipped": 47,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 0,
       "error_sources": [],
       "skipped_sources": [
+        "總會",
         "港島地域",
         "灣仔區",
+        "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
         "筲箕灣區",
         "港島北區",
-        "九龍地域",
         "紅磡區",
         "何文田區",
+        "九龍城區",
         "九龍塘區",
         "旺角區",
+        "深旺區",
         "深水埗東區",
         "深水埗西區",
         "油尖區",
@@ -79523,22 +79590,26 @@
         "將軍澳區",
         "觀塘區",
         "鯉魚門區",
+        "新界地域",
+        "元朗東區",
         "元朗西區",
         "十八鄉區",
+        "屯門西區",
         "北葵涌區",
         "屯門東區",
-        "荃灣區",
+        "南葵涌區",
         "離島區 (expected_empty)",
         "新界東地域",
         "雙魚區",
         "壁峰區",
-        "大埔北區",
         "大埔南區",
         "沙田西區",
         "沙田南區",
         "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",
+        "慈雲山區",
+        "青衣區",
         "Scout System (disabled)"
       ]
     }
