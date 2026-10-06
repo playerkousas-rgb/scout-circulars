@@ -14,6 +14,7 @@ from enrich import (
     compact_title, title_similarity, extract_pdf_heading, reconcile_listing_title,
     apply_title_to_cache, title_variants, listing_supported_by_pdf,
     heading_looks_like_title, reapply_stored_title_fixes,
+    looks_like_table_row, deadline_from_tables, fee_from_tables,
     TITLE_SIMILARITY_THRESHOLD,
 )
 from subscription_tagging import extract_subscription_metadata, load_catalog
@@ -475,6 +476,223 @@ def main():
         (reapply_stored_title_fixes(legacy_cache, legacy_enrich),
          legacy_cache["data"]["柴灣區"][0]["title"]),
         (0, "深資童軍原野烹飪暨營藝考驗"),
+    )
+
+    # ── 2026-10-06 用戶個案：行事曆 PDF 嘅表格列被當成標題 ──
+    # 實測文字（總會 26243 Sea-Activities_Calendar，標題係圖，文字層只剩表格）
+    sea_calendar_text = "\n".join([
+        "Calendar of Events - 2026/2027 YEAR MONTH DATE EVENT C.L.",
+        "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
+        "17 風帆賽事先修研習班（A） 曾昭溢",
+        "19, 25 立划板一段章及二段章訓練班 徐嘉苓",
+        "請以劃線支票支付訓練班／活動費用，抬頭請書",
+    ])
+    passed += test(
+        "表格列唔可以當 PDF 標題（英文月份行）",
+        looks_like_table_row("2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰"),
+        True,
+    )
+    passed += test(
+        "表格列唔可以當 PDF 標題（日期清單行）",
+        looks_like_table_row("13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰"),
+        True,
+    )
+    passed += test(
+        "表格列唔可以當 PDF 標題（完整日期＋多個數字格）",
+        looks_like_table_row("2027年1月24日 (後備日) 日 待定 160 14 2026年12月11日"),
+        True,
+    )
+    passed += test(
+        "真標題（含「訓練班」但開頭唔係日期）唔會被誤殺",
+        looks_like_table_row("三級童軍標準艇訓練班"),
+        False,
+    )
+    passed += test(
+        "行事曆文字層只剩表格 → 抽唔到 PDF 標題（寧願空）",
+        extract_pdf_heading(sea_calendar_text),
+        "",
+    )
+    passed += test(
+        "寫入前防線：『13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰』唔會寫返 cache",
+        heading_looks_like_title("13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰"),
+        False,
+    )
+    passed += test(
+        "寫入前防線：『2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰』唔會寫返 cache",
+        heading_looks_like_title("2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰"),
+        False,
+    )
+    passed += test(
+        "寫入前防線：內文指示句（請以劃線支票…）唔會寫返 cache",
+        heading_looks_like_title("請以劃線支票支付訓練班／活動費用，抬頭請書"),
+        False,
+    )
+
+    # 真標題存在時，表格列唔應該搶走佢（即使表格列有「訓練班」hint）
+    titled_calendar = "\n".join([
+        "二○二六／二○二七年度（二零二六年十月至二零二七年一月）賽馬會童「SING」匯航計劃 活動與訓練行事曆",
+        "Calendar of Events - 2026/2027",
+        "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
+    ])
+    passed += test(
+        "行事曆有真標題時，揀真標題（唔係表格列）",
+        extract_pdf_heading(titled_calendar),
+        "二○二六/二○二七年度(二零二六年十月至二零二七年一月)賽馬會童「SING」匯航計劃 活動與訓練行事曆",
+    )
+
+    # ── 2026-10-06：PDF metadata 標題確認 + 列表標題係 PDF 標題超集 ──
+    passed += test(
+        "對證：列表標題係 PDF 標題嘅超集（多咗計劃名）→ 維持列表標題",
+        reconcile_listing_title(
+            "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+            "地質生態導賞員訓練班\n（一）日期：\n2027年1月13日 三 香港童軍中心",
+        )["status"],
+        "verified",
+    )
+    passed += test(
+        "對證：列表標題係 PDF 標題嘅超集 → 唔會縮短標題",
+        reconcile_listing_title(
+            "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+            "地質生態導賞員訓練班\n（一）日期：\n2027年1月13日 三 香港童軍中心",
+        )["title"],
+        "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+    )
+    passed += test(
+        "對證：行事曆文字層只剩表格，但 PDF metadata 標題同列表標題一致 → verified（維持列表標題）",
+        reconcile_listing_title(
+            "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+            sea_calendar_text,
+            pdf_meta_title="香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+        )["status"],
+        "verified",
+    )
+    passed += test(
+        "對證：metadata 標題亂嚟（同列表標題唔同）唔會影響結果",
+        reconcile_listing_title(
+            "D-26-05 - 26年10月區會公布 【New】",
+            "由：區總監\n致：各旅長／旅負責領袖\n區總部公布\n本區活動如常舉行。",
+            pdf_meta_title="港島南區幼童軍支部比賽2023",
+        )["status"],
+        "corrected",
+    )
+
+    # ── 2026-10-06：表格通告嘅截止／費用（SA69／SA71 個案）──
+    # pdfplumber 對「日期／時間／費用／名額／截止日期」表格嘅文字流，表頭同行連成一串；
+    # 舊版 3 行窗口攞第一個日期＝第一堂日期（2027-01-02），真截止日係 2026-12-11。
+    sa69_table = [
+        ["（一）日期", "", "", "", "", ""],
+        ["日期", "星期", "時間", "費用($)", "名額", "截止日期"],
+        ["2027年1月2日", "六", "0900至1700", "160", "14", "2026年12月11日"],
+        ["2027年1月3日", "日", "0900至1700", "160", "14", "2026年12月11日"],
+    ]
+    passed += test(
+        "表格：截止日期取自『截止日期』欄（唔係第一堂日期）",
+        deadline_from_tables([sa69_table]),
+        "2026-12-11",
+    )
+    passed += test(
+        "表格：費用取自『費用』欄（按金欄唔算）",
+        fee_from_tables([sa69_table]),
+        "HK$160",
+    )
+    passed += test(
+        "表格：按金欄唔會被當成費用",
+        fee_from_tables([[["日期", "按金", "名額"], ["2027年1月13日", "$300", "10"]]]),
+        "",
+    )
+    sa69_text = "\n".join([
+        "（一）日期：",
+        "日期 星期 時間 費用($) 名額 截止日期",
+        "2027年1月2日 六 0900至1700 160 14 2026年12月11日",
+        "2027年1月3日 日 0900至1700 160 14 2026年12月11日",
+    ])
+    passed += test(
+        "表格通告：有表格就用表格（截止 2026-12-11）",
+        extract_deadline(sa69_text, tables=[sa69_table]),
+        "2026-12-11",
+    )
+    passed += test(
+        "（記錄）純文字流仍然會攞到第一堂日期 → 所以表格一定要讀",
+        extract_deadline(sa69_text),
+        "2027-01-02",
+    )
+    passed += test(
+        "表格通告：費用只喺表格欄出現都抽得到",
+        extract_fee("（一）日期：\n日期 星期 時間 費用($) 名額 截止日期", tables=[sa69_table]),
+        "HK$160",
+    )
+
+    # ── 2026-10-06：分類／標籤唔可以由內文搶走標題嘅明確字眼 ──
+    raffle_body = (
+        "為鼓勵童軍旅積極參與，2027年童軍獎券籌募活動繼續設銷售獎及進步獎，"
+        "有意參與獎券銷售獎勵比賽的童軍旅請留意總會稍後發出之獎券籌募通告。"
+    )
+    passed += test(
+        "分類：標題有『活動』但內文有『比賽』→ 以標題為準（獎券籌募活動＝活動）",
+        [c["id"] for c in extract_categories("2027年童軍獎券籌募活動", raffle_body)],
+        ["activity"],
+    )
+    passed += test(
+        "分類：同一個活動嘅回條（標題有『活動』）都歸活動，兩個 copy 一致",
+        [c["id"] for c in extract_categories("2027年童軍獎券籌募活動 - 回條", raffle_body)],
+        ["activity"],
+    )
+    passed += test(
+        "分類：標題同時有『訓練班』同『活動通告第N號』→ 仍然係訓練",
+        [c["id"] for c in extract_categories("幼童軍射箭章（三級制）訓練班 (活動通告第21/26號)", "參加資格：幼童軍")],
+        ["training"],
+    )
+    passed += test(
+        "分類：行事曆（參考文件）＝公布，內文提及課程都唔會變訓練",
+        [c["id"] for c in extract_categories(
+            "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+            "2027年1月2日 六 三級童軍標準艇訓練班 楊劍聰",
+        )],
+        ["announcement"],
+    )
+    passed += test(
+        "標籤：行事曆唔會抽內文所有課程做訂閱標籤",
+        extract_subscription_metadata(
+            "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
+            "2027年1月2日 六 三級童軍標準艇訓練班 楊劍聰 獨木舟教練",
+        )["subscription_tags"],
+        ["category:announcement"],
+    )
+    passed += test(
+        "標籤：內文『持有獨木舟教練資歷…優先考慮』唔會變『獨木舟教練』課程標籤",
+        "course:leader-canoe-instructor" in extract_subscription_metadata(
+            "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+            "（5）持有獨木舟教練資歷、遊樂船隻二級操作人證書或同等資歷將獲優先考慮。",
+            "領袖、會務委員",
+        )["subscription_tags"],
+        False,
+    )
+    passed += test(
+        "標籤：內文『由…童軍標準艇教練員…擔任班領導人』唔會變課程標籤",
+        "course:leader-standard-boat-instructor" in extract_subscription_metadata(
+            "三級童軍標準艇訓練班",
+            "由香港童軍總會註冊中級童軍標準艇教練員楊劍聰先生擔任班領導人。",
+            "童軍、領袖",
+        )["subscription_tags"],
+        False,
+    )
+    passed += test(
+        "標籤：標題自己講明嘅課程永遠保留（唔會被資格過濾誤殺）",
+        "course:leader-standard-boat-instructor" in extract_subscription_metadata(
+            "童軍標準艇教練員訓練班",
+            "由香港童軍總會註冊中級童軍標準艇教練員擔任導師。",
+            "領袖",
+        )["subscription_tags"],
+        True,
+    )
+    passed += test(
+        "標籤：目標獎章（『考獲本訓練班證書等同完成水手長章的要求』）仍然保留",
+        "course:scout-boatswain-badge" in extract_subscription_metadata(
+            "三級童軍標準艇訓練班",
+            "考獲本訓練班證書等同完成「童軍／深資童軍支部海上活動徽章—水手長章」的要求。",
+            "童軍、領袖",
+        )["subscription_tags"],
+        True,
     )
 
     # ── 格式正規化 ──

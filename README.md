@@ -150,6 +150,11 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   - 標題有強證據（明確字眼）→ 直接分類，**唔會**被 PDF 內文其他字眼搶走。
   - **2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布**（例如「總部公告」「區總部公布」「D-26-05 - …區會公布」），排喺服務／比賽／訓練之前。
     唯一例外係賽果：「成績公布／結果公布／公佈結果／賽果公布」＝比賽類（2026-10-01 定咗）。
+  - **2026-10-06：標題有明確活動字眼（活動／嘉年華／開放日／體驗日／分享會…）但冇更強字眼
+    （服務／比賽／訓練／大露營／營火會／參考文件）→ 一律歸活動**，唔可以由 PDF 內文搶走。
+    個案：「2027年童軍獎券籌募活動」內文有一句「獎券銷售獎勵比賽」，舊版因此顯示成「比賽」；
+    而同一張通告嘅回條（標題一樣有「活動」）就一直係「活動」——同一件事兩個標籤。
+    注意標題同時有「訓練班」等更強字眼時，仍然以更強字眼為準（「…訓練班 (活動通告第21/26號)」＝訓練）。
   - 標題得弱證據（例如「訓練日」「盃」）或者睇唔出 → 先用 PDF 內文補充。
   - 標題出現「行事曆／一覽／名單／章程」呢類排除詞 → 唔當活動本體。
   - 三份規則要同步改：`subscription_tagging.py`（權威）、`story_queue.py`（Story 清單）、`index.html` 出圖台 `BATCH_RE`／`batchCategory`（`?batch=1`）。測試：`test_tools_category.py`、`test_story_queue.py`、`test_batch_category.js`。
@@ -178,6 +183,30 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   （「行政通告第 13/2026號」）、欄位行（截止日期…）、表格／時間表行一律唔會寫入；
   舊版 enrich.json 冇 `listing_title` 嘅亂抽更正永遠唔會套用。
 - 唔想要自動改名：把 workflow／.bat 嘅 `--apply-title-fixes` 移走即可（預設只報告）。
+
+**2026-10-06（用戶個案：東九龍地域批次「抽取好奇怪、標籤有問題」）**：
+
+- **表格列唔再當標題**：總會兩個「活動與訓練行事曆」PDF 嘅大標題係圖，文字層只剩表格，
+  舊版就攞咗一行表格（「2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰」／
+  「13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰」）當成「PDF 真標題」寫返 cache.json。
+  連鎖反應：行事曆唔再符合 `REFERENCE_TITLE_TERMS`（「行事曆」）→ 分類變「訓練」，
+  內文成個季度嘅活動全部變晒訂閱標籤。`looks_like_table_row()` 認日期清單／英文月份／
+  表頭字眼／行首獨立日數，`_BODY_INSTRUCTION_RE` 認「請以劃線支票…」等內文指示句。
+- **PDF metadata 標題只用嚟確認**：PDF 自帶嘅 `Title` 同列表標題一致 → `verified`
+  （行事曆靠佢先認得返；metadata 可能係舊檔另存嘅錯名，所以永遠唔會攞嚟改名）。
+- **列表標題係 PDF 標題嘅超集 → 維持列表標題**（`heading_contained_in_listing()`）：
+  「東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班」唔會再被縮短成
+  「地質生態導賞員訓練班」（舊版因為 10/31 字相似度 0.32 < 0.9 就當列表標題錯）。
+- **表格通告直接讀欄位**（`deadline_from_tables()`／`fee_from_tables()`）：純文字流會將
+  表頭同資料行連成一串，舊版 3 行窗口攞第一個日期＝第一堂日期。
+  26239「三級童軍標準艇訓練班」抽到 2027-01-02（真截止 2026-12-11，表格「截止日期」欄）；
+  26242「地質生態導賞員訓練班」抽到 2027-01-13（真截止 2026-12-19）。費用只喺
+  「費用($)」欄出現過都抽得到（26239 → HK$160）；「按金」欄唔會當費用。
+- **課程標籤唔再由資格句抽出**（`_course_hit_is_requirement_noise()`）：
+  「持有獨木舟教練資歷…將獲優先考慮」唔會再變成「獨木舟教練」課程標籤；
+  「由…註冊中級童軍標準艇教練員…擔任班領導人」唔會再變成「童軍標準艇教練員」。
+  標題自己講明嘅課程永遠保留，內文只要有「一個」非資格句出現都保留。
+- **一次性清理**：`python fix_extraction_2026_10_06.py --dry-run`（已寫入 cache.json + enrich.json）。
 
 執行回歸測試：
 
@@ -343,6 +372,17 @@ python serve_local.py            # http://localhost:8000/index.html，/api/push-
 
 1. 每日定時執行 `core.py`；不論是否使用 Supabase，都會重建公開的 `cache.json`。
 2. 執行 `enrich.py` 的增量標籤／欄位抽取。
+   - **2026-10-06：增量模式加 7 日補漏窗**（`INCREMENTAL_CATCHUP_DAYS`）——最近 7 日入庫
+     但 `enrich.json` 仲係冇紀錄嘅通告會自動補做（已經有當前版本標籤嘅唔會重抽）。
+     原因：`collect_targets()` 以前會靜靜跳過一啲 URL 形狀（**東九龍地域 140 條全部**用
+     WordPress Download Manager `/circulars/download/?wpdmdl=NNNN`，唔以 `.pdf` 結尾），
+     嗰個來源嘅通告一直冇截止／對象／費用，前端唯有全部顯示成「公布」。而家
+     `is_enrichable_url()` 接受 `?wpdmdl=`，下載返嚟照樣要過 `%PDF` magic bytes。
+     要一次過補齊全部舊通告（唔止 7 日）仍然係 `python enrich.py --backfill`。
+   - **2026-10-06：`enrich_version` 一升級，最近 7 日窗口內用舊版抽嘅 entry 會自動重抽**
+     （`_has_current_tags()` 而家同時要求 catalog version 同 `enrich_version` 一致）。
+     冇呢個檢查，改完抽取規則只會影響之後嘅新通告，舊 entry 因為 catalog version
+     冇變而永遠唔會重算——即係「淨係 merge 程式碼」都可以令最近一星期嘅錯數據自我修復。
 3. 如已設定 `VAPID_PRIVATE_KEY`，執行 `notify.py`，先做每位匿名訂閱者的支部＋興趣交集和合併，再發送 Web Push。
 4. 自動提交 `cache.json`、`enrich.json` 和 `fingerprints.json`，讓前端從 GitHub Raw 讀取最新資料。
 

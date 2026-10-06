@@ -54081,112 +54081,78 @@
   },
   "https://scout.org.hk/uploads/tc/circulars/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf": {
     "source": "總會",
-    "title": "2026 Oct 10, 11, 17, 18, 24-25 四級童軍標準艇訓練班 楊劍聰",
+    "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆",
     "deadline": "",
     "audience": "",
     "fee": "",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班"
+          "行事曆"
         ]
       }
     ],
-    "branch_tags": [
-      "童軍"
-    ],
+    "branch_tags": [],
     "subscription_tags": [
-      "category:training",
-      "course:scout-stand-up-paddle-badge",
-      "course:scout-standard-boat",
-      "training:童軍"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班"
-        ]
-      },
-      {
-        "id": "course:scout-stand-up-paddle-badge",
-        "label": "立划板章",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：立划板一段"
-        ]
-      },
-      {
-        "id": "course:scout-standard-boat",
-        "label": "童軍標準艇",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍標準艇",
-          "標題／內文：童軍標準艇訓練班",
-          "標題／內文：童軍標準艇訓練"
-        ]
-      },
-      {
-        "id": "training:童軍",
-        "label": "所有童軍訓練",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：童軍"
+          "行事曆"
         ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
     "method": "text",
     "error": "",
-    "title_check": "corrected",
+    "title_check": "verified",
     "enriched_at": "2026-10-06 05:07:12",
     "enrich_version": "3.3",
     "listing_title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月)活動與訓練行事曆"
   },
   "https://scout.org.hk/uploads/tc/circulars/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf": {
     "source": "總會",
-    "title": "13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰",
+    "title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆",
     "deadline": "",
     "audience": "",
     "fee": "",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班"
+          "行事曆"
         ]
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:training"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班"
+          "行事曆"
         ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
     "method": "text",
     "error": "",
-    "title_check": "corrected",
+    "title_check": "verified",
     "enriched_at": "2026-10-06 05:07:14",
     "enrich_version": "3.3",
     "listing_title": "香港童軍總會白沙灣譚華正海上活動中心2026-2027年度(10-1月) 賽馬會童「SING」匯航計劃 - 活動與訓練行事曆"
@@ -54271,8 +54237,8 @@
   },
   "https://scout.org.hk/uploads/tc/circulars/26242/SA71.pdf": {
     "source": "總會",
-    "title": "地質生態導賞員訓練班",
-    "deadline": "2027-01-13",
+    "title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班",
+    "deadline": "2026-12-19",
     "audience": "領袖、會務委員",
     "fee": "",
     "categories": [
@@ -54291,7 +54257,6 @@
     ],
     "subscription_tags": [
       "category:training",
-      "course:leader-canoe-instructor",
       "training:會務委員",
       "training:領袖:非木章"
     ],
@@ -54303,15 +54268,6 @@
         "kind": "category",
         "evidence": [
           "訓練班"
-        ]
-      },
-      {
-        "id": "course:leader-canoe-instructor",
-        "label": "獨木舟教練",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：獨木舟教練"
         ]
       },
       {
@@ -54336,7 +54292,7 @@
     "subscription_catalog_version": "3.3.0",
     "method": "text",
     "error": "",
-    "title_check": "corrected",
+    "title_check": "verified",
     "enriched_at": "2026-10-06 05:07:24",
     "enrich_version": "3.3",
     "listing_title": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 地質生態導賞員訓練班"
@@ -54613,9 +54569,9 @@
   "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf": {
     "source": "總會",
     "title": "三級童軍標準艇訓練班",
-    "deadline": "2027-01-02",
+    "deadline": "2026-12-11",
     "audience": "童軍、領袖",
-    "fee": "",
+    "fee": "HK$160",
     "categories": [
       {
         "id": "training",
@@ -54632,7 +54588,6 @@
     ],
     "subscription_tags": [
       "category:training",
-      "course:leader-standard-boat-instructor",
       "course:scout-boatswain-badge",
       "course:scout-sailor-badge",
       "course:scout-standard-boat",
@@ -54647,15 +54602,6 @@
         "kind": "category",
         "evidence": [
           "訓練班"
-        ]
-      },
-      {
-        "id": "course:leader-standard-boat-instructor",
-        "label": "童軍標準艇教練員",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍標準艇教練員"
         ]
       },
       {
@@ -54762,28 +54708,29 @@
     "fee": "",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "比賽"
-        ]
+          "活動"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
       "童軍"
     ],
     "subscription_tags": [
-      "category:competition"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "比賽"
+          "活動"
         ]
       }
     ],
