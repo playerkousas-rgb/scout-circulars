@@ -62,21 +62,21 @@
 
 （可重複執行：第二次 run 會顯示「已經乾淨」。）
 
-第二批（今日通告）會做四件事：
+第二批（今日通告）會做三件事：
     6. 按新規則重算分類／標籤：26232 → 公布、26231 → 公布
     7. 補 26228／26229 嘅截止日 2026-11-30（人手核對 PDF 全文）
-    8. 東九龍地域 14 條 ?wpdmdl= 通告：由總會站同一份通告搬欄位（記 derived_from）
-    9. 東九龍地域獨有嘅「東九50時間錦囊」盲盒訂購：人手核實（截止 2027-03-15、
-       售價 HK$50）
+    8. 補 26241 對象（會務委員）
+另外會【撤回】之前版本由「孖生」通告搬過去嘅 15 條東九龍地域 entry：
+每條通告要如實反映自己嘅來源，唔可以借用另一個來源嘅抽取結果；
+（2026-10-06 用戶指正：「這不對，是從那來就如實反映」）
+正確做法係 enrich.py 自己下載（?wpdmdl= 已經支援，增量有 7 日補漏窗）。
 """
 from __future__ import annotations
 
 import argparse
-import datetime
 import json
 from pathlib import Path
 
-from enrich import ENRICH_VERSION
 from subscription_tagging import extract_subscription_metadata, load_catalog
 
 BASE_DIR = Path(__file__).parent
@@ -145,42 +145,14 @@ TODAY_CURATED_AUDIENCE = {
     f"{HQ}/26241/SA70.pdf": "幼童軍、深資童軍、樂行童軍、童軍、領袖、會務委員",
 }
 
-# 8. 東九龍地域今日 15 條全部係 /circulars/download/?wpdmdl=NNNN（3.4 之前 enrich
-#    永遠跳過）→ 其中 14 條同總會站係同一份通告（直連 .pdf），欄位直接搬過去，
-#    令今日嘅分區 copy 即刻有截止／對象／費用／分類。搬過去之後會記低 derived_from，
-#    下一次 enrich（已支援 ?wpdmdl=）會自己下載核對。
-EKR_TWIN = {
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5656": f"{HQ}/26243/Sea-Activities_Calendar_26-27-Oct-Jan_se.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5657": f"{HQ}/26244/SING-Activities_Calendar_26-27_Oct---Jan__se.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5642": f"{HQ}/26226/Adm23.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5649": f"{HQ}/26235/SP17.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5655": f"{HQ}/26242/SA71.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654": f"{HQ}/26241/SA70.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5643": f"{HQ}/26227/Adm24.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5647": f"{HQ}/26233/Adm28-app.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5646": f"{HQ}/26232/Adm28.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5644": f"{HQ}/26230/Adm26.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5645": f"{HQ}/26231/Adm27.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653": f"{HQ}/26239/SA69.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5651": f"{HQ}/26229/Adm25-app.pdf",
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5650": f"{HQ}/26228/Adm25.pdf",
-}
-
-# 9. 東九龍地域獨有（總會站冇同一份）：由 wpdmdl PDF 全文人手核實
-#    「東九50時間錦囊」盲盒訂購 —— 售價每個 HK$50、截止訂購日期 2027-03-15
-EKR_ONLY = {
-    "https://hkscout-ekr.org/circulars/download/?wpdmdl=5648": {
-        "title": "「東九50時間錦囊」盲盒訂購",
-        "fields": {"deadline": "2027-03-15", "fee": "HK$50"},
-    },
-}
-
-# 由孖生 entry 搬過去嘅欄位（其餘欄位（enriched_at／title_check…）重新填）
-CLONE_KEYS = (
-    "deadline", "audience", "fee", "categories", "branch_tags",
-    "subscription_tags", "subscription_tag_details", "subscription_catalog_version",
-    "method",
-)
+# 8. 【撤回】唔可以由「孖生」通告搬欄位。
+#    2026-10-06 傍晚曾經咁樣做過（東九龍地域 14 條 ?wpdmdl= 由總會站同一份通告
+#    抄 deadline／fee／標籤，並記低 derived_from）——用戶指正：每條通告要如實
+#    反映自己嘅來源，唔可以借用另一個來源嘅抽取結果。正確做法係修好管線，
+#    令兩份都由自己嘅 PDF 抽（見 enrich.py is_enrichable_url / 7 日補漏窗）。
+#    所以：凡係有 `derived_from` 嘅 entry（＝由呢支 script 之前版本製造）一律刪除，
+#    等下一次 enrich run 自己下載返。
+DERIVED_KEY = "derived_from"
 
 
 def find_cache_items(cache, url):
@@ -315,70 +287,16 @@ def main():
             entry["branch_tags"] = sorted(set(entry.get("branch_tags") or []) | set(meta["branch_tags"]))
             changes.append(f"  ↳ 重算支部標籤：{entry['branch_tags']}")
 
-    # 東九龍地域（?wpdmdl=）：由總會站同一份通告搬欄位。
-    # 已經搬過嘅（derived_from 對得上）會由孖生 entry 重新同步，令第二次 run
-    # 都會跟到孖生 entry 嘅最新狀態（例如孖生補咗對象之後）。
-    for ekr_url, hq_url in EKR_TWIN.items():
-        twin = enrich.get(hq_url)
-        items = find_cache_items(cache, ekr_url)
-        if not isinstance(twin, dict) or not items:
-            changes.append(f"enrich.json ⚠️ 跳過（搵唔到孖生 entry 或 cache 通告）：{ekr_url}")
-            continue
-        title = items[0].get("title") or twin.get("title") or ""
-        entry = enrich.get(ekr_url)
-        is_new = not isinstance(entry, dict)
-        if not is_new and entry.get("derived_from") != hq_url:
-            continue                       # 有人手改過／唔係我哋搬嘅 → 唔好覆蓋
-        if is_new:
-            entry = {"source": items[0].get("source_site") or "東九龍地域", "title": title}
-        for key in CLONE_KEYS:
-            if key in twin and entry.get(key) != twin[key]:
-                entry[key] = twin[key]
-                if not is_new:
-                    changes.append(f"enrich.json 同步孖生欄位 {key}：{title[:30]}")
-        if is_new:
-            changes.append(f"enrich.json 新增（東九龍地域 wpdmdl，欄位由同一份總會通告搬過去）：{title[:34]}")
-        entry.update({
-            "source": items[0].get("source_site") or "東九龍地域",
-            "title": title,
-            "error": "",
-            "title_check": "verified",
-            "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "enrich_version": ENRICH_VERSION,
-            "derived_from": hq_url,
-        })
-        enrich[ekr_url] = entry
+    # 【撤回】刪除之前由「孖生」搬過去嘅 entry（見上面第 8 點）：
+    # 每份通告要如實反映自己嘅來源，等 enrich（已支援 ?wpdmdl=）自己抽。
+    for url in [u for u, v in enrich.items()
+                if isinstance(v, dict) and DERIVED_KEY in v]:
+        title = (enrich.get(url) or {}).get("title") or ""
+        del enrich[url]
+        changes.append(f"enrich.json 刪除搬字過紙 entry（等自己做 enrich）：{title[:34]}")
 
-    # 東九龍地域獨有：由 PDF 全文人手核實
-    for ekr_url, spec in EKR_ONLY.items():
-        if ekr_url in enrich:
-            continue
-        items = find_cache_items(cache, ekr_url)
-        if not items:
-            continue
-        title = spec["title"] or items[0].get("title") or ""
-        meta = extract_subscription_metadata(title, "")
-        entry = {
-            "source": items[0].get("source_site") or "東九龍地域",
-            "title": title,
-            "audience": "",
-            "method": "text",
-            "error": "",
-            "title_check": "verified",
-            "enriched_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "enrich_version": ENRICH_VERSION,
-            "derived_from": ekr_url + "（PDF 全文人手核實）",
-        }
-        entry.update(spec["fields"])
-        entry.update({
-            "categories": meta["categories"],
-            "branch_tags": meta["branch_tags"],
-            "subscription_tags": meta["subscription_tags"],
-            "subscription_tag_details": meta["subscription_tag_details"],
-            "subscription_catalog_version": str(catalog.get("version", "")),
-        })
-        enrich[ekr_url] = entry
-        changes.append(f"enrich.json 新增（東九龍地域獨有，人手核實）：{title}")
+    # 東九龍地域（?wpdmdl=）：唔會再由總會站搬欄位——正確做法係 enrich.py
+    # 自己下載（is_enrichable_url 接受 ?wpdmdl=，增量模式有 7 日補漏窗）。
 
     if not changes:
         print("✅ 已經乾淨，冇嘢要改。")

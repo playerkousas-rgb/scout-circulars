@@ -229,10 +229,35 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   `locate_label_scope(follow_list=True)` 會續讀，直到撞到下一個欄位（費用／名額／報名…）。
   26241「一個石籃的故事」之前只讀 2 行，漏咗「持有有效委任狀之會務委員」。
 - **今日數據**：`fix_extraction_2026_10_06.py` 第二批會（一）按新規則重算 26232／26231 分類；
-  （二）補 26228／26229 截止日 2026-11-30、26241 對象；（三）東九龍地域 14 條
-  `?wpdmdl=` 通告由總會站同一份通告搬欄位（記低 `derived_from`，之後同步）；
-  （四）東九龍地域獨有嘅盲盒訂購人手核實（截止 2027-03-15、HK$50）。
-  → 今日 31 條通告（總會 15、東九龍地域 15、港島地域 1）全部有 enrich 資料。
+  （二）補 26228／26229 截止日 2026-11-30、26241 對象。
+
+### 同一份通告：總會抽到、東九龍地域抽唔到（2026-10-06 根因＋防復發）
+
+用戶問題：「同一份通告，總會網站出的能抽到，東九龍地域網站出的抽不到」。根因**唔係**
+PDF 唔同（兩個 URL 送到嘅係同一份 PDF），而係 enrich 嘅**入場閘**：
+
+1. `collect_targets()` 以前用 `url.endswith(".pdf")` 決定下唔下載。總會站條 link 係
+   `…/uploads/tc/circulars/26239/SA69.pdf`（過閘），東九龍地域條 link 係
+   `/circulars/download/?wpdmdl=5653`（唔以 `.pdf` 結尾）→ **靜默跳過**，
+   140 條一條都冇 enrich entry，前端唯有 fallback 顯示「公布」。
+2. 就算閘過得到，每日 workflow 只做「當日 captured_date」——之前被跳過嘅永遠冇人返轉頭補。
+
+修正同防復發（全部有測試）：
+
+| 機制 | 做乜 |
+|---|---|
+| `is_enrichable_url()` | 除 `.pdf` 之外接受 WPDM `?wpdmdl=` 下載端點；下載返嚟仍然要過 `%PDF` magic bytes，唔係 PDF 就記 `not_pdf`（唔會亂塞內容） |
+| `INCREMENTAL_CATCHUP_DAYS = 7` | 增量模式補做最近 7 日仍然冇 enrich 紀錄嘅通告，舊漏帳自動執返 |
+| `_has_current_tags()` 加 `enrich_version` | 抽取規則升級 → 最近 7 日嘅舊 entry 自動重抽 |
+| **每次 run 都印「連結形狀未支援」警號** | `summarize_skipped_links()`：列出跳過幾多條、按 `.docx`／`.xlsx`／網頁分類、涉邊個來源、例子 URL。以後有新來源／新連結形狀，唔會再靜默 |
+| **run 尾錯誤摘要** | 抽唔到嘅原因逐個來源報（`not_pdf` / `download: …`），例如 WPDM 要 cookie 就會即刻見到 |
+| 測試 | `is_enrichable_url`、`collect_targets`（今日＋補漏窗）、`summarize_skipped_links` 全部有回歸測試 |
+
+⚠️ **唔會再由另一個來源搬欄位**：同一份通告出現喺兩個來源（總會鏡像＋地域站）時，
+兩條 entry 必須各自由自己嘅 PDF 抽——即係「從那來就如實反映」。腳本早期版本曾經
+把總會 entry 嘅欄位複製落東九龍地域 entry（記 `derived_from`），已全部撤回
+（`fix_extraction_2026_10_06.py` 會刪除任何有 `derived_from` 嘅 entry），
+改為等 enrich 自己下載。
 
 執行回歸測試：
 

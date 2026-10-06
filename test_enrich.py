@@ -15,7 +15,8 @@ from enrich import (
     apply_title_to_cache, title_variants, listing_supported_by_pdf,
     heading_looks_like_title, reapply_stored_title_fixes,
     looks_like_table_row, deadline_from_tables, fee_from_tables,
-    TITLE_SIMILARITY_THRESHOLD,
+    is_enrichable_url, skip_reason, summarize_skipped_links, collect_targets,
+    TITLE_SIMILARITY_THRESHOLD, INCREMENTAL_CATCHUP_DAYS,
 )
 from subscription_tagging import extract_subscription_metadata, load_catalog
 
@@ -757,6 +758,69 @@ def main():
         "分類：紀念品訂購（冇任何類別字眼）＝公布兜底，唔會亂入活動",
         extract_categories("「東九50時間錦囊」盲盒訂購", "內含 15 款東九龍地域歷年紀念品")[0]["label"],
         "公布",
+    )
+
+    # ── 2026-10-06：連結形狀（唔可以再有來源靜默跳過）────────────────
+    passed += test(
+        "連結：東九龍地域 ?wpdmdl= 下載連結＝可 enrich",
+        is_enrichable_url("https://hkscout-ekr.org/circulars/download/?wpdmdl=5653"),
+        True,
+    )
+    passed += test(
+        "連結：.pdf 帶 query string 都算",
+        is_enrichable_url("https://example.org/a/b.pdf?ver=2"),
+        True,
+    )
+    passed += test(
+        "連結：Office 附件（.xlsx）唔算（唔會白下載）",
+        is_enrichable_url("https://group.scout.org.hk/…/SMD2606_報名表.xlsx"),
+        False,
+    )
+    passed += test(
+        "連結：HTML 文章頁唔算",
+        is_enrichable_url("https://hkscout-tko.org/notice/?nid=207"),
+        False,
+    )
+    passed += test(
+        "跳過原因分類：Office／HTML 分得開",
+        (skip_reason("https://x/a/b.docx"), skip_reason("https://hkscout-tko.org/notice/?nid=207")),
+        (".docx", "網頁／無檔案尾綴"),
+    )
+
+    # 東九龍地域個案：wpdmdl 通告要入目標；7 日補漏窗要 cover 舊一兩日
+    link_cache = {
+        "data": {"東九龍地域": [
+            {"title": "三級童軍標準艇訓練班",
+             "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653",
+             "captured_date": "2026-10-06"},
+            {"title": "舊通告（2 日前）",
+             "pdf_url": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5500",
+             "captured_date": "2026-10-04"},
+            {"title": "報名表",
+             "pdf_url": "https://x/a/報名表.xlsx",
+             "captured_date": "2026-10-06"},
+        ]},
+    }
+    passed += test(
+        "目標：今日嘅 wpdmdl 通告會入 enrich 名單",
+        [u for _, _, u in collect_targets(link_cache, "2026-10-06", False, False)],
+        ["https://hkscout-ekr.org/circulars/download/?wpdmdl=5653",
+         "https://hkscout-ekr.org/circulars/download/?wpdmdl=5500"],
+    )
+    passed += test(
+        "目標：catchup_days=0 時只做今日（舊通告唔會被拉入）",
+        len(collect_targets(link_cache, "2026-10-06", False, False, catchup_days=0)),
+        1,
+    )
+    passed += test(
+        "目標：預設補漏窗＝INCREMENTAL_CATCHUP_DAYS 日",
+        INCREMENTAL_CATCHUP_DAYS >= 7,
+        True,
+    )
+    passed += test(
+        "警號：未支援連結會計入 summarize_skipped_links（唔會靜默）",
+        summarize_skipped_links(link_cache, "2026-10-06", False, False, False),
+        [("東九龍地域", 1, "https://x/a/報名表.xlsx")],
     )
 
     # ── 格式正規化 ──

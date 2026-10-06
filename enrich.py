@@ -1120,6 +1120,55 @@ def collect_targets(cache, target_date, do_all, do_backfill, do_backfill_categor
     return out
 
 
+def skip_reason(url: str) -> str:
+    """未支援連結嘅原因（用嚟喺警號入面分類，方便判斷係設定問題定係真係冇 PDF）。"""
+    name = url_path_lower(url).rsplit("/", 1)[-1]
+    if "." in name:
+        ext = name.rsplit(".", 1)[-1]
+        if ext and all(ch.isalnum() for ch in ext) and len(ext) <= 5:
+            return f".{ext}"
+    return "網頁／無檔案尾綴"
+
+
+def summarize_skipped_links(cache, target_date, do_all, do_backfill, do_backfill_categories,
+                            catchup_days=INCREMENTAL_CATCHUP_DAYS):
+    """回傳「連結形狀未支援所以唔會 enrich」嘅統計：[(來源, 條數, 例子URL)]。
+
+    2026-10-06（用戶個案）：東九龍地域 140 條全部用 WordPress Download Manager
+    （?wpdmdl=），collect_targets 以前只認 `.pdf` 尾，靜靜跳過——個來源就永遠
+    冇截止／對象／費用／分類，而且冇任何訊息提示。呢個函數將「靜默跳過」變成
+    每次 run 都印出嚟嘅警號，等下一次有新來源／新連結形狀時即刻見到。
+    """
+    counts = {}
+    for source, arr in (cache.get("data") or {}).items():
+        if not isinstance(arr, list):
+            continue
+        for it in arr:
+            if not isinstance(it, dict):
+                continue
+            url = it.get("pdf_url") or it.get("url") or ""
+            if "drive.google" in url or "docs.google" in url:
+                if drive_direct_url(url):
+                    continue            # Drive 支援，唔算跳過
+            elif is_enrichable_url(url):
+                continue
+            if not do_all and not do_backfill and not do_backfill_categories:
+                cap = str(it.get("captured_date", ""))[:10]
+                if catchup_days > 0:
+                    try:
+                        lower = (datetime.date.fromisoformat(target_date)
+                                 - datetime.timedelta(days=catchup_days)).isoformat()
+                    except ValueError:
+                        lower = target_date
+                    if not (lower <= cap <= target_date):
+                        continue
+                elif cap != target_date:
+                    continue
+            entry = counts.setdefault(source, [0, url])
+            entry[0] += 1
+    return sorted(((s, c, u) for s, (c, u) in counts.items()), key=lambda x: -x[1])
+
+
 def check_environment(args):
     """啟動自檢：缺 pdfplumber 直接停；缺 OCR 元件只警告。"""
     print("🔧 環境自檢…")
@@ -1244,9 +1293,28 @@ def main():
           + (f"，captured_date={today}" if not args.all and not args.backfill else "") + "）")
     print(f"   OCR：{'停用' if args.no_ocr else '啟用'}\n")
 
+    # 「靜默跳過」警號：連結形狀未支援嘅通告（今次唔會 enrich、亦唔會有人知）。
+    # 東九龍地域 140 條 ?wpdmdl= 就係咁樣整整一個來源冇數據；而家每次 run 都印。
+    skipped = summarize_skipped_links(cache, today, args.all, args.backfill, args.backfill_categories)
+    if skipped:
+        total_skipped = sum(c for _, c, _ in skipped)
+        reasons = {}
+        for _, count, url in skipped:
+            key = skip_reason(url)
+            reasons[key] = reasons.get(key, 0) + count
+        reason_text = "、".join(f"{k} {v} 條" for k, v in sorted(reasons.items(), key=lambda kv: -kv[1]))
+        top = "、".join(f"{s} {c} 條" for s, c, _ in skipped[:6])
+        print(f"⏭  連結形狀未支援（唔會 enrich）：{total_skipped} 條（{reason_text}）")
+        print(f"    來源：{top}")
+        print(f"    例：{skipped[0][2][:96]}")
+        print("    如果某個來源整批落喺呢度，檢查 sources.json 嘅 selector（攞到嘅係")
+        print("    檔案連結定係文章頁），再喺 enrich.py is_enrichable_url() 加新形狀")
+        print("    ＋補 test_enrich.py 回歸測試。\n")
+
     done = ok = 0
     cache_dirty = False
     title_corrections = 0
+    error_counts = {}   # (來源, 錯誤) → 條數；收尾一次過報，唔會再靜默失敗
     for idx, (source, title, url) in enumerate(targets):
         if idx > 0:
             # v2.4: 下載之間加隨機延遲（同 core.py 標準）——
@@ -1310,6 +1378,8 @@ def main():
         print(f"   [{tag}] 截止={res.get('deadline') or '—'} | "
               f"對象={(res.get('audience') or '—')[:20]} | 費用={(res.get('fee') or '—')[:20]} | "
               f"分類={cats or '—'} | 訂閱={sub_tags or '—'}")
+        if res.get("_error"):
+            error_counts[(source, res["_error"])] = error_counts.get((source, res["_error"]), 0) + 1
         done += 1
         if got:
             ok += 1
@@ -1317,6 +1387,13 @@ def main():
     json.dump(enrich, open(ENRICH_FILE, "w", encoding="utf-8"),
               ensure_ascii=False, indent=2)
     print(f"\n✅ 完成：處理 {done} 條，抽到內容 {ok} 條 → {ENRICH_FILE}")
+
+    # 收尾報告：失敗原因要一眼睇到（唔好再出現「某個來源永遠冇數據但冇人知」）。
+    # not_pdf 尤其重要——多數係 WPDM／Drive 之類要 cookie 或改 headers 嘅下載端點。
+    if error_counts:
+        summary = "、".join(f"{src} {err} {n} 條" for (src, err), n in
+                            sorted(error_counts.items(), key=lambda kv: -kv[1]))
+        print(f"⚠️  今次有 {sum(error_counts.values())} 條抽唔到：{summary}")
 
     # 2026-10-03：core.py 每次抓取（包括 --force）都會用列表頁標題重建
     # cache.json，之前寫入嘅更正會被蓋走。呢度零下載重新套用已核實嘅更正，
