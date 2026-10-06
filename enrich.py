@@ -769,6 +769,9 @@ def extract_audience(text):
         lines_after=2,
         stop_keys=["費用", "收費", "名額", "報名", "截止", "日期", "辦法"],
         follow_list=True,   # 2026-10-06：資格通常係（1）（2）（3）多行清單
+        # 2026-10-06：「歡迎各合資格的…」嘅「合資格」唔係欄位 label；
+        # 唔遮走會喺真正「參加資格：」之前搶先命中（26239／5653 個案）。
+        label_mask_terms=("合資格",),
     )
     if not scope:
         # 冇「參加資格／對象」label 時，先睇公函收件人欄（「致：…」）；
@@ -816,16 +819,23 @@ _LIST_ITEM_RE = re.compile(r"^(?:（\d{1,2}）|\(\d{1,2}\)|\d{1,2}[.、)）]|[�
 
 
 def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None,
-                       follow_list=False, max_follow=6):
+                       follow_list=False, max_follow=6, label_mask_terms=()):
     """回傳 label 那行（冒號後）+ 之後 N 行的合併文字。
     若提供 stop_keys：合併後續行時，一遇到含 stop 詞的行就停，
     避免把下一個欄位（如『報名辦法』）的內容撈進來。
+    label_mask_terms（2026-10-06）：掃 label 時先遮走嘅字眼——「合資格」
+    呢類句子修飾語含有「資格」兩個字，但佢唔係欄位 label；唔遮走嘅話，
+    開頭「歡迎各合資格的童軍成員及領袖踴躍參加」會喺真正嘅
+    「（二）參加資格：…」之前被當成 label 行（個案：26239／5653
+    三級童軍標準艇訓練班，audience 因此淨係抽到「童軍、領袖」）。
     follow_list=True（只係「參加資格／對象」用）：之後嘅行如果係
     （1）（2）… 編號清單就繼續讀，最多多讀 max_follow 行。"""
     stop_keys = stop_keys or []
     lines = text.split("\n")
     for i, line in enumerate(lines):
         c = compact(line)
+        for term in label_mask_terms:
+            c = c.replace(term, "◼")
         if any(k in c for k in label_keys):
             m = re.search(r"[:：]\s*(.+)$", line)
             head = (m.group(1) if m else line)
