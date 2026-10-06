@@ -230,6 +230,7 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   26241「一個石籃的故事」之前只讀 2 行，漏咗「持有有效委任狀之會務委員」。
 - **今日數據**：`fix_extraction_2026_10_06.py` 第二批會（一）按新規則重算 26232／26231 分類；
   （二）補 26228／26229 截止日 2026-11-30、26241 對象。
+- **防止未來誤分類**：`石籃的故事` 加入受控強活動詞；總會／地域來源日後遇到同類標題時，會按活動處理。分類回歸測試覆蓋有／無 PDF 文字兩種情況；本次不改歷史資料。
 
 ### 用戶名單（2026-10-06）逐條對照：規則改咗乜、測試釘死喺邊
 
@@ -241,7 +242,7 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 | 13, 17, 20, 23, 31 地質生態導賞員訓練班 楊劍聰（26244） | 同上 | 同上 | ② 2 條 |
 | 2027年童軍獎券籌募活動（出現兩次） | 主通告歸「比賽」（內文有『銷售獎勵比賽』）但回條歸「活動」；兩個 copy 唔一致 | 標題活動字眼優先；`summarize_cross_source_consistency()` 每次 run 檢查兩邊一致性 | ⑤ 2 條＋跨來源 3 條 |
 | 東九龍地域步操、團呼及快樂傘比賽2026 - 成績公布（26235） | 兩個來源一個有標籤一個冇（東九龍地域完全冇 enrich） | `is_enrichable_url()` 接受 `?wpdmdl=`；7 日補漏窗 | ⑥ 1 條＋連結 6 條 |
-| …一個石籃的故事（26241） | 對象漏「會務委員」；東九龍地域嗰份完全冇資料 | `locate_label_scope(follow_list=True)`；連結修正 | ⑦ 2 條 |
+| …一個石籃的故事（26241） | 標題無「活動」字眼時可能兜底成「公布」 | `石籃的故事` 加入強活動標題規則；兩個來源的分類器都加回歸測試 | ⑦ 分類測試 |
 
 每次 `enrich.py` run 收尾會自動報三樣（唔改數據，只提示）：
 `⏭ 連結形狀未支援`、`⚠️ 今次有 N 條抽唔到`、`⚠️ 同一通告喺多個來源但結果唔齊／唔同`。
@@ -253,8 +254,8 @@ PDF 唔同（兩個 URL 送到嘅係同一份 PDF），而係 enrich 嘅**入場
 
 1. `collect_targets()` 以前用 `url.endswith(".pdf")` 決定下唔下載。總會站條 link 係
    `…/uploads/tc/circulars/26239/SA69.pdf`（過閘），東九龍地域條 link 係
-   `/circulars/download/?wpdmdl=5653`（唔以 `.pdf` 結尾）→ **靜默跳過**，
-   140 條一條都冇 enrich entry，前端唯有 fallback 顯示「公布」。
+   `/circulars/download/?wpdmdl=5653`（唔以 `.pdf` 結尾）→ **當時會靜默跳過**，
+   未有 enrich entry 時前端唯有 fallback 顯示「公布」。目前入口已接受此下載格式；此 PR 不補寫任何舊 entry。
 2. 就算閘過得到，每日 workflow 只做「當日 captured_date」——之前被跳過嘅永遠冇人返轉頭補。
 
 修正同防復發（全部有測試）：
@@ -263,7 +264,7 @@ PDF 唔同（兩個 URL 送到嘅係同一份 PDF），而係 enrich 嘅**入場
 |---|---|
 | `is_enrichable_url()` | 除 `.pdf` 之外接受 WPDM `?wpdmdl=` 下載端點；下載返嚟仍然要過 `%PDF` magic bytes，唔係 PDF 就記 `not_pdf`（唔會亂塞內容） |
 | `INCREMENTAL_CATCHUP_DAYS = 7` | 增量模式補做最近 7 日仍然冇 enrich 紀錄嘅通告，舊漏帳自動執返 |
-| `_has_current_tags()` 加 `enrich_version` | 抽取規則升級 → 最近 7 日嘅舊 entry 自動重抽 |
+| `has_current_enrichment_tags()` | 預設增量不會只因 `enrich_version` 升級而重寫已完整舊 entry；要更新歷史分類須明確執行 `--backfill-categories` |
 | **每次 run 都印「連結形狀未支援」警號** | `summarize_skipped_links()`：列出跳過幾多條、按 `.docx`／`.xlsx`／網頁分類、涉邊個來源、例子 URL。以後有新來源／新連結形狀，唔會再靜默 |
 | **run 尾錯誤摘要** | 抽唔到嘅原因逐個來源報（`not_pdf` / `download: …`），例如 WPDM 要 cookie 就會即刻見到 |
 | 測試 | `is_enrichable_url`、`collect_targets`（今日＋補漏窗）、`summarize_skipped_links` 全部有回歸測試 |
@@ -271,8 +272,11 @@ PDF 唔同（兩個 URL 送到嘅係同一份 PDF），而係 enrich 嘅**入場
 ⚠️ **唔會再由另一個來源搬欄位**：同一份通告出現喺兩個來源（總會鏡像＋地域站）時，
 兩條 entry 必須各自由自己嘅 PDF 抽——即係「從那來就如實反映」。腳本早期版本曾經
 把總會 entry 嘅欄位複製落東九龍地域 entry（記 `derived_from`），已全部撤回
-（`fix_extraction_2026_10_06.py` 會刪除任何有 `derived_from` 嘅 entry），
-改為等 enrich 自己下載。
+（`fix_extraction_2026_10_06.py` 會刪除任何有 `derived_from` 嘅 entry）。
+
+**本次只防止未來重犯，不補改歷史資料**：沒有修改 `cache.json` 或 `enrich.json` 的舊通告紀錄。抽取防線包括：郵寄地址不當作參加對象；未成年同意書的家長／監護人不當作活動對象；「石籃的故事」標題按活動處理。回歸測試覆蓋這些情況。
+
+`ENRICH_VERSION` 升至 3.6，供新抽取資料標記版本。預設增量不會只因版本升級而重寫已完整的舊 entry；只有資料缺漏的新通告會按既有補漏窗處理。若日後需要主動重算歷史資料，才明確執行 `--backfill-categories`。
 
 執行回歸測試：
 
@@ -440,15 +444,13 @@ python serve_local.py            # http://localhost:8000/index.html，/api/push-
 2. 執行 `enrich.py` 的增量標籤／欄位抽取。
    - **2026-10-06：增量模式加 7 日補漏窗**（`INCREMENTAL_CATCHUP_DAYS`）——最近 7 日入庫
      但 `enrich.json` 仲係冇紀錄嘅通告會自動補做（已經有當前版本標籤嘅唔會重抽）。
-     原因：`collect_targets()` 以前會靜靜跳過一啲 URL 形狀（**東九龍地域 140 條全部**用
+     原因：`collect_targets()` 以前會靜靜跳過一啲 URL 形狀（東九龍地域入庫通告用
      WordPress Download Manager `/circulars/download/?wpdmdl=NNNN`，唔以 `.pdf` 結尾），
-     嗰個來源嘅通告一直冇截止／對象／費用，前端唯有全部顯示成「公布」。而家
-     `is_enrichable_url()` 接受 `?wpdmdl=`，下載返嚟照樣要過 `%PDF` magic bytes。
-     要一次過補齊全部舊通告（唔止 7 日）仍然係 `python enrich.py --backfill`。
-   - **2026-10-06：`enrich_version` 一升級，最近 7 日窗口內用舊版抽嘅 entry 會自動重抽**
-     （`_has_current_tags()` 而家同時要求 catalog version 同 `enrich_version` 一致）。
-     冇呢個檢查，改完抽取規則只會影響之後嘅新通告，舊 entry 因為 catalog version
-     冇變而永遠唔會重算——即係「淨係 merge 程式碼」都可以令最近一星期嘅錯數據自我修復。
+     當時該來源未有 enrich entry，前端唯有 fallback 顯示「公布」。而家
+     `is_enrichable_url()` 接受 `?wpdmdl=`，下載返嚟照樣要過 `%PDF` magic bytes；此 PR 不會補寫歷史 entry。
+     要主動重算既有資料，仍須明確執行 `python enrich.py --backfill-categories` 或 `--backfill`。
+   - **2026-10-06：抽取規則升版只標記新抽資料**；預設增量不會單因 `enrich_version` 不同而改寫已完整 entry。
+     如要重算舊版 entry，須明確使用 `--backfill-categories`。
 3. 如已設定 `VAPID_PRIVATE_KEY`，執行 `notify.py`，先做每位匿名訂閱者的支部＋興趣交集和合併，再發送 Web Push。
 4. 自動提交 `cache.json`、`enrich.json` 和 `fingerprints.json`，讓前端從 GitHub Raw 讀取最新資料。
 

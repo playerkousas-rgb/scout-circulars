@@ -49,7 +49,9 @@ _RE_ANNOUNCEMENT_TITLE = re.compile(r"公告|公布|公佈")
 _RE_ANNOUNCEMENT_RESULT = re.compile(r"成績公布|成績公佈|結果公布|結果公佈|公佈結果|公布結果|賽果公布|賽果公佈")
 _RE_AWARD_PLAN = re.compile(r"獎勵計劃")
 _RE_YOUTH_AWARD = re.compile(r"青年獎勵")
-_RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會")
+# 2026-10-06：用戶點名「一個石籃的故事」係保育體驗活動；標題本身冇「活動」二字，
+# 所以加到強活動規則，避免富內容嘅 Story 標題兜底成 other／公布。
+_RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|石籃的故事")
 
 
 def today_hkt(now: datetime | None = None) -> str:
