@@ -1,15 +1,15 @@
 {
  "version": 1,
  "days": [
-  "2026-09-23",
   "2026-09-30",
   "2026-10-01",
   "2026-10-02",
   "2026-10-03",
   "2026-10-05",
-  "2026-10-06"
+  "2026-10-06",
+  "2026-10-07"
  ],
- "updated_at": "2026-10-06T13:14:10.627971+00:00",
+ "updated_at": "2026-10-07T10:37:45.834645+00:00",
  "items": [
   {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf",
@@ -42,11 +42,6 @@
    "t": "相機拍攝技巧工作坊及作品分享"
   },
   {
-   "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/4T7pRLEEJ1PLJ6MgtVFafL/c5b9bd4033c139cc2d5227f310e98c6b/spec_cir_29_26_rev.pdf",
-   "f": "stories/2026-09-23/00_service_wanted_b3817e.png",
-   "t": "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日(修訂)"
-  },
-  {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/60dLuSCbjIcYbh9KIkMdPV/edf6b514b11938c06c26dde87f40fc93/St_cir_26-26.pdf",
    "f": "stories/2026-10-03/00_train_blue_11879a.png",
    "t": "新界東地域樂行童軍支部活動 - 「調酒工作坊暨聖誕派對大聚集」"
@@ -60,21 +55,6 @@
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/Fk7SQsl73ugyaQWIKCTYK/4e4be62b37f1e483ce87f85b8e5542e3/Trg_cir_15-26.pdf",
    "f": "stories/2026-10-03/06_train_blue_2dab3e.png",
    "t": "第48屆美勞創作訓練班"
-  },
-  {
-   "k": "https://drive.google.com/file/d/1Bsr0PtpSLZaSySdJ65XLPQ55JcI7GKuy/view",
-   "f": "stories/2026-09-23/01_train_green_0f0f82.png",
-   "t": "油尖區百年童行-童軍115追蹤挑戰賽"
-  },
-  {
-   "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2603_童軍消防訓練班_接納通知書.pdf",
-   "f": "stories/2026-09-23/03_train_green_4f0f56.png",
-   "t": "童軍消防訓練班 接納通知書"
-  },
-  {
-   "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/09/SMD2604_深資童軍消防訓練班_接納通知書.pdf",
-   "f": "stories/2026-09-23/02_train_green_167826.png",
-   "t": "深資童軍消防訓練班 接納通知書"
   },
   {
    "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606 幼童軍支部主席盾錦標賽2026.pdf",
@@ -105,11 +85,6 @@
    "k": "https://krscout.org/wp-content/uploads/2026/10/PRG22_26.pdf",
    "f": "stories/2026-10-05/00_activity_army_0eac9f.png",
    "t": "「踩出地平線」海外單車遊分享會"
-  },
-  {
-   "k": "https://scout.org.hk/uploads/tc/circulars/26134/P022-26.pdf",
-   "f": "stories/2026-09-23/04_activity_army_7cc3c9.png",
-   "t": "新修訂支部訓練綱要(P22/2026)"
   },
   {
    "k": "https://scout.org.hk/uploads/tc/circulars/26218/T6426_Oct_C_7th_WB3.pdf",
@@ -227,9 +202,24 @@
    "t": "第113屆童軍運動基本原則訓練班(單元1A及1B) (KT/71/26)"
   },
   {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26324/Jam01.pdf",
+   "f": "stories/2026-10-07/01_activity_army_3504ca.png",
+   "t": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新(修訂)"
+  },
+  {
+   "k": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_CS_2627_011_幼童軍主席盃技能比賽.pdf",
+   "f": "stories/2026-10-07/00_competition_gold_black_61e42d.png",
+   "t": "2026/27年度大埔北區幼童軍主席盃技能比賽"
+  },
+  {
    "k": "https://www.nkcscout.org/media/notice/20260929_133156.pdf",
    "f": "stories/2026-09-30/00_train_blue_55b7a5.png",
    "t": "童軍露營訓練班"
+  },
+  {
+   "k": "https://www.twdscout.org.hk/documents/notices/A202603.pdf",
+   "f": "stories/2026-10-07/02_unc_scope_dfb93a.png",
+   "t": "香港童軍大會操荃灣區會旅遊巴士安排"
   }
  ]
 }
