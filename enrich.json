@@ -55951,5 +55951,731 @@
     "title_check": "verified",
     "enriched_at": "2026-10-07 05:15:18",
     "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26342/AiS302026_慶祝香港童軍115周年戶外壁畫設計比賽.pdf": {
+    "source": "總會",
+    "title": "香港童軍115周年 「筆下童心.挑戰高峰」戶外壁畫設計比賽",
+    "deadline": "2026-11-09",
+    "audience": "領袖",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:competition",
+      "course:leader-adventure-instructor"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      },
+      {
+        "id": "course:leader-adventure-instructor",
+        "label": "歷奇活動教練員",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：歷奇教育"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:06:43",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26343/AiS312026_香港童軍115周年_筆下童心挑戰高峰_嘉年華_Draft.pdf": {
+    "source": "總會",
+    "title": "香港童軍115周年 「筆下童心.挑戰高峰」嘉年華",
+    "deadline": "2026-11-30",
+    "audience": "小童軍、領袖、家長",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "嘉年華"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "家長",
+      "小童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "activity:other",
+      "course:leader-adventure-instructor"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "嘉年華"
+        ]
+      },
+      {
+        "id": "course:leader-adventure-instructor",
+        "label": "歷奇活動教練員",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：歷奇教育"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:06:48",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26336/P100-26-.pdf": {
+    "source": "總會",
+    "title": "第5屆公園定向研習班(P100/2026)",
+    "deadline": "2026-11-02",
+    "audience": "領袖",
+    "fee": "HK$20",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-orienteering-instructor",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班"
+        ]
+      },
+      {
+        "id": "course:leader-orienteering-instructor",
+        "label": "野外定向教練員",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：野外定向教練"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:06:52",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26337/P101-26.pdf": {
+    "source": "總會",
+    "title": "第11屆消防教練員實務課程(P101/2026)",
+    "deadline": "2026-12-04",
+    "audience": "領袖",
+    "fee": "HK$75",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "課程"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-fire-instructor",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "課程"
+        ]
+      },
+      {
+        "id": "course:leader-fire-instructor",
+        "label": "消防教練員",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：消防教練員"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:06:57",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26339/P103-26.pdf": {
+    "source": "總會",
+    "title": "童軍捐血活動2026-2027 – 童軍捐血日(P103/2026)",
+    "deadline": "2027-01-08",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "捐血"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service",
+      "course:shared-messengers-of-peace"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "捐血"
+        ]
+      },
+      {
+        "id": "course:shared-messengers-of-peace",
+        "label": "和平使者章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：和平使者"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:01",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26238/SP16-.pdf": {
+    "source": "總會",
+    "title": "東九50樂悠遊之與你「童」行(步行籌款活動)",
+    "deadline": "",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "籌款"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "籌款"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:04",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26338/P102-26.pdf": {
+    "source": "總會",
+    "title": "探尋宗教足跡-參訪寶蓮禪寺(P102/2026)",
+    "deadline": "2026-12-16",
+    "audience": "幼童軍、深資童軍、樂行童軍、童軍、領袖、會務委員",
+    "fee": "HK$40",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:07",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26344/AiS292026_CPRAEDIntro_2026_005.pdf": {
+    "source": "總會",
+    "title": "心肺復甦及去顫法啟導課程",
+    "deadline": "2026-11-11",
+    "audience": "深資童軍、樂行童軍、童軍、領袖、會務委員",
+    "fee": "HK$252",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "課程"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-first-aid-aed",
+      "training:會務委員",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "課程"
+        ]
+      },
+      {
+        "id": "course:leader-first-aid-aed",
+        "label": "急救及去顫法",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：心肺復甦"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:10",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26335/P099-26-.pdf": {
+    "source": "總會",
+    "title": "公園定向同樂日(P99/2026)",
+    "deadline": "2026-11-16",
+    "audience": "童軍、領袖",
+    "fee": "HK$8",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "同樂日"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "同樂日"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:15",
+    "enrich_version": "3.6"
+  },
+  "https://scout.org.hk/uploads/tc/circulars/26334/P098-26.pdf": {
+    "source": "總會",
+    "title": "「積極公民」獎章系列 – 議會探索章(P98/2026)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "考驗"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "樂行童軍",
+      "深資童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:shared-active-citizen",
+      "training:幼童軍",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "考驗"
+        ]
+      },
+      {
+        "id": "course:shared-active-citizen",
+        "label": "「積極公民」獎章系列",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：積極公民"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:17",
+    "enrich_version": "3.6"
+  },
+  "https://drive.google.com/file/d/10_jGInsp0lJSjO_lnrADnYqJ3urWDKtl/view": {
+    "source": "旺角區",
+    "title": "深資及樂行童軍支部比賽2026 - 通告07.10",
+    "deadline": "2026-11-20",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$100",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:22",
+    "enrich_version": "3.6"
+  },
+  "https://hkscout-ekr.org/circulars/download/?wpdmdl=5659": {
+    "source": "東九龍地域",
+    "title": "東九50樂悠遊之與你「童」行(步行籌款活動)",
+    "deadline": "",
+    "audience": "童軍、領袖、會務委員",
+    "fee": "",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "籌款"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "籌款"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:27",
+    "enrich_version": "3.6"
+  },
+  "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-16-26.pdf": {
+    "source": "九龍灣區",
+    "title": "九灣傳情『童』伴行-社區服務",
+    "deadline": "2026-10-29",
+    "audience": "小童軍、童軍、領袖、家長",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "service",
+        "label": "服務",
+        "score": 3.0,
+        "evidence": [
+          "社區服務",
+          "服務"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "家長",
+      "小童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:service"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:service",
+        "label": "服務",
+        "group": "服務",
+        "kind": "category",
+        "evidence": [
+          "社區服務",
+          "服務"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-08 05:07:31",
+    "enrich_version": "3.6"
   }
 }
