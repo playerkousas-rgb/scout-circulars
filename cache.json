@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-09 05:00:06",
+  "last_updated": "2026-10-09 05:17:45",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
@@ -19047,15 +19047,6 @@
     ],
     "港島南區": [
       {
-        "title": "深資及樂行童軍支部 活動名稱: 靜觀品茶工作坊 活動日期:2026年 10 月 25 日(星期 日 ) 截止日期:2026年 10 月 9 日(星期五 ) 參加資格: 1. 持有有效成員紀錄冊之深資童軍,(港島南區成員將獲優先取錄);及 2. 持有有效成員紀錄冊之樂行童軍,(港島南區成員將獲優先取錄) 3. 區會職員及各級領袖。 通告下載",
-        "url": "https://drive.google.com/file/d/14jcQZLdwlwqPBdu5eDCYHdhTt8cLSyLE/view",
-        "pdf_url": "https://drive.google.com/file/d/14jcQZLdwlwqPBdu5eDCYHdhTt8cLSyLE/view",
-        "date": "2026-10-09",
-        "captured_date": "2026-10-09",
-        "source_site": "港島南區",
-        "region": "港島地域"
-      },
-      {
         "title": "童軍精神健康(服務組)專章訓練班",
         "url": "https://drive.google.com/file/d/1HLJHO4fBUK9fWeo4IFDR1huAciXmJyFl/view",
         "pdf_url": "https://drive.google.com/file/d/1HLJHO4fBUK9fWeo4IFDR1huAciXmJyFl/view",
@@ -19068,6 +19059,15 @@
         "title": "童軍精神健康(服務組)專章訓練班",
         "url": "https://drive.google.com/file/d/18y0iJSQSyBB_1-V1ODlixlO32eoft75p/view",
         "pdf_url": "https://drive.google.com/file/d/18y0iJSQSyBB_1-V1ODlixlO32eoft75p/view",
+        "date": "2026-10-09",
+        "captured_date": "2026-10-09",
+        "source_site": "港島南區",
+        "region": "港島地域"
+      },
+      {
+        "title": "深資及樂行童軍支部 活動名稱: 靜觀品茶工作坊 活動日期:2026年 10 月 25 日(星期 日 ) 截止日期:2026年 10 月 9 日(星期五 ) 參加資格: 1. 持有有效成員紀錄冊之深資童軍,(港島南區成員將獲優先取錄);及 2. 持有有效成員紀錄冊之樂行童軍,(港島南區成員將獲優先取錄) 3. 區會職員及各級領袖。 通告下載",
+        "url": "https://drive.google.com/file/d/14jcQZLdwlwqPBdu5eDCYHdhTt8cLSyLE/view",
+        "pdf_url": "https://drive.google.com/file/d/14jcQZLdwlwqPBdu5eDCYHdhTt8cLSyLE/view",
         "date": "2026-10-09",
         "captured_date": "2026-10-09",
         "source_site": "港島南區",
@@ -45270,13 +45270,6 @@
     {
       "source_site": "港島南區",
       "region": "港島地域",
-      "pdf_url": "https://drive.google.com/file/d/14jcQZLdwlwqPBdu5eDCYHdhTt8cLSyLE/view",
-      "title": "深資及樂行童軍支部 活動名稱: 靜觀品茶工作坊 活動日期:2026年 10 月 25 日(星期 日 ) 截止日期:2026年 10 月 9 日(星期五 ) 參加資格: 1. 持有有效成員紀錄冊之深資童軍,(港島南區成員將獲優先取錄);及 2. 持有有效成員紀錄冊之樂行童軍,(港島南區成員將獲優先取錄) 3. 區會職員及各級領袖。 通告下載",
-      "captured_date": "2026-10-09"
-    },
-    {
-      "source_site": "港島南區",
-      "region": "港島地域",
       "pdf_url": "https://drive.google.com/file/d/1HLJHO4fBUK9fWeo4IFDR1huAciXmJyFl/view",
       "title": "童軍精神健康(服務組)專章訓練班",
       "captured_date": "2026-10-09"
@@ -45286,6 +45279,13 @@
       "region": "港島地域",
       "pdf_url": "https://drive.google.com/file/d/18y0iJSQSyBB_1-V1ODlixlO32eoft75p/view",
       "title": "童軍精神健康(服務組)專章訓練班",
+      "captured_date": "2026-10-09"
+    },
+    {
+      "source_site": "港島南區",
+      "region": "港島地域",
+      "pdf_url": "https://drive.google.com/file/d/14jcQZLdwlwqPBdu5eDCYHdhTt8cLSyLE/view",
+      "title": "深資及樂行童軍支部 活動名稱: 靜觀品茶工作坊 活動日期:2026年 10 月 25 日(星期 日 ) 截止日期:2026年 10 月 9 日(星期五 ) 參加資格: 1. 持有有效成員紀錄冊之深資童軍,(港島南區成員將獲優先取錄);及 2. 持有有效成員紀錄冊之樂行童軍,(港島南區成員將獲優先取錄) 3. 區會職員及各級領袖。 通告下載",
       "captured_date": "2026-10-09"
     },
     {
@@ -80227,17 +80227,53 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-09 05:00:06",
-      "new": 27,
-      "updated": 3519,
+      "updated_at": "2026-10-09 05:17:45",
+      "new": 0,
+      "updated": 0,
       "daily_new": 27,
-      "skipped": 4,
+      "skipped": 40,
       "processed": 46,
-      "playwright_used": 2,
+      "playwright_used": 10,
       "error_sources": [],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "壁峰區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
