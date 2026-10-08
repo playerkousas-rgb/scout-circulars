@@ -1122,6 +1122,85 @@ def main():
         ["活動", "公布"],
     )
 
+    # ⑨ 2026-10-08 用戶點名個案：步行籌款活動＝活動、參訪寶蓮禪寺＝活動、
+    #    內文提及「歷奇教育」唔會誤抽「歷奇活動教練員」課程標籤
+    passed += test(
+        "⑨ 2026-10-08：步行籌款活動＆參訪寶蓮禪寺一律＝活動（activity/other）",
+        [[(c["id"], c.get("subtype")) for c in extract_categories(t, "")] for t in (
+            "東九50樂悠遊之與你「童」行(步行籌款活動)",
+            "探尋宗教足跡-參訪寶蓮禪寺(P102/2026)",
+            "香港童軍115周年紀念新界東地域「Green Patrol」步行籌款日",
+        )],
+        [[("activity", "other")]] * 3,
+    )
+    passed += test(
+        "⑨ 2026-10-08：步行籌款若有『服務邀請／義工招募』仍然歸服務",
+        [[c["label"] for c in extract_categories(t, "")] for t in (
+            "東九50樂悠遊之與你「童」行(步行籌款活動) - 服務邀請",
+            "步行籌款日義工招募",
+        )],
+        [["服務"], ["服務"]],
+    )
+    passed += test(
+        "⑨ 2026-10-08：參訪名單（參考文件）仍然歸公布",
+        [c["label"] for c in extract_categories("參訪寶蓮禪寺 - 取錄名單", "")],
+        ["公布"],
+    )
+    passed += test(
+        "⑨ 2026-10-08：壁畫比賽／嘉年華內文提及『歷奇教育』唔會誤抽『歷奇活動教練員』",
+        [
+            "course:leader-adventure-instructor" in extract_subscription_metadata(
+                "香港童軍115周年 「筆下童心.挑戰高峰」戶外壁畫設計比賽",
+                "於本會歷奇教育中心舉行壁畫設計比賽",
+                "領袖",
+            )["subscription_tags"],
+            "course:leader-adventure-instructor" in extract_subscription_metadata(
+                "香港童軍115周年 「筆下童心.挑戰高峰」嘉年華",
+                "透過歷奇教育活動推廣童軍運動",
+                "小童軍、領袖、家長",
+            )["subscription_tags"],
+        ],
+        [False, False],
+    )
+    passed += test(
+        "⑨ 2026-10-08：真正嘅『歷奇活動教練員訓練班』仍然抽到課程標籤",
+        "course:leader-adventure-instructor" in extract_subscription_metadata(
+            "第12屆歷奇活動教練員訓練班",
+            "參加資格：各級領袖",
+            "領袖",
+        )["subscription_tags"],
+        True,
+    )
+    passed += test(
+        "⑨ 2026-10-08：reconcile_listing_title 自動剝走『- 通告07.10』同『- 連結』並標為 corrected",
+        [
+            (
+                reconcile_listing_title(
+                    "深資及樂行童軍支部比賽2026 - 通告07.10",
+                    "香港童軍總會旺角區\n深資及樂行童軍支部比賽2026\n截止日期：2026年11月20日",
+                )["status"],
+                reconcile_listing_title(
+                    "深資及樂行童軍支部比賽2026 - 通告07.10",
+                    "香港童軍總會旺角區\n深資及樂行童軍支部比賽2026\n截止日期：2026年11月20日",
+                )["title"],
+            ),
+            (
+                reconcile_listing_title(
+                    "香港童軍115周年 – 幼童軍度假營2026 大埔北區資助計劃 - 連結",
+                    "香港童軍總會大埔北區\n香港童軍115周年 – 幼童軍度假營2026 大埔北區資助計劃\n截止日期：2027年1月31日",
+                )["status"],
+                reconcile_listing_title(
+                    "香港童軍115周年 – 幼童軍度假營2026 大埔北區資助計劃 - 連結",
+                    "香港童軍總會大埔北區\n香港童軍115周年 – 幼童軍度假營2026 大埔北區資助計劃\n截止日期：2027年1月31日",
+                )["title"],
+            ),
+        ],
+        [
+            ("corrected", "深資及樂行童軍支部比賽2026"),
+            ("corrected", "香港童軍115周年 – 幼童軍度假營2026 大埔北區資助計劃"),
+        ],
+    )
+
     # ── 跨來源一致性（同一通告出現喺總會站＋地域站）──
     twin_cache = {"data": {
         "總會": [{"title": "2027年童軍獎券籌募活動", "pdf_url": "https://hq/Adm25.pdf",
