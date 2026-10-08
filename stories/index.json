@@ -1,15 +1,15 @@
 {
  "version": 1,
  "days": [
-  "2026-09-30",
   "2026-10-01",
   "2026-10-02",
   "2026-10-03",
   "2026-10-05",
   "2026-10-06",
-  "2026-10-07"
+  "2026-10-07",
+  "2026-10-08"
  ],
- "updated_at": "2026-10-07T10:37:45.834645+00:00",
+ "updated_at": "2026-10-08T10:59:17.752333+00:00",
  "items": [
   {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf",
@@ -57,6 +57,11 @@
    "t": "第48屆美勞創作訓練班"
   },
   {
+   "k": "https://drive.google.com/file/d/10_jGInsp0lJSjO_lnrADnYqJ3urWDKtl/view",
+   "f": "stories/2026-10-08/01_competition_gold_black_233b58.png",
+   "t": "深資及樂行童軍支部比賽2026"
+  },
+  {
    "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606 幼童軍支部主席盾錦標賽2026.pdf",
    "f": "stories/2026-10-02/00_service_wanted_17bd98.png",
    "t": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >"
@@ -70,11 +75,6 @@
    "k": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654",
    "f": "stories/2026-10-06/01_activity_army_ddf8e1.png",
    "t": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事"
-  },
-  {
-   "k": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
-   "f": "stories/2026-09-30/01_activity_army_29d17a.png",
-   "t": "Game Night系列活動"
   },
   {
    "k": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
@@ -207,14 +207,54 @@
    "t": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新(修訂)"
   },
   {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26335/P099-26-.pdf",
+   "f": "stories/2026-10-08/02_activity_army_1a8c88.png",
+   "t": "公園定向同樂日(P99/2026)"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26336/P100-26-.pdf",
+   "f": "stories/2026-10-08/07_train_green_a5e58c.png",
+   "t": "第5屆公園定向研習班(P100/2026)"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26337/P101-26.pdf",
+   "f": "stories/2026-10-08/06_train_orange_263ee1.png",
+   "t": "第11屆消防教練員實務課程(P101/2026)"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26338/P102-26.pdf",
+   "f": "stories/2026-10-08/04_unc_scope_97d656.png",
+   "t": "探尋宗教足跡-參訪寶蓮禪寺(P102/2026)"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26339/P103-26.pdf",
+   "f": "stories/2026-10-08/05_unc_topsecret_e2b91c.png",
+   "t": "童軍捐血活動2026-2027 – 童軍捐血日(P103/2026)"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26342/AiS302026_慶祝香港童軍115周年戶外壁畫設計比賽.pdf",
+   "f": "stories/2026-10-08/09_unc_scope_de8c05.png",
+   "t": "香港童軍115周年 「筆下童心.挑戰高峰」戶外壁畫設計比賽"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26343/AiS312026_香港童軍115周年_筆下童心挑戰高峰_嘉年華_Draft.pdf",
+   "f": "stories/2026-10-08/08_unc_glitch_345c03.png",
+   "t": "香港童軍115周年 「筆下童心.挑戰高峰」嘉年華"
+  },
+  {
+   "k": "https://scout.org.hk/uploads/tc/circulars/26344/AiS292026_CPRAEDIntro_2026_005.pdf",
+   "f": "stories/2026-10-08/03_train_blue_617cea.png",
+   "t": "心肺復甦及去顫法啟導課程"
+  },
+  {
    "k": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_CS_2627_011_幼童軍主席盃技能比賽.pdf",
    "f": "stories/2026-10-07/00_competition_gold_black_61e42d.png",
    "t": "2026/27年度大埔北區幼童軍主席盃技能比賽"
   },
   {
-   "k": "https://www.nkcscout.org/media/notice/20260929_133156.pdf",
-   "f": "stories/2026-09-30/00_train_blue_55b7a5.png",
-   "t": "童軍露營訓練班"
+   "k": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-16-26.pdf",
+   "f": "stories/2026-10-08/00_service_wanted_7def12.png",
+   "t": "九灣傳情『童』伴行-社區服務"
   },
   {
    "k": "https://www.twdscout.org.hk/documents/notices/A202603.pdf",
