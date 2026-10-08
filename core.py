@@ -167,7 +167,9 @@ SOCIAL_HOST_PATTERNS = [
 GENERIC_DOWNLOAD_TITLES = {
     "下載", "download", "檔案下載", "file download", "附件", "attachment",
     "按此下載", "download here", "here", "click here", "pdf格式", "(pdf格式)", "doc格式", "(doc格式)",
-    "通告", "表格", "[通告]", "[表格]", "下載通告", "查看", "詳情", "更多資訊", "read more", "詳閱",
+    "通告", "表格", "[通告]", "[表格]", "下載通告", "通告下載", "點擊下載", "點擊下載通告", "按此下載通告",
+    "查看", "詳情", "更多資訊", "read more", "詳閱",
+    "連結", "通告連結", "報名連結", "下載連結", "link",
     # 檔案託管服務嘅操作動詞（Google Drive 連結尾段就係 /view）
     "view", "preview", "open", "檢視", "開啟", "預覽", "瀏覽", "view file", "open file"
 }
@@ -237,7 +239,14 @@ def normalize_text(value: str) -> str:
 
 def is_generic_download_title(title: Optional[str]) -> bool:
     title = normalize_text(title or "").lower()
-    return title in GENERIC_DOWNLOAD_TITLES
+    if not title:
+        return True
+    # 裸網址（例如 WordPress 編輯直接貼 https://.../xxx.pdf 做超連結文字）唔算通告副標題
+    if re.match(r"^(?:https?://|www\.)", title):
+        return True
+    # 剝走外圍裝飾括號／箭嘴（如 >>連結<<、[通告下載]、通告連結<）再比對
+    stripped = re.sub(r"^[\[\]()（）【】<>《》「」『』»«›‹\s\-–—:：]+|[\[\]()（）【】<>《》「」『』»«›‹\s\-–—:：]+$", "", title)
+    return title in GENERIC_DOWNLOAD_TITLES or stripped in GENERIC_DOWNLOAD_TITLES
 
 
 def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
@@ -262,6 +271,12 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
     # 將底線替換為空白
     title = title.replace("_", " ")
     title = re.sub(r"\s+", " ", title).strip()
+
+    # 移除句尾嘅檔名日期標籤後綴（如旺角區 Google Drive 檔名「… - 通告07.10」「… - 通告 07/10」）
+    # 及連結標籤後綴（如大埔北區 WordPress「… - 連結」「… - >>連結<<」「… - 通告連結」「… - https://...」）
+    title = re.sub(r"\s*[-–—]\s*通告\s*[（(]?\d{1,4}(?:[./\-\s]\d{1,4})*[)）]?$", "", title).strip()
+    title = re.sub(r"\s*[-–—]\s*[>»<\s]*(?:通告|報名|下載)?連結[<«>\s]*$", "", title).strip()
+    title = re.sub(r"\s*[-–—]\s*https?://\S+$", "", title, flags=re.I).strip()
 
     # 智能移除童軍通告編號前綴 (例如 TPN/CIR/VS/2627/003 或 TPN CIR S 2526 006)
     # 匹配: 2-5個英文字母 + (可選的英文部門代號) + 2-4位數字年份 + 2-3位數字序號

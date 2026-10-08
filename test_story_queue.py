@@ -195,7 +195,9 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
     def test_category_title_fallback_keywords(self):
         cases = [("全港射擊錦標賽", "competition"), ("領袖訓練工作坊", "training"),
                  ("海灘清潔服務日", "service"), ("秋季遠足活動", "activity"),
-                 ("東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事", "activity")]
+                 ("東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事", "activity"),
+                 ("東九50樂悠遊之與你「童」行(步行籌款活動)", "activity"),
+                 ("探尋宗教足跡-參訪寶蓮禪寺(P102/2026)", "activity")]
         for title, want in cases:
             item = _item(title=title)
             cache = _cache({"筲箕灣區": [item]})

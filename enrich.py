@@ -417,13 +417,33 @@ def heading_contained_in_listing(listing: str, heading: str) -> bool:
     return bool(needle) and len(needle) >= 6 and needle in hay
 
 
+# 2026-10-08：列表／檔名雜訊尾綴（如旺角區 Google Drive 檔名「… - 通告07.10」、
+# 大埔北區 WordPress「… - 連結」「… - >>連結<<」「… - 通告連結」「… - https://...」）。
+# 呢類尾綴即使本體標題同 PDF 內文對得上，都應該喺核實時剝走並標為 corrected，
+# 等 `enrich.py --apply-title-fixes` 自動寫返乾淨標題去 cache.json。
+_NOISY_LISTING_SUFFIX_RE = re.compile(
+    r"(?:\s*[-–—]\s*通告\s*[（(]?\d{1,4}(?:[./\-\s]\d{1,4})*[)）]?"
+    r"|\s*[-–—]\s*[>»<\s]*(?:通告|報名|下載)?連結[<«>\s]*"
+    r"|\s*[-–—]\s*https?://\S+)$",
+    re.I,
+)
+
+
+def strip_noisy_listing_suffix(listing: str) -> str:
+    """剝走明確屬於檔名日期／超連結按鈕嘅雜訊尾綴；若剝完太短則保留原樣。"""
+    cur = nfkc(listing or "").strip()
+    cleaned = _NOISY_LISTING_SUFFIX_RE.sub("", cur).strip()
+    return cleaned if len(cleaned) >= 4 else cur
+
+
 def reconcile_listing_title(listing: str, pdf_text: str, pdf_meta_title: str = "") -> dict:
     """列表標題 vs PDF。回傳 {title, status, pdf_heading, similarity}。
 
     status:
       verified   — 列表標題出現喺 PDF、同 PDF 標題 ≥90% 相似、或者係 PDF 標題嘅
                    超集（列表標題更完整）；亦包括 PDF metadata 標題同列表標題一致
-      corrected  — 對唔上，而且 PDF 標題夠清楚，改用 PDF
+      corrected  — 對唔上，而且 PDF 標題夠清楚，改用 PDF；或列表標題帶有檔名／
+                   連結雜訊尾綴（如「- 通告07.10」「- 連結」），剝走後寫回乾淨標題
       unverified — PDF 太少字／抽唔到標題，維持列表（寧願唔改）
 
     2026-10-06：只用 PDF 自帶嘅 metadata 標題做「確認」（metadata 可能係舊檔
@@ -431,21 +451,26 @@ def reconcile_listing_title(listing: str, pdf_text: str, pdf_meta_title: str = "
     行事曆類 PDF 嘅大標題有時係圖，文字層只剩表格，靠 metadata 先認得返。
     """
     listing = nfkc(listing or "").strip()
+    cleaned_listing = strip_noisy_listing_suffix(listing)
+    resolved_status = "corrected" if cleaned_listing != listing else "verified"
     heading = extract_pdf_heading(pdf_text)
-    similarity = title_similarity(listing, heading) if heading else 0.0
+    similarity = title_similarity(cleaned_listing, heading) if heading else 0.0
     meta = nfkc(pdf_meta_title or "").strip()
-    if meta and len(compact(meta)) >= 6 and title_similarity(listing, meta) >= TITLE_SIMILARITY_THRESHOLD:
-        return {"title": listing, "status": "verified", "pdf_heading": heading,
+    if meta and len(compact(meta)) >= 6 and title_similarity(cleaned_listing, meta) >= TITLE_SIMILARITY_THRESHOLD:
+        return {"title": cleaned_listing, "status": resolved_status, "pdf_heading": heading,
                 "similarity": similarity, "pdf_meta_title": meta}
     if not pdf_text or len(compact(pdf_text)) < 20:
+        if cleaned_listing != listing:
+            return {"title": cleaned_listing, "status": "corrected", "pdf_heading": heading, "similarity": similarity}
         return {"title": listing, "status": "unverified", "pdf_heading": heading, "similarity": similarity}
-    if listing_supported_by_pdf(listing, pdf_text, heading):
-        return {"title": listing, "status": "verified", "pdf_heading": heading, "similarity": similarity}
-    if heading_contained_in_listing(listing, heading):
-        return {"title": listing, "status": "verified", "pdf_heading": heading, "similarity": similarity}
+    if listing_supported_by_pdf(cleaned_listing, pdf_text, heading):
+        return {"title": cleaned_listing, "status": resolved_status, "pdf_heading": heading, "similarity": similarity}
+    if heading_contained_in_listing(cleaned_listing, heading):
+        return {"title": cleaned_listing, "status": resolved_status, "pdf_heading": heading, "similarity": similarity}
     if heading and similarity < TITLE_SIMILARITY_THRESHOLD:
         return {"title": heading, "status": "corrected", "pdf_heading": heading, "similarity": similarity}
-    return {"title": listing, "status": "unverified", "pdf_heading": heading, "similarity": similarity}
+    return {"title": cleaned_listing, "status": "corrected" if cleaned_listing != listing else "unverified",
+            "pdf_heading": heading, "similarity": similarity}
 
 
 def _cache_title_for(cache: dict, url: str) -> str:
