@@ -72,8 +72,13 @@ check("Drive 連結 + 冇 anchor 文字 → 丟棄（好過砌個 'view' 出嚟�
       core.make_asset_record(drive, "", {}), None)
 check("Drive 連結 + anchor 文字係 'view' → 丟棄",
       core.make_asset_record(drive, "view", {}), None)
-rec = core.make_asset_record(drive, "通告下載", {})
-check_true("Drive 連結 + 有真標題 → 保留", rec is not None and rec["title"] == "通告下載")
+rec = core.make_asset_record(drive, "靜觀品茶工作坊", {})
+check_true("Drive 連結 + 有真標題 → 保留", rec is not None and rec["title"] == "靜觀品茶工作坊")
+# 2026-10-09 更新：「通告下載」係 GENERIC_DOWNLOAD_TITLES 之一（見
+# test_circulars_2026_10_08），唔可以當真標題——舊斷言「保留『通告下載』做標題」
+# 同現行 generic-title 設計矛盾（Drive 連結冇檔名可救就寧願唔要，唔砌假標題）。
+check_true("Drive 連結 + anchor 係 generic「通告下載」→ 唔當真標題",
+           core.make_asset_record(drive, "通告下載", {}) is None)
 rec2 = core.make_asset_record("https://x.org/files/周年大會通告.pdf", "", {})
 check_true("普通 PDF + 冇 anchor 文字 → 由檔名救回標題",
            rec2 is not None and rec2["title"] == "周年大會通告")

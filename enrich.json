@@ -294,7 +294,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:55:46",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/24884/Prog43_26_BirthdayParty2026-3.pdf": {
     "source": "總會",
@@ -3726,7 +3752,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:56",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/24390/CircularList-2026-04.pdf": {
     "source": "總會",
@@ -3737,7 +3789,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:57",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23955/CircularList-2026-03.pdf": {
     "source": "總會",
@@ -3748,7 +3826,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:57",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23566/CircularList-2026-02.pdf": {
     "source": "總會",
@@ -3759,7 +3863,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:58",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23238/CircularList-2026-01.pdf": {
     "source": "總會",
@@ -3770,7 +3900,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:58",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23940/Prog20_26_BadmintonClubMemberRecruit.pdf": {
     "source": "總會",
@@ -3781,7 +3937,35 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:59",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "招收"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "招收"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23941/Prog20a_26_BadmintonClubMemberRecruitForm.pdf": {
     "source": "總會",
@@ -3792,7 +3976,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:00:00",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "入會"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "入會"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23561/Prog11_26_HKIRScoutBand_PracticeChanterWorkshop.pdf": {
     "source": "總會",
@@ -6597,7 +6807,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:07:26",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/24884/Prog43_26_BirthdayParty2026-3.pdf": {
     "source": "港島地域",
@@ -7708,7 +7944,56 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:08:51",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "座談會"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:會務委員",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "座談會"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/23564/Prog14_26_EcoTeamTalk.pdf": {
     "source": "港島地域",
@@ -8610,7 +8895,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:09:48",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/24390/CircularList-2026-04.pdf": {
     "source": "港島地域",
@@ -8621,7 +8932,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:09:49",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/23955/CircularList-2026-03.pdf": {
     "source": "港島地域",
@@ -8632,7 +8969,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:09:50",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/23566/CircularList-2026-02.pdf": {
     "source": "港島地域",
@@ -8643,7 +9006,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:09:50",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/23238/CircularList-2026-01.pdf": {
     "source": "港島地域",
@@ -8654,7 +9043,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:09:51",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/23940/Prog20_26_BadmintonClubMemberRecruit.pdf": {
     "source": "港島地域",
@@ -8665,7 +9080,35 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:09:51",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "招收"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "招收"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/23941/Prog20a_26_BadmintonClubMemberRecruitForm.pdf": {
     "source": "港島地域",
@@ -8676,7 +9119,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:09:52",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "入會"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "入會"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/23561/Prog11_26_HKIRScoutBand_PracticeChanterWorkshop.pdf": {
     "source": "港島地域",
@@ -40628,7 +41097,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-07-08 07:37:29",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25263/Dist05_26_HKS_JapanBikingHiking.pdf": {
     "source": "總會",
@@ -40815,7 +41310,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-07-08 07:37:38",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/25263/Dist05_26_HKS_JapanBikingHiking.pdf": {
     "source": "港島地域",
@@ -44379,7 +44900,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-02 15:45:55",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25836/Prog58_26_BirthdayParty2026-4.pdf": {
     "source": "總會",
@@ -44401,7 +44948,67 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-02 15:46:03",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25534/AiS272026_歷奇體驗同樂日_R.pdf": {
     "source": "總會",
@@ -44984,7 +45591,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-02 17:32:56",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/25439/Sec48a_26_CSWaterSatetyDay_Form.pdf": {
     "source": "港島地域",
@@ -45589,7 +46222,67 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-03 18:08:30",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/25745/Adm21_26_LKN.pdf": {
     "source": "港島地域",
@@ -45710,7 +46403,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-04 18:07:08",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25788/SP14-1.pdf": {
     "source": "總會",
@@ -45754,7 +46473,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-04 18:07:22",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "便覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.hknscout.org/wp-content/uploads/2026/09/HKN_T2026_08_%E6%B7%B1%E8%B3%87%E7%AB%A5%E8%BB%8D%E7%87%9F%E8%97%9D%E8%A8%93%E7%B7%B4%E7%8F%AD-1.pdf": {
     "source": "港島北區",
@@ -57100,10 +57845,12 @@
     "fee": "全免",
     "categories": [
       {
-        "id": "announcement",
-        "label": "公布",
+        "id": "training",
+        "label": "訓練",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "座談會"
+        ]
       }
     ],
     "branch_tags": [
@@ -57111,15 +57858,17 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:announcement"
+      "category:training"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:announcement",
-        "label": "公布",
-        "group": "公布",
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
         "kind": "category",
-        "evidence": []
+        "evidence": [
+          "座談會"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
@@ -57307,11 +58056,11 @@
     "fee": "",
     "categories": [
       {
-        "id": "service",
-        "label": "服務",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "工作人員"
+          "便覽"
         ]
       }
     ],
@@ -57322,7 +58071,7 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:service",
+      "category:announcement",
       "course:leader-venture-executive-committee",
       "course:rover-shooting",
       "course:scout-birdwatching-badge",
@@ -57334,12 +58083,12 @@
     ],
     "subscription_tag_details": [
       {
-        "id": "category:service",
-        "label": "服務",
-        "group": "服務",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "工作人員"
+          "便覽"
         ]
       },
       {
@@ -57433,11 +58182,11 @@
     "fee": "HK$40",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "比賽"
+          "招收"
         ]
       }
     ],
@@ -57445,16 +58194,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:competition"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "比賽"
+          "招收"
         ]
       }
     ],
@@ -57473,26 +58222,26 @@
     "fee": "",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班"
+          "入會"
         ]
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:training"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班"
+          "入會"
         ]
       }
     ],
@@ -57611,23 +58360,28 @@
     "fee": "",
     "categories": [
       {
-        "id": "announcement",
-        "label": "公布",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "之行"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:announcement"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:announcement",
-        "label": "公布",
-        "group": "公布",
-        "kind": "category",
-        "evidence": []
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "之行"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
@@ -57645,12 +58399,13 @@
     "fee": "HK$140",
     "categories": [
       {
-        "id": "service",
-        "label": "服務",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "探訪"
-        ]
+          "之行"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
@@ -57658,16 +58413,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:service"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:service",
-        "label": "服務",
-        "group": "服務",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "探訪"
+          "之行"
         ]
       }
     ],
@@ -57982,7 +58737,7 @@
   },
   "https://drive.google.com/file/d/14jcQZLdwlwqPBdu5eDCYHdhTt8cLSyLE/view": {
     "source": "港島南區",
-    "title": "深資及樂行童軍支部 活動名稱: 靜觀品茶工作坊 活動日期:2026年 10 月 25 日(星期 日 ) 截止日期:2026年 10 月 9 日(星期五 ) 參加資格: 1. 持有有效成員紀錄冊之深資童軍,(港島南區成員將獲優先取錄);及 2. 持有有效成員紀錄冊之樂行童軍,(港島南區成員將獲優先取錄) 3. 區會職員及各級領袖。 通告下載",
+    "title": "靜觀品茶工作坊",
     "deadline": "2026-10-09",
     "audience": "深資童軍、樂行童軍、領袖",
     "fee": "HK$200",
@@ -58048,9 +58803,10 @@
     "subscription_catalog_version": "3.3.0",
     "method": "text",
     "error": "",
-    "title_check": "verified",
+    "title_check": "corrected",
     "enriched_at": "2026-10-09 05:08:18",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "listing_title": "深資及樂行童軍支部 活動名稱: 靜觀品茶工作坊 活動日期:2026年 10 月 25 日(星期 日 ) 截止日期:2026年 10 月 9 日(星期五 ) 參加資格: 1. 持有有效成員紀錄冊之深資童軍,(港島南區成員將獲優先取錄);及 2. 持有有效成員紀錄冊之樂行童軍,(港島南區成員將獲優先取錄) 3. 區會職員及各級領袖。 通告下載"
   },
   "https://drive.google.com/file/d/1HLJHO4fBUK9fWeo4IFDR1huAciXmJyFl/view": {
     "source": "港島南區",

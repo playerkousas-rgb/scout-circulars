@@ -237,6 +237,38 @@ def normalize_text(value: str) -> str:
     return value
 
 
+# 2026-10-09：港島南區等 Google Sites 把整份通告內文貼咗做連結文字
+# （「深資及樂行童軍支部 活動名稱: 靜觀品茶工作坊 活動日期:2026年 10 月 25 日
+# (星期 日 ) 截止日期:… 參加資格: … 通告下載」）。呢類「欄位表」唔可以當標題：
+# 認到「活動名稱」欄位就抽取欄位值（「靜觀品茶工作坊」）做標題。
+# 欄位值盡量喺下一個欄位標籤之前停；值太長（>40 字）就當唔係欄位表，維持原狀。
+ACTIVITY_NAME_FIELD_RE = re.compile(r"活動名稱\s*[:：]\s*(.+)")
+ACTIVITY_NAME_FIELD_LABELS_RE = re.compile(
+    r"活動日期|截止日期|報名日期|活動時間|截止時間|活動地點|活動內容|參加資格|參加對象|"
+    r"報名方法|報名表格|費用|名額|備註|查詢|通告下載"
+)
+
+
+def extract_activity_name_title(raw_title: str) -> Optional[str]:
+    """欄位表式標題（「…活動名稱: X 活動日期:…」）→ 抽 X 做標題。
+
+    只喺「活動名稱」之後仲跟住另一個欄位標籤（活動日期／截止日期／參加資格
+    之類）先生效——淨係有「活動名稱」四字而冇欄位結構嘅真標題唔會被斬。
+    """
+    title = normalize_text(raw_title or "")
+    m = ACTIVITY_NAME_FIELD_RE.search(title)
+    if not m:
+        return None
+    remainder = m.group(1)
+    if not ACTIVITY_NAME_FIELD_LABELS_RE.search(remainder):
+        return None
+    value = ACTIVITY_NAME_FIELD_LABELS_RE.split(remainder, maxsplit=1)[0]
+    value = value.strip(" ：:-–—　")
+    if not (2 <= len(value) <= 40):
+        return None
+    return value
+
+
 def is_generic_download_title(title: Optional[str]) -> bool:
     title = normalize_text(title or "").lower()
     if not title:
@@ -277,6 +309,13 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
     title = re.sub(r"\s*[-–—]\s*通告\s*[（(]?\d{1,4}(?:[./\-\s]\d{1,4})*[)）]?$", "", title).strip()
     title = re.sub(r"\s*[-–—]\s*[>»<\s]*(?:通告|報名|下載)?連結[<«>\s]*$", "", title).strip()
     title = re.sub(r"\s*[-–—]\s*https?://\S+$", "", title, flags=re.I).strip()
+
+    # 2026-10-09：欄位表式連結文字（「…活動名稱: 靜觀品茶工作坊 活動日期:… 通告下載」）
+    # 認到「活動名稱」欄位就抽欄位值做標題，唔好用成段內文（見
+    # extract_activity_name_title）。
+    activity_name_title = extract_activity_name_title(title)
+    if activity_name_title:
+        title = activity_name_title
 
     # 智能移除童軍通告編號前綴 (例如 TPN/CIR/VS/2627/003 或 TPN CIR S 2526 006)
     # 匹配: 2-5個英文字母 + (可選的英文部門代號) + 2-4位數字年份 + 2-3位數字序號

@@ -65,6 +65,18 @@ const cases = [
   ['2026年香港童軍大會操(五) - 服務邀請', 'service'],
   ['領袖訓練工作坊', 'training'],
   ['隨意標題', 'other'],
+  // 2026-10-09 用戶規則（同 subscription_tagging.py／story_queue.py 對齊）：
+  // 「之行／之旅」行程＝活動；「入會／招收／招募」＝公布（更強字眼行先）；
+  // 「座談會」＝訓練；「便覽」等參考文件＝公布。
+  ['探索歷史典藏、清真文化與創新科技之行', 'activity'],
+  ['「童」心建家園-東莞巿石龍鎮服務之旅', 'service'],           // 服務之旅仍係服務
+  ['港島地域羽毛球會-入會表格', 'announcement'],
+  ['港島地域羽毛球會-招收2026-2027年度下半年新會員', 'announcement'],
+  ['渣打香港馬拉松2027 - 工作人員大招募(歡迎全港童軍參與)', 'service'],  // 工作人員行先
+  ['香港童軍龍舟邀請賽2026 – 沙田西區龍舟隊成員招募', 'competition'],     // 賽事名行先
+  ['童軍露營訓練班-學員招募', 'training'],                      // 訓練班行先
+  ['港島童軍生態小組-觀鳥章(興趣組)領袖座談會', 'training'],
+  ['港島地域通告便覽(2026年10月)', 'announcement'],
 ];
 for (const [title, want] of cases) {
   const got = batchCategory({ title, source_site: 'x' }, null);
