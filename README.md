@@ -180,7 +180,16 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
       「XX訓練班學員招募」＝訓練，即係只喺標題冇更強字眼時先生效。
     - 「座談會」＝**訓練**（同講座／簡介會同類）；「便覽」（通告索引／摘要）＝
       **公布**（參考文件，內文包含晒全月通告字眼，唔可以用內文分類）。
+    - 「研習」＝**訓練**（裸詞涵蓋研習班／研習坊／研習日；個案：「跨支部海洋公園
+      研習日」P105/2026 俾兜底成公布）。`story_queue`／出圖台 regex 早已收「研習」，
+      今次 `TRAINING_TERMS` 對齊，三份一致。競賽類研習班（「立划板競賽研習班」）
+      維持競賽字眼行先＝**比賽**。
   - 標題得弱證據（例如「訓練日」「盃」）或者睇唔出 → 先用 PDF 內文補充。
+  - **內文範圍要收窄**（2026-10-09 用戶再次強調：「標題分不到才找內文，內文範圍
+    太廣很易亂的」）：內文 fallback 只掃開首 `BODY_SCAN_LIMIT`（600）字（通告主旨
+    位），兼夾淨係信事件類型專有詞（訓練班／工作坊／錦標賽／社區服務⋯）；附帶
+    字眼 `BODY_UNTRUSTED_TERMS`（工作人員／探訪／服務／義工／比賽／錦標）喺內文
+    一律唔計——呢堆字喺行程表／工作人員名單／會務簡介成日出現，好易亂。
   - 標題出現「行事曆／一覽／名單／章程」呢類排除詞 → 唔當活動本體。
   - 三份規則要同步改：`subscription_tagging.py`（權威）、`story_queue.py`（Story 清單）、`index.html` 出圖台 `BATCH_RE`／`batchCategory`（`?batch=1`）。測試：`test_tools_category.py`、`test_story_queue.py`、`test_batch_category.js`。
 - `enrich.json` 每條會多一個 `categories` 欄：`[{id, label, score, evidence}...]`；前端直接用呢個欄位過濾／排序。
@@ -314,6 +323,17 @@ PDF 內文／欄位表垃圾搶走**：
 標題抽成「靜觀品茶工作坊」並記 `listing_title`（原貌 170 字，`enrich.py` 每次 run
 自動重新套用）。同場清走港島南區 24 筆殘留 `view` 標題（見下方「`cache.json` 有
 24 筆標題係 `view`」一節；今次連 `notices` 副本一齊清）。
+
+**同日再報：「跨支部海洋公園研習日」（P105/2026）公布→訓練**，兼夾重申分類原則
+「標題分不到才找內文，內文範圍太廣很易亂的」。根因：`TRAINING_TERMS` 淨係收
+「研習班」，「研習日／研習坊」全部跌落兜底公布。規則修正：`TRAINING_TERMS` 收
+裸詞「研習」（三份規則對齊）；內文 fallback 收窄成 `BODY_SCAN_LIMIT`（只掃開首
+600 字）＋ `BODY_UNTRUSTED_TERMS`（工作人員／探訪／服務／義工／比賽／錦標喺內文
+唔計，只信事件類型專有詞）。同類存量研習家族（搜集章／會議程序／執行委員會／
+氣象／風帆先修研習班、單車／定向教練研習坊、立划板競賽研習班→比賽、各報名
+表格／通知書跟返主件）由 `fix_circulars_2026_10_09.py` 一齊補返（合共 30 項）。
+回歸測試：`test_circulars_2026_10_09.py`（`test_yanyi_family_is_training_from_title`、
+`test_body_scope_narrowed_per_user_rule`）＋`test_batch_category.js`。
 
 ### 用戶名單（2026-10-06）逐條對照：規則改咗乜、測試釘死喺邊
 

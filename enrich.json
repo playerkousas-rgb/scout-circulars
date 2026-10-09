@@ -1761,7 +1761,55 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:57:38",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-orienteering-instructor",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習"
+        ]
+      },
+      {
+        "id": "course:leader-orienteering-instructor",
+        "label": "野外定向教練員",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：野外定向教練"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23790/Adm06_26_ApplyECircular.pdf": {
     "source": "總會",
@@ -3202,7 +3250,38 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:17",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "競賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "競賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/24481/Youth33.pdf": {
     "source": "總會",
@@ -3510,7 +3589,80 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:38",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "course:scout-collector-badge",
+      "training:幼童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "course:scout-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/24569/Prog36_26_CubCollectorWorkshop1.pdf": {
     "source": "總會",
@@ -3521,7 +3673,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 10:59:39",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/24566/Prog35_26_BadgeClubAGM2026.pdf": {
     "source": "總會",
@@ -7867,7 +8070,80 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:08:47",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "course:scout-collector-badge",
+      "training:幼童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "course:scout-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/12949/Prog81a_23_CubCollectorWorkshopForm.pdf": {
     "source": "港島地域",
@@ -7878,7 +8154,80 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:08:47",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "course:scout-collector-badge",
+      "training:幼童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "course:scout-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/24569/Prog36_26_CubCollectorWorkshop1.pdf": {
     "source": "港島地域",
@@ -7889,7 +8238,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:08:48",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/12948/Prog81_23_CubCollectorWorkshop.pdf": {
     "source": "港島地域",
@@ -7900,7 +8300,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:08:49",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/24566/Prog35_26_BadgeClubAGM2026.pdf": {
     "source": "港島地域",
@@ -9475,7 +9926,47 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:10:10",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/13657/Prog98_23_VSECWorkshop.pdf": {
     "source": "港島地域",
@@ -9486,7 +9977,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:10:11",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:venture-executive-committee",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:venture-executive-committee",
+        "label": "執行委員會",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍執行委員會",
+          "標題／內文：執行委員會研習班"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/24046/Sec14_26_VSRSMapReadingCourse1.pdf": {
     "source": "港島地域",
@@ -24314,7 +24856,47 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:56",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf": {
     "source": "九龍塘區",
@@ -24325,7 +24907,47 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:57",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf": {
     "source": "九龍塘區",
@@ -24336,7 +24958,47 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:57",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout-kowloontong.org/notice/2025/KLG25-05VA.pdf": {
     "source": "九龍塘區",
@@ -26591,7 +27253,47 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:38:12",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/AF-08-24.pdf": {
     "source": "九龍灣區",
@@ -29264,7 +29966,47 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:41:13",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.sph-scout.org.hk/Circular/circular_PT202404%20(Venture%20Pioneering%202024).pdf": {
     "source": "十八鄉區",
@@ -35786,7 +36528,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:49:55",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:venture-executive-committee",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:venture-executive-committee",
+        "label": "執行委員會",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍執行委員會",
+          "標題／內文：執行委員會研習班"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "http://www.tps.org.hk/download/notice/TPSD_T_VS_2018_01.pdf": {
     "source": "大埔南區",
@@ -35797,7 +36590,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:49:56",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:venture-executive-committee",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:venture-executive-committee",
+        "label": "執行委員會",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍執行委員會",
+          "標題／內文：執行委員會研習班"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "http://www.tps.org.hk/download/notice/TPSDTVS202501.pdf": {
     "source": "大埔南區",
@@ -35808,7 +36652,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:49:56",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:venture-executive-committee",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:venture-executive-committee",
+        "label": "執行委員會",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍執行委員會",
+          "標題／內文：執行委員會研習班"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "http://www.tps.org.hk/download/notice/自立段章考驗_通告TPSDTVS202201.pdf": {
     "source": "大埔南區",
@@ -38617,7 +39512,47 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:55:15",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "深資童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:深資童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/vs240901.pdf": {
     "source": "青衣區",
@@ -40305,7 +41240,36 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-07-03 06:16:40",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "競賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "競賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25191/SA56.pdf": {
     "source": "總會",
@@ -42337,7 +43301,45 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-02 10:44:53",
-    "enrich_version": "2.1"
+    "enrich_version": "2.1",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25477/KT59_26.pdf": {
     "source": "總會",
@@ -42359,7 +43361,45 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-02 10:44:54",
-    "enrich_version": "2.1"
+    "enrich_version": "2.1",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25476/KT58_26.pdf": {
     "source": "總會",
@@ -42766,7 +43806,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-06 08:00:33",
-    "enrich_version": "2.1"
+    "enrich_version": "2.1",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25547/P086-26.pdf": {
     "source": "總會",
@@ -43932,7 +45023,45 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-15 06:45:05",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/08/KT59_26.pdf": {
     "source": "九龍地域",
@@ -43954,7 +45083,45 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-15 06:45:16",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/08/KR10_26.pdf": {
     "source": "九龍地域",
@@ -44834,7 +46001,80 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-02 15:45:33",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "course:scout-collector-badge",
+      "training:幼童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "course:scout-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25831/Prog55_26_CubCollectorWorkshop2.pdf": {
     "source": "總會",
@@ -44845,7 +46085,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-02 15:45:36",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25830/Prog54_26_BadgeClubAGM2026.pdf": {
     "source": "總會",
@@ -46145,7 +47436,80 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-03 18:08:04",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "course:scout-collector-badge",
+      "training:幼童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "course:scout-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/25831/Prog55_26_CubCollectorWorkshop2.pdf": {
     "source": "港島地域",
@@ -46156,7 +47520,58 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-03 18:08:09",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-collector-badge",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "研習班",
+          "研習"
+        ]
+      },
+      {
+        "id": "course:cub-collector-badge",
+        "label": "搜集章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：搜集章",
+          "標題／內文：搜集章研習班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/25830/Prog54_26_BadgeClubAGM2026.pdf": {
     "source": "港島地域",
@@ -58701,10 +60116,12 @@
     "fee": "全免",
     "categories": [
       {
-        "id": "announcement",
-        "label": "公布",
+        "id": "training",
+        "label": "訓練",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "研習"
+        ]
       }
     ],
     "branch_tags": [
@@ -58717,15 +60134,17 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:announcement"
+      "category:training"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:announcement",
-        "label": "公布",
-        "group": "公布",
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
         "kind": "category",
-        "evidence": []
+        "evidence": [
+          "研習"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",

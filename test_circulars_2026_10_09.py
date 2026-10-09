@@ -18,6 +18,11 @@
 4. 同類存量（過去通告便覽／羽毛球會入會系列／座談會／靜觀品茶地域版）
    已按新規則補返分類。
 5. `fix_circulars_2026_10_09.py --dry-run` 確認存量數據零待改項。
+6. 用戶再報（同日）：「跨支部海洋公園研習日(P105/2026)」公布→訓練，規則層
+   TRAINING_TERMS 收裸詞「研習」（涵蓋研習班／坊／日，同 story_queue／出圖台
+   對齊）；同場重申「標題分不到才找內文，內文範圍太廣很易亂的」——內文
+   fallback 收窄（BODY_SCAN_LIMIT 只掃開首 600 字＋BODY_UNTRUSTED_TERMS
+   附帶字眼唔計），有專屬測試組守住。
 
 用法：python3 test_circulars_2026_10_09.py
 """
@@ -58,6 +63,8 @@ NAMED_CATEGORY_URLS = {
     f"{HQ}/26369/Prog64_26_BadmintonClubMemberRecruit.pdf": ("announcement", "公布"),
     f"{HQ}/26380/CircularList-2026-10.pdf": ("announcement", "公布"),
     f"{HQ}/26363/Prog62_26_BirdwatcherSeminar.pdf": ("training", "訓練"),
+    # 用戶再報（2026-10-09）：海洋公園研習日（研習＝訓練）
+    f"{HQ}/26358/P105-26.pdf": ("training", "訓練"),
 }
 
 SQ_LABEL = {
@@ -124,6 +131,60 @@ class Circulars20261009RuleTests(unittest.TestCase):
                 self.assertEqual(extract_categories(title, "", "總會")[0]["label"], label)
                 self.assertEqual(sq.classify_category({"title": title, "source_site": "總會"}, None),
                                  SQ_LABEL[label])
+
+    def test_yanyi_family_is_training_from_title(self):
+        # 2026-10-09 用戶點名「跨支部海洋公園研習日」：研習日／坊／班一律由
+        # 標題「研習」認到係訓練（同「第5屆公園定向研習班」＝訓練一致），
+        # 三份規則（訂閱分類／story_queue／出圖台）都對齊。
+        cases = [
+            ("「環境保育與生態安全」— 跨支部海洋公園研習日(P105/2026)", "訓練"),
+            ("童軍單車研習坊 (第20/26號)", "訓練"),
+            ("第5屆公園定向研習班(P100/2026)", "訓練"),
+            ("港島童軍章會-幼童軍搜集章研習班-報名表格", "訓練"),  # 表格跟返主件
+            ("深資童軍會議程序研習班 - 接納通知書", "訓練"),        # 通知書跟返主件
+            ("立划板競賽研習班", "比賽"),                          # 競賽字眼行先
+        ]
+        for title, label in cases:
+            with self.subTest(title=title):
+                self.assertEqual(extract_categories(title, "", "總會")[0]["label"], label)
+                self.assertEqual(sq.classify_category({"title": title, "source_site": "總會"}, None),
+                                 SQ_LABEL[label])
+
+    def test_body_scope_narrowed_per_user_rule(self):
+        # 2026-10-09 用戶重申：「標題分不到才找內文，內文範圍太廣很易亂的」。
+        # 內文 fallback 兩點收窄：
+        # (a) 附帶字眼（工作人員／探訪／服務／義工／比賽／錦標）喺內文唔計；
+        # (b) 淨係掃開首 BODY_SCAN_LIMIT 字，尾段字眼唔好亂。
+        # 但事件類型專有詞（訓練班／社區服務／公開賽）照樣信。
+        noise = [
+            ("某某表格", "本會每年舉辦羽毛球比賽"),          # 內文「比賽」唔搶
+            ("", "招募工作人員"),                            # 內文「工作人員」唔搶
+            ("", "行程包括探訪古蹟"),                        # 內文「探訪」唔搶
+            ("特別通告", "內文提及服務同義工"),              # 內文裸字「服務／義工」唔搶
+        ]
+        for title, text in noise:
+            with self.subTest(title=title, text=text):
+                self.assertEqual(extract_categories(title, text, "總會")[0]["label"], "公布")
+
+        keep = [
+            ("", "參加資格：童軍\n訓練班：繩結訓練班", "訓練"),   # 事件類型詞照信
+            ("", "活動性質：社區服務", "服務"),
+            ("", "服務日：2026-09-20", "服務"),
+            ("", "全港公開賽", "比賽"),
+        ]
+        for title, text, label in keep:
+            with self.subTest(title=title, text=text):
+                self.assertEqual(extract_categories(title, text, "總會")[0]["label"], label)
+
+        # 範圍收窄：600 字之後嘅字眼唔計（內文範圍太廣好易亂）
+        self.assertEqual(
+            extract_categories("特別通告", "前言前言前言" + "x" * 700 + "訓練班", "總會")[0]["label"],
+            "公布",
+        )
+        self.assertEqual(
+            extract_categories("特別通告", "訓練班" + "x" * 700, "總會")[0]["label"],
+            "訓練",
+        )
 
     def test_clean_title_extracts_activity_name_field(self):
         if core is None:

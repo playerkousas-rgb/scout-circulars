@@ -77,6 +77,10 @@ const cases = [
   ['童軍露營訓練班-學員招募', 'training'],                      // 訓練班行先
   ['港島童軍生態小組-觀鳥章(興趣組)領袖座談會', 'training'],
   ['港島地域通告便覽(2026年10月)', 'announcement'],
+  // 2026-10-09 再報：「研習」裸詞涵蓋研習日／坊／班（同訂閱分類對齊）
+  ['「環境保育與生態安全」— 跨支部海洋公園研習日(P105/2026)', 'training'],
+  ['童軍單車研習坊 (第20/26號)', 'training'],
+  ['立划板競賽研習班', 'competition'],                        // 競賽字眼行先
 ];
 for (const [title, want] of cases) {
   const got = batchCategory({ title, source_site: 'x' }, null);

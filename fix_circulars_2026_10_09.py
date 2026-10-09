@@ -48,6 +48,21 @@
    節因此長期紅）。用 fix_hks_titles.TITLE_BY_FILE_ID（逐份開 PDF 核實過）補
    返——今次連 cache notices 副本都一齊清（fix_hks_titles.py 只處理 data）。
 
+4. 用戶再報（同日）：「這個也是錯標籤」——
+   總會 26358/P105-26.pdf
+   「環境保育與生態安全」— 跨支部海洋公園研習日      公布 → 訓練
+   （根因：TRAINING_TERMS 淨係收「研習班」，「研習日／研習坊」全部跌落兜底
+    公布；story_queue._RE_TRAINING、index.html BATCH_RE.training 早已收裸詞
+    「研習」，只有訂閱分類漏。規則修復：TRAINING_TERMS 收「研習」涵蓋晒
+    研習班／坊／日，三份規則對齊。）
+   同場加埋用戶重申嘅分類原則：「標題分不到才找內文，內文範圍太廣很易亂的」
+   ——內文 fallback 收窄成兩點（見 subscription_tagging.py BODY_SCAN_LIMIT /
+   BODY_UNTRUSTED_TERMS）：只掃開首 600 字＋附帶字眼（工作人員／探訪／服務／
+   義工／比賽／錦標）喺內文唔計。
+   同類存量（研習家族，全部冇分類欄位或標錯）一齊補返：搜集章／會議程序／
+   執行委員會／氣象／風帆先修研習班、單車／定向教練研習坊、立划板競賽研習班
+   （競賽字眼行先→比賽）、各報名表格／通知書（跟返主件標籤）。
+
 用法
 ----
     python fix_circulars_2026_10_09.py --dry-run   # 只睇會改咩
@@ -112,6 +127,41 @@ CATEGORY_URLS = (
     # ── 同類存量：靜觀品茶工作坊地域版（工作坊＝訓練）──
     f"{HQ}/25838/Dist06_26_HKS_MindfulTeaTastingWorkshop.pdf",
     f"{HQ_WWW}/25838/Dist06_26_HKS_MindfulTeaTastingWorkshop.pdf",
+    # ── 用戶點名（2026-10-09 再報）：研習＝訓練（研習日／研習坊／研習班）──
+    f"{HQ}/26358/P105-26.pdf",                              # 海洋公園研習日 公布→訓練
+    f"{HQ}/26336/P100-26-.pdf",                             # 公園定向研習班（已係訓練，冇嘢改）
+    f"{HQ}/24496/P044-26.pdf",                              # 野外定向教練研習坊 → 訓練
+    f"{HQ}/25480/PRG19_26.pdf",                             # 幼童軍單車研習坊 → 訓練
+    f"{HQ}/25481/PRG20_26.pdf",                             # 童軍單車研習坊 → 訓練
+    f"{HQ}/25525/SA64.pdf",                                 # 風帆賽事先修研習班 → 訓練
+    f"{HQ}/24119/SA29.pdf",                                 # 立划板競賽研習班 → 比賽（競賽字眼行先）
+    f"{HQ}/25192/SA57.pdf",                                 # 同上
+    # ── 同類存量：搜集章研習班系列（連報名表格，跟返主件＝訓練）──
+    f"{HQ}/24569/Prog36_26_CubCollectorWorkshop1.pdf",
+    f"{HQ_WWW}/24569/Prog36_26_CubCollectorWorkshop1.pdf",
+    f"{HQ}/24570/Prog36a_26_CubCollectorWorkshop1_Form.pdf",
+    f"{HQ_WWW}/24570/Prog36a_26_CubCollectorWorkshop1_Form.pdf",
+    f"{HQ}/25831/Prog55_26_CubCollectorWorkshop2.pdf",
+    f"{HQ_WWW}/25831/Prog55_26_CubCollectorWorkshop2.pdf",
+    f"{HQ}/25832/Prog55a_26_CubCollectorWorkshop2_Form.pdf",
+    f"{HQ_WWW}/25832/Prog55a_26_CubCollectorWorkshop2_Form.pdf",
+    # （2023 存量喺 enrich 用 www 變體做 key，直取 HQ_WWW）
+    f"{HQ_WWW}/12948/Prog81_23_CubCollectorWorkshop.pdf",
+    f"{HQ_WWW}/12949/Prog81a_23_CubCollectorWorkshopForm.pdf",
+    f"{HQ_WWW}/13575/Prog99_23_VSMeteorologyWorkshop.pdf",   # 氣象研習班
+    f"{HQ_WWW}/13657/Prog98_23_VSECWorkshop.pdf",           # 執行委員會研習班
+    # ── 同類存量：外隊網站研習班（會議程序／執行委員會，連通知書跟返主件）──
+    "http://www.tps.org.hk/download/notice/TPSDTVS202501.pdf",
+    "http://www.tps.org.hk/download/notice/TPSD_T_VS_2018_01.pdf",
+    "http://www.tps.org.hk/download/notice/深資童軍執行委員會研習班-取錄通知書.pdf",
+    "https://krscout.org/wp-content/uploads/2026/08/PRG19_26.pdf",
+    "https://krscout.org/wp-content/uploads/2026/08/PRG20_26.pdf",
+    "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/vs240101.pdf",
+    "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2023/PT-07-23.pdf",
+    "https://www.scout-kowloontong.org/notice/2023/KLG23-05V.pdf",
+    "https://www.scout-kowloontong.org/notice/2024/KLG24-23V.pdf",
+    "https://www.scout-kowloontong.org/notice/2024/KLG24-23VA.pdf",
+    "https://www.sph-scout.org.hk/Circular/circular_PT202302%20(Venture%20meeting%20procedure%20workshop%202023).pdf",
 )
 
 # 2. 標題要由「欄位表」抽出活動名稱嘅通告 URL → (新標題, 原列表標題)
