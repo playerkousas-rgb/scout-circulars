@@ -44,7 +44,10 @@ _RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考�
 # 2026-10-01：同 subscription_tagging.SERVICE_BARE_TERMS 對齊——「服務」係裸字就算，
 # 但要剔除「服務組」（童軍專章嘅分組標籤，唔係招義工，例如「XX章(服務組)訓練班」）。
 _RE_SERVICE = re.compile(r"服務(?!組)|工作人員|義工|義務")
-_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅")
+# 2026-10-15：「出海記／大冒險」行程＝活動（用戶點名九龍灣區「九灣小漁夫出海記-
+# 水上文化親子大冒險」俾海報內文「訓練班」搶去做訓練）。同 subscription_tagging.
+# OTHER_ACTIVITY_TERMS 對齊；「森林大冒險…填色比賽」仍然係比賽，因為比賽行先。
+_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅|出海記|大冒險")
 # 2026-10-09：同 subscription_tagging.MEMBERSHIP_ADMIN_TERMS 對齊——入會表格、
 # 招收新會員、會員招募係行政公布。擺喺 service／competition／training 之後：
 # 「工作人員招募」＝服務、「XX錦標賽-隊員招募」＝比賽、「訓練班學員招募」＝訓練。
@@ -52,8 +55,12 @@ _RE_MEMBERSHIP_ADMIN = re.compile(r"入會|招收|招募")
 # 2026-10-09：同 subscription_tagging.REFERENCE_TITLE_TERMS 對齊——行事曆、名單、
 # 便覽呢類參考／行政文件＝公布。位置同訂閱分類一致：service > competition >
 # 參考文件 > training（「XX訓練班-取錄名單」「訓練綱要」都係公布，唔係訓練）。
+# 2026-10-15：加「通告一覽」＋「……通告【YYYY 年 M 月】」月度摘要形狀（同
+# subscription_tagging.REFERENCE_TITLE_TERMS / MONTHLY_DIGEST_TITLE_RE 對齊）——
+# 「九龍地域9月份通告一覽」成家人 20 筆，舊版唔認得，內文一有「訓練班」就入錯類。
 _RE_REFERENCE_TITLE = re.compile(
-    r"行事曆|一覽表|訓練綱要|課程大綱|章程|指引|結果公布|得獎名單|名單|便覽"
+    r"行事曆|一覽表|訓練綱要|課程大綱|章程|指引|結果公布|得獎名單|名單|便覽|通告一覽"
+    r"|通告[【\[].{0,20}?年.{0,10}?月"
 )
 
 # 2026-10-03 用戶規則：童軍獎勵、津貼計劃等算公布；同樂日、考察團、代表團等算活動

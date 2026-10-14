@@ -184,6 +184,33 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
       研習日」P105/2026 俾兜底成公布）。`story_queue`／出圖台 regex 早已收「研習」，
       今次 `TRAINING_TERMS` 對齊，三份一致。競賽類研習班（「立划板競賽研習班」）
       維持競賽字眼行先＝**比賽**。
+  - **2026-10-15 用戶規則（第二批錯標籤个案）**：
+    - **「……通告【YYYY 年 M 月】」＋「N月份通告一覽」＋「通告便覽」＝月度摘要＝公布**，
+      而且**永遠唔准睇內文**（`MONTHLY_DIGEST_TITLE_RE` 入 `is_reference_document()`、
+      `REFERENCE_TITLE_TERMS` 加「通告一覽」）。個案：「九龍地域通告【2026 年 10 月】」
+      （Summary_2026_10.pdf）內文有「成績公佈」→ 俾「賽果＝比賽」嗰條規則搶走。
+      呢類 digest 份 PDF 包晒全月通告字眼，一睇內文就必定分錯；成家人 45 筆（当中
+      26 筆錯／未分類）。護欄：「划艇訓練班(活動通告第21/26號)」冇「年…月」結構，唔會誤傷。
+    - **「出海記／大冒險」＝活動**（入 `OTHER_ACTIVITY_TERMS`，即係標題先決但喺
+      `title_decisive` 之後）。個案：「九灣小漁夫出海記-水上文化親子大冒險」俾海報
+      內文「訓練班」搶去做訓練。刻意**唔放** `ACTIVITY_STRONG_TERMS`——「維多利亞城區
+      森林大冒險小幼童軍填色比賽」要維持**比賽**；「親子」全库 69 筆、大半係工作坊／
+      比賽，一律**唔收**。
+    - 一張通告有兩份內容（例：「港島童軍皮藝會-皮革藝術與生活」＝展覽＋比賽）：
+      用戶裁定「活動訓練都啱，但唔係比賽」→ 標題冇類別字眼時**唔好由內文嘅比賽字眼
+      定調**，呢張由 `fix_circulars_2026_10_15.py` 嘅 `MANUAL_OVERRIDES` 人手釘「活動」。
+    - **根因：同一份 PDF 有兩個 enrich key**（總會在列表頁俾 `scout.org.hk/…`、地域站
+      鏡像俾 `www.scout.org.hk/…`）。兩條 entry 各自由唔同次數嘅 run 寫入，所以可以
+      各持唔同標籤——10-09 嗰批用新規則（啱），10-15 本機排程用**未 `git pull` 嘅舊
+      代碼**覆寫咗鏡像嗰半（錯）。全库 4,433 條 entry 有 219 組呢種鏡像重複、7 組標籤
+      打架（用戶見到嘅錯標籤就係嗰 7 個 www 版本）。`summarize_cross_source_consistency()`
+      靠「同標題＋同 captured_date」配對，呢種分歧睇唔到 → 新增
+      `enrich.summarize_mirror_url_divergence()`：按**正規化 PDF URL**（除走 `www.`、
+      保留 `?wpdmdl=` query）再比一輪，每次 enrich run 收尾自動報「同一份 PDF 但有 N 組
+      標籤唔同」。⚠️ **本機排程開工前 must `git pull`**，否則舊規則會日夜覆寫新規則成果。
+      待用戶定政策：「章(Pxxx/2026)」呢一類（全库 9 筆，例如「寰宇童軍章(P109/2026)」）
+      而家跟規則＝標題冇課程字眼就兜底**公布**；若決定一律歸**訓練**，改 `TRAINING_TERMS`
+      一條即係（三份同步）。測試：`test_circulars_2026_10_15.py`、`test_batch_category.js`。
   - 標題得弱證據（例如「訓練日」「盃」）或者睇唔出 → 先用 PDF 內文補充。
   - **內文範圍要收窄**（2026-10-09 用戶再次強調：「標題分不到才找內文，內文範圍
     太廣很易亂的」）：內文 fallback 只掃開首 `BODY_SCAN_LIMIT`（600）字（通告主旨

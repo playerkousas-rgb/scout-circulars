@@ -6239,13 +6239,19 @@
       // 會員招募行政規則（招募）吞咗。同 story_queue._RE_SERVICE 對齊。
       service: /服務|義工|義務|工作人員/,
       // 2026-10-09：「之行／之旅」行程＝活動（「服務之旅」仍係服務）。
-      activity: /活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅/,
+      // 2026-10-15：加「出海記／大冒險」（用戶點名九龍灣區「九灣小漁夫出海記-水上
+      // 文化親子大冒險」）；同 subscription_tagging.OTHER_ACTIVITY_TERMS 對齊。
+      activity: /活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅|出海記|大冒險/,
       // 2026-10-09：同 subscription_tagging.MEMBERSHIP_ADMIN_TERMS 對齊——
       // 入會表格、招收新會員、會員招募＝公布（service／competition／training 行先）。
       membership_admin: /入會|招收|招募/,
       // 2026-10-09：同 subscription_tagging.REFERENCE_TITLE_TERMS 對齊——
       // 行事曆／名單／便覽呢類參考文件＝公布（competition 之後、training 之前）。
-      reference_title: /行事曆|一覽表|訓練綱要|課程大綱|章程|指引|結果公布|得獎名單|名單|便覽/,
+      // 2026-10-15：加「通告一覽」＋「……通告【YYYY 年 M 月】」月度摘要（同
+      // subscription_tagging.REFERENCE_TITLE_TERMS／MONTHLY_DIGEST_TITLE_RE、
+      // story_queue._RE_REFERENCE_TITLE 對齊）——月度摘要內文有晒全月通告字眼，
+      // 一俾人睇就分錯，所以呢類一律＝公布。
+      reference_title: /行事曆|一覽表|訓練綱要|課程大綱|章程|指引|結果公布|得獎名單|名單|便覽|通告一覽|通告[【[][^】\]]{0,20}?年[^】\]]{0,10}?月/,
       announcement_override: /童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼|獎勵計劃/,
       // 標題有「公告／公布／公佈」＝公布；下面先用 announcement_result 遮蓋賽果片語。
       announcement_title: /公告|公布|公佈/,

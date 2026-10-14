@@ -92,6 +92,21 @@ jobs:
       - name: Scout System 小工具分類 + 訂閱標籤
         run: python test_tools_category.py
 
+      # 2026-10-15 補：歷次「用戶點名錯標籤 → 改規則」嘅回歸測試一直冇入清單
+      # （靠人手跑，所以 10-15 嗰批鏡像 URL 分歧冇人叫）。全部離線、全部通過。
+      - name: 通告分類補正 2026-10-06（大會操／獎章）
+        run: python test_rally_categories_2026_10_06.py
+      - name: 獎章分類補正 2026-10-06
+        run: python test_award_categories_2026_10_06.py
+      - name: 點名通告補正 2026-10-06
+        run: python test_named_circulars_2026_10_06.py
+      - name: 通告分類補正 2026-10-08／10-09
+        run: python test_circulars_2026_10_08.py
+      - name: 通告分類補正 2026-10-09（之行／招收／座談會／便覽／研習）
+        run: python test_circulars_2026_10_09.py
+      - name: 通告分類補正 2026-10-15（月度摘要＝公布、出海記＝活動、鏡像分歧守門）
+        run: python test_circulars_2026_10_15.py
+
       - name: 個人化訂閱目錄／push_common 驗證
         run: python test_push_common.py
 

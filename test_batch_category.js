@@ -81,6 +81,13 @@ const cases = [
   ['「環境保育與生態安全」— 跨支部海洋公園研習日(P105/2026)', 'training'],
   ['童軍單車研習坊 (第20/26號)', 'training'],
   ['立划板競賽研習班', 'competition'],                        // 競賽字眼行先
+  // 2026-10-15 用戶點名（九龍地域＋九龍灣區）：月度摘要＝公布、出海行程＝活動。
+  ['九龍地域通告【2026 年 10 月】', 'announcement'],          // 內文有「成績公佈」都搶唔走
+  ['九龍地域9月份通告一覽', 'announcement'],
+  ['九龍地域8月份通告一覽', 'announcement'],
+  ['九灣小漁夫出海記-水上文化親子大冒險', 'activity'],
+  ['維多利亞城區森林大冒險小幼童軍填色比賽', 'competition'],  // 大冒險唔會食走比賽
+  ['小童軍親子堆沙工作坊及BBQ', 'training'],                  // 「親子」刻意唔收
 ];
 for (const [title, want] of cases) {
   const got = batchCategory({ title, source_site: 'x' }, null);

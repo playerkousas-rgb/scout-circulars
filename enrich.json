@@ -5976,7 +5976,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:05:25",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/24245/Summary_2026_04.pdf": {
     "source": "總會",
@@ -5987,7 +6013,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:05:26",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23933/Summary_2026_03.pdf": {
     "source": "總會",
@@ -5998,7 +6050,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:05:27",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23627/Summary_2026_02.pdf": {
     "source": "總會",
@@ -6009,7 +6087,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:05:28",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23294/Summary_2026_01.pdf": {
     "source": "總會",
@@ -6020,7 +6124,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:05:29",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/23232/Sec04_26_Level3_ScoutStandardBoatCourse.pdf": {
     "source": "總會",
@@ -22876,7 +23006,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:29:45",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/04/DEV01_26.pdf": {
     "source": "九龍地域",
@@ -23866,7 +24022,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:33:55",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2025/07/Summary_2025_07.pdf": {
     "source": "九龍地域",
@@ -23877,7 +24059,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:33:56",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2025/06/Summary_2025_06.pdf": {
     "source": "九龍地域",
@@ -23888,7 +24096,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:33:57",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2025/09/summary_2025_09.pdf": {
     "source": "九龍地域",
@@ -23899,7 +24133,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:33:57",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/05/Summary_2026_05.pdf": {
     "source": "九龍地域",
@@ -23910,7 +24170,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:33:58",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/03/Summary_2026_03.pdf": {
     "source": "九龍地域",
@@ -23921,7 +24207,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:33:59",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/02/Summary_2026_02.pdf": {
     "source": "九龍地域",
@@ -23932,7 +24244,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:00",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/01/Summary_2026_01.pdf": {
     "source": "九龍地域",
@@ -23943,7 +24281,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:00",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2025/12/Summary_2025_12.pdf": {
     "source": "九龍地域",
@@ -23954,7 +24318,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:01",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2025/11/Summary_2025_11.pdf": {
     "source": "九龍地域",
@@ -23965,7 +24355,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:02",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2025/10/Summary_2025_10.pdf": {
     "source": "九龍地域",
@@ -23976,7 +24392,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-10 11:34:03",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/03/KT23_26.pdf": {
     "source": "九龍地域",
@@ -40333,7 +40775,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-06-11 04:58:07",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://www.klcscout.hk/cportal/uploads/53G_20260801_旅團活動通告.pdf": {
     "source": "九龍城區",
@@ -42197,7 +42665,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-07-08 07:37:35",
-    "enrich_version": "1.0"
+    "enrich_version": "1.0",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25257/Sec43_26_Level1_ScoutStandardBoatCourse.pdf": {
     "source": "總會",
@@ -44616,7 +45110,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-07 17:07:33",
-    "enrich_version": "2.2"
+    "enrich_version": "2.2",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/06/KT49_26.pdf": {
     "source": "九龍地域",
@@ -45176,7 +45696,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-08-15 06:46:00",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://krscout.org/wp-content/uploads/2026/08/SP08_26.pdf": {
     "source": "九龍地域",
@@ -46541,7 +47087,33 @@
     "method": "text",
     "error": "",
     "enriched_at": "2026-09-02 15:47:30",
-    "enrich_version": "2.4"
+    "enrich_version": "2.4",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "通告一覽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   },
   "https://scout.org.hk/uploads/tc/circulars/25692/SP08_26.pdf": {
     "source": "總會",
@@ -48318,13 +48890,11 @@
     "fee": "",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
+          "通告一覽"
         ]
       }
     ],
@@ -48332,19 +48902,17 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:training",
+      "category:announcement",
       "course:leader-pioneering"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
+          "通告一覽"
         ]
       },
       {
@@ -49280,13 +49848,11 @@
     "fee": "",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
+          "通告一覽"
         ]
       }
     ],
@@ -49298,7 +49864,7 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:training",
+      "category:announcement",
       "course:leader-pioneering",
       "course:scout-pioneering-badge",
       "course:shared-active-citizen",
@@ -49313,14 +49879,12 @@
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班",
-          "技能訓練",
-          "工作坊"
+          "通告一覽"
         ]
       },
       {
@@ -59215,12 +59779,13 @@
     "fee": "全免",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "比賽"
-        ]
+          "用戶裁定 2026-10-15：一張通告兩個內容（展覽＋比賽），唔算比賽"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
@@ -59232,16 +59797,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:competition"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "比賽"
+          "用戶裁定 2026-10-15：一張通告兩個內容（展覽＋比賽），唔算比賽"
         ]
       }
     ],
@@ -60688,31 +61253,26 @@
     "fee": "",
     "categories": [
       {
-        "id": "activity",
-        "label": "活動",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
-        "evidence": [
-          "活動"
-        ],
-        "subtype": "other"
+        "evidence": []
       }
     ],
     "branch_tags": [
       "童軍"
     ],
     "subscription_tags": [
-      "activity:other",
+      "category:announcement",
       "course:shared-messengers-of-peace"
     ],
     "subscription_tag_details": [
       {
-        "id": "activity:other",
-        "label": "其他活動",
-        "group": "活動",
-        "kind": "activity",
-        "evidence": [
-          "活動"
-        ]
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
       },
       {
         "id": "course:shared-messengers-of-peace",
@@ -60739,12 +61299,11 @@
     "fee": "",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "比賽",
-          "成績公佈"
+          "月度通告摘要"
         ]
       }
     ],
@@ -60755,7 +61314,7 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:competition",
+      "category:announcement",
       "course:cub-archery-badge",
       "course:leader-jungle-dance",
       "course:leader-scout-progressive-badges",
@@ -60765,13 +61324,12 @@
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "比賽",
-          "成績公佈"
+          "月度通告摘要"
         ]
       },
       {
@@ -61151,12 +61709,13 @@
     "fee": "全免",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "比賽"
-        ]
+          "用戶裁定 2026-10-15：一張通告兩個內容（展覽＋比賽），唔算比賽"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
@@ -61168,16 +61727,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:competition"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "比賽"
+          "用戶裁定 2026-10-15：一張通告兩個內容（展覽＋比賽），唔算比賽"
         ]
       }
     ],
@@ -61196,10 +61755,12 @@
     "fee": "全免",
     "categories": [
       {
-        "id": "announcement",
-        "label": "公布",
+        "id": "training",
+        "label": "訓練",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "座談會"
+        ]
       }
     ],
     "branch_tags": [
@@ -61207,15 +61768,17 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:announcement"
+      "category:training"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:announcement",
-        "label": "公布",
-        "group": "公布",
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
         "kind": "category",
-        "evidence": []
+        "evidence": [
+          "座談會"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
@@ -61403,11 +61966,11 @@
     "fee": "",
     "categories": [
       {
-        "id": "service",
-        "label": "服務",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "工作人員"
+          "便覽"
         ]
       }
     ],
@@ -61418,7 +61981,7 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:service",
+      "category:announcement",
       "course:leader-venture-executive-committee",
       "course:rover-shooting",
       "course:scout-birdwatching-badge",
@@ -61430,12 +61993,12 @@
     ],
     "subscription_tag_details": [
       {
-        "id": "category:service",
-        "label": "服務",
-        "group": "服務",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "工作人員"
+          "便覽"
         ]
       },
       {
@@ -61529,11 +62092,11 @@
     "fee": "HK$40",
     "categories": [
       {
-        "id": "competition",
-        "label": "比賽",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "比賽"
+          "招收"
         ]
       }
     ],
@@ -61541,16 +62104,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:competition"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:competition",
-        "label": "所有比賽",
-        "group": "比賽",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "比賽"
+          "招收"
         ]
       }
     ],
@@ -61569,26 +62132,26 @@
     "fee": "",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "announcement",
+        "label": "公布",
         "score": 3.0,
         "evidence": [
-          "訓練班"
+          "入會"
         ]
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:training"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
         "kind": "category",
         "evidence": [
-          "訓練班"
+          "入會"
         ]
       }
     ],
@@ -61707,23 +62270,28 @@
     "fee": "",
     "categories": [
       {
-        "id": "announcement",
-        "label": "公布",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "之行"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [],
     "subscription_tags": [
-      "category:announcement"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:announcement",
-        "label": "公布",
-        "group": "公布",
-        "kind": "category",
-        "evidence": []
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "之行"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
@@ -61741,12 +62309,13 @@
     "fee": "HK$140",
     "categories": [
       {
-        "id": "service",
-        "label": "服務",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "探訪"
-        ]
+          "之行"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
@@ -61754,16 +62323,16 @@
       "領袖"
     ],
     "subscription_tags": [
-      "category:service"
+      "activity:other"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:service",
-        "label": "服務",
-        "group": "服務",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "探訪"
+          "之行"
         ]
       }
     ],
@@ -62177,12 +62746,14 @@
     "fee": "HK$60",
     "categories": [
       {
-        "id": "training",
-        "label": "訓練",
+        "id": "activity",
+        "label": "活動",
         "score": 3.0,
         "evidence": [
-          "訓練班"
-        ]
+          "出海記",
+          "大冒險"
+        ],
+        "subtype": "other"
       }
     ],
     "branch_tags": [
@@ -62190,17 +62761,18 @@
       "童軍"
     ],
     "subscription_tags": [
-      "category:training",
+      "activity:other",
       "training:童軍"
     ],
     "subscription_tag_details": [
       {
-        "id": "category:training",
-        "label": "所有訓練",
-        "group": "訓練",
-        "kind": "category",
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
         "evidence": [
-          "訓練班"
+          "出海記",
+          "大冒險"
         ]
       },
       {
