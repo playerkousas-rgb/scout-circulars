@@ -771,6 +771,27 @@ Check 4 一度紅：上傳 231 個檔、4.15 MB（budget 2 MB）。病源係新�
    之後再跑一次 **Vercel Retention Policy** 把 retention 縮短，
    等佢日後自動清。
 
+### Vercel Usage Report workflow 已刪除（2026-10-14）
+
+`vercel-usage-report.yml` + `.github/scripts/vercel_usage_report.py` +
+`test_vercel_usage_report.py` 已全部移除，**唔好再加返**。原因：
+
+1. 佢係 `on: push:`（冇 `paths` 過濾、冇 concurrency）—— 每次 push 到**任何**
+   branch 都跑一次，包括每日 bot 嘅 `Local backup scrape` commit 同埋 Agent 開嘅
+   工作 branch。實際效果係為咗一份「睇吓 storage 有冇再漲」嘅報告，
+   每日多幾十次 Actions run ＋每次一串 `api.vercel.com` GET。
+2. `VERCEL_TOKEN` 過期之後，佢由 2026-10-06 起日日紅／日日出 warning（10-09
+   已改成軟著陸 exit 0，但每次 push 照樣跑），代價遠大過回報。
+3. 2026-09-17 瘦身之後 Functions Storage 已經唔再漲（每個部署 ~30KB），
+   **持續監察嘅前提本身已經唔存在**。
+
+要睇用量：Vercel Dashboard → **Usage**（Functions Storage / Deployment Storage 一個頁搞定）；
+要防止日後 bundle 脹返：`.github/workflows/vercel-bundle-guard.yml` 每次 push 照樣行
+（佢淨係睇 repo 自己，唔打任何外部 API，所以留低）。
+`VERCEL_TOKEN` / `VERCEL_PROJECT_ID` 兩個 secrets 仍然要設 —— 而家得返
+**Vercel Deployment Prune**（每週一 cron）同 **Vercel Retention Policy**（手動）用；
+唔設佢哋就靜靜跳過，唔會 fail、唔會發電郵。
+
 
 ## 已知待處理（2026-09-25 發現，刻意未修）
 

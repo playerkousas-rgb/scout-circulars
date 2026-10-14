@@ -96,7 +96,13 @@ vercel rm <deployment-url> --yes
 
 ### 3. 監控
 
-- 已補回 **Vercel Usage Report** workflow（每次 push 自動跑，唯讀）
+> ⚠️ **2026-10-14 更新**：下面呢個 **Vercel Usage Report** workflow 已經被刪除
+>（`on: push` 冇過濾 → 每次 push／每個 bot commit 都跑，代價大過回報；
+> 而且 9-17 瘦身之後 storage 已經唔再漲）。而家睇用量直接去 Vercel Dashboard →
+> **Usage**；防脹返由 **Vercel Bundle Guard**（純 repo 檢查，唔打外部 API）接手。
+> 詳見 README「Vercel Usage Report workflow 已刪除」。以下係當日紀錄，原样保留：
+
+- ~~已補回 **Vercel Usage Report** workflow（每次 push 自動跑，唯讀）~~（已刪除）
 - 去 Actions → Vercel Usage Report → Run，可以見到：
   - 總 deployments 數
   - 瘦身前殘留幾個（>0 就要再 purge）
