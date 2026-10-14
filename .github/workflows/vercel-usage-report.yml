@@ -19,6 +19,10 @@
 #   VERCEL_TOKEN       Vercel → Account Settings → Tokens → Create
 #   VERCEL_PROJECT_ID  Vercel project → Settings → General → Project ID
 #   VERCEL_TEAM_ID     選配（team 帳戶先要；個人帳戶留空）
+#
+# 2026-10-09：腳本改為 API 失敗出 warning＋修復指引、exit 0 唔 fail run
+#（token 過期時唔好再日日「Run failed」郵件轟炸）。要睇真失敗請開 job log
+# 或 job summary。行為由 test_vercel_usage_report.py 釘住。
 # ============================================================
 
 name: Vercel Usage Report

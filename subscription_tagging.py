@@ -29,6 +29,17 @@ TRAINING_TERMS = [
     "考驗", "課程",
     # 2026-10-03 擴充：簡介會、迎新等常見訓練相關詞，確保青年獎勵計劃迎新簡介會等仍屬訓練
     "簡介會", "迎新",
+    # 2026-10-09 擴充：座談會同講座／簡介會同類，係領袖／成員嘅研習交流場合。
+    # 個案：總會「港島童軍生態小組-觀鳥章(興趣組)領袖座談會」（Prog62/26）標題
+    # 冇任何類別字眼，舊版兜底成「公布」；同系列「觀鳥章(興趣組)專章訓練班」
+    # 就係「訓練」——同一個章兩張通告兩個標籤。座談會＝訓練，唔係行政公布。
+    "座談會",
+    # 2026-10-09 擴充（用戶點名「跨支部海洋公園研習日(P105/2026)」）：「研習」
+    # 係裸詞，涵蓋晒研習班／研習坊／研習日——之前淨收「研習班」，「海洋公園
+    # 研習日」同「童軍單車研習坊」呢啲全部跌落兜底公布。同「第5屆公園定向
+    # 研習班」＝訓練一致；story_queue._RE_TRAINING、index.html BATCH_RE.training
+    # 早已收「研習」，今次三份規則對齊。
+    "研習",
     "青年獎勵",  # 香港青年獎勵計劃本身係訓練，唔係公布（配合排除）
 ]
 SERVICE_TERMS = [
@@ -54,6 +65,17 @@ SERVICE_BARE_EXCLUDE_TERM = "服務組"
 # 重複埋賽事個名（例如「...挑戰賽(服務邀請)」）都好，都唔應該再撞埋 competition／
 # training：報緊名嗰班人去做義工，唔係去比賽或受訓。見 extract_categories。
 SERVICE_INVITATION_TERMS = ["服務邀請", "義工邀請"]
+# 2026-10-09 用戶規則：會／隊／團嘅「入會表格、招收新會員、會員招募」係行政公布，
+# 唔係訓練／比賽／活動。個案（總會 Prog64 系列）：
+#   - 「港島地域羽毛球會-入會表格」（Prog64a）：PDF 內文提及「訓練班」就搶咗去訓練；
+#   - 「港島地域羽毛球會-招收2026-2027年度下半年新會員」（Prog64）：內文提及
+#     「比賽」（羽毛球會搞開比賽）就搶咗去比賽。
+# 兩張都係入會／招募行政文件＝公布（同「XX之行-報名表格」之類報名表一致）。
+# 只喺標題**冇**更強字眼時生效，維持既有優先序：
+#   - 「工作人員招募／義工招募／服務隊招募」→ 服務（裸字檢查行先）；
+#   - 「XX錦標賽-隊員招募」→ 比賽（標題賽事字眼行先）；
+#   - 「XX訓練班學員招募」→ 訓練（標題訓練字眼行先）。
+MEMBERSHIP_ADMIN_TERMS = ["入會", "招收", "招募"]
 # 比賽是獨立興趣／瀏覽分類，不再含糊併入「其他活動」。只收明確賽事詞，
 # 免得一般「挑戰」或機構名稱造成誤推。
 # 2026-10-01 擴充：補返實測 cache 入面出現、但舊清單漏咗嘅複合賽事詞（例如
@@ -71,6 +93,17 @@ COMPETITION_TERMS = [
     "成績公佈", "成績公布", "結果公佈", "結果公布", "公佈結果", "公布結果",
 ]
 
+# 2026-10-09 用戶再次強調：「標題分不到才找內文，內文範圍太廣很易亂的」。
+# 內文只係最後一線，而且範圍要收窄，唔好掃全文：
+#   BODY_SCAN_LIMIT —— 淨係睇開首呢段字（通告主旨／簡介位）；尾段嘅行程表、
+#     工作人員名單、附設課程、賽果備註最易亂（個案：行程「探訪」搶服務）。
+#   BODY_UNTRUSTED_TERMS —— 內文嘅「附帶字眼」一律唔計，只信事件類型專有詞
+#     （訓練班／工作坊／錦標賽／公開賽／社區服務／服務日⋯）。附帶字眼個案：
+#     便覽內文「工作人員」搶服務、入會表格內文「訓練班」搶訓練、招收會員內文
+#     「比賽」搶比賽。標題有呢啲字眼依然可信（標題行先），只係內文唔好亂。
+BODY_SCAN_LIMIT = 600
+BODY_UNTRUSTED_TERMS = frozenset({"工作人員", "探訪", "服務", "義工", "比賽", "錦標"})
+
 BIG_CAMP_TERMS = ["大露營", "大型露營", "童軍大露營"]
 CAMPFIRE_TERMS = ["營火會", "campfire"]
 OTHER_ACTIVITY_TERMS = [
@@ -85,6 +118,13 @@ OTHER_ACTIVITY_TERMS = [
     # 2026-10-08 用戶規則：「參訪」（如「探尋宗教足跡-參訪寶蓮禪寺」）及「步行籌款／籌款」
     # （如「東九50樂悠遊之與你『童』行(步行籌款活動)」）均屬活動。
     "步行籌款", "籌款",
+    # 2026-10-09 用戶規則：「之行／之旅」結尾嘅行程（考察、參觀、文化遊）係活動。
+    # 個案：總會「探索歷史典藏、清真文化與創新科技之行」（I_MA04/26）標題冇類別
+    # 字眼，PDF 內文一句「探訪」就搶咗去服務——但呢張係行程／參觀活動，唔係招募義工。
+    # 同「考察團／交流團／訪問團」同類。注意維持「有服務／比賽／訓練字眼以標題
+    # 為準」：「…服務之旅」仍然係服務（title_decisive 內嘅服務檢查行先），
+    # 「…之旅簡介會」仍然係訓練。舊標題「與你『童』行」冇「之行」二字，唔會誤中。
+    "之行", "之旅",
 ]
 
 # 2026-10-03 新增：強活動詞（同樂日、考察團、代表團等）——呢啲標題一律算活動，
@@ -156,6 +196,10 @@ TOOLS_SOURCES = {"Scout System"}
 # course.  It must not trigger someone subscribed to "all training".
 REFERENCE_TITLE_TERMS = [
     "行事曆", "一覽表", "訓練綱要", "課程大綱", "章程", "指引", "結果公布", "得獎名單", "名單",
+    # 2026-10-09 加：「便覽」＝通告索引／摘要（如「港島地域通告便覽(2026年10月)」），
+    # 本身唔係任何新活動。呢類 digest 嘅 PDF 內文包含晒全月通告字眼，舊版用內文
+    # 分類就成日撞中「工作人員／訓練班」變做服務／訓練。便覽＝行政文件＝公布。
+    "便覽",
 ]
 ALL_MEMBERS_TERMS = ["所有成員", "全體成員", "各支部成員"]
 
@@ -359,6 +403,17 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
       - 標題有「香港童軍大會操」一律算活動——大會操係週年活動／典禮，唔係比賽
         （「會操」喺 COMPETITION_TERMS 入面會搶走呢類通告）
       - 唯一例外：失物認領／失物待領通告係行政公告＝公布
+
+    2026-10-09（用戶決定）：
+      - 「之行／之旅」行程＝活動（「服務之旅」仍係服務、「…之旅簡介會」仍係訓練）
+      - 「入會／招收／招募」（入會表格、招收新會員、會員招募）＝公布；但
+        「工作人員招募」＝服務、「XX錦標賽-隊員招募」＝比賽、「訓練班學員招募」
+        ＝訓練，即係只喺標題冇更強字眼時先生效
+      - 「座談會」＝訓練（同講座／簡介會同類）；「便覽」＝公布（參考文件）
+      - 優先序更新為：失物認領(公布) > 香港童軍大會操(活動) > 服務邀請 >
+        標題公布 > 公布覆蓋 > 強活動 > 標題類別（服務 > 比賽 > 公布(行事曆等) >
+        訓練 > 露營／營火會）> 會員招募行政(公布) > 標題活動字眼 > 內文類別 >
+        兜底公布
     """
     source_name = str(source or "").strip()
     if source_name in TOOLS_SOURCES:
@@ -439,13 +494,23 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     }
     # PDF content is a fallback for a non-descriptive title.  It is intentionally
     # not used to override an obvious reference/calendar document title.
+    # 2026-10-09 用戶：「標題分不到才找內文，內文範圍太廣很易亂的」——內文
+    # 只掃開首 BODY_SCAN_LIMIT 字，兼夾濾走 BODY_UNTRUSTED_TERMS 附帶字眼
+    #（見上面常數說明）。
+    body_scope = str(text)[:BODY_SCAN_LIMIT] if text else ""
     text_hits = {
-        "training": _term_hits(text, TRAINING_TERMS),
-        "service": _term_hits(text, SERVICE_TERMS) + _service_signal_hits(text),
-        "competition": _term_hits(text, COMPETITION_TERMS),
-        "big_camp": _term_hits(text, BIG_CAMP_TERMS),
-        "campfire": _term_hits(text, CAMPFIRE_TERMS),
-        "other": _term_hits(text, OTHER_ACTIVITY_TERMS),
+        "training": _term_hits(body_scope, TRAINING_TERMS),
+        "service": [
+            hit for hit in _term_hits(body_scope, SERVICE_TERMS) + _service_signal_hits(body_scope)
+            if hit not in BODY_UNTRUSTED_TERMS
+        ],
+        "competition": [
+            hit for hit in _term_hits(body_scope, COMPETITION_TERMS)
+            if hit not in BODY_UNTRUSTED_TERMS
+        ],
+        "big_camp": _term_hits(body_scope, BIG_CAMP_TERMS),
+        "campfire": _term_hits(body_scope, CAMPFIRE_TERMS),
+        "other": _term_hits(body_scope, OTHER_ACTIVITY_TERMS),
     }
 
     # 2026-10-03 用戶規則：「有明確字眼時應該先以標題字眼作準」。
@@ -473,6 +538,18 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
         if title_hits["big_camp"]:
             return [_make_category("activity", "活動", title_hits["big_camp"], "big_camp")]
         return [_make_category("activity", "活動", title_hits["campfire"], "campfire")]
+
+    # 2026-10-09 用戶規則：會／隊／團嘅「入會表格、招收新會員、會員招募」＝行政
+    # 公布（見 MEMBERSHIP_ADMIN_TERMS）。擺喺標題活動字眼之前，但喺 service／
+    # competition／training 標題決定（title_decisive）之後：
+    #   「工作人員招募」→ 服務、「XX錦標賽-隊員招募」→ 比賽、「訓練班學員招募」
+    #   → 訓練，全部喺 title_decisive 已截住，唔會跌到嚟呢度。
+    # 個案：總會「港島地域羽毛球會-入會表格」（內文「訓練班」搶去訓練）、
+    # 「港島地域羽毛球會-招收2026-2027年度下半年新會員」（內文「比賽」搶去比賽）
+    # ——兩張都係入會行政文件，標題冇訓練／比賽字眼，唔可以被 PDF 內文拉走。
+    membership_admin_hits = _term_hits(title, MEMBERSHIP_ADMIN_TERMS)
+    if membership_admin_hits:
+        return [_make_category("announcement", "公布", membership_admin_hits)]
 
     # 2026-10-06：標題有明確活動字眼（活動／嘉年華／開放日／體驗日／分享會…）
     # 但冇更強字眼（服務／比賽／訓練／大露營／營火會／參考文件）→ 以標題為準歸

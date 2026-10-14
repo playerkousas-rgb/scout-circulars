@@ -31,15 +31,30 @@ TOOLS_SOURCES = {"Scout System"}  # 同 index.html TOOLS_SOURCES 同步；小工
 # 2026-10-01：加返「選拔賽／田徑賽／友誼賽／實體賽」同「成績公佈／結果公佈／
 # 公佈結果」（連「公布」異體字），同 subscription_tagging.COMPETITION_TERMS
 # 對齊（一樣刻意唔收單獨「賽」字，避免「賽馬會」呢類贊助機構名誤中）。
+# 2026-10-09：補返訂閱分類一直有、但 Story 後備漏咗嘅「公開賽／邀請賽／練習賽／
+# 體驗賽／會操」——個案「香港童軍龍舟邀請賽2026 – 沙田西區龍舟隊成員招募」，
+# 訂閱分類係「比賽」（標題賽事字眼行先），Story 後備卻因為漏咗「邀請賽」而跌
+# 落會員招募行政規則。一樣刻意唔收單獨「賽」字。
 _RE_COMPETITION = re.compile(
-    r"比賽|錦標賽|大賽|競賽|錦標|選拔賽|田徑賽|友誼賽|實體賽|"
+    r"比賽|錦標賽|大賽|競賽|錦標|公開賽|邀請賽|練習賽|體驗賽|會操|"
+    r"選拔賽|田徑賽|友誼賽|實體賽|"
     r"成績公佈|成績公布|結果公佈|結果公布|公佈結果|公布結果|賽果公佈|賽果公布"
 )
-_RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|青年獎勵")
+_RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|青年獎勵|座談會")
 # 2026-10-01：同 subscription_tagging.SERVICE_BARE_TERMS 對齊——「服務」係裸字就算，
 # 但要剔除「服務組」（童軍專章嘅分組標籤，唔係招義工，例如「XX章(服務組)訓練班」）。
 _RE_SERVICE = re.compile(r"服務(?!組)|工作人員|義工|義務")
-_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款")
+_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅")
+# 2026-10-09：同 subscription_tagging.MEMBERSHIP_ADMIN_TERMS 對齊——入會表格、
+# 招收新會員、會員招募係行政公布。擺喺 service／competition／training 之後：
+# 「工作人員招募」＝服務、「XX錦標賽-隊員招募」＝比賽、「訓練班學員招募」＝訓練。
+_RE_MEMBERSHIP_ADMIN = re.compile(r"入會|招收|招募")
+# 2026-10-09：同 subscription_tagging.REFERENCE_TITLE_TERMS 對齊——行事曆、名單、
+# 便覽呢類參考／行政文件＝公布。位置同訂閱分類一致：service > competition >
+# 參考文件 > training（「XX訓練班-取錄名單」「訓練綱要」都係公布，唔係訓練）。
+_RE_REFERENCE_TITLE = re.compile(
+    r"行事曆|一覽表|訓練綱要|課程大綱|章程|指引|結果公布|得獎名單|名單|便覽"
+)
 
 # 2026-10-03 用戶規則：童軍獎勵、津貼計劃等算公布；同樂日、考察團、代表團等算活動
 _RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼")
@@ -90,6 +105,7 @@ def classify_category(item: dict, ex: dict | None) -> str:
                 return "announcement"
     # 2026-10-03：優先序改做 標題公布(公告/公布) > 公布覆蓋(童軍獎勵/津貼計劃) > 強活動(同樂日/考察團/代表團/童探索) > 服務 > 比賽 > 訓練 > 活動
     # 2026-10-06：最前面加 失物認領(公布) > 香港童軍大會操(活動)。
+    # 2026-10-09：訓練之後加 會員招募行政(入會/招收/招募→公布)，先過活動。
     # 同 subscription_tagging.extract_categories 對齊。
     title = str(item.get("title") or "")
     # 2026-10-06 用戶規則：失物認領／失物待領＝公布（行政公告），優先過一切。
@@ -115,8 +131,16 @@ def classify_category(item: dict, ex: dict | None) -> str:
         return "service"
     if _RE_COMPETITION.search(title):
         return "competition"
+    # 參考文件（行事曆／名單／便覽）＝公布，位置同訂閱分類一致：
+    # service > competition > 參考文件 > training。
+    if _RE_REFERENCE_TITLE.search(title):
+        return "announcement"
     if _RE_TRAINING.search(title):
         return "training"
+    # 2026-10-09：入會表格／招收新會員／會員招募＝公布（announcement 唔出 Story，
+    # 同 subscription_tagging.MEMBERSHIP_ADMIN_TERMS 對齊）。
+    if _RE_MEMBERSHIP_ADMIN.search(title):
+        return "announcement"
     if _RE_ACTIVITY.search(title):
         return "activity"
     return "other"
