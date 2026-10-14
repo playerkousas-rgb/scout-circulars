@@ -23,6 +23,11 @@ vercel-prune.yml 檔頭：2026-09-16/17 Functions Storage 兩度爆額
 輸出：stdout（Action log）＋ GITHUB_STEP_SUMMARY（markdown 表）＋
 一條 ::notice:: annotation（等 gh api 讀得到重點，log 抓唔到都有救）。
 未設 VERCEL_TOKEN / VERCEL_PROJECT_ID → warning ＋ exit 0（同 prune 一致）。
+
+2026-10-09 用戶決定：API 讀唔到（401 token 過期／403 無權限／404 project 冇咗／
+網絡問題）一律改出 ::warning::＋summary 講清楚點修，exit 0 唔 fail run——呢個係
+唯讀監察報告，10-06 起 token 問題令每次 push 都觸發「Run failed」郵件轟炸；
+action 工具（prune／retention）先值得 fail 大聲，報告工具唔值得。
 """
 
 import json
@@ -152,12 +157,28 @@ def main() -> int:
         retention_text = f"讀唔到（{exc}）"
 
     # ── 2. Deployment 清單 ─────────────────────────────────
+    # 2026-10-09：API 失敗一律軟著陸（warning＋summary，exit 0），唔好 fail run
+    # 觸發「Run failed」郵件；指引寫埋落 warning 等用戶知道點修。
     try:
         deployments = list_deployments(client, project_id)
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", "replace")[:300]
-        print(f"::error::列舉 deployments 失敗 HTTP {exc.code}：{detail}")
-        return 1
+        if exc.code in (401, 403):
+            hint = ("VERCEL_TOKEN 無效／過期／冇權限 —— 去 Vercel → Account Settings → "
+                    "Tokens 重新生成一個，再更新 repo secret VERCEL_TOKEN。")
+        elif exc.code == 404:
+            hint = "VERCEL_PROJECT_ID 查唔到（project 刪咗／搬咗 team？）—— 核實 repo secret。"
+        else:
+            hint = "Vercel API 暫時讀唔到，下次 run 會自動再試。"
+        message = f"列舉 deployments 失敗 HTTP {exc.code}：{detail[:200]}。{hint}"
+        warn(message)
+        summary(["## ⚠️ Vercel usage report 未能產生", "", message])
+        return 0
+    except Exception as exc:  # noqa: BLE001 — 唯讀報告唔好因網絡問題 fail run
+        message = f"列舉 deployments 失敗：{exc}"
+        warn(message)
+        summary(["## ⚠️ Vercel usage report 未能產生", "", message])
+        return 0
 
     total = len(deployments)
     pre_fix = [d for d in deployments if (d.get("created") or 0) < BUNDLE_FIX_EPOCH_MS]
