@@ -15,7 +15,7 @@
 【班 2 — 真規則洞，今次補埋】
   - 「九龍地域通告【2026 年 10 月】」被內文「成績公佈」搶去做比賽
     → 新規則：MONTHLY_DIGEST_TITLE_RE（「…通告【YYYY 年 M 月】」）屬參考文件，永遠唔睇內文
-  - 「九龍地域N月份通告一覽」系列（全库 45 筆 digest 家族，26 筆錯／未分類）
+  - 「九龍地域N月份通告一覽」系列（全庫 45 筆 digest 家族，26 筆錯／未分類）
     → 新規則：REFERENCE_TITLE_TERMS 加「通告一覽」
   - 「九灣小漁夫出海記-水上文化親子大冒險」被海報內文「訓練班」搶去做訓練
     → 新規則：OTHER_ACTIVITY_TERMS 加「出海記／大冒險」（標題先決）
@@ -80,7 +80,7 @@ NAMED_TITLE_ONLY = [
 GUARDS = [
     # 「大冒險」唔可以食走比賽（同一個字喺填色比賽標題入面）
     ("維多利亞城區森林大冒險小幼童軍填色比賽", "competition"),
-    # 「親子」刻意唔收（全库 69 筆，大半係工作坊／比賽）
+    # 「親子」刻意唔收（全庫 69 筆，大半係工作坊／比賽）
     ("小童軍親子堆沙工作坊及BBQ", "training"),
     ("親子急救體驗工作坊 - 報名表格", "training"),   # 工作坊係標題強字眼，表格都跟訓練
     # 「服務之旅」仍係服務、「之旅簡介會」仍係訓練（之行/之旅 規則嘅舊護欄）
@@ -229,6 +229,111 @@ class RepairedDataTests(unittest.TestCase):
                              capture_output=True, text=True, cwd=str(BASE_DIR))
         self.assertEqual(out.returncode, 0, out.stderr[-500:])
         self.assertIn("已經乾淨", out.stdout)
+
+
+class MirrorTitleDivergenceTests(unittest.TestCase):
+    """第 5 節 —「標題本身唔同」嘅鏡像組：只報告，唔自動改。
+
+    背景：2026-10-15 我報咗兩組（`17268`／東九「50樂悠遊」）收唔攏，因為同一份 PDF
+    喺兩個列表用咗兩個名，分唔清邊個先係真名。用戶裁決：
+    「太複雜 見到時再對，舊既唔理了」→ 腳本必須**永遠唔郁**呢類組（只喺 report 列一次），
+    等佢本人見到時手動對。順帶釘住兩件事：
+      - PASS 3 用 `normalize` 先對比標題（空格／連字號分別照樣收歛）
+      - `main()` 有改動時要印到行、唔好炸（之前 `title` 用咗迴圈外變數 → 一改嘢就 NameError）
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import importlib
+        cls.fix = importlib.import_module("fix_circulars_2026_10_15")
+        cls.enrich = json.loads(ENRICH_PATH.read_text(encoding="utf-8"))
+
+    def _divergent_urls(self, enrich):
+        groups = {}
+        for url, entry in enrich.items():
+            if not isinstance(entry, dict):
+                continue
+            groups.setdefault(self.fix.canonical_pdf_key(url), []).append(url)
+        out = set()
+        for urls in groups.values():
+            if len(urls) < 2:
+                continue
+            titles = {normalize(str(enrich[u].get("title") or "").strip()) for u in urls}
+            titles.discard("")
+            if len(titles) > 1:
+                out.update(urls)
+        return out
+
+    def test_pass3_never_touches_title_divergent_groups(self):
+        """標題唔同嘅組：PASS 3（鏡像收歛）一條都唔可以入 target。"""
+        divergent = self._divergent_urls(self.enrich)
+        self.assertGreater(len(divergent), 10, "樣本太少，驗證唔到")
+        for url, why, _want in self.fix.collect_targets(self.enrich):
+            self.assertFalse(why.startswith("鏡像分歧收歛") and url in divergent,
+                             f"鏡像收歛郁咗標題唔同嘅組：{url}｜{why}")
+
+    def test_mirror_audit_has_no_conflicts_today(self):
+        """而家（2026-10-15 修完之後）呢類組應該 0 組標籤衝突；有衝突就係要人手對。"""
+        audit = self.fix.mirror_title_audit(self.enrich)
+        self.assertEqual(audit["conflicts"], [], f"要人手對嘅組：{audit['conflicts'][:2]}")
+        self.assertGreaterEqual(audit["groups"], 1)
+
+    def test_whitespace_only_title_variants_still_converge(self):
+        """「XX - 報名表格」／「XX-報名表格」係同一份內容，照樣要收歛（唔可以當成人手個案）。"""
+        base = "https://scout.org.hk/uploads/tc/circulars/25229/Prog92_26_LeaderTraining.pdf"
+        mirror = "https://www.scout.org.hk/uploads/tc/circulars/25229/prog92_26_leadertraining.pdf"
+        good = [{"id": "training", "name": "訓練"}]
+        bad = [{"id": "service", "name": "服務"}]
+        synth = {
+            base: {"title": "第92屆童軍領導才訓練班 - 報名表格", "categories": good},
+            # 鏡像嗰份用咗舊規則寫錯 → 兩邊標題都有「訓練班」（decisive）→ 都要入 target
+            mirror: {"title": "第92屆童軍領導才訓練班-報名表格", "categories": bad},
+        }
+        targets = dict((u, why) for u, why, _w in self.fix.collect_targets(synth))
+        self.assertEqual(set(targets), {base, mirror}, targets)
+        self.assertTrue(all(w.startswith("鏡像分歧收歛") for w in targets.values()))
+        # 而標題冇類別字眼嗰半就唔可以郁（會被兜底公布蓋走現有標籤）
+        ambiguous = {
+            base: {"title": "第92屆童軍領導才訓練班", "categories": good},
+            mirror: {"title": "資助計劃 第 06/2024 號通告", "categories": bad},
+        }
+        self.assertEqual(self.fix.collect_targets(ambiguous), [],
+                         "標題唔同（normalize 後都唔同）→ 只報告，唔好自動改")
+        audit = self.fix.mirror_title_audit(ambiguous)
+        self.assertEqual(audit["groups"], 1)
+        self.assertEqual(len(audit["conflicts"]), 1)
+
+    def test_main_prints_and_writes_without_crashing(self):
+        """有嘢要改時 `main()` 要印到行＋寫到檔（回歸：`title` 未定義會 NameError）。"""
+        import tempfile
+        url = "https://scout.org.hk/uploads/tc/circulars/26381/CircularList-2026-11.pdf"
+        synth = {url: {"title": "九龍地域通告便覽(2026年11月)",
+                       "source": "九龍地域",
+                       "categories": [{"id": "service", "name": "服務"}]}}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "enrich.json"
+            path.write_text(json.dumps(synth, ensure_ascii=False), encoding="utf-8")
+            saved = self.fix.ENRICH_PATH
+            self.fix.ENRICH_PATH = path
+            try:
+                buf = io.StringIO()
+                with redirect_stdout(buf):
+                    self.assertEqual(self.fix.main(["--dry-run"]), 0)
+                self.assertIn("月度摘要家族", buf.getvalue())
+                self.assertIn("便覽", buf.getvalue())
+                buf2 = io.StringIO()
+                with redirect_stdout(buf2):
+                    self.assertEqual(self.fix.main([]), 0)
+                written = json.loads(path.read_text(encoding="utf-8"))
+                self.assertEqual([c["id"] for c in written[url]["categories"]], ["announcement"])
+                self.assertIn("鏡像核對", buf2.getvalue())
+                # 再跑一次要 zero-diff
+                buf3 = io.StringIO()
+                with redirect_stdout(buf3):
+                    self.assertEqual(self.fix.main(["--dry-run"]), 0)
+                self.assertIn("已經乾淨", buf3.getvalue())
+            finally:
+                self.fix.ENRICH_PATH = saved
 
 
 if __name__ == "__main__":

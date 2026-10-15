@@ -194,7 +194,7 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
     - **「出海記／大冒險」＝活動**（入 `OTHER_ACTIVITY_TERMS`，即係標題先決但喺
       `title_decisive` 之後）。個案：「九灣小漁夫出海記-水上文化親子大冒險」俾海報
       內文「訓練班」搶去做訓練。刻意**唔放** `ACTIVITY_STRONG_TERMS`——「維多利亞城區
-      森林大冒險小幼童軍填色比賽」要維持**比賽**；「親子」全库 69 筆、大半係工作坊／
+      森林大冒險小幼童軍填色比賽」要維持**比賽**；「親子」全庫 69 筆、大半係工作坊／
       比賽，一律**唔收**。
     - 一張通告有兩份內容（例：「港島童軍皮藝會-皮革藝術與生活」＝展覽＋比賽）：
       用戶裁定「活動訓練都啱，但唔係比賽」「中 1 個都係啱呀」→ **唔設人手釘類別**，
@@ -204,20 +204,28 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
       永久堵死，所以日後真係重跑 `enrich.py`（有 PDF 內文）判做活動或訓練都啱。
     - **內文嘅「賽果」片語一律唔計**（`BODY_UNTRUSTED_TERMS` ＋ `COMPETITION_RESULT_TERMS`：
       成績公佈／成績公布／結果公佈／結果公布／公佈結果／公布結果）。呢條 2026-10-01 規則
-      由始至终係**標題**規則（「XX比賽-成績公布」呢類），內文出现通常只係附帶提及。
-      實測零副作用：全库靠「賽果」做證據嘅 competition entry 得 4 條，**4 條全部標題
+      由始至終係**標題**規則（「XX比賽-成績公布」呢類），內文出現通常只係附帶提及。
+      實測零副作用：全庫靠「賽果」做證據嘅 competition entry 得 4 條，**4 條全部標題
       自己就有賽果字眼**（照舊比賽），淨係靠內文攞到證據嘅 0 條。只改 `subscription_tagging.py`：
       `story_queue`／出圖台 `BATCH_RE` 淨係睇標題、冇內文 fallback，唔使三份同步。
     - **根因：同一份 PDF 有兩個 enrich key**（總會在列表頁俾 `scout.org.hk/…`、地域站
       鏡像俾 `www.scout.org.hk/…`）。兩條 entry 各自由唔同次數嘅 run 寫入，所以可以
       各持唔同標籤——10-09 嗰批用新規則（啱），10-15 本機排程用**未 `git pull` 嘅舊
-      代碼**覆寫咗鏡像嗰半（錯）。全库 4,433 條 entry 有 219 組呢種鏡像重複、7 組標籤
+      代碼**覆寫咗鏡像嗰半（錯）。全庫 4,433 條 entry 有 219 組呢種鏡像重複、7 組標籤
       打架（用戶見到嘅錯標籤就係嗰 7 個 www 版本）。`summarize_cross_source_consistency()`
       靠「同標題＋同 captured_date」配對，呢種分歧睇唔到 → 新增
       `enrich.summarize_mirror_url_divergence()`：按**正規化 PDF URL**（除走 `www.`、
       保留 `?wpdmdl=` query）再比一輪，每次 enrich run 收尾自動報「同一份 PDF 但有 N 組
       標籤唔同」。⚠️ **本機排程開工前 must `git pull`**，否則舊規則會日夜覆寫新規則成果。
-      待用戶定政策：「章(Pxxx/2026)」呢一類（全库 9 筆，例如「寰宇童軍章(P109/2026)」）
+    - **鏡像收歛淨係處理「標題相同」嘅組**（比對用 `normalize`，空格／連字號分別照樣收歛）；
+      同一份 PDF 喺兩個列表用咗**兩個唔同名**（分唔清邊個先係真名）→ 一律唔自動改，
+      `fix_circulars_2026_10_15.py` 跑完只報告一次（`mirror_title_audit()`）。用戶 2026-10-15
+      對呢類嘅裁決：「太複雜，見到時再對，舊嘅唔理了」。實測：呢類組 22 組、標籤衝突 **0** 組
+      （另外 21 組係舊 v1.0 entry 完全冇 `categories`，等每晚 enrich 補，唔使人手理）。
+      同場補返一個潛藏 bug：PASS 3 用咗 `title_is_decisive()`，但 `b24d5e1` 得返 call site
+      冇咗定義（真數據行唔到入去所以一直冇爆）→ 而家有定義，並且用**合成個案**釘住
+      ——淨係靠真數據 zero-diff 驗唔到呢條路。
+      待用戶定政策：「章(Pxxx/2026)」呢一類（全庫 9 筆，例如「寰宇童軍章(P109/2026)」）
       而家跟規則＝標題冇課程字眼就兜底**公布**；若決定一律歸**訓練**，改 `TRAINING_TERMS`
       一條即係（三份同步）。測試：`test_circulars_2026_10_15.py`、`test_batch_category.js`。
   - 標題得弱證據（例如「訓練日」「盃」）或者睇唔出 → 先用 PDF 內文補充。
