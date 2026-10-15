@@ -1305,6 +1305,61 @@ def summarize_cross_source_consistency(cache, enrich, target_date,
     return sorted(problems, key=lambda x: (x[0], x[1]))
 
 
+def canonical_pdf_key(url: str) -> str:
+    """同一份 PDF 嘅鏡像 URL 正規化：除走 host 前面嘅 `www.`，host＋path 細階化，
+    **保留 query string**（東九龍地域 `?wpdmdl=NNNN` 每個 ID 係唔同檔，撞埋會誤報）。
+
+    2026-10-15：同一份 PDF 常常有兩個 enrich key（例：總會列表頁俾
+    `scout.org.hk/26380/CircularList-2026-10.pdf`，地域站鏡像俾
+    `www.scout.org.hk/…`），兩條 entry 由唔同次數嘅 run 寫入 → 可以各持唔同標籤。
+    `summarize_cross_source_consistency()` 靠「同標題＋同 captured_date」配對，
+    呢種「一樣內容、兩個日期」嘅分歧睇唔到（用戶點名嘅 8 張錯標籤有 6 張就係咁嚟）。
+    """
+    try:
+        parts = urllib.parse.urlsplit(str(url or ""))
+    except ValueError:
+        return str(url or "")
+    host = parts.netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    query = parts.query.lower()
+    return f"{host}{parts.path.lower()}{'?' + query if query else ''}"
+
+
+def summarize_mirror_url_divergence(enrich):
+    """按正規化 PDF URL 分组：同一份檔（www／冇 www 只係鏡像）標籤必須一樣。
+
+    只報告，唔改數據。命中即係有人用舊規則喺其中一個 key 寫過數據（最常见：本機
+    checkout 冇 pull，排程用舊規則覆寫咗新規則嘅成果）→ 行
+    `python fix_circulars_2026_10_15.py` 或者重跑一次 backfill 收歛。
+    """
+    groups = {}
+    for url, entry in (enrich or {}).items():
+        if not isinstance(entry, dict):
+            continue
+        groups.setdefault(canonical_pdf_key(url), []).append(url)
+    problems = []
+    for key, urls in groups.items():
+        if len(urls) < 2:
+            continue
+        signatures = {}
+        for url in urls:
+            entry = enrich[url]
+            # 舊 schema（enrich_version 1.0）根本冇 `categories` 欄：呢啲屬「未 backfill」，
+            # 唔係「規則分歧」，唔應該日日喺 run log 嘈（實例：17268 有三條大小寫唔同嘅
+            # 舊 key，其中兩條 2026-06/09 嘅 v1.0 entry）。要補就行 --backfill-categories。
+            if "categories" not in entry:
+                continue
+            cats = "／".join(sorted(str(c.get("label") or "")
+                                    for c in (entry.get("categories") or []))) or "—"
+            signatures[url] = cats
+        if len(set(signatures.values())) < 2:
+            continue
+        title = str(enrich[urls[0]].get("title") or "")
+        problems.append((key, title, signatures))
+    return sorted(problems, key=lambda x: (x[1], x[0]))
+
+
 def check_environment(args):
     """啟動自檢：缺 pdfplumber 直接停；缺 OCR 元件只警告。"""
     print("🔧 環境自檢…")
@@ -1536,6 +1591,19 @@ def main():
             tail = f"｜未抽：{'、'.join(missing)}" if missing else ""
             print(f"     {cap} {title[:26]}｜{detail}{tail}")
         print("     （同標題＋同 captured_date＝同一份通告；兩邊應該一致，唔一致要查規則）")
+
+    # 2026-10-15：另一種分歧——同一份 PDF 嘅 www／冇 www 鏡像 key（內容一樣但
+    # captured_date 唔同，上面嗰個檢查配唔到）。用戶點名嘅 8 張錯標籤有 6 張
+    # 就係咁嚟：10-09 嗰批用新規則（啱），10-15 本機排程用舊規則覆寫咗鏡像嗰半。
+    mirror_divergent = summarize_mirror_url_divergence(enrich)
+    if mirror_divergent:
+        print(f"⚠️  同一份 PDF（www／冇 www 鏡像）但有 {len(mirror_divergent)} 組標籤唔同：")
+        for key, title, signatures in mirror_divergent[:5]:
+            detail = "；".join(f"{u.rsplit('/', 2)[-2]}/{u.rsplit('/', 1)[-1][:28]}={sig}"
+                              for u, sig in sorted(signatures.items()))
+            print(f"     {title[:30]}｜{detail}")
+        print("     （即係有邊次 run 用舊規則覆寫咗其中一個 key：本機 checkout 要 "
+              "git pull，再行 python fix_circulars_2026_10_15.py 收歛）")
 
     # 2026-10-03：core.py 每次抓取（包括 --force）都會用列表頁標題重建
     # cache.json，之前寫入嘅更正會被蓋走。呢度零下載重新套用已核實嘅更正，

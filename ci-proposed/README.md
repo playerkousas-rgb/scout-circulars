@@ -17,7 +17,8 @@ refusing to allow a GitHub App to create or update workflow
 ## 安裝方法（兩分鐘）
 
 ```bash
-# 1. 新測試 workflow（2026-09-25 已擴充到跑齊全部 28 個測試檔）
+# 1. 新測試 workflow（2026-09-25 擴充到 28 個；2026-10-15 再補 6 個歷次
+#    「用戶點名錯標籤 → 改規則」嘅回歸測試 → 而家 34 個，全部離線可跑）
 cp ci-proposed/test.yml .github/workflows/test.yml
 
 # 2. 每日爬蟲加「修復歷史污染標題」步驟（scrape.yml.patch 已經裝咗，見下）

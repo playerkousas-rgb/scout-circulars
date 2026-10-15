@@ -101,8 +101,21 @@ COMPETITION_TERMS = [
 #     （訓練班／工作坊／錦標賽／公開賽／社區服務／服務日⋯）。附帶字眼個案：
 #     便覽內文「工作人員」搶服務、入會表格內文「訓練班」搶訓練、招收會員內文
 #     「比賽」搶比賽。標題有呢啲字眼依然可信（標題行先），只係內文唔好亂。
+# 2026-10-15 用戶點名（港島童軍皮藝會-皮革藝術與生活）：一張通告有兩個內容
+#   （展覽＋比賽），用戶話「活動訓練都啱，但唔係比賽」。呢張標題冇任何類別字眼，
+#   舊版由內文「成績公佈」判咗做比賽。收返：「賽果」片語（COMPETITION_TERMS 嗰 6
+#   個）**只喺標題先至可信**——2026-10-01 嗰條規則本身就寫明係標題規則，內文出現
+#   通常只係附帶提及。實測：而家全庫靠「賽果」做證據嘅 competition entry 有 4 條，
+#   **4 條全部標題自己就有賽果字眼**（照舊係比賽），淨係靠內文攞到證據嘅 0 條 → 呢個收緊零副作用。
+#   註：`story_queue.py`／出圖台 `BATCH_RE` 淨係睇標題、冇內文 fallback，所以呢項
+#   收窄只需要喺呢度改（唔使三份同步）。
 BODY_SCAN_LIMIT = 600
-BODY_UNTRUSTED_TERMS = frozenset({"工作人員", "探訪", "服務", "義工", "比賽", "錦標"})
+COMPETITION_RESULT_TERMS = frozenset(
+    term for term in COMPETITION_TERMS if "公布" in term or "公佈" in term
+)
+BODY_UNTRUSTED_TERMS = (
+    frozenset({"工作人員", "探訪", "服務", "義工", "比賽", "錦標"}) | COMPETITION_RESULT_TERMS
+)
 
 BIG_CAMP_TERMS = ["大露營", "大型露營", "童軍大露營"]
 CAMPFIRE_TERMS = ["營火會", "campfire"]
@@ -125,6 +138,13 @@ OTHER_ACTIVITY_TERMS = [
     # 為準」：「…服務之旅」仍然係服務（title_decisive 內嘅服務檢查行先），
     # 「…之旅簡介會」仍然係訓練。舊標題「與你『童』行」冇「之行」二字，唔會誤中。
     "之行", "之旅",
+    # 2026-10-15 用戶裁決（九龍灣區 PT-15-26）：「九灣小漁夫出海記-水上文化親子
+    # 大冒險」係親子出海行程＝**活動**，唔可以由海報內文一句「訓練班」搶去做訓練。
+    # 呢兩個字眼刻意放 OTHER_ACTIVITY_TERMS（標題先決、但喺 title_decisive 之後），
+    # **唔放** ACTIVITY_STRONG_TERMS：「維多利亞城區森林大冒險小幼童軍填色比賽」
+    # 要維持比賽（比賽喺 title_decisive 行先，就係為咗呢個個案）。同理「親子」
+    # 全庫 69 筆、大半係工作坊／比賽，一律唔收。
+    "出海記", "大冒險",
 ]
 
 # 2026-10-03 新增：強活動詞（同樂日、考察團、代表團等）——呢啲標題一律算活動，
@@ -200,7 +220,18 @@ REFERENCE_TITLE_TERMS = [
     # 本身唔係任何新活動。呢類 digest 嘅 PDF 內文包含晒全月通告字眼，舊版用內文
     # 分類就成日撞中「工作人員／訓練班」變做服務／訓練。便覽＝行政文件＝公布。
     "便覽",
+    # 2026-10-15 用戶點名（九龍地域）：「九龍地域9月份通告一覽」系列全庫 20 筆，
+    # 舊版因為冇呢個片語 → 內文「訓練班」搶去做訓練。佢同「便覽」一樣係月度索引。
+    # （注意「一覽表」冇覆蓋「通告一覽」——冇「表」字。）
+    "通告一覽",
 ]
+
+# 2026-10-15 用戶點名（九龍地域）：「九龍地域通告【2026 年 10 月】」（Summary_2026_10.pdf）
+# 係地域每月通告摘要，舊版被內文「成績公佈」搶去做**比賽**（「賽果＝比賽」呢條
+# 2026-10-01 規則只適用於**標題**自己就係賽果嘅通告）。呢類標題嘅形狀係
+# 「……通告【YYYY 年 M 月】」，用 regex 先至唔會誤傷「活動通告第21/26號」呢種
+# 掛住檔號嘅真活動；比對前先 normalize（減空白），所以唔使理「2026 年 10 月」嘅空格。
+MONTHLY_DIGEST_TITLE_RE = re.compile(r"通告[【\[].{0,20}?年.{0,10}?月")
 ALL_MEMBERS_TERMS = ["所有成員", "全體成員", "各支部成員"]
 
 
@@ -378,10 +409,28 @@ def _make_category(tag_id: str, label: str, evidence: Iterable[str], subtype: st
 
 
 def is_reference_document(title: Any, text: Any = "") -> bool:
-    """A timetable / rule book / result list is not itself something to enrol in."""
+    """A timetable / rule book / result list is not itself something to enrol in.
+
+    2026-10-15：除咍 REFERENCE_TITLE_TERMS 嘅片語，「……通告【YYYY 年 M 月】」呢種
+    月度摘要形狀（MONTHLY_DIGEST_TITLE_RE）都算參考文件——佢哋係上個月／今個月成
+    份通告嘅索引，內文自然有晒訓練班、工作人員、成績公佈，一睇內文就必定分錯。
+    """
     if _term_hits(title, REFERENCE_TITLE_TERMS):
         return True
+    if MONTHLY_DIGEST_TITLE_RE.search(normalize(title or "")):
+        return True
     return not normalize(title) and bool(_term_hits(text, REFERENCE_TITLE_TERMS))
+
+
+def _reference_title_hits(title: Any, text: Any = "") -> List[str]:
+    """參考文件嘅分類證據（用嚟取代直接 _term_hits(title, REFERENCE_TITLE_TERMS)，
+    等月度摘要呢類靠 regex 命中嘅通告都有得返一個睇得明嘅 evidence）。"""
+    hits = _term_hits(title, REFERENCE_TITLE_TERMS)
+    if not hits and MONTHLY_DIGEST_TITLE_RE.search(normalize(title or "")):
+        hits = ["月度通告摘要"]
+    if not hits:
+        hits = _term_hits(text, REFERENCE_TITLE_TERMS)
+    return hits
 
 
 def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dict[str, Any]]:
@@ -532,7 +581,7 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
             return [_make_category("competition", "比賽", title_hits["competition"])]
         # Calendars, rules and lists are not a new course/service/event themselves.
         if is_reference_document(title, ""):
-            return [_make_category("announcement", "公布", _term_hits(title, REFERENCE_TITLE_TERMS))]
+            return [_make_category("announcement", "公布", _reference_title_hits(title))]
         if title_hits["training"]:
             return [_make_category("training", "訓練", title_hits["training"])]
         if title_hits["big_camp"]:
@@ -567,7 +616,7 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
     # 注意：真正嘅賽果（「成績公布／結果公布」）屬比賽，喺上面 title_decisive 已經
     # 截住；呢個檢查只影響標題冇更強字眼、但含名單／行事曆等字嘅通告。
     if is_reference_document(title, ""):
-        return [_make_category("announcement", "公布", _term_hits(title, REFERENCE_TITLE_TERMS))]
+        return [_make_category("announcement", "公布", _reference_title_hits(title))]
 
     # 標題睇唔出（冇明確字眼）先用 PDF 內文補充，次序同以前一樣。
     if text_hits["service"]:
@@ -579,7 +628,7 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
 
     # Calendars, rules and lists are not a new course/service/event themselves.
     if is_reference_document(title, text):
-        reference_hits = _term_hits(title, REFERENCE_TITLE_TERMS) or _term_hits(text, REFERENCE_TITLE_TERMS)
+        reference_hits = _reference_title_hits(title, text)
         return [_make_category("announcement", "公布", reference_hits)]
 
     # 優先序：訓練（訓練班／工作坊／考驗日／課程）

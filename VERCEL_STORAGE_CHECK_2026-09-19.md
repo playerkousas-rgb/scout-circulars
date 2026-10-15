@@ -1,5 +1,12 @@
 # Vercel Functions Storage 爆額檢查報告 — 2026-09-19
 
+> ⚠️ **2026-10-14 更新**：本文件入面所有「去 Actions → Vercel Usage Report → Run」
+> 嘅步驟已經失效 —— 呢個報告 workflow（連 `vercel_usage_report.py` 同佢嘅測試檔）
+> 已被刪除，因為佢 `on: push` 冇過濾，每次 push／每個 bot commit 都要跑一次＋打
+> 一串 Vercel API，而 9-17 瘦身之後 storage 根本唔再漲。睇用量改直接去
+> **Vercel Dashboard → Usage**；`VERCEL_TOKEN` 而家只係 **Vercel Deployment Prune**
+>（每週一）同 **Vercel Retention Policy**（手動）用。以下係當日紀錄，原样保留。
+
 ## 問題背景（你之前爆嗰次）
 
 - **症狀**：Vercel Dashboard → Usage → `The amount of storage used by Vercel Functions of your deployments` 爆到 **11.82GB / 10GB**（Hobby 上限 10GB）
