@@ -101,8 +101,21 @@ COMPETITION_TERMS = [
 #     （訓練班／工作坊／錦標賽／公開賽／社區服務／服務日⋯）。附帶字眼個案：
 #     便覽內文「工作人員」搶服務、入會表格內文「訓練班」搶訓練、招收會員內文
 #     「比賽」搶比賽。標題有呢啲字眼依然可信（標題行先），只係內文唔好亂。
+# 2026-10-15 用戶點名（港島童軍皮藝會-皮革藝術與生活）：一張通告有兩個內容
+#   （展覽＋比賽），用戶話「活動訓練都啱，但唔係比賽」。呢張標題冇任何類別字眼，
+#   舊版由內文「成績公佈」判咗做比賽。收返：「賽果」片語（COMPETITION_TERMS 嗰 6
+#   個）**只喺標題先至可信**——2026-10-01 嗰條規則本身就寫明係標題規則，內文出现
+#   通常只係附帶提及。實測：而家全库靠「賽果」做證據嘅 competition entry 有 4 條，
+#   **4 條全部標題自己就有賽果字眼**（照舊係比賽），淨係靠內文攞到證據嘅 0 條 → 呢個收緊零副作用。
+#   註：`story_queue.py`／出圖台 `BATCH_RE` 淨係睇標題、冇內文 fallback，所以呢項
+#   收窄只需要喺呢度改（唔使三份同步）。
 BODY_SCAN_LIMIT = 600
-BODY_UNTRUSTED_TERMS = frozenset({"工作人員", "探訪", "服務", "義工", "比賽", "錦標"})
+COMPETITION_RESULT_TERMS = frozenset(
+    term for term in COMPETITION_TERMS if "公布" in term or "公佈" in term
+)
+BODY_UNTRUSTED_TERMS = (
+    frozenset({"工作人員", "探訪", "服務", "義工", "比賽", "錦標"}) | COMPETITION_RESULT_TERMS
+)
 
 BIG_CAMP_TERMS = ["大露營", "大型露營", "童軍大露營"]
 CAMPFIRE_TERMS = ["營火會", "campfire"]

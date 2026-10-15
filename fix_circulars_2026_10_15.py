@@ -18,9 +18,11 @@
 6. 港島地域 公布 → **訓練**「港島童軍生態小組-觀鳥章(興趣組)領袖座談會」（26363）
    3–6 呢四張**規則早就啱**（2026-10-09 兩批已 merge 咗），錯嘅係 `enrich.json`
    入面嘅存量數據（見下面「點解會有一舊一新一」）。
-7. 港島地域 比賽 → **活動**「港島童軍皮藝會-皮革藝術與生活」（26364）
-   用戶裁決：「活動訓練都啱，因為佢 1 張通告入面有 2 個內容，但唔係比賽」→
-   用 MANUAL_OVERRIDES 人手釘「活動」（標題本身冇任何類別字眼，規則判咗都係兜底）。
+7. 港島地域 比賽 → 唔可以再係比賽：「港島童軍皮藝會-皮革藝術與生活」（26364）
+   用戶：「活動訓練都啱，因為佢 1 張通告入面有 2 個內容，但唔係比賽」「中 1 個都係
+   啱呀」→ **唔使人手釘類別**，只標記做人工確認過（HUMAN_CONFIRMED）跳過重算；
+   而家入面嘅「活動」本身係該通告嘅內容之一。「比賽」呢條路已由
+   BODY_UNTRUSTED_TERMS（內文嘅「比賽／錦標」一律唔計）永久堵死。
 8. 總會 活動 → **公布**「寰宇童軍章(P109/2026)」（26401）
    標題冇「訓練班／工作坊／研習」等課程字眼 → 跟規則＝兜底公布。用戶只話「活動」係錯，
    冇指定正解，所以呢度只係清走舊數據嘅「活動」，並喺報告列明「章(Pxxx)」家族 9 筆
@@ -44,7 +46,7 @@ PDF URL（除走 www.、連同 query string）再比多一輪**，日後本機�
 - PASS 1（用戶點名 8 張，兩邊鏡像都改）：用现行規則由**標題**重算。
 - PASS 2（月度摘要家族）：標題命中「便覽／通告一覽／…通告【YYYY 年 M 月】」全库 45 筆（2025-10 至 2026-10，九龍地域／港島地域兩個來源）→ 一律公布。
 - PASS 3（鏡像收歛）：正規化 URL 相同＋標題相同＋標籤唔同嘅組，全部跟標題規則收歛。
-- PASS 4（人手裁決）：MANUAL_OVERRIDES。
+- PASS 4（人工確認過）：HUMAN_CONFIRMED 入面嘅 entry 一律跳過重算。
 
 `cache.json` 冇 `categories` 欄（分類只存喺 `enrich.json`），所以呢個腳本只寫
 `enrich.json`，唔郁 bot 每日重寫嘅 `cache.json`。
@@ -67,14 +69,9 @@ from urllib.parse import urlsplit
 BASE_DIR = Path(__file__).parent
 sys.path.insert(0, str(BASE_DIR))
 
-from fix_rally_categories_2026_10_06 import (  # noqa: E402
-    _topic_detail,
-    patch_entry,
-    topic_id_for,
-)
+from fix_rally_categories_2026_10_06 import patch_entry  # noqa: E402
 from subscription_tagging import (  # noqa: E402
     MONTHLY_DIGEST_TITLE_RE,
-    _make_category,
     _term_hits,
     extract_categories,
     load_catalog,
@@ -90,7 +87,6 @@ HQ_WWW = "https://www.scout.org.hk/uploads/tc/circulars"
 NAMED_FRAGMENTS = {
     "26410/Summary_2026_10.pdf": "announcement",          # 九龍地域通告【2026 年 10 月】
     "26401/P109-26.pdf": "announcement",                   # 寰宇童軍章(P109/2026)
-    "26364/Prog63_26_LeathercraftExhibition2027.pdf": None,  # 見 MANUAL_OVERRIDES
     "26380/CircularList-2026-10.pdf": "announcement",      # 港島地域通告便覽(10月)
     "26369/Prog64_26_BadmintonClubMemberRecruit.pdf": "announcement",
     "26363/Prog62_26_BirdwatcherSeminar.pdf": "training",  # 觀鳥章領袖座談會
@@ -103,18 +99,19 @@ NAMED_FRAGMENTS = {
 KLB = "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-15-26.pdf"
 NAMED_FRAGMENTS[KLB] = "activity"                           # 九灣小漁夫出海記
 
-# PASS 4：人手裁決（規則判唔到嘅先入呢度；evidence 要寫明點解）。
-MANUAL_OVERRIDES = {
-    "26364/Prog63_26_LeathercraftExhibition2027.pdf": {
-        "id": "activity", "label": "活動", "subtype": "other",
-        "evidence": ["用戶裁定 2026-10-15：一張通告兩個內容（展覽＋比賽），唔算比賽"],
-    },
+# PASS 4（用戶 2026-10-15 澄清）：**唔使人手釘類別**。
+# 「港島童軍皮藝會-皮革藝術與生活」一張通告有兩份內容（展覽＋比賽／工作坊），
+# 用戶：「中 1 個都係啱呀」→ 所以唔需要 MANUAL_OVERRIDES 呢類硬釘，只要唔好係
+# 「比賽」（舊數據俾內文比賽字眼搶咗）就得。而家入面嘅「活動」係該通告自己嘅
+# 內容之一，所以呢度只係**標記做人工確認過、跳過重算**（`patch_entry` 淨係用
+# 標題計，呢類標題冇類別字眼會俾佢變兜底公布，反而多餘）。日後真正重跑
+# `enrich.py`（有 PDF 內文）判到活動定訓練都啱，兩個都唔會再變比賽：
+# 「比賽／錦標」早就喺 BODY_UNTRUSTED_TERMS 入面，內文一律唔計。
+HUMAN_CONFIRMED = {
+    "26364/Prog63_26_LeathercraftExhibition2027.pdf":
+        "用戶 2026-10-15 確認：一張通告兩個內容，中其中一個都啱（只要求唔係比賽）",
 }
 
-# PASS 2：**淨係**月度摘要家族（便覽／通告一覽／…通告【YYYY 年 M 月】）。
-# 刻意唔可以直接用 REFERENCE_TITLE_TERMS 成份詞表——佢連「名單／行事曆／指引／結果
-# 公布」都收，PASS 2 會變咗「全库補返所有舊分類」，超出今次要修嘅範圍。
-# 檔名一律係 CircularList-YYYY-MM.pdf / Summary_YYYY_M.pdf，但檔名只做補捉（改檔名就漏）。
 DIGEST_TITLE_TERMS = ["便覽", "通告一覽"]
 # 檔名要係「CircularList-2026-10.pdf」／「Summary_2026_10.pdf」呢種**帶年月**嘅形狀，
 # 唔可以係「見過 summary 三個字」（「…收支結算表 Summary_IE_2025-26.pdf」都係 Summary
@@ -141,62 +138,29 @@ def is_digest_title(title: str) -> bool:
                 or MONTHLY_DIGEST_TITLE_RE.search(normalize(title)))
 
 
-def force_category(entry: dict, catalog: dict, spec: dict) -> tuple[dict, str]:
-    """人手裁決：直接改 `categories` ＋同步 `subscription_tags`／`details`。"""
-    new_cat = _make_category(spec["id"], spec["label"], spec.get("evidence") or [],
-                             spec.get("subtype", ""))
-    new_topic = topic_id_for(new_cat)
-    old_categories = entry.get("categories") or []
-    old_topic = topic_id_for(old_categories[0]) if old_categories else ""
-    if [c.get("id") for c in old_categories] == [new_cat["id"]]:
-        return entry, ""
-    tags = [t for t in (entry.get("subscription_tags") or []) if t != old_topic]
-    if new_topic and new_topic not in tags:
-        tags.append(new_topic)
-    details = [d for d in (entry.get("subscription_tag_details") or [])
-               if str(d.get("id")) != old_topic]
-    topic_entry = catalog.get("_topic_by_id", {}).get(new_topic)
-    if topic_entry:
-        details.append(_topic_detail(topic_entry, new_cat.get("evidence", [])))
-    detail_map = {str(d["id"]): d for d in details}
-    details = [detail_map[key] for key in sorted(detail_map)]
-    patched = dict(entry)
-    patched["categories"] = [new_cat]
-    patched["subscription_tags"] = sorted(tags)
-    patched["subscription_tag_details"] = details
-    old_label = "／".join(str(c.get("label") or "") for c in old_categories) or "（冇分類）"
-    return patched, f"{old_label} → {new_cat['label']}（人手裁決）｜{old_topic or '—'} → {new_topic}"
-
-
-def title_is_decisive(title: str) -> bool:
-    """標題自己有規則證據（唔係兜底）先准改——否則會用「標題冇嘢」抹走晒啲靠
-    內文先至判到大家嘅通告（例如英文檔名／「海報」呢類標題）。"""
-    cats = extract_categories(title, "")
-    return bool(cats and (cats[0].get("evidence") or []))
-
-
 def collect_targets(enrich: dict) -> list[tuple[str, str, str]]:
     """回傳 [(url, 原因, 期望類別 or ''（由規則決定）)]。"""
     targets: dict[str, str] = {}
 
-    # PASS 1／4：用戶點名
+    def is_human_confirmed(url: str) -> bool:
+        return any(frag in url for frag in HUMAN_CONFIRMED)
+
+    # PASS 1：用戶點名（人工確認過嘅跳過，見上面 HUMAN_CONFIRMED）
     for url, entry in enrich.items():
-        if not isinstance(entry, dict):
+        if not isinstance(entry, dict) or is_human_confirmed(url):
             continue
         for frag, want in NAMED_FRAGMENTS.items():
             if frag in url:
-                # want is None → 呢張冇規則可判，交俾下面 MANUAL_OVERRIDES 人手裁決
-                targets[url] = ("用戶點名（人手裁決）" if want is None
-                                else f"用戶點名（{want}）")
+                targets[url] = f"用戶點名（{want}）"
     # 出海記嗰張唔係 scout.org.hk 格式，逐條再捉一次（萬一 URL 有變）
     for url, entry in enrich.items():
         title = str((entry or {}).get("title") or "") if isinstance(entry, dict) else ""
-        if "小漁夫出海記" in title:
+        if "小漁夫出海記" in title and not is_human_confirmed(url):
             targets[url] = "用戶點名（活動）"
 
     # PASS 2：月度摘要家族
     for url, entry in enrich.items():
-        if not isinstance(entry, dict) or url in targets:
+        if not isinstance(entry, dict) or url in targets or is_human_confirmed(url):
             continue
         title = str(entry.get("title") or "")
         if not title:
@@ -210,6 +174,7 @@ def collect_targets(enrich: dict) -> list[tuple[str, str, str]]:
     for url, entry in enrich.items():
         if isinstance(entry, dict):
             groups[canonical_pdf_key(url)].append(url)
+    # 註：HUMAN_CONFIRMED 嘅兩邊鏡像都已經唔會俾收歛改（下面逐條再 filter 一次）
     for _, urls in groups.items():
         if len(urls) < 2:
             continue
@@ -237,19 +202,13 @@ def main(argv=None) -> int:
     with ENRICH_PATH.open("r", encoding="utf-8") as fh:
         enrich = json.load(fh)
 
-    manual_by_fragment = dict(MANUAL_OVERRIDES)
     targets = collect_targets(enrich)
     changed = 0
     for url, why, _want in targets:
         entry = enrich.get(url)
         if not isinstance(entry, dict):
             continue
-        title = str(entry.get("title") or "")
-        frag = next((f for f in manual_by_fragment if f in url), "")
-        if frag:
-            patched, note = force_category(entry, catalog, manual_by_fragment[frag])
-        else:
-            patched, note = patch_entry(entry, catalog)
+        patched, note = patch_entry(entry, catalog)
         if not note:
             continue
         changed += 1

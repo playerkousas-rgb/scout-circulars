@@ -197,8 +197,17 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
       森林大冒險小幼童軍填色比賽」要維持**比賽**；「親子」全库 69 筆、大半係工作坊／
       比賽，一律**唔收**。
     - 一張通告有兩份內容（例：「港島童軍皮藝會-皮革藝術與生活」＝展覽＋比賽）：
-      用戶裁定「活動訓練都啱，但唔係比賽」→ 標題冇類別字眼時**唔好由內文嘅比賽字眼
-      定調**，呢張由 `fix_circulars_2026_10_15.py` 嘅 `MANUAL_OVERRIDES` 人手釘「活動」。
+      用戶裁定「活動訓練都啱，但唔係比賽」「中 1 個都係啱呀」→ **唔設人手釘類別**，
+      `fix_circulars_2026_10_15.py` 只用 `HUMAN_CONFIRMED` 標記「人工確認過、跳過重算」
+      （`patch_entry` 淨係睇標題，呢類標題冇類別字眼，重算反而會俾兜底公布蓋走既有嘅
+      「活動」）。「比賽」呢條路已由 `BODY_UNTRUSTED_TERMS`（內文「比賽／錦標」一律唔計）
+      永久堵死，所以日後真係重跑 `enrich.py`（有 PDF 內文）判做活動或訓練都啱。
+    - **內文嘅「賽果」片語一律唔計**（`BODY_UNTRUSTED_TERMS` ＋ `COMPETITION_RESULT_TERMS`：
+      成績公佈／成績公布／結果公佈／結果公布／公佈結果／公布結果）。呢條 2026-10-01 規則
+      由始至终係**標題**規則（「XX比賽-成績公布」呢類），內文出现通常只係附帶提及。
+      實測零副作用：全库靠「賽果」做證據嘅 competition entry 得 4 條，**4 條全部標題
+      自己就有賽果字眼**（照舊比賽），淨係靠內文攞到證據嘅 0 條。只改 `subscription_tagging.py`：
+      `story_queue`／出圖台 `BATCH_RE` 淨係睇標題、冇內文 fallback，唔使三份同步。
     - **根因：同一份 PDF 有兩個 enrich key**（總會在列表頁俾 `scout.org.hk/…`、地域站
       鏡像俾 `www.scout.org.hk/…`）。兩條 entry 各自由唔同次數嘅 run 寫入，所以可以
       各持唔同標籤——10-09 嗰批用新規則（啱），10-15 本機排程用**未 `git pull` 嘅舊

@@ -19,9 +19,10 @@
     → 新規則：REFERENCE_TITLE_TERMS 加「通告一覽」
   - 「九灣小漁夫出海記-水上文化親子大冒險」被海報內文「訓練班」搶去做訓練
     → 新規則：OTHER_ACTIVITY_TERMS 加「出海記／大冒險」（標題先決）
-  - 「港島童軍皮藝會-皮革藝術與生活」＝比賽 → 用戶裁定：一張通告兩個內容，唔算比賽 → 活動
-  - 「寰宇童軍章(P109/2026)」＝活動 → 標題冇課程字眼 → 公布（「章(Pxxx)」家族要唔要一律
-    歸訓練，仍待用戶定政策；本測試只釘「唔可以再係活動」）
+  - 「港島童軍皮藝會-皮革藝術與生活」＝比賽 → 用戶：一張通告兩個內容，「中 1 個都係啱」
+    → **唔人手釘類別**，只標記 HUMAN_CONFIRMED 跳過重算；本測試釘住「唔可以再係比賽」
+  - 「寰宇童軍章(P109/2026)」＝活動 → 用戶：「公布會好啲，訓練都係啱，但唔係活動」
+    → 跟規則兜底公布；「章(Pxxx)」家族要唔要一律歸訓練仍待用戶定政策
 
 第 4 節係 root-cause 守門：`enrich.summarize_mirror_url_divergence()` 必須回傳空清單，
 日後任何一個鏡像 key 俾舊規則覆寫，nightly run log 都會大聲報（唔使再用家肉眼對）。
@@ -95,7 +96,9 @@ GUARDS = [
 REPAIRED_FILES = {
     "26410/Summary_2026_10.pdf": "announcement",
     "26401/P109-26.pdf": "announcement",
-    "26364/Prog63_26_LeathercraftExhibition2027.pdf": "activity",
+    # 一張通告兩個內容：用戶話活動／訓練「中 1 個都係啱」，所以接受兩個答案，
+    # 唯獨唔可以係比賽（第 1 節有專門測試釘住）。
+    "26364/Prog63_26_LeathercraftExhibition2027.pdf": ("activity", "training"),
     "26380/CircularList-2026-10.pdf": "announcement",
     "26369/Prog64_26_BadmintonClubMemberRecruit.pdf": "announcement",
     "26363/Prog62_26_BirdwatcherSeminar.pdf": "training",
@@ -128,6 +131,18 @@ class RuleTests(unittest.TestCase):
         for title, want in GUARDS:
             with self.subTest(title=title):
                 self.assertEqual(cat_ids(title, ADVERSARIAL_BODY), [want])
+
+    def test_leathercraft_notice_never_becomes_competition(self):
+        """用戶：「活動訓練都岩，因為佢1張通告入面有2個內容 但唔係比賽」。
+        呢張舊數據嘅證據就係內文一個裸字「比賽」（另外仲有「成績公佈」），兩個而家
+        都喺 BODY_UNTRUSTED_TERMS 入面 → 內文一律唔計，所以呢條路永久堵死，
+        **唔使人手釘類別**。（如果份 PDF 真係寫明「XX錦標賽」呢類事件類型專有詞，
+        內文 fallback 照樣可以判比賽——呢個係 2026-10-09 定低嘅「只信事件類型專有詞」
+        設計，呢張通告實測冇。）"""
+        real_body = "本會舉辦皮革藝術與生活展覽，設有作品比賽，成績公佈將於下月刊登"
+        self.assertEqual(cat_ids("港島童軍皮藝會-皮革藝術與生活", real_body), ["announcement"])
+        # 標題自己有賽事名時照舊比賽（唔會被「兩個內容」呢條規則食走）
+        self.assertEqual(cat_ids("港島童軍皮藝會-皮革藝術與生活 – 首屆皮藝錦標賽"), ["competition"])
 
     def test_monthly_digest_regex_shape(self):
         self.assertTrue(MONTHLY_DIGEST_TITLE_RE.search(normalize("九龍地域通告【2026 年 10 月】")))
@@ -173,8 +188,12 @@ class RepairedDataTests(unittest.TestCase):
             self.assertTrue(hits, f"enrich.json 冇 {frag}")
             for url, entry in hits:
                 with self.subTest(url=url):
-                    self.assertEqual([c.get("id") for c in (entry.get("categories") or [])],
-                                     [want])
+                    got = [c.get("id") for c in (entry.get("categories") or [])]
+                    if isinstance(want, tuple):        # 多個可接受答案
+                        self.assertEqual(len(got), 1)
+                        self.assertIn(got[0], want)
+                    else:
+                        self.assertEqual(got, [want])
 
     def test_whole_digest_family_is_announcement(self):
         checked = 0
