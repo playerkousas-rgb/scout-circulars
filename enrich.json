@@ -62867,5 +62867,290 @@
     "title_check": "verified",
     "enriched_at": "2026-10-15 05:09:35",
     "enrich_version": "3.6"
+  },
+  "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-18_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-社區應急先鋒.pdf": {
+    "source": "柴灣區",
+    "title": "香港童軍115周年認可活動Operation115:「童」守護 ‧ 安心社區嘉年華-社區應急先鋒訓練班",
+    "deadline": "2026-10-31",
+    "audience": "深資童軍、樂行童軍、童軍",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-16 04:00:44",
+    "enrich_version": "3.6"
+  },
+  "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-20_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-攤位設計比賽.pdf": {
+    "source": "柴灣區",
+    "title": "香港童軍115周年認可活動Operation115:「童」守護 ‧ 安心社區嘉年華-攤位設計比賽",
+    "deadline": "2026-11-02",
+    "audience": "領袖、家長",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "家長",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-16 04:00:50",
+    "enrich_version": "3.6"
+  },
+  "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-19_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-急救問題比賽.pdf": {
+    "source": "柴灣區",
+    "title": "香港童軍115周年認可活動Operation115:「童」守護 ‧ 安心社區嘉年華-幼童軍及童軍支部急救問題比賽",
+    "deadline": "2026-11-02",
+    "audience": "幼童軍、童軍",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-16 04:00:53",
+    "enrich_version": "3.6"
+  },
+  "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view": {
+    "source": "紅磡區",
+    "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+    "deadline": "2026-11-28",
+    "audience": "小童軍、領袖",
+    "fee": "全免",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "錦標賽",
+          "錦標"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "小童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "錦標賽",
+          "錦標"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-16 04:00:58",
+    "enrich_version": "3.6",
+    "listing_title": "G-26-03 - 小童軍支部快樂傘(總監盃)錦標賽"
+  },
+  "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view": {
+    "source": "紅磡區",
+    "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+    "deadline": "2026-11-28",
+    "audience": "幼童軍",
+    "fee": "HK$200",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "錦標賽",
+          "錦標"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "錦標賽",
+          "錦標"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-16 04:01:03",
+    "enrich_version": "3.6",
+    "listing_title": "C-26-02 - 幼童軍支部(主席盾)錦標賽"
+  },
+  "https://assets.ctfassets.net/g8bhf0l3d7iq/6IL9HoDK9eP4bn12AiTbih/e65b8f60d128900d3f7b5c3431270c28/OD_cir_02-26_R_.pdf": {
+    "source": "新界東地域",
+    "title": "2026年優異旅團獎勵計劃及特別嘉許童軍旅獲獎名單(修訂)",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "旅團獎勵",
+          "優異旅團",
+          "獎勵計劃"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "旅團獎勵",
+          "優異旅團",
+          "獎勵計劃"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-16 04:01:08",
+    "enrich_version": "3.6"
   }
 }
