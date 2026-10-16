@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-16 05:00:07",
+  "last_updated": "2026-10-17 03:33:36",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 5067,
+    "total_notices": 5079,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -486,6 +486,15 @@
         "region": "總會"
       },
       {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
         "url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
@@ -516,15 +525,6 @@
         "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
         "url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -13486,6 +13486,15 @@
     ],
     "灣仔區": [
       {
+        "title": "區會 17/10 – 23/10/2026 辦公時間",
+        "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A17-10-23-10-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A17-10-23-10-2026&catid=51&lang=zh-tw&Itemid=1210",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "灣仔區",
+        "region": "港島地域"
+      },
+      {
         "title": "區會 26/9 – 2/10/2026辦公時間",
         "url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=635%3A26-9-2-10-2026&catid=51&lang=zh-tw&Itemid=1210",
         "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=635%3A26-9-2-10-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -26417,18 +26426,18 @@
     ],
     "紅磡區": [
       {
-        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
-        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
         "region": "九龍地域"
       },
       {
-        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
-        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
@@ -40918,40 +40927,139 @@
     ],
     "壁峰區": [
       {
-        "title": "公民章、精神健康章、社區參與章、積極公民—國家安全大使及議會探索章訓練班",
-        "pdf_url": "https://drive.google.com/file/d/1XdP3YhKUPcS8p19F0YG-knAelOjhx4Nn/view",
-        "captured_date": "2026-10-16",
-        "published_date": "2026-10-16",
+        "title": "童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+        "url": "https://drive.google.com/file/d/1bp-6wE5HwCfIaWB3XnvnvIspdYLudGhC/view",
+        "pdf_url": "https://drive.google.com/file/d/1bp-6wE5HwCfIaWB3XnvnvIspdYLudGhC/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
         "source_site": "壁峰區",
-        "region": "新界東地域",
-        "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
+        "region": "新界東地域"
+      },
+      {
+        "title": "深資童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+        "url": "https://drive.google.com/file/d/12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G/view",
+        "pdf_url": "https://drive.google.com/file/d/12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "樂行童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+        "url": "https://drive.google.com/file/d/1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p/view",
+        "pdf_url": "https://drive.google.com/file/d/1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "幼童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+        "url": "https://drive.google.com/file/d/1UWAClszPoG_we45mH4b4T7DD6aeI8XMk/view",
+        "pdf_url": "https://drive.google.com/file/d/1UWAClszPoG_we45mH4b4T7DD6aeI8XMk/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "小童軍領袖手冊",
+        "url": "https://drive.google.com/file/d/1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp/view",
+        "pdf_url": "https://drive.google.com/file/d/1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "小童軍活動指引2026",
+        "url": "https://drive.google.com/file/d/1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x/view",
+        "pdf_url": "https://drive.google.com/file/d/1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "小童軍支部團員章:童軍成員免受傷害 集會編排 2025",
+        "url": "https://drive.google.com/file/d/1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y/view",
+        "pdf_url": "https://drive.google.com/file/d/1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "Drive, PFD2627VS004 政制探究及民政訓練班",
+        "url": "https://drive.google.com/file/d/1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn/view",
+        "pdf_url": "https://drive.google.com/file/d/1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "2026 童軍先修章訓練班",
+        "url": "https://drive.google.com/file/d/1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC/view",
+        "pdf_url": "https://drive.google.com/file/d/1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "Drive, PF 原野生活知識工作坊 A-101",
+        "url": "https://drive.google.com/file/d/1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A/view",
+        "pdf_url": "https://drive.google.com/file/d/1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "Drive, 2026-27小童軍親子活動—懷舊食物工作坊",
+        "url": "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view",
+        "pdf_url": "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view",
+        "date": "2026-10-17",
+        "captured_date": "2026-10-17",
+        "source_site": "壁峰區",
+        "region": "新界東地域"
+      },
+      {
+        "title": "Drive, 公民章、精神健康章、社區參與章、積極公民-國家安全大使及議會探索章訓練班",
         "url": "https://drive.google.com/file/d/1XdP3YhKUPcS8p19F0YG-knAelOjhx4Nn/view",
-        "date": "2026-10-16"
-      },
-      {
-        "title": "第7屆原野烹飪訓練班—教導組",
-        "pdf_url": "https://drive.google.com/file/d/1uNeOTX4XTfcvebSu8vSuZa3d3qzX9p2U/view",
-        "captured_date": "2026-08-15",
-        "published_date": "2026-08-15",
+        "pdf_url": "https://drive.google.com/file/d/1XdP3YhKUPcS8p19F0YG-knAelOjhx4Nn/view",
+        "date": "2026-10-16",
+        "captured_date": "2026-10-16",
         "source_site": "壁峰區",
         "region": "新界東地域",
+        "published_date": "2026-10-16",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
+        "suppress_notifications": true
+      },
+      {
+        "title": "Drive, 第7屆原野烹飪訓練班-教導組",
         "url": "https://drive.google.com/file/d/1uNeOTX4XTfcvebSu8vSuZa3d3qzX9p2U/view",
-        "date": "2026-08-15"
-      },
-      {
-        "title": "第7屆原野烹飪訓練班—技能組",
-        "pdf_url": "https://drive.google.com/file/d/1lRpizyjj4c4RQ8CTSYOCwYhAv9fptWY3/view",
+        "pdf_url": "https://drive.google.com/file/d/1uNeOTX4XTfcvebSu8vSuZa3d3qzX9p2U/view",
+        "date": "2026-08-15",
         "captured_date": "2026-08-15",
-        "published_date": "2026-08-15",
         "source_site": "壁峰區",
         "region": "新界東地域",
+        "published_date": "2026-08-15",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
+        "suppress_notifications": true
+      },
+      {
+        "title": "Drive, 第7屆原野烹飪訓練班-技能組",
         "url": "https://drive.google.com/file/d/1lRpizyjj4c4RQ8CTSYOCwYhAv9fptWY3/view",
-        "date": "2026-08-15"
+        "pdf_url": "https://drive.google.com/file/d/1lRpizyjj4c4RQ8CTSYOCwYhAv9fptWY3/view",
+        "date": "2026-08-15",
+        "captured_date": "2026-08-15",
+        "source_site": "壁峰區",
+        "region": "新界東地域",
+        "published_date": "2026-08-15",
+        "backfilled_at": "2026-10-16",
+        "suppress_notifications": true
       },
       {
         "title": "2026 深資童軍繩結及先鋒工程訓練班取錄名單",
@@ -43879,51 +43987,51 @@
     "沙田南區": [
       {
         "title": "急救證書課程",
+        "url": "https://www.stsd-scout.org/programme/view_notice/175",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/175",
+        "date": "2026-09-02",
         "captured_date": "2026-09-02",
-        "published_date": "2026-09-02",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-09-02",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/175",
-        "date": "2026-09-02"
+        "suppress_notifications": true
       },
       {
         "title": "幼童軍歷史章訓練班",
+        "url": "https://www.stsd-scout.org/programme/view_notice/174",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/174",
+        "date": "2026-09-01",
         "captured_date": "2026-09-01",
-        "published_date": "2026-09-01",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-09-01",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/174",
-        "date": "2026-09-01"
+        "suppress_notifications": true
       },
       {
         "title": "「豐盛生命」正向情緒日營",
+        "url": "https://www.stsd-scout.org/programme/view_notice/173",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/173",
+        "date": "2026-07-02",
         "captured_date": "2026-07-02",
-        "published_date": "2026-07-02",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-07-02",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/173",
-        "date": "2026-07-02"
+        "suppress_notifications": true
       },
       {
         "title": "2026-2027年度第一次幼童軍支部領袖會議",
+        "url": "https://www.stsd-scout.org/programme/view_notice/172",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/172",
+        "date": "2026-06-24",
         "captured_date": "2026-06-24",
-        "published_date": "2026-06-24",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-06-24",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/172",
-        "date": "2026-06-24"
+        "suppress_notifications": true
       },
       {
         "title": "船鐘報時",
@@ -44008,219 +44116,219 @@
       },
       {
         "title": "港鐵安全體驗天地同樂日",
+        "url": "https://www.stsd-scout.org/programme/view_notice/170",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/170",
+        "date": "2026-05-15",
         "captured_date": "2026-05-15",
-        "published_date": "2026-05-15",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-05-15",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/170",
-        "date": "2026-05-15"
+        "suppress_notifications": true
       },
       {
         "title": "龍舟章訓練班",
+        "url": "https://www.stsd-scout.org/programme/view_notice/169",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/169",
+        "date": "2026-05-09",
         "captured_date": "2026-05-09",
-        "published_date": "2026-05-09",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-05-09",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/169",
-        "date": "2026-05-09"
+        "suppress_notifications": true
       },
       {
         "title": "招募龍舟隊成員2026",
+        "url": "https://www.stsd-scout.org/programme/view_notice/168",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/168",
+        "date": "2026-04-23",
         "captured_date": "2026-04-23",
-        "published_date": "2026-04-23",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-04-23",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/168",
-        "date": "2026-04-23"
+        "suppress_notifications": true
       },
       {
         "title": "【取錄通知書】第70屆步操基本訓練班",
+        "url": "https://www.stsd-scout.org/programme/view_notice/167",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/167",
+        "date": "2026-03-30",
         "captured_date": "2026-03-30",
-        "published_date": "2026-03-30",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-03-30",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/167",
-        "date": "2026-03-30"
+        "suppress_notifications": true
       },
       {
         "title": "【取錄通知書】第21屆童軍步操基本訓練班",
+        "url": "https://www.stsd-scout.org/programme/view_notice/166",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/166",
+        "date": "2026-03-30",
         "captured_date": "2026-03-30",
-        "published_date": "2026-03-30",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-03-30",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/166",
-        "date": "2026-03-30"
+        "suppress_notifications": true
       },
       {
         "title": "小童軍Boxing體驗日",
+        "url": "https://www.stsd-scout.org/programme/view_notice/165",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/165",
+        "date": "2026-03-15",
         "captured_date": "2026-03-15",
-        "published_date": "2026-03-15",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-03-15",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/165",
-        "date": "2026-03-15"
+        "suppress_notifications": true
       },
       {
         "title": "沙田區童軍運動五十周年紀念晚宴",
+        "url": "https://www.stsd-scout.org/programme/view_notice/164",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/164",
+        "date": "2026-03-06",
         "captured_date": "2026-03-06",
-        "published_date": "2026-03-06",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-03-06",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/164",
-        "date": "2026-03-06"
+        "suppress_notifications": true
       },
       {
         "title": "深資樂行童軍聯團活動—霓虹燈製作工作坊",
+        "url": "https://www.stsd-scout.org/programme/view_notice/163",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/163",
+        "date": "2026-02-15",
         "captured_date": "2026-02-15",
-        "published_date": "2026-02-15",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-02-15",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/163",
-        "date": "2026-02-15"
+        "suppress_notifications": true
       },
       {
         "title": "第70屆步操基本訓練班",
+        "url": "https://www.stsd-scout.org/programme/view_notice/161",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/161",
+        "date": "2026-02-01",
         "captured_date": "2026-02-01",
-        "published_date": "2026-02-01",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-02-01",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/161",
-        "date": "2026-02-01"
+        "suppress_notifications": true
       },
       {
         "title": "第21屆童軍步操基本訓練班",
-        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/162",
-        "captured_date": "2026-02-01",
-        "published_date": "2026-02-01",
-        "source_site": "沙田南區",
-        "region": "新界東地域",
-        "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
         "url": "https://www.stsd-scout.org/programme/view_notice/162",
-        "date": "2026-02-01"
-      },
-      {
-        "title": "童軍原野烹飪章（教導組）訓練班",
-        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/160",
-        "captured_date": "2026-01-15",
-        "published_date": "2026-01-15",
+        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/162",
+        "date": "2026-02-01",
+        "captured_date": "2026-02-01",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-02-01",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
+        "suppress_notifications": true
+      },
+      {
+        "title": "童軍原野烹飪章(教導組)訓練班",
         "url": "https://www.stsd-scout.org/programme/view_notice/160",
-        "date": "2026-01-15"
-      },
-      {
-        "title": "童軍原野烹飪章（技能組）訓練班",
-        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/159",
+        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/160",
+        "date": "2026-01-15",
         "captured_date": "2026-01-15",
-        "published_date": "2026-01-15",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2026-01-15",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
+        "suppress_notifications": true
+      },
+      {
+        "title": "童軍原野烹飪章(技能組)訓練班",
         "url": "https://www.stsd-scout.org/programme/view_notice/159",
-        "date": "2026-01-15"
+        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/159",
+        "date": "2026-01-15",
+        "captured_date": "2026-01-15",
+        "source_site": "沙田南區",
+        "region": "新界東地域",
+        "published_date": "2026-01-15",
+        "backfilled_at": "2026-10-16",
+        "suppress_notifications": true
       },
       {
         "title": "2025-2026年度第二次小童軍支部領袖會議",
+        "url": "https://www.stsd-scout.org/programme/view_notice/158",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/158",
+        "date": "2025-12-15",
         "captured_date": "2025-12-15",
-        "published_date": "2025-12-15",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2025-12-15",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/158",
-        "date": "2025-12-15"
+        "suppress_notifications": true
       },
       {
-        "title": "童軍支部技能錦標賽2025（顏明秀副會長盾）",
+        "title": "童軍支部技能錦標賽2025(顏明秀副會長盾)",
+        "url": "https://www.stsd-scout.org/programme/view_notice/157",
         "pdf_url": "https://www.stsd-scout.org/programme/view_notice/157",
+        "date": "2025-11-05",
         "captured_date": "2025-11-05",
-        "published_date": "2025-11-05",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2025-11-05",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/157",
-        "date": "2025-11-05"
+        "suppress_notifications": true
       },
       {
         "title": "童軍專章考驗日2025",
-        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/156",
-        "captured_date": "2025-10-01",
-        "published_date": "2025-10-01",
-        "source_site": "沙田南區",
-        "region": "新界東地域",
-        "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
         "url": "https://www.stsd-scout.org/programme/view_notice/156",
-        "date": "2025-10-01"
-      },
-      {
-        "title": "幼童軍技能比賽2025 李美琪副主席（銀碟賽）",
-        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/155",
+        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/156",
+        "date": "2025-10-01",
         "captured_date": "2025-10-01",
-        "published_date": "2025-10-01",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2025-10-01",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
+        "suppress_notifications": true
+      },
+      {
+        "title": "幼童軍技能比賽2025 李美琪副主席(銀碟賽)",
         "url": "https://www.stsd-scout.org/programme/view_notice/155",
-        "date": "2025-10-01"
-      },
-      {
-        "title": "小童軍支部比賽2025 蕭麗馨副主席（主席盃）",
-        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/154",
+        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/155",
+        "date": "2025-10-01",
         "captured_date": "2025-10-01",
-        "published_date": "2025-10-01",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2025-10-01",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
-        "url": "https://www.stsd-scout.org/programme/view_notice/154",
-        "date": "2025-10-01"
+        "suppress_notifications": true
       },
       {
-        "title": "沙田南旅團支援計劃（2025-26年度）",
-        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/148",
-        "captured_date": "2025-07-08",
-        "published_date": "2025-07-08",
+        "title": "小童軍支部比賽2025 蕭麗馨副主席(主席盃)",
+        "url": "https://www.stsd-scout.org/programme/view_notice/154",
+        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/154",
+        "date": "2025-10-01",
+        "captured_date": "2025-10-01",
         "source_site": "沙田南區",
         "region": "新界東地域",
+        "published_date": "2025-10-01",
         "backfilled_at": "2026-10-16",
-        "suppress_notifications": true,
+        "suppress_notifications": true
+      },
+      {
+        "title": "沙田南旅團支援計劃(2025-26年度)",
         "url": "https://www.stsd-scout.org/programme/view_notice/148",
-        "date": "2025-07-08"
+        "pdf_url": "https://www.stsd-scout.org/programme/view_notice/148",
+        "date": "2025-07-08",
+        "captured_date": "2025-07-08",
+        "source_site": "沙田南區",
+        "region": "新界東地域",
+        "published_date": "2025-07-08",
+        "backfilled_at": "2026-10-16",
+        "suppress_notifications": true
       }
     ],
     "沙田東區": [
@@ -45805,6 +45913,90 @@
   },
   "notices": [
     {
+      "source_site": "灣仔區",
+      "region": "港島地域",
+      "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=618%3A17-10-23-10-2026&catid=51&lang=zh-tw&Itemid=1210",
+      "title": "區會 17/10 – 23/10/2026 辦公時間",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1bp-6wE5HwCfIaWB3XnvnvIspdYLudGhC/view",
+      "title": "童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G/view",
+      "title": "深資童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p/view",
+      "title": "樂行童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1UWAClszPoG_we45mH4b4T7DD6aeI8XMk/view",
+      "title": "幼童軍支部會員章 童軍成員免受傷害 集會編排 2025",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp/view",
+      "title": "小童軍領袖手冊",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x/view",
+      "title": "小童軍活動指引2026",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y/view",
+      "title": "小童軍支部團員章:童軍成員免受傷害 集會編排 2025",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn/view",
+      "title": "Drive, PFD2627VS004 政制探究及民政訓練班",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC/view",
+      "title": "2026 童軍先修章訓練班",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A/view",
+      "title": "Drive, PF 原野生活知識工作坊 A-101",
+      "captured_date": "2026-10-17"
+    },
+    {
+      "source_site": "壁峰區",
+      "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view",
+      "title": "Drive, 2026-27小童軍親子活動—懷舊食物工作坊",
+      "captured_date": "2026-10-17"
+    },
+    {
       "source_site": "總會",
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26107/OD_cir_02-26_R_.pdf",
@@ -45861,12 +46053,12 @@
       "captured_date": "2026-10-16"
     },
     {
-      "title": "公民章、精神健康章、社區參與章、積極公民—國家安全大使及議會探索章訓練班",
-      "pdf_url": "https://drive.google.com/file/d/1XdP3YhKUPcS8p19F0YG-knAelOjhx4Nn/view",
-      "captured_date": "2026-10-16",
-      "published_date": "2026-10-16",
       "source_site": "壁峰區",
       "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1XdP3YhKUPcS8p19F0YG-knAelOjhx4Nn/view",
+      "title": "Drive, 公民章、精神健康章、社區參與章、積極公民-國家安全大使及議會探索章訓練班",
+      "captured_date": "2026-10-16",
+      "published_date": "2026-10-16",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
@@ -49146,12 +49338,12 @@
       "captured_date": "2026-09-02"
     },
     {
-      "title": "急救證書課程",
-      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/175",
-      "captured_date": "2026-09-02",
-      "published_date": "2026-09-02",
       "source_site": "沙田南區",
       "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/175",
+      "title": "急救證書課程",
+      "captured_date": "2026-09-02",
+      "published_date": "2026-09-02",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
@@ -49464,12 +49656,12 @@
       "captured_date": "2026-09-02"
     },
     {
-      "title": "幼童軍歷史章訓練班",
-      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/174",
-      "captured_date": "2026-09-01",
-      "published_date": "2026-09-01",
       "source_site": "沙田南區",
       "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/174",
+      "title": "幼童軍歷史章訓練班",
+      "captured_date": "2026-09-01",
+      "published_date": "2026-09-01",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
@@ -49908,22 +50100,22 @@
       "captured_date": "2026-08-15"
     },
     {
-      "title": "第7屆原野烹飪訓練班—教導組",
-      "pdf_url": "https://drive.google.com/file/d/1uNeOTX4XTfcvebSu8vSuZa3d3qzX9p2U/view",
-      "captured_date": "2026-08-15",
-      "published_date": "2026-08-15",
       "source_site": "壁峰區",
       "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1uNeOTX4XTfcvebSu8vSuZa3d3qzX9p2U/view",
+      "title": "Drive, 第7屆原野烹飪訓練班-教導組",
+      "captured_date": "2026-08-15",
+      "published_date": "2026-08-15",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "第7屆原野烹飪訓練班—技能組",
-      "pdf_url": "https://drive.google.com/file/d/1lRpizyjj4c4RQ8CTSYOCwYhAv9fptWY3/view",
-      "captured_date": "2026-08-15",
-      "published_date": "2026-08-15",
       "source_site": "壁峰區",
       "region": "新界東地域",
+      "pdf_url": "https://drive.google.com/file/d/1lRpizyjj4c4RQ8CTSYOCwYhAv9fptWY3/view",
+      "title": "Drive, 第7屆原野烹飪訓練班-技能組",
+      "captured_date": "2026-08-15",
+      "published_date": "2026-08-15",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
@@ -53029,12 +53221,12 @@
       "captured_date": "2026-07-03"
     },
     {
-      "title": "「豐盛生命」正向情緒日營",
-      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/173",
-      "captured_date": "2026-07-02",
-      "published_date": "2026-07-02",
       "source_site": "沙田南區",
       "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/173",
+      "title": "「豐盛生命」正向情緒日營",
+      "captured_date": "2026-07-02",
+      "published_date": "2026-07-02",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
@@ -53228,12 +53420,12 @@
       "captured_date": "2026-06-24"
     },
     {
-      "title": "2026-2027年度第一次幼童軍支部領袖會議",
-      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/172",
-      "captured_date": "2026-06-24",
-      "published_date": "2026-06-24",
       "source_site": "沙田南區",
       "region": "新界東地域",
+      "pdf_url": "https://www.stsd-scout.org/programme/view_notice/172",
+      "title": "2026-2027年度第一次幼童軍支部領袖會議",
+      "captured_date": "2026-06-24",
+      "published_date": "2026-06-24",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
@@ -81189,182 +81381,182 @@
       "captured_date": "2026-05-20"
     },
     {
-      "title": "港鐵安全體驗天地同樂日",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/170",
+      "title": "港鐵安全體驗天地同樂日",
       "captured_date": "2026-05-15",
       "published_date": "2026-05-15",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "龍舟章訓練班",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/169",
+      "title": "龍舟章訓練班",
       "captured_date": "2026-05-09",
       "published_date": "2026-05-09",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "招募龍舟隊成員2026",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/168",
+      "title": "招募龍舟隊成員2026",
       "captured_date": "2026-04-23",
       "published_date": "2026-04-23",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "【取錄通知書】第70屆步操基本訓練班",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/167",
+      "title": "【取錄通知書】第70屆步操基本訓練班",
       "captured_date": "2026-03-30",
       "published_date": "2026-03-30",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "【取錄通知書】第21屆童軍步操基本訓練班",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/166",
+      "title": "【取錄通知書】第21屆童軍步操基本訓練班",
       "captured_date": "2026-03-30",
       "published_date": "2026-03-30",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "小童軍Boxing體驗日",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/165",
+      "title": "小童軍Boxing體驗日",
       "captured_date": "2026-03-15",
       "published_date": "2026-03-15",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "沙田區童軍運動五十周年紀念晚宴",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/164",
+      "title": "沙田區童軍運動五十周年紀念晚宴",
       "captured_date": "2026-03-06",
       "published_date": "2026-03-06",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "深資樂行童軍聯團活動—霓虹燈製作工作坊",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/163",
+      "title": "深資樂行童軍聯團活動—霓虹燈製作工作坊",
       "captured_date": "2026-02-15",
       "published_date": "2026-02-15",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "第70屆步操基本訓練班",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/161",
+      "title": "第70屆步操基本訓練班",
       "captured_date": "2026-02-01",
       "published_date": "2026-02-01",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "第21屆童軍步操基本訓練班",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/162",
+      "title": "第21屆童軍步操基本訓練班",
       "captured_date": "2026-02-01",
       "published_date": "2026-02-01",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "童軍原野烹飪章（教導組）訓練班",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/160",
+      "title": "童軍原野烹飪章(教導組)訓練班",
       "captured_date": "2026-01-15",
       "published_date": "2026-01-15",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "童軍原野烹飪章（技能組）訓練班",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/159",
+      "title": "童軍原野烹飪章(技能組)訓練班",
       "captured_date": "2026-01-15",
       "published_date": "2026-01-15",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "2025-2026年度第二次小童軍支部領袖會議",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/158",
+      "title": "2025-2026年度第二次小童軍支部領袖會議",
       "captured_date": "2025-12-15",
       "published_date": "2025-12-15",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "童軍支部技能錦標賽2025（顏明秀副會長盾）",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/157",
+      "title": "童軍支部技能錦標賽2025(顏明秀副會長盾)",
       "captured_date": "2025-11-05",
       "published_date": "2025-11-05",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "童軍專章考驗日2025",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/156",
+      "title": "童軍專章考驗日2025",
       "captured_date": "2025-10-01",
       "published_date": "2025-10-01",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "幼童軍技能比賽2025 李美琪副主席（銀碟賽）",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/155",
+      "title": "幼童軍技能比賽2025 李美琪副主席(銀碟賽)",
       "captured_date": "2025-10-01",
       "published_date": "2025-10-01",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "小童軍支部比賽2025 蕭麗馨副主席（主席盃）",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/154",
+      "title": "小童軍支部比賽2025 蕭麗馨副主席(主席盃)",
       "captured_date": "2025-10-01",
       "published_date": "2025-10-01",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     },
     {
-      "title": "沙田南旅團支援計劃（2025-26年度）",
+      "source_site": "沙田南區",
+      "region": "新界東地域",
       "pdf_url": "https://www.stsd-scout.org/programme/view_notice/148",
+      "title": "沙田南旅團支援計劃(2025-26年度)",
       "captured_date": "2025-07-08",
       "published_date": "2025-07-08",
-      "source_site": "沙田南區",
-      "region": "新界東地域",
       "backfilled_at": "2026-10-16",
       "suppress_notifications": true
     }
@@ -81490,24 +81682,61 @@
       "Scout System"
     ],
     "total_sources": 50,
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-16 05:00:07",
-      "new": 1,
-      "updated": 3557,
-      "daily_new": 8,
-      "skipped": 4,
+      "updated_at": "2026-10-17 03:33:36",
+      "new": 12,
+      "updated": 12,
+      "daily_new": 12,
+      "skipped": 38,
       "processed": 46,
-      "playwright_used": 2,
-      "error_sources": [],
+      "playwright_used": 10,
+      "error_sources": [
+        "總會",
+        "慈雲山區"
+      ],
       "skipped_sources": [
+        "港島地域",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
