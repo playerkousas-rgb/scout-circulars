@@ -2,7 +2,7 @@
 """Story 出圖：Pillow 模板，食 story-queue.json 出 1080×1920 PNG + JPEG。
 
 PNG 供 Stories branch／通告專屬頁顯示；JPEG 供 Instagram Graph API（只接受 JPEG）。
-預設輸出 queue 內全部齊料通告，不設張數上限。
+各類先一張，再用不重複通告補位；即使舊 queue 超額，出圖亦硬限最多五張。
 
 由「NoScout 9 款概念」正式移植，執正咗嘅位：
   - 資料真源：story_queue.py 已 join 好 cache.json + enrich.json
@@ -702,7 +702,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--orgs", default=str(ROOT / "icons/orgs/orgs.json"))
     ap.add_argument("--out", default="output")
     ap.add_argument("--limit", type=int, default=0,
-                    help="最多幾多張；預設 0＝queue 內全部（正數只供手動測試）")
+                    help="最多幾多張；硬上限五張、不重複；正數只能調低")
     ap.add_argument("--build-index", metavar="STORIES_DIR",
                     help="只抌索引：掃 <STORIES_DIR>/<日期>/manifest.json 出 index.json")
     args = ap.parse_args(argv)
@@ -729,7 +729,8 @@ def main(argv: list[str] | None = None) -> int:
 
     manifest = {"today": today, "queue_generated_at": queue.get("generated_at", ""), "items": []}
     queue_items = queue.get("items") or []
-    items = queue_items[: args.limit] if args.limit > 0 else queue_items
+    from story_queue import select_story_items
+    items = select_story_items(queue_items, args.limit)
     # Allocate the whole daily batch together: borrow a never-used「通告」base
     # only when a category would otherwise repeat one of its own bases.
     template_choices = pick_daily_templates(items)

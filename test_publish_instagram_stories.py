@@ -86,6 +86,34 @@ class TestPublisher(unittest.TestCase):
         "INSTAGRAM_ACCESS_TOKEN": "test-token-not-a-real-secret",
     }
 
+    def test_oversized_manifest_rejected_before_any_network(self):
+        with tempfile.TemporaryDirectory() as td:
+            manifest = _write_manifest(Path(td), count=6)
+            with patch.object(publisher, "urlopen") as network:
+                with self.assertRaisesRegex(publisher.PublishError, "hard limit of five"):
+                    publisher.publish_manifest(manifest, "https://raw.githubusercontent.com/a/b/", self.ENV)
+            network.assert_not_called()
+
+    def test_duplicate_titles_and_drive_aliases_rejected_before_network(self):
+        for kind in ("title", "drive", "mirror"):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as td:
+                manifest = _write_manifest(Path(td), count=2)
+                data = json.loads(manifest.read_text())
+                if kind == "title":
+                    data["items"][0]["title"] = "同一通告（１）"
+                    data["items"][1]["title"] = "同 一 通告(1)"
+                elif kind == "drive":
+                    data["items"][0]["pdf_url"] = "https://drive.google.com/file/d/ABC-123/view"
+                    data["items"][1]["pdf_url"] = "https://drive.google.com/open?id=ABC-123"
+                else:
+                    data["items"][0]["pdf_url"] = "https://scout.org.hk/uploads/X.pdf"
+                    data["items"][1]["pdf_url"] = "https://www.scout.org.hk/uploads/x.pdf"
+                manifest.write_text(json.dumps(data))
+                with patch.object(publisher, "urlopen") as network:
+                    with self.assertRaisesRegex(publisher.PublishError, "duplicate notices"):
+                        publisher.publish_manifest(manifest, "https://raw.githubusercontent.com/a/b/", self.ENV)
+                network.assert_not_called()
+
     def test_one_complete_item_verifies_image_then_creates_and_publishes_once(self):
         with tempfile.TemporaryDirectory() as td:
             manifest = _write_manifest(Path(td))

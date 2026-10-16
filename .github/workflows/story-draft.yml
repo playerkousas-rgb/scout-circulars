@@ -10,7 +10,7 @@
 # （之前 15:30 HKT 排程 + 8 鐘延遲 = 23:40 HKT，已經貼住跨日邊緣。）
 #
 # Only complete cards are included: title, issue date, source, category, region,
-# original attachment, deadline, audience, and fee. There is no local count cap;
+# original attachment, deadline, audience, and fee. At most five distinct notices, category-first with replacement slots;
 # Instagram's own account/API limits still apply.
 #
 # Publishing is gated on verified conditions rather than on a guessed delay,
@@ -74,10 +74,10 @@ jobs:
           sudo apt-get install -y fonts-noto-cjk
           python -m pip install --disable-pip-version-check pillow 'qrcode[pil]'
 
-      - name: Build today's complete queue (no count cap)
+      - name: Build today's complete queue (max five, category-balanced)
         id: queue
         run: |
-          python3 story_queue.py --limit 0 --out "$RUNNER_TEMP/story-queue.json"
+          python3 story_queue.py --limit 5 --out "$RUNNER_TEMP/story-queue.json"
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
           import json, os
           from pathlib import Path

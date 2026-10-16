@@ -1884,6 +1884,22 @@ def extract_assets_from_listing(
     config: Dict[str, Any],
     max_detail_pages: int,
 ) -> List[Dict[str, str]]:
+    # Explicit authoritative notice links: keep the listing row's identity,
+    # even when the endpoint streams a PDF or its page has shared resources.
+    if config.get("notice_link_selector"):
+        records = []
+        seen = set()
+        pattern = config.get("notice_url_pattern", r"(?!)")
+        for anchor in soup.select(config["notice_link_selector"]):
+            url = sanitize_url(resolve_url(page_url, anchor.get("href")) or "", config.get("url_sanitize", []))
+            if not re.fullmatch(pattern, url) or url in seen:
+                continue
+            record = make_asset_record(url, infer_listing_title(anchor, soup, config), config)
+            if record:
+                seen.add(url)
+                records.append(record)
+        return records
+
     assets: List[Dict[str, str]] = []
     detail_candidates: List[str] = []
     seen_assets: Set[str] = set()
@@ -1967,6 +1983,42 @@ def extract_assets_from_listing(
     if not assets and (config.get('text_notice_selector') or config.get('notice_card_selector')):
         assets.extend(parse_text_notice_blocks(soup, page_url, config, name=name, max_detail_pages=max_detail_pages))
 
+    if config.get("extract_drive_embeds"):
+        for node in soup.select("iframe[src], iframe[data-src], embed[src], object[data]"):
+            src = node.get("data-src") or node.get("src") or node.get("data") or ""
+            parsed = urlparse(resolve_url(page_url, src) or "")
+            match = re.search(r"/file/d/([\w-]+)", parsed.path)
+            if parsed.hostname not in {"drive.google.com", "docs.google.com"} or not match:
+                continue
+            href = f"https://drive.google.com/file/d/{match.group(1)}/view"
+            if href in seen_assets:
+                continue
+            # Google Sites renders the file name adjacent to its iframe. Use
+            # an explicit title or a nearby heading, never the whole page title.
+            title = node.get("title") or node.get("aria-label") or ""
+            if not title or title.lower() in {"embedded files", "drive", "google drive"}:
+                title = ""
+                previous = node
+                generic = {"訓練及活動通告", "訓練及活動取錄名單", "訓練及活動相片", "Embedded Files"}
+                for _ in range(60):
+                    previous = previous.find_previous(["p", "span", "h2", "h3", "h4"])
+                    if previous is None:
+                        break
+                    candidate = previous.get_text(" ", strip=True)
+                    if 5 <= len(candidate) <= 140 and candidate not in generic:
+                        title = candidate
+                        break
+                if not title:
+                    following = node.find_next(["h1", "h2", "h3", "h4", "p", "iframe"])
+                    if following is not None and following.name != "iframe":
+                        candidate = following.get_text(" ", strip=True)
+                        if 5 <= len(candidate) <= 140 and candidate not in generic:
+                            title = candidate
+            record = make_asset_record(href, title, config)
+            if record:
+                seen_assets.add(href)
+                assets.append(record)
+
     if not should_follow_detail_pages(config):
         return assets
 
@@ -2043,6 +2095,26 @@ def iter_records_from_cache(cache: Dict[str, Any]) -> List[Dict[str, Any]]:
     return records
 
 
+def merge_reviewed_backfills(remote_records, local_records):
+    """Keep explicitly dated offline backfills through a remote cache refresh.
+
+    No schema change or database write required. Remote inventory remains
+    authoritative for ordinary records; only reviewed archive rows are overlaid.
+    """
+    merged = {(r.get("source_site"), r.get("pdf_url")): dict(r) for r in remote_records}
+    for row in local_records:
+        if not row.get("backfilled_at") or not row.get("suppress_notifications"):
+            continue
+        key = (row.get("source_site"), row.get("pdf_url"))
+        if key not in merged:
+            merged[key] = dict(row)
+        else:
+            for field in ("captured_date", "published_date", "backfilled_at", "suppress_notifications"):
+                if field in row:
+                    merged[key][field] = row[field]
+    return list(merged.values())
+
+
 def build_grouped_cache(
     all_records: List[Dict[str, Any]],
     all_sources: Dict[str, Dict[str, Any]],
@@ -2062,6 +2134,9 @@ def build_grouped_cache(
             "title": normalized_title,
             "captured_date": record.get("captured_date", ""),
         }
+        for key in ("published_date", "backfilled_at", "suppress_notifications"):
+            if key in record:
+                normalized[key] = record[key]
         if record.get("tags"):
             normalized["tags"] = list(record["tags"])
         normalized_records.append(normalized)
@@ -2074,6 +2149,9 @@ def build_grouped_cache(
             "source_site": source_name,
             "region": normalized["region"],
         }
+        for key in ("published_date", "backfilled_at", "suppress_notifications"):
+            if key in normalized:
+                entry[key] = normalized[key]
         if normalized.get("tags"):
             entry["tags"] = normalized["tags"]
         data.setdefault(source_name, []).append(entry)
@@ -2089,6 +2167,9 @@ def build_grouped_cache(
             "title": r.get("title", ""),
             "captured_date": r.get("captured_date", ""),
         }
+        for key in ("published_date", "backfilled_at", "suppress_notifications"):
+            if key in r:
+                entry[key] = r[key]
         if r.get("tags"):
             entry["tags"] = list(r["tags"])
         return entry
@@ -2232,7 +2313,7 @@ def process_source(
     new_fp = compute_fingerprint(soup, fp_selector)
     old_fp = fingerprints.get(name, "")
 
-    if not force and new_fp and old_fp and new_fp == old_fp:
+    if not force and not config.get("always_check_listing_pages") and new_fp and old_fp and new_fp == old_fp:
         tag = "🎭 PW" if result.engine == "playwright" else "⏭️"
         print(f"  [{name}] {tag} 指紋相同，跳過 (0.1s)")
         return [], [], new_fp, True, result.engine, False
@@ -2252,6 +2333,8 @@ def process_source(
         for listing_url in listing_pages[:listing_limit]:
             try:
                 sub = fetch_page(listing_url, config, force_playwright=bool(config.get('listing_use_playwright')))
+                if sub.status_code >= 400:
+                    raise RuntimeError(f"listing HTTP {sub.status_code}")
                 sub_soup = BeautifulSoup(sub.html, 'html.parser')
                 sub_assets = extract_assets_from_listing(
                     name=name,
@@ -2265,11 +2348,14 @@ def process_source(
                         continue
                     seen_asset_urls.add(rec['pdf_url'])
                     assets.append(rec)
-            except Exception:
-                continue
+            except Exception as exc:
+                print(f"  [{name}] ❌ 子列表抓取失敗: {listing_url}: {type(exc).__name__}")
+                return [], [], old_fp, False, result.engine, True
 
     if not assets:
         print(f"  [{name}] ⚠️ 指紋變動但無可下載資產")
+        if config.get("notice_link_selector"):
+            return [], [], old_fp, False, result.engine, True
         return [], [], new_fp, False, result.engine, False
 
     region = config.get("region", "")
@@ -2473,7 +2559,7 @@ def main(
         if USE_SUPABASE:
             remote_records = supabase_fetch_all()
             if remote_records:
-                merged_records = remote_records
+                merged_records = merge_reviewed_backfills(remote_records, list(local_record_map.values()))
 
         # v5.6.23 (P8): 一日有兩個 writer —— GitHub Actions 00:15 HKT (`python core.py`)
         # 同本機 run-local-scrape.bat 05:00 HKT (`python core.py --force`)。

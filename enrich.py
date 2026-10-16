@@ -60,7 +60,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.6"  # PDF 標題／表格／對象／訂閱分類規則版本
+ENRICH_VERSION = "3.7"  # PDF 標題／表格／對象／訂閱分類規則版本
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
 # （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
 # 標題更正會記錄 listing_title，之後每次 run 重新套用（見
@@ -770,71 +770,79 @@ def _recipient_scope(text):
     return ""
 
 
-def extract_audience(text):
-    """對象：只從明確『參加資格/對象』label 附近辨識支部主體。
-    主體離不開：小童軍/幼童軍/童軍/深資童軍/樂行童軍/領袖/家長/成年成員/公眾。
+def audience_scope(text):
+    """Prefer an actual participant field, never a service target or staff qualification.
 
-    設計原則（非常重要）：
-      - **寧願漏抽，絕不亂抽**
-      - 無明確 label 時寧願回傳空字串，也不用全段文字 fallback
-      - 因為全段文字可能出現「本活動不適合深資童軍」或附件中引用其他支部，
-        亂抽會導致用戶錯過報名或報錯對象
-
-    v2.2 改動 (2026-08): find_date 日曆驗證，拒絕無效日期
-
-    v2.1 改動：
-      - label 後掃描範圍維持 2 行（平衡覆蓋率與準確率）
-      - 無 label 時不回傳任何結果
-      - 維持「由窄到闊」匹配，避免「童軍」吃掉「幼童軍/深資童軍」
+    Read a bounded paragraph/list, stopping at the next field rather than at an
+    arbitrary PDF line wrap. Keep the scope available for evidence/review.
     """
-    # 先鎖定 label 後面一段範圍（資格段通常在 label 後 1-2 行）
-    scope = locate_label_scope(
-        text,
-        label_keys=["參加資格", "參加對象", "對象", "資格"],
-        lines_after=2,
-        stop_keys=["費用", "收費", "名額", "報名", "截止", "日期", "辦法"],
-        follow_list=True,   # 2026-10-06：資格通常係（1）（2）（3）多行清單
-        # 2026-10-06：「歡迎各合資格的…」嘅「合資格」唔係欄位 label；
-        # 唔遮走會喺真正「參加資格：」之前搶先命中（26239／5653 個案）。
-        label_mask_terms=("合資格",),
+    lines = [compact(line).strip() for line in nfkc(text).splitlines()]
+    explicit = re.compile(r"(?<![\u4e00-\u9fff])(?:參加資格|參加對象|入會資格|受資助資格|資助對象)\s*[:：]?")
+    weak = re.compile(r"^(?:[（(]?[一二三四五六七八九十\d]+[）)、.]\s*)?(?:對象|資格)\s*[:：]")
+    boundary = re.compile(
+        r"^(?:[（(]?[一二三四五六七八九十\d]+[）)、.]\s*)?"
+        r"(?:班領導人資格|會議形式|考驗形式|學習時數|課程內容|資助金額|資助範圍|"
+        r"發放款項|費用|收費|名額|報名|截止|日期|時間|地點|內容|服飾|服裝|備註|注意|查詢)"
     )
-    if not scope:
-        # 冇「參加資格／對象」label 時，先睇公函收件人欄（「致：…」）；
-        # 都冇就寧願漏抽。
-        scope = _recipient_scope(text)
-    if not scope:
-        return ""  # 無明確 label，寧願漏抽
+    for pattern in (explicit, weak):
+        for i, line in enumerate(lines):
+            match = pattern.search(line)
+            if not match:
+                continue
+            parts = [line[match.end():]]
+            for following in lines[i + 1:i + 17]:
+                if boundary.match(following):
+                    break
+                # A new labelled field (including numbered headings) ends this
+                # field. Numbered participant list entries have no field colon.
+                if re.match(r"^[（(][一二三四五六七八九十]+[）)].*[:：]", following):
+                    break
+                parts.append(following)
+            return " ".join(parts).strip()
+    return _recipient_scope(text)
 
+
+def extract_audience(text):
+    """Extract participant identities, preserving explicit age/role limitations.
+
+    Documents, prerequisite courses and parental consent are not participants.
+    A broad 'all sections' phrase stays qualified instead of silently enrolling
+    children below the stated age. The original scope is retained separately.
+    """
+    scope = audience_scope(text)
+    if not scope:
+        return ""
     c = compact(scope)
-    # 家長／監護人喺資格段好多時只係簽同意書（例如 18 歲以下參加者），
-    # 唔代表家長本身係活動對象。遮走呢類表格要求，仍然保留「家長可參加」等真正對象字眼。
-    c = re.sub(r"(?:家長|監護人)(?:[/／]監護人)?(?:同意書|同意)", "", c)
-    # 主體辨識（次序由窄到闊，避免「童軍」吃掉「幼童軍/深資童軍」）
+    c = re.sub(r"(?:獲得|取得|獲)?(?:家長|監護人)(?:(?:或|及|[/／])(?:家長|監護人))?(?:的)?(?:簽署)?(?:同意書|同意)", "", c)
+    c = re.sub(r"(?:完成|考獲)(?:了)?[^；;。\n]{0,60}?(?:訓練班|訓練課程|課程)(?:[（(][^）)]*[）)])?", "", c)
+    c = re.sub(r"(?<![小幼資行])童軍(?:成員編號|紀錄冊|領袖基本訓練班|運動基本原則(?:訓練班)?)", "", c)
+    # Compound roles must be matched before section names: a Cub leader is
+    # not a Cub participant. Keep committee-chair roles as explicit roles.
+    c = re.sub(r"(?:小童軍|幼童軍|深資童軍|樂行童軍|童軍)(?:支部)?(?:各級)?(?:團團長|團長|領袖)", "領袖", c)
+    c = re.sub(r"非(?:小童軍|幼童軍|深資童軍|樂行童軍|童軍)(?:成員)?", "", c)
+    c = c.replace("教練員", "領袖")
     found = []
     rules = [
-        ("小童軍", "小童軍"),
-        ("幼童軍", "幼童軍"),
-        ("深資童軍", "深資童軍"),
-        ("樂行童軍", "樂行童軍"),
-        ("童軍", "童軍"),
-        ("領袖", "領袖"),
-        ("家長", "家長"),
-        ("成年成員", "成年成員"),
-        ("會務委員", "會務委員"),
-        ("公眾", "公眾"),
+        ("小童軍", "小童軍"), ("幼童軍", "幼童軍"),
+        ("深資童軍", "深資童軍"), ("樂行童軍", "樂行童軍"),
+        ("童軍", "童軍"), ("領袖", "領袖"), ("家長", "家長"),
+        ("成年成員", "成年成員"), ("會務委員", "會務委員"), ("公眾", "公眾"),
+        ("受薪職員", "受薪職員"), ("家屬", "家屬"),
+        ("團執行委員會主席", "團執行委員會主席"), ("學校旅負責老師", "學校旅負責老師"),
     ]
     tmp = c
     for needle, label in rules:
         if needle in tmp:
             found.append(label)
-            # 移走已配對的較長詞，避免「童軍」重覆命中「幼童軍」殘留
             tmp = tmp.replace(needle, "")
-    # 去重保序
-    seen = set(); ordered = []
-    for x in found:
-        if x not in seen:
-            seen.add(x); ordered.append(x)
-    return "、".join(ordered)
+    # Avoid turning a limited 'all sections aged 12+' into eight unqualified
+    # branch IDs. Explicit qualifying wording is shown, not guessed away.
+    broad = re.search(r"各(?:級)?支部成員|各級童軍成員", c)
+    if broad:
+        age = re.search(r"(?:年滿|年齡(?:為)?)(\d+)歲|(?:\d+)歲或以上", c)
+        qualifier = f"（{age.group(0)}）" if age else ""
+        found = ["各支部成員" + qualifier] + [x for x in found if x != "童軍"]
+    return "、".join(dict.fromkeys(found))
 
 
 # 2026-10-06：「參加資格」呢類欄位後面通常係（1）（2）（3）… 編號清單，
@@ -1013,6 +1021,7 @@ def extract_fields(text, title="", source="", tables=None):
     return {
         "deadline": extract_deadline(text, tables=tables),
         "audience": audience,
+        "audience_evidence": audience_scope(text),
         "fee": extract_fee(text, tables=tables),
         "categories": subscription["categories"],
         "branch_tags": subscription["branch_tags"],
@@ -1131,6 +1140,9 @@ def is_enrichable_url(url: str) -> bool:
     url = url or ""
     if url_path_lower(url).endswith(".pdf"):
         return True
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.hostname in {"www.stsd-scout.org", "stsd-scout.org"} and re.fullmatch(r"/programme/view_notice/\d+", parsed.path):
+        return True  # official download endpoint; still must pass %PDF bytes
     return bool(_ENRICHABLE_URL_RE.search(url))
 
 
@@ -1541,6 +1553,7 @@ def main():
             "title": title,
             "deadline": res.get("deadline", ""),
             "audience": res.get("audience", ""),
+            "audience_evidence": res.get("audience_evidence", ""),
             "fee": normalize_fee(res.get("fee", "")),
             "categories": res.get("categories") or [],
             "branch_tags": res.get("branch_tags") or [],
