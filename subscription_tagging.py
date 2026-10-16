@@ -361,7 +361,7 @@ def _mask_term(value: Any, term: str) -> str:
 
 # 2026-10-06：課程／徽章標籤唔應該由「資格／優先考慮／由…擔任」呢類句子抽出。
 _COURSE_REQUIREMENT_TERMS = (
-    "持有", "資格", "資歷", "優先", "同等", "必須", "擔任", "班領導人",
+    "持有", "完成", "資格", "資歷", "優先", "同等", "必須", "擔任", "班領導人",
 )
 _COURSE_CONTEXT_WINDOW = 14
 
@@ -391,7 +391,12 @@ def _course_hit_is_requirement_noise(combined: str, hit: str, title: str) -> boo
         window = haystack[
             max(0, index - _COURSE_CONTEXT_WINDOW): index + len(needle) + _COURSE_CONTEXT_WINDOW
         ]
-        if not any(term in window for term in _COURSE_REQUIREMENT_TERMS):
+        # Module aliases at the end of a prerequisite's parentheses can be
+        # more than 14 characters away from 完成. Follow that same clause,
+        # without poisoning an unrelated course in the following sentence.
+        prefix = haystack[max(0, index - 64):index]
+        completed_module = re.search(r"完成[^。；;]{0,48}(?:訓練班|課程)[(（][^）)]*$", prefix)
+        if not completed_module and not any(term in window for term in _COURSE_REQUIREMENT_TERMS):
             return False
         start = index + 1
 
@@ -655,6 +660,12 @@ def extract_categories(title: Any, text: Any = "", source: Any = "") -> List[Dic
 def _scan_branch_tokens(value: Any, catalog: Mapping[str, Any]) -> Set[str]:
     """Scan longest aliases first so 幼童軍/深資童軍 never become 童軍."""
     text = normalize(value)
+    # Retain age/role restrictions in display without turning them into broad
+    # youth subscriptions. We cannot infer eligible ages from branch names.
+    text = re.sub(r"各支部成員[（(][^）)]*[）)]", "", text)
+    text = text.replace("教練員", "領袖")
+    if "各支部成員" in text:
+        return {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"} | _scan_branch_tokens(text.replace("各支部成員", ""), catalog)
     if not text:
         return set()
     if any(normalize(term) in text for term in ALL_MEMBERS_TERMS):
@@ -784,7 +795,7 @@ def extract_subscription_metadata(
     branch_ids = extract_branch_ids(title, audience_effective, catalog=catalog)
     # A verified course provides a safe fallback scope only when the PDF has no
     # labelled audience and the title did not identify a branch.
-    if not branch_ids:
+    if not branch_ids and not audience_effective:
         for course, _hits in course_entries:
             branch_ids.update(str(x) for x in course.get("branches", []) if x != "*")
 
@@ -821,6 +832,7 @@ def extract_subscription_metadata(
                 for blocked in topic.get("exclude", []) or []:
                     haystack = _mask_term(haystack, blocked)
                 hits = _term_hits(haystack, aliases)
+                hits = [hit for hit in hits if not _course_hit_is_requirement_noise(combined, hit, title)]
                 if not hits:
                     continue
                 evidence = [f"標題／內文：{hit}" for hit in hits]

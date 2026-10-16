@@ -160,6 +160,8 @@ def find_new_notices(current: Mapping[str, Any], baseline: Mapping[str, Any]) ->
     result: List[Dict[str, Any]] = []
     seen: Set[str] = set()
     for item in iter_notices(current):
+        if item.get("suppress_notifications"):
+            continue
         key = notice_key(item)
         if key in previous_keys or key in seen:
             continue
@@ -184,6 +186,8 @@ def find_catchup_notices(
     seen = {notice_key(item) for item in already_found}
     result: List[Dict[str, Any]] = []
     for item in iter_notices(current):
+        if item.get("suppress_notifications"):
+            continue
         key = notice_key(item)
         if key in seen:
             continue
@@ -790,6 +794,8 @@ def main() -> int:
     summary_seen: Set[str] = set()
     newly_discovered_keys = {notice_key(item) for item in notices}
     for item in iter_notices(current) + notices:
+        if item.get("suppress_notifications"):
+            continue
         item_date = str(item.get("captured_date") or item.get("date") or "")[:10]
         key = notice_key(item)
         if key not in newly_discovered_keys and item_date != batch_date:

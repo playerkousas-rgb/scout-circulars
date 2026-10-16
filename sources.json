@@ -912,12 +912,22 @@
         "?authuser=1",
         "?usp=sharing"
       ],
-      "notes": "Google Site INDEX 頁",
+      "notes": "2026-10-16：除區會通訊外巡查官方支部通訊（含 Drive iframe），主頁指紋相同亦巡查子頁，避免靜默漏抓。",
       "use_playwright": false,
       "wait_strategy": "selector",
       "wait_selector": "[role='main'] a, [role='main'] .typo-h4, .C9DxTc",
       "follow_detail_pages": false,
-      "asset_link_selector": "a"
+      "asset_link_selector": "a",
+      "follow_listing_pages": true,
+      "always_check_listing_pages": true,
+      "listing_page_urls": [
+        "https://sites.google.com/view/pikfung-district/支部通訊/小童軍",
+        "https://sites.google.com/view/pikfung-district/支部通訊/幼童軍",
+        "https://sites.google.com/view/pikfung-district/支部通訊/童軍",
+        "https://sites.google.com/view/pikfung-district/支部通訊/深資及樂行童軍"
+      ],
+      "listing_max_pages": 8,
+      "extract_drive_embeds": true
     },
     "大埔北區": {
       "region": "新界東地域",
@@ -990,23 +1000,25 @@
       "encoding": "utf-8",
       "fingerprint_selector": "h4, table",
       "link_selector": "a[href*=\"/programme/view_notice/\"]",
-      "title_selector": "table tr td:nth-child(1), h4, body",
+      "title_selector": "td:first-child",
       "url_sanitize": [
         "?v=",
         "?t=",
         "?ver="
       ],
-      "notes": "v5.6.17: 內頁為純 HTML 通告（無 PDF）。allow_page_notice_fallback 應生效。fingerprint_selector 改為 h4+table 提高敏感度。detail_max_pages 增至 50 確保不漏。SSL 問題仍需 verify_ssl=false。",
+      "notes": "2026-10-16：直接收官方 view_notice 端點，用同列標題；不讓共用資源 PDF 壓掉真通告，端點下載仍驗 PDF magic bytes。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
       "playwright_note": "Playwright fallback: requests 模式無法提取 PDF 連結時自動切換",
       "asset_link_selector": "a[href*='.pdf']",
-      "follow_detail_pages": true,
+      "follow_detail_pages": false,
       "detail_max_pages": 50,
       "detail_link_selector": "a[href*=\"/programme/view_notice/\"]",
       "allow_page_notice_fallback": true,
-      "verify_ssl": false
+      "verify_ssl": false,
+      "notice_link_selector": "table a[href*='/programme/view_notice/']",
+      "notice_url_pattern": "^https://(?:www\\.)?stsd-scout\\.org/programme/view_notice/\\d+$"
     },
     "沙田東區": {
       "region": "新界東地域",

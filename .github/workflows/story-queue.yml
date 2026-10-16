@@ -2,7 +2,7 @@
 # 手動 Story 清單工具（每日自動發佈由 story-draft.yml 負責）
 #
 # 只保留 workflow_dispatch，供管理員需要時手動刷新 story-queue.json。
-# 正常每日流程不會先觸發本 workflow：15:30 HKT 的 story-draft.yml
+# 正常每日流程不會先觸發本 workflow：12:00 HKT 的 story-draft.yml
 # 會在同一個 run 內直接挑齊料通告、出圖並發佈，避免多一輪 Action。
 # ============================================================
 
@@ -33,9 +33,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 零 pip install：story_queue.py 係 stdlib only；預設列出所有齊料通告。
-      - name: Build complete Story queue
-        run: python3 story_queue.py --limit 0
+      # 零 pip install：story_queue.py 係 stdlib only；各類先一張再補位，最多五張。
+      - name: Build balanced Story queue (max five)
+        run: python3 story_queue.py --limit 5
 
       - name: Commit story queue
         run: |

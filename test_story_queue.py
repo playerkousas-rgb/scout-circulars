@@ -238,7 +238,7 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
 
 
 class TestBuildQueue(unittest.TestCase):
-    def test_default_has_no_count_limit_and_reports_skipped_items(self):
+    def test_default_caps_at_five_and_reports_skipped_items(self):
         items = [_item(title=f"訓練通告{i:02d}", date="2026-10-01",
                        url=f"https://example.hk/{i}.pdf", pdf_url=f"https://example.hk/{i}.pdf")
                  for i in range(30)]
@@ -247,15 +247,15 @@ class TestBuildQueue(unittest.TestCase):
         enrich = _enrich(items, {"https://example.hk/incomplete.pdf": {"fee": ""}})
         cache = _cache({"總會": items})
         queue = sq.build_queue(cache, TODAY, now=datetime(2026, 9, 21, 12, 0, tzinfo=sq.HKT), enrich=enrich)
-        self.assertEqual(queue["count"], 30)
-        self.assertEqual(len(queue["items"]), 30)
+        self.assertEqual(queue["count"], 5)
+        self.assertEqual(len(queue["items"]), 5)
         self.assertEqual(queue["candidate_count"], 31)
         self.assertEqual(queue["skipped_incomplete"], 1)
         self.assertEqual(queue["today"], TODAY)
         self.assertEqual(queue["cache_last_updated"], "2026-09-21 05:00:10")
         self.assertIn("+0800", queue["generated_at"])
 
-    def test_explicit_positive_limit_is_only_a_manual_override(self):
+    def test_explicit_limit_cannot_raise_the_hard_cap(self):
         items = [_item(title=f"訓練通告{i:02d}", url=f"https://example.hk/{i}.pdf",
                        pdf_url=f"https://example.hk/{i}.pdf") for i in range(30)]
         queue = sq.build_queue(_cache({"總會": items}), TODAY, 5, enrich=_enrich(items))

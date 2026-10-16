@@ -59439,7 +59439,7 @@
     "source": "總會",
     "title": "香港童軍115周年-幼童軍度假營 2026-港島地域分營-青少年成員營費資助計劃",
     "deadline": "",
-    "audience": "幼童軍、童軍、家長",
+    "audience": "幼童軍",
     "fee": "",
     "categories": [
       {
@@ -59450,13 +59450,10 @@
       }
     ],
     "branch_tags": [
-      "家長",
-      "幼童軍",
-      "童軍"
+      "幼童軍"
     ],
     "subscription_tags": [
-      "category:announcement",
-      "course:shared-active-citizen"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
@@ -59465,15 +59462,6 @@
         "group": "公布",
         "kind": "category",
         "evidence": []
-      },
-      {
-        "id": "course:shared-active-citizen",
-        "label": "「積極公民」獎章系列",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：積極公民"
-        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
@@ -59481,13 +59469,16 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-09 05:07:02",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "受資助資格：年齡為8至11歲，持有有效幼童軍紀錄冊及童軍成員編號的幼童軍（必須獲得家長或監護人的同意）。\n資助金額：每位港幣300元",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://scout.org.hk/uploads/tc/circulars/26353/Trg20_26_9thSectionalTrainingMethodsCourseM2AB.pdf": {
     "source": "總會",
     "title": "第9屆童軍支部訓練方法訓練班(單元2A及單元2B)",
     "deadline": "2026-12-04",
-    "audience": "童軍、領袖",
+    "audience": "領袖、受薪職員",
     "fee": "HK$220",
     "categories": [
       {
@@ -59500,15 +59491,11 @@
       }
     ],
     "branch_tags": [
-      "童軍",
       "領袖"
     ],
     "subscription_tags": [
       "category:training",
-      "course:leader-basic-training",
-      "course:wood-module-1",
       "course:wood-module-2-scout",
-      "training:童軍",
       "training:領袖:木章"
     ],
     "subscription_tag_details": [
@@ -59522,41 +59509,12 @@
         ]
       },
       {
-        "id": "course:leader-basic-training",
-        "label": "領袖基本",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：領袖基本訓練班",
-          "標題／內文：領袖基本訓練"
-        ]
-      },
-      {
-        "id": "course:wood-module-1",
-        "label": "童軍運動基本原則（單元1A／1B）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍運動基本原則",
-          "標題／內文：單元1b"
-        ]
-      },
-      {
         "id": "course:wood-module-2-scout",
         "label": "童軍支部訓練方法（單元2A／2B）",
         "group": "訓練",
         "kind": "course",
         "evidence": [
           "標題／內文：童軍支部訓練方法"
-        ]
-      },
-      {
-        "id": "training:童軍",
-        "label": "所有童軍訓練",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：童軍"
         ]
       },
       {
@@ -59574,7 +59532,10 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-09 05:07:06",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "參加資格：持有有效童軍支部領袖委任書、非支部領袖委任書或受薪職員。\n費用：見原文",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://scout.org.hk/uploads/tc/circulars/26356/P104-26.pdf": {
     "source": "總會",
@@ -60918,7 +60879,7 @@
     "source": "總會",
     "title": "第8屆森林舞蹈訓練班(領袖技能訓練班) (KT/72/26)",
     "deadline": "2026-12-06",
-    "audience": "童軍、領袖、會務委員",
+    "audience": "領袖、會務委員、受薪職員",
     "fee": "HK$60",
     "categories": [
       {
@@ -60933,17 +60894,13 @@
     ],
     "branch_tags": [
       "會務委員",
-      "童軍",
       "領袖"
     ],
     "subscription_tags": [
       "category:training",
-      "course:leader-basic-training",
       "course:leader-jungle-dance",
-      "course:wood-module-1",
       "training:會務委員",
-      "training:童軍",
-      "training:領袖:木章"
+      "training:領袖:非木章"
     ],
     "subscription_tag_details": [
       {
@@ -60957,15 +60914,6 @@
         ]
       },
       {
-        "id": "course:leader-basic-training",
-        "label": "領袖基本",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：領袖初級訓練班"
-        ]
-      },
-      {
         "id": "course:leader-jungle-dance",
         "label": "森林舞蹈",
         "group": "訓練",
@@ -60973,15 +60921,6 @@
         "evidence": [
           "標題／內文：森林舞蹈訓練班",
           "標題／內文：森林舞蹈訓練"
-        ]
-      },
-      {
-        "id": "course:wood-module-1",
-        "label": "童軍運動基本原則（單元1A／1B）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍運動基本原則"
         ]
       },
       {
@@ -60994,21 +60933,12 @@
         ]
       },
       {
-        "id": "training:童軍",
-        "label": "所有童軍訓練",
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
         "group": "訓練",
         "kind": "training",
         "evidence": [
-          "支部：童軍"
-        ]
-      },
-      {
-        "id": "training:領袖:木章",
-        "label": "所有木章訓練班",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "類別：木章訓練班"
+          "類別：非木章訓練班"
         ]
       }
     ],
@@ -61017,13 +60947,16 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-15 05:06:58",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "參加資格：持有有效領袖委任書、教練員／會務委員委任證或受薪職員；\n完成領袖初級訓練班；或完成童軍運動基本原則訓練班（單元1A及單元1B）。\n費用：港幣60元",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://scout.org.hk/uploads/tc/circulars/26409/KT73_26.pdf": {
     "source": "總會",
     "title": "第30屆深資童軍進度性獎章訓練班(領袖技能訓練班) (KT/73/26)",
     "deadline": "2026-12-17",
-    "audience": "童軍、領袖、會務委員",
+    "audience": "領袖、會務委員、受薪職員",
     "fee": "HK$100",
     "categories": [
       {
@@ -61038,18 +60971,14 @@
     ],
     "branch_tags": [
       "會務委員",
-      "童軍",
       "領袖"
     ],
     "subscription_tags": [
       "category:training",
-      "course:leader-basic-training",
       "course:leader-scout-progressive-badges",
       "course:leader-venture-progressive-badges",
-      "course:wood-module-1",
       "training:會務委員",
-      "training:童軍",
-      "training:領袖:木章"
+      "training:領袖:非木章"
     ],
     "subscription_tag_details": [
       {
@@ -61060,15 +60989,6 @@
         "evidence": [
           "訓練班",
           "技能訓練"
-        ]
-      },
-      {
-        "id": "course:leader-basic-training",
-        "label": "領袖基本",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：領袖初級訓練班"
         ]
       },
       {
@@ -61092,15 +61012,6 @@
         ]
       },
       {
-        "id": "course:wood-module-1",
-        "label": "童軍運動基本原則（單元1A／1B）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍運動基本原則"
-        ]
-      },
-      {
         "id": "training:會務委員",
         "label": "所有會務委員訓練",
         "group": "訓練",
@@ -61110,21 +61021,12 @@
         ]
       },
       {
-        "id": "training:童軍",
-        "label": "所有童軍訓練",
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
         "group": "訓練",
         "kind": "training",
         "evidence": [
-          "支部：童軍"
-        ]
-      },
-      {
-        "id": "training:領袖:木章",
-        "label": "所有木章訓練班",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "類別：木章訓練班"
+          "類別：非木章訓練班"
         ]
       }
     ],
@@ -61133,7 +61035,10 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-15 05:07:02",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "參加資格：持有有效領袖委任書、教練員／會務委員委任證或受薪職員；\n完成領袖初級訓練班；或完成童軍運動基本原則訓練班（單元1A及單元1B）。\n費用：港幣60元",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://scout.org.hk/uploads/tc/circulars/26422/東九50樂悠遊之與你「童」行Poster1.pdf": {
     "source": "總會",
@@ -61207,7 +61112,7 @@
     "source": "總會",
     "title": "寰宇童軍計劃探索課程開辦指引(P110/2026)",
     "deadline": "",
-    "audience": "深資童軍、樂行童軍、童軍",
+    "audience": "深資童軍、樂行童軍",
     "fee": "",
     "categories": [
       {
@@ -61221,8 +61126,7 @@
     ],
     "branch_tags": [
       "樂行童軍",
-      "深資童軍",
-      "童軍"
+      "深資童軍"
     ],
     "subscription_tags": [
       "category:announcement"
@@ -61243,13 +61147,16 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-15 05:07:15",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "（六）參加資格：持有有效所屬支部紀錄冊之深資童軍及樂行童軍支部成員\n（七）班領導人資格：\n班領導人必須為本會委任之寰宇童軍章導師",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://scout.org.hk/uploads/tc/circulars/26401/P109-26.pdf": {
     "source": "總會",
     "title": "寰宇童軍章(P109/2026)",
     "deadline": "",
-    "audience": "童軍",
+    "audience": "深資童軍、樂行童軍",
     "fee": "",
     "categories": [
       {
@@ -61260,11 +61167,12 @@
       }
     ],
     "branch_tags": [
-      "童軍"
+      "樂行童軍",
+      "深資童軍"
     ],
     "subscription_tags": [
       "category:announcement",
-      "course:shared-messengers-of-peace"
+      "course:shared-scouts-of-the-world"
     ],
     "subscription_tag_details": [
       {
@@ -61275,12 +61183,12 @@
         "evidence": []
       },
       {
-        "id": "course:shared-messengers-of-peace",
-        "label": "和平使者章",
+        "id": "course:shared-scouts-of-the-world",
+        "label": "寰宇童軍章",
         "group": "訓練",
         "kind": "course",
         "evidence": [
-          "標題／內文：和平使者"
+          "標題／內文：寰宇童軍"
         ]
       }
     ],
@@ -61289,7 +61197,10 @@
     "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-15 05:07:19",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "服務對象必須為非童軍成員。\n參加資格：持有有效所屬支部紀錄冊之深資童軍及樂行童軍支部成員。\n費用：見原文",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://scout.org.hk/uploads/tc/circulars/26410/Summary_2026_10.pdf": {
     "source": "總會",
@@ -61514,7 +61425,7 @@
     "source": "港島地域",
     "title": "香港童軍115周年-幼童軍度假營 2026-港島地域分營-青少年成員營費資助計劃",
     "deadline": "",
-    "audience": "幼童軍、童軍、家長",
+    "audience": "幼童軍",
     "fee": "",
     "categories": [
       {
@@ -61525,13 +61436,10 @@
       }
     ],
     "branch_tags": [
-      "家長",
-      "幼童軍",
-      "童軍"
+      "幼童軍"
     ],
     "subscription_tags": [
-      "category:announcement",
-      "course:shared-active-citizen"
+      "category:announcement"
     ],
     "subscription_tag_details": [
       {
@@ -61540,15 +61448,6 @@
         "group": "公布",
         "kind": "category",
         "evidence": []
-      },
-      {
-        "id": "course:shared-active-citizen",
-        "label": "「積極公民」獎章系列",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：積極公民"
-        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
@@ -61556,13 +61455,16 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-15 05:07:41",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "受資助資格：年齡為8至11歲，持有有效幼童軍紀錄冊及童軍成員編號的幼童軍（必須獲得家長或監護人的同意）。\n資助金額：每位港幣300元",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/26353/Trg20_26_9thSectionalTrainingMethodsCourseM2AB.pdf": {
     "source": "港島地域",
     "title": "第9屆童軍支部訓練方法訓練班(單元2A及單元2B)",
     "deadline": "2026-12-04",
-    "audience": "童軍、領袖",
+    "audience": "領袖、受薪職員",
     "fee": "HK$220",
     "categories": [
       {
@@ -61575,15 +61477,11 @@
       }
     ],
     "branch_tags": [
-      "童軍",
       "領袖"
     ],
     "subscription_tags": [
       "category:training",
-      "course:leader-basic-training",
-      "course:wood-module-1",
       "course:wood-module-2-scout",
-      "training:童軍",
       "training:領袖:木章"
     ],
     "subscription_tag_details": [
@@ -61597,41 +61495,12 @@
         ]
       },
       {
-        "id": "course:leader-basic-training",
-        "label": "領袖基本",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：領袖基本訓練班",
-          "標題／內文：領袖基本訓練"
-        ]
-      },
-      {
-        "id": "course:wood-module-1",
-        "label": "童軍運動基本原則（單元1A／1B）",
-        "group": "訓練",
-        "kind": "course",
-        "evidence": [
-          "標題／內文：童軍運動基本原則",
-          "標題／內文：單元1b"
-        ]
-      },
-      {
         "id": "course:wood-module-2-scout",
         "label": "童軍支部訓練方法（單元2A／2B）",
         "group": "訓練",
         "kind": "course",
         "evidence": [
           "標題／內文：童軍支部訓練方法"
-        ]
-      },
-      {
-        "id": "training:童軍",
-        "label": "所有童軍訓練",
-        "group": "訓練",
-        "kind": "training",
-        "evidence": [
-          "支部：童軍"
         ]
       },
       {
@@ -61649,7 +61518,10 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-15 05:07:46",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "參加資格：持有有效童軍支部領袖委任書、非支部領袖委任書或受薪職員。\n費用：見原文",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://www.scout.org.hk/uploads/tc/circulars/26355/Sec53_26_Regatta2026_Pulling_Result.pdf": {
     "source": "港島地域",
@@ -62835,7 +62707,7 @@
     "source": "沙田東區",
     "title": "2026-2027 年度 第一次全區深資童軍支部領袖會議",
     "deadline": "2026-10-26",
-    "audience": "深資童軍、領袖",
+    "audience": "領袖、團執行委員會主席、學校旅負責老師",
     "fee": "",
     "categories": [
       {
@@ -62846,7 +62718,6 @@
       }
     ],
     "branch_tags": [
-      "深資童軍",
       "領袖"
     ],
     "subscription_tags": [
@@ -62866,7 +62737,10 @@
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-15 05:09:35",
-    "enrich_version": "3.6"
+    "enrich_version": "3.6",
+    "audience_evidence": "參加對象：深資童軍支部領袖、旅團負責領袖、團執行委員會主席及學校旅負責老師。\n會議形式：網上",
+    "audience_reviewed_at": "2026-10-16",
+    "audience_review_method": "manual-original-eligibility-excerpt"
   },
   "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-18_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-社區應急先鋒.pdf": {
     "source": "柴灣區",
@@ -63196,5 +63070,1383 @@
     "title_check": "verified",
     "enriched_at": "2026-10-16 05:07:15",
     "enrich_version": "3.6"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/175": {
+    "source": "沙田南區",
+    "title": "急救證書課程",
+    "deadline": "2026-09-15",
+    "audience": "",
+    "fee": "",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-09-02",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/175",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "課程"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-first-aid-certificate",
+      "course:rover-first-aid-badge",
+      "course:venture-first-aid-badge",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "課程"
+        ]
+      },
+      {
+        "id": "course:leader-first-aid-certificate",
+        "label": "急救證書",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：急救證書課程"
+        ]
+      },
+      {
+        "id": "course:rover-first-aid-badge",
+        "label": "急救章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：急救證書"
+        ]
+      },
+      {
+        "id": "course:venture-first-aid-badge",
+        "label": "急救章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：急救證書"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/174": {
+    "source": "沙田南區",
+    "title": "幼童軍歷史章訓練班",
+    "deadline": "2026-09-13",
+    "audience": "幼童軍",
+    "fee": "HK$50",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-09-01",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/174",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:幼童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/173": {
+    "source": "沙田南區",
+    "title": "「豐盛生命」正向情緒日營",
+    "deadline": "2026-08-01",
+    "audience": "小童軍、家屬",
+    "fee": "免費（每家庭另收 HK$50 可退還按金）",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-07-02",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/173",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "日營"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "小童軍"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "日營"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/172": {
+    "source": "沙田南區",
+    "title": "2026-2027年度第一次幼童軍支部領袖會議",
+    "deadline": "2026-06-28",
+    "audience": "領袖",
+    "fee": "免費",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-06-24",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/172",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/170": {
+    "source": "沙田南區",
+    "title": "港鐵安全體驗天地同樂日",
+    "deadline": "2026-06-20",
+    "audience": "小童軍",
+    "fee": "HK$20",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-05-15",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/170",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "同樂日"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "小童軍"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "同樂日"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/169": {
+    "source": "沙田南區",
+    "title": "龍舟章訓練班",
+    "deadline": "2026-05-17",
+    "audience": "童軍",
+    "fee": "免費",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-05-09",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/169",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-dragon-boat-badge",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-dragon-boat-badge",
+        "label": "龍舟章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：龍舟章",
+          "標題／內文：龍舟章訓練班",
+          "標題／內文：龍舟章訓練"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/168": {
+    "source": "沙田南區",
+    "title": "招募龍舟隊成員2026",
+    "deadline": "2026-05-17",
+    "audience": "童軍、深資童軍、樂行童軍、領袖、會務委員",
+    "fee": "免費",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-04-23",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/168",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "招募"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "招募"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/167": {
+    "source": "沙田南區",
+    "title": "【取錄通知書】第70屆步操基本訓練班",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-03-30",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/167",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "人工覆核：取錄通知書"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "人工覆核：取錄通知書"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/166": {
+    "source": "沙田南區",
+    "title": "【取錄通知書】第21屆童軍步操基本訓練班",
+    "deadline": "",
+    "audience": "",
+    "fee": "",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-03-30",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/166",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "人工覆核：取錄通知書"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "人工覆核：取錄通知書"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/165": {
+    "source": "沙田南區",
+    "title": "小童軍Boxing體驗日",
+    "deadline": "2026-04-20",
+    "audience": "小童軍",
+    "fee": "HK$30",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-03-15",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/165",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "體驗日"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "小童軍"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "體驗日"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/164": {
+    "source": "沙田南區",
+    "title": "沙田區童軍運動五十周年紀念晚宴",
+    "deadline": "2026-03-23",
+    "audience": "各支部成員、領袖、會務委員、家屬",
+    "fee": "HK$350／人",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-03-06",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/164",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [
+      "小童軍",
+      "幼童軍",
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/163": {
+    "source": "沙田南區",
+    "title": "深資樂行童軍聯團活動—霓虹燈製作工作坊",
+    "deadline": "2026-03-15",
+    "audience": "童軍（15歲或以上）、深資童軍、樂行童軍、領袖、會務委員",
+    "fee": "HK$100",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-02-15",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/163",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "工作坊"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "樂行童軍",
+      "深資童軍",
+      "童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:會務委員",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "工作坊"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：領袖"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/162": {
+    "source": "沙田南區",
+    "title": "第21屆童軍步操基本訓練班",
+    "deadline": "2026-03-26",
+    "audience": "童軍",
+    "fee": "HK$70",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-02-01",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/162",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/161": {
+    "source": "沙田南區",
+    "title": "第70屆步操基本訓練班",
+    "deadline": "2026-03-26",
+    "audience": "深資童軍、樂行童軍、領袖",
+    "fee": "HK$70",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-02-01",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/161",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "樂行童軍",
+      "深資童軍",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-footdrill-instructor",
+      "training:樂行童軍",
+      "training:深資童軍",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:leader-footdrill-instructor",
+        "label": "步操教練員",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：步操基本訓練班"
+        ]
+      },
+      {
+        "id": "training:樂行童軍",
+        "label": "所有樂行童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：樂行童軍"
+        ]
+      },
+      {
+        "id": "training:深資童軍",
+        "label": "所有深資童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：深資童軍"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/160": {
+    "source": "沙田南區",
+    "title": "童軍原野烹飪章（教導組）訓練班",
+    "deadline": "2026-02-14",
+    "audience": "童軍",
+    "fee": "HK$75",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-01-15",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/160",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-backwoods-cooking-badge",
+      "course:scout-instructor-group",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-backwoods-cooking-badge",
+        "label": "原野烹飪章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：原野烹飪章"
+        ]
+      },
+      {
+        "id": "course:scout-instructor-group",
+        "label": "教導組專章（任何一項）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：教導組"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/159": {
+    "source": "沙田南區",
+    "title": "童軍原野烹飪章（技能組）訓練班",
+    "deadline": "2026-02-14",
+    "audience": "童軍",
+    "fee": "HK$75",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-01-15",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/159",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-backwoods-cooking-badge",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-backwoods-cooking-badge",
+        "label": "原野烹飪章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：原野烹飪章"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/158": {
+    "source": "沙田南區",
+    "title": "2025-2026年度第二次小童軍支部領袖會議",
+    "deadline": "2026-01-17",
+    "audience": "領袖",
+    "fee": "免費",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2025-12-15",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/158",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/157": {
+    "source": "沙田南區",
+    "title": "童軍支部技能錦標賽2025（顏明秀副會長盾）",
+    "deadline": "2025-12-01",
+    "audience": "童軍",
+    "fee": "HK$200／隊",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2025-11-05",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/157",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "錦標賽",
+          "錦標"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "錦標賽",
+          "錦標"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/156": {
+    "source": "沙田南區",
+    "title": "童軍專章考驗日2025",
+    "deadline": "2025-10-26",
+    "audience": "童軍",
+    "fee": "HK$5／章",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2025-10-01",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/156",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "考驗"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "考驗"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/155": {
+    "source": "沙田南區",
+    "title": "幼童軍技能比賽2025 李美琪副主席（銀碟賽）",
+    "deadline": "2025-10-26",
+    "audience": "幼童軍",
+    "fee": "HK$120／隊",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2025-10-01",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/155",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/154": {
+    "source": "沙田南區",
+    "title": "小童軍支部比賽2025 蕭麗馨副主席（主席盃）",
+    "deadline": "2025-10-31",
+    "audience": "小童軍",
+    "fee": "HK$150／隊",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2025-10-01",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/154",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "小童軍"
+    ],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/148": {
+    "source": "沙田南區",
+    "title": "沙田南旅團支援計劃（2025-26年度）",
+    "deadline": "2026-03-31",
+    "audience": "",
+    "fee": "",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2025-07-08",
+    "evidence_url": "https://www.stsd-scout.org/programme/view_notice/148",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://drive.google.com/file/d/1XdP3YhKUPcS8p19F0YG-knAelOjhx4Nn/view": {
+    "source": "壁峰區",
+    "title": "公民章、精神健康章、社區參與章、積極公民—國家安全大使及議會探索章訓練班",
+    "deadline": "2026-12-07",
+    "audience": "童軍",
+    "fee": "HK$60",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-10-16",
+    "evidence_url": "https://drive.google.com/file/d/1XdP3YhKUPcS8p19F0YG-knAelOjhx4Nn/view",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-citizen-badge",
+      "course:scout-mental-health-badge",
+      "course:shared-active-citizen",
+      "course:shared-community-involvement",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-citizen-badge",
+        "label": "公民章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：公民章"
+        ]
+      },
+      {
+        "id": "course:scout-mental-health-badge",
+        "label": "精神健康章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：精神健康章"
+        ]
+      },
+      {
+        "id": "course:shared-active-citizen",
+        "label": "「積極公民」獎章系列",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：積極公民"
+        ]
+      },
+      {
+        "id": "course:shared-community-involvement",
+        "label": "社區參與章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：社區參與章"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://drive.google.com/file/d/1lRpizyjj4c4RQ8CTSYOCwYhAv9fptWY3/view": {
+    "source": "壁峰區",
+    "title": "第7屆原野烹飪訓練班—技能組",
+    "deadline": "2026-10-16",
+    "audience": "童軍",
+    "fee": "HK$100",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-08-15",
+    "evidence_url": "https://drive.google.com/file/d/1lRpizyjj4c4RQ8CTSYOCwYhAv9fptWY3/view",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-backwoods-cooking-badge",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-backwoods-cooking-badge",
+        "label": "原野烹飪章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：原野烹飪訓練班"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
+  },
+  "https://drive.google.com/file/d/1uNeOTX4XTfcvebSu8vSuZa3d3qzX9p2U/view": {
+    "source": "壁峰區",
+    "title": "第7屆原野烹飪訓練班—教導組",
+    "deadline": "2026-10-16",
+    "audience": "童軍",
+    "fee": "HK$100",
+    "method": "manual-reviewed-original",
+    "error": "",
+    "reviewed_at": "2026-10-16",
+    "date_evidence": "原文發出日期：2026-08-15",
+    "evidence_url": "https://drive.google.com/file/d/1uNeOTX4XTfcvebSu8vSuZa3d3qzX9p2U/view",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:scout-backwoods-cooking-badge",
+      "course:scout-instructor-group",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-backwoods-cooking-badge",
+        "label": "原野烹飪章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：原野烹飪訓練班"
+        ]
+      },
+      {
+        "id": "course:scout-instructor-group",
+        "label": "教導組專章（任何一項）",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：教導組"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0"
   }
 }

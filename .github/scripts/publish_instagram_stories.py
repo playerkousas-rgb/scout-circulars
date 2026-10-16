@@ -44,9 +44,10 @@ import os
 import re
 import sys
 import time
+import unicodedata
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote, urlencode, urlsplit
+from urllib.parse import quote, urlencode, urlsplit, parse_qs
 from urllib.request import Request, urlopen
 
 DEFAULT_API_BASE = "https://graph.facebook.com"
@@ -307,6 +308,27 @@ def _manifest_items(manifest_path: Path) -> list[dict]:
         raise PublishError("Story manifest has no items list")
 
     items = manifest["items"]
+    # Fail closed before any API call if a stale/bypassed queue exceeds the cap.
+    if len(items) > 5:
+        raise PublishError("Story manifest exceeds hard limit of five notices")
+    seen_titles, seen_urls = set(), set()
+    for item in items:
+        if not isinstance(item, dict):
+            raise PublishError("Manifest item is not an object")
+        title = re.sub(r"[\W_]+", "", unicodedata.normalize("NFKC", str(item.get("title") or "")).casefold())
+        url = str(item.get("pdf_url") or item.get("url") or "")
+        if url:
+            parsed = urlsplit(url)
+            drive = re.search(r"/file/d/([\w-]+)", parsed.path)
+            drive_id = parse_qs(parsed.query).get("id", [""])[0]
+            if parsed.hostname in {"drive.google.com", "docs.google.com"} and (drive or drive_id):
+                url = "drive:" + (drive.group(1) if drive else drive_id)
+            else:
+                url = (parsed.hostname or "").removeprefix("www.") + parsed.path.lower() + ("?" + parsed.query if parsed.query else "")
+        if (title and title in seen_titles) or (url and url in seen_urls):
+            raise PublishError("Story manifest contains duplicate notices")
+        seen_titles.add(title)
+        seen_urls.add(url)
     # Validate all local files before the first API call, avoiding a partial
     # batch caused by a bad or missing renderer output.
     for index, item in enumerate(items):

@@ -3,7 +3,7 @@
 
 只挑 HKT 今日新入庫（captured_date = 今日）而且 Story 必要資料齊全嘅通告：
 標題、頒佈日期、來源、分類、地域、原文附件連結、截止、對象、費用。缺任何一項就跳過，
-避免將佔位字或估算內容畫上 Story。唔設張數上限；可用正數 --limit 作手動測試。
+避免將佔位字或估算內容畫上 Story。各類先一張，缺類由其他通告補位；硬上限五張，不重複。
 
 每條合資格 item 會 join enrich.json（deadline/audience/fee）同分好 category
 （training/service/activity/competition），供 renderer 出圖；無法歸類及「Scout System」
@@ -18,6 +18,8 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
+from urllib.parse import urlsplit, parse_qs
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -257,7 +259,7 @@ def _today_candidates(cache: dict, today: str, enrich: dict | None = None) -> tu
         if not isinstance(arr, list):
             continue
         for it in arr:
-            if not isinstance(it, dict):
+            if not isinstance(it, dict) or it.get("suppress_notifications"):
                 continue
             if str(it.get("captured_date") or "")[:10] != today:
                 continue
@@ -301,11 +303,60 @@ def pick_today(cache: dict, today: str, enrich: dict | None = None) -> list[dict
     return _today_candidates(cache, today, enrich)[0]
 
 
+MAX_DAILY_STORIES = 5
+STORY_CATEGORY_ORDER = ("training", "activity", "service", "competition")
+
+
+def story_identity(item: dict) -> tuple[str, str]:
+    """Deduplicate attachment aliases AND cross-source copies of a notice."""
+    url = story_attachment_url(item)
+    parsed = urlsplit(url)
+    drive = re.search(r"/file/d/([\w-]+)", parsed.path)
+    query_id = parse_qs(parsed.query).get("id", [""])[0]
+    if parsed.hostname in {"drive.google.com", "docs.google.com"} and (drive or query_id):
+        url_key = "drive:" + (drive.group(1) if drive else query_id)
+    else:
+        host = (parsed.hostname or "").removeprefix("www.")
+        url_key = host + parsed.path.lower() + ("?" + parsed.query if parsed.query else "")
+    title = unicodedata.normalize("NFKC", str(item.get("title") or "")).casefold()
+    title_key = re.sub(r"[\W_]+", "", title)
+    return url_key, title_key
+
+
+def select_story_items(candidates: list[dict], limit: int | None = None) -> list[dict]:
+    """One per available category first, then distinct replacements, max five.
+
+    No carry-over and no incomplete cards; --limit can lower, never lift cap.
+    """
+    cap = min(limit, MAX_DAILY_STORIES) if limit and limit > 0 else MAX_DAILY_STORIES
+    unique = []
+    urls, titles = set(), set()
+    for item in candidates:
+        if item.get("category") not in STORY_CATEGORY_ORDER:
+            continue
+        url, title = story_identity(item)
+        if (url and url in urls) or (title and title in titles):
+            continue
+        urls.add(url)
+        titles.add(title)
+        unique.append(item)
+    picked = []
+    for category in STORY_CATEGORY_ORDER:
+        first = next((item for item in unique if item.get("category") == category), None)
+        if first is not None and len(picked) < cap:
+            picked.append(first)
+    for item in unique:
+        if len(picked) >= cap:
+            break
+        if not any(item is old for old in picked):
+            picked.append(item)
+    return picked
+
+
 def build_queue(cache: dict, today: str, limit: int | None = None,
                 now: datetime | None = None, enrich: dict | None = None) -> dict:
     candidates, incomplete = _today_candidates(cache, today, enrich)
-    # 預設／--limit 0 都係不限張數；正數只供明確手動測試。
-    picked = candidates[:limit] if limit is not None and limit > 0 else candidates
+    picked = select_story_items(candidates, limit)
     # 排好隊先配標語：同一日同分類逐張用下一句，穩定又唔會撞句。
     assign_story_slogans(picked)
     generated = (now or datetime.now(HKT)).astimezone(HKT)
@@ -328,7 +379,7 @@ def main(argv: list[str] | None = None) -> int:
                     help="enrich.json 路徑（預設：cache.json 同目錄；缺少截止／對象／費用資料嘅項目會跳過）")
     ap.add_argument("--out", default="story-queue.json", help="輸出路徑")
     ap.add_argument("--limit", type=int, default=0,
-                    help="最多幾多張；預設 0＝所有齊料通告，不設上限（正數只供手動測試）")
+                    help="最多幾多張；預設 0＝最多五張，各類先一張再補位；正數只能調低上限")
     ap.add_argument("--today", default=None,
                     help="覆寫『今日』（YYYY-MM-DD，主要俾測試用；預設 HKT 今日）")
     args = ap.parse_args(argv)
