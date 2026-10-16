@@ -1,15 +1,15 @@
 {
  "version": 1,
  "days": [
-  "2026-10-02",
   "2026-10-03",
   "2026-10-05",
   "2026-10-06",
   "2026-10-07",
   "2026-10-08",
-  "2026-10-15"
+  "2026-10-15",
+  "2026-10-16"
  ],
- "updated_at": "2026-10-15T08:41:09.514192+00:00",
+ "updated_at": "2026-10-16T08:35:57.121279+00:00",
  "items": [
   {
    "k": "https://assets.ctfassets.net/g8bhf0l3d7iq/2Q52zPX6UOlDkMJ8itee4g/4b34b2983df35207f535aaf4ebc5ef74/St_cir_24-26.pdf",
@@ -57,9 +57,29 @@
    "t": "第48屆美勞創作訓練班"
   },
   {
+   "k": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-18_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-社區應急先鋒.pdf",
+   "f": "stories/2026-10-16/00_train_blue_074cb0.png",
+   "t": "香港童軍115周年認可活動Operation115:「童」守護 ‧ 安心社區嘉年華-社區應急先鋒訓練班"
+  },
+  {
+   "k": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-19_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-急救問題比賽.pdf",
+   "f": "stories/2026-10-16/01_competition_gold_black_7f6d5e.png",
+   "t": "香港童軍115周年認可活動Operation115:「童」守護 ‧ 安心社區嘉年華-幼童軍及童軍支部急救問題比賽"
+  },
+  {
+   "k": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-20_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-攤位設計比賽.pdf",
+   "f": "stories/2026-10-16/02_unc_scope_37011b.png",
+   "t": "香港童軍115周年認可活動Operation115:「童」守護 ‧ 安心社區嘉年華-攤位設計比賽"
+  },
+  {
    "k": "https://drive.google.com/file/d/10_jGInsp0lJSjO_lnrADnYqJ3urWDKtl/view",
    "f": "stories/2026-10-08/01_competition_gold_black_233b58.png",
    "t": "深資及樂行童軍支部比賽2026"
+  },
+  {
+   "k": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+   "f": "stories/2026-10-16/04_unc_glitch_20f981.png",
+   "t": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02"
   },
   {
    "k": "https://drive.google.com/file/d/1MuTrFguv3ZDqO9c4_rHSbVN5XaZZz3PR/view",
@@ -67,9 +87,9 @@
    "t": "香港童軍115周年暨深水埗東區35周年 防騙國安嘉年華 D/05/2026"
   },
   {
-   "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606 幼童軍支部主席盾錦標賽2026.pdf",
-   "f": "stories/2026-10-02/00_service_wanted_17bd98.png",
-   "t": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >"
+   "k": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+   "f": "stories/2026-10-16/03_unc_topsecret_202969.png",
+   "t": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03"
   },
   {
    "k": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653",
