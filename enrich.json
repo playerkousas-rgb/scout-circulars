@@ -64977,5 +64977,49 @@
     "reviewed_at": "2026-10-17",
     "date_evidence": "原文發出日期：2026-06-10",
     "evidence_url": "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view"
+  },
+  "https://www.scout-kowloontong.org/notice/2026/KLG26-11C.pdf": {
+    "source": "九龍塘區",
+    "title": "幼童軍秋季遠足活動",
+    "deadline": "2026-11-02",
+    "audience": "幼童軍",
+    "audience_evidence": "區會轄下已宣誓之幼童軍成員,年滿9歲半,獲優先考慮。",
+    "fee": "HK$20",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "活動",
+          "遠足"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "活動",
+          "遠足"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-18 02:34:21",
+    "enrich_version": "3.7"
   }
 }
