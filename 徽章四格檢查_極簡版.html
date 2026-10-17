@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>徽章四格檢查 · 極簡版</title>
+<style>
+  :root{--acc:#7c5cff;--acc2:#22d3ee;--ok:#22c55e;--bad:#ef4444;
+        --bg:#0b0e15;--card:#121826;--line:#232c42;--txt:#e8ecf6;--dim:#9aa7c2}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang HK","Microsoft JhengHei","Noto Sans TC",sans-serif;
+       background:var(--bg);color:var(--txt);line-height:1.6}
+  header{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .logo{font-size:18px;font-weight:900;background:linear-gradient(92deg,var(--acc),var(--acc2));
+        -webkit-background-clip:text;background-clip:text;color:transparent}
+  .badge{font-size:12.5px;color:#8fd8ff;background:#10233d;border:1px solid #234a7c;border-radius:999px;padding:2px 10px}
+  header input{margin-left:auto;width:220px;max-width:52vw;background:#10162a;border:1px solid var(--line);
+        border-radius:10px;color:var(--txt);padding:7px 10px;font-size:13px}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 70px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+  .drop{border:2px dashed #34405e;border-radius:14px;background:#10162a;padding:22px 14px;text-align:center;
+        cursor:pointer;transition:.2s}
+  .drop:hover,.drop.over{border-color:var(--acc);background:#141d31}
+  .drop .big{font-size:30px}
+  .drop b{display:block;font-size:15px;margin:4px 0 2px}
+  .dim{color:var(--dim);font-size:13.5px}
+  .preview{display:none;gap:12px;align-items:center;margin-top:12px}
+  .preview img{width:110px;height:110px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+  button{font:inherit}
+  .btn{background:linear-gradient(92deg,var(--acc),var(--acc2));color:#fff;font-weight:900;font-size:17px;
+       border:none;border-radius:14px;padding:14px 22px;width:100%;cursor:pointer}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
+  .btn.ghost{background:#10162a;color:var(--dim);border:1px solid var(--line);font-weight:700;font-size:13.5px;
+       width:auto;padding:8px 14px;border-radius:10px}
+  .status{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .st{font-size:13px;font-weight:800;border-radius:999px;padding:5px 12px;border:1px solid var(--line);
+      background:#10162a;color:var(--dim)}
+  .st.run{border-color:#f5b942;color:#ffd97a;background:#2a2110}
+  .st.ok{border-color:#14532d;color:#86efac;background:#0f2417}
+  .st.fail{border-color:#7f1d1d;color:#fca5a5;background:#2a1010}
+  .result{display:none}
+  .mainimg{width:100%;border-radius:14px;border:1px solid var(--line);cursor:zoom-in;display:block}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center}
+  .four{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+  .cell{background:#10162a;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .cell img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;cursor:zoom-in}
+  .cell .cap{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:7px 10px;font-size:13px}
+  .cell .cap b{font-size:13.5px}
+  .cell .cap a{color:#8fd8ff;text-decoration:none;font-weight:800;white-space:nowrap}
+  .cell.fail img{opacity:.25}
+  .cell .failtag{position:relative}
+  .cell .retry{position:absolute;top:8px;right:8px;background:#2a1010;border:1px solid #7f1d1d;color:#fca5a5;
+      border-radius:999px;font-size:12.5px;font-weight:800;padding:5px 12px;cursor:pointer}
+  .loading{display:none;align-items:center;gap:10px;margin-top:12px}
+  .spinner{width:18px;height:18px;border:3px solid #234;border-top-color:var(--acc2);border-radius:50%;
+      animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;
+      z-index:50;cursor:zoom-out;padding:16px}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:10px}
+  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1c2740;color:#fff;
+      border:1px solid #34405e;border-radius:12px;padding:10px 18px;font-size:14px;display:none;z-index:60}
+  footer{text-align:center;color:var(--dim);font-size:12.5px;margin-top:18px}
+</style>
+</head>
+<body>
+<header>
+  <span style="font-size:20px">🎖</span><span class="logo">徽章四格檢查 · 極簡版</span>
+  <span class="badge">純前端 · 個人用</span>
+  <input id="keyInput" type="password" placeholder="Gemini API Key（會記喺呢部機）">
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <div class="drop" id="drop">
+      <div class="big">🖼️</div>
+      <b>撳一下、拖入、或者 Ctrl+V 貼上相片</b>
+      <div class="dim">建議：全身企直、光線均勻 —— 4 個角度都係由呢張相生成</div>
+      <input type="file" id="fileInput" accept="image/*" hidden>
+    </div>
+    <div class="preview" id="preview">
+      <img id="previewImg" alt="原相">
+      <div>
+        <span class="dim">原相已就緒 ✓</span>
+        <div class="btnrow" style="margin-top:8px"><button class="btn ghost" id="resetPhoto">🔄 換另一張相</button></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" id="goBtn">🧩 一鍵生成 4 格（正面・右側・左側・背面）</button>
+
+  <div class="loading" id="loading"><div class="spinner"></div><span class="dim" id="prog"></span></div>
+  <div class="status" id="status"></div>
+
+  <div class="result" id="result">
+    <div class="card" style="margin-top:16px">
+      <img class="mainimg" id="gridImg" alt="4格總覽">
+      <div class="btnrow">
+        <a class="btn ghost" id="dlGrid" download="徽章4格.jpg" style="text-decoration:none">💾 下載 4 格總覽圖</a>
+        <span class="dim">撳圖放大 · 逐格檢查徽章</span>
+      </div>
+      <div class="four" id="fourGrid"></div>
+    </div>
+  </div>
+
+  <footer>個人用極簡版 · 純前端直連 Gemini（gemini-flash-image）· 圖片由 AI 生成，徽章位置只作檢查用途，一切以實物為準</footer>
+</div>
+
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt="放大"></div>
+<div id="toast"></div>
+
+<script>
+/* ================= 設定 ================= */
+const MODEL = 'gemini-3.1-flash-image';
+const BASE  = "Edit this photo: {en}. Maintain the person's exact facial features, identity, expression, and lighting continuity while applying this requested photographic transformation.";
+const SAME  = "A single photograph of one person only, not a collage, not a contact sheet, no multiple panels, no split frames, one full-frame image. 3D turnaround reference frame. Keep the SAME person as the reference photo: identical face, identity, hair, skin tone, body shape, clothing and standing pose; do not restyle, do not change the outfit or the background. Change ONLY the camera position. Plain seamless light-grey studio backdrop, soft even lighting from the front-top, the whole body from head to toe fully visible and centred at a consistent scale, neutral relaxed expression, sharp focus, no props, no text, no watermark.";
+const KEEP  = " Uniform badge inspection purpose: do not add, remove, move, resize or redesign any badge, ribbon, woggle or uniform detail — everything must stay exactly as in the reference photo.";
+
+/* 4 個角度（由 V39「人像多角度」prompt 抽出，加返徽章檢查要求） */
+const VIEWS = [
+  { id:'front', tag:'#1', name:'正面', sub:'胸口左右徽章位', file:'1_正面',
+    en: SAME + " Camera: dead-on frontal view, 0 degrees yaw, the camera straight in front of the person at chest height, symmetrical framing, both ears equally visible, eyes level with the lens."
+      + KEEP + " The chest of the shirt must be clearly visible and sharp, showing both the left-chest and right-chest badge positions." },
+  { id:'right', tag:'#2', name:'右側', sub:'右袖：旅章・區章・地域章', file:'2_右側',
+    en: SAME + " Camera: the camera has orbited 90 degrees to the person's right, a pure right profile view: one eye, nose, lips, chin and ear reading as a clean side silhouette."
+      + KEEP + " The person's right sleeve and shoulder must be fully visible and sharp, showing the badge row on the right sleeve." },
+  { id:'left', tag:'#3', name:'左側', sub:'左袖 plain（冇徽章）', file:'3_左側',
+    en: SAME + " Camera: the camera has orbited 90 degrees to the person's left, a pure left profile view: one eye, nose, lips, chin and ear reading as a clean side silhouette."
+      + KEEP + " The person's left sleeve must be fully visible and sharp; the left sleeve is plain with no badges." },
+  { id:'back', tag:'#4', name:'背面', sub:'背面冇徽章', file:'4_背面',
+    en: SAME + " Camera: the camera has orbited 180 degrees and is directly behind the person, a pure back view showing the back of the head, the hair, the nape of the neck and the back of the clothing; the face is not visible."
+      + KEEP + " The whole back of the shirt must be clearly visible and sharp with no badges on the back." }
+];
+
+/* ================= 狀態 ================= */
+let currentImgData = null, currentImgMime = 'image/jpeg';
+let busy = false;
+const imgs = {};                 // id -> dataURL
+const $ = id => document.getElementById(id);
+
+/* ================= API Key（記住） ================= */
+const keyInput = $('keyInput');
+keyInput.value = localStorage.getItem('badge4_key') || '';
+keyInput.oninput = () => localStorage.setItem('badge4_key', keyInput.value.trim());
+
+/* ================= 上載（撳／拖／貼） ================= */
+const drop = $('drop'), fileInput = $('fileInput');
+drop.onclick = () => fileInput.click();
+drop.ondragover = e => { e.preventDefault(); drop.classList.add('over'); };
+drop.ondragleave = () => drop.classList.remove('over');
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove('over');
+  if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); };
+fileInput.onchange = () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); };
+window.addEventListener('paste', e => {
+  const it = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
+  if (it) loadFile(it.getAsFile());
+});
+$('resetPhoto').onclick = () => { currentImgData = null; $('preview').style.display = 'none';
+  drop.style.display = 'block'; };
+
+async function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) { toast('請揀相片檔'); return; }
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    const MAX = 2048;
+    const r = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(bmp.width * r); cv.height = Math.round(bmp.height * r);
+    cv.getContext('2d').drawImage(bmp, 0, 0, cv.width, cv.height);
+    const url = cv.toDataURL('image/jpeg', 0.92);
+    currentImgData = url.split(',')[1]; currentImgMime = 'image/jpeg';
+    $('previewImg').src = url;
+    $('preview').style.display = 'flex'; drop.style.display = 'none';
+    toast('相片已就緒 ✓');
+  } catch (e) { toast('讀唔到呢張相，試下轉做 JPG/PNG'); }
+}
+
+/* ================= 一鍵生成 4 格 ================= */
+$('goBtn').onclick = runAll;
+
+function renderStatus() {
+  $('status').innerHTML = VIEWS.map(v => {
+    let cls = '', txt = v.name;
+    if (busy && v._state === 'run') { cls = 'run'; txt = v.name + '…'; }
+    else if (v._state === 'ok') { cls = 'ok'; txt = '✓ ' + v.name; }
+    else if (v._state === 'fail') { cls = 'fail'; txt = '✗ ' + v.name; }
+    return `<span class="st ${cls}">${txt}</span>`;
+  }).join('');
+}
+
+async function runAll() {
+  if (busy) return;
+  if (!currentImgData) { toast('請先上載相片！'); return; }
+  if (!keyInput.value.trim()) { toast('請先喺上方填 Gemini API Key'); keyInput.focus(); return; }
+  busy = true; $('goBtn').disabled = true;
+  $('loading').style.display = 'flex';
+  VIEWS.forEach(v => v._state = '');
+  renderStatus();
+
+  for (let i = 0; i < VIEWS.length; i++) {
+    const v = VIEWS[i];
+    v._state = 'run'; renderStatus();
+    $('prog').textContent = `生成中 ${i + 1}/4：${v.name}（${v.sub}）`;
+    try { imgs[v.id] = await genOne(v.en); v._state = 'ok'; }
+    catch (e) { v._state = 'fail'; }
+    renderStatus();
+  }
+  const okN = VIEWS.filter(v => v._state === 'ok').length;
+  $('prog').textContent = '';
+  $('loading').style.display = 'none';
+  busy = false; $('goBtn').disabled = false;
+  if (!okN) { toast('4 格全部失敗，檢查下 API Key／網絡再試'); return; }
+  await renderResult();
+  toast(okN === 4 ? '4 格完成！🎉' : `完成 ${okN}/4，失敗嗰格可以 🔁 單獨重做`);
+}
+
+async function genOne(promptEn) {
+  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${keyInput.value.trim()}`;
+  const payload = {
+    contents: [{ role: 'user', parts: [
+      { text: BASE.replace('{en}', promptEn) },
+      { inlineData: { mimeType: currentImgMime, data: currentImgData } }
+    ]}],
+    generationConfig: { responseModalities: ['IMAGE'] }
+  };
+  let lastErr = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(apiUrl, { method: 'POST',
+        headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const result = await res.json();
+      const part = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+      if (!part) throw new Error('no image');
+      return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+    } catch (e) { lastErr = e; await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt))); }
+  }
+  throw lastErr || new Error('failed');
+}
+
+/* ================= 單格重做 ================= */
+async function retryCell(id) {
+  if (busy) return;
+  const v = VIEWS.find(x => x.id === id);
+  busy = true; v._state = 'run'; renderStatus(); renderFour();
+  $('loading').style.display = 'flex';
+  $('prog').textContent = `重做中：${v.name}`;
+  try { imgs[v.id] = await genOne(v.en); v._state = 'ok'; }
+  catch (e) { v._state = 'fail'; }
+  $('loading').style.display = 'none'; $('prog').textContent = '';
+  busy = false;
+  await renderResult();
+  toast(v._state === 'ok' ? `${v.name} 重做完成 ✓` : `${v.name} 又失敗，遲下再試`);
+}
+
+/* ================= 拼圖（2×2，唔裁切） ================= */
+function _loadImg(src) {
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = src; });
+}
+async function stitch() {
+  const CW = 560, CH = 700, G = 12, MX = 20, HEAD = 64, FOOT = 18;
+  const W = MX * 2 + CW * 2 + G, H = HEAD + CH * 2 + G + FOOT;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const c = cv.getContext('2d');
+  const FONT = '"Noto Sans CJK TC","PingFang HK","Microsoft JhengHei",sans-serif';
+  c.fillStyle = '#0b0e15'; c.fillRect(0, 0, W, H);
+  c.fillStyle = '#8fd8ff'; c.font = `bold 26px ${FONT}`;
+  c.fillText('🎖 制服徽章檢查 · 4 個角度', MX, 40);
+  const now = new Date();
+  const ts = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  c.font = `16px ${FONT}`; c.fillStyle = '#5f6f92'; c.textAlign = 'right';
+  c.fillText(ts, W - MX, 38); c.textAlign = 'left';
+
+  for (let k = 0; k < VIEWS.length; k++) {
+    const v = VIEWS[k];
+    const x = MX + (k % 2) * (CW + G), y = HEAD + Math.floor(k / 2) * (CH + G);
+    c.fillStyle = '#121826'; c.fillRect(x, y, CW, CH);
+    const url = imgs[v.id];
+    if (url) {                                  // contain：成個人都唔會裁走
+      const im = await _loadImg(url);
+      const r = Math.min(CW / im.width, CH / im.height);
+      const w = im.width * r, h = im.height * r;
+      c.drawImage(im, x + (CW - w) / 2, y + (CH - h) / 2, w, h);
+    } else {
+      c.fillStyle = '#5f6f92'; c.font = `22px ${FONT}`; c.textAlign = 'center';
+      c.fillText('生成失敗', x + CW / 2, y + CH / 2); c.textAlign = 'left';
+    }
+    c.font = 'bold 17px ' + FONT;               // 左上角 #編號
+    const tag = v.tag, tw = c.measureText(tag).width;
+    c.fillStyle = 'rgba(16,35,61,.92)'; c.fillRect(x + 8, y + 8, tw + 18, 28);
+    c.fillStyle = '#8fd8ff'; c.fillText(tag, x + 17, y + 28);
+    c.font = 'bold 19px ' + FONT;               // 底部說明條
+    const label = `${v.name} — ${v.sub}`;
+    const lw = c.measureText(label).width;
+    c.fillStyle = 'rgba(11,14,21,.85)'; c.fillRect(x, y + CH - 40, Math.max(lw + 20, CW), 40);
+    c.fillStyle = '#e8ecf6'; c.fillText(label, x + 12, y + CH - 13);
+  }
+  return cv.toDataURL('image/jpeg', 0.92);
+}
+
+/* ================= 顯示結果 ================= */
+async function renderResult() {
+  const url = await stitch();
+  $('gridImg').src = url;
+  $('dlGrid').href = url;
+  $('dlGrid').download = `徽章4格_${stamp()}.jpg`;
+  renderFour();
+  $('result').style.display = 'block';
+}
+function renderFour() {
+  $('fourGrid').innerHTML = VIEWS.map(v => {
+    const url = imgs[v.id];
+    const failed = v._state === 'fail' || !url;
+    return `<div class="cell ${failed ? 'fail' : ''}">
+      ${failed ? '<div class="failtag"><button class="retry" data-id="' + v.id + '">🔁 重做呢格</button></div>' : ''}
+      <img src="${url || ''}" data-src="${url || ''}" alt="${v.name}">
+      <div class="cap"><span><b>${v.tag} ${v.name}</b>　<span class="dim">${v.sub}</span></span>
+      ${failed ? '' : `<a href="${url}" download="徽章4格_${v.file}_${stamp()}.jpg">💾</a>`}</div>
+    </div>`;
+  }).join('');
+  $('fourGrid').querySelectorAll('.retry').forEach(b => b.onclick = () => retryCell(b.dataset.id));
+  $('fourGrid').querySelectorAll('img').forEach(im => im.onclick = () => {
+    if (!im.dataset.src) return;
+    $('lightboxImg').src = im.dataset.src; $('lightbox').style.display = 'flex';
+  });
+}
+$('gridImg').onclick = () => { $('lightboxImg').src = $('gridImg').src; $('lightbox').style.display = 'flex'; };
+$('lightbox').onclick = () => $('lightbox').style.display = 'none';
+
+/* ================= 工具 ================= */
+function stamp() {
+  const d = new Date(), p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`;
+}
+let toastTimer;
+function toast(msg) {
+  const t = $('toast'); t.textContent = msg; t.style.display = 'block';
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.style.display = 'none', 2600);
+}
+</script>
+</body>
+</html>
