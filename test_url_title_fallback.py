@@ -102,6 +102,23 @@ try:
 except Exception as exc:  # pragma: no cover
     print(f"⏭  略過 cache 檢查：{exc}")
 
+print("\n── 7. 「Drive, 」前綴係介面字眼，唔係標題（2026-10-17）──")
+for raw, expected in [
+    ("Drive, PFD2627VS004 政制探究及民政訓練班", "PFD2627VS004 政制探究及民政訓練班"),
+    ("Drive, PF 原野生活知識工作坊 A-101", "PF 原野生活知識工作坊 A-101"),
+    ("Drive, 2026-27小童軍親子活動—懷舊食物工作坊", "2026-27小童軍親子活動—懷舊食物工作坊"),
+    ("Drive, 第7屆原野烹飪訓練班-教導組", "第7屆原野烹飪訓練班-教導組"),
+    ("drive, 細楷都要剷", "細楷都要剷"),
+    ("Drive,通告冇空格都要剷", "通告冇空格都要剷"),
+]:
+    check(f"clean_title({raw!r}) → {expected!r}", core.clean_title(raw, {}), expected)
+# 唔可以誤殺：標題本身就叫 Drive 開頭、或者前面冇逗號
+for raw, expected in [
+    ("Drive 安全體驗天地同樂日", "Drive 安全體驗天地同樂日"),
+    ("駕駛理論班", "駕駛理論班"),
+]:
+    check(f"clean_title({raw!r}) 照留 → {expected!r}", core.clean_title(raw, {}), expected)
+
 print()
 if FAILED:
     print(f"❌ {len(FAILED)} 項失敗")
