@@ -1,5 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "**": false
+    }
+  },
   "ignoreCommand": "bash -c 'case $VERCEL_GIT_COMMIT_MESSAGE in *\"[skip ci]\"*|*\"[vercel skip]\"*) exit 0;; *) exit 1;; esac'",
   "functions": {
     "api/push_config.py": {

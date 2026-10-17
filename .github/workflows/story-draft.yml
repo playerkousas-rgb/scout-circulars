@@ -159,13 +159,17 @@ jobs:
             git checkout --orphan stories-tmp
             git rm -rf . >/dev/null 2>&1 || true
           fi
+          # stories is an isolated branch: it cannot inherit main's Vercel config.
+          # Overwrite these on every run, including the first orphan-branch push.
+          printf '%s\n' '{"git": {"deploymentEnabled": false}, "ignoreCommand": "exit 0"}' > vercel.json
+          printf '*\n' > .vercelignore
           mkdir -p "stories/$TODAY"
           cp -R "$RUNNER_TEMP/story-output/$TODAY/." "stories/$TODAY/"
           # Keep the latest seven days for the notice-detail hero feature.
           mapfile -t old_days < <(find stories -mindepth 1 -maxdepth 1 -type d -name '20??-??-??' -printf '%f\n' | sort -r | tail -n +8)
           for day in "${old_days[@]}"; do rm -rf "stories/$day"; done
           python3 "$RUNNER_TEMP/build_story_index.py" --build-index stories
-          git add stories/
+          git add .vercelignore vercel.json stories/
           git commit -qm "📲 Instagram Story assets $TODAY [skip ci]"
           git push --force origin HEAD:stories
           # Publish from the immutable commit URL, not the branch ref: a branch
