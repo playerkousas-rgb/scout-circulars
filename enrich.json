@@ -64480,11 +64480,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:17",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1bp-6wE5HwCfIaWB3XnvnvIspdYLudGhC/view"
   },
   "https://drive.google.com/file/d/12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G/view": {
     "source": "壁峰區",
@@ -64518,11 +64521,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:21",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：深資童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G/view"
   },
   "https://drive.google.com/file/d/1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p/view": {
     "source": "壁峰區",
@@ -64556,11 +64562,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:25",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：樂行童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p/view"
   },
   "https://drive.google.com/file/d/1UWAClszPoG_we45mH4b4T7DD6aeI8XMk/view": {
     "source": "壁峰區",
@@ -64594,11 +64603,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:27",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：幼童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1UWAClszPoG_we45mH4b4T7DD6aeI8XMk/view"
   },
   "https://drive.google.com/file/d/1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp/view": {
     "source": "壁峰區",
@@ -64632,11 +64644,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:37",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：2025 年文件；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp/view"
   },
   "https://drive.google.com/file/d/1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x/view": {
     "source": "壁峰區",
@@ -64673,11 +64688,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:42",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026 年 2 月（用家淨核實到月份，以月初 2026-02-01 入庫）",
+    "evidence_url": "https://drive.google.com/file/d/1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x/view"
   },
   "https://drive.google.com/file/d/1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y/view": {
     "source": "壁峰區",
@@ -64711,15 +64729,18 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:45",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：小童軍支部團員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y/view"
   },
   "https://drive.google.com/file/d/1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn/view": {
     "source": "壁峰區",
-    "title": "Drive, PFD2627VS004 政制探究及民政訓練班",
+    "title": "PFD2627VS004 政制探究及民政訓練班",
     "deadline": "2027-01-11",
     "audience": "深資童軍",
     "audience_evidence": "已宣誓及持有有效深資童軍紀錄冊之深資童軍成員,本區深資童軍支部成員將獲 優先考慮;",
@@ -64772,11 +64793,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:49",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-10-15",
+    "evidence_url": "https://drive.google.com/file/d/1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn/view"
   },
   "https://drive.google.com/file/d/1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC/view": {
     "source": "壁峰區",
@@ -64835,16 +64859,19 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "corrected",
     "enriched_at": "2026-10-17 03:38:55",
     "enrich_version": "3.7",
-    "listing_title": "Drive, PFD2627CST002童軍先修章"
+    "listing_title": "Drive, PFD2627CST002童軍先修章",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-06-09",
+    "evidence_url": "https://drive.google.com/file/d/1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC/view"
   },
   "https://drive.google.com/file/d/1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A/view": {
     "source": "壁峰區",
-    "title": "Drive, PF 原野生活知識工作坊 A-101",
+    "title": "PF 原野生活知識工作坊 A-101",
     "deadline": "2026-10-30",
     "audience": "深資童軍",
     "audience_evidence": "已宣誓及持有有效深資童軍紀錄冊之深資童軍成員,本區深資童軍支部成員將獲 優先考慮;",
@@ -64887,15 +64914,18 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:59",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-08-03",
+    "evidence_url": "https://drive.google.com/file/d/1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A/view"
   },
   "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view": {
     "source": "壁峰區",
-    "title": "Drive, 2026-27小童軍親子活動—懷舊食物工作坊",
+    "title": "2026-27小童軍親子活動—懷舊食物工作坊",
     "deadline": "2026-06-27",
     "audience": "小童軍、家長",
     "audience_evidence": "本區小童軍成員及親友[每名小童軍只可由1位家長或監護人陪同出席]",
@@ -64939,10 +64969,13 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:39:03",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-06-10",
+    "evidence_url": "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view"
   }
 }

@@ -304,6 +304,11 @@ def clean_title(raw_title: str, config: Dict[str, Any]) -> Optional[str]:
     title = title.replace("_", " ")
     title = re.sub(r"\s+", " ", title).strip()
 
+    # 2026-10-17：Google Sites 嵌入 Drive 檔案時，連結文字自帶「Drive, 」前綴
+    # （例：「Drive, PFD2627VS004 政制探究及民政訓練班」）。呢個係介面字眼唔係標題，
+    # 入庫前剷走；區會編號／年度（PF、PFD2627VS004、2026-27）係通告名一部份，要留。
+    title = re.sub(r"^\s*Drive\s*,\s*", "", title, flags=re.I).strip()
+
     # 移除句尾嘅檔名日期標籤後綴（如旺角區 Google Drive 檔名「… - 通告07.10」「… - 通告 07/10」）
     # 及連結標籤後綴（如大埔北區 WordPress「… - 連結」「… - >>連結<<」「… - 通告連結」「… - https://...」）
     title = re.sub(r"\s*[-–—]\s*通告\s*[（(]?\d{1,4}(?:[./\-\s]\d{1,4})*[)）]?$", "", title).strip()
