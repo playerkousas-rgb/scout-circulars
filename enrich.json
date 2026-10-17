@@ -64644,11 +64644,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:37",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：2025 年文件；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp/view"
   },
   "https://drive.google.com/file/d/1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x/view": {
     "source": "壁峰區",
@@ -64685,11 +64688,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:42",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026 年 2 月（用家淨核實到月份，以月初 2026-02-01 入庫）",
+    "evidence_url": "https://drive.google.com/file/d/1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x/view"
   },
   "https://drive.google.com/file/d/1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y/view": {
     "source": "壁峰區",
@@ -64787,11 +64793,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:49",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-10-15",
+    "evidence_url": "https://drive.google.com/file/d/1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn/view"
   },
   "https://drive.google.com/file/d/1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC/view": {
     "source": "壁峰區",
@@ -64850,12 +64859,15 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "corrected",
     "enriched_at": "2026-10-17 03:38:55",
     "enrich_version": "3.7",
-    "listing_title": "Drive, PFD2627CST002童軍先修章"
+    "listing_title": "Drive, PFD2627CST002童軍先修章",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-06-09",
+    "evidence_url": "https://drive.google.com/file/d/1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC/view"
   },
   "https://drive.google.com/file/d/1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A/view": {
     "source": "壁峰區",
@@ -64902,11 +64914,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:38:59",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-08-03",
+    "evidence_url": "https://drive.google.com/file/d/1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A/view"
   },
   "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view": {
     "source": "壁峰區",
@@ -64954,10 +64969,13 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "text",
+    "method": "manual-reviewed-original",
     "error": "",
     "title_check": "verified",
     "enriched_at": "2026-10-17 03:39:03",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "原文發出日期：2026-06-10",
+    "evidence_url": "https://drive.google.com/file/d/12TUR24RzmsY82IqMOdu0QgHEy01VVfIH/view"
   }
 }

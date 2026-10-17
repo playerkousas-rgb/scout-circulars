@@ -39,21 +39,23 @@ SINK_DATE = "2025-01-01"      # 2025 文件沉底日：低過最長（180 日）
 SINK = "sink"                 # 標記：沉底
 PENDING = ""                  # 標記：等緊人工核實嘅發出日期
 
-# Drive ID, 修正後日期（"sink" = 沉底；"" = 未核實，跳過）, 備註
+# Drive ID, 修正後日期（"sink" = 沉底；"" = 未核實，跳過）, 標題, 憑據
+# 日期全部由用家逐份核實原文後提供（2026-10-17）。
 CORRECTIONS = [
     # ── 2025 年文件：直接沉到看不見 ──
-    ("1bp-6wE5HwCfIaWB3XnvnvIspdYLudGhC", SINK, "童軍支部會員章 童軍成員免受傷害 集會編排 2025"),
-    ("12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G", SINK, "深資童軍支部會員章 童軍成員免受傷害 集會編排 2025"),
-    ("1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p", SINK, "樂行童軍支部會員章 童軍成員免受傷害 集會編排 2025"),
-    ("1UWAClszPoG_we45mH4b4T7DD6aeI8XMk", SINK, "幼童軍支部會員章 童軍成員免受傷害 集會編排 2025"),
-    ("1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y", SINK, "小童軍支部團員章 童軍成員免受傷害 集會編排 2025"),
-    # ── 等緊發出日期（沙箱出唔到 Google Drive，PDF 開唔到）──
-    ("1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp", PENDING, "小童軍領袖手冊"),
-    ("1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x", PENDING, "小童軍活動指引2026"),
-    ("1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn", PENDING, "PFD2627VS004 政制探究及民政訓練班（截止 2027-01-11）"),
-    ("1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC", PENDING, "2026 童軍先修章訓練班（截止 2026-07-04）"),
-    ("1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A", PENDING, "PF 原野生活知識工作坊 A-101（截止 2026-10-30）"),
-    ("12TUR24RzmsY82IqMOdu0QgHEy01VVfIH", PENDING, "2026-27 小童軍親子活動—懷舊食物工作坊（截止 2026-06-27）"),
+    ("1bp-6wE5HwCfIaWB3XnvnvIspdYLudGhC", SINK, "童軍支部會員章 童軍成員免受傷害 集會編排 2025", "2025 年文件"),
+    ("12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G", SINK, "深資童軍支部會員章 童軍成員免受傷害 集會編排 2025", "2025 年文件"),
+    ("1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p", SINK, "樂行童軍支部會員章 童軍成員免受傷害 集會編排 2025", "2025 年文件"),
+    ("1UWAClszPoG_we45mH4b4T7DD6aeI8XMk", SINK, "幼童軍支部會員章 童軍成員免受傷害 集會編排 2025", "2025 年文件"),
+    ("1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y", SINK, "小童軍支部團員章 童軍成員免受傷害 集會編排 2025", "2025 年文件"),
+    ("1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp", SINK, "小童軍領袖手冊", "2025 年文件"),
+    # ── 用家核實咗發出日期 ──
+    ("1dDN6BU9Z3s7tuz_nss9OEFuTst85wC1x", "2026-02-01", "小童軍活動指引2026",
+     "原文發出日期：2026 年 2 月（用家淨核實到月份，以月初 2026-02-01 入庫）"),
+    ("1mnGeK0M-UNjxtdi1-PU5xaSX-rVoG_tC", "2026-06-09", "2026 童軍先修章訓練班", "原文發出日期：2026-06-09"),
+    ("12TUR24RzmsY82IqMOdu0QgHEy01VVfIH", "2026-06-10", "2026-27 小童軍親子活動—懷舊食物工作坊", "原文發出日期：2026-06-10"),
+    ("1fApaZu3lZlY3UhD3B5tFLx5TVt8aP_8A", "2026-08-03", "PF 原野生活知識工作坊 A-101", "原文發出日期：2026-08-03"),
+    ("1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn", "2026-10-15", "PFD2627VS004 政制探究及民政訓練班", "原文發出日期：2026-10-15"),
 ]
 
 
@@ -73,10 +75,10 @@ def apply_review(cache, enrich):
     notices = cache.setdefault("notices", [])
     moved, pending = [], []
 
-    for drive_id, date, note in CORRECTIONS:
+    for drive_id, date, label, evidence in CORRECTIONS:
         target = identity(drive_url(drive_id))
         if date == PENDING:
-            pending.append(note)
+            pending.append(label)
             continue
         effective = SINK_DATE if date == SINK else date
         rows = [x for x in grouped if identity(x.get("pdf_url") or x.get("url")) == target]
@@ -105,11 +107,11 @@ def apply_review(cache, enrich):
                         method="manual-reviewed-original",
                         error="",
                         reviewed_at=REVIEW_DATE,
-                        date_evidence=(f"人工覆核：{note}；無發出日期，沉底至 {SINK_DATE}"
-                                       if date == SINK else f"原文發出日期：{effective}"),
+                        date_evidence=(f"人工覆核：{evidence}；無發出日期，沉底至 {SINK_DATE}"
+                                       if date == SINK else evidence),
                         evidence_url=url,
                     )
-            moved.append({"title": row.get("title", ""), "date": effective, "note": note})
+            moved.append({"title": row.get("title", ""), "date": effective, "note": label})
 
     if moved:
         grouped.sort(key=lambda x: (str(x.get("date") or x.get("captured_date") or ""), str(x.get("title") or "")), reverse=True)
