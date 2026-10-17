@@ -257,7 +257,7 @@ def _send_pdf(h: BaseHTTPRequestHandler, data: bytes, eof: bool = True) -> None:
     h.send_header("Access-Control-Allow-Origin", "*")
     # 通告 PDF 基本唔變：edge CDN cache 一星期，重複出圖零 function 成本。
     # 分片都 cache：同一片第二個人係 CDN 直出，唔會重跑 function。
-    h.send_header("Cache-Control", "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400")
+    h.send_header("Cache-Control", "public, max-age=86400, s-maxage=604800, immutable")
     h.send_header("Content-Disposition", "inline")
     h.send_header("X-Content-Type-Options", "nosniff")
     h.send_header("X-Pdf-EOF", "1" if eof else "0")

@@ -256,7 +256,10 @@ class HandlerTests(unittest.TestCase):
             h.do_GET()
         self.assertEqual(h.status, 200)
         self.assertEqual(h.sent_headers.get("Content-Type"), "application/pdf")
-        self.assertIn("s-maxage", h.sent_headers.get("Cache-Control", ""))
+        self.assertEqual(
+            h.sent_headers.get("Cache-Control"),
+            "public, max-age=86400, s-maxage=604800, immutable",
+        )
         self.assertEqual(h.wfile.getvalue(), body)
 
     def test_unlisted_url_returns_json_403(self):
@@ -264,6 +267,7 @@ class HandlerTests(unittest.TestCase):
         h = DummyHandler("/api/pdf-proxy?u=" + quote("https://evil.example.com/x.pdf", safe=""))
         h.do_GET()
         self.assertEqual(h.status, 403)
+        self.assertEqual(h.sent_headers.get("Cache-Control"), "no-store")
         payload = json.loads(h.wfile.getvalue().decode("utf-8"))
         self.assertEqual(payload["error"], "not_a_listed_notice")
 
@@ -278,6 +282,10 @@ class HandlerTests(unittest.TestCase):
         self.assertEqual(out, body)
         self.assertLessEqual(len(out), pdf_proxy.MAX_PDF_BYTES)
         self.assertEqual(h.sent_headers.get("X-Pdf-EOF"), "1")
+        self.assertEqual(
+            h.sent_headers.get("Cache-Control"),
+            "public, max-age=86400, s-maxage=604800, immutable",
+        )
 
     def test_cache_index_down_returns_503(self):
         pdf_proxy._cache_urls = set()
