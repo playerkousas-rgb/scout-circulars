@@ -64480,11 +64480,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:17",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1bp-6wE5HwCfIaWB3XnvnvIspdYLudGhC/view"
   },
   "https://drive.google.com/file/d/12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G/view": {
     "source": "壁峰區",
@@ -64518,11 +64521,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:21",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：深資童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/12WHFp8lCNZWiHBfewCSfxCnBz2aEzd4G/view"
   },
   "https://drive.google.com/file/d/1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p/view": {
     "source": "壁峰區",
@@ -64556,11 +64562,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:25",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：樂行童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1AJaN0QR1ggz_hRjhtiIFgk8VZXbU5P2p/view"
   },
   "https://drive.google.com/file/d/1UWAClszPoG_we45mH4b4T7DD6aeI8XMk/view": {
     "source": "壁峰區",
@@ -64594,11 +64603,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:27",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：幼童軍支部會員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1UWAClszPoG_we45mH4b4T7DD6aeI8XMk/view"
   },
   "https://drive.google.com/file/d/1aIWdp8VOmuV6K5cCOKcZ_oNgJnejgXSp/view": {
     "source": "壁峰區",
@@ -64711,11 +64723,14 @@
       }
     ],
     "subscription_catalog_version": "3.3.0",
-    "method": "",
-    "error": "not_pdf",
+    "method": "manual-reviewed-original",
+    "error": "",
     "title_check": "unverified",
     "enriched_at": "2026-10-17 03:38:45",
-    "enrich_version": "3.7"
+    "enrich_version": "3.7",
+    "reviewed_at": "2026-10-17",
+    "date_evidence": "人工覆核：小童軍支部團員章 童軍成員免受傷害 集會編排 2025；無發出日期，沉底至 2025-01-01",
+    "evidence_url": "https://drive.google.com/file/d/1Ft1AGYQBqdpYZ2wBpqNjFi1JqjdUEy6y/view"
   },
   "https://drive.google.com/file/d/1AiwtKkkP8N_tkDVJ-Mdps2VoF3sxMWfn/view": {
     "source": "壁峰區",
