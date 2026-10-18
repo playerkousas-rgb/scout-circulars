@@ -65021,5 +65021,49 @@
     "title_check": "verified",
     "enriched_at": "2026-10-18 02:34:21",
     "enrich_version": "3.7"
+  },
+  "https://www.stsd-scout.org/programme/view_notice/176": {
+    "source": "沙田南區",
+    "title": "香港童軍115周年 幼童軍度假營2026資助計劃",
+    "deadline": "2027-02-19",
+    "audience": "",
+    "audience_evidence": "本區各旅團2026年10月18日",
+    "fee": "",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "大露營",
+          "童軍大露營"
+        ],
+        "subtype": "big_camp"
+      }
+    ],
+    "branch_tags": [
+      "幼童軍"
+    ],
+    "subscription_tags": [
+      "activity:big-camp"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:big-camp",
+        "label": "大露營",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "大露營",
+          "童軍大露營"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-19 02:42:50",
+    "enrich_version": "3.7"
   }
 }
