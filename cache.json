@@ -45964,7 +45964,8 @@
         "description": "電子紀錄冊",
         "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
         "store_category": "電子紀錄冊",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "遠足路程表",
@@ -45983,7 +45984,8 @@
         "description": "全方位遠足計劃工具",
         "icon": "",
         "store_category": "工具",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "樂行童軍進度紀錄",
@@ -46000,7 +46002,8 @@
         "description": "電子紀錄冊",
         "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
         "store_category": "電子紀錄冊",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "AYP 童軍接駁指南",
@@ -46019,7 +46022,8 @@
         "description": "AYP 簡介",
         "icon": "",
         "store_category": "集會助手及指南",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "海外單車遊資料",
@@ -46037,7 +46041,8 @@
         "description": "海外單車必備",
         "icon": "",
         "store_category": "其他",
-        "store_page": "links"
+        "store_page": "links",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "童軍進度紀錄",
@@ -46054,7 +46059,8 @@
         "description": "電子紀錄冊",
         "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
         "store_category": "電子紀錄冊",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "升團準備",
@@ -46075,7 +46081,8 @@
         "description": "升團資料簡介",
         "icon": "",
         "store_category": "集會助手及指南",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "Gemini 輔助工具",
@@ -46096,7 +46103,8 @@
         "description": "配合gemini AI 工具",
         "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10",
         "store_category": "工具",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       },
       {
         "title": "幼童軍進度紀錄",
@@ -46113,7 +46121,8 @@
         "description": "電子紀錄冊",
         "icon": "",
         "store_category": "電子紀錄冊",
-        "store_page": "apps"
+        "store_page": "apps",
+        "source_url": "https://scoutappstore.vercel.app/"
       }
     ]
   },
@@ -47618,7 +47627,8 @@
         "童軍",
         "電子紀錄冊",
         "助手"
-      ]
+      ],
+      "source_url": "https://scoutappstore.vercel.app/"
     },
     {
       "source_site": "Scout System",
@@ -47630,7 +47640,8 @@
         "深資童軍",
         "電子紀錄冊",
         "助手"
-      ]
+      ],
+      "source_url": "https://scoutappstore.vercel.app/"
     },
     {
       "source_site": "Scout System",
@@ -47642,7 +47653,8 @@
         "樂行童軍",
         "電子紀錄冊",
         "助手"
-      ]
+      ],
+      "source_url": "https://scoutappstore.vercel.app/"
     },
     {
       "source_site": "Scout System",
@@ -47654,7 +47666,8 @@
         "幼童軍",
         "電子紀錄冊",
         "助手"
-      ]
+      ],
+      "source_url": "https://scoutappstore.vercel.app/"
     },
     {
       "source_site": "總會",
