@@ -98,8 +98,13 @@ def main() -> int:
         try:
             apps = fetch_live(store["_meta"]["supabase_url"], store["_meta"]["anon_key"])
         except Exception as e:
-            # sandbox 無外網 → fallback 快照，方便本地驗證
-            print(f"⚠️ live fetch 失敗（{e}），改用 appstore.json 快照", file=sys.stderr)
+            # sandbox／離線：顯式用 --snapshot 先至允許 fallback，避免 PR 誤帶舊快照（64 項）
+            # CI 上一定係 live，失敗就直接報錯唔好靜靜寫錯數。
+            import os as _os
+            if _os.environ.get("GITHUB_ACTIONS") == "true":
+                print(f"❌ live fetch 失敗（{e}）—— CI 唔可以用快照 fallback，請檢查 Supabase 網絡／key", file=sys.stderr)
+                raise
+            print(f"⚠️ live fetch 失敗（{e}），改用 appstore.json 快照（僅本地測試）", file=sys.stderr)
             apps = store["apps"]
 
     # 只收已上架（visible=true）；隱藏嘅唔入圖書館
