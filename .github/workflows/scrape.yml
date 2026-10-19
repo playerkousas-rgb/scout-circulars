@@ -69,6 +69,12 @@ jobs:
         run: |
           python core.py
 
+      # ── Step 1.5: 加掃 SCOUT APP STORE（只收已上架 visible=true，隱藏唔入）──
+      # anon key 唯讀（RLS 限 visible=true），baseline 防舊 app 風暴；已上架→Scout System，隱藏→自動下架
+      - name: Scrape SCOUT APP STORE catalogue
+        run: |
+          python tools/scrape_appstore.py
+
       # ── Step 2: 跑 enrich.py 增量抽新入庫通告的文字 ──
       # --apply-title-fixes：列表標題同 PDF 真標題對唔上（例如「D-26-05 - 26年10月
       # 區會公布 【New】」其實係「區總部公布」）就寫返 cache.json，並記錄原本列表

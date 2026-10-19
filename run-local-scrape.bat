@@ -122,6 +122,10 @@ echo [%date% %time%] core.py --force : re-checking every source
 python core.py --force
 if errorlevel 1 goto failed
 
+echo [%date% %time%] App Store sync : Scout System (only visible=true)
+python tools/scrape_appstore.py
+if errorlevel 1 echo [%date% %time%] App Store sync failed (offline?) : continuing - next run retries
+
 echo [%date% %time%] enrich.py : incremental PDF text extraction
 REM --apply-title-fixes: list titles that do not match the PDF (e.g. "D-26-05 - ...")----
 REM get written back as the PDF's real title, and re-applied on later runs.

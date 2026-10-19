@@ -4,7 +4,7 @@
     "version": "5.6.24",
     "design": "DOM指紋對比 + PDF絕對網址去重 + 盲信系統日期 + 30天沙盒沉底",
     "total_sources": 50,
-    "note": "v5.6.23 (2026-09-19): 將軍澳區改用 notice_card 結構化解析 —— 真連結 /notice/?nid=<data-id>（舊版係假 notice.php#slug）、由 whatsappImg[data-title] 還原已過期通告嘅截止日、跟內頁攞真 PDF（fail-soft）；fingerprint_selector 由 '.divContent, body' 改 '.divlink'，修好「指紋只 hash 靜態 chrome → Actions 無 --force 時日日 skip 將軍澳區」嘅潛伏 bug。core.py 新增 _meta.last_run.daily_new（一日兩個 writer：Actions 00:15 HKT + 本機 05:00 HKT，last_run.new 會互相蓋走令 dashboard 少報）。index.html parseDate 年份上限由寫死 2028 改成滑動窗口。新增 fix_tko_notice_urls.py 一次性把 30 筆舊假 URL re-key 做真 URL 並保留原 captured_date。 v5.6.24 (2026-09-19): 將軍澳區通告內頁（/notice/?nid=）嘅真 PDF 係靠古典 <meta http-equiv=\"refresh\"> 跳轉 —— 內頁 <body> 完全空、冇 <a> 冇 <iframe>，舊碼當「內頁冇嘢」回空，fail-soft 保留 /notice/?nid=207 當 PDF 網址寫入 cache.json，而 enrich.py 只食 .pdf → enrich.json 由頭到尾冇將軍澳區資料。core.py 已支援 meta refresh（extract_meta_refresh_target）。記錄只增不減：跟到真檔案就寫真檔案、下次跟唔到就照寫內頁 URL，兩筆都留住（要「全」，唔係要整齊）；cache 只按 (source_site, pdf_url) 去重，唔會因為「同一張卡」而收起或改寫任何記錄。"
+    "note": "v5.6.24 + App Store 同步（2026-10-19）：Scout System 現由 SCOUT APP STORE 每日同步（tools/scrape_appstore.py，anon key 只收 visible=true）。原有「網址待定」待辦已由 App Store 接管：core.py 仍 skip 此來源（enabled=false），由 workflow 的 App Store 步驟直接寫入 cache.json/enrich.json。隱藏項目自動下架，新上架自動入庫（baseline 防舊 app 風暴）。"
   },
   "sources": {
     "總會": {
@@ -1121,7 +1121,7 @@
       "title_selector": "a",
       "tag_selector": "",
       "follow_detail_pages": false,
-      "notes": "推廣實用小工具嘅來源：呢度出嘅通告一律歸類「小工具」（見 subscription_tagging.py 嘅 TOOLS_SOURCES）。每個工具嘅支部以站方親手貼嘅標籤為準（標題未必有支部字眼，例如「密碼旗號」適用多個支部）：配置時填 tag_selector 指向工具卡片上嘅支部標籤元素，抓取會自動帶走並用於配對。標籤或標題若命中「助手／遊戲／系統／工具／其他／連結」，圖書館會歸入 Scout System 內設分類，否則歸「其他」。「小工具」呢四個字唔會被當成內設「工具」。6個月視窗會一併顯示 6 個月以上的項目（一般通告唔適用），卡片一律標「6個月以上」。網址待定——曾用過渡網址 https://website-kappa-black-24.vercel.app/ ，未來會換；換好後喺呢度填 url、將 enabled 改 true，並按實際頁面調整選擇器。"
+      "notes": "Scout System 現由 SCOUT APP STORE 每日自動同步（tools/scrape_appstore.py，anon key 唯讀，只收已上架 visible=true）。此來源來源由同步腳本直接寫入 cache.json 的 Scout System 分區，不經 core.py 抓取，故保持 enabled=false（core.py 會 skip），由每日 workflow 的 App Store 步驟接管。隱藏（visible=false）永遠唔入圖書館；新上架會自動以當日 captured_date 入庫並可觸發通知。各工具支部標籤以 App Store 站方設定為準，分類一律小工具。"
     }
   }
 }

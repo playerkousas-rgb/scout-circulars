@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-19 05:00:06",
+  "last_updated": "2026-10-19 20:34:32",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
@@ -45905,18 +45905,45 @@
     ],
     "Scout System": [
       {
-        "title": "童軍進度追蹤系統",
-        "url": "https://scoutbadge.vercel.app/",
-        "pdf_url": "https://scoutbadge.vercel.app/",
-        "date": "2026-09-24",
-        "captured_date": "2026-09-24",
+        "title": "集會小遊戲",
+        "url": "https://game-blond-nu.vercel.app/",
+        "pdf_url": "https://game-blond-nu.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
         "source_site": "Scout System",
         "region": "Scout System",
         "tags": [
+          "小童軍",
+          "幼童軍",
           "童軍",
-          "電子紀錄冊",
-          "助手"
-        ]
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://cdn.pixabay.com/photo/2024/01/25/06/56/ai-generated-8531096_1280.png",
+        "store_category": "遊戲",
+        "store_page": "apps"
+      },
+      {
+        "title": "蟬繞畫",
+        "url": "https://zentangle-pattern-generator.vercel.app/",
+        "pdf_url": "https://zentangle-pattern-generator.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "apps"
       },
       {
         "title": "深資童軍進度紀錄",
@@ -45928,9 +45955,33 @@
         "region": "Scout System",
         "tags": [
           "深資童軍",
-          "電子紀錄冊",
-          "助手"
-        ]
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
+      },
+      {
+        "title": "外出小遊戲",
+        "url": "https://minigame-one-red.vercel.app/",
+        "pdf_url": "https://minigame-one-red.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "遊戲",
+        "store_page": "apps"
       },
       {
         "title": "樂行童軍進度紀錄",
@@ -45942,12 +45993,412 @@
         "region": "Scout System",
         "tags": [
           "樂行童軍",
-          "電子紀錄冊",
-          "助手"
-        ]
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
       },
       {
-        "title": "幼童軍進度追蹤系統",
+        "title": "摩斯密碼發訊器",
+        "url": "https://morse-beacon-app.vercel.app/",
+        "pdf_url": "https://morse-beacon-app.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
+        "title": "解碼工具",
+        "url": "https://decode-sandy-eight.vercel.app/",
+        "pdf_url": "https://decode-sandy-eight.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/fyW8Vn7p/a387425b-5180-4b6c-a22a-90ef6577f066.png",
+        "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
+        "title": "遠足路程表",
+        "url": "https://drawtheroute-yd8p.vercel.app/",
+        "pdf_url": "https://drawtheroute-yd8p.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
+        "title": "電子地圖",
+        "url": "https://hkmap.vercel.app/",
+        "pdf_url": "https://hkmap.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "方便製作城市定向",
+        "icon": "",
+        "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
+        "title": "電子點名簿",
+        "url": "https://troop-attendance.vercel.app/",
+        "pdf_url": "https://troop-attendance.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/28PYs27q/2933cffe-f4ec-4444-b2f8-edfbdab7d167.png",
+        "store_category": "系統",
+        "store_page": "apps"
+      },
+      {
+        "title": "專科徽章系統",
+        "url": "https://districtbadgesystem30.vercel.app/",
+        "pdf_url": "https://districtbadgesystem30.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/8PTXjWkx/472532ba-0bfc-493c-9f56-cc5208fce13f.png",
+        "store_category": "系統",
+        "store_page": "apps"
+      },
+      {
+        "title": "鳥類圖鑑",
+        "url": "https://avian-dex.vercel.app/",
+        "pdf_url": "https://avian-dex.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "apps"
+      },
+      {
+        "title": "鳥類捕捉器",
+        "url": "https://birddex3.vercel.app/",
+        "pdf_url": "https://birddex3.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "觀鳥遊戲",
+        "icon": "https://i.postimg.cc/d0H25kG4/39bfa68c-9d03-4017-8a2f-4d0fe6a41256.png",
+        "store_category": "其他",
+        "store_page": "apps"
+      },
+      {
+        "title": "成員系統",
+        "url": "https://member-portal-sigma-swart.vercel.app/",
+        "pdf_url": "https://member-portal-sigma-swart.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/W3YkwBLS/08e04b23-86e7-46f7-adba-2ae13796f6ed.png",
+        "store_category": "系統",
+        "store_page": "apps"
+      },
+      {
+        "title": "幼童軍集會助手",
+        "url": "https://cubsmeeting.vercel.app/",
+        "pdf_url": "https://cubsmeeting.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "集會助手及指南",
+        "store_page": "apps"
+      },
+      {
+        "title": "AYP 童軍接駁指南",
+        "url": "https://ayp-eight.vercel.app/",
+        "pdf_url": "https://ayp-eight.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "集會助手及指南",
+        "store_page": "apps"
+      },
+      {
+        "title": "區管理系統",
+        "url": "https://scout-district-portal.vercel.app/",
+        "pdf_url": "https://scout-district-portal.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/xTPG742w/f4cc2ce9-fd66-4535-836f-717c9a629016.png",
+        "store_category": "系統",
+        "store_page": "apps"
+      },
+      {
+        "title": "旅團管理系統",
+        "url": "https://troop-portal.vercel.app/",
+        "pdf_url": "https://troop-portal.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/HLbkZfGY/acc9b943-3a1d-4727-ae81-0353451385e7.png",
+        "store_category": "系統",
+        "store_page": "apps"
+      },
+      {
+        "title": "優異旅團",
+        "url": "https://dga-five.vercel.app/",
+        "pdf_url": "https://dga-five.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/1tDSFc93/34047ce4-3779-4f5a-90d8-9afd63e26fad.jpg",
+        "store_category": "系統",
+        "store_page": "apps"
+      },
+      {
+        "title": "深資童軍管理系統",
+        "url": "https://ecportal.vercel.app/",
+        "pdf_url": "https://ecportal.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "深資童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "系統",
+        "store_page": "apps"
+      },
+      {
+        "title": "小童軍集會助手",
+        "url": "https://ghmeeting-j1rn.vercel.app/",
+        "pdf_url": "https://ghmeeting-j1rn.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "集會助手及指南",
+        "store_page": "apps"
+      },
+      {
+        "title": "深資童軍集會助手",
+        "url": "https://vsmeeting.vercel.app/",
+        "pdf_url": "https://vsmeeting.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "深資童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "集會助手及指南",
+        "store_page": "apps"
+      },
+      {
+        "title": "密碼旗號",
+        "url": "https://code-zeta-beryl.vercel.app/",
+        "pdf_url": "https://code-zeta-beryl.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://i.postimg.cc/y6RXsNFy/5ed96783-7bc4-4106-8ce8-690aa8a05113.png",
+        "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
+        "title": "世界童軍地圖",
+        "url": "https://scoutworld.vercel.app/",
+        "pdf_url": "https://scoutworld.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://img.pikbest.com/origin/09/27/23/06xpIkbEsTd37.png!bw800",
+        "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
+        "title": "童軍集會助手",
+        "url": "https://scoutmeeting.vercel.app/",
+        "pdf_url": "https://scoutmeeting.vercel.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "集會助手及指南",
+        "store_page": "apps"
+      },
+      {
+        "title": "童軍進度紀錄",
+        "url": "https://scoutbadge.vercel.app/",
+        "pdf_url": "https://scoutbadge.vercel.app/",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
+      },
+      {
+        "title": "幼童軍進度紀錄",
         "url": "https://cubsbadge.vercel.app/",
         "pdf_url": "https://cubsbadge.vercel.app/",
         "date": "2026-09-24",
@@ -45956,9 +46407,727 @@
         "region": "Scout System",
         "tags": [
           "幼童軍",
-          "電子紀錄冊",
-          "助手"
-        ]
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
+      },
+      {
+        "title": "元素周期表",
+        "url": "https://ptable.com/#",
+        "pdf_url": "https://ptable.com/#",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "課堂學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "鯊魚追蹤",
+        "url": "https://www.ocearch.org/tracker/",
+        "pdf_url": "https://www.ocearch.org/tracker/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
+      },
+      {
+        "title": "理科",
+        "url": "https://phet.colorado.edu/zh_TW/",
+        "pdf_url": "https://phet.colorado.edu/zh_TW/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "課堂學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "修理指南",
+        "url": "https://zh.ifixit.com/",
+        "pdf_url": "https://zh.ifixit.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
+      },
+      {
+        "title": "觀鳥相機",
+        "url": "https://madarles.hu/",
+        "pdf_url": "https://madarles.hu/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
+      },
+      {
+        "title": "模擬飛行",
+        "url": "https://www.geo-fs.com/",
+        "pdf_url": "https://www.geo-fs.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "海外單車資料",
+        "url": "https://veloplanner.com/",
+        "pdf_url": "https://veloplanner.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
+      },
+      {
+        "title": "全球電網",
+        "url": "https://opengridworks.com/power-plants?lat=36.413051&lng=36.579129&z=3.177968&layers=tx%2Cdatacenters%2Chpoints%2CosmSubs%2CosmGen%2CrowTx&panel=closed",
+        "pdf_url": "https://opengridworks.com/power-plants?lat=36.413051&lng=36.579129&z=3.177968&layers=tx%2Cdatacenters%2Chpoints%2CosmSubs%2CosmGen%2CrowTx&panel=closed",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "地球資訊",
+        "store_page": "links"
+      },
+      {
+        "title": "觀星日曆",
+        "url": "https://nightsonearth.com/?location=united-states-tahoe-vista-39120&month=9&year=2026&day=0",
+        "pdf_url": "https://nightsonearth.com/?location=united-states-tahoe-vista-39120&month=9&year=2026&day=0",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "地球資訊",
+        "store_page": "links"
+      },
+      {
+        "title": "電路模擬器",
+        "url": "https://wokwi.com/",
+        "pdf_url": "https://wokwi.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "健身訓練",
+        "url": "https://musclewiki.com/zh-cn",
+        "pdf_url": "https://musclewiki.com/zh-cn",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
+      },
+      {
+        "title": "兒童工作紙",
+        "url": "https://www.kiddoworksheets.com/",
+        "pdf_url": "https://www.kiddoworksheets.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "教材",
+        "store_page": "links"
+      },
+      {
+        "title": "紙模型庫",
+        "url": "https://papermau.blogspot.com/search/label/paper%20toy#google_vignette",
+        "pdf_url": "https://papermau.blogspot.com/search/label/paper%20toy#google_vignette",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "教材",
+        "store_page": "links"
+      },
+      {
+        "title": "紙飛機摺法",
+        "url": "https://www.foldnfly.com/#/1-1-1-1-1-1-1-1-2-1",
+        "pdf_url": "https://www.foldnfly.com/#/1-1-1-1-1-1-1-1-2-1",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "教材",
+        "store_page": "links"
+      },
+      {
+        "title": "數學解題",
+        "url": "https://www.cymath.com/hk/",
+        "pdf_url": "https://www.cymath.com/hk/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "課堂學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "維基百科圖卡",
+        "url": "https://wikigacha.com/?lang=ZH_HANT",
+        "pdf_url": "https://wikigacha.com/?lang=ZH_HANT",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "化學",
+        "url": "https://zperiod.app/?lang=zh-Hant",
+        "pdf_url": "https://zperiod.app/?lang=zh-Hant",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "課堂學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "圖片轉提示詞",
+        "url": "https://imageprompt.org/",
+        "pdf_url": "https://imageprompt.org/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "生圖工具",
+        "store_page": "links"
+      },
+      {
+        "title": "提示詞庫",
+        "url": "https://youmind.com/zh-TW/gpt-image-2-prompts/explore?sortBy=views&sortOrder=desc",
+        "pdf_url": "https://youmind.com/zh-TW/gpt-image-2-prompts/explore?sortBy=views&sortOrder=desc",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "生圖工具",
+        "store_page": "links"
+      },
+      {
+        "title": "圖標生成器",
+        "url": "https://realfavicongenerator.net/",
+        "pdf_url": "https://realfavicongenerator.net/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "生圖工具",
+        "store_page": "links"
+      },
+      {
+        "title": "生物",
+        "url": "https://smart.servier.com/",
+        "pdf_url": "https://smart.servier.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "課堂學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "人體解剖",
+        "url": "https://anatomyzone.com/",
+        "pdf_url": "https://anatomyzone.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "攝影",
+        "url": "https://photoskop.com/",
+        "pdf_url": "https://photoskop.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "海外遠足資料",
+        "url": "https://www.guidedpeaks.com/",
+        "pdf_url": "https://www.guidedpeaks.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
+      },
+      {
+        "title": "圖片轉檔工具",
+        "url": "https://squoosh.app/",
+        "pdf_url": "https://squoosh.app/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "生圖工具",
+        "store_page": "links"
+      },
+      {
+        "title": "英文語音",
+        "url": "https://readalong.google.com/",
+        "pdf_url": "https://readalong.google.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "課堂學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "汽車維修",
+        "url": "https://simulator.electude.com/simulator",
+        "pdf_url": "https://simulator.electude.com/simulator",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "天象",
+        "url": "https://www.solarsystemscope.com/",
+        "pdf_url": "https://www.solarsystemscope.com/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "恐龍資料庫",
+        "url": "https://dinosaurpictures.org/",
+        "pdf_url": "https://dinosaurpictures.org/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "3D圖生成",
+        "url": "https://app.sloyd.ai/labs/text-to-3d",
+        "pdf_url": "https://app.sloyd.ai/labs/text-to-3d",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "3D 打印工具",
+        "store_page": "links"
+      },
+      {
+        "title": "名勝古蹟",
+        "url": "https://funes.world/search?ref=home_menu",
+        "pdf_url": "https://funes.world/search?ref=home_menu",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "3D 打印工具",
+        "store_page": "links"
+      },
+      {
+        "title": "詩詞歌賦",
+        "url": "https://sou-yun.cn/",
+        "pdf_url": "https://sou-yun.cn/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "課堂學習工具",
+        "store_page": "links"
+      },
+      {
+        "title": "團衫設計",
+        "url": "https://freesewing.eu/",
+        "pdf_url": "https://freesewing.eu/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
+      },
+      {
+        "title": "光污染",
+        "url": "https://www.nightearth.com/top.php#gsc.tab=0",
+        "pdf_url": "https://www.nightearth.com/top.php#gsc.tab=0",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "地球資訊",
+        "store_page": "links"
+      },
+      {
+        "title": "衛星",
+        "url": "https://satellitemap.space/",
+        "pdf_url": "https://satellitemap.space/",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "地球資訊",
+        "store_page": "links"
+      },
+      {
+        "title": "世界各地即時相機",
+        "url": "https://tomarigi.me/world",
+        "pdf_url": "https://tomarigi.me/world",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "地球資訊",
+        "store_page": "links"
+      },
+      {
+        "title": "氣象資訊",
+        "url": "https://www.windy.com/?33.613,81.569,3",
+        "pdf_url": "https://www.windy.com/?33.613,81.569,3",
+        "date": "2026-10-19",
+        "captured_date": "2026-10-19",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "tags": [
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "",
+        "icon": "",
+        "store_category": "其他學習工具",
+        "store_page": "links"
       }
     ]
   },
@@ -81801,6 +82970,13 @@
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
+    },
+    "appstore": {
+      "first_sync": "2026-10-19",
+      "last_sync": "2026-10-19",
+      "catalog_size": 64,
+      "visible_count": 64,
+      "hidden_skipped": 1
     }
   }
 }
