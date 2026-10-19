@@ -65078,6 +65078,323 @@
     "enriched_at": "2026-10-19 02:42:50",
     "enrich_version": "3.7"
   },
+  "https://krscout.org/wp-content/uploads/2026/10/KT72_26.pdf": {
+    "source": "九龍地域",
+    "title": "第 8 屆森林舞蹈訓練班(領袖技能訓練班) 編號:KT/72/26",
+    "deadline": "2026-12-06",
+    "audience": "領袖、會務委員、受薪職員",
+    "audience_evidence": "1.持有有效領袖委任書、教練員/會務委員委任證或受薪職員;及 2.完成領袖初級訓練班;或 完成童軍運動基本原則訓練班(單元1A及單元1B)。 *報名時必須遞交上述證書或證明文件副本,否則申請將不被接納。",
+    "fee": "HK$60",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班",
+          "技能訓練"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-jungle-dance",
+      "training:會務委員",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班",
+          "技能訓練"
+        ]
+      },
+      {
+        "id": "course:leader-jungle-dance",
+        "label": "森林舞蹈",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：森林舞蹈訓練班",
+          "標題／內文：森林舞蹈訓練"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-20 05:06:51",
+    "enrich_version": "3.7",
+    "listing_title": "第8屆森林舞蹈訓練班(KT/72/26)"
+  },
+  "https://krscout.org/wp-content/uploads/2026/10/KT73_26.pdf": {
+    "source": "九龍地域",
+    "title": "第 30 屆深資童軍進度性獎章訓練班(領袖技能訓練班) 編號:KT/73/26",
+    "deadline": "2026-12-17",
+    "audience": "領袖、會務委員、受薪職員",
+    "audience_evidence": "1.持有有效領袖委任書、教練員/會務委員委任證或受薪職員;及 2.完成領袖初級訓練班;或 3.完成童軍運動基本原則訓練班(單元1A及1B)。 *報名時必須遞交上述證書或證明文件副本,否則申請將不被接納。",
+    "fee": "HK$100",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班",
+          "技能訓練"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "會務委員",
+      "領袖"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:leader-scout-progressive-badges",
+      "course:leader-venture-progressive-badges",
+      "training:會務委員",
+      "training:領袖:非木章"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班",
+          "技能訓練"
+        ]
+      },
+      {
+        "id": "course:leader-scout-progressive-badges",
+        "label": "童軍進度性獎章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：童軍進度性獎章訓練班",
+          "標題／內文：童軍進度性獎章訓練"
+        ]
+      },
+      {
+        "id": "course:leader-venture-progressive-badges",
+        "label": "深資童軍進度性獎章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：深資童軍進度性獎章訓練班",
+          "標題／內文：深資童軍進度性獎章訓練"
+        ]
+      },
+      {
+        "id": "training:會務委員",
+        "label": "所有會務委員訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：會務委員"
+        ]
+      },
+      {
+        "id": "training:領袖:非木章",
+        "label": "所有非木章訓練班",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "類別：非木章訓練班"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-20 05:06:53",
+    "enrich_version": "3.7",
+    "listing_title": "第30屆深資童軍進度性獎章訓練班(KT/73/26)"
+  },
+  "https://krscout.org/wp-content/uploads/2026/10/KT74_26.pdf": {
+    "source": "九龍地域",
+    "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+    "deadline": "",
+    "audience": "",
+    "audience_evidence": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "competition",
+        "label": "比賽",
+        "score": 3.0,
+        "evidence": [
+          "比賽",
+          "成績公布"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:competition"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:competition",
+        "label": "所有比賽",
+        "group": "比賽",
+        "kind": "category",
+        "evidence": [
+          "比賽",
+          "成績公布"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-20 05:06:57",
+    "enrich_version": "3.7",
+    "listing_title": "九龍檢閱場上的王者 2026— 快樂傘、團呼、升旗、步操及步列比賽成績公佈"
+  },
+  "https://krscout.org/wp-content/uploads/2026/10/Summary_2026_10.pdf": {
+    "source": "九龍地域",
+    "title": "九龍地域通告【2026 年 10 月】",
+    "deadline": "",
+    "audience": "",
+    "audience_evidence": "",
+    "fee": "",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": [
+          "月度通告摘要"
+        ]
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": [
+          "月度通告摘要"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-20 05:07:01",
+    "enrich_version": "3.7",
+    "listing_title": "九龍地域10月份通告一覽"
+  },
+  "https://drive.google.com/file/d/1boK4dX6TKAQHYRVk-V6g0y1bNKVRXE8p/view": {
+    "source": "紅磡區",
+    "title": "幼童軍金紫荊獎章考驗營",
+    "deadline": "2026-11-14",
+    "audience": "幼童軍、童軍",
+    "audience_evidence": "1.本區內已宣誓及持有有效幼童軍紀錄冊及成員編號(YMIS)之童軍成員;及 2.已考獲幼童軍歷奇章,並開始考取幼童軍高級歷奇章。",
+    "fee": "HK$175",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "考驗"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "幼童軍",
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:cub-home-help-badge",
+      "training:幼童軍",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "考驗"
+        ]
+      },
+      {
+        "id": "course:cub-home-help-badge",
+        "label": "家務章",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：家務章"
+        ]
+      },
+      {
+        "id": "training:幼童軍",
+        "label": "所有幼童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：幼童軍"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-20 05:07:06",
+    "enrich_version": "3.7"
+  },
   "https://drawtheroute-yd8p.vercel.app/": {
     "source": "Scout System",
     "title": "遠足路程表",

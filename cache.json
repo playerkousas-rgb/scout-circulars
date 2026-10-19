@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-19 20:58:10",
+  "last_updated": "2026-10-20 06:16:36",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 5081,
+    "total_notices": 5086,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -24849,6 +24849,42 @@
     ],
     "九龍地域": [
       {
+        "title": "第 8 屆森林舞蹈訓練班(領袖技能訓練班) 編號:KT/72/26",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/KT72_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KT72_26.pdf",
+        "date": "2026-10-20",
+        "captured_date": "2026-10-20",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "第 30 屆深資童軍進度性獎章訓練班(領袖技能訓練班) 編號:KT/73/26",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/KT73_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KT73_26.pdf",
+        "date": "2026-10-20",
+        "captured_date": "2026-10-20",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/KT74_26.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KT74_26.pdf",
+        "date": "2026-10-20",
+        "captured_date": "2026-10-20",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
+        "title": "九龍地域通告【2026 年 10 月】",
+        "url": "https://krscout.org/wp-content/uploads/2026/10/Summary_2026_10.pdf",
+        "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/Summary_2026_10.pdf",
+        "date": "2026-10-20",
+        "captured_date": "2026-10-20",
+        "source_site": "九龍地域",
+        "region": "九龍地域"
+      },
+      {
         "title": "幼童軍射箭章(三級制)訓練班",
         "url": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
         "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
@@ -26425,6 +26461,15 @@
       }
     ],
     "紅磡區": [
+      {
+        "title": "幼童軍金紫荊獎章考驗營",
+        "url": "https://drive.google.com/file/d/1boK4dX6TKAQHYRVk-V6g0y1bNKVRXE8p/view",
+        "pdf_url": "https://drive.google.com/file/d/1boK4dX6TKAQHYRVk-V6g0y1bNKVRXE8p/view",
+        "date": "2026-10-20",
+        "captured_date": "2026-10-20",
+        "source_site": "紅磡區",
+        "region": "九龍地域"
+      },
       {
         "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
         "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
@@ -46073,6 +46118,41 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "紅磡區",
+      "region": "九龍地域",
+      "pdf_url": "https://drive.google.com/file/d/1boK4dX6TKAQHYRVk-V6g0y1bNKVRXE8p/view",
+      "title": "幼童軍金紫荊獎章考驗營",
+      "captured_date": "2026-10-20"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KT72_26.pdf",
+      "title": "第 8 屆森林舞蹈訓練班(領袖技能訓練班) 編號:KT/72/26",
+      "captured_date": "2026-10-20"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KT73_26.pdf",
+      "title": "第 30 屆深資童軍進度性獎章訓練班(領袖技能訓練班) 編號:KT/73/26",
+      "captured_date": "2026-10-20"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/KT74_26.pdf",
+      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+      "captured_date": "2026-10-20"
+    },
+    {
+      "source_site": "九龍地域",
+      "region": "九龍地域",
+      "pdf_url": "https://krscout.org/wp-content/uploads/2026/10/Summary_2026_10.pdf",
+      "title": "九龍地域通告【2026 年 10 月】",
+      "captured_date": "2026-10-20"
+    },
     {
       "source_site": "沙田南區",
       "region": "新界東地域",
@@ -81897,10 +81977,10 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-19 05:00:06",
-      "new": 0,
-      "updated": 3577,
-      "daily_new": 1,
+      "updated_at": "2026-10-20 05:00:05",
+      "new": 5,
+      "updated": 3569,
+      "daily_new": 5,
       "skipped": 4,
       "processed": 46,
       "playwright_used": 2,
@@ -81914,7 +81994,7 @@
     },
     "appstore": {
       "first_sync": "2026-10-19",
-      "last_sync": "2026-10-19",
+      "last_sync": "2026-10-20",
       "catalog_size": 9,
       "visible_count": 9
     }
