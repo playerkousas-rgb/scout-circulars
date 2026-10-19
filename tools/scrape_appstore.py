@@ -253,11 +253,11 @@ def main() -> int:
             # 已下架／隱藏 → 移除
             del enrich[url]
 
-    # 寫檔
+    # 寫檔 — 永遠只計 visible，唔保留 hidden 計數
     sync["last_sync"] = today
     sync["catalog_size"] = len(catalog)
     sync["visible_count"] = len(visible_apps)
-    sync["hidden_skipped"] = len(apps) - len(visible_apps)
+    sync.pop("hidden_skipped", None)
     # 若快照無 created_at，baseline 第二次 run 不應重複計算舊 app
     # 已透過 existing_urls 去重保證。
 
@@ -272,11 +272,9 @@ def main() -> int:
     cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     enrich_path.write_text(json.dumps(enrich, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    print(f"✅ {SOURCE}：catalog {len(catalog)} 項（已上架 {len(visible_apps)}，隱藏已跳過 {len(apps)-len(visible_apps)}）｜新通告 {len(new_notices)} 張（baseline {first_sync}）")
+    print(f"✅ {SOURCE}：catalog {len(catalog)} 項（已上架 {len(visible_apps)}）｜新通告 {len(new_notices)} 張（baseline {first_sync}）")
     for n in new_notices:
         print(f"   + {n['title']} {n['url']}")
-    if len(visible_apps) != len(apps):
-        print(f"   ℹ️ 已跳過隱藏/下架：{len(apps)-len(visible_apps)} 項")
     return 0
 
 
