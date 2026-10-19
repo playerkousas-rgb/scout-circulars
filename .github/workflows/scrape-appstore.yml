@@ -1,25 +1,23 @@
 # ============================================================
-# ⚠️ 未開啟 —— 未來取代 scrape.yml 嘅版本（core 抓取 ＋ 加掃 SCOUT APP STORE）
+# 已啟用：Scout Notice Scraper + App Store（每日 00:15 HKT 同步 App Store）
 #
-# 而家得 workflow_dispatch（人手先會跑），冇 schedule，所以「現在先不要用」係成立的：
-# 唔會自己跑、唔會碰 cache.json、唔使任何新 secrets（appstore 用公開 anon key 唯讀）。
+# 此 workflow 現為可選的獨立全量流程，與 scrape.yml 共享 concurrency group，
+# 不會雙重 commit（同一時間只跑一個）。已啟用 schedule，與 scrape.yml 一致；
+# 兩者擇一即可，日常以 scrape.yml 為主（已含 App Store 同步步驟）。
+# 若日後想改以此檔為主，停用 scrape.yml 的 schedule 即可。
 #
-# 啟用步驟（日後）：
-#   1. 確認 tools/scrape_appstore.py 喺本機／手動 dispatch 試過 OK；
-#   2. 將下面 on.schedule 嘅註解打開（同 scrape.yml 同一 cron）；
-#   3. 刪除／停用 scrape.yml，避免兩條 workflow 雙重 commit。
-#
-# 流程：core.py → scrape_appstore.py（加掃 store）→ enrich.py 增量 → 健康檢查 → commit
+# 流程：core.py → scrape_appstore.py（只收已上架 visible=true）→ enrich.py → 健康檢查 → commit
+# App Store 同步：anon key 唯讀（RLS 限 visible=true），隱藏（visible=false）永遠唔入圖書館
 # ============================================================
 
-name: Scout Notice Scraper + App Store（未啟用・未來取代 scrape.yml）
+name: Scout Notice Scraper + App Store
 
 on:
-  # ── 啟用時打開呢段（00:15 HKT = 16:15 UTC，同 scrape.yml 一致）──
-  # schedule:
-  #   - cron: "15 16 * * *"
+  # 每日 00:15 HKT 自動執行（同 scrape.yml 一致：16:15 UTC）
+  schedule:
+    - cron: "15 16 * * *"
 
-  # 手動觸發（預備／測試用；而家唯一入口）
+  # 手動觸發（測試／補跑用）
   workflow_dispatch:
 
 concurrency:
@@ -58,14 +56,13 @@ jobs:
         run: |
           python core.py
 
-      # ── Step 1.5: 加掃 SCOUT APP STORE（新）──
+      # ── Step 1.5: 加掃 SCOUT APP STORE（只收已上架，隱藏跳過）──
       # anon key 唯讀；baseline 機制保證首次同步唔會派發舊 app 風暴
       - name: Scrape SCOUT APP STORE catalogue
         run: |
           python tools/scrape_appstore.py
 
       # ── Step 2: enrich 增量（只抽新入庫 PDF）──
-      # --apply-title-fixes 同 scrape.yml 一致：PDF 真標題會寫返 cache.json
       - name: Run enrich scraper (incremental only)
         run: |
           python enrich.py --verbose --apply-title-fixes
