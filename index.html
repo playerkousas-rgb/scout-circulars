@@ -968,8 +968,15 @@
       const raw = [];
       if (Array.isArray(item?.tags)) raw.push(...item.tags);
       else if (item?.tags) raw.push(item.tags);
-      for (const key of ['kind', 'ss_kind', 'tool_kind', 'ss_category']) {
+      for (const key of ['kind', 'ss_kind', 'tool_kind', 'ss_category', 'store_category', 'store_page']) {
         if (item?.[key]) raw.push(item[key]);
+      }
+      // enrich 亦可能帶 store_category / ss_category
+      const ex = state.enrich[item?.url] || state.enrich[item?.pdf_url] || null;
+      if (ex) {
+        for (const key of ['ss_kind', 'ss_category', 'store_category', 'store_page']) {
+          if (ex[key]) raw.push(ex[key]);
+        }
       }
       return raw.flatMap(value => String(value).split(/[\s,，、|/]+/)).map(token => token.trim()).filter(Boolean);
     }
@@ -5256,15 +5263,15 @@
           <div class="card-head">
             ${iconHtml}
             <div class="card-title-wrap">
-              <span class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</span>
+              ${isTool ? `<a class="badge" href="https://scoutappstore.vercel.app/" target="_blank" rel="noopener noreferrer">SCOUT APP STORE</a>` : `<span class="badge">${escapeHtml(item.source_site || state.activeSource || '')}</span>`}
               <span class="cat-tags">${catHtml}</span>
               <h3>${escapeHtml(item.title || '未命名通告')}</h3>
             </div>
           </div>
           <div class="meta-row meta-date">
             <span class="date">${escapeHtml(formatDate(item.date || item.captured_date || ''))}</span>
-            <span class="host">${escapeHtml(host)}</span>
-            ${item.region ? `<span class="meta-region">${escapeHtml(item.region)}</span>` : ''}
+            ${isTool ? `<a class="host" href="https://scoutappstore.vercel.app/" target="_blank" rel="noopener noreferrer">scoutappstore.vercel.app</a>` : `<span class="host">${escapeHtml(host)}</span>`}
+            ${item.region && !isTool ? `<span class="meta-region">${escapeHtml(item.region)}</span>` : ''}
           </div>
           ${extraHtml}
           <div class="meta-row meta-foot">

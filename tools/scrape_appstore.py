@@ -50,19 +50,56 @@ def fetch_live(url: str, anon: str) -> list:
 
 
 def category_to_tags(a: dict) -> list:
-    """保持與舊版一致：支部標籤 + 小工具 標籤；去重保序。"""
-    tags = [t for t in (a.get("tags") or []) if t]
+    """支部標籤（只跟 5 個支部）+ 小工具 標籤；去重保序。"""
+    allowed = {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"}
+    tags = [t for t in (a.get("tags") or []) if t in allowed]
     if "小工具" not in tags:
         tags.append("小工具")
     return tags
+
+
+# App Store 原分類 → Scout System 內建六類（跟 index.html SCOUT_KIND_LABELS 同步）
+STORE_CATEGORY_TO_KIND = {
+    "集會助手及指南": "assistant",
+    "助手": "assistant",
+    "小助手": "assistant",
+    "電子紀錄冊": "assistant",
+    "進度紀錄": "assistant",
+    "紀錄冊": "assistant",
+    "遊戲": "game",
+    "小遊戲": "game",
+    "系統": "system",
+    "工具": "tool",
+    "其他": "other",
+    "有用連結": "link",
+    "連結": "link",
+}
+
+def store_category_to_kind(cat: str) -> str:
+    c = (cat or "").strip()
+    if c in STORE_CATEGORY_TO_KIND:
+        return STORE_CATEGORY_TO_KIND[c]
+    # 模糊匹配（例如「課堂學習工具」→ 工具）
+    if "遊戲" in c:
+        return "game"
+    if "連結" in c:
+        return "link"
+    if "系統" in c:
+        return "system"
+    if "工具" in c:
+        return "tool"
+    if "助手" in c or "紀錄冊" in c:
+        return "assistant"
+    return "other"
 
 
 def build_enrich_entry(a: dict) -> dict:
     """為 Scout System 工具產生 enrich 條目（小工具專屬，不經 PDF）。"""
     title = a.get("name") or ""
     desc = a.get("description") or a.get("note") or ""
-    branch_tags = [t for t in (a.get("tags") or []) if t in
-                   {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍", "領袖", "家長", "會務委員"}]
+    allowed_branches = {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"}
+    branch_tags = [t for t in (a.get("tags") or []) if t in allowed_branches]
+    kind = store_category_to_kind(a.get("category") or "")
     # 若無支部標籤，視作全體適用（保留空，enrich 仍可分類為 tools）
     return {
         "source": SOURCE,
@@ -75,9 +112,13 @@ def build_enrich_entry(a: dict) -> dict:
         "error": "",
         "enriched_at": datetime.now(HKT).strftime("%Y-%m-%d %H:%M:%S"),
         "enrich_version": "3.7",
-        "categories": [{"id": "tools", "label": "小工具", "subtype": "assistant", "score": 1.0}],
+        "categories": [{"id": "tools", "label": "小工具", "subtype": kind, "score": 1.0}],
         "branch_tags": branch_tags,
-        "subscription_tags": ["category:tools"],
+        "subscription_tags": [f"scout_kind:{kind}"],
+        "ss_kind": kind,
+        "ss_category": a.get("category") or "",
+        "store_category": a.get("category") or "",
+        "store_page": a.get("page") or "",
     }
 
 
@@ -167,6 +208,7 @@ def main() -> int:
             "captured_date": captured,
             "source_site": SOURCE,
             "region": SOURCE,
+            "source_url": "https://scoutappstore.vercel.app/",
             "tags": category_to_tags(a),
             "description": a.get("description") or a.get("note") or "",
             "icon": a.get("icon") or "",
@@ -210,6 +252,7 @@ def main() -> int:
             "captured_date": today,
             "source_site": SOURCE,
             "region": SOURCE,
+            "source_url": "https://scoutappstore.vercel.app/",
             "tags": category_to_tags(a),
             "description": a.get("description") or a.get("note") or "",
             "icon": a.get("icon") or "",
@@ -224,25 +267,31 @@ def main() -> int:
             enrich = json.loads(enrich_path.read_text(encoding="utf-8"))
         except Exception:
             enrich = {}
-    # 為每個可見 app 保證有 enrich 條目
+    # 為每個可見 app 保證有 enrich 條目 — 按 store_category 分類，舊紀錄換位自動換標籤
     for a in visible_apps:
         url = a.get("url")
+        kind = store_category_to_kind(a.get("category") or "")
         if url not in enrich:
             enrich[url] = build_enrich_entry(a)
         else:
-            # 更新可變欄位（標題、描述、支部），保留已抽取嘅其他欄
+            # 更新可變欄位（標題、描述、支部、分類），舊紀錄換位自動換標籤
             e = enrich[url]
             e["title"] = a.get("name") or e.get("title", "")
             e["description"] = a.get("description") or a.get("note") or e.get("description", "")
-            branch_tags = [t for t in (a.get("tags") or []) if t in
-                           {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍", "領袖", "家長", "會務委員"}]
-            if branch_tags:
-                e["audience"] = "、".join(branch_tags)
-                e["branch_tags"] = branch_tags
-            # 若舊 entry 無 categories，補上小工具分類
-            if not e.get("categories"):
-                e["categories"] = [{"id": "tools", "label": "小工具", "subtype": "assistant", "score": 1.0}]
-                e["subscription_tags"] = ["category:tools"]
+            # 只跟 5 個支部（App Store 嗰邊唔會新增其他標籤）
+            allowed_branches = {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"}
+            branch_tags = [t for t in (a.get("tags") or []) if t in allowed_branches]
+            # 若 App Store 清空標籤，亦要清空舊紀錄（避免舊「小幼童」殘留）
+            e["branch_tags"] = branch_tags
+            e["audience"] = "、".join(branch_tags) if branch_tags else ""
+            # 按 store_category 更新分類（舊紀錄換位換標籤）
+            e["categories"] = [{"id": "tools", "label": "小工具", "subtype": kind, "score": 1.0}]
+            e["subscription_tags"] = [f"scout_kind:{kind}"]
+            e["ss_kind"] = kind
+            e["ss_category"] = a.get("category") or ""
+            e["store_category"] = a.get("category") or ""
+            e["store_page"] = a.get("page") or ""
+            e["enriched_at"] = datetime.now(HKT).strftime("%Y-%m-%d %H:%M:%S")
 
     # 移除已隱藏 app 的 enrich（若該 app 而家唔再可見，對應 url 在本輪無出現）
     # 注意：只移除「本工具曾經產生」的條目（source=Scout System），唔好誤刪通告 enrich
