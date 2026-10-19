@@ -200,8 +200,8 @@ def main() -> int:
         # 若 snapshot 無 created_at（舊快照），以 captured 之後先算新 → 唔會觸發舊 app 風暴
         if not created:
             continue
-        if created <= first_sync:
-            continue  # 舊 app，唔溯及
+        if created < first_sync:
+            continue  # 舊 app，唔溯及（同日新上架視為新，避免 baseline=今日時即日新 app 被漏）
         new_notices.append({
             "title": a.get("name") or "",
             "url": url,
