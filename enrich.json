@@ -52451,7 +52451,14 @@
     ],
     "branch_tags": [
       "幼童軍"
-    ]
+    ],
+    "subscription_tags": [
+      "scout_kind:assistant"
+    ],
+    "ss_kind": "assistant",
+    "ss_category": "電子紀錄冊",
+    "store_category": "電子紀錄冊",
+    "store_page": "apps"
   },
   "https://scoutbadge.vercel.app/": {
     "source": "Scout System",
@@ -52474,7 +52481,14 @@
     ],
     "branch_tags": [
       "童軍"
-    ]
+    ],
+    "subscription_tags": [
+      "scout_kind:assistant"
+    ],
+    "ss_kind": "assistant",
+    "ss_category": "電子紀錄冊",
+    "store_category": "電子紀錄冊",
+    "store_page": "apps"
   },
   "https://vsbadge.vercel.app/": {
     "source": "Scout System",
@@ -52497,7 +52511,14 @@
     ],
     "branch_tags": [
       "深資童軍"
-    ]
+    ],
+    "subscription_tags": [
+      "scout_kind:assistant"
+    ],
+    "ss_kind": "assistant",
+    "ss_category": "電子紀錄冊",
+    "store_category": "電子紀錄冊",
+    "store_page": "apps"
   },
   "https://roverbadge.vercel.app/": {
     "source": "Scout System",
@@ -52520,7 +52541,14 @@
     ],
     "branch_tags": [
       "樂行童軍"
-    ]
+    ],
+    "subscription_tags": [
+      "scout_kind:assistant"
+    ],
+    "ss_kind": "assistant",
+    "ss_category": "電子紀錄冊",
+    "store_category": "電子紀錄冊",
+    "store_page": "apps"
   },
   "https://drive.google.com/file/d/1mH4dEPfRruLLtIbqD1u7meVRzkKCDYWP/view": {
     "source": "油尖區",
@@ -65410,7 +65438,7 @@
       {
         "id": "tools",
         "label": "小工具",
-        "subtype": "assistant",
+        "subtype": "tool",
         "score": 1.0
       }
     ],
@@ -65420,8 +65448,12 @@
       "樂行童軍"
     ],
     "subscription_tags": [
-      "category:tools"
-    ]
+      "scout_kind:tool"
+    ],
+    "ss_kind": "tool",
+    "ss_category": "工具",
+    "store_category": "工具",
+    "store_page": "apps"
   },
   "https://ayp-eight.vercel.app/": {
     "source": "Scout System",
@@ -65448,8 +65480,12 @@
       "樂行童軍"
     ],
     "subscription_tags": [
-      "category:tools"
-    ]
+      "scout_kind:assistant"
+    ],
+    "ss_kind": "assistant",
+    "ss_category": "集會助手及指南",
+    "store_category": "集會助手及指南",
+    "store_page": "apps"
   },
   "https://veloplanner.com/": {
     "source": "Scout System",
@@ -65466,7 +65502,7 @@
       {
         "id": "tools",
         "label": "小工具",
-        "subtype": "assistant",
+        "subtype": "other",
         "score": 1.0
       }
     ],
@@ -65475,8 +65511,12 @@
       "樂行童軍"
     ],
     "subscription_tags": [
-      "category:tools"
-    ]
+      "scout_kind:other"
+    ],
+    "ss_kind": "other",
+    "ss_category": "其他",
+    "store_category": "其他",
+    "store_page": "links"
   },
   "https://upgrade-ashen.vercel.app/": {
     "source": "Scout System",
@@ -65505,8 +65545,12 @@
       "樂行童軍"
     ],
     "subscription_tags": [
-      "category:tools"
-    ]
+      "scout_kind:assistant"
+    ],
+    "ss_kind": "assistant",
+    "ss_category": "集會助手及指南",
+    "store_category": "集會助手及指南",
+    "store_page": "apps"
   },
   "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/": {
     "source": "Scout System",
@@ -65523,7 +65567,7 @@
       {
         "id": "tools",
         "label": "小工具",
-        "subtype": "assistant",
+        "subtype": "tool",
         "score": 1.0
       }
     ],
@@ -65535,7 +65579,11 @@
       "樂行童軍"
     ],
     "subscription_tags": [
-      "category:tools"
-    ]
+      "scout_kind:tool"
+    ],
+    "ss_kind": "tool",
+    "ss_category": "工具",
+    "store_category": "工具",
+    "store_page": "apps"
   }
 }

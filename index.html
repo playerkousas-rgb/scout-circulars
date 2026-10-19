@@ -968,8 +968,15 @@
       const raw = [];
       if (Array.isArray(item?.tags)) raw.push(...item.tags);
       else if (item?.tags) raw.push(item.tags);
-      for (const key of ['kind', 'ss_kind', 'tool_kind', 'ss_category']) {
+      for (const key of ['kind', 'ss_kind', 'tool_kind', 'ss_category', 'store_category', 'store_page']) {
         if (item?.[key]) raw.push(item[key]);
+      }
+      // enrich 亦可能帶 store_category / ss_category
+      const ex = state.enrich[item?.url] || state.enrich[item?.pdf_url] || null;
+      if (ex) {
+        for (const key of ['ss_kind', 'ss_category', 'store_category', 'store_page']) {
+          if (ex[key]) raw.push(ex[key]);
+        }
       }
       return raw.flatMap(value => String(value).split(/[\s,，、|/]+/)).map(token => token.trim()).filter(Boolean);
     }
