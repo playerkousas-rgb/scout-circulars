@@ -96,8 +96,8 @@ def build_enrich_entry(a: dict) -> dict:
     """為 Scout System 工具產生 enrich 條目（小工具專屬，不經 PDF）。"""
     title = a.get("name") or ""
     desc = a.get("description") or a.get("note") or ""
-    branch_tags = [t for t in (a.get("tags") or []) if t in
-                   {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍", "領袖", "家長", "會務委員"}]
+    allowed_branches = {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍", "領袖", "家長", "會務委員", "總監", "副總監", "區總監", "旅長", "團長", "教練員"}
+    branch_tags = [t for t in (a.get("tags") or []) if t and t != "小工具" and (t in allowed_branches or t.endswith("童軍") or t in {"領袖", "家長", "會務委員"})]
     kind = store_category_to_kind(a.get("category") or "")
     # 若無支部標籤，視作全體適用（保留空，enrich 仍可分類為 tools）
     return {
@@ -277,11 +277,12 @@ def main() -> int:
             e = enrich[url]
             e["title"] = a.get("name") or e.get("title", "")
             e["description"] = a.get("description") or a.get("note") or e.get("description", "")
-            branch_tags = [t for t in (a.get("tags") or []) if t in
-                           {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍", "領袖", "家長", "會務委員"}]
-            if branch_tags:
-                e["audience"] = "、".join(branch_tags)
-                e["branch_tags"] = branch_tags
+            # 允許全部支部標籤（比原先 8 個更寬鬆，新支部亦自動跟上）；同時兼容舊版「小工具」雜項
+            allowed_branches = {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍", "領袖", "家長", "會務委員", "總監", "副總監", "區總監", "旅長", "團長", "教練員"}
+            branch_tags = [t for t in (a.get("tags") or []) if t and t != "小工具" and (t in allowed_branches or t.endswith("童軍") or t in {"領袖", "家長", "會務委員"})]
+            # 若 App Store 清空標籤，亦要清空舊紀錄（避免舊「小幼童」殘留）
+            e["branch_tags"] = branch_tags
+            e["audience"] = "、".join(branch_tags) if branch_tags else ""
             # 按 store_category 更新分類（舊紀錄換位換標籤）
             e["categories"] = [{"id": "tools", "label": "小工具", "subtype": kind, "score": 1.0}]
             e["subscription_tags"] = [f"scout_kind:{kind}"]
