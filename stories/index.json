@@ -1,15 +1,15 @@
 {
  "version": 1,
  "days": [
-  "2026-10-05",
   "2026-10-06",
   "2026-10-07",
   "2026-10-08",
   "2026-10-15",
   "2026-10-16",
-  "2026-10-18"
+  "2026-10-18",
+  "2026-10-20"
  ],
- "updated_at": "2026-10-18T08:24:34.577146+00:00",
+ "updated_at": "2026-10-20T08:59:24.990524+00:00",
  "items": [
   {
    "k": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-18_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-社區應急先鋒.pdf",
@@ -42,6 +42,11 @@
    "t": "香港童軍115周年暨深水埗東區35周年 防騙國安嘉年華 D/05/2026"
   },
   {
+   "k": "https://drive.google.com/file/d/1boK4dX6TKAQHYRVk-V6g0y1bNKVRXE8p/view",
+   "f": "stories/2026-10-20/02_train_green_2b280e.png",
+   "t": "幼童軍金紫荊獎章考驗營"
+  },
+  {
    "k": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
    "f": "stories/2026-10-16/03_unc_topsecret_202969.png",
    "t": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03"
@@ -57,14 +62,14 @@
    "t": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事"
   },
   {
-   "k": "https://krscout.org/wp-content/uploads/2026/10/PRG21_26.pdf",
-   "f": "stories/2026-10-05/01_train_blue_2e98d9.png",
-   "t": "幼童軍射箭章(三級制)訓練班"
+   "k": "https://krscout.org/wp-content/uploads/2026/10/KT72_26.pdf",
+   "f": "stories/2026-10-20/01_train_orange_aafb7b.png",
+   "t": "第 8 屆森林舞蹈訓練班(領袖技能訓練班) 編號:KT/72/26"
   },
   {
-   "k": "https://krscout.org/wp-content/uploads/2026/10/PRG22_26.pdf",
-   "f": "stories/2026-10-05/00_activity_army_0eac9f.png",
-   "t": "「踩出地平線」海外單車遊分享會"
+   "k": "https://krscout.org/wp-content/uploads/2026/10/KT73_26.pdf",
+   "f": "stories/2026-10-20/00_train_blue_8142fd.png",
+   "t": "第 30 屆深資童軍進度性獎章訓練班(領袖技能訓練班) 編號:KT/73/26"
   },
   {
    "k": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
