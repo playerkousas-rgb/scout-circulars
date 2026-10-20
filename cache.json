@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-20 06:16:36",
+  "last_updated": "2026-10-21 04:04:40",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 5086,
+    "total_notices": 5087,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -486,6 +486,15 @@
         "region": "總會"
       },
       {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
         "url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
@@ -516,15 +525,6 @@
         "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
         "url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -26471,18 +26471,18 @@
         "region": "九龍地域"
       },
       {
-        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
-        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
         "region": "九龍地域"
       },
       {
-        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
-        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
@@ -36578,6 +36578,15 @@
     ],
     "屯門東區": [
       {
+        "title": "「童軍消防訓練班」取錄名單",
+        "url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04A.pdf",
+        "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04A.pdf",
+        "date": "2026-10-21",
+        "captured_date": "2026-10-21",
+        "source_site": "屯門東區",
+        "region": "新界地域"
+      },
+      {
         "title": "「「1+1」童軍成員拓展計劃」通告",
         "url": "https://www.tmescout.org.hk/file/notice/TME_A_26_04.pdf",
         "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_A_26_04.pdf",
@@ -45950,31 +45959,32 @@
     ],
     "Scout System": [
       {
-        "title": "深資童軍進度紀錄",
-        "url": "https://vsbadge.vercel.app/",
-        "pdf_url": "https://vsbadge.vercel.app/",
+        "title": "樂行童軍進度紀錄",
+        "url": "https://roverbadge.vercel.app/",
+        "pdf_url": "https://roverbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "深資童軍",
+          "樂行童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
         "store_category": "電子紀錄冊",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       },
       {
         "title": "遠足路程表",
         "url": "https://drawtheroute-yd8p.vercel.app/",
         "pdf_url": "https://drawtheroute-yd8p.vercel.app/",
-        "date": "2026-10-19",
-        "captured_date": "2026-10-19",
+        "date": "2026-10-21",
+        "captured_date": "2026-10-21",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
           "童軍",
           "深資童軍",
@@ -45984,35 +45994,35 @@
         "description": "全方位遠足計劃工具",
         "icon": "",
         "store_category": "工具",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       },
       {
-        "title": "樂行童軍進度紀錄",
-        "url": "https://roverbadge.vercel.app/",
-        "pdf_url": "https://roverbadge.vercel.app/",
+        "title": "深資童軍進度紀錄",
+        "url": "https://vsbadge.vercel.app/",
+        "pdf_url": "https://vsbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "樂行童軍",
+          "深資童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
         "store_category": "電子紀錄冊",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       },
       {
         "title": "AYP 童軍接駁指南",
         "url": "https://ayp-eight.vercel.app/",
         "pdf_url": "https://ayp-eight.vercel.app/",
-        "date": "2026-10-19",
-        "captured_date": "2026-10-19",
+        "date": "2026-10-21",
+        "captured_date": "2026-10-21",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
           "童軍",
           "深資童軍",
@@ -46022,17 +46032,17 @@
         "description": "AYP 簡介",
         "icon": "",
         "store_category": "集會助手及指南",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       },
       {
         "title": "海外單車遊資料",
         "url": "https://veloplanner.com/",
         "pdf_url": "https://veloplanner.com/",
-        "date": "2026-10-19",
-        "captured_date": "2026-10-19",
+        "date": "2026-10-21",
+        "captured_date": "2026-10-21",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
           "深資童軍",
           "樂行童軍",
@@ -46041,35 +46051,35 @@
         "description": "海外單車必備",
         "icon": "",
         "store_category": "其他",
-        "store_page": "links",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "links"
       },
       {
-        "title": "童軍進度紀錄",
-        "url": "https://scoutbadge.vercel.app/",
-        "pdf_url": "https://scoutbadge.vercel.app/",
+        "title": "幼童軍進度紀錄",
+        "url": "https://cubsbadge.vercel.app/",
+        "pdf_url": "https://cubsbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "童軍",
+          "幼童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+        "icon": "",
         "store_category": "電子紀錄冊",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       },
       {
         "title": "升團準備",
         "url": "https://upgrade-ashen.vercel.app/",
         "pdf_url": "https://upgrade-ashen.vercel.app/",
-        "date": "2026-10-19",
-        "captured_date": "2026-10-19",
+        "date": "2026-10-21",
+        "captured_date": "2026-10-21",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
           "小童軍",
           "幼童軍",
@@ -46081,17 +46091,17 @@
         "description": "升團資料簡介",
         "icon": "",
         "store_category": "集會助手及指南",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       },
       {
         "title": "Gemini 輔助工具",
         "url": "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/",
         "pdf_url": "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/",
-        "date": "2026-10-19",
-        "captured_date": "2026-10-19",
+        "date": "2026-10-21",
+        "captured_date": "2026-10-21",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
           "小童軍",
           "幼童軍",
@@ -46103,30 +46113,36 @@
         "description": "配合gemini AI 工具",
         "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10",
         "store_category": "工具",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       },
       {
-        "title": "幼童軍進度紀錄",
-        "url": "https://cubsbadge.vercel.app/",
-        "pdf_url": "https://cubsbadge.vercel.app/",
+        "title": "童軍進度紀錄",
+        "url": "https://scoutbadge.vercel.app/",
+        "pdf_url": "https://scoutbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "幼童軍",
+          "童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
         "store_category": "電子紀錄冊",
-        "store_page": "apps",
-        "source_url": "https://scoutappstore.vercel.app/"
+        "store_page": "apps"
       }
     ]
   },
   "notices": [
+    {
+      "source_site": "屯門東區",
+      "region": "新界地域",
+      "pdf_url": "https://www.tmescout.org.hk/file/notice/TME_S_26_04A.pdf",
+      "title": "「童軍消防訓練班」取錄名單",
+      "captured_date": "2026-10-21"
+    },
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
@@ -46193,15 +46209,15 @@
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
       "captured_date": "2026-10-16"
     },
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
       "captured_date": "2026-10-16"
     },
     {
@@ -46892,6 +46908,13 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
       "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
       "captured_date": "2026-10-06"
@@ -46915,13 +46938,6 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
       "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
       "captured_date": "2026-10-06"
     },
     {
@@ -47627,8 +47643,7 @@
         "童軍",
         "電子紀錄冊",
         "助手"
-      ],
-      "source_url": "https://scoutappstore.vercel.app/"
+      ]
     },
     {
       "source_site": "Scout System",
@@ -47640,8 +47655,7 @@
         "深資童軍",
         "電子紀錄冊",
         "助手"
-      ],
-      "source_url": "https://scoutappstore.vercel.app/"
+      ]
     },
     {
       "source_site": "Scout System",
@@ -47653,8 +47667,7 @@
         "樂行童軍",
         "電子紀錄冊",
         "助手"
-      ],
-      "source_url": "https://scoutappstore.vercel.app/"
+      ]
     },
     {
       "source_site": "Scout System",
@@ -47666,8 +47679,7 @@
         "幼童軍",
         "電子紀錄冊",
         "助手"
-      ],
-      "source_url": "https://scoutappstore.vercel.app/"
+      ]
     },
     {
       "source_site": "總會",
@@ -81983,31 +81995,67 @@
       "Scout System"
     ],
     "total_sources": 50,
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-20 05:00:05",
-      "new": 5,
-      "updated": 3569,
-      "daily_new": 5,
-      "skipped": 4,
+      "updated_at": "2026-10-21 03:59:56",
+      "new": 1,
+      "updated": 203,
+      "daily_new": 1,
+      "skipped": 37,
       "processed": 46,
-      "playwright_used": 2,
-      "error_sources": [],
+      "playwright_used": 10,
+      "error_sources": [
+        "總會",
+        "慈雲山區"
+      ],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "黃大仙區",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "雙魚區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
     },
     "appstore": {
-      "first_sync": "2026-10-19",
-      "last_sync": "2026-10-20",
+      "first_sync": "2026-10-21",
+      "last_sync": "2026-10-21",
       "catalog_size": 9,
       "visible_count": 9
     }
