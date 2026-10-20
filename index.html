@@ -126,6 +126,7 @@
     .hero .sub { color: var(--muted); font-size: 14px; }
     /* 區會聯絡 icon bar */
     .contact-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; }
+    .contact-bar:empty { display: none; }
     .contact-ico { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #0b1424; color: #cdd9ec; text-decoration: none; transition: .15s; }
     .contact-ico:hover { background: #16263f; border-color: #3a5a8c; transform: translateY(-2px); }
     .contact-ico svg { width: 20px; height: 20px; flex: 0 0 20px; }
@@ -486,7 +487,11 @@
       .mobile-library-meta strong { color: #d9e8ff; font-size: 12px; }
       .mobile-library-meta span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
       .hero { padding: 12px; }
-      .hero > h2, .hero > #page-subtitle, .hero > .contact-bar { display: none !important; }
+      .hero > h2, .hero > #page-subtitle { display: none !important; }
+      /* 區會聯絡 icon（FB／IG／YT／官網／地圖／電話／電郵）手機都要顯示，縮細少少慳位；空 bar 自動收起 */
+      .hero > .contact-bar { gap: 8px; margin-top: 0; margin-bottom: 4px; }
+      .hero > .contact-bar .contact-ico { width: 36px; height: 36px; }
+      .hero > .contact-bar .contact-ico svg { width: 18px; height: 18px; flex: 0 0 18px; }
       .mobile-section { margin-top: 8px; }
       .mobile-section-toggle { display: flex; width: 100%; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 11px; padding: 10px 12px; background: #0b1424; color: #d9e8ff; cursor: pointer; font-weight: 700; font-size: 13px; }
       .mobile-section-toggle span { color: var(--muted); transition: transform .16s ease; }
@@ -5036,7 +5041,8 @@
       if (c.fb)  items.push(`<a class="contact-ico fb" href="${c.fb}" target="_blank" rel="noopener" title="Facebook">${SVG.fb}</a>`);
       if (c.ig)  items.push(`<a class="contact-ico ig" href="${c.ig}" target="_blank" rel="noopener" title="Instagram">${SVG.ig}</a>`);
       if (c.yt)  items.push(`<a class="contact-ico yt" href="${c.yt}" target="_blank" rel="noopener" title="YouTube">${SVG.yt}</a>`);
-      if (c.web) items.push(`<a class="contact-ico web" href="${c.web}" target="_blank" rel="noopener" title="官網">${SVG.web}</a>`);
+      // web 有機會係「待新網址上架」呢類佔位文字，唔係 URL 就唔好 render 死鏈
+      if (c.web && /^https?:\/\//i.test(c.web)) items.push(`<a class="contact-ico web" href="${c.web}" target="_blank" rel="noopener" title="官網">${SVG.web}</a>`);
       if (c.map) items.push(`<a class="contact-ico map" href="${c.map}" target="_blank" rel="noopener" title="${escapeHtml(c.address||'地址')}">${SVG.map}</a>`);
       if (c.tel) items.push(`<a class="contact-ico tel" href="tel:${c.tel.replace(/\s/g,'')}" title="電話：${escapeHtml(c.tel)}">${SVG.tel}</a>`);
       if (c.email) items.push(`<a class="contact-ico email" href="mailto:${c.email}" title="電郵：${escapeHtml(c.email)}">${SVG.email}</a>`);
