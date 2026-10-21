@@ -1723,14 +1723,14 @@
     function sourceCount(source) {
       if (!isSourceEnabled(source)) return 0;
       const items = state.grouped[source] || [];
-      // 小工具嘅側欄數字唔跟通告視窗：寫住幾多件，撳入去就真係見到幾多件。
-      if (source === 'Scout System') return items.filter(toolInToolsWindow).length;
+      // 小工具側欄只報今日新上架；舊工具仍可於「之前發布」查看。
+      if (source === 'Scout System') return items.filter(toolIsNewToday).length;
       return items.filter(item => itemInWindow(item)).length;
     }
 
     function scoutKindCount(kindId) {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(item => toolInToolsWindow(item) && itemScoutKind(item) === kindId).length;
+      return (state.grouped['Scout System'] || []).filter(item => toolIsNewToday(item) && itemScoutKind(item) === kindId).length;
     }
 
     // ── 「有更新」燈號（綠色高亮 + hot badge）──────────────────────
@@ -1812,13 +1812,13 @@
     }
 
     // 小工具只睇自己嗰兩個掣：「之前發布」＝全部（冇日期嘅舊工具都留低），
-    // 「今天」＝今日新上架。側欄數字永遠用呢個，撳入去見到幾多件就寫幾多件。
+    // 「今天」＝今日新上架。只控制內容列表；側欄數字固定計今日。
     function toolInToolsWindow(item) {
       return withinDays((item && (item.date || item.captured_date)) || '', currentToolsWindow().days);
     }
 
     // 「今日新上架」＝小工具視窗「今天」嗰個門檻（days: 1，HKT 日起計），
-    // 唔理用戶而家揀咗邊個掣：側欄燈號只認今日。
+    // 唔理用戶而家揀咗邊個掣：側欄數字及燈號只認今日。
     function toolIsNewToday(item) {
       const todayWindow = TOOLS_TIME_WINDOWS.find(x => x.id === 'tools-today') || TOOLS_TIME_WINDOWS[0];
       return withinDays((item && (item.date || item.captured_date)) || '', todayWindow && todayWindow.days != null ? todayWindow.days : 1);
@@ -2172,7 +2172,7 @@
         if ((shouldOpen || kindQueryHit) && regionEnabled) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
-        // 燈號同件數分開：Scout System 件數永遠有（之前發布），但今日冇新上架就唔著燈。
+        // Scout System 側欄件數及燈號均只計今日新上架。
         const updates = filteredSources.reduce((sum, src) => sum + sourceUpdateCount(src), 0);
         if (updates > 0 && regionEnabled) regionEl.classList.add('has-updates');
         const header = document.createElement('button');

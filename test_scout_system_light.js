@@ -2,9 +2,8 @@
 //   用法： npm i jsdom && node test_scout_system_light.js
 //
 // 用戶要求：Scout System 唔好一直著燈 —— 今日冇新上架就唔好著燈。
-// 小工具係長期資產，側欄數字照報全部件數（撳入去見到幾多件就寫幾多件），
-// 但綠色高亮（.region.has-updates / .source-btn.has-updates）同 hot badge
-// 淨係跟「今日新上架」。
+// 小工具係長期資產，但側欄數字、綠色高亮及 hot badge 均只計今日新上架。
+// 舊工具仍保留喺「之前發布」，唔計入側欄今日數字。
 const { JSDOM } = require('jsdom');
 const fs = require('fs');
 
@@ -79,7 +78,7 @@ const sourceBtn = (d, label) => $$(d, '#accordion .source-btn').find(b => {
 const lit = (el) => !!el && el.classList.contains('has-updates');
 
 (async () => {
-  // ── 1. 今日冇新上架：Scout System 全熄燈，但數字照報 ──────────────
+  // ── 1. 今日冇新上架：Scout System 全熄燈，數字為 0 ──────────────
   {
     const dom = boot(buildCache([
       Object.assign(mk('舊密碼遊戲', 'https://example.test/old-game', 'Scout System', daysAgo(200), 'Scout System'), { tags: ['遊戲'] }),
@@ -92,20 +91,20 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(!!ssSection, '側欄有 Scout System 一欄');
     ok(!lit(ssSection), '今日冇新上架 → Scout System 唔著綠燈');
     const badge = regionBadge(d, 'Scout System');
-    ok(!!badge && badge.textContent.trim() === '2', '數字照報全部小工具件數（2 件），唔會寫 0：' + (badge && badge.textContent));
+    ok(!!badge && badge.textContent.trim() === '0', '今日冇新上架，側欄數字為 0：' + (badge && badge.textContent));
     ok(!!badge && !badge.classList.contains('hot'), 'badge 唔再發綠光（冇 hot class）');
     ok((ssSection.querySelector(':scope > button').title || '').includes('今日冇新上架'),
        'tooltip 講明今日冇新上架：' + ssSection.querySelector(':scope > button').title);
 
     const allBtn = sourceBtn(d, '全部 (Scout System)');
     ok(!!allBtn && !lit(allBtn), '「全部 (Scout System)」都唔著燈');
-    ok(!!allBtn && allBtn.querySelector('small').textContent.trim() === '2 則', '「全部」照寫 2 則');
+    ok(!!allBtn && allBtn.querySelector('small').textContent.trim() === '0 則', '「全部」今日 0 則');
 
     const kinds = ['助手', '遊戲', '系統', '工具', '其他', '連結'].map(k => sourceBtn(d, k)).filter(Boolean);
     ok(kinds.length === 6, '內設六類掣齊：' + kinds.length);
     ok(kinds.every(b => !lit(b)), '六類冇一個著燈（今日冇新上架）');
-    ok(!!sourceBtn(d, '遊戲') && sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 則',
-       '「遊戲」件數照報 1 則（半年前嗰件）');
+    ok(!!sourceBtn(d, '遊戲') && sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '0 則',
+       '「遊戲」今日 0 則（唔計半年前嗰件）');
 
     // 對照組：地域／區會通告喺視窗內 → 照樣著燈，唔可以一併熄晒
     ok(lit(regionSection(d, '港島地域')), '地域（港島地域）有今日新通告 → 照樣著燈');
@@ -129,10 +128,12 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
 
     ok(lit(regionSection(d, 'Scout System')), '今日有新上架 → Scout System 著綠燈');
     const badge = regionBadge(d, 'Scout System');
-    ok(!!badge && badge.classList.contains('hot') && badge.textContent.trim() === '3', 'badge 發綠光並報 3 件：' + (badge && badge.textContent));
+    ok(!!badge && badge.classList.contains('hot') && badge.textContent.trim() === '1', 'badge 發綠光並只報今日 1 件：' + (badge && badge.textContent));
     ok(lit(sourceBtn(d, '遊戲')), '「遊戲」類有新工具 → 著燈');
+    ok(sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 則', '同類有一新一舊，只計今日 1 則');
+    ok(sourceBtn(d, '全部 (Scout System)').querySelector('small').textContent.trim() === '1 則', 'Scout System 全部只計今日 1 則');
     ok(!lit(sourceBtn(d, '助手')), '「助手」類今日冇新 → 唔著燈');
-    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '1 則', '「助手」件數照報 1 則');
+    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '0 則', '「助手」今日 0 則');
     ok(lit(sourceBtn(d, '全部 (Scout System)')), '「全部 (Scout System)」著燈');
 
     dom.window.close();
@@ -147,7 +148,7 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     await wait(900);
     ok(!lit(regionSection(d, 'Scout System')), '尋日上架（唔係今日）→ 唔著燈');
     const badge = regionBadge(d, 'Scout System');
-    ok(!!badge && !badge.classList.contains('hot') && badge.textContent.trim() === '1', 'badge 唔發光但照報 1 件');
+    ok(!!badge && !badge.classList.contains('hot') && badge.textContent.trim() === '0', 'badge 唔發光並報今日 0 件');
     ok(!lit(sourceBtn(d, '遊戲')), '尋日新嘅「遊戲」都唔著燈');
     dom.window.close();
   }
