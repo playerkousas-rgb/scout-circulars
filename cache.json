@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-21 09:13:41",
+  "last_updated": "2026-10-22 04:12:14",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 5087,
+    "total_notices": 5088,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -45959,20 +45959,20 @@
     ],
     "Scout System": [
       {
-        "title": "童軍進度紀錄",
-        "url": "https://scoutbadge.vercel.app/",
-        "pdf_url": "https://scoutbadge.vercel.app/",
+        "title": "深資童軍進度紀錄",
+        "url": "https://vsbadge.vercel.app/",
+        "pdf_url": "https://vsbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "童軍",
+          "深資童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
         "store_category": "電子紀錄冊",
         "store_page": "apps"
       },
@@ -45997,20 +45997,20 @@
         "store_page": "apps"
       },
       {
-        "title": "深資童軍進度紀錄",
-        "url": "https://vsbadge.vercel.app/",
-        "pdf_url": "https://vsbadge.vercel.app/",
+        "title": "樂行童軍進度紀錄",
+        "url": "https://roverbadge.vercel.app/",
+        "pdf_url": "https://roverbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "深資童軍",
+          "樂行童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
         "store_category": "電子紀錄冊",
         "store_page": "apps"
       },
@@ -46035,40 +46035,23 @@
         "store_page": "apps"
       },
       {
-        "title": "樂行童軍進度紀錄",
-        "url": "https://roverbadge.vercel.app/",
-        "pdf_url": "https://roverbadge.vercel.app/",
+        "title": "海外單車遊資料",
+        "url": "https://veloplanner.com/",
+        "pdf_url": "https://veloplanner.com/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
+          "深資童軍",
           "樂行童軍",
           "小工具"
         ],
-        "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
-        "store_category": "電子紀錄冊",
-        "store_page": "apps"
-      },
-      {
-        "title": "幼童軍進度紀錄",
-        "url": "https://cubsbadge.vercel.app/",
-        "pdf_url": "https://cubsbadge.vercel.app/",
-        "date": "2026-09-24",
-        "captured_date": "2026-09-24",
-        "source_site": "Scout System",
-        "region": "Scout System",
-        "source_url": "https://scoutappstore.vercel.app/",
-        "tags": [
-          "幼童軍",
-          "小工具"
-        ],
-        "description": "電子紀錄冊",
+        "description": "海外單車必備",
         "icon": "",
-        "store_category": "電子紀錄冊",
-        "store_page": "apps"
+        "store_category": "其他",
+        "store_page": "links"
       },
       {
         "title": "升團準備",
@@ -46093,11 +46076,29 @@
         "store_page": "apps"
       },
       {
-        "title": "Gemini 輔助工具",
-        "url": "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/",
-        "pdf_url": "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/",
+        "title": "幼童軍進度紀錄",
+        "url": "https://cubsbadge.vercel.app/",
+        "pdf_url": "https://cubsbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
+        "tags": [
+          "幼童軍",
+          "小工具"
+        ],
+        "description": "電子紀錄冊",
+        "icon": "",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
+      },
+      {
+        "title": "Gemini 輔助工具",
+        "url": "https://gemini-woad-sigma.vercel.app/",
+        "pdf_url": "https://gemini-woad-sigma.vercel.app/",
+        "date": "2026-10-22",
+        "captured_date": "2026-10-22",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
@@ -46115,23 +46116,22 @@
         "store_page": "apps"
       },
       {
-        "title": "海外單車遊資料",
-        "url": "https://veloplanner.com/",
-        "pdf_url": "https://veloplanner.com/",
+        "title": "童軍進度紀錄",
+        "url": "https://scoutbadge.vercel.app/",
+        "pdf_url": "https://scoutbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "深資童軍",
-          "樂行童軍",
+          "童軍",
           "小工具"
         ],
-        "description": "海外單車必備",
-        "icon": "",
-        "store_category": "其他",
-        "store_page": "links"
+        "description": "電子紀錄冊",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
       }
     ]
   },
@@ -81868,6 +81868,26 @@
       "published_date": "2025-01-01",
       "backfilled_at": "2026-10-17",
       "suppress_notifications": true
+    },
+    {
+      "title": "Gemini 輔助工具",
+      "url": "https://gemini-woad-sigma.vercel.app/",
+      "pdf_url": "https://gemini-woad-sigma.vercel.app/",
+      "date": "2026-10-22",
+      "captured_date": "2026-10-22",
+      "source_site": "Scout System",
+      "region": "Scout System",
+      "source_url": "https://scoutappstore.vercel.app/",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍",
+        "小工具"
+      ],
+      "description": "配合gemini AI 工具",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10"
     }
   ],
   "_meta": {
@@ -81991,6 +82011,23 @@
       "Scout System"
     ],
     "total_sources": 50,
+    "appstore": {
+      "first_sync": "2026-10-21",
+      "last_sync": "2026-10-22",
+      "catalog_size": 9,
+      "visible_count": 9,
+      "known_dates": {
+        "https://vsbadge.vercel.app/": "2026-09-24",
+        "https://drawtheroute-yd8p.vercel.app/": "2026-09-24",
+        "https://roverbadge.vercel.app/": "2026-09-24",
+        "https://ayp-eight.vercel.app/": "2026-09-24",
+        "https://veloplanner.com/": "2026-09-24",
+        "https://upgrade-ashen.vercel.app/": "2026-09-24",
+        "https://cubsbadge.vercel.app/": "2026-09-24",
+        "https://gemini-woad-sigma.vercel.app/": "2026-10-22",
+        "https://scoutbadge.vercel.app/": "2026-09-24"
+      }
+    },
     "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
@@ -81998,13 +82035,13 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-21 03:59:56",
-      "new": 1,
-      "updated": 203,
-      "daily_new": 1,
-      "skipped": 37,
+      "updated_at": "2026-10-22 04:07:02",
+      "new": 0,
+      "updated": 105,
+      "daily_new": 0,
+      "skipped": 46,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [
         "總會",
         "慈雲山區"
@@ -82012,6 +82049,7 @@
       "skipped_sources": [
         "港島地域",
         "灣仔區",
+        "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
@@ -82020,8 +82058,10 @@
         "九龍地域",
         "紅磡區",
         "何文田區",
+        "九龍城區",
         "九龍塘區",
         "旺角區",
+        "深旺區",
         "深水埗東區",
         "深水埗西區",
         "油尖區",
@@ -82033,10 +82073,15 @@
         "將軍澳區",
         "觀塘區",
         "鯉魚門區",
+        "新界地域",
+        "元朗東區",
         "元朗西區",
         "十八鄉區",
+        "屯門西區",
         "北葵涌區",
+        "屯門東區",
         "荃灣區",
+        "南葵涌區",
         "離島區 (expected_empty)",
         "雙魚區",
         "大埔北區",
@@ -82046,25 +82091,9 @@
         "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",
+        "青衣區",
         "Scout System (disabled)"
       ]
-    },
-    "appstore": {
-      "first_sync": "2026-10-21",
-      "last_sync": "2026-10-21",
-      "catalog_size": 9,
-      "visible_count": 9,
-      "known_dates": {
-        "https://scoutbadge.vercel.app/": "2026-09-24",
-        "https://drawtheroute-yd8p.vercel.app/": "2026-09-24",
-        "https://vsbadge.vercel.app/": "2026-09-24",
-        "https://ayp-eight.vercel.app/": "2026-09-24",
-        "https://roverbadge.vercel.app/": "2026-09-24",
-        "https://cubsbadge.vercel.app/": "2026-09-24",
-        "https://upgrade-ashen.vercel.app/": "2026-09-24",
-        "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/": "2026-09-24",
-        "https://veloplanner.com/": "2026-09-24"
-      }
     }
   }
 }

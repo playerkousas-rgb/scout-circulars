@@ -65560,41 +65560,6 @@
     "store_page": "apps",
     "captured_date": "2026-09-24"
   },
-  "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/": {
-    "source": "Scout System",
-    "title": "Gemini 輔助工具",
-    "deadline": "",
-    "audience": "小童軍、幼童軍、童軍、深資童軍、樂行童軍",
-    "fee": "免費",
-    "description": "配合gemini AI 工具",
-    "method": "system",
-    "error": "",
-    "enriched_at": "2026-10-21 09:01:39",
-    "enrich_version": "3.7",
-    "categories": [
-      {
-        "id": "tools",
-        "label": "小工具",
-        "subtype": "tool",
-        "score": 1.0
-      }
-    ],
-    "branch_tags": [
-      "小童軍",
-      "幼童軍",
-      "童軍",
-      "深資童軍",
-      "樂行童軍"
-    ],
-    "subscription_tags": [
-      "scout_kind:tool"
-    ],
-    "ss_kind": "tool",
-    "ss_category": "工具",
-    "store_category": "工具",
-    "store_page": "apps",
-    "captured_date": "2026-09-24"
-  },
   "https://www.tmescout.org.hk/file/notice/TME_S_26_04A.pdf": {
     "source": "屯門東區",
     "title": "「童軍消防訓練班」取錄名單",
@@ -65635,5 +65600,40 @@
     "title_check": "verified",
     "enriched_at": "2026-10-21 04:04:42",
     "enrich_version": "3.7"
+  },
+  "https://gemini-woad-sigma.vercel.app/": {
+    "source": "Scout System",
+    "title": "Gemini 輔助工具",
+    "deadline": "",
+    "audience": "小童軍、幼童軍、童軍、深資童軍、樂行童軍",
+    "fee": "免費",
+    "description": "配合gemini AI 工具",
+    "method": "system",
+    "error": "",
+    "captured_date": "2026-10-22",
+    "enriched_at": "2026-10-22 04:12:14",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "tools",
+        "label": "小工具",
+        "subtype": "tool",
+        "score": 1.0
+      }
+    ],
+    "branch_tags": [
+      "小童軍",
+      "幼童軍",
+      "童軍",
+      "深資童軍",
+      "樂行童軍"
+    ],
+    "subscription_tags": [
+      "scout_kind:tool"
+    ],
+    "ss_kind": "tool",
+    "ss_category": "工具",
+    "store_category": "工具",
+    "store_page": "apps"
   }
 }
