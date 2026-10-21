@@ -254,5 +254,141 @@ class TagSelectorIsolationTests(unittest.TestCase):
         self.assertEqual(out["notices"][0]["tags"], ["幼童軍", "童軍"])
 
 
+class AppStoreSyncTests(unittest.TestCase):
+    """確保 Scout System 唔會日日變「今日更新」：改動標籤唔算新 APP，全新上架先算。"""
+
+    def test_nine_existing_apps_are_in_previously_published(self):
+        import json
+        from pathlib import Path
+
+        cache = json.loads(Path("cache.json").read_text(encoding="utf-8"))
+        ss = cache.get("data", {}).get("Scout System", [])
+        self.assertEqual(len(ss), 9)
+        for item in ss:
+            self.assertEqual(item.get("date"), "2026-09-24", item.get("title"))
+            self.assertEqual(item.get("captured_date"), "2026-09-24", item.get("title"))
+
+    def test_tag_or_name_changes_with_same_url_do_not_make_app_new_today(self):
+        import json
+        import subprocess
+        import tempfile
+        from pathlib import Path
+
+        store = json.loads(Path("appstore.json").read_text(encoding="utf-8"))
+        apps = [dict(a) for a in store["apps"]]
+        # 修改現有 APP「遠足路程表」嘅名稱、支部標籤同分類（但 URL 不變）
+        for a in apps:
+            if a.get("url") == "https://drawtheroute-yd8p.vercel.app/":
+                a["name"] = "遠足路程規劃表 2.0"
+                a["tags"] = ["幼童軍", "童軍", "深資童軍", "樂行童軍"]
+                a["category"] = "集會助手及指南"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            cache_copy = tmp_path / "cache.json"
+            enrich_copy = tmp_path / "enrich.json"
+            apps_json = tmp_path / "apps.json"
+
+            orig_cache = json.loads(Path("cache.json").read_text(encoding="utf-8"))
+            cache_copy.write_text(json.dumps(orig_cache, ensure_ascii=False), encoding="utf-8")
+            enrich_copy.write_text(Path("enrich.json").read_text(encoding="utf-8"), encoding="utf-8")
+            apps_json.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
+
+            res = subprocess.run(
+                [
+                    sys.executable,
+                    "tools/scrape_appstore.py",
+                    "--apps-json", str(apps_json),
+                    "--cache", str(cache_copy),
+                    "--enrich", str(enrich_copy),
+                ],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            self.assertIn("新 APP 0 個", res.stdout)
+
+            updated_cache = json.loads(cache_copy.read_text(encoding="utf-8"))
+            updated_enrich = json.loads(enrich_copy.read_text(encoding="utf-8"))
+            ss = updated_cache["data"]["Scout System"]
+            self.assertEqual(len(ss), 9)
+            for item in ss:
+                # 同一 URL 改名或改標籤：全部 9 個仍然留喺「之前發布」(2026-09-24)，唔會變今日
+                self.assertEqual(item["date"], "2026-09-24", item["title"])
+                self.assertEqual(item["captured_date"], "2026-09-24", item["title"])
+                if item["url"] == "https://drawtheroute-yd8p.vercel.app/":
+                    self.assertEqual(item["title"], "遠足路程規劃表 2.0")
+                    self.assertIn("幼童軍", item["tags"])
+                    self.assertEqual(item["store_category"], "集會助手及指南")
+
+            e = updated_enrich["https://drawtheroute-yd8p.vercel.app/"]
+            self.assertEqual(e["title"], "遠足路程規劃表 2.0")
+            self.assertIn("幼童軍", e["branch_tags"])
+            self.assertEqual(e["ss_kind"], "assistant")
+
+    def test_major_rewrite_with_new_url_or_brand_new_app_counts_as_new_today(self):
+        import json
+        import subprocess
+        import tempfile
+        from pathlib import Path
+        from tools.scrape_appstore import hkt_today
+
+        today = hkt_today()
+        store = json.loads(Path("appstore.json").read_text(encoding="utf-8"))
+        apps = [dict(a) for a in store["apps"]]
+        # 超大型改版：同一個 ID 但換咗全新 URL → 以 URL 為準，應該當成今日重新上架
+        for a in apps:
+            if a.get("url") == "https://drawtheroute-yd8p.vercel.app/":
+                a["url"] = "https://drawtheroute-v3-major.vercel.app/"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            cache_copy = tmp_path / "cache.json"
+            enrich_copy = tmp_path / "enrich.json"
+            apps_json = tmp_path / "apps.json"
+
+            cache_copy.write_text(Path("cache.json").read_text(encoding="utf-8"), encoding="utf-8")
+            enrich_copy.write_text(Path("enrich.json").read_text(encoding="utf-8"), encoding="utf-8")
+            apps_json.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
+
+            res1 = subprocess.run(
+                [
+                    sys.executable,
+                    "tools/scrape_appstore.py",
+                    "--apps-json", str(apps_json),
+                    "--cache", str(cache_copy),
+                    "--enrich", str(enrich_copy),
+                ],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            self.assertIn("新 APP 1 個", res1.stdout)
+            c1 = json.loads(cache_copy.read_text(encoding="utf-8"))
+            by_url = {x["url"]: x for x in c1["data"]["Scout System"]}
+            self.assertEqual(by_url["https://drawtheroute-v3-major.vercel.app/"]["captured_date"], today)
+            self.assertEqual(by_url["https://scoutbadge.vercel.app/"]["captured_date"], "2026-09-24")
+
+            # 同日再跑一次（例如改名／改標籤，但 URL 唔再變）：唔會重複當新 APP
+            for a in apps:
+                if a.get("url") == "https://drawtheroute-v3-major.vercel.app/":
+                    a["name"] = "遠足路程表 V3"
+                    a["tags"] = ["幼童軍", "童軍"]
+            apps_json.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
+            res2 = subprocess.run(
+                [
+                    sys.executable,
+                    "tools/scrape_appstore.py",
+                    "--apps-json", str(apps_json),
+                    "--cache", str(cache_copy),
+                    "--enrich", str(enrich_copy),
+                ],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            self.assertIn("新 APP 0 個", res2.stdout)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

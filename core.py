@@ -2108,6 +2108,11 @@ def merge_reviewed_backfills(remote_records, local_records):
     """
     merged = {(r.get("source_site"), r.get("pdf_url")): dict(r) for r in remote_records}
     for row in local_records:
+        if row.get("source_site") == "Scout System":
+            key = (row.get("source_site"), row.get("pdf_url") or row.get("url"))
+            if all(key) and key not in merged:
+                merged[key] = dict(row)
+            continue
         if not row.get("backfilled_at") or not row.get("suppress_notifications"):
             continue
         key = (row.get("source_site"), row.get("pdf_url"))
@@ -2576,6 +2581,16 @@ def main(
         daily_new = sum(1 for r in merged_records if (r.get("captured_date") or "") == _today)
 
         grouped_cache = build_grouped_cache(merged_records, all_sources, now_str)
+        # Scout System 由 tools/scrape_appstore.py 獨立維護（sources.json 設為 enabled=false）。
+        # core.py 重建 grouped_cache 時必須保留既有 data["Scout System"] 同 _meta["appstore"]，
+        # 否則每日先跑 core.py 會洗走 App Store catalog 同 known_dates baseline，
+        # 導致緊接嘅 scrape_appstore.py 誤將舊 APP 當成「今日新上架」。
+        prev_ss = (local_cache.get("data") or {}).get("Scout System")
+        if isinstance(prev_ss, list) and prev_ss and not any(r.get("source_site") == "Scout System" for r in all_new):
+            grouped_cache.setdefault("data", {})["Scout System"] = prev_ss
+        prev_appstore = (local_cache.get("_meta") or {}).get("appstore")
+        if isinstance(prev_appstore, dict) and prev_appstore:
+            grouped_cache.setdefault("_meta", {})["appstore"] = prev_appstore
         grouped_cache.setdefault("_meta", {})["has_errors"] = (errors > 0)
         grouped_cache.setdefault("_meta", {})["expected_empty_sources"] = [
             name for name, cfg in sources.items() if cfg.get("expected_empty")

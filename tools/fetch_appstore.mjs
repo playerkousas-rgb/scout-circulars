@@ -23,7 +23,7 @@ async function get(path) {
 const [pages, categories, apps] = await Promise.all([
   get('pages?select=*&order=sort_order'),
   get('categories?select=*&order=page,sort_order'),
-  get('apps?select=id,name,url,github,description,note,icon,icon_source,category,page,tags,visible,clicks,stars,hearts,featured,sort_order&order=page,sort_order&limit=1000'),
+  get('apps?select=id,name,url,github,description,note,icon,icon_source,category,page,tags,visible,clicks,stars,hearts,featured,sort_order,created_at&order=page,sort_order&limit=1000'),
 ]);
 
 meta._meta.fetched_at = new Date().toISOString().slice(0, 10);

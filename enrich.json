@@ -52439,7 +52439,7 @@
     "description": "電子紀錄冊",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "1.0",
     "categories": [
       {
@@ -52458,7 +52458,8 @@
     "ss_kind": "assistant",
     "ss_category": "電子紀錄冊",
     "store_category": "電子紀錄冊",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://scoutbadge.vercel.app/": {
     "source": "Scout System",
@@ -52469,7 +52470,7 @@
     "description": "電子紀錄冊",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "1.0",
     "categories": [
       {
@@ -52488,7 +52489,8 @@
     "ss_kind": "assistant",
     "ss_category": "電子紀錄冊",
     "store_category": "電子紀錄冊",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://vsbadge.vercel.app/": {
     "source": "Scout System",
@@ -52499,7 +52501,7 @@
     "description": "電子紀錄冊",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "1.0",
     "categories": [
       {
@@ -52518,7 +52520,8 @@
     "ss_kind": "assistant",
     "ss_category": "電子紀錄冊",
     "store_category": "電子紀錄冊",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://roverbadge.vercel.app/": {
     "source": "Scout System",
@@ -52529,7 +52532,7 @@
     "description": "電子紀錄冊",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "1.0",
     "categories": [
       {
@@ -52548,7 +52551,8 @@
     "ss_kind": "assistant",
     "ss_category": "電子紀錄冊",
     "store_category": "電子紀錄冊",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://drive.google.com/file/d/1mH4dEPfRruLLtIbqD1u7meVRzkKCDYWP/view": {
     "source": "油尖區",
@@ -65432,7 +65436,7 @@
     "description": "全方位遠足計劃工具",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "3.7",
     "categories": [
       {
@@ -65453,7 +65457,8 @@
     "ss_kind": "tool",
     "ss_category": "工具",
     "store_category": "工具",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://ayp-eight.vercel.app/": {
     "source": "Scout System",
@@ -65464,7 +65469,7 @@
     "description": "AYP 簡介",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "3.7",
     "categories": [
       {
@@ -65485,7 +65490,8 @@
     "ss_kind": "assistant",
     "ss_category": "集會助手及指南",
     "store_category": "集會助手及指南",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://veloplanner.com/": {
     "source": "Scout System",
@@ -65496,7 +65502,7 @@
     "description": "海外單車必備",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "3.7",
     "categories": [
       {
@@ -65516,7 +65522,8 @@
     "ss_kind": "other",
     "ss_category": "其他",
     "store_category": "其他",
-    "store_page": "links"
+    "store_page": "links",
+    "captured_date": "2026-09-24"
   },
   "https://upgrade-ashen.vercel.app/": {
     "source": "Scout System",
@@ -65527,7 +65534,7 @@
     "description": "升團資料簡介",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "3.7",
     "categories": [
       {
@@ -65550,7 +65557,8 @@
     "ss_kind": "assistant",
     "ss_category": "集會助手及指南",
     "store_category": "集會助手及指南",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/": {
     "source": "Scout System",
@@ -65561,7 +65569,7 @@
     "description": "配合gemini AI 工具",
     "method": "system",
     "error": "",
-    "enriched_at": "2026-10-21 04:04:40",
+    "enriched_at": "2026-10-21 09:01:39",
     "enrich_version": "3.7",
     "categories": [
       {
@@ -65584,7 +65592,8 @@
     "ss_kind": "tool",
     "ss_category": "工具",
     "store_category": "工具",
-    "store_page": "apps"
+    "store_page": "apps",
+    "captured_date": "2026-09-24"
   },
   "https://www.tmescout.org.hk/file/notice/TME_S_26_04A.pdf": {
     "source": "屯門東區",

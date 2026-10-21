@@ -47,7 +47,7 @@ const toolsCtx = vm.createContext({
   Date: TestDate,
   TOOLS_SOURCES: new Set(['Scout System']),
   TOOLS_TIME_WINDOWS: [
-    { id: 'tools-today', label: '今天', days: 1 },
+    { id: 'tools-today', label: '今天更新/發布', days: 1 },
     { id: 'tools-all', label: '之前發布', days: null },
   ],
   state: { get toolsWindowId() { return toolsWindowId; } },

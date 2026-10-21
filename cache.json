@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-21 04:04:40",
+  "last_updated": "2026-10-21 09:13:41",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
@@ -45959,20 +45959,20 @@
     ],
     "Scout System": [
       {
-        "title": "樂行童軍進度紀錄",
-        "url": "https://roverbadge.vercel.app/",
-        "pdf_url": "https://roverbadge.vercel.app/",
+        "title": "童軍進度紀錄",
+        "url": "https://scoutbadge.vercel.app/",
+        "pdf_url": "https://scoutbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "樂行童軍",
+          "童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
         "store_category": "電子紀錄冊",
         "store_page": "apps"
       },
@@ -45980,8 +45980,8 @@
         "title": "遠足路程表",
         "url": "https://drawtheroute-yd8p.vercel.app/",
         "pdf_url": "https://drawtheroute-yd8p.vercel.app/",
-        "date": "2026-10-21",
-        "captured_date": "2026-10-21",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
@@ -46018,8 +46018,8 @@
         "title": "AYP 童軍接駁指南",
         "url": "https://ayp-eight.vercel.app/",
         "pdf_url": "https://ayp-eight.vercel.app/",
-        "date": "2026-10-21",
-        "captured_date": "2026-10-21",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
@@ -46035,23 +46035,22 @@
         "store_page": "apps"
       },
       {
-        "title": "海外單車遊資料",
-        "url": "https://veloplanner.com/",
-        "pdf_url": "https://veloplanner.com/",
-        "date": "2026-10-21",
-        "captured_date": "2026-10-21",
+        "title": "樂行童軍進度紀錄",
+        "url": "https://roverbadge.vercel.app/",
+        "pdf_url": "https://roverbadge.vercel.app/",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "深資童軍",
           "樂行童軍",
           "小工具"
         ],
-        "description": "海外單車必備",
-        "icon": "",
-        "store_category": "其他",
-        "store_page": "links"
+        "description": "電子紀錄冊",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
       },
       {
         "title": "幼童軍進度紀錄",
@@ -46075,8 +46074,8 @@
         "title": "升團準備",
         "url": "https://upgrade-ashen.vercel.app/",
         "pdf_url": "https://upgrade-ashen.vercel.app/",
-        "date": "2026-10-21",
-        "captured_date": "2026-10-21",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
@@ -46097,8 +46096,8 @@
         "title": "Gemini 輔助工具",
         "url": "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/",
         "pdf_url": "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/",
-        "date": "2026-10-21",
-        "captured_date": "2026-10-21",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
@@ -46116,22 +46115,23 @@
         "store_page": "apps"
       },
       {
-        "title": "童軍進度紀錄",
-        "url": "https://scoutbadge.vercel.app/",
-        "pdf_url": "https://scoutbadge.vercel.app/",
+        "title": "海外單車遊資料",
+        "url": "https://veloplanner.com/",
+        "pdf_url": "https://veloplanner.com/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "童軍",
+          "深資童軍",
+          "樂行童軍",
           "小工具"
         ],
-        "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
-        "store_category": "電子紀錄冊",
-        "store_page": "apps"
+        "description": "海外單車必備",
+        "icon": "",
+        "store_category": "其他",
+        "store_page": "links"
       }
     ]
   },
@@ -47637,12 +47637,11 @@
       "source_site": "Scout System",
       "region": "Scout System",
       "pdf_url": "https://scoutbadge.vercel.app/",
-      "title": "童軍進度追蹤系統",
+      "title": "童軍進度紀錄",
       "captured_date": "2026-09-24",
       "tags": [
         "童軍",
-        "電子紀錄冊",
-        "助手"
+        "小工具"
       ]
     },
     {
@@ -47653,8 +47652,7 @@
       "captured_date": "2026-09-24",
       "tags": [
         "深資童軍",
-        "電子紀錄冊",
-        "助手"
+        "小工具"
       ]
     },
     {
@@ -47665,20 +47663,18 @@
       "captured_date": "2026-09-24",
       "tags": [
         "樂行童軍",
-        "電子紀錄冊",
-        "助手"
+        "小工具"
       ]
     },
     {
       "source_site": "Scout System",
       "region": "Scout System",
       "pdf_url": "https://cubsbadge.vercel.app/",
-      "title": "幼童軍進度追蹤系統",
+      "title": "幼童軍進度紀錄",
       "captured_date": "2026-09-24",
       "tags": [
         "幼童軍",
-        "電子紀錄冊",
-        "助手"
+        "小工具"
       ]
     },
     {
@@ -82057,7 +82053,18 @@
       "first_sync": "2026-10-21",
       "last_sync": "2026-10-21",
       "catalog_size": 9,
-      "visible_count": 9
+      "visible_count": 9,
+      "known_dates": {
+        "https://scoutbadge.vercel.app/": "2026-09-24",
+        "https://drawtheroute-yd8p.vercel.app/": "2026-09-24",
+        "https://vsbadge.vercel.app/": "2026-09-24",
+        "https://ayp-eight.vercel.app/": "2026-09-24",
+        "https://roverbadge.vercel.app/": "2026-09-24",
+        "https://cubsbadge.vercel.app/": "2026-09-24",
+        "https://upgrade-ashen.vercel.app/": "2026-09-24",
+        "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/": "2026-09-24",
+        "https://veloplanner.com/": "2026-09-24"
+      }
     }
   }
 }

@@ -960,8 +960,8 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     const winChips = () => $$(dS, '#window-chips .chip')
       .filter(c => !/chip-(bm|push|report)/.test(c.className));
     const winLabels = winChips().map(c => c.textContent.trim());
-    ok(JSON.stringify(winLabels) === JSON.stringify(['今天', '之前發布']),
-       '入咗小工具，時間掣只剩今天／之前發布：' + winLabels.join(' '));
+    ok(JSON.stringify(winLabels) === JSON.stringify(['今天更新/發布', '之前發布']),
+       '入咗小工具，時間掣只剩今天更新/發布／之前發布：' + winLabels.join(' '));
     ok(winChips().find(c => c.textContent.trim() === '之前發布').classList.contains('active'),
        '小工具預設「之前發布」＝全部');
     ok(titles(dS).includes('舊密碼遊戲') && !titles(dS).includes('【助手】集會流程'),
@@ -969,9 +969,9 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     const oldCard = cards(dS).find(c => c.querySelector('h3').textContent === '舊密碼遊戲');
     ok(!!oldCard && !oldCard.textContent.includes('6個月以上') && oldCard.textContent.includes('遊戲'),
        '小工具卡片唔再標「6個月以上」，只標內設分類');
-    click(wS, winChips().find(c => c.textContent.trim() === '今天'));
+    click(wS, winChips().find(c => c.textContent.trim() === '今天更新/發布'));
     await wait(80);
-    ok(!titles(dS).includes('舊密碼遊戲'), '撳「今天」只剩今日上架嘅小工具');
+    ok(!titles(dS).includes('舊密碼遊戲'), '撳「今天更新/發布」只剩今日上架嘅小工具');
     click(wS, winChips().find(c => c.textContent.trim() === '之前發布'));
     await wait(80);
     ok(titles(dS).includes('舊密碼遊戲'), '撳返「之前發布」全部小工具返晒嚟');
