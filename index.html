@@ -822,9 +822,9 @@
       { id: '180d', label: '6個月', days: 180 },
     ];
     // 小工具（Scout System）唔再以日期分類：工具係長期資產，唔似通告會過期。
-    // 淨係兩個掣——「今天」（今日新上架）同「之前發布」（全部，包括今天）。
+    // 淨係兩個掣——「今天更新/發布」（今日新 URL 上架／改版重新上架）同「之前發布」（全部，包括今天）。
     const TOOLS_TIME_WINDOWS = [
-      { id: 'tools-today', label: '今天', days: 1 },
+      { id: 'tools-today', label: '今天更新/發布', days: 1 },
       { id: 'tools-all', label: '之前發布', days: null },
     ];
 
@@ -977,7 +977,9 @@
         if (item?.[key]) raw.push(item[key]);
       }
       // enrich 亦可能帶 store_category / ss_category
-      const ex = state.enrich[item?.url] || state.enrich[item?.pdf_url] || null;
+      const ex = (typeof state !== 'undefined' && state?.enrich)
+        ? (state.enrich[item?.url] || state.enrich[item?.pdf_url] || null)
+        : null;
       if (ex) {
         for (const key of ['ss_kind', 'ss_category', 'store_category', 'store_page']) {
           if (ex[key]) raw.push(ex[key]);
@@ -5082,7 +5084,7 @@
           subtitle = '目前顯示全港所有通告。';
         }
       }
-      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。小工具唔以日期分類，只分「今天」同「之前發布」。';
+      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。小工具唔以日期分類，只分「今天更新/發布」同「之前發布」。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
 
