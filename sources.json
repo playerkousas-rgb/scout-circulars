@@ -743,7 +743,7 @@
         "?t=",
         "?ver="
       ],
-      "notes": "原首頁為 frameset，改以 left.htm 作可解析入口；目前僅能抓公開 PDF/文件連結，待找到獨立通告頁後再精修。",
+      "notes": "原首頁為 frameset，改以 left.htm 作可解析入口；目前僅能抓公開 PDF/文件連結，待找到獨立通告頁後再精修。 2026-10-22：標題清理移除「歡迎深資／樂行童軍和領袖報名。」招生句，保留課程名稱、級別及學員取錄名單。",
       "use_playwright": false,
       "wait_strategy": "networkidle",
       "wait_timeout": 15000,
@@ -751,7 +751,8 @@
       "asset_link_selector": "a[href$=\".pdf\"], a[href*=\"/files/\"]",
       "follow_detail_pages": false,
       "detail_max_pages": 8,
-      "detail_link_selector": ".entry-title a[href], article h2 a[href]"
+      "detail_link_selector": ".entry-title a[href], article h2 a[href]",
+      "title_filter_regex": "歡迎深資\\s*[/／]\\s*樂行童軍和領袖報名[。.!！]\\s*"
     },
     "北葵涌區": {
       "region": "新界地域",
