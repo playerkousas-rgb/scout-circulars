@@ -254,6 +254,10 @@
     .push-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
     .push-heading h3 { margin: 0; font-size: 17px; }
     .push-heading p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    /* 2026-10-22：一眼睇到「這部裝置有冇真係登記」，唔會再同「只儲存選項」混淆。 */
+    .push-badge { display: inline-block; margin-top: 7px; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; }
+    .push-badge.ok { background: rgba(16,185,129,.16); color: #6ee7b7; border: 1px solid rgba(16,185,129,.45); }
+    .push-badge.warn { background: rgba(245,158,11,.16); color: #fcd34d; border: 1px solid rgba(245,158,11,.45); }
     .push-close { flex: 0 0 auto; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 10px; width: 34px; height: 34px; cursor: pointer; font-size: 18px; line-height: 1; }
     .push-close:hover { color: var(--text); background: rgba(255,255,255,.06); }
     .push-block { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(59,130,246,.2); }
@@ -684,6 +688,7 @@
       <div class="push-heading">
         <div>
           <h3 id="push-settings-title">🔔 個人化通知</h3>
+          <span class="push-badge" id="push-enroll-badge" hidden></span>
         </div>
         <button type="button" class="push-close" id="push-close" aria-label="關閉通知設定">×</button>
       </div>
@@ -724,11 +729,11 @@
       <div class="push-actions">
         <span class="push-count" id="push-count" aria-live="polite"></span>
         <button type="button" class="push-secondary" id="push-reset" disabled>重新設定</button>
-        <button type="button" class="push-secondary" id="push-save">只儲存選項</button>
+        <button type="button" class="push-secondary" id="push-save">只儲存篩選（收不到通知）</button>
         <button type="button" class="push-primary" id="push-enable">啟用通知</button>
         <button type="button" class="push-danger" id="push-disable" hidden>停止這部裝置通知</button>
       </div>
-      <small class="push-help" id="push-edit-help">更改後儲存即可；「重新設定」只清空面板，儲存前不會改動訂閱。</small>
+      <small class="push-help" id="push-edit-help">「只儲存篩選」只會記住你嘅選擇，<strong>唔會登記通知</strong>；要收到推送必須按「啟用通知」並允許通知權限。「重新設定」只清空面板，儲存前不會改動訂閱。</small>
       <div class="push-state" id="push-status" role="status" aria-live="polite">正在載入通知選項…</div>
       <ul class="push-privacy">
         <li>私隱：設定先留在本機 LocalStorage。</li>
@@ -5855,6 +5860,9 @@
 
     // 🔔 面板：桌面由搜尋列旁邊嘅「通知」掣開；手機由頂欄 🔔 開。
     let pushSheetLastFocus = null;
+    // 每次載入只記一次：只想知道有幾多人「打開過」設定面板，
+    // 唔想重複開關就重複計數。純彙總，冇任何個人資料。
+    let pushPanelOpenTracked = false;
     function setPushSheet(open) {
       const backdrop = $('#push-backdrop');
       if (!backdrop) return;
@@ -5867,6 +5875,10 @@
       backdrop.hidden = !open;
       document.body.classList.toggle('push-sheet-open', open || !$('#report-backdrop')?.hidden);
       if (open) {
+        if (!pushPanelOpenTracked) {
+          pushPanelOpenTracked = true;
+          window.ScoutPushClient?.track?.('panel_open');
+        }
         pushSheetLastFocus = document.activeElement;
         // 首次開啟（或字典載入前就開咗）先由已儲存設定砌一次；之後保留未儲存嘅剔選。
         if (state.pushCatalog && !$('#push-branches')?.children.length) renderPushOptions();
@@ -6085,6 +6097,13 @@
         return;
       }
       const info = await window.ScoutPushClient.status();
+      const badge = $('#push-enroll-badge');
+      if (badge) {
+        badge.hidden = false;
+        const enrolled = Boolean(info.subscribed && info.permission === 'granted');
+        badge.className = `push-badge ${enrolled ? 'ok' : 'warn'}`;
+        badge.textContent = enrolled ? '這部裝置已登記 ✓' : '這部裝置尚未登記';
+      }
       const installHint = $('#push-install-hint');
       if (installHint) installHint.textContent = info.needsHomeScreen
         ? '此 iPhone／iPad 尚未從主畫面開啟。請先用 Safari 將本站「加入主畫面」，再從圖示開啟，才可啟用通知。'
@@ -6093,6 +6112,7 @@
       if (save) save.disabled = false;
       if (disable) disable.hidden = !info.subscribed;
       if (!info.supported) {
+        if (enable) enable.textContent = info.needsHomeScreen ? 'iPhone：先加入主畫面' : '此瀏覽器不支援通知';
         setPushStatus(info.needsHomeScreen ? '請先加入主畫面並從圖示開啟，才可啟用通知；目前仍可只儲存篩選設定。' : '這個瀏覽器或目前的連線不支援網頁通知；請參考上方說明，你仍可只儲存篩選設定。', 'warn');
       } else if (info.subscribed && info.permission === 'granted') {
         setPushStatus('這部裝置已啟用匿名通知；更改選項後會同步更新。', 'good');
@@ -6124,7 +6144,8 @@
           setPushStatus(`已只儲存在這個瀏覽器；伺服器同步未完成：${error.message || '請稍後再試。'}`, 'warn');
         }
       } else {
-        setPushStatus('已只儲存在這個瀏覽器。尚未要求或取得通知權限。', 'good');
+        window.ScoutPushClient.track?.('save_only');
+        setPushStatus('已儲存篩選，但這部裝置仍未登記通知 — 要按「啟用通知」並允許通知權限，才會收到推送。', 'warn');
       }
       await refreshPushStatus();
       return saved;
@@ -6140,8 +6161,8 @@
         const result = await window.ScoutPushClient.enable(preferences);
         updatePersonalResultsAfterPreferenceChange(result.preferences);
         setPushStatus(pushMasterIdsIn(result.preferences.topics).length
-          ? `已啟用 ${pushPreferenceSummary(result.preferences)}；全選唔分支部。`
-          : '已啟用：符合任何一組支部及項目的新消息就會通知。', 'good');
+          ? `已啟用（這部裝置已登記）：${pushPreferenceSummary(result.preferences)}；全選唔分支部。`
+          : '已啟用（這部裝置已登記）：符合任何一組支部及項目的新消息就會通知。', 'good');
       } catch (error) {
         const tone = error?.code === 'permission_denied' ? 'warn' : 'error';
         setPushStatus(error?.message || '未能啟用通知。', tone);

@@ -67,6 +67,20 @@
 
     <div class="kpis" id="kpis"></div>
 
+    <h2>登記漏斗：由打開設定到真正收到通知</h2>
+    <div class="panel" id="funnel">
+      <div class="sub" style="margin-bottom:10px">
+        匿名每日彙總，<strong>不會</strong>記錄任何裝置、IP 或個人資料；2026-10-22 起才開始收集。
+        「只儲存篩選」代表用戶揀完支部／項目但冇按「啟用通知」。
+      </div>
+      <div class="bars" id="funnel-bars"></div>
+      <div class="sub" id="funnel-summary" style="margin-top:12px"></div>
+    </div>
+
+    <p class="sub" style="margin:-4px 0 0">
+      註：一個瀏覽器／手機＝一列，同一人用兩部裝置會計兩次；「更新過設定」只在用戶再按儲存或啟用時才更新，唔等於實際有冇收到通知。
+    </p>
+
     <h2>按支部（一人可選多個支部）</h2>
     <div class="panel bars" id="branches"></div>
 
@@ -147,14 +161,42 @@
     meta.textContent = gen ? `最後更新：${gen.toLocaleString('zh-HK', { timeZone: 'Asia/Hong_Kong' })}` : '';
 
     const kpis = [
-      [data.enabled, '現時訂閱人數（啟用）'],
-      [data.total, '累計訂閱（含已停用）'],
-      [data.active_last_30d, '最近 30 日活躍'],
-      [data.new_last_30d, '最近 30 日新增'],
+      [data.enabled, '現時已登記裝置（啟用）'],
+      [data.total, '累計已登記裝置（含已停用）'],
+      [data.active_last_30d, '最近 30 日更新過設定'],
+      [data.new_last_30d, '最近 30 日新登記'],
       [data.avg_topics_per_subscriber, '平均每人訂閱項目'],
     ];
     document.getElementById('kpis').innerHTML = kpis.map(([n, l]) =>
       `<div class="panel kpi"><div class="n">${(n ?? 0).toLocaleString()}</div><div class="l">${l}</div></div>`).join('');
+
+    const FUNNEL_LABELS = {
+      panel_open: '打開通知設定面板',
+      enable_click: '按「啟用通知」',
+      subscribed: '成功登記（瀏覽器確認）',
+      save_only: '只按「只儲存篩選」（未登記）',
+      permission_denied: '通知權限被拒／被封鎖',
+      ios_home_screen_required: 'iPhone／iPad 未加入主畫面',
+      unsupported_browser: '瀏覽器或連線不支援',
+      config_unavailable: '讀取通知服務設定失敗',
+      subscribe_failed: '瀏覽器建立訂閱失敗',
+      sync_ok: '舊有訂閱更新成功',
+      sync_failed: '舊有訂閱更新失敗',
+      server_reject: '伺服器拒收（4xx）',
+      server_error: '伺服器錯誤（5xx）',
+    };
+    const funnel = data.funnel || {};
+    const fEntries = Object.entries(funnel.totals || {});
+    const fMax = fEntries.reduce((m, [, n]) => Math.max(m, n), 0);
+    document.getElementById('funnel-bars').innerHTML = fEntries.length
+      ? fEntries.map(([event, n]) => {
+          const w = fMax ? Math.max(2, Math.round(n / fMax * 100)) : 0;
+          return `<div class="bar"><div class="label" style="--w:${w}%"><span>${esc(FUNNEL_LABELS[event] || event)}</span></div><div class="cnt">${n.toLocaleString()}</div></div>`;
+        }).join('')
+      : '<div class="empty">尚未有漏斗數據（新版本未部署或未有人使用）。</div>';
+    document.getElementById('funnel-summary').textContent = fEntries.length
+      ? `近 ${funnel.window_days || 14} 日：打開面板 ${(funnel.totals.panel_open || 0).toLocaleString()} 次，成功登記 ${(funnel.totals.subscribed || 0).toLocaleString()} 次，轉換率 ${funnel.conversion_pct ?? 0}%。`
+      : '';
 
     const bl = (data.labels && data.labels.branches) || {};
     const tl = (data.labels && data.labels.topics) || {};

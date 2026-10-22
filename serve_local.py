@@ -7,6 +7,7 @@ Vercel 上面嘅 Python Function 用 `python -m http.server` 測唔到。呢個�
 
   /api/push-config           → api/push_config.py（公開 VAPID 狀態）
   /api/push-subscriptions    → api/push_subscriptions.py（匿名訂閱）
+  /api/push-events           → api/push_events.py（匿名登記漏斗計數）
   /api/pdf-proxy             → api/pdf_proxy.py（PDF byte bridge，畀 pdf.js 內容出圖）
   其他路徑                   → 靜態檔（index.html / cache.json …）
 
@@ -29,7 +30,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(ROOT, "api"))
 
 
-def build_handler(push_config_handler, push_subscriptions_handler, pdf_proxy_handler):
+def build_handler(push_config_handler, push_subscriptions_handler, push_events_handler, pdf_proxy_handler):
     # 多重繼承：需要的 /api/* 路由直接借用 Vercel handler；其他路徑行靜態檔。
     class LocalHandler(SimpleHTTPRequestHandler):
         def __init__(self, *a, **kw):
@@ -44,6 +45,9 @@ def build_handler(push_config_handler, push_subscriptions_handler, pdf_proxy_han
         def _is_push_subscriptions(self):
             return self._api_path() in ("/api/push-subscriptions", "/api/push_subscriptions", "/api/push_subscriptions.py")
 
+        def _is_push_events(self):
+            return self._api_path() in ("/api/push-events", "/api/push_events", "/api/push_events.py")
+
         def _is_pdf_proxy(self):
             return self._api_path() in ("/api/pdf-proxy", "/api/pdf_proxy", "/api/pdf_proxy.py")
 
@@ -57,6 +61,8 @@ def build_handler(push_config_handler, push_subscriptions_handler, pdf_proxy_han
         def do_POST(self):  # noqa: N802
             if self._is_push_subscriptions():
                 return push_subscriptions_handler.do_POST(self)
+            if self._is_push_events():
+                return push_events_handler.do_POST(self)
             self.send_error(404, "Not found")
 
         def do_HEAD(self):   # noqa: N802
@@ -67,6 +73,8 @@ def build_handler(push_config_handler, push_subscriptions_handler, pdf_proxy_han
                 return push_config_handler.do_OPTIONS(self)
             if self._is_push_subscriptions():
                 return push_subscriptions_handler.do_OPTIONS(self)
+            if self._is_push_events():
+                return push_events_handler.do_OPTIONS(self)
             if self._is_pdf_proxy():
                 return pdf_proxy_handler.do_OPTIONS(self)
             self.send_response(204)
@@ -75,7 +83,7 @@ def build_handler(push_config_handler, push_subscriptions_handler, pdf_proxy_han
         def end_headers(self):
             # 本機開發：靜態檔唔好俾瀏覽器 cache 住舊 index.html
             # pdf-proxy 靠自己嘅長 cache header 俾 edge/CDN cache，唔好冚佢
-            if not (self._is_push_config() or self._is_push_subscriptions() or self._is_pdf_proxy()):
+            if not (self._is_push_config() or self._is_push_subscriptions() or self._is_push_events() or self._is_pdf_proxy()):
                 self.send_header("Cache-Control", "no-store")
             SimpleHTTPRequestHandler.end_headers(self)
 
@@ -93,13 +101,14 @@ def main():
 
     import pdf_proxy
     import push_config
+    import push_events
     import push_subscriptions
 
     # 各 handler 都係 BaseHTTPRequestHandler 子類；我哋借用其 do_* 方法，
     # self 會係 LocalHandler 實例，方法簽名相容。
     server = ThreadingHTTPServer(
         (args.host, args.port),
-        build_handler(push_config.handler, push_subscriptions.handler, pdf_proxy.handler),
+        build_handler(push_config.handler, push_subscriptions.handler, push_events.handler, pdf_proxy.handler),
     )
     print(f"▶ http://localhost:{args.port}/index.html   （/api/push-* 已掛載）")
     try:

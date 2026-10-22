@@ -24,7 +24,8 @@
 - `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
 - `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
 - `subscription_stats.py`：管理員本機執行，用 service key 統計訂閱人數及各支部／項目的訂閱數（只出彙總，不出個資）；`schema.sql` 末段亦有對應 SQL
-- `api/push_config.py`、`api/push_subscriptions.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
+- **登記漏斗（2026-10-22）**：`api/push_events.py` + `push_funnel_daily` 表。只記「打開面板、按啟用、成功登記、只儲存篩選、iPhone 未加入主畫面、權限被拒、伺服器 4xx/5xx」等固定事件名的每日次數，**冇** endpoint、token、IP、user agent 或自由文字。用嚟一眼分清楚「推送壞咗」同「根本冇人完成設定」——舊版冇任何漏斗數據，所以睇到 8 個登記也判斷唔到邊一步走失。`stats.html` 同 `subscription_stats.py` 有對應區塊；`serve_local.py` 亦已掛 `/api/push-events`
+- `api/push_config.py`、`api/push_subscriptions.py`、`api/push_events.py`：不讓瀏覽器直連 Supabase 的窄 Web Push API
 - `api/pdf_proxy.py`：stdlib-only PDF byte bridge（2026-09-21）。「分享 → 轉換內文做圖」用 pdf.js 喺用戶部機 rasterize，但 49 個來源站大部分冇 CORS，所以呢個 function 淨係過橋攞 bytes：零依賴、零儲存、4MB 上限、`%PDF` magic 檢查、只 proxy cache.json 列出嘅通告 URL（防 open-relay），回應俾 Vercel edge cache 一星期
 - `serve_local.py`：本機同時提供靜態頁 + `/api/push-*`
 - `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）

@@ -201,6 +201,41 @@ GRANT ALL ON TABLE push_deliveries TO service_role;
 GRANT USAGE, SELECT ON SEQUENCE push_deliveries_id_seq TO service_role;
 
 -- ============================================================
+-- 登記漏斗（2026-10-22）：匿名每日彙總，用嚟分清楚「推送壞咗」同
+-- 「根本冇人完成設定」。只存事件名＋次數，冇 endpoint、token、IP、
+-- user agent 或任何自由文字。事件名由 api/push_common.py 的
+-- FUNNEL_EVENTS 控制，/api/push-events 只接受嗰批名稱。
+-- ============================================================
+CREATE TABLE IF NOT EXISTS push_funnel_daily (
+    day   DATE NOT NULL,
+    event TEXT NOT NULL,
+    count BIGINT NOT NULL DEFAULT 0,
+    CONSTRAINT push_funnel_daily_pkey PRIMARY KEY (day, event)
+);
+
+ALTER TABLE push_funnel_daily ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE push_funnel_daily FROM anon, authenticated;
+GRANT ALL ON TABLE push_funnel_daily TO service_role;
+
+-- 以香港時間分日，避免早上 6 點前的流量計錯日期。
+CREATE OR REPLACE FUNCTION push_funnel_bump(p_event TEXT)
+RETURNS VOID
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  INSERT INTO push_funnel_daily AS target (day, event, count)
+  VALUES ((now() AT TIME ZONE 'Asia/Hong_Kong')::date, left(coalesce(p_event, ''), 40), 1)
+  ON CONFLICT (day, event) DO UPDATE SET count = target.count + 1;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION push_funnel_bump(TEXT) FROM PUBLIC;
+REVOKE ALL ON FUNCTION push_funnel_bump(TEXT) FROM anon, authenticated;
+GRANT EXECUTE ON FUNCTION push_funnel_bump(TEXT) TO service_role;
+
+-- ============================================================
 -- 管理員查詢：有幾多人訂閱、訂閱了甚麼（Supabase SQL Editor 直接貼上）
 -- 只回傳彙總數字，不含 endpoint / 金鑰。
 -- ============================================================
@@ -229,3 +264,9 @@ GRANT USAGE, SELECT ON SEQUENCE push_deliveries_id_seq TO service_role;
 -- FROM push_deliveries
 -- WHERE batch_date >= CURRENT_DATE - 14
 -- GROUP BY batch_date ORDER BY batch_date DESC;
+
+-- E. 登記漏斗（近 14 日，按事件）
+-- SELECT event, SUM(count) AS times
+-- FROM push_funnel_daily
+-- WHERE day >= (CURRENT_DATE - 14)
+-- GROUP BY event ORDER BY times DESC;
