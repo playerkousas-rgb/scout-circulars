@@ -32,6 +32,39 @@ MAX_TOPICS = 60
 # stored subscriptions keep working without a migration.
 MASTER_TOPIC_IDS = ("all:new", "all:notices", "all:tools")
 
+# Anonymous registration-funnel counters (2026-10-22).  These answer the
+# question "is push broken, or is nobody finishing setup?" without storing any
+# device, endpoint, IP or account identifier — only a daily aggregate count.
+#
+# panel_open            有人打開通知設定面板
+# enable_click          有人按「啟用通知」
+# subscribed            瀏覽器確認已建立訂閱並寫入伺服器
+# save_only             只按了「只儲存選項」，冇登記通知
+# permission_denied     通知權限被拒或被封鎖
+# ios_home_screen_required  iPhone／iPad 未加入主畫面，無法訂閱
+#                        （按鈕係 disabled，所以喺打開面板時記一次）
+# unsupported_browser   瀏覽器／連線不支援 Web Push（同樣喺打開面板時記）
+# config_unavailable    /api/push-config 失敗（Vercel 環境變數或網絡問題）
+# subscribe_failed      瀏覽器 pushManager.subscribe() 失敗
+# sync_ok / sync_failed 既有訂閱更新設定成功／失敗
+# server_reject         伺服器回 4xx（訊息碼會寫入 Vercel log，唔會記錄內容）
+# server_error          伺服器回 5xx
+FUNNEL_EVENTS = frozenset({
+    "panel_open",
+    "enable_click",
+    "subscribed",
+    "save_only",
+    "permission_denied",
+    "ios_home_screen_required",
+    "unsupported_browser",
+    "config_unavailable",
+    "subscribe_failed",
+    "sync_ok",
+    "sync_failed",
+    "server_reject",
+    "server_error",
+})
+
 # Web Push endpoints are later contacted by GitHub Actions.  Restricting them
 # to browser push providers prevents the subscription endpoint from becoming
 # an arbitrary outbound-request/SSRF primitive.
@@ -165,6 +198,32 @@ def validate_preferences(body: Mapping[str, Any]) -> Tuple[List[str], List[str],
         if "*" not in scope and not scope.intersection(branches):
             raise ApiError(400, "incompatible_choice", "所選項目不適用於已選支部")
     return branches, topics, str(catalog.get("version", ""))
+
+
+def validate_funnel_event(value: Any) -> str:
+    """Only allow the fixed event vocabulary; never store free text."""
+    event = str(value or "").strip()
+    if event not in FUNNEL_EVENTS:
+        raise ApiError(400, "invalid_event", "不支援的統計事件")
+    return event
+
+
+def bump_funnel(event: str, config: Optional[Mapping[str, str]] = None) -> bool:
+    """Best-effort daily counter.  Never raise: statistics must not break push."""
+    try:
+        supabase_request(
+            "POST",
+            "rpc/push_funnel_bump",
+            payload={"p_event": event},
+            prefer="return=minimal",
+            config=config,
+            # Statistics must never make a failing request wait for a full
+            # Supabase timeout; two seconds is enough for one counter bump.
+            timeout=2,
+        )
+        return True
+    except (SupabaseError, ApiError, OSError):
+        return False
 
 
 def validate_client_token(value: Any) -> str:
@@ -307,6 +366,7 @@ def supabase_request(
     payload: Any = None,
     prefer: str = "",
     config: Optional[Mapping[str, str]] = None,
+    timeout: float = 12,
 ) -> Tuple[int, Any]:
     config = dict(config or require_subscription_configuration())
     url = f"{config['supabase_url']}/rest/v1/{resource.lstrip('/')}"
@@ -325,7 +385,7 @@ def supabase_request(
         headers["Content-Type"] = "application/json"
     request = Request(url, data=data, headers=headers, method=method.upper())
     try:
-        with urlopen(request, timeout=12) as response:
+        with urlopen(request, timeout=timeout) as response:
             raw = response.read()
             if not raw:
                 return response.status, None

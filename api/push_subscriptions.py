@@ -6,6 +6,7 @@ from http.server import BaseHTTPRequestHandler
 from api.push_common import (
     ApiError,
     SupabaseError,
+    bump_funnel,
     client_token_hash,
     endpoint_hash,
     read_json_body,
@@ -98,10 +99,20 @@ class handler(BaseHTTPRequestHandler):  # noqa: N801 - Vercel function conventio
 
             raise ApiError(400, "invalid_action", "不支援的通知設定操作")
         except ApiError as error:
+            # Count rejections by code so a systematic validation failure (for
+            # example a catalog/UI mismatch) shows up as a number instead of
+            # silently turning everyone away.  No request content is logged.
+            bump_funnel("server_error" if error.status >= 500 else "server_reject")
+            print(f"push-subscriptions rejected: {error.status} {error.code}", flush=True)
             send_error(self, error)
-        except SupabaseError:
+        except SupabaseError as error:
+            bump_funnel("server_error")
+            print(f"push-subscriptions storage error: {error.status}", flush=True)
             send_error(self, ApiError(503, "storage_unavailable", "通知設定暫時無法儲存，請稍後再試"))
-        except Exception:
+        except Exception as error:  # noqa: BLE001 - keep the public endpoint opaque
             # Unexpected errors remain opaque to avoid leaking stack traces or
-            # storage details to the public endpoint.
+            # storage details to the public endpoint, but the *type* is logged
+            # so the owner can see failures in Vercel → Functions → Logs.
+            bump_funnel("server_error")
+            print(f"push-subscriptions failed: {type(error).__name__}", flush=True)
             send_error(self, ApiError(500, "server_error", "通知設定暫時無法處理"))

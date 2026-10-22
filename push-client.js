@@ -12,6 +12,7 @@
   const PREF_KEY = 'scl_push_preferences_v1';
   const TOKEN_KEY = 'scl_push_client_token_v1';
   const ENABLED_KEY = 'scl_push_enabled_v1';
+  const EVENTS_URL = '/api/push-events';
   // Branch-agnostic "select all" ticks: 通告 and 小工具 are independent since
   // 2026-10-01; all:new is the legacy single tick that equals both.
   const MASTER_TOPIC_IDS = ['all:new', 'all:notices', 'all:tools'];
@@ -34,6 +35,34 @@
 
   function safeStorageRemove(key) {
     try { global.localStorage.removeItem(key); } catch (_) {}
+  }
+
+  // ── 匿名漏斗計數 ────────────────────────────────────────────
+  // 只為回答「推送壞咗，定係根本冇人完成設定」。送去 /api/push-events 的
+  // 只有一個固定事件名，冇 endpoint、冇 token、冇 IP、冇自由文字。
+  // 任何失敗（離線、攔截、舊部署）都靜靜略過，絶不影響訂閱流程。
+  function track(event) {
+    if (typeof event !== 'string' || !event) return;
+    const payload = JSON.stringify({ event });
+    try {
+      const beacon = global.navigator && global.navigator.sendBeacon;
+      if (typeof beacon === 'function' && typeof global.Blob === 'function') {
+        if (global.navigator.sendBeacon(EVENTS_URL, new global.Blob([payload], { type: 'application/json' }))) return;
+      }
+    } catch (_) { /* fall through to fetch */ }
+    try {
+      const promise = typeof global.fetch === 'function'
+        ? global.fetch(EVENTS_URL, {
+          method: 'POST',
+          credentials: 'same-origin',
+          cache: 'no-store',
+          keepalive: true,
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+        })
+        : null;
+      if (promise && typeof promise.catch === 'function') promise.catch(() => {});
+    } catch (_) { /* statistics are optional */ }
   }
 
   function uniqueStrings(values) {
@@ -129,10 +158,12 @@
         method: 'GET', credentials: 'same-origin', cache: 'no-store', headers: { Accept: 'application/json' },
       });
     } catch (_) {
+      track('config_unavailable');
       throw new PushClientError('無法連接通知服務，請稍後再試。', 'network_error');
     }
     const body = await responseJson(response);
     if (!response.ok || !body || !body.enabled || typeof body.vapidPublicKey !== 'string') {
+      track('config_unavailable');
       throw new PushClientError((body && body.message) || '通知服務尚未完成設定。', (body && body.error) || 'push_unavailable');
     }
     return body;
@@ -185,8 +216,10 @@
         });
       } catch (error) {
         if (error && error.name === 'NotAllowedError') {
+          track('permission_denied');
           throw new PushClientError('瀏覽器拒絕了通知權限。請在網址列的網站設定中重新允許。', 'permission_denied');
         }
+        track('subscribe_failed');
         throw new PushClientError('未能建立瀏覽器通知訂閱。', 'subscribe_failed');
       }
     }
@@ -212,17 +245,24 @@
   }
 
   async function enable(preferences) {
+    // 先記「有人按過啟用」：即使之後因權限或設定失敗，都知道有幾多人行到這一步。
+    track('enable_click');
     const saved = savePreferences(validatePreferences(preferences));
     if (installationStatus().needsHomeScreen) {
+      track('ios_home_screen_required');
       throw new PushClientError('請先用 Safari 將本站「加入主畫面」，再從主畫面圖示開啟，才可啟用通知（iOS／iPadOS 16.4 或以上）。', 'home_screen_required');
     }
-    if (!isSupported()) throw new PushClientError('這個瀏覽器或目前的非 HTTPS 連線不支援網頁通知。', 'unsupported');
+    if (!isSupported()) {
+      track('unsupported_browser');
+      throw new PushClientError('這個瀏覽器或目前的非 HTTPS 連線不支援網頁通知。', 'unsupported');
+    }
     // Request permission directly within the user's click, before network awaits.
     let permission = global.Notification.permission;
     if (permission === 'default') {
       permission = await global.Notification.requestPermission();
     }
     if (permission !== 'granted') {
+      track('permission_denied');
       throw new PushClientError('尚未獲得通知權限；設定已只保存在這個瀏覽器。', 'permission_denied');
     }
     const config = await fetchConfig();
@@ -231,6 +271,7 @@
     const subscription = await ensureSubscription(reg, config.vapidPublicKey, true);
     await persistSubscription(subscription, saved);
     safeStorageSet(ENABLED_KEY, '1');
+    track('subscribed');
     return { status: 'enabled', preferences: saved };
   }
 
@@ -244,8 +285,14 @@
     const reg = await registration();
     const subscription = await ensureSubscription(reg, config.vapidPublicKey, allowResubscribe);
     if (!subscription) return { status: 'saved_local_only', preferences: saved };
-    await persistSubscription(subscription, saved);
+    try {
+      await persistSubscription(subscription, saved);
+    } catch (error) {
+      track('sync_failed');
+      throw error;
+    }
     safeStorageSet(ENABLED_KEY, '1');
+    track('sync_ok');
     return { status: 'synced', preferences: saved };
   }
 
@@ -303,6 +350,7 @@
     loadPreferences,
     savePreferences,
     isSupported,
+    track,
     enable,
     sync,
     disable,

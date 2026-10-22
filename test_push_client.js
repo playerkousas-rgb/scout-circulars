@@ -13,6 +13,7 @@ const localStorage = {
 let activeSubscription = null;
 let unsubscribed = false;
 const requestBodies = [];
+const funnelEvents = [];
 const registration = {
   pushManager: {
     getSubscription: async () => activeSubscription,
@@ -42,6 +43,10 @@ const win = {
       requestBodies.push(JSON.parse(options.body));
       return { ok: true, json: async () => ({ ok: true, status: 'saved' }) };
     }
+    if (url === '/api/push-events') {
+      funnelEvents.push(JSON.parse(options.body).event);
+      return { ok: true, json: async () => ({ ok: true }) };
+    }
     throw new Error('unexpected URL ' + url);
   },
 };
@@ -58,6 +63,7 @@ const client = win.ScoutPushClient;
   const result = await client.enable({ branches: ['童軍'], topics: ['category:training'] });
   assert.strictEqual(result.status, 'enabled');
   assert.strictEqual(requestBodies.length, 1);
+  assert.deepStrictEqual(funnelEvents, ['enable_click', 'subscribed'], 'enable should report the anonymous funnel events');
   assert.strictEqual(requestBodies[0].action, 'upsert');
   assert.deepStrictEqual([...requestBodies[0].branches], ['童軍']);
   assert.deepStrictEqual([...requestBodies[0].topics], ['category:training']);
@@ -75,6 +81,7 @@ const client = win.ScoutPushClient;
   assert.strictEqual((await client.status()).needsHomeScreen, true);
   const writesBefore = requestBodies.length;
   await assert.rejects(client.enable({ branches: ['小童軍'], topics: ['activity:other'] }), error => error.code === 'home_screen_required');
+  assert(funnelEvents.includes('ios_home_screen_required'), 'iOS without home-screen install must be counted');
   assert.strictEqual(requestBodies.length, writesBefore, 'no remote write before installation');
   win.navigator.standalone = true;
   assert.strictEqual(client.isSupported(), true);
@@ -106,5 +113,11 @@ const client = win.ScoutPushClient;
   await assert.rejects(client.enable({ branches: [], topics: ['activity:other'] }), error => error.code === 'missing_branch');
   win.isSecureContext = false;
   assert.strictEqual(client.isSupported(), false);
+  // 統計必須靜靜失敗，唔可以拖累訂閱流程。
+  const failingFetch = win.fetch;
+  win.fetch = async () => { throw new Error('analytics blocked'); };
+  assert.doesNotThrow(() => client.track('panel_open'));
+  await new Promise(resolve => setTimeout(resolve, 0));
+  win.fetch = failingFetch;
   console.log('🎉 push-client LocalStorage, anonymous upsert, and delete lifecycle passed');
 })().catch(error => { console.error(error); process.exit(1); });
