@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-22 05:08:26",
+  "last_updated": "2026-10-23 04:07:11",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 5089,
+    "total_notices": 5090,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -486,6 +486,15 @@
         "region": "總會"
       },
       {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
         "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
         "url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
@@ -516,15 +525,6 @@
         "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
         "url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
-        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -26471,18 +26471,18 @@
         "region": "九龍地域"
       },
       {
-        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
-        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
         "region": "九龍地域"
       },
       {
-        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
-        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
@@ -31550,6 +31550,15 @@
     "西貢區": [],
     "黃大仙區": [
       {
+        "title": "露營章(技能組)訓練班",
+        "url": "https://hkscout-wts.org/wp-content/uploads/2026/10/2027露營章（技能組）訓練班-1.pdf",
+        "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/10/2027露營章（技能組）訓練班-1.pdf",
+        "date": "2026-10-23",
+        "captured_date": "2026-10-23",
+        "source_site": "黃大仙區",
+        "region": "東九龍地域"
+      },
+      {
         "title": "Game Night系列活動",
         "url": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
         "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/09/Game-Night通告_-2610091023-2.pdf",
@@ -35836,7 +35845,7 @@
         "region": "新界地域"
       },
       {
-        "title": "SOUL Keeper 精神健康守護者課程 (Level 1) 歡迎深資/樂行童軍和領袖報名。",
+        "title": "SOUL Keeper 精神健康守護者課程 (Level 1)",
         "url": "https://tmw.scout-ntr.org.hk/files/2026/TMWDV012026.pdf",
         "pdf_url": "https://tmw.scout-ntr.org.hk/files/2026/TMWDV012026.pdf",
         "date": "2026-09-02",
@@ -45986,6 +45995,24 @@
         "store_page": "apps"
       },
       {
+        "title": "樂行童軍進度紀錄",
+        "url": "https://roverbadge.vercel.app/",
+        "pdf_url": "https://roverbadge.vercel.app/",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
+        "tags": [
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "電子紀錄冊",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
+      },
+      {
         "title": "遠足路程表",
         "url": "https://drawtheroute-yd8p.vercel.app/",
         "pdf_url": "https://drawtheroute-yd8p.vercel.app/",
@@ -46003,24 +46030,6 @@
         "description": "全方位遠足計劃工具",
         "icon": "",
         "store_category": "工具",
-        "store_page": "apps"
-      },
-      {
-        "title": "樂行童軍進度紀錄",
-        "url": "https://roverbadge.vercel.app/",
-        "pdf_url": "https://roverbadge.vercel.app/",
-        "date": "2026-09-24",
-        "captured_date": "2026-09-24",
-        "source_site": "Scout System",
-        "region": "Scout System",
-        "source_url": "https://scoutappstore.vercel.app/",
-        "tags": [
-          "樂行童軍",
-          "小工具"
-        ],
-        "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
-        "store_category": "電子紀錄冊",
         "store_page": "apps"
       },
       {
@@ -46085,20 +46094,20 @@
         "store_page": "apps"
       },
       {
-        "title": "幼童軍進度紀錄",
-        "url": "https://cubsbadge.vercel.app/",
-        "pdf_url": "https://cubsbadge.vercel.app/",
+        "title": "童軍進度紀錄",
+        "url": "https://scoutbadge.vercel.app/",
+        "pdf_url": "https://scoutbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "幼童軍",
+          "童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
         "store_category": "電子紀錄冊",
         "store_page": "apps"
       },
@@ -46125,26 +46134,33 @@
         "store_page": "apps"
       },
       {
-        "title": "童軍進度紀錄",
-        "url": "https://scoutbadge.vercel.app/",
-        "pdf_url": "https://scoutbadge.vercel.app/",
+        "title": "幼童軍進度紀錄",
+        "url": "https://cubsbadge.vercel.app/",
+        "pdf_url": "https://cubsbadge.vercel.app/",
         "date": "2026-09-24",
         "captured_date": "2026-09-24",
         "source_site": "Scout System",
         "region": "Scout System",
         "source_url": "https://scoutappstore.vercel.app/",
         "tags": [
-          "童軍",
+          "幼童軍",
           "小工具"
         ],
         "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+        "icon": "",
         "store_category": "電子紀錄冊",
         "store_page": "apps"
       }
     ]
   },
   "notices": [
+    {
+      "source_site": "黃大仙區",
+      "region": "東九龍地域",
+      "pdf_url": "https://hkscout-wts.org/wp-content/uploads/2026/10/2027露營章（技能組）訓練班-1.pdf",
+      "title": "露營章(技能組)訓練班",
+      "captured_date": "2026-10-23"
+    },
     {
       "source_site": "屯門西區",
       "region": "新界地域",
@@ -46240,15 +46256,15 @@
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
       "captured_date": "2026-10-16"
     },
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
       "captured_date": "2026-10-16"
     },
     {
@@ -46939,6 +46955,13 @@
     {
       "source_site": "總會",
       "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
       "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
       "captured_date": "2026-10-06"
@@ -46962,13 +46985,6 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
       "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
       "captured_date": "2026-10-06"
     },
     {
@@ -49871,7 +49887,7 @@
       "source_site": "屯門西區",
       "region": "新界地域",
       "pdf_url": "https://tmw.scout-ntr.org.hk/files/2026/TMWDV012026.pdf",
-      "title": "SOUL Keeper 精神健康守護者課程 (Level 1) 歡迎深資/樂行童軍和領袖報名。",
+      "title": "SOUL Keeper 精神健康守護者課程 (Level 1)",
       "captured_date": "2026-09-02"
     },
     {
@@ -82024,39 +82040,76 @@
     "total_sources": 50,
     "appstore": {
       "first_sync": "2026-10-21",
-      "last_sync": "2026-10-22",
+      "last_sync": "2026-10-23",
       "catalog_size": 9,
       "visible_count": 9,
       "known_dates": {
         "https://vsbadge.vercel.app/": "2026-09-24",
-        "https://drawtheroute-yd8p.vercel.app/": "2026-09-24",
         "https://roverbadge.vercel.app/": "2026-09-24",
+        "https://drawtheroute-yd8p.vercel.app/": "2026-09-24",
         "https://ayp-eight.vercel.app/": "2026-09-24",
         "https://veloplanner.com/": "2026-09-24",
         "https://upgrade-ashen.vercel.app/": "2026-09-24",
-        "https://cubsbadge.vercel.app/": "2026-09-24",
+        "https://scoutbadge.vercel.app/": "2026-09-24",
         "https://gemini-woad-sigma.vercel.app/": "2026-10-22",
-        "https://scoutbadge.vercel.app/": "2026-09-24"
+        "https://cubsbadge.vercel.app/": "2026-09-24"
       }
     },
-    "has_errors": false,
+    "has_errors": true,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-22 05:00:09",
+      "updated_at": "2026-10-23 04:02:34",
       "new": 1,
-      "updated": 3563,
-      "daily_new": 2,
-      "skipped": 4,
+      "updated": 71,
+      "daily_new": 1,
+      "skipped": 38,
       "processed": 46,
-      "playwright_used": 2,
-      "error_sources": [],
+      "playwright_used": 11,
+      "error_sources": [
+        "總會",
+        "慈雲山區"
+      ],
       "skipped_sources": [
+        "港島地域",
+        "灣仔區",
+        "柴灣區",
+        "維多利亞城區",
+        "港島南區",
+        "筲箕灣區",
+        "港島北區",
+        "九龍地域",
+        "紅磡區",
+        "何文田區",
+        "九龍塘區",
+        "旺角區",
+        "深水埗東區",
+        "深水埗西區",
+        "油尖區",
+        "東九龍地域",
         "西貢區 (expected_empty)",
+        "九龍灣區",
+        "秀茂坪區",
+        "將軍澳區",
+        "觀塘區",
+        "鯉魚門區",
+        "元朗西區",
+        "十八鄉區",
+        "北葵涌區",
+        "屯門東區",
+        "荃灣區",
         "離島區 (expected_empty)",
+        "新界東地域",
+        "雙魚區",
+        "大埔北區",
+        "大埔南區",
+        "沙田西區",
+        "沙田南區",
+        "沙田東區",
+        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
