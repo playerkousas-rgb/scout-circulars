@@ -42,7 +42,8 @@ MASTER_TOPIC_IDS = ("all:new", "all:notices", "all:tools")
 # save_only             只按了「只儲存選項」，冇登記通知
 # permission_denied     通知權限被拒或被封鎖
 # ios_home_screen_required  iPhone／iPad 未加入主畫面，無法訂閱
-# unsupported_browser   瀏覽器／連線不支援 Web Push
+#                        （按鈕係 disabled，所以喺打開面板時記一次）
+# unsupported_browser   瀏覽器／連線不支援 Web Push（同樣喺打開面板時記）
 # config_unavailable    /api/push-config 失敗（Vercel 環境變數或網絡問題）
 # subscribe_failed      瀏覽器 pushManager.subscribe() 失敗
 # sync_ok / sync_failed 既有訂閱更新設定成功／失敗

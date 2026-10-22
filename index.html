@@ -5863,6 +5863,9 @@
     // 每次載入只記一次：只想知道有幾多人「打開過」設定面板，
     // 唔想重複開關就重複計數。純彙總，冇任何個人資料。
     let pushPanelOpenTracked = false;
+    // 呢類裝置（多數係未加入主畫面嘅 iPhone）連「啟用通知」都係 disabled，
+    // 永遠唔會發出 enable_click；所以打開面板時記一次，先知有幾多人根本無法登記。
+    const pushBlockedTracked = new Set();
     function setPushSheet(open) {
       const backdrop = $('#push-backdrop');
       if (!backdrop) return;
@@ -6103,6 +6106,13 @@
         const enrolled = Boolean(info.subscribed && info.permission === 'granted');
         badge.className = `push-badge ${enrolled ? 'ok' : 'warn'}`;
         badge.textContent = enrolled ? '這部裝置已登記 ✓' : '這部裝置尚未登記';
+      }
+      if (!info.supported) {
+        const blocked = info.needsHomeScreen ? 'ios_home_screen_required' : 'unsupported_browser';
+        if (!pushBlockedTracked.has(blocked)) {
+          pushBlockedTracked.add(blocked);
+          window.ScoutPushClient?.track?.(blocked);
+        }
       }
       const installHint = $('#push-install-hint');
       if (installHint) installHint.textContent = info.needsHomeScreen
