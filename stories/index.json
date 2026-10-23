@@ -1,15 +1,15 @@
 {
  "version": 1,
  "days": [
-  "2026-10-06",
   "2026-10-07",
   "2026-10-08",
   "2026-10-15",
   "2026-10-16",
   "2026-10-18",
-  "2026-10-20"
+  "2026-10-20",
+  "2026-10-23"
  ],
- "updated_at": "2026-10-20T08:59:24.990524+00:00",
+ "updated_at": "2026-10-23T08:55:53.536198+00:00",
  "items": [
   {
    "k": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-18_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-社區應急先鋒.pdf",
@@ -52,14 +52,9 @@
    "t": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03"
   },
   {
-   "k": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5653",
-   "f": "stories/2026-10-06/00_train_blue_735dee.png",
-   "t": "三級童軍標準艇訓練班"
-  },
-  {
-   "k": "https://hkscout-ekr.org/circulars/download/?wpdmdl=5654",
-   "f": "stories/2026-10-06/01_activity_army_ddf8e1.png",
-   "t": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事"
+   "k": "https://hkscout-wts.org/wp-content/uploads/2026/10/2027露營章（技能組）訓練班-1.pdf",
+   "f": "stories/2026-10-23/00_train_blue_f46439.png",
+   "t": "露營章(技能組)訓練班"
   },
   {
    "k": "https://krscout.org/wp-content/uploads/2026/10/KT72_26.pdf",
@@ -70,16 +65,6 @@
    "k": "https://krscout.org/wp-content/uploads/2026/10/KT73_26.pdf",
    "f": "stories/2026-10-20/00_train_blue_8142fd.png",
    "t": "第 30 屆深資童軍進度性獎章訓練班(領袖技能訓練班) 編號:KT/73/26"
-  },
-  {
-   "k": "https://scout.org.hk/uploads/tc/circulars/26239/SA69.pdf",
-   "f": "stories/2026-10-06/02_train_orange_599c10.png",
-   "t": "三級童軍標準艇訓練班"
-  },
-  {
-   "k": "https://scout.org.hk/uploads/tc/circulars/26241/SA70.pdf",
-   "f": "stories/2026-10-06/03_unc_scope_00908b.png",
-   "t": "東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事"
   },
   {
    "k": "https://scout.org.hk/uploads/tc/circulars/26324/Jam01.pdf",
