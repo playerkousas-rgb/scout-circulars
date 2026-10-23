@@ -5,7 +5,7 @@
     "supabase_url": "https://visqyeskdauipodudpxz.supabase.co",
     "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpc3F5ZXNrZGF1aXBvZHVkcHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0MjQ5MjUsImV4cCI6MjEwNDAwMDkyNX0.Ct2jJpJUtRFiVSux774aGRdegFG8fr5mWeD1RMm_dXs",
     "admin_email": "ai@skwscout.org.hk",
-    "fetched_at": "2026-10-20",
+    "fetched_at": "2026-10-23",
     "tables": {
       "pages": "id(text pk), label, icon, enabled, sort_order",
       "categories": "(page,name) 複合主鍵, icon, sort_order",
@@ -103,8 +103,38 @@
       "page": "apps"
     },
     {
+      "name": "技能及專章圖卡",
+      "icon": "🃏",
+      "sort_order": 0,
+      "page": "cards"
+    },
+    {
+      "name": "步操及禮儀圖卡",
+      "icon": "🎖️",
+      "sort_order": 1,
+      "page": "cards"
+    },
+    {
+      "name": "工作紙及考驗筆記",
+      "icon": "📝",
+      "sort_order": 2,
+      "page": "cards"
+    },
+    {
+      "name": "其他圖文教材",
+      "icon": "📚",
+      "sort_order": 3,
+      "page": "cards"
+    },
+    {
       "name": "課堂學習工具",
       "icon": "📖",
+      "sort_order": 0,
+      "page": "links"
+    },
+    {
+      "name": "童軍技能及知識",
+      "icon": "🪢",
       "sort_order": 0,
       "page": "links"
     },
@@ -115,8 +145,20 @@
       "page": "links"
     },
     {
+      "name": "露營及行山資訊",
+      "icon": "⛺",
+      "sort_order": 1,
+      "page": "links"
+    },
+    {
       "name": "其他",
       "icon": "🔗",
+      "sort_order": 2,
+      "page": "links"
+    },
+    {
+      "name": "集會及活動資源",
+      "icon": "🎯",
       "sort_order": 2,
       "page": "links"
     },
@@ -127,7 +169,19 @@
       "page": "links"
     },
     {
+      "name": "官方及總會網站",
+      "icon": "⚜️",
+      "sort_order": 3,
+      "page": "links"
+    },
+    {
       "name": "地球資訊",
+      "icon": "🌐",
+      "sort_order": 4,
+      "page": "links"
+    },
+    {
+      "name": "其他實用網站",
       "icon": "🌐",
       "sort_order": 4,
       "page": "links"
@@ -143,30 +197,76 @@
       "icon": "🖼️",
       "sort_order": 6,
       "page": "links"
+    },
+    {
+      "name": "集會教學簡報",
+      "icon": "📽️",
+      "sort_order": 0,
+      "page": "ppt"
+    },
+    {
+      "name": "專章及訓練簡報",
+      "icon": "📊",
+      "sort_order": 1,
+      "page": "ppt"
+    },
+    {
+      "name": "領袖訓練及行政範本",
+      "icon": "📋",
+      "sort_order": 2,
+      "page": "ppt"
+    },
+    {
+      "name": "教學影片及多媒體",
+      "icon": "🎬",
+      "sort_order": 3,
+      "page": "ppt"
     }
   ],
   "apps": [
     {
-      "id": "fe492651-081a-4daf-b6ed-d20e5720aff9",
-      "name": "童軍進度紀錄",
-      "url": "https://scoutbadge.vercel.app/",
+      "id": "c63f5370-86c5-4ea7-9c3b-6f61c893208a",
+      "name": "幼童軍進度紀錄",
+      "url": "https://cubsbadge.vercel.app/",
       "github": null,
       "description": "電子紀錄冊",
       "note": null,
-      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
-      "icon_source": "upload",
+      "icon": null,
+      "icon_source": "favicon",
       "category": "電子紀錄冊",
       "page": "apps",
       "tags": [
-        "童軍"
+        "幼童軍"
       ],
       "visible": true,
-      "clicks": 119,
+      "clicks": 77,
       "stars": 0,
       "hearts": 0,
       "featured": false,
       "sort_order": 0,
-      "created_at": "2026-09-03T16:35:55.980938+00:00"
+      "created_at": "2026-09-03T16:34:48.42387+00:00"
+    },
+    {
+      "id": "a9bb7300-64ef-4518-abaa-804bfdde54f3",
+      "name": "深資童軍進度紀錄",
+      "url": "https://vsbadge.vercel.app/",
+      "github": null,
+      "description": "電子紀錄冊",
+      "note": null,
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
+      "icon_source": "upload",
+      "category": "電子紀錄冊",
+      "page": "apps",
+      "tags": [
+        "深資童軍"
+      ],
+      "visible": true,
+      "clicks": 64,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:36:35.115163+00:00"
     },
     {
       "id": "0cfc28ff-74f9-418d-9f9b-fa1a263ad934",
@@ -185,34 +285,12 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 68,
+      "clicks": 79,
       "stars": 0,
-      "hearts": 0,
-      "featured": true,
-      "sort_order": 0,
-      "created_at": "2026-09-03T16:38:18.098614+00:00"
-    },
-    {
-      "id": "a9bb7300-64ef-4518-abaa-804bfdde54f3",
-      "name": "深資童軍進度紀錄",
-      "url": "https://vsbadge.vercel.app/",
-      "github": null,
-      "description": "電子紀錄冊",
-      "note": null,
-      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
-      "icon_source": "upload",
-      "category": "電子紀錄冊",
-      "page": "apps",
-      "tags": [
-        "深資童軍"
-      ],
-      "visible": true,
-      "clicks": 53,
-      "stars": 0,
-      "hearts": 0,
+      "hearts": 1,
       "featured": false,
       "sort_order": 0,
-      "created_at": "2026-09-03T16:36:35.115163+00:00"
+      "created_at": "2026-09-03T16:38:18.098614+00:00"
     },
     {
       "id": "3cb86658-d807-4644-92a2-7b88afd529ba",
@@ -231,7 +309,7 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 26,
+      "clicks": 32,
       "stars": 0,
       "hearts": 0,
       "featured": false,
@@ -253,60 +331,12 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 26,
+      "clicks": 30,
       "stars": 0,
       "hearts": 0,
       "featured": false,
       "sort_order": 0,
       "created_at": "2026-09-03T16:36:51.703246+00:00"
-    },
-    {
-      "id": "092861aa-024b-4898-8f99-de92219dc1d1",
-      "name": "全港童軍通告",
-      "url": "https://scout-circulars.vercel.app/",
-      "github": null,
-      "description": "每日搜羅總會地域區通告",
-      "note": null,
-      "icon": "https://github.com/playerkousas-rgb/scout-circulars/blob/main/icons/icon-512.png?raw=true",
-      "icon_source": "upload",
-      "category": "工具",
-      "page": "apps",
-      "tags": [
-        "小童軍",
-        "幼童軍",
-        "童軍",
-        "深資童軍",
-        "樂行童軍"
-      ],
-      "visible": true,
-      "clicks": 132,
-      "stars": 0,
-      "hearts": 0,
-      "featured": false,
-      "sort_order": 0,
-      "created_at": "2026-09-03T20:25:12.684747+00:00"
-    },
-    {
-      "id": "c63f5370-86c5-4ea7-9c3b-6f61c893208a",
-      "name": "幼童軍進度紀錄",
-      "url": "https://cubsbadge.vercel.app/",
-      "github": null,
-      "description": "電子紀錄冊",
-      "note": null,
-      "icon": null,
-      "icon_source": "favicon",
-      "category": "電子紀錄冊",
-      "page": "apps",
-      "tags": [
-        "幼童軍"
-      ],
-      "visible": true,
-      "clicks": 59,
-      "stars": 0,
-      "hearts": 0,
-      "featured": false,
-      "sort_order": 0,
-      "created_at": "2026-09-03T16:34:48.42387+00:00"
     },
     {
       "id": "a930af01-0046-4dc6-9690-b38ff116e075",
@@ -327,7 +357,7 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 58,
+      "clicks": 65,
       "stars": 0,
       "hearts": 0,
       "featured": false,
@@ -335,11 +365,33 @@
       "created_at": "2026-09-05T09:27:25.882283+00:00"
     },
     {
+      "id": "fe492651-081a-4daf-b6ed-d20e5720aff9",
+      "name": "童軍進度紀錄",
+      "url": "https://scoutbadge.vercel.app/",
+      "github": null,
+      "description": "電子紀錄冊",
+      "note": null,
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+      "icon_source": "upload",
+      "category": "電子紀錄冊",
+      "page": "apps",
+      "tags": [
+        "童軍"
+      ],
+      "visible": true,
+      "clicks": 165,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:35:55.980938+00:00"
+    },
+    {
       "id": "080a07e8-79ba-4db4-a159-e8cdf703f73f",
       "name": "Gemini 輔助工具",
-      "url": "https://gemini-git-main-playerkousas-rgbs-projects.vercel.app/",
+      "url": "https://gemini-woad-sigma.vercel.app/",
       "github": null,
-      "description": "配合gemini AI 工具",
+      "description": "一鍵完成 簡單易用",
       "note": null,
       "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10",
       "icon_source": "upload",
@@ -353,12 +405,64 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 3,
+      "clicks": 13,
+      "stars": 0,
+      "hearts": 1,
+      "featured": true,
+      "sort_order": 0,
+      "created_at": "2026-10-19T11:42:41.693042+00:00"
+    },
+    {
+      "id": "98065a5f-7271-4ae9-827e-a1375c7295d2",
+      "name": "世界童軍地圖",
+      "url": "https://scoutworld.vercel.app/",
+      "github": null,
+      "description": "世界童軍資料大全",
+      "note": null,
+      "icon": "https://img.pikbest.com/origin/09/27/23/06xpIkbEsTd37.png!bw800",
+      "icon_source": "upload",
+      "category": "工具",
+      "page": "apps",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 7,
       "stars": 0,
       "hearts": 0,
       "featured": false,
       "sort_order": 0,
-      "created_at": "2026-10-19T11:42:41.693042+00:00"
+      "created_at": "2026-09-03T20:23:53.750677+00:00"
+    },
+    {
+      "id": "092861aa-024b-4898-8f99-de92219dc1d1",
+      "name": "全港童軍通告",
+      "url": "https://scout-circulars.vercel.app/",
+      "github": null,
+      "description": "每日搜羅總會地域區通告",
+      "note": null,
+      "icon": "https://github.com/playerkousas-rgb/scout-circulars/blob/main/icons/icon-512.png?raw=true",
+      "icon_source": "upload",
+      "category": "工具",
+      "page": "apps",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 148,
+      "stars": 0,
+      "hearts": 1,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T20:25:12.684747+00:00"
     },
     {
       "id": "f3445082-957f-449a-af0a-fe6611c7e9e2",
