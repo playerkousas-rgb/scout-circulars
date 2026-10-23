@@ -65607,11 +65607,11 @@
     "deadline": "",
     "audience": "小童軍、幼童軍、童軍、深資童軍、樂行童軍",
     "fee": "免費",
-    "description": "配合gemini AI 工具",
+    "description": "一鍵完成 簡單易用",
     "method": "system",
     "error": "",
     "captured_date": "2026-10-22",
-    "enriched_at": "2026-10-22 04:12:14",
+    "enriched_at": "2026-10-24 04:02:24",
     "enrich_version": "3.7",
     "categories": [
       {
@@ -65738,5 +65738,40 @@
     "title_check": "verified",
     "enriched_at": "2026-10-23 04:07:14",
     "enrich_version": "3.7"
+  },
+  "https://scoutworld.vercel.app/": {
+    "source": "Scout System",
+    "title": "世界童軍地圖",
+    "deadline": "",
+    "audience": "小童軍、幼童軍、童軍、深資童軍、樂行童軍",
+    "fee": "免費",
+    "description": "世界童軍資料大全",
+    "method": "system",
+    "error": "",
+    "captured_date": "2026-10-24",
+    "enriched_at": "2026-10-24 04:02:24",
+    "enrich_version": "3.7",
+    "categories": [
+      {
+        "id": "tools",
+        "label": "小工具",
+        "subtype": "tool",
+        "score": 1.0
+      }
+    ],
+    "branch_tags": [
+      "小童軍",
+      "幼童軍",
+      "童軍",
+      "深資童軍",
+      "樂行童軍"
+    ],
+    "subscription_tags": [
+      "scout_kind:tool"
+    ],
+    "ss_kind": "tool",
+    "ss_category": "工具",
+    "store_category": "工具",
+    "store_page": "apps"
   }
 }
