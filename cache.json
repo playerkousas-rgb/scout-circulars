@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-24 04:02:24",
+  "last_updated": "2026-10-25 02:51:06",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
@@ -46081,46 +46081,6 @@
         "store_page": "links"
       },
       {
-        "title": "升團準備",
-        "url": "https://upgrade-ashen.vercel.app/",
-        "pdf_url": "https://upgrade-ashen.vercel.app/",
-        "date": "2026-09-24",
-        "captured_date": "2026-09-24",
-        "source_site": "Scout System",
-        "region": "Scout System",
-        "source_url": "https://scoutappstore.vercel.app/",
-        "tags": [
-          "小童軍",
-          "幼童軍",
-          "童軍",
-          "深資童軍",
-          "樂行童軍",
-          "小工具"
-        ],
-        "description": "升團資料簡介",
-        "icon": "",
-        "store_category": "集會助手及指南",
-        "store_page": "apps"
-      },
-      {
-        "title": "童軍進度紀錄",
-        "url": "https://scoutbadge.vercel.app/",
-        "pdf_url": "https://scoutbadge.vercel.app/",
-        "date": "2026-09-24",
-        "captured_date": "2026-09-24",
-        "source_site": "Scout System",
-        "region": "Scout System",
-        "source_url": "https://scoutappstore.vercel.app/",
-        "tags": [
-          "童軍",
-          "小工具"
-        ],
-        "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
-        "store_category": "電子紀錄冊",
-        "store_page": "apps"
-      },
-      {
         "title": "Gemini 輔助工具",
         "url": "https://gemini-woad-sigma.vercel.app/",
         "pdf_url": "https://gemini-woad-sigma.vercel.app/",
@@ -46165,6 +46125,24 @@
         "store_page": "apps"
       },
       {
+        "title": "童軍進度紀錄",
+        "url": "https://scoutbadge.vercel.app/",
+        "pdf_url": "https://scoutbadge.vercel.app/",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
+        "tags": [
+          "童軍",
+          "小工具"
+        ],
+        "description": "電子紀錄冊",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+        "store_category": "電子紀錄冊",
+        "store_page": "apps"
+      },
+      {
         "title": "幼童軍進度紀錄",
         "url": "https://cubsbadge.vercel.app/",
         "pdf_url": "https://cubsbadge.vercel.app/",
@@ -46181,6 +46159,28 @@
         "icon": "",
         "store_category": "電子紀錄冊",
         "store_page": "apps"
+      },
+      {
+        "title": "升團準備",
+        "url": "https://upgrade-ashen.vercel.app/",
+        "pdf_url": "https://upgrade-ashen.vercel.app/",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "升團資料簡介",
+        "icon": "",
+        "store_category": "集會助手及指南",
+        "store_page": "apps"
       }
     ]
   },
@@ -46191,6 +46191,21 @@
       "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A24-10-30-10-2026&catid=51&lang=zh-tw&Itemid=1210",
       "title": "區會 24/10 – 30/10/2026辦公時間",
       "captured_date": "2026-10-24"
+    },
+    {
+      "source_site": "Scout System",
+      "region": "Scout System",
+      "pdf_url": "https://scoutworld.vercel.app/",
+      "title": "世界童軍地圖",
+      "captured_date": "2026-10-24",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍",
+        "小工具"
+      ]
     },
     {
       "source_site": "黃大仙區",
@@ -81953,26 +81968,6 @@
       "published_date": "2025-01-01",
       "backfilled_at": "2026-10-17",
       "suppress_notifications": true
-    },
-    {
-      "title": "世界童軍地圖",
-      "url": "https://scoutworld.vercel.app/",
-      "pdf_url": "https://scoutworld.vercel.app/",
-      "date": "2026-10-24",
-      "captured_date": "2026-10-24",
-      "source_site": "Scout System",
-      "region": "Scout System",
-      "source_url": "https://scoutappstore.vercel.app/",
-      "tags": [
-        "小童軍",
-        "幼童軍",
-        "童軍",
-        "深資童軍",
-        "樂行童軍",
-        "小工具"
-      ],
-      "description": "世界童軍資料大全",
-      "icon": "https://img.pikbest.com/origin/09/27/23/06xpIkbEsTd37.png!bw800"
     }
   ],
   "_meta": {
@@ -82098,7 +82093,7 @@
     "total_sources": 50,
     "appstore": {
       "first_sync": "2026-10-21",
-      "last_sync": "2026-10-24",
+      "last_sync": "2026-10-25",
       "catalog_size": 10,
       "visible_count": 10,
       "known_dates": {
@@ -82107,11 +82102,11 @@
         "https://drawtheroute-yd8p.vercel.app/": "2026-09-24",
         "https://ayp-eight.vercel.app/": "2026-09-24",
         "https://veloplanner.com/": "2026-09-24",
-        "https://upgrade-ashen.vercel.app/": "2026-09-24",
-        "https://scoutbadge.vercel.app/": "2026-09-24",
         "https://gemini-woad-sigma.vercel.app/": "2026-10-22",
         "https://scoutworld.vercel.app/": "2026-10-24",
-        "https://cubsbadge.vercel.app/": "2026-09-24"
+        "https://scoutbadge.vercel.app/": "2026-09-24",
+        "https://cubsbadge.vercel.app/": "2026-09-24",
+        "https://upgrade-ashen.vercel.app/": "2026-09-24"
       }
     },
     "has_errors": true,
@@ -82121,20 +82116,21 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-24 03:57:11",
-      "new": 1,
-      "updated": 23,
-      "daily_new": 1,
-      "skipped": 38,
+      "updated_at": "2026-10-25 02:46:28",
+      "new": 0,
+      "updated": 57,
+      "daily_new": 0,
+      "skipped": 46,
       "processed": 46,
-      "playwright_used": 10,
+      "playwright_used": 2,
       "error_sources": [
         "總會",
-        "大埔南區",
         "慈雲山區"
       ],
       "skipped_sources": [
         "港島地域",
+        "灣仔區",
+        "港島西區",
         "柴灣區",
         "維多利亞城區",
         "港島南區",
@@ -82143,8 +82139,10 @@
         "九龍地域",
         "紅磡區",
         "何文田區",
+        "九龍城區",
         "九龍塘區",
         "旺角區",
+        "深旺區",
         "深水埗東區",
         "深水埗西區",
         "油尖區",
@@ -82156,11 +82154,14 @@
         "將軍澳區",
         "觀塘區",
         "鯉魚門區",
+        "新界地域",
+        "元朗東區",
         "元朗西區",
         "十八鄉區",
+        "屯門西區",
         "北葵涌區",
         "屯門東區",
-        "荃灣區",
+        "南葵涌區",
         "離島區 (expected_empty)",
         "新界東地域",
         "雙魚區",
@@ -82171,6 +82172,7 @@
         "沙田東區",
         "沙田北區",
         "大嶼山區 (expected_empty)",
+        "青衣區",
         "Scout System (disabled)"
       ]
     }
