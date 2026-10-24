@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-25 02:51:06",
+  "last_updated": "2026-10-25 05:06:47",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 5092,
+    "total_notices": 5094,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -486,15 +486,6 @@
         "region": "總會"
       },
       {
-        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
         "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
         "url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
@@ -525,6 +516,15 @@
         "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
         "url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -26480,18 +26480,18 @@
         "region": "九龍地域"
       },
       {
-        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
-        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
         "region": "九龍地域"
       },
       {
-        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
-        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
@@ -28334,6 +28334,24 @@
       }
     ],
     "深旺區": [
+      {
+        "title": "綠在葵青 環保工作坊 團報名表",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2608_綠在葵青 環保工作坊_報名表.xlsx",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2608_綠在葵青 環保工作坊_報名表.xlsx",
+        "date": "2026-10-25",
+        "captured_date": "2026-10-25",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
+      {
+        "title": "綠在葵青 環保工作坊",
+        "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2608_綠在葵青 環保工作坊.pdf",
+        "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2608_綠在葵青 環保工作坊.pdf",
+        "date": "2026-10-25",
+        "captured_date": "2026-10-25",
+        "source_site": "深旺區",
+        "region": "九龍地域"
+      },
       {
         "title": "幼童軍支部 (主席盾) 錦標賽 2026 < 海陸空大比拼 >--團報名表",
         "url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2606_幼童軍支部主席盾錦標賽2026_報名表.xlsx",
@@ -46186,6 +46204,20 @@
   },
   "notices": [
     {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2608_綠在葵青 環保工作坊_報名表.xlsx",
+      "title": "綠在葵青 環保工作坊 團報名表",
+      "captured_date": "2026-10-25"
+    },
+    {
+      "source_site": "深旺區",
+      "region": "九龍地域",
+      "pdf_url": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2608_綠在葵青 環保工作坊.pdf",
+      "title": "綠在葵青 環保工作坊",
+      "captured_date": "2026-10-25"
+    },
+    {
       "source_site": "灣仔區",
       "region": "港島地域",
       "pdf_url": "https://www.wanchaiscout.org.hk/index.php?option=com_content&view=article&id=619%3A24-10-30-10-2026&catid=51&lang=zh-tw&Itemid=1210",
@@ -46309,15 +46341,15 @@
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
       "captured_date": "2026-10-16"
     },
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
       "captured_date": "2026-10-16"
     },
     {
@@ -47008,13 +47040,6 @@
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
       "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
       "captured_date": "2026-10-06"
@@ -47038,6 +47063,13 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
       "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
       "captured_date": "2026-10-06"
     },
     {
@@ -82109,70 +82141,25 @@
         "https://upgrade-ashen.vercel.app/": "2026-09-24"
       }
     },
-    "has_errors": true,
+    "has_errors": false,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-25 02:46:28",
-      "new": 0,
-      "updated": 57,
-      "daily_new": 0,
-      "skipped": 46,
+      "updated_at": "2026-10-25 05:00:05",
+      "new": 2,
+      "updated": 3556,
+      "daily_new": 2,
+      "skipped": 4,
       "processed": 46,
       "playwright_used": 2,
-      "error_sources": [
-        "總會",
-        "慈雲山區"
-      ],
+      "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "港島西區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "九龍地域",
-        "紅磡區",
-        "何文田區",
-        "九龍城區",
-        "九龍塘區",
-        "旺角區",
-        "深旺區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "新界地域",
-        "元朗東區",
-        "元朗西區",
-        "十八鄉區",
-        "屯門西區",
-        "北葵涌區",
-        "屯門東區",
-        "南葵涌區",
         "離島區 (expected_empty)",
-        "新界東地域",
-        "雙魚區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田南區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
-        "青衣區",
         "Scout System (disabled)"
       ]
     }
