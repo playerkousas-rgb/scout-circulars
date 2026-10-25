@@ -1,15 +1,15 @@
 {
  "version": 1,
  "days": [
-  "2026-10-07",
   "2026-10-08",
   "2026-10-15",
   "2026-10-16",
   "2026-10-18",
   "2026-10-20",
-  "2026-10-23"
+  "2026-10-23",
+  "2026-10-25"
  ],
- "updated_at": "2026-10-23T08:55:53.536198+00:00",
+ "updated_at": "2026-10-25T08:48:29.045762+00:00",
  "items": [
   {
    "k": "https://chaiwanscout.org.hk/v3/wp-content/uploads/2026/10/CHW-2627-18_香港童軍115周年認可活動-「童」守護-‧-安心社區嘉年華-社區應急先鋒.pdf",
@@ -52,6 +52,11 @@
    "t": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03"
   },
   {
+   "k": "https://group.scout.org.hk/smd/wp-content/uploads/2026/10/SMD2608_綠在葵青 環保工作坊.pdf",
+   "f": "stories/2026-10-25/00_train_blue_7c539a.png",
+   "t": "綠在葵青 環保工作坊"
+  },
+  {
    "k": "https://hkscout-wts.org/wp-content/uploads/2026/10/2027露營章（技能組）訓練班-1.pdf",
    "f": "stories/2026-10-23/00_train_blue_f46439.png",
    "t": "露營章(技能組)訓練班"
@@ -65,11 +70,6 @@
    "k": "https://krscout.org/wp-content/uploads/2026/10/KT73_26.pdf",
    "f": "stories/2026-10-20/00_train_blue_8142fd.png",
    "t": "第 30 屆深資童軍進度性獎章訓練班(領袖技能訓練班) 編號:KT/73/26"
-  },
-  {
-   "k": "https://scout.org.hk/uploads/tc/circulars/26324/Jam01.pdf",
-   "f": "stories/2026-10-07/01_activity_army_3504ca.png",
-   "t": "香港童軍115周年 新界地域大露營2026 - 跨步前行‧童展創新(修訂)"
   },
   {
    "k": "https://scout.org.hk/uploads/tc/circulars/26335/P099-26-.pdf",
@@ -120,11 +120,6 @@
    "k": "https://scout.org.hk/uploads/tc/circulars/26409/KT73_26.pdf",
    "f": "stories/2026-10-15/14_unc_scope_faea6e.png",
    "t": "第30屆深資童軍進度性獎章訓練班(領袖技能訓練班) (KT/73/26)"
-  },
-  {
-   "k": "https://tpnscout.org/wp-content/uploads/2026/10/TPN_CIR_CS_2627_011_幼童軍主席盃技能比賽.pdf",
-   "f": "stories/2026-10-07/00_competition_gold_black_61e42d.png",
-   "t": "2026/27年度大埔北區幼童軍主席盃技能比賽"
   },
   {
    "k": "https://www.hkscout-klb.org/web2017/assets/kb_documents/notice/2026/PT-15-26.pdf",
@@ -200,11 +195,6 @@
    "k": "https://www.scout.org.hk/uploads/tc/circulars/26374/TTM04_26_Challenge_Course_Workshop.pdf",
    "f": "stories/2026-10-15/03_train_orange_9a85ee.png",
    "t": "大潭童軍中心攻堅場工作坊"
-  },
-  {
-   "k": "https://www.twdscout.org.hk/documents/notices/A202603.pdf",
-   "f": "stories/2026-10-07/02_unc_scope_dfb93a.png",
-   "t": "香港童軍大會操荃灣區會旅遊巴士安排"
   }
  ]
 }
