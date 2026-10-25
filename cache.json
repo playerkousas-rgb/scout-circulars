@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-26 03:06:39",
+  "last_updated": "2026-10-26 05:06:50",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
@@ -486,15 +486,6 @@
         "region": "總會"
       },
       {
-        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-        "date": "2026-10-06",
-        "captured_date": "2026-10-06",
-        "source_site": "總會",
-        "region": "總會"
-      },
-      {
         "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
         "url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
@@ -525,6 +516,15 @@
         "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
         "url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
         "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
+        "date": "2026-10-06",
+        "captured_date": "2026-10-06",
+        "source_site": "總會",
+        "region": "總會"
+      },
+      {
+        "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
+        "url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+        "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
         "date": "2026-10-06",
         "captured_date": "2026-10-06",
         "source_site": "總會",
@@ -26480,18 +26480,18 @@
         "region": "九龍地域"
       },
       {
-        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
-        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
         "region": "九龍地域"
       },
       {
-        "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
-        "url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-        "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+        "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+        "url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+        "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
         "date": "2026-10-16",
         "captured_date": "2026-10-16",
         "source_site": "紅磡區",
@@ -46341,15 +46341,15 @@
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
-      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
+      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
+      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
       "captured_date": "2026-10-16"
     },
     {
       "source_site": "紅磡區",
       "region": "九龍地域",
-      "pdf_url": "https://drive.google.com/file/d/1tIVc08p8QNqAe8GtEmbqKkwouzniWkdG/view",
-      "title": "小童軍支部快樂傘(總監盃)錦標賽 活動通告:GS-26-03",
+      "pdf_url": "https://drive.google.com/file/d/14ltLg_aGYuidEZdXI1gXt0PeeREd-Zss/view",
+      "title": "幼童軍支部(主席盾)錦標賽 活動通告:CS-26-02",
       "captured_date": "2026-10-16"
     },
     {
@@ -47040,13 +47040,6 @@
     {
       "source_site": "總會",
       "region": "總會",
-      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
-      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
-      "captured_date": "2026-10-06"
-    },
-    {
-      "source_site": "總會",
-      "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26233/Adm28-app.pdf",
       "title": "卓越領袖嘉許計劃2027 - 主要日期及安排",
       "captured_date": "2026-10-06"
@@ -47070,6 +47063,13 @@
       "region": "總會",
       "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26231/Adm27.pdf",
       "title": "傑出表現成員地域總監嘉許2026 - 獲嘉許名單",
+      "captured_date": "2026-10-06"
+    },
+    {
+      "source_site": "總會",
+      "region": "總會",
+      "pdf_url": "https://scout.org.hk/uploads/tc/circulars/26316/KT74_26.pdf",
+      "title": "快樂傘、團呼、升旗、步操及隊列比賽成績公布",
       "captured_date": "2026-10-06"
     },
     {
@@ -82141,59 +82141,24 @@
         "https://upgrade-ashen.vercel.app/": "2026-09-24"
       }
     },
-    "has_errors": true,
+    "has_errors": false,
     "expected_empty_sources": [
       "西貢區",
       "離島區",
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-26 03:02:05",
+      "updated_at": "2026-10-26 05:00:06",
       "new": 0,
-      "updated": 223,
+      "updated": 3545,
       "daily_new": 0,
-      "skipped": 36,
+      "skipped": 4,
       "processed": 46,
-      "playwright_used": 10,
-      "error_sources": [
-        "總會",
-        "慈雲山區"
-      ],
+      "playwright_used": 2,
+      "error_sources": [],
       "skipped_sources": [
-        "港島地域",
-        "灣仔區",
-        "柴灣區",
-        "維多利亞城區",
-        "港島南區",
-        "筲箕灣區",
-        "港島北區",
-        "紅磡區",
-        "何文田區",
-        "九龍塘區",
-        "旺角區",
-        "深水埗東區",
-        "深水埗西區",
-        "油尖區",
-        "東九龍地域",
         "西貢區 (expected_empty)",
-        "黃大仙區",
-        "九龍灣區",
-        "秀茂坪區",
-        "將軍澳區",
-        "觀塘區",
-        "鯉魚門區",
-        "元朗西區",
-        "十八鄉區",
-        "北葵涌區",
-        "屯門東區",
-        "荃灣區",
         "離島區 (expected_empty)",
-        "雙魚區",
-        "大埔北區",
-        "大埔南區",
-        "沙田西區",
-        "沙田東區",
-        "沙田北區",
         "大嶼山區 (expected_empty)",
         "Scout System (disabled)"
       ]
