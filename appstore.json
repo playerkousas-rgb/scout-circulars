@@ -5,7 +5,7 @@
     "supabase_url": "https://visqyeskdauipodudpxz.supabase.co",
     "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpc3F5ZXNrZGF1aXBvZHVkcHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0MjQ5MjUsImV4cCI6MjEwNDAwMDkyNX0.Ct2jJpJUtRFiVSux774aGRdegFG8fr5mWeD1RMm_dXs",
     "admin_email": "ai@skwscout.org.hk",
-    "fetched_at": "2026-10-23",
+    "fetched_at": "2026-10-26",
     "tables": {
       "pages": "id(text pk), label, icon, enabled, sort_order",
       "categories": "(page,name) 複合主鍵, icon, sort_order",
@@ -225,120 +225,6 @@
   ],
   "apps": [
     {
-      "id": "c63f5370-86c5-4ea7-9c3b-6f61c893208a",
-      "name": "幼童軍進度紀錄",
-      "url": "https://cubsbadge.vercel.app/",
-      "github": null,
-      "description": "電子紀錄冊",
-      "note": null,
-      "icon": null,
-      "icon_source": "favicon",
-      "category": "電子紀錄冊",
-      "page": "apps",
-      "tags": [
-        "幼童軍"
-      ],
-      "visible": true,
-      "clicks": 77,
-      "stars": 0,
-      "hearts": 0,
-      "featured": false,
-      "sort_order": 0,
-      "created_at": "2026-09-03T16:34:48.42387+00:00"
-    },
-    {
-      "id": "a9bb7300-64ef-4518-abaa-804bfdde54f3",
-      "name": "深資童軍進度紀錄",
-      "url": "https://vsbadge.vercel.app/",
-      "github": null,
-      "description": "電子紀錄冊",
-      "note": null,
-      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
-      "icon_source": "upload",
-      "category": "電子紀錄冊",
-      "page": "apps",
-      "tags": [
-        "深資童軍"
-      ],
-      "visible": true,
-      "clicks": 64,
-      "stars": 0,
-      "hearts": 0,
-      "featured": false,
-      "sort_order": 0,
-      "created_at": "2026-09-03T16:36:35.115163+00:00"
-    },
-    {
-      "id": "0cfc28ff-74f9-418d-9f9b-fa1a263ad934",
-      "name": "遠足路程表",
-      "url": "https://drawtheroute-yd8p.vercel.app/",
-      "github": null,
-      "description": "全方位遠足計劃工具",
-      "note": null,
-      "icon": null,
-      "icon_source": "favicon",
-      "category": "工具",
-      "page": "apps",
-      "tags": [
-        "童軍",
-        "深資童軍",
-        "樂行童軍"
-      ],
-      "visible": true,
-      "clicks": 79,
-      "stars": 0,
-      "hearts": 1,
-      "featured": false,
-      "sort_order": 0,
-      "created_at": "2026-09-03T16:38:18.098614+00:00"
-    },
-    {
-      "id": "3cb86658-d807-4644-92a2-7b88afd529ba",
-      "name": "AYP 童軍接駁指南",
-      "url": "https://ayp-eight.vercel.app/",
-      "github": null,
-      "description": "AYP 簡介",
-      "note": null,
-      "icon": null,
-      "icon_source": "favicon",
-      "category": "集會助手及指南",
-      "page": "apps",
-      "tags": [
-        "童軍",
-        "深資童軍",
-        "樂行童軍"
-      ],
-      "visible": true,
-      "clicks": 32,
-      "stars": 0,
-      "hearts": 0,
-      "featured": false,
-      "sort_order": 0,
-      "created_at": "2026-09-10T05:39:22.081608+00:00"
-    },
-    {
-      "id": "fb162992-6a15-4356-a97d-376e477a14bc",
-      "name": "樂行童軍進度紀錄",
-      "url": "https://roverbadge.vercel.app/",
-      "github": null,
-      "description": "電子紀錄冊",
-      "note": null,
-      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
-      "icon_source": "upload",
-      "category": "電子紀錄冊",
-      "page": "apps",
-      "tags": [
-        "樂行童軍"
-      ],
-      "visible": true,
-      "clicks": 30,
-      "stars": 0,
-      "hearts": 0,
-      "featured": false,
-      "sort_order": 0,
-      "created_at": "2026-09-03T16:36:51.703246+00:00"
-    },
-    {
       "id": "a930af01-0046-4dc6-9690-b38ff116e075",
       "name": "升團準備",
       "url": "https://upgrade-ashen.vercel.app/",
@@ -357,7 +243,7 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 65,
+      "clicks": 66,
       "stars": 0,
       "hearts": 0,
       "featured": false,
@@ -365,52 +251,96 @@
       "created_at": "2026-09-05T09:27:25.882283+00:00"
     },
     {
-      "id": "fe492651-081a-4daf-b6ed-d20e5720aff9",
-      "name": "童軍進度紀錄",
-      "url": "https://scoutbadge.vercel.app/",
+      "id": "fb162992-6a15-4356-a97d-376e477a14bc",
+      "name": "樂行童軍進度紀錄",
+      "url": "https://roverbadge.vercel.app/",
       "github": null,
       "description": "電子紀錄冊",
       "note": null,
-      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
       "icon_source": "upload",
       "category": "電子紀錄冊",
       "page": "apps",
       "tags": [
-        "童軍"
+        "樂行童軍"
       ],
       "visible": true,
-      "clicks": 165,
+      "clicks": 32,
       "stars": 0,
       "hearts": 0,
       "featured": false,
       "sort_order": 0,
-      "created_at": "2026-09-03T16:35:55.980938+00:00"
+      "created_at": "2026-09-03T16:36:51.703246+00:00"
     },
     {
-      "id": "080a07e8-79ba-4db4-a159-e8cdf703f73f",
-      "name": "Gemini 輔助工具",
-      "url": "https://gemini-woad-sigma.vercel.app/",
+      "id": "a9bb7300-64ef-4518-abaa-804bfdde54f3",
+      "name": "深資童軍進度紀錄",
+      "url": "https://vsbadge.vercel.app/",
       "github": null,
-      "description": "一鍵完成 簡單易用",
+      "description": "電子紀錄冊",
       "note": null,
-      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10",
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
       "icon_source": "upload",
-      "category": "工具",
+      "category": "電子紀錄冊",
       "page": "apps",
       "tags": [
-        "小童軍",
-        "幼童軍",
+        "深資童軍"
+      ],
+      "visible": true,
+      "clicks": 67,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:36:35.115163+00:00"
+    },
+    {
+      "id": "3cb86658-d807-4644-92a2-7b88afd529ba",
+      "name": "AYP 童軍接駁指南",
+      "url": "https://ayp-eight.vercel.app/",
+      "github": null,
+      "description": "AYP 簡介",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "集會助手及指南",
+      "page": "apps",
+      "tags": [
         "童軍",
         "深資童軍",
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 13,
+      "clicks": 36,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-10T05:39:22.081608+00:00"
+    },
+    {
+      "id": "0cfc28ff-74f9-418d-9f9b-fa1a263ad934",
+      "name": "遠足路程表",
+      "url": "https://drawtheroute-yd8p.vercel.app/",
+      "github": null,
+      "description": "全方位遠足計劃工具",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "工具",
+      "page": "apps",
+      "tags": [
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 90,
       "stars": 0,
       "hearts": 1,
-      "featured": true,
+      "featured": false,
       "sort_order": 0,
-      "created_at": "2026-10-19T11:42:41.693042+00:00"
+      "created_at": "2026-09-03T16:38:18.098614+00:00"
     },
     {
       "id": "98065a5f-7271-4ae9-827e-a1375c7295d2",
@@ -431,12 +361,60 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 7,
+      "clicks": 14,
+      "stars": 0,
+      "hearts": 0,
+      "featured": true,
+      "sort_order": 0,
+      "created_at": "2026-09-03T20:23:53.750677+00:00"
+    },
+    {
+      "id": "080a07e8-79ba-4db4-a159-e8cdf703f73f",
+      "name": "Gemini 輔助工具",
+      "url": "https://gemini-woad-sigma.vercel.app/",
+      "github": null,
+      "description": "一鍵完成 簡單易用",
+      "note": null,
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10",
+      "icon_source": "upload",
+      "category": "工具",
+      "page": "apps",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 20,
+      "stars": 0,
+      "hearts": 1,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-10-19T11:42:41.693042+00:00"
+    },
+    {
+      "id": "fe492651-081a-4daf-b6ed-d20e5720aff9",
+      "name": "童軍進度紀錄",
+      "url": "https://scoutbadge.vercel.app/",
+      "github": null,
+      "description": "電子紀錄冊",
+      "note": null,
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+      "icon_source": "upload",
+      "category": "電子紀錄冊",
+      "page": "apps",
+      "tags": [
+        "童軍"
+      ],
+      "visible": true,
+      "clicks": 183,
       "stars": 0,
       "hearts": 0,
       "featured": false,
       "sort_order": 0,
-      "created_at": "2026-09-03T20:23:53.750677+00:00"
+      "created_at": "2026-09-03T16:35:55.980938+00:00"
     },
     {
       "id": "092861aa-024b-4898-8f99-de92219dc1d1",
@@ -457,12 +435,34 @@
         "樂行童軍"
       ],
       "visible": true,
-      "clicks": 148,
+      "clicks": 157,
       "stars": 0,
       "hearts": 1,
       "featured": false,
       "sort_order": 0,
       "created_at": "2026-09-03T20:25:12.684747+00:00"
+    },
+    {
+      "id": "c63f5370-86c5-4ea7-9c3b-6f61c893208a",
+      "name": "幼童軍進度紀錄",
+      "url": "https://cubsbadge.vercel.app/",
+      "github": null,
+      "description": "電子紀錄冊",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "電子紀錄冊",
+      "page": "apps",
+      "tags": [
+        "幼童軍"
+      ],
+      "visible": true,
+      "clicks": 89,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:34:48.42387+00:00"
     },
     {
       "id": "f3445082-957f-449a-af0a-fe6611c7e9e2",
