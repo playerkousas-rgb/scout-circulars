@@ -65930,20 +65930,24 @@
   },
   "https://group.scout.org.hk/tws/wp-content/uploads/2026/10/PT1020-26香港童軍115周年幼童軍渡假營津貼計劃.pdf": {
     "source": "慈雲山區",
-    "title": "營 2026 通告第 07/2026 號通告)",
+    "title": "PT1020-26 香港童軍115周年幼童軍渡假營津貼計劃通告及申請表格",
     "deadline": "2027-02-25",
     "audience": "",
     "audience_evidence": "",
-    "fee": "所屬銀行",
+    "fee": "",
     "categories": [
       {
         "id": "announcement",
         "label": "公布",
         "score": 3.0,
-        "evidence": []
+        "evidence": [
+          "津貼計劃"
+        ]
       }
     ],
-    "branch_tags": [],
+    "branch_tags": [
+      "幼童軍"
+    ],
     "subscription_tags": [
       "category:announcement"
     ],
@@ -65953,15 +65957,16 @@
         "label": "公布",
         "group": "公布",
         "kind": "category",
-        "evidence": []
+        "evidence": [
+          "津貼計劃"
+        ]
       }
     ],
     "subscription_catalog_version": "3.3.0",
     "method": "text",
     "error": "",
-    "title_check": "corrected",
+    "title_check": "verified",
     "enriched_at": "2026-10-27 05:07:53",
-    "enrich_version": "3.7",
-    "listing_title": "PT1020-26 香港童軍115周年幼童軍渡假營津貼計劃通告及申請表格"
+    "enrich_version": "3.8"
   }
 }
