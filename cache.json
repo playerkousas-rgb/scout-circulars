@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-10-26 05:06:50",
+  "last_updated": "2026-10-27 05:07:33",
   "meta": {
     "version": "5.3.0",
     "total_sources": 50,
-    "total_notices": 5094,
+    "total_notices": 5097,
     "design": "可下載資產抓取+列表頁內頁雙階段+來源隔離+盲信日期+30天沉底"
   },
   "data": {
@@ -19714,6 +19714,15 @@
       }
     ],
     "筲箕灣區": [
+      {
+        "title": "第2屆基本遠足訓練班",
+        "url": "https://www.skwscout.org.hk/wp-content/uploads/2026/10/2611.pdf",
+        "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2026/10/2611.pdf",
+        "date": "2026-10-27",
+        "captured_date": "2026-10-27",
+        "source_site": "筲箕灣區",
+        "region": "港島地域"
+      },
       {
         "title": "香港童軍 115 周年暨筲箕灣區 65 周年─ 家在筲區嘉年華 – 115 實體跑 - 通告及詳情",
         "url": "https://www.skwscout.org.hk/wp-content/uploads/2026/07/2610.pdf",
@@ -44483,6 +44492,15 @@
     ],
     "沙田東區": [
       {
+        "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 『2026 香港童軍大會操』旅遊巴士津貼",
+        "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_a06.pdf",
+        "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_a06.pdf",
+        "date": "2026-10-27",
+        "captured_date": "2026-10-27",
+        "source_site": "沙田東區",
+        "region": "新界東地域"
+      },
+      {
         "title": "2026-2027 年度 第一次全區深資童軍支部領袖會議",
         "url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt14.pdf",
         "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_pt14.pdf",
@@ -44901,6 +44919,15 @@
     ],
     "大嶼山區": [],
     "慈雲山區": [
+      {
+        "title": "營 2026 通告第 07/2026 號通告)",
+        "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/10/PT1020-26香港童軍115周年幼童軍渡假營津貼計劃.pdf",
+        "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/10/PT1020-26香港童軍115周年幼童軍渡假營津貼計劃.pdf",
+        "date": "2026-10-27",
+        "captured_date": "2026-10-27",
+        "source_site": "慈雲山區",
+        "region": "東九龍地域"
+      },
       {
         "title": "第50屆區務委員會就職典禮暨中國文化 通告",
         "url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/06/TWS-5292-26-第50屆區務委員會就職典禮暨中國文化-通告.pdf",
@@ -46004,24 +46031,6 @@
     ],
     "Scout System": [
       {
-        "title": "樂行童軍進度紀錄",
-        "url": "https://roverbadge.vercel.app/",
-        "pdf_url": "https://roverbadge.vercel.app/",
-        "date": "2026-09-24",
-        "captured_date": "2026-09-24",
-        "source_site": "Scout System",
-        "region": "Scout System",
-        "source_url": "https://scoutappstore.vercel.app/",
-        "tags": [
-          "樂行童軍",
-          "小工具"
-        ],
-        "description": "電子紀錄冊",
-        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
-        "store_category": "電子紀錄冊",
-        "store_page": "apps"
-      },
-      {
         "title": "遠足路程表",
         "url": "https://drawtheroute-yd8p.vercel.app/",
         "pdf_url": "https://drawtheroute-yd8p.vercel.app/",
@@ -46039,6 +46048,24 @@
         "description": "全方位遠足計劃工具",
         "icon": "",
         "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
+        "title": "樂行童軍進度紀錄",
+        "url": "https://roverbadge.vercel.app/",
+        "pdf_url": "https://roverbadge.vercel.app/",
+        "date": "2026-09-24",
+        "captured_date": "2026-09-24",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
+        "tags": [
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "電子紀錄冊",
+        "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
+        "store_category": "電子紀錄冊",
         "store_page": "apps"
       },
       {
@@ -46121,6 +46148,28 @@
         "store_page": "apps"
       },
       {
+        "title": "Gemini 輔助工具",
+        "url": "https://gemini-woad-sigma.vercel.app/",
+        "pdf_url": "https://gemini-woad-sigma.vercel.app/",
+        "date": "2026-10-22",
+        "captured_date": "2026-10-22",
+        "source_site": "Scout System",
+        "region": "Scout System",
+        "source_url": "https://scoutappstore.vercel.app/",
+        "tags": [
+          "小童軍",
+          "幼童軍",
+          "童軍",
+          "深資童軍",
+          "樂行童軍",
+          "小工具"
+        ],
+        "description": "一鍵完成 簡單易用",
+        "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10",
+        "store_category": "工具",
+        "store_page": "apps"
+      },
+      {
         "title": "童軍進度紀錄",
         "url": "https://scoutbadge.vercel.app/",
         "pdf_url": "https://scoutbadge.vercel.app/",
@@ -46157,28 +46206,6 @@
         "store_page": "apps"
       },
       {
-        "title": "Gemini 輔助工具",
-        "url": "https://gemini-woad-sigma.vercel.app/",
-        "pdf_url": "https://gemini-woad-sigma.vercel.app/",
-        "date": "2026-10-22",
-        "captured_date": "2026-10-22",
-        "source_site": "Scout System",
-        "region": "Scout System",
-        "source_url": "https://scoutappstore.vercel.app/",
-        "tags": [
-          "小童軍",
-          "幼童軍",
-          "童軍",
-          "深資童軍",
-          "樂行童軍",
-          "小工具"
-        ],
-        "description": "一鍵完成 簡單易用",
-        "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSvH1y5H8cFr_7VPNWPNXAX_qGKwg6XzIPpIf3ymZMTZxw4lRIp-iUFck&s=10",
-        "store_category": "工具",
-        "store_page": "apps"
-      },
-      {
         "title": "升團準備",
         "url": "https://upgrade-ashen.vercel.app/",
         "pdf_url": "https://upgrade-ashen.vercel.app/",
@@ -46203,6 +46230,27 @@
     ]
   },
   "notices": [
+    {
+      "source_site": "筲箕灣區",
+      "region": "港島地域",
+      "pdf_url": "https://www.skwscout.org.hk/wp-content/uploads/2026/10/2611.pdf",
+      "title": "第2屆基本遠足訓練班",
+      "captured_date": "2026-10-27"
+    },
+    {
+      "source_site": "沙田東區",
+      "region": "新界東地域",
+      "pdf_url": "http://www.stescout.org/pdf/circular 2026/cir_2026_a06.pdf",
+      "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 『2026 香港童軍大會操』旅遊巴士津貼",
+      "captured_date": "2026-10-27"
+    },
+    {
+      "source_site": "慈雲山區",
+      "region": "東九龍地域",
+      "pdf_url": "https://group.scout.org.hk/tws/wp-content/uploads/2026/10/PT1020-26香港童軍115周年幼童軍渡假營津貼計劃.pdf",
+      "title": "營 2026 通告第 07/2026 號通告)",
+      "captured_date": "2026-10-27"
+    },
     {
       "source_site": "深旺區",
       "region": "九龍地域",
@@ -82125,19 +82173,19 @@
     "total_sources": 50,
     "appstore": {
       "first_sync": "2026-10-21",
-      "last_sync": "2026-10-26",
+      "last_sync": "2026-10-27",
       "catalog_size": 10,
       "visible_count": 10,
       "known_dates": {
-        "https://roverbadge.vercel.app/": "2026-09-24",
         "https://drawtheroute-yd8p.vercel.app/": "2026-09-24",
+        "https://roverbadge.vercel.app/": "2026-09-24",
         "https://vsbadge.vercel.app/": "2026-09-24",
         "https://ayp-eight.vercel.app/": "2026-09-24",
         "https://veloplanner.com/": "2026-09-24",
         "https://scoutworld.vercel.app/": "2026-10-24",
+        "https://gemini-woad-sigma.vercel.app/": "2026-10-22",
         "https://scoutbadge.vercel.app/": "2026-09-24",
         "https://cubsbadge.vercel.app/": "2026-09-24",
-        "https://gemini-woad-sigma.vercel.app/": "2026-10-22",
         "https://upgrade-ashen.vercel.app/": "2026-09-24"
       }
     },
@@ -82148,10 +82196,10 @@
       "大嶼山區"
     ],
     "last_run": {
-      "updated_at": "2026-10-26 05:00:06",
-      "new": 0,
+      "updated_at": "2026-10-27 05:00:06",
+      "new": 3,
       "updated": 3545,
-      "daily_new": 0,
+      "daily_new": 3,
       "skipped": 4,
       "processed": 46,
       "playwright_used": 2,

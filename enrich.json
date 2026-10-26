@@ -65824,5 +65824,144 @@
     "title_check": "verified",
     "enriched_at": "2026-10-25 05:06:50",
     "enrich_version": "3.7"
+  },
+  "https://www.skwscout.org.hk/wp-content/uploads/2026/10/2611.pdf": {
+    "source": "筲箕灣區",
+    "title": "第2屆基本遠足訓練班",
+    "deadline": "2026-12-07",
+    "audience": "童軍",
+    "audience_evidence": "1.年滿14歲之童軍支部成員(港島地域成員將獲優先取錄)。 2.參加者如需同時進行香港青年獎勵計劃銅章級野外鍛鍊科之基本訓練及評核旅程,則必 須持有由童軍總會簽發之香港青年獎勵計劃紀錄簿。",
+    "fee": "HK$150",
+    "categories": [
+      {
+        "id": "training",
+        "label": "訓練",
+        "score": 3.0,
+        "evidence": [
+          "訓練班"
+        ]
+      }
+    ],
+    "branch_tags": [
+      "童軍"
+    ],
+    "subscription_tags": [
+      "category:training",
+      "course:shared-ayp",
+      "training:童軍"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:training",
+        "label": "所有訓練",
+        "group": "訓練",
+        "kind": "category",
+        "evidence": [
+          "訓練班"
+        ]
+      },
+      {
+        "id": "course:shared-ayp",
+        "label": "香港青年獎勵計劃",
+        "group": "訓練",
+        "kind": "course",
+        "evidence": [
+          "標題／內文：青年獎勵計劃"
+        ]
+      },
+      {
+        "id": "training:童軍",
+        "label": "所有童軍訓練",
+        "group": "訓練",
+        "kind": "training",
+        "evidence": [
+          "支部：童軍"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-27 05:07:37",
+    "enrich_version": "3.7"
+  },
+  "http://www.stescout.org/pdf/circular 2026/cir_2026_a06.pdf": {
+    "source": "沙田東區",
+    "title": "2026-27 年度區會津貼旅團/成員/領袖計劃 『2026 香港童軍大會操』旅遊巴士津貼",
+    "deadline": "",
+    "audience": "領袖",
+    "audience_evidence": "旅長/各支部負責領袖2026年10月25日",
+    "fee": "HK$2000",
+    "categories": [
+      {
+        "id": "activity",
+        "label": "活動",
+        "score": 3.0,
+        "evidence": [
+          "香港童軍大會操"
+        ],
+        "subtype": "other"
+      }
+    ],
+    "branch_tags": [
+      "領袖"
+    ],
+    "subscription_tags": [
+      "activity:other"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "activity:other",
+        "label": "其他活動",
+        "group": "活動",
+        "kind": "activity",
+        "evidence": [
+          "香港童軍大會操"
+        ]
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "verified",
+    "enriched_at": "2026-10-27 05:07:48",
+    "enrich_version": "3.7"
+  },
+  "https://group.scout.org.hk/tws/wp-content/uploads/2026/10/PT1020-26香港童軍115周年幼童軍渡假營津貼計劃.pdf": {
+    "source": "慈雲山區",
+    "title": "營 2026 通告第 07/2026 號通告)",
+    "deadline": "2027-02-25",
+    "audience": "",
+    "audience_evidence": "",
+    "fee": "所屬銀行",
+    "categories": [
+      {
+        "id": "announcement",
+        "label": "公布",
+        "score": 3.0,
+        "evidence": []
+      }
+    ],
+    "branch_tags": [],
+    "subscription_tags": [
+      "category:announcement"
+    ],
+    "subscription_tag_details": [
+      {
+        "id": "category:announcement",
+        "label": "公布",
+        "group": "公布",
+        "kind": "category",
+        "evidence": []
+      }
+    ],
+    "subscription_catalog_version": "3.3.0",
+    "method": "text",
+    "error": "",
+    "title_check": "corrected",
+    "enriched_at": "2026-10-27 05:07:53",
+    "enrich_version": "3.7",
+    "listing_title": "PT1020-26 香港童軍115周年幼童軍渡假營津貼計劃通告及申請表格"
   }
 }
