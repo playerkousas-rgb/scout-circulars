@@ -60,7 +60,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.7"  # PDF 標題／表格／對象／訂閱分類規則版本
+ENRICH_VERSION = "3.8"  # PDF 標題／表格／對象／訂閱分類規則版本
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
 # （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
 # 標題更正會記錄 listing_title，之後每次 run 重新套用（見
@@ -78,6 +78,13 @@ ENRICH_VERSION = "3.7"  # PDF 標題／表格／對象／訂閱分類規則版�
 # 3.6（2026-10-06）：收件人郵寄地址唔再抽成參加對象；未成年同意書內嘅家長／監護人
 #   唔再當活動對象。預設增量只套用到新／未完整通告，不會因版本升級改寫已完整舊資料；
 #   需要重抽歷史資料時必須明確執行 backfill。
+# 3.8（2026-10-27）：慈雲山區 PT1020-26 幼童軍渡假營津貼計劃個案：
+#   1. 括號唔成對嘅斷行殘片（「營 2026 通告第 07/2026 號通告)」）、帶右括號尾嘅檔號行、
+#      內文「請參閱／詳見」指引句及句號結尾敘述句一律唔可以當 PDF 標題或寫回 cache；
+#   2. 標題 hint 補齊「津貼計劃／資助計劃／獎勵計劃／嘉許計劃」，避免真標題輸俾內文「通告」；
+#   3. 列表標題核對支援剝除開頭檔號（如 PT1020-26）及尾段附件字眼（如「通告及申請表格」），
+#      並把「渡假／度假」視為同形比較；
+#   4. 表格費用欄（fee_from_tables）必須真係抽到金額／全免，唔會把申請表「所屬銀行」原樣回傳。
 
 # 香港時區：core.py 的 captured_date 是用 HKT 寫的，
 # 這裡的「今日」必須同樣用 HKT，否則在 UTC runner 上跨日時會對不上、抓 0 條。
@@ -202,7 +209,7 @@ _HEADING_SHORT_OK_RE = re.compile(r"公告|公布|公佈")
 # 「通告第 19/2026 號」）。佢係編號，唔係標題；舊版好多時揀咗佢，於是核對把
 # 好標題（飛鏢同樂日、第10屆海童軍工作坊、總部公告…）誤判成「要改正」。
 _CIRCULAR_NUMBER_RE = re.compile(
-    r"^.{0,10}第\s*\d{1,4}\s*[/\-–—]\s*\d{1,4}\s*[號号]?\s*(?:通告)?$"
+    r"^.{0,10}第\s*\d{1,4}\s*[/\-–—]\s*\d{1,4}\s*[號号]?\s*(?:通告)?[)）\]】]*$"
 )
 # 「截止日期」以前喺呢度做 hint，令一條欄位行贏過真標題，已移除。
 # 2026-10-01 擴充：舊版淨係識「比賽」兩個字做埋，「XX挑戰賽」「XX錦標賽」呢類
@@ -211,13 +218,27 @@ _CIRCULAR_NUMBER_RE = re.compile(
 # 詞表同 subscription_tagging.COMPETITION_TERMS／SERVICE_INVITATION_TERMS 對齊。
 # 2026-10-03 加公告／公布／公佈：呢啲係最典型嘅通告標題字眼（用戶：明確字眼
 # 以標題為準），偏偏舊版冇佢哋，令「區總部公布」「總部公告」等真標題輸畀欄位行。
+# 2026-10-27 加津貼計劃／資助計劃／獎勵計劃／嘉許計劃：避免真標題輸俾內文「通告」。
 _HEADING_HINT_RE = re.compile(
     r"通告|公告|公布|公佈|訓練班|工作坊|提名|比賽|競賽|公開賽|錦標賽|邀請賽|挑戰賽|會操|練習賽|體驗賽|"
-    r"感謝狀|招募|課程|服務邀請|義工邀請"
+    r"感謝狀|招募|課程|服務邀請|義工邀請|津貼計劃|資助計劃|獎勵計劃|嘉許計劃"
 )
 # 列表頁 scrape 落嚟嘅連結標籤後綴：呢啲字永遠唔會出現喺 PDF 內文，
 # 所以直接攞成個列表標題去 PDF 搵 substring 一定搵唔到（全庫 1500/4795 條中招）。
 _LINK_SUFFIX_RE = re.compile(r"\s*[-–—]\s*[^-–—]{1,12}$")
+# 2026-10-27：區會列表標題常見「開頭檔號」（如 PT1020-26、TWS-5292-26-、PFD2627VS004）
+# 同「尾段文件組合說明」（如「通告及申請表格」「(通告)」）。PDF 正文未必連住呢啲字，
+# 核對時要識得剝開再比對，成功對上時仍然保留完整列表標題（唔改名）。
+_LEADING_CIRCULAR_CODE_RE = re.compile(
+    r"^[A-Za-z]{1,6}(?:[/\-_\s]+[A-Za-z0-9]{1,8})*[\-_\d]{2,}"
+    r"(?:\s*[-–—:：]\s*|\s+|(?=[「『【\u4e00-\u9fff]))"
+)
+_DOC_BUNDLE_SUFFIX_RE = re.compile(
+    r"(?:通告)?\s*(?:及|暨|連)\s*(?:申請|報名)?(?:表格|表|回條)$"
+    r"|\s*[（(](?:通告|申請表格?|報名表格?|附件[一二三四五六七八九十\d]*)[)）]$"
+)
+_CROSS_REF_RE = re.compile(r"請參閱|詳情請|詳見")
+_BRACKET_PAIRS = (("(", ")"), ("[", "]"), ("【", "】"), ("「", "」"), ("『", "』"))
 _CIRCULAR_CODE_RE = re.compile(
     r"^[A-Za-z]{2,5}[/\-_\s]+(?:[A-Za-z]{1,4}[/\-_\s]+)*\d{2,4}[/\-_\s]+\d{2,4}[A-Za-z]?$"
 )
@@ -272,9 +293,26 @@ def looks_like_table_row(line: str) -> bool:
     return bool(_TABLE_ROW_DATE_LEAD_RE.match(text) and len(_NUMBER_TOKEN_RE.findall(text)) >= 3)
 
 
+def has_unbalanced_brackets(text: str) -> bool:
+    """括號／引號唔成對（例如 PDF 跨行括號斷開後只剩『營 2026 通告第 07/2026 號通告)』）。"""
+    s = nfkc(text or "")
+    for open_ch, close_ch in _BRACKET_PAIRS:
+        depth = 0
+        for ch in s:
+            if ch == open_ch:
+                depth += 1
+            elif ch == close_ch:
+                depth -= 1
+                if depth < 0:
+                    return True
+        if depth != 0:
+            return True
+    return False
+
+
 def compact_title(value: str) -> str:
-    """比較用：去掉引號、空白、標點同句尾「通告」。"""
-    text = nfkc(value or "")
+    """比較用：去掉引號、空白、標點同句尾「通告」，並統一「渡假／度假」異體寫法。"""
+    text = nfkc(value or "").replace("渡假", "度假")
     text = _TITLE_PUNCT_RE.sub("", text)
     text = re.sub(r"\s+", "", text)
     text = re.sub(r"通告$", "", text)
@@ -313,6 +351,10 @@ def extract_pdf_heading(text: str) -> str:
             continue
         if not re.search(r"[\u4e00-\u9fff]", line):
             continue
+        if has_unbalanced_brackets(line):
+            continue
+        if compact_line.endswith("。") or _CROSS_REF_RE.search(compact_line):
+            continue
         if _LETTERHEAD_RE.search(line):
             continue
         if _HEADING_SKIP_RE.search(compact_line):
@@ -349,6 +391,8 @@ def heading_looks_like_title(text: str) -> bool:
     line = compact(nfkc(text or "")).strip()
     if not line or len(line) > 40:
         return False
+    if has_unbalanced_brackets(line) or line.endswith("。") or _CROSS_REF_RE.search(line):
+        return False
     # 2026-10-06：表格列（用戶個案嘅「13, 17, 20, 23, 31 地質生態導賞員訓練班
     # 楊劍聰」）同內文指示句都唔可以寫返 cache.json 當標題。
     if looks_like_table_row(line) or _BODY_INSTRUCTION_RE.match(line):
@@ -366,17 +410,23 @@ def heading_looks_like_title(text: str) -> bool:
 
 
 def title_variants(listing: str) -> list:
-    """由完整列表標題開始，逐層剝走尾段連結標籤。
+    """由完整列表標題開始，逐層剝走尾段連結標籤／開頭檔號／附件說明以供比對。
 
     列表頁 scrape 落嚟嘅標題好多時帶「 - 點擊下載」「 - 通告下載」「 - 報名表格」
-    呢類連結文字，佢哋唔屬於通告本身，PDF 內文當然搵唔到。全庫 4795 條有
-    1500 條（31%）係咁，所以唔剝就核對嘅話會製造大量假警報。
-    回傳由最完整到最精簡，叫嘅人由頭試到尾，第一個命中就算對得上。
+    呢類連結文字，或者前後加咗區會檔號（「PT1020-26 …」）及文件組合說明
+    （「…通告及申請表格」），PDF 內文未必連住出現。
+    回傳由最完整到最精簡，叫嘅人由頭試到尾，第一個命中就算對得上（唔會改寫列表標題）。
     """
     out = []
+
+    def _add(val: str) -> None:
+        v = val.strip()
+        if v and v not in out:
+            out.append(v)
+
     cur = nfkc(listing or "").strip()
     while cur:
-        out.append(cur)
+        _add(cur)
         m = _LINK_SUFFIX_RE.search(cur)
         if not m:
             break
@@ -384,13 +434,22 @@ def title_variants(listing: str) -> list:
         if not nxt or nxt == cur:
             break
         cur = nxt
+
+    for item in list(out):
+        no_code = _LEADING_CIRCULAR_CODE_RE.sub("", item).strip()
+        if no_code and no_code != item:
+            _add(no_code)
+    for item in list(out):
+        no_bundle = _DOC_BUNDLE_SUFFIX_RE.sub("", item).strip()
+        if no_bundle and no_bundle != item:
+            _add(no_bundle)
     return out
 
 
 def listing_supported_by_pdf(listing: str, pdf_text: str, heading: str = "") -> bool:
     """列表標題可唔可以由 PDF 內文支持。
 
-    主判準（2026-09-14 起）：攞標題（連剝咗連結標籤後綴嘅各個變體）去 PDF
+    主判準（2026-09-14 起）：攞標題（連剝咗連結標籤後綴／開頭檔號嘅各個變體）去 PDF
     內文搵 substring —— 搵到就代表 PDF 真係嗰份通告，唔使再猜。
     搵唔到先至退而用「同 PDF 標題 ≥90% 相似」。
     """
@@ -398,6 +457,8 @@ def listing_supported_by_pdf(listing: str, pdf_text: str, heading: str = "") -> 
     for variant in title_variants(listing):
         needle = compact_title(variant)
         if len(needle) >= 6 and needle in hay:
+            return True
+        if heading and len(needle) >= 6 and title_similarity(variant, heading) >= TITLE_SIMILARITY_THRESHOLD:
             return True
     if heading and title_similarity(listing, heading) >= TITLE_SIMILARITY_THRESHOLD:
         return True
@@ -668,7 +729,9 @@ def find_date(s):
 # 舊版 extract_deadline 喺呢個 3 行窗口攞第一個日期＝第一堂日期（唔係截止日）。
 # 有表格結構就直接讀「截止日期」欄，唔使猜。
 _TABLE_DEADLINE_HEADER_RE = re.compile(r"截止")
-_TABLE_FEE_HEADER_RE = re.compile(r"^(?:費用|班費|收費|報名費|活動費用|團費)")
+_TABLE_FEE_HEADER_RE = re.compile(
+    r"^(?:費用|班費|收費|報名費|活動費用|團費)(?:\s*[（(][^）)]{0,12}[)）]|\s*[:：]|\s*\$)?$"
+)
 # 2026-10-06：好多通告唔寫「截止」兩個字，而係「必須於 2026 年 11 月 30 日
 # （星期一）或之前填妥回條，交回…」。個案：東九龍地域 26228「2027年童軍獎券
 # 籌募活動」——舊版完全抽唔到截止日（前端顯示空白，但內文白紙黑字寫住 11 月 30 日）。
@@ -716,15 +779,20 @@ def fee_from_tables(tables):
     """表格『費用／班費／收費』欄嘅第一個金額。
 
     只認個欄名，唔會攞「按金」（可退）或者「名額」；純數字欄位（例如 160）
-    喺童軍通告一律當港幣。
+    喺童軍通告一律當港幣。2026-10-27：若格內唔係金額／全免（例如津貼申請表
+    填寫『所屬銀行』『待定』），一律回空字串，唔好原樣當費用回傳。
     """
     value = _table_column_first_value(tables, _TABLE_FEE_HEADER_RE)
     if not value:
         return ""
     bare = compact(value)
     if re.fullmatch(r"[\d,]+(?:\.\d+)?", bare):
-        return f"HK${bare}"
-    return normalize_fee(value)
+        if float(bare.replace(",", "")) > 0:
+            return f"HK${bare}"
+        return ""
+    if re.search(r"(?:USD\$|US\$|美元)\s*[\d,]+(?:\.\d+)?", bare):
+        return normalize_fee(value)
+    return _fee_from_scope(value)
 
 
 def extract_after_label(text, label_keys, stop_keys, max_len=120):

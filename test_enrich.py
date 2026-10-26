@@ -6,6 +6,7 @@ test_enrich.py — enrich.py 準確性單元測試
 運行：python test_enrich.py
 """
 
+import json
 import sys
 sys.path.insert(0, ".")
 
@@ -13,7 +14,7 @@ from enrich import (
     extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories,
     compact_title, title_similarity, extract_pdf_heading, reconcile_listing_title,
     apply_title_to_cache, title_variants, listing_supported_by_pdf,
-    heading_looks_like_title, reapply_stored_title_fixes,
+    heading_looks_like_title, reapply_stored_title_fixes, has_unbalanced_brackets,
     looks_like_table_row, deadline_from_tables, fee_from_tables,
     is_enrichable_url, skip_reason, summarize_skipped_links, collect_targets,
     summarize_cross_source_consistency,
@@ -1251,6 +1252,105 @@ def main():
         "normalize_fee：USD$50 → US$50",
         normalize_fee("USD$50"),
         "US$50",
+    )
+
+    # ── ⑩ 2026-10-27 慈雲山區 PT1020-26 幼童軍渡假營津貼計劃回歸測試 ──
+    tws_listing = "PT1020-26 香港童軍115周年幼童軍渡假營津貼計劃通告及申請表格"
+    tws_pdf = (
+        "香港童軍總會慈雲山區\n"
+        "香港童軍115周年幼童軍度假營津貼計劃\n"
+        "（詳情請參閱香港童軍115周年幼童軍渡假\n"
+        "營 2026 通告第 07/2026 號通告)\n"
+        "截止日期：2027年2月25日\n"
+    )
+    passed += test(
+        "⑩ 2026-10-27：括號唔成對嘅斷行殘片識別為 unbalanced",
+        [
+            has_unbalanced_brackets("營 2026 通告第 07/2026 號通告)"),
+            has_unbalanced_brackets("（詳情請參閱香港童軍115周年幼童軍渡假"),
+            has_unbalanced_brackets("第8屆森林舞蹈訓練班(KT/72/26)"),
+            has_unbalanced_brackets("九龍地域通告【2026 年 10 月】"),
+        ],
+        [True, True, False, False],
+    )
+    passed += test(
+        "⑩ 2026-10-27：『營 2026 通告第 07/2026 號通告)』同帶括號檔號行唔會通過寫入防線",
+        [
+            heading_looks_like_title("營 2026 通告第 07/2026 號通告)"),
+            heading_looks_like_title("（通告第 07/2026 號通告）"),
+        ],
+        [False, False],
+    )
+    passed += test(
+        "⑩ 2026-10-27：extract_pdf_heading 揀真標題『津貼計劃』，唔會被內文斷行『通告)』搶走",
+        extract_pdf_heading(tws_pdf),
+        "香港童軍115周年幼童軍度假營津貼計劃",
+    )
+    passed += test(
+        "⑩ 2026-10-27：就算大標題係圖，斷行殘片『營 2026 通告第 07/2026 號通告)』都寧願抽空",
+        extract_pdf_heading("（詳情請參閱香港童軍115周年幼童軍渡假\n營 2026 通告第 07/2026 號通告)\n"),
+        "",
+    )
+    passed += test(
+        "⑩ 2026-10-27：reconcile_listing_title 識剝開頭 PT1020-26 及尾段『通告及申請表格』並統一渡假／度假，保留完整列表標題",
+        (
+            reconcile_listing_title(tws_listing, tws_pdf)["status"],
+            reconcile_listing_title(tws_listing, tws_pdf)["title"],
+        ),
+        ("verified", tws_listing),
+    )
+    stale_tws_cache = {"data": {"慈雲山區": [
+        {"title": tws_listing, "pdf_url": "https://example/pt1020.pdf",
+         "url": "https://example/pt1020.pdf", "captured_date": "2026-10-27"},
+    ]}}
+    stale_tws_enrich = {"https://example/pt1020.pdf": {
+        "title": "營 2026 通告第 07/2026 號通告)",
+        "listing_title": tws_listing,
+        "title_check": "corrected",
+    }}
+    passed += test(
+        "⑩ 2026-10-27：reapply_stored_title_fixes 攔截斷行殘片，唔會覆寫 cache",
+        (reapply_stored_title_fixes(stale_tws_cache, stale_tws_enrich),
+         stale_tws_cache["data"]["慈雲山區"][0]["title"]),
+        (0, tws_listing),
+    )
+    passed += test(
+        "⑩ 2026-10-27：fee_from_tables 唔會把申請表『所屬銀行／待定』當成費用原樣回傳",
+        [
+            fee_from_tables([[["費用發放方式", "戶口號碼"], ["所屬銀行", "012-345"]]]),
+            fee_from_tables([[["費用", "備註"], ["所屬銀行", "支票"]]]),
+            fee_from_tables([[["費用($)", "名額"], ["US$50", "20"]]]),
+        ],
+        ["", "", "US$50"],
+    )
+
+    tws_url = "https://group.scout.org.hk/tws/wp-content/uploads/2026/10/PT1020-26香港童軍115周年幼童軍渡假營津貼計劃.pdf"
+    with open("cache.json", encoding="utf-8") as f:
+        prod_cache = json.load(f)
+    with open("enrich.json", encoding="utf-8") as f:
+        prod_enrich = json.load(f)
+    tws_data_titles = [
+        it["title"] for it in prod_cache.get("data", {}).get("慈雲山區", [])
+        if it.get("pdf_url") == tws_url
+    ]
+    tws_notice_titles = [
+        it["title"] for it in prod_cache.get("notices", [])
+        if it.get("pdf_url") == tws_url
+    ]
+    tws_entry = prod_enrich.get(tws_url, {})
+    passed += test(
+        "⑩ 2026-10-27：cache.json 與 enrich.json 內 PT1020-26 標題、費用與幼童軍標籤已修正",
+        (
+            tws_data_titles,
+            tws_notice_titles,
+            tws_entry.get("title"),
+            tws_entry.get("title_check"),
+            "listing_title" in tws_entry,
+            tws_entry.get("fee"),
+            tws_entry.get("branch_tags"),
+            [c.get("id") for c in tws_entry.get("categories", [])],
+        ),
+        ([tws_listing], [tws_listing], tws_listing, "verified", False, "", ["幼童軍"], ["announcement"]),
     )
 
     total = len(TEST_RESULTS)
