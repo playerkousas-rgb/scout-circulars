@@ -1,0 +1,37 @@
+name: Bootstrap latest-only data
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: scout-circulars-scrape-and-push
+  cancel-in-progress: false
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      # Seed from the freshest main, not an old feature-branch copy. On later
+      # invocations load uses data instead, so this cannot reset live data.
+      - name: Obtain current seed
+        run: |
+          git fetch --depth=1 origin main
+          for file in cache.json enrich.json fingerprints.json subscription_stats.json appstore.json story-queue.json; do
+            git show "FETCH_HEAD:$file" > "$file"
+          done
+      - run: python tools/data_snapshot.py load
+      - run: python tools/data_snapshot.py publish
+      - name: Check full data history and public URL before frontend rollout
+        run: |
+          git fetch --depth=1 origin data
+          # Checking raw commit parents avoids a shallow-history false positive.
+          if git cat-file -p FETCH_HEAD | grep -q '^parent '; then exit 1; fi
+          test "$(git rev-list --count FETCH_HEAD)" = 1
+          curl --fail --retry 6 --retry-all-errors --retry-delay 10 \
+            "https://raw.githubusercontent.com/${{ github.repository }}/data/cache.json?run=${{ github.run_id }}" \
+            -o "$RUNNER_TEMP/public-cache.json"
+          cmp cache.json "$RUNNER_TEMP/public-cache.json"

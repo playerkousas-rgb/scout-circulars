@@ -1,0 +1,24 @@
+name: Clean temporary Story images
+on:
+  schedule:
+    - cron: '30 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: scout-circulars-story-assets
+  cancel-in-progress: false
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Remove temporary runs older than 24 hours
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python .github/scripts/story_storage.py cleanup

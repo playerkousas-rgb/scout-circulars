@@ -1,6 +1,6 @@
 # ============================================================
 # 全港童軍通告自動化圖書館 v5.6 — GitHub Actions（僅通知補發）
-# 流程：checkout → 安裝最少 notify 依賴 → python notify.py --baseline-ref HEAD
+# 流程：checkout → data snapshot → notify（snapshot baseline + catchup）
 #
 # 不執行 core.py / enrich.py，也不需要 Playwright / Chromium / Tesseract。
 # 使用 Supabase push_deliveries 去重，並以 rolling recovery window 自動補發。
@@ -39,6 +39,10 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Load latest complete data snapshot
+        id: data_load
+        run: python tools/data_snapshot.py load
+
       - name: Install minimal notify dependencies
         # 只裝 notify.py / subscription_stats.py 真正用到嘅兩個第三方套件
         # （pywebpush + cryptography），其餘全部標準庫。
@@ -61,9 +65,10 @@ jobs:
           VAPID_SUBJECT: ${{ secrets.VAPID_SUBJECT }}
           SITE_URL: ${{ vars.SITE_URL || 'https://scout-circulars.vercel.app' }}
         run: |
-          python notify.py --baseline-ref HEAD
+          python notify.py --baseline-ref "$(python tools/data_snapshot.py baseline)"
 
       - name: Build anonymous subscription stats
+        id: stats
         # 只輸出彙總數字（人數、各支部／項目訂閱數），不含任何 endpoint 或金鑰。
         # 前端 stats.html 由 raw GitHub 讀取 subscription_stats.json 顯示。
         if: always()
@@ -73,10 +78,7 @@ jobs:
         run: |
           python subscription_stats.py --out subscription_stats.json
 
-      - name: Commit subscription stats
-        if: always()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add subscription_stats.json
-          git diff --cached --quiet || (git commit -m "📊 Update subscription stats [skip ci]" && git pull --rebase && git push)
+      - name: Publish anonymous stats in data snapshot
+        # Do not publish stale seed data if loading or stats generation failed.
+        if: always() && steps.data_load.outcome == 'success' && steps.stats.outcome == 'success'
+        run: python tools/data_snapshot.py publish

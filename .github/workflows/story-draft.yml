@@ -1,5 +1,5 @@
 # ============================================================
-# Daily Instagram Story + retained manual Story Drafts.
+# Daily best-effort Instagram Story + one-day manual previews.
 # One scheduled run at 12:00 HKT (04:00 UTC); no auto retry, backfill, or requeue.
 #
 # Why 12:00 HKT: story_queue.py只揀 captured_date = 執行當刻嘅 HKT 今日，所以個 run
@@ -16,7 +16,7 @@
 # Publishing is gated on verified conditions rather than on a guessed delay,
 # after 2026-10-01 lost all five Stories to 9007/2207027「媒體素材尚未準備好發佈」:
 #   1. the JPEG must be fetchable from the public internet (checked from the
-#      runner against the immutable commit URL) before Meta is given the URL;
+#      runner against a unique temporary URL) before Meta is given the URL;
 #   2. the media container must report status_code=FINISHED before publishing;
 #   3. a container that comes back ERROR/EXPIRED/stuck is rebuilt once — it was
 #      never posted, so this cannot duplicate a Story;
@@ -24,10 +24,10 @@
 # Stories are still never re-queued, back-filled, or carried to another day.
 #
 # Each image includes a QR straight to the source attachment and a category-aware Cantonese CTA.
-# PNG + JPEG assets are force-pushed once to the `stories` branch. PNG keeps the
-# notice-detail hero feature working; public JPEG URLs are fetched by Meta.
-# Manual Run remains available and defaults to preview/draft-only (no IG post);
-# scheduled runs publish. No images enter the main branch or Vercel deployment.
+# PNG/JPEG files live only on the runner. Publish-mode JPEGs use a dedicated
+# temporary Supabase bucket, deleted after confirmed success; failures expire
+# via story-cleanup.yml. No Git image commits. Manual preview lasts one day.
+# Story publishing is optional and independent of scraper/notify workflows.
 # ============================================================
 
 name: Instagram Story + Drafts
@@ -44,10 +44,10 @@ on:
         type: boolean
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  # Serialize scheduled and manual runs; both update the same stories branch.
+  # Serialize upload/publish and expiry cleanup; no Git image branch updates.
   group: scout-circulars-story-assets
   cancel-in-progress: false
 
@@ -67,6 +67,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Load latest complete data snapshot
+        run: python tools/data_snapshot.py load
 
       - name: Install CJK font and image renderer
         run: |
@@ -137,59 +140,40 @@ jobs:
           name: story-preview-${{ steps.queue.outputs.today }}
           path: ${{ runner.temp }}/story-output/${{ steps.queue.outputs.today }}/
           if-no-files-found: error
-          retention-days: 3
+          retention-days: 1
 
-      - name: Update public stories branch (also retained for manual drafts)
-        id: stories_branch
-        if: steps.queue.outputs.count != '0'
+      - name: Upload temporary JPEGs (never committed to Git)
+        id: temp_images
+        if: steps.queue.outputs.count != '0' && env.PUBLISH_STORIES == 'true'
         env:
-          TODAY: ${{ steps.queue.outputs.today }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          set -euo pipefail
-          # build_story_index.py imports the stdlib-only batch allocator too;
-          # keep its sibling beside the copied script after we checkout `stories`.
-          cp tools/render_story_templates.py "$RUNNER_TEMP/build_story_index.py"
-          cp story_template_pool.py "$RUNNER_TEMP/story_template_pool.py"
-          cp .github/scripts/publish_instagram_stories.py "$RUNNER_TEMP/publish_instagram_stories.py"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git fetch --depth 1 origin stories:stories-tmp 2>/dev/null; then
-            git checkout -f stories-tmp
-          else
-            git checkout --orphan stories-tmp
-            git rm -rf . >/dev/null 2>&1 || true
-          fi
-          # stories is an isolated branch: it cannot inherit main's Vercel config.
-          # Overwrite these on every run, including the first orphan-branch push.
-          printf '%s\n' '{"git": {"deploymentEnabled": false}, "ignoreCommand": "exit 0"}' > vercel.json
-          printf '*\n' > .vercelignore
-          mkdir -p "stories/$TODAY"
-          cp -R "$RUNNER_TEMP/story-output/$TODAY/." "stories/$TODAY/"
-          # Keep the latest seven days for the notice-detail hero feature.
-          mapfile -t old_days < <(find stories -mindepth 1 -maxdepth 1 -type d -name '20??-??-??' -printf '%f\n' | sort -r | tail -n +8)
-          for day in "${old_days[@]}"; do rm -rf "stories/$day"; done
-          python3 "$RUNNER_TEMP/build_story_index.py" --build-index stories
-          git add .vercelignore vercel.json stories/
-          git commit -qm "📲 Instagram Story assets $TODAY [skip ci]"
-          git push --force origin HEAD:stories
-          # Publish from the immutable commit URL, not the branch ref: a branch
-          # path on raw.githubusercontent can serve a stale/404 edge response
-          # for minutes after a force-push, and Meta fetches that URL itself.
-          echo "stories_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          python .github/scripts/story_storage.py upload \
+            --manifest "$RUNNER_TEMP/story-output/${{ steps.queue.outputs.today }}/manifest.json"
 
       - name: Publish every eligible Instagram Story (verified ready, posted once)
+        id: publish
         if: steps.queue.outputs.count != '0' && env.PUBLISH_STORIES == 'true'
         env:
           TODAY: ${{ steps.queue.outputs.today }}
-          STORY_IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.stories_branch.outputs.stories_sha }}/stories/${{ steps.queue.outputs.today }}/
+          STORY_IMAGE_BASE_URL: ${{ steps.temp_images.outputs.base_url }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_GRAPH_API_BASE: ${{ vars.INSTAGRAM_GRAPH_API_BASE || 'https://graph.facebook.com' }}
           INSTAGRAM_GRAPH_API_VERSION: ${{ vars.INSTAGRAM_GRAPH_API_VERSION || 'v25.0' }}
         run: |
-          python3 "$RUNNER_TEMP/publish_instagram_stories.py" \
-            --manifest "stories/$TODAY/manifest.json" \
+          python3 .github/scripts/publish_instagram_stories.py \
+            --manifest "$RUNNER_TEMP/story-output/$TODAY/manifest.json" \
             --base-url "$STORY_IMAGE_BASE_URL"
+
+      - name: Delete temporary images after confirmed successful publication
+        if: steps.publish.outcome == 'success' && steps.temp_images.outputs.prefix != ''
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          STORY_PREFIX: ${{ steps.temp_images.outputs.prefix }}
+        run: python .github/scripts/story_storage.py remove --prefix "$STORY_PREFIX"
 
       - name: Run summary
         if: always()

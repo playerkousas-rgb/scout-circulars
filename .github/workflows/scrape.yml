@@ -1,15 +1,8 @@
 # ============================================================
 # 全港童軍通告自動化圖書館 v5.6 — GitHub Actions
-# 流程：core.py（抓通告）→ enrich.py（增量抽 PDF 文字）→ 自動提交
-#
-# 每日排程架構（HKT）：
-#   - 00:15 HKT（16:15 UTC）：本 workflow 執行全網抓取與增量抽取，更新 Git
-#   - 本機工作排程（用戶自行設定時間，目前為 05:00 HKT）：
-#     行 repo 內嘅 run-local-scrape-logged.bat 補漏抓取——每次都會先拉最新 Git，
-#     再 core.py --force 全網重新巡邏一次，有任何改動就 commit + push
-#     （2026-09-14 起已移除 freshness gate 同 gain check，所以每次成功 run
-#      都會推進 cache.json 嘅 last_updated，即網站「更新時間」每日必移）
-#   - 06:00 HKT（22:00 UTC）：notify.yml 統一發送 Web Push 推送通知
+# 流程：載入 data snapshot → 抓取 → 增量 enrich → 30 日備份 → 更新 data snapshot
+# 每日 00:15 HKT；本機補抓亦使用相同 data 協定，不再 commit JSON 到 main。
+# 06:00 HKT notify.yml 載入最新 snapshot 後發送通知。
 #
 # 本 workflow 為純抓取與增量抽取，不執行 notify.py，不需要 VAPID / Supabase secrets。
 # ⚠️ enrich 只跑「增量」模式（只抽新入庫 PDF），切勿使用 --all 以免觸發網站封鎖。
@@ -52,6 +45,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Load latest complete data snapshot
+        run: python tools/data_snapshot.py load
+
       - name: Install dependencies
         run: |
           # enrich.py 的 OCR fallback 需要 tesseract + poppler
@@ -90,9 +86,19 @@ jobs:
           python check_stale.py || true
 
       # ── Step 4: 提交並推送更新 ──
-      - name: Commit & push updated cache + enrich + fingerprints
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cache.json enrich.json fingerprints.json
-          git diff --cached --quiet || (git commit -m "🤖 Auto-update circulars [skip ci]" && git push)
+      - name: Back up daily JSON (30 days)
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            cache.json
+            enrich.json
+            fingerprints.json
+            subscription_stats.json
+            appstore.json
+            story-queue.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish latest-only data snapshot
+        run: python tools/data_snapshot.py publish

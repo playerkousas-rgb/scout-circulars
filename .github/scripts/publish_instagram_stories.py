@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publish every rendered, complete Story item through Meta's Instagram API.
 
-Images are JPEGs on the public `stories` branch because Meta fetches `image_url`
+Images are JPEGs in temporary object storage because Meta fetches `image_url`
 from a public server and its Content Publishing API accepts JPEG (not PNG).
 Each item gets one container-create call and one publish call. There are no
 retries, delayed retries, or re-queue operations; a failed item is reported and

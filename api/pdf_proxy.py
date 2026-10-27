@@ -39,7 +39,7 @@ from http.server import BaseHTTPRequestHandler
 # 本地副本（例如 http://127.0.0.1:8000/cache.json）方便測試。
 RAW_CACHE_URL = os.environ.get(
     "PDF_PROXY_CACHE_URL",
-    "https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json",
+    "https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/cache.json",
 )
 CACHE_TTL_SECONDS = 10 * 60          # in-process；Vercel warm instance 重用
 MAX_PDF_BYTES = 4 * 1024 * 1024      # 低過 Vercel ~4.5MB response cap；單次回應唔可以再大
@@ -114,7 +114,16 @@ def refresh_allowed_urls(force: bool = False) -> set:
     if not force and _cache_urls and (time.time() - _cache_loaded_at) < CACHE_TTL_SECONDS:
         return _cache_urls
     req = urllib.request.Request(RAW_CACHE_URL, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=15) as resp:  # noqa: S310（URL 寫死 GitHub Raw）
+    try:
+        response = urllib.request.urlopen(req, timeout=15)
+    except urllib.error.HTTPError as exc:
+        # Bootstrap-only fallback; custom test/admin URLs are never rewritten.
+        default = "https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/cache.json"
+        if exc.code != 404 or RAW_CACHE_URL != default:
+            raise
+        seed = urllib.request.Request(default.replace("/data/", "/main/"), headers={"User-Agent": USER_AGENT})
+        response = urllib.request.urlopen(seed, timeout=15)
+    with response as resp:
         payload = json.loads(resp.read().decode("utf-8"))
     _cache_urls = allowed_urls_from_cache(payload)
     _cache_loaded_at = time.time()
