@@ -809,15 +809,13 @@
 
   <script src="push-client.js"></script>
   <script>
-    const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
+    const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/cache.json';
     // Scout Admin：問題回報 / 意見反映唯一接收端（Apps Script Web App，與 scout-admin.git 同一條）
     const SCOUT_ADMIN_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxj5BDDGgjs559smkK4Z5aYImWYeXbN5af8U1ObON0z9WnsN6QJW4I1XWolhs5kQ_H-UQ/exec';
     const SCOUT_ADMIN_DEFAULT_APP = '通告圖書館';
-    const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/enrich.json';
+    const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/enrich.json';
     // Story 草稿（stories 分支，force-push 維持最近 7 日）：專屬頁 hero 圖熱連結 ——
     // 全部流量/儲存行 GitHub CDN，Vercel 零 byte（結論：唔會再爆 storage）
-    const STORY_BRANCH_RAW = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/stories/';
-    const STORY_INDEX_URL = STORY_BRANCH_RAW + 'stories/index.json';
     const TIME_WINDOWS = [
       { id: '1d', label: '今天', days: 1 },
       { id: '7d', label: '7天', days: 7 },
@@ -1604,6 +1602,17 @@
       });
     }
 
+    // Migration safety: before the first data snapshot exists, read the
+    // main seed on 404 only. Never mask other failures with stale data.
+    async function fetchDataSnapshot(url, options) {
+      const response = await fetch(url, options);
+      const prefix = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/';
+      if (response.status === 404 && String(url).startsWith(prefix)) {
+        return fetch(String(url).replace(prefix, prefix.replace('/data/', '/main/')), options);
+      }
+      return response;
+    }
+
     function getRawUrl() {
       const params = new URLSearchParams(location.search);
       const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname.endsWith('.e2b.app');
@@ -1626,7 +1635,7 @@
     // 載入 enrich.json（失敗都唔影響主畫面）
     async function loadEnrich() {
       try {
-        const r = await fetch(getEnrichUrl(), { cache: 'no-store' });
+        const r = await fetchDataSnapshot(getEnrichUrl(), { cache: 'no-store' });
         if (r.ok) state.enrich = await r.json();
       } catch (_) { state.enrich = {}; }
     }
@@ -5417,38 +5426,14 @@
         const img = root.querySelector('[data-role="badge"]');
         if (u && img) { img.src = u; img.hidden = false; }
       });
-      // 草稿圖 hero：呢張通告今日有出 Story 草稿（stories 分支）就插喺頁頂。
-      // 搵唔到/超時/分支未開 → 靜靜略過，頁面照舊（文字版）。記住：PNG 永遠唔入 main。
-      (async () => {
-        try {
-          const ctrl = new AbortController();
-          const timer = setTimeout(() => ctrl.abort(), 4000);
-          const r = await fetch(STORY_INDEX_URL + '?t=' + Date.now(), { signal: ctrl.signal });
-          clearTimeout(timer);
-          if (!r.ok) return;
-          const idx = await r.json();
-          const k1 = item.pdf_url || '', k2 = item.url || '';
-          const hit = Array.isArray(idx.items)
-            && idx.items.find(e => e && (e.k === k1 || (k2 && e.k === k2)));
-          if (!hit || !hit.f || !root.isConnected) return;
-          const url = STORY_BRANCH_RAW + hit.f;
-          const fig = document.createElement('a');
-          fig.className = 'np-hero';
-          fig.href = url;
-          fig.target = '_blank';
-          fig.rel = 'noopener noreferrer';
-          fig.innerHTML = `<img src="${escapeHtml(url)}" alt="${escapeHtml(item.title || '通告')}（草稿圖）" loading="lazy">`
-            + '<span class="np-hero-cap">📱 草稿圖（撳開原圖／長按可儲存，貼 Story 用）</span>';
-          const head = root.querySelector('.np-head');
-          if (head) head.insertAdjacentElement('afterend', fig);
-        } catch (_) {}
-      })();
+      // Story images are ephemeral publishing assets, not app content.
+
     }
 
     async function loadCache() {
       messagesEl.innerHTML = '<div class="msg">正在從 GitHub Raw CDN 讀取最新 cache.json…</div>';
       try {
-        const resp = await fetch(getRawUrl(), { cache: 'no-store' });
+        const resp = await fetchDataSnapshot(getRawUrl(), { cache: 'no-store' });
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         state.cache = await resp.json();
 

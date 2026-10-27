@@ -102,7 +102,7 @@
   // 密碼只以 SHA-256 雜湊存放（前端純靜態頁的簡單門檻，資料本身已是匿名彙總）。
   const PIN_HASH = '1b230efa3b4daae74f31fe162ca07d3b46b49d766bec31e67cd61ad9b984ad5f';
   const SESSION_KEY = 'scl_stats_ok';
-  const RAW_STATS_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/subscription_stats.json';
+  const RAW_STATS_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/subscription_stats.json';
 
   async function sha256Hex(text) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
@@ -143,13 +143,24 @@
     }).join('');
   }
 
+    // Migration safety: before the first data snapshot exists, read the
+    // main seed on 404 only. Never mask other failures with stale data.
+    async function fetchDataSnapshot(url, options) {
+      const response = await fetch(url, options);
+      const prefix = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/';
+      if (response.status === 404 && String(url).startsWith(prefix)) {
+        return fetch(String(url).replace(prefix, prefix.replace('/data/', '/main/')), options);
+      }
+      return response;
+    }
+
   async function loadStats() {
     const meta = document.getElementById('meta');
     let data;
     try {
-      // 先試同源（Vercel 部署），失敗再讀 GitHub raw
-      let r = await fetch('subscription_stats.json?t=' + Date.now(), { cache: 'no-store' });
-      if (!r.ok) r = await fetch(RAW_STATS_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      // Live stats must not be shadowed by the frozen deployment seed.
+      const local = ['localhost', '127.0.0.1'].includes(location.hostname) || location.hostname.endsWith('.e2b.app');
+      let r = await fetchDataSnapshot((local ? '/subscription_stats.json' : RAW_STATS_URL) + '?t=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) throw new Error(r.status);
       data = await r.json();
     } catch (err) {

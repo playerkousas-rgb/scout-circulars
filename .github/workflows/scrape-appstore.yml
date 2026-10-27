@@ -1,21 +1,12 @@
 # ============================================================
-# 已啟用：Scout Notice Scraper + App Store（每日 00:15 HKT 同步 App Store）
-#
-# 此 workflow 現為可選的獨立全量流程，與 scrape.yml 共享 concurrency group，
-# 不會雙重 commit（同一時間只跑一個）。已啟用 schedule，與 scrape.yml 一致；
-# 兩者擇一即可，日常以 scrape.yml 為主（已含 App Store 同步步驟）。
-# 若日後想改以此檔為主，停用 scrape.yml 的 schedule 即可。
-#
-# 流程：core.py → scrape_appstore.py（只收已上架 visible=true）→ enrich.py → 健康檢查 → commit
-# App Store 同步：anon key 唯讀（RLS 限 visible=true），隱藏（visible=false）永遠唔入圖書館
+# Manual alternative to scrape.yml (which already includes App Store sync).
+# Shared writer lock; latest-only data snapshot, no daily main commits.
 # ============================================================
 
 name: Scout Notice Scraper + App Store
 
 on:
-  # 每日 00:15 HKT 自動執行（同 scrape.yml 一致：16:15 UTC）
-  schedule:
-    - cron: "15 16 * * *"
+  # Manual alternative; scrape.yml already includes App Store.
 
   # 手動觸發（測試／補跑用）
   workflow_dispatch:
@@ -45,6 +36,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Load latest complete data snapshot
+        run: python tools/data_snapshot.py load
+
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra poppler-utils
@@ -73,9 +67,19 @@ jobs:
           python check_stale.py || true
 
       # ── Step 4: 提交並推送 ──
-      - name: Commit & push updated cache + enrich + fingerprints
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add cache.json enrich.json fingerprints.json
-          git diff --cached --quiet || (git commit -m "🤖 Auto-update circulars + appstore [skip ci]" && git push)
+      - name: Back up daily JSON (30 days)
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            cache.json
+            enrich.json
+            fingerprints.json
+            subscription_stats.json
+            appstore.json
+            story-queue.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish latest-only data snapshot
+        run: python tools/data_snapshot.py publish

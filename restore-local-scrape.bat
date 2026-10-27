@@ -12,9 +12,9 @@ REM     changes.
 REM Because the pull was blocked, the machine could never fetch the fixed
 REM script - a self-sustaining loop.
 REM
-REM NOTE: run-local-scrape.bat now clears staged leftovers, stale locks and
-REM half-finished rebases by itself at start-up, so this tool is mostly a
-REM spare tyre. Keep it for the case where the main script cannot even start.
+REM NOTE: normal runs stop safely on source conflicts. This manual repair
+REM tool remains available for stale locks / half-finished old rebases.
+REM Data publishing now uses tools/data_snapshot.py, never main commits.
 REM
 REM Steps:
 REM   0. confirm origin really is the scout-circulars repo (wrong-remote guard)
@@ -76,6 +76,9 @@ if exist .git\CHERRY_PICK_HEAD git cherry-pick --abort
 echo [5/6] pulling the latest from GitHub...
 REM --autostash so a locally fixed .bat cannot block the pull
 git pull --rebase --autostash origin main
+if errorlevel 1 goto fail
+
+python tools/data_snapshot.py load
 if errorlevel 1 goto fail
 
 echo [6/6] comparing the .bat files against HEAD (report only, no overwrite)...

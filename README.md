@@ -1,5 +1,10 @@
 # 香港童軍通告聚合器 v4/v5 骨架
 
+> **2026-10-27 資料保留更新：** 程式碼保留 history；日常 JSON 改由 `data` 分支單一最新快照提供，
+> 每日備份保留 30 日；Story 圖片改用臨時儲存，不再寫入 Git。
+> main 的 JSON 只作種子／測試用途，不再每日更新。
+> 部署、公開 URL、本機排程及救援步驟以 [DATA_STORAGE.md](DATA_STORAGE.md) 為準；下方舊版日常 commit 說明已被取代。
+
 本專案按你提供的核心哲學重建：
 
 - **來源隔離（Source Isolation）**
@@ -110,7 +115,7 @@ python core.py --source 筲箕灣區 --max-detail-pages 8 --verbose
 `index.html` 內有：
 
 ```js
-const RAW_CACHE_URL = "https://raw.githubusercontent.com/YOUR_GITHUB_USER/YOUR_REPO/main/cache.json";
+const RAW_CACHE_URL = "https://raw.githubusercontent.com/YOUR_GITHUB_USER/YOUR_REPO/data/cache.json";
 ```
 
 請改成你的 GitHub Raw CDN。

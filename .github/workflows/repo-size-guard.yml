@@ -1,0 +1,38 @@
+name: Repository size guard
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Record size and raise a deduplicated warning above 300 MiB
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*'
+          kib=$(gh api "repos/$REPO" --jq .size)
+          mib=$(awk "BEGIN {printf \"%.2f\", $kib/1024}")
+          echo "GitHub reported size: $mib MiB ($kib KiB)" | tee -a "$GITHUB_STEP_SUMMARY"
+          git count-objects -vH | tee -a "$GITHUB_STEP_SUMMARY"
+          # API size is delayed; local object size is a different metric.
+          if [ "$kib" -gt 307200 ]; then
+            echo "::warning::Repository exceeds 300 MiB ($mib MiB)"
+            title='Repository storage exceeds 300 MiB'
+            existing=$(gh issue list --repo "$REPO" --state open --search "$title in:title" --json title --jq '.[] | select(.title == "Repository storage exceeds 300 MiB") | .title')
+            if [ -z "$existing" ]; then
+              gh issue create --repo "$REPO" --title "$title" \
+                --body "GitHub reports $mib MiB. Inspect daily data/image writers before considering any history rewrite. Run: $GITHUB_SERVER_URL/$REPO/actions/runs/$GITHUB_RUN_ID"
+            fi
+          fi

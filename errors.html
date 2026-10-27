@@ -177,8 +177,19 @@
   </div>
 
   <script>
-    const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/cache.json';
-    const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/main/enrich.json';
+    const RAW_CACHE_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/cache.json';
+    const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/enrich.json';
+
+    // Migration safety: before the first data snapshot exists, read the
+    // main seed on 404 only. Never mask other failures with stale data.
+    async function fetchDataSnapshot(url, options) {
+      const response = await fetch(url, options);
+      const prefix = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/';
+      if (response.status === 404 && String(url).startsWith(prefix)) {
+        return fetch(String(url).replace(prefix, prefix.replace('/data/', '/main/')), options);
+      }
+      return response;
+    }
 
     function getRawUrl() {
       const params = new URLSearchParams(location.search);
@@ -207,8 +218,8 @@
     async function load() {
       try {
         const [cacheResp, enrichResp] = await Promise.all([
-          fetch(getRawUrl(), { cache: 'no-store' }),
-          fetch(getEnrichUrl(), { cache: 'no-store' })
+          fetchDataSnapshot(getRawUrl(), { cache: 'no-store' }),
+          fetchDataSnapshot(getEnrichUrl(), { cache: 'no-store' })
         ]);
         if (!cacheResp.ok) throw new Error(`cache.json HTTP ${cacheResp.status}`);
         const cache = await cacheResp.json();

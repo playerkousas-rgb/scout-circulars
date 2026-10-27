@@ -12,8 +12,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: scout-circulars-story-queue
-  cancel-in-progress: true
+  group: scout-circulars-scrape-and-push
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -33,13 +33,12 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Load latest complete data snapshot
+        run: python tools/data_snapshot.py load
+
       # 零 pip install：story_queue.py 係 stdlib only；各類先一張再補位，最多五張。
       - name: Build balanced Story queue (max five)
         run: python3 story_queue.py --limit 5
 
-      - name: Commit story queue
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add story-queue.json
-          git diff --cached --quiet || (git commit -m "📱 Update story queue [skip ci]" && git pull --rebase && git push)
+      - name: Publish latest-only data snapshot
+        run: python tools/data_snapshot.py publish
