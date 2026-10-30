@@ -902,9 +902,26 @@ def fetch_with_playwright(name: str, config: Dict[str, Any], url: Optional[str] 
             page.wait_for_selector(wait_selector, state="attached", timeout=wait_timeout)
             page.wait_for_timeout(random.uniform(500, 1500))
         else:
-            page.wait_for_load_state("networkidle", timeout=wait_timeout)
+            # networkidle 只係「網絡靜咗」嘅訊號。AJAX 比 wait_timeout 更慢嘅話，
+            # 以前會直接拋錯丟掉已經 render 到嘅 DOM；而家照用，交由下面
+            # wait_selector 判斷「內容到底出咗未」。
+            try:
+                page.wait_for_load_state("networkidle", timeout=wait_timeout)
+            except Exception:
+                print(f"  [{name}] ⚠️ networkidle 等唔到（{wait_timeout}s），照用目前 DOM")
             # 再等待一下（像真實用戶在看頁面）
             page.wait_for_timeout(random.uniform(1000, 2000))
+
+        # `wait_selector` 係「呢一頁一定要見到嘅元素」。見唔到就當 render 失敗，
+        # 回 None（來源標 error、下輪重試），唔好把空殼嘅指紋寫入 fingerprints
+        # —— 九龍城區 2026-09-26 之後靜靜咁漏通告就係咁嚟。
+        if wait_selector and wait_strategy != "selector":
+            try:
+                page.wait_for_selector(wait_selector, state="attached", timeout=wait_timeout)
+                page.wait_for_timeout(random.uniform(300, 800))
+            except Exception:
+                print(f"  [{name}] ⚠️ 等唔到 wait_selector ({wait_selector})，當 render 失敗")
+                return None
 
         # 額外處理動態/重JS網站 (Google Sites, Wix, klcscout 等)：滾動載入更多內容 + 額外等待
         try:
@@ -1119,6 +1136,55 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
         print(f"[{name}] 完成！共 {count} 個 Drive 通告")
         # 用 render 後嘅完整頁做指紋，頁面一改即觸發更新
         return FetchResult(url=pw_result.url, html=mock_html, engine="playwright", status_code=200)
+    # ---------------------------------
+
+    # --- AJAX 片段 Injection（九龍城區等：列表由 jQuery 由 .php 片段載入）---
+    #
+    # 2026-10-30：九龍城區 /circular 一直只係一個空殼。殼入面嘅 inline JS 係
+    #     $.get("https://www.klcscout.hk/cportal/getdata.php", function(data){
+    #         $('.pt').replaceWith(data);
+    #     });
+    # 即係通告表格係第二次請求返嚟嘅 HTML 片段，注入去 .pt 度。
+    # 只要 Chromium 慢／被擋／jQuery 未 ready，$('.pt') 就永遠係空，
+    # 但頁面「成功」載入 → 指紋每次都係同一個殼 → process_source 當「無變動」跳過，
+    # 結果 2026-09-26 之後嘅通告（例如 10-29「童軍露營訓練班 2027」）全部漏，
+    # 而且唔會出現在 error_sources（靜靜咁壞）。
+    # 片段本身係伺服器端 HTML，唔使 JS：直接抓佢再交返通用抽取流程即可。
+    if config.get("type") == "ajax_fragment":
+        fragment_url = config.get("fragment_url") or url
+        print(f"[{name}] === 抓取 AJAX 片段: {fragment_url} ===")
+        fragment = ""
+        status_code = 0
+        try:
+            r = SESSION.get(
+                fragment_url,
+                timeout=int(config.get("fragment_timeout", 45)),
+                verify=config.get("verify_ssl", True),
+            )
+            status_code = r.status_code
+            r.encoding = (config.get("encoding") or "utf-8").strip()
+            if r.status_code == 200:
+                fragment = r.text or ""
+            else:
+                print(f"[{name}] ⚠️ 片段回傳 HTTP {r.status_code}")
+        except Exception as e:
+            print(f"[{name}] ⚠️ 片段抓取失敗: {type(e).__name__}: {e}")
+        ready_selector = config.get("fragment_ready_selector") or "a[href]"
+        if fragment:
+            try:
+                ready = BeautifulSoup(fragment, "html.parser").select(ready_selector)
+            except Exception:
+                ready = []
+            if ready:
+                print(f"[{name}] 片段長度 {len(fragment)}，命中 {len(ready)} 個 {ready_selector}")
+                return FetchResult(
+                    url=fragment_url,
+                    html=f"<html><body>{fragment}</body></html>",
+                    engine="requests",
+                    status_code=status_code,
+                )
+            print(f"[{name}] ⚠️ 片段冇 {ready_selector}（可能改版），fall through")
+        # 片段失效時照舊行 Playwright，唔會令來源直接死
     # ---------------------------------
 
     # 如果來源明確要求 Playwright，則直接使用（避免 requests 靜態 shell 誤判有內容導致跳過PW）
@@ -2363,10 +2429,12 @@ def process_source(
                 return [], [], old_fp, False, result.engine, True
 
     if not assets:
-        print(f"  [{name}] ⚠️ 指紋變動但無可下載資產")
-        if config.get("notice_link_selector"):
-            return [], [], old_fp, False, result.engine, True
-        return [], [], new_fp, False, result.engine, False
+        # v5.6.25 (2026-10-30)：抽出 0 個資產 = 呢一頁實際冇內容（空殼／被擋／改版），
+        # 唔係「無變動」。以前會把空殼嘅指紋寫入 fingerprints，下一次就靜靜咁
+        # 「指紋相同 → 跳過」，來源永遠唔會再更新（九龍城區 2026-09-26 起就係咁）。
+        # 現在：保留舊指紋（下輪一定重試）並記入 error_sources（dashboard 見到）。
+        print(f"  [{name}] ⚠️ 指紋變動但無可下載資產（保留舊指紋，下輪重試）")
+        return [], [], old_fp, False, result.engine, True
 
     region = config.get("region", "")
     new_records: List[Dict[str, Any]] = []
