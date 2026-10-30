@@ -125,10 +125,7 @@ print("\n── 2. ajax_fragment 直接抓片段（唔經 JavaScript）──")
 _orig_session = core.SESSION
 fake = FakeSession(FRAGMENT)
 core.SESSION = fake
-try:
-    result = core.fetch_main_page("九龍城區", CONFIG)
-finally:
-    pass
+result = core.fetch_main_page("九龍城區", CONFIG)
 check_true("fetch_main_page 有結果", result is not None)
 if result:
     check("engine 係 requests（冇開 Chromium）", result.engine, "requests")
