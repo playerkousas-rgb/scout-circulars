@@ -5,6 +5,17 @@
 > main 的 JSON 只作種子／測試用途，不再每日更新。
 > 部署、公開 URL、本機排程及救援步驟以 [DATA_STORAGE.md](DATA_STORAGE.md) 為準；下方舊版日常 commit 說明已被取代。
 
+> **2026-10-30 九龍城區（klcscout.hk）修復：** 網站冇改版，但 `/circular` 由頭到尾都係一個空殼——
+> 通告表格係 inline JS `$.get("https://www.klcscout.hk/cportal/getdata.php")` 之後
+> `$('.pt').replaceWith(data)` 注入。Chromium 拉唔到表格（jQuery 未 ready／AJAX 慢／被擋）時，
+> 頁面照樣 HTTP 200、render「成功」，指紋等於空殼 → 由 2026-09-26 起每一晚都「指紋相同」被跳過，
+> 10-29「童軍露營訓練班 2027」一直冇入庫，而且**唔會**出現在 `error_sources`。
+> 兩層修正（`test_klc_fragment_2026_10_30.py` 鎖住）：
+> 1. 新來源類型 `ajax_fragment`：直接 GET 嗰個伺服器端 HTML 片段（唔使 JS），失敗才 fall through 到 Playwright；
+>    Playwright fallback 亦改用 `wait_strategy: selector` 等表格入面嘅 PDF 連結，等唔到就當 render 失敗。
+> 2. `core.process_source`：抽出 0 個資產**唔再**寫入新指紋（保留舊指紋下輪重試）並計入 `error_sources`，
+>    以後再有來源「靜靜咁壞」會即刻在 dashboard 見到，唔會無聲無息漏一個月通告。
+
 本專案按你提供的核心哲學重建：
 
 - **來源隔離（Source Isolation）**
