@@ -66,7 +66,7 @@ _RE_REFERENCE_TITLE = re.compile(
 )
 
 # 2026-10-03 用戶規則：童軍獎勵、津貼計劃等算公布；同樂日、考察團、代表團等算活動
-_RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼")
+_RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼|特惠菜式")
 # 2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布（明確字眼以標題為準）。
 # 「成績公布／結果公布／公佈結果」係賽果＝比賽，所以先遮蓋先。
 _RE_ANNOUNCEMENT_TITLE = re.compile(r"公告|公布|公佈")
@@ -75,7 +75,7 @@ _RE_AWARD_PLAN = re.compile(r"獎勵計劃")
 _RE_YOUTH_AWARD = re.compile(r"青年獎勵")
 # 2026-10-06：用戶點名「一個石籃的故事」係保育體驗活動；標題本身冇「活動」二字，
 # 所以加到強活動規則，避免富內容嘅 Story 標題兜底成 other／公布。
-_RE_ACTIVITY_STRONG = re.compile(r"同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|石籃的故事")
+_RE_ACTIVITY_STRONG = re.compile(r"毅行|同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|石籃的故事")
 # 2026-10-06 用戶規則：「香港童軍大會操」＝活動（大會操係週年活動／典禮，唔係
 # 比賽）；失物認領／失物待領＝公布（唯一例外）。同
 # subscription_tagging.RALLY_ACTIVITY_TERMS／LOST_PROPERTY_TERMS 對齊。

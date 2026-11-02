@@ -46,6 +46,7 @@ def main():
         except subprocess.CalledProcessError:
             print('App Store unavailable; continuing PDF enrichment.', flush=True)
         run(sys.executable, 'enrich.py', '--verbose', '--apply-title-fixes')
+        run(sys.executable, 'tools/apply_notice_corrections.py')
     finally:
         backup()  # Also preserve partial results for recovery; never auto-publish a failed run.
     data_snapshot.publish()

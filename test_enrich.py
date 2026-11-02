@@ -647,6 +647,16 @@ def main():
         "有意參與獎券銷售獎勵比賽的童軍旅請留意總會稍後發出之獎券籌募通告。"
     )
     passed += test(
+        "分類：特惠菜式屬行政資訊，即使標題有訓練班亦係公布",
+        [c["id"] for c in extract_categories("童軍訓練班及活動專用特惠菜式", "")],
+        ["announcement"],
+    )
+    passed += test(
+        "分類：新東毅行係活動，不受 PDF 內文訓練詞影響",
+        [c["id"] for c in extract_categories("新東毅行.越嶺同行", "遠足訓練班及探險章")],
+        ["activity"],
+    )
+    passed += test(
         "分類：標題有『活動』但內文有『比賽』→ 以標題為準（獎券籌募活動＝活動）",
         [c["id"] for c in extract_categories("2027年童軍獎券籌募活動", raffle_body)],
         ["activity"],

@@ -64,6 +64,8 @@ const cases = [
   ['2026年香港童軍大會操失物認領安排', 'announcement'],
   ['2026年香港童軍大會操(五) - 服務邀請', 'service'],
   ['領袖訓練工作坊', 'training'],
+  ['童軍訓練班及活動專用特惠菜式', 'announcement'],
+  ['新東毅行.越嶺同行', 'activity'],
   ['隨意標題', 'other'],
   // 2026-10-09 用戶規則（同 subscription_tagging.py／story_queue.py 對齊）：
   // 「之行／之旅」行程＝活動；「入會／招收／招募」＝公布（更強字眼行先）；
