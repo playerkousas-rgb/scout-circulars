@@ -4,25 +4,10 @@ from tools.apply_notice_corrections import apply_corrections
 
 
 class ApplyNoticeCorrectionsTests(unittest.TestCase):
-    def make_data(self):
-        bad_url = "https://hkscout-tko.org/notice/?nid=209"
+    def make_enrich(self):
         title_announcement = "童軍訓練班及活動專用特惠菜式"
         title_activity = "新東毅行.越嶺同行"
-        cache = {
-            "meta": {"total_notices": 3},
-            "notices": [
-                {"pdf_url": bad_url, "title": "錯誤通告"},
-                {"pdf_url": "menu.pdf", "title": title_announcement},
-                {"pdf_url": "hike.pdf", "title": title_activity},
-            ],
-            "data": {
-                "將軍澳區": [{"pdf_url": bad_url, "url": bad_url, "title": "錯誤通告"}],
-                "總會": [{"pdf_url": "menu.pdf", "title": title_announcement}],
-                "新界東地域": [{"pdf_url": "hike.pdf", "title": title_activity}],
-            },
-        }
-        enrich = {
-            bad_url: {"title": "錯誤通告"},
+        return {
             "menu.pdf": {
                 "title": title_announcement,
                 "source": "總會",
@@ -44,35 +29,47 @@ class ApplyNoticeCorrectionsTests(unittest.TestCase):
                     {"id": "course:venture-expedition", "label": "遠足", "kind": "course"},
                 ],
             },
+            "hike-mirror.pdf": {
+                "title": title_activity,
+                "source": "新界東地域",
+                "categories": [{"id": "announcement", "label": "公布"}],
+                "subscription_tags": ["category:announcement"],
+                "subscription_tag_details": [
+                    {"id": "category:announcement", "label": "公布", "kind": "category"},
+                ],
+            },
+            "unrelated.pdf": {
+                "title": "一般通告",
+                "categories": [{"id": "announcement", "label": "公布"}],
+                "subscription_tags": ["category:announcement"],
+            },
         }
-        return cache, enrich
-
-    def test_removes_invalid_notice_from_all_public_copies_and_enrich(self):
-        cache, enrich = self.make_data()
-        summary = apply_corrections(cache, enrich)
-        bad_url = "https://hkscout-tko.org/notice/?nid=209"
-        self.assertNotIn(bad_url, [row["pdf_url"] for row in cache["notices"]])
-        self.assertFalse(any(row.get("pdf_url") == bad_url for rows in cache["data"].values() for row in rows))
-        self.assertNotIn(bad_url, enrich)
-        self.assertEqual(cache["meta"]["total_notices"], 2)
-        self.assertEqual(summary["removed_cache_rows"], 2)
-        self.assertEqual(summary["removed_enrich_rows"], 1)
 
     def test_corrects_categories_and_preserves_independent_topic_tags(self):
-        cache, enrich = self.make_data()
-        apply_corrections(cache, enrich)
+        enrich = self.make_enrich()
+        summary = apply_corrections(enrich)
         menu = enrich["menu.pdf"]
         hike = enrich["hike.pdf"]
+        self.assertEqual(summary, {"corrected_categories": 3})
         self.assertEqual(menu["categories"][0]["id"], "announcement")
         self.assertIn("category:announcement", menu["subscription_tags"])
         self.assertNotIn("category:training", menu["subscription_tags"])
-        self.assertIn("course:scout-explorer-badge", menu["subscription_tags"])
         self.assertFalse(any(tag.startswith("training:") for tag in menu["subscription_tags"]))
         self.assertFalse(any(detail["id"].startswith("training:") for detail in menu["subscription_tag_details"]))
+        self.assertIn("course:scout-explorer-badge", menu["subscription_tags"])
         self.assertEqual(hike["categories"][0]["id"], "activity")
         self.assertIn("activity:other", hike["subscription_tags"])
         self.assertNotIn("category:announcement", hike["subscription_tags"])
         self.assertIn("course:venture-expedition", hike["subscription_tags"])
+        self.assertEqual(enrich["hike-mirror.pdf"]["categories"][0]["id"], "activity")
+        self.assertEqual(enrich["unrelated.pdf"]["categories"][0]["id"], "announcement")
+
+    def test_rule_is_repeatable(self):
+        enrich = self.make_enrich()
+        apply_corrections(enrich)
+        corrected = {key: value.copy() for key, value in enrich.items()}
+        apply_corrections(enrich)
+        self.assertEqual(enrich, corrected)
 
 
 if __name__ == "__main__":

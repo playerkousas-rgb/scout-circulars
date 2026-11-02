@@ -80,7 +80,7 @@ jobs:
         run: |
           python enrich.py --verbose --apply-title-fixes
 
-      # ── Step 2.5: 套用經人工確認的資料修正（包含錯誤通告剔除及分類更正）──
+      # ── Step 2.5: 套用經人工確認的分類修正（不作通告 URL 永久封鎖）──
       - name: Apply reviewed notice corrections
         run: python tools/apply_notice_corrections.py
 

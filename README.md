@@ -36,7 +36,7 @@
   - 問題回報／意見反映（2026-09-24）：頂欄叮噹旁一粒 **💬**（手機 sticky 頂欄；桌面喺 🔔 通知隔籬）。入去已經有兩個分頁，唔另外加下拉。頁尾／側欄文字入口保留。問題回報填 **APP + 什麼問題**；意見反映填 **有什麼意見**（例如想要什麼幫助）；**姓名／電郵／電話全部選填**。表單 `POST` 去 Scout Admin 嘅 Apps Script（[playerkousas-rgb/scout-admin](https://github.com/playerkousas-rgb/scout-admin)），無本站後端、唔經 Vercel function。回歸測試：`node test_report_feedback.js`
 - `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
-- `tools/apply_notice_corrections.py`：抓取及 enrich 後、發布前套用人工確認的通告刪除／分類修正；修正留在 allowlist 並有回歸測試
+- `tools/apply_notice_corrections.py`：抓取及 enrich 後、發布前套用人工確認的分類修正；規則留在 allowlist 並有回歸測試
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
 - `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
 - `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
@@ -264,8 +264,7 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   （呢個會再下載未分類嘅 PDF，量大時請分批／夜晚跑，避免觸發站方封鎖。）
 - 想調整分類規則，改 `subscription_tagging.py` 的受控分類詞表；不要為罕見／不可靠的名稱加推播匹配。
 - 分類係 PDF 內文級估算，唔一定 100% 準；重要通告請開附件確認。
-- **2026-11-02 用戶確認的兩項標題規則**：標題有「特惠菜式」＝公布（行政資訊，不是訓練）；標題有「毅行」＝活動（遠足／步行活動，即使內文提及訓練或章項目）。三個分類入口（`subscription_tagging.py`、`story_queue.py`、`index.html` 出圖台）同步更新；`test_enrich.py`、`test_story_queue.py`、`test_batch_category.js` 有回歸測試。
-- **錯誤通告永久剔除**：將軍澳區 `https://hkscout-tko.org/notice/?nid=209` 經用戶確認是錯誤通告。`tools/apply_notice_corrections.py` 會在每日 scrape/enrich 後、發布前同時清除 `cache.json` 的 grouped/flat copies 及 `enrich.json` entry，避免來源仍回傳時重新出現。
+- **2026-11-03 用戶確認的兩項標題規則**：標題有「特惠菜式」＝公布（行政資訊，不是訓練）；標題有「毅行」＝活動（遠足／步行活動，即使內文提及訓練或章項目）。三個分類入口（`subscription_tagging.py`、`story_queue.py`、`index.html` 出圖台）同步更新；`test_enrich.py`、`test_story_queue.py`、`test_batch_category.js` 有回歸測試。
 
 ### 列表標題 vs PDF 標題（`--apply-title-fixes`）
 
@@ -613,7 +612,7 @@ python serve_local.py            # http://localhost:8000/index.html，/api/push-
 `scrape.yml` 每日工作流會：
 
 1. 先以 `python tools/data_snapshot.py load` 載入最新完整 `data` 快照，再執行 `core.py`；抓取器重建 cache。
-2. 執行 `enrich.py` 的增量標籤／欄位抽取，然後由 `tools/apply_notice_corrections.py` 套用經覆核的永久修正。
+2. 執行 `enrich.py` 的增量標籤／欄位抽取，然後由 `tools/apply_notice_corrections.py` 套用已確認的分類規則。
    - **2026-10-06：增量模式加 7 日補漏窗**（`INCREMENTAL_CATCHUP_DAYS`）——最近 7 日入庫
      但 `enrich.json` 仲係冇紀錄嘅通告會自動補做（已經有當前版本標籤嘅唔會重抽）。
      原因：`collect_targets()` 以前會靜靜跳過一啲 URL 形狀（東九龍地域入庫通告用
@@ -892,9 +891,9 @@ push 含 workflow 改動嘅 commit 會被 GitHub 拒絕，所以 `ci-proposed/te
 要你自己 `cp` 入去。2026-09-25 已把清單由 8 個測試檔補齊到 **28 個**
 （另外 15 個由來冇跑過，期望值已經腐化過，詳見 `ci-proposed/README.md`）。
 
-## README 維護建議（review：2026-11-02）
+## README 維護建議（review：2026-11-03）
 
-本次 review 已先修正幾個會令新維護者誤會現況的地方：來源數由 49 更新至 50；`scrape.yml` 的說明改為 latest-only `data` branch 流程；通知 workflow 分開說明；加入本次人工確認的分類及錯誤通告修正規則。
+本次 review 已先修正幾個會令新維護者誤會現況的地方：來源數由 49 更新至 50；`scrape.yml` 的說明改為 latest-only `data` branch 流程；通知 workflow 分開說明；補上本次人工確認的分類規則。
 
 後續建議按優先次序：
 
