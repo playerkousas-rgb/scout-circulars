@@ -80,6 +80,10 @@ jobs:
         run: |
           python enrich.py --verbose --apply-title-fixes
 
+      # ── Step 2.5: 套用經人工確認的資料修正（包含錯誤通告剔除及分類更正）──
+      - name: Apply reviewed notice corrections
+        run: python tools/apply_notice_corrections.py
+
       # ── Step 3: 健康檢查（報告記錄在 Action log）──
       - name: Health check (report only)
         run: |

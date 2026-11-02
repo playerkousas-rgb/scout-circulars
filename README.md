@@ -29,13 +29,14 @@
 ## 檔案
 
 - `core.py`：Python 爬蟲主程式
-- `sources.json`：49 個來源映射設定
+- `sources.json`：50 個來源映射設定（可用來源以檔案實際設定為準）
 - `cache.json`：輸出資料與內部狀態
 - `index.html`：靜態前端（多分頁 / 手風琴 / 時間視窗 / 支部標籤 / 分享（文案＋社交＋IG 分享圖 4:5，另設 📱 Story 版 1080×1920＋內文轉圖，多版可一次過分享／合併成一份多頁 PDF）/ 匿名通知設定 / 問題回報／意見反映）。通告專屬頁：每張通告有深鏈 `?n=<16hex>`（同 push ID 同源），單一 ID 著陸會直接彈出該通告嘅專屬頁（標題＋區徽＋截止/對象/費用/名額＋開附件/分享/複製連結），分享面板「複製連結」一撳攞鏈，貼上 IG Story link sticker 就形成 Story → 圖書館閉環
   - IG 分享圖（2026-09-21；**2026-09-22 由「深藍底＋字」重寫成 12 款設計**）：瀏覽器 canvas 即畫 1080×1350（feed 4:5）／1080×1920（Story），用人者裝置字體同記憶體，**唔經任何 Vercel function／storage**；取代 2026-09-16 移除嘅 server-side render（PyMuPDF）——Vercel 爆容量嘅真兇係 Python 依賴入 bundle（見 VERCEL_EMERGENCY_CLEANUP_2026-09-19.md），唔係圖片儲存，所以 server render 唔會返嚟。12 款、md5 揀款、縮圖 picker 見「分享通告」一節
   - 問題回報／意見反映（2026-09-24）：頂欄叮噹旁一粒 **💬**（手機 sticky 頂欄；桌面喺 🔔 通知隔籬）。入去已經有兩個分頁，唔另外加下拉。頁尾／側欄文字入口保留。問題回報填 **APP + 什麼問題**；意見反映填 **有什麼意見**（例如想要什麼幫助）；**姓名／電郵／電話全部選填**。表單 `POST` 去 Scout Admin 嘅 Apps Script（[playerkousas-rgb/scout-admin](https://github.com/playerkousas-rgb/scout-admin)），無本站後端、唔經 Vercel function。回歸測試：`node test_report_feedback.js`
 - `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
+- `tools/apply_notice_corrections.py`：抓取及 enrich 後、發布前套用人工確認的通告刪除／分類修正；修正留在 allowlist 並有回歸測試
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
 - `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
 - `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
@@ -45,7 +46,7 @@
 - `api/pdf_proxy.py`：stdlib-only PDF byte bridge（2026-09-21）。「分享 → 轉換內文做圖」用 pdf.js 喺用戶部機 rasterize，但 49 個來源站大部分冇 CORS，所以呢個 function 淨係過橋攞 bytes：零依賴、零儲存、4MB 上限、`%PDF` magic 檢查、只 proxy cache.json 列出嘅通告 URL（防 open-relay），回應俾 Vercel edge cache 一星期
 - `serve_local.py`：本機同時提供靜態頁 + `/api/push-*`
 - `manifest.webmanifest`、`icon.svg`、`icons/`：PWA 安裝設定與全套圖示（見下文「圖示」）
-- `.github/workflows/scrape.yml`：每日抓取、增量 enrichment、匿名 Web Push 與自動更新
+- `.github/workflows/scrape.yml`：每日載入 latest-only `data` 快照、抓取、增量 enrich、套用人工確認修正、備份 artifact 並發布新 `data` 快照；Web Push 由獨立 `.github/workflows/notify.yml` 處理
 - `.github/workflows/scrape-appstore.yml`（2026-09-24，**未開啟**）：未來取代 scrape.yml 嘅版本——core 抓取後加掃 SCOUT APP STORE（`tools/scrape_appstore.py`，anon key 唯讀、baseline 防舊 app 風暴、url 去重）。而家只掛 workflow_dispatch，啟用時先開 schedule 並停用 scrape.yml；唔使新 secrets
 - `icons/orgs/` + `tools/fetch_org_logos.py` + `tools/build_org_avif.mjs` + `.github/workflows/org-icons.yml`（2026-09-21）：49 個童軍組織（總會＋5 地域＋43 區）官方徽號，正規化成 256/64 AVIF（每個 3–11KB），出 Story 時做區徽角標用。官方檔全部喺 scout.org.hk「Regions and Districts」頁；官方補捉行 `org-icons` workflow（Actions 手動掣）一次搞掂，預覽喺 `/icons/orgs/preview.html`
 - `icons/awards/` + `tools/build_award_avif.mjs`（2026-09-24）：童軍總會四支部最高獎章——幼童軍**金紫荊獎章**、童軍**總領袖獎章**、深資童軍**榮譽童軍獎章**、樂行童軍**貝登堡獎章**——正規化成 256/64 AVIF（幾何同 orgs 一致：contain 232／60 置中透明底），作 4 個「進度追蹤」小工具（cubsbadge／scoutbadge／vsbadge／roverbadge）嘅 ICON；`awards.json` 係支部→獎章對照表，母圖放 `icons/awards/src/`，Vercel 只上 avif＋awards.json（見 `.vercelignore`）
@@ -263,6 +264,8 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   （呢個會再下載未分類嘅 PDF，量大時請分批／夜晚跑，避免觸發站方封鎖。）
 - 想調整分類規則，改 `subscription_tagging.py` 的受控分類詞表；不要為罕見／不可靠的名稱加推播匹配。
 - 分類係 PDF 內文級估算，唔一定 100% 準；重要通告請開附件確認。
+- **2026-11-02 用戶確認的兩項標題規則**：標題有「特惠菜式」＝公布（行政資訊，不是訓練）；標題有「毅行」＝活動（遠足／步行活動，即使內文提及訓練或章項目）。三個分類入口（`subscription_tagging.py`、`story_queue.py`、`index.html` 出圖台）同步更新；`test_enrich.py`、`test_story_queue.py`、`test_batch_category.js` 有回歸測試。
+- **錯誤通告永久剔除**：將軍澳區 `https://hkscout-tko.org/notice/?nid=209` 經用戶確認是錯誤通告。`tools/apply_notice_corrections.py` 會在每日 scrape/enrich 後、發布前同時清除 `cache.json` 的 grouped/flat copies 及 `enrich.json` entry，避免來源仍回傳時重新出現。
 
 ### 列表標題 vs PDF 標題（`--apply-title-fixes`）
 
@@ -607,10 +610,10 @@ python serve_local.py            # http://localhost:8000/index.html，/api/push-
 
 ## GitHub Actions
 
-工作流會：
+`scrape.yml` 每日工作流會：
 
-1. 每日定時執行 `core.py`；不論是否使用 Supabase，都會重建公開的 `cache.json`。
-2. 執行 `enrich.py` 的增量標籤／欄位抽取。
+1. 先以 `python tools/data_snapshot.py load` 載入最新完整 `data` 快照，再執行 `core.py`；抓取器重建 cache。
+2. 執行 `enrich.py` 的增量標籤／欄位抽取，然後由 `tools/apply_notice_corrections.py` 套用經覆核的永久修正。
    - **2026-10-06：增量模式加 7 日補漏窗**（`INCREMENTAL_CATCHUP_DAYS`）——最近 7 日入庫
      但 `enrich.json` 仲係冇紀錄嘅通告會自動補做（已經有當前版本標籤嘅唔會重抽）。
      原因：`collect_targets()` 以前會靜靜跳過一啲 URL 形狀（東九龍地域入庫通告用
@@ -620,8 +623,7 @@ python serve_local.py            # http://localhost:8000/index.html，/api/push-
      要主動重算既有資料，仍須明確執行 `python enrich.py --backfill-categories` 或 `--backfill`。
    - **2026-10-06：抽取規則升版只標記新抽資料**；預設增量不會單因 `enrich_version` 不同而改寫已完整 entry。
      如要重算舊版 entry，須明確使用 `--backfill-categories`。
-3. 如已設定 `VAPID_PRIVATE_KEY`，執行 `notify.py`，先做每位匿名訂閱者的支部＋興趣交集和合併，再發送 Web Push。
-4. 自動提交 `cache.json`、`enrich.json` 和 `fingerprints.json`，讓前端從 GitHub Raw 讀取最新資料。
+3. `scrape.yml` 將六份 allowlist JSON 以 parentless latest-only snapshot 原子發布到 `data` branch；30 日 artifact 另作短期備份。通知由獨立 `notify.yml` 排程載入同一快照並處理 Web Push，不屬於 scraper 工作流。
 
 ### 本機補漏（`run-local-scrape.bat` + `run-local-scrape-logged.bat`）
 
@@ -890,10 +892,15 @@ push 含 workflow 改動嘅 commit 會被 GitHub 拒絕，所以 `ci-proposed/te
 要你自己 `cp` 入去。2026-09-25 已把清單由 8 個測試檔補齊到 **28 個**
 （另外 15 個由來冇跑過，期望值已經腐化過，詳見 `ci-proposed/README.md`）。
 
-## 下一步建議
+## README 維護建議（review：2026-11-02）
 
-如果你把你現有 repo 貼上來，我可以下一輪直接做：
+本次 review 已先修正幾個會令新維護者誤會現況的地方：來源數由 49 更新至 50；`scrape.yml` 的說明改為 latest-only `data` branch 流程；通知 workflow 分開說明；加入本次人工確認的分類及錯誤通告修正規則。
 
-- 對照你現有 `core.py` 修補崩潰點
-- 併回你原本已成功抓到的來源
-- 補埋 Vercel / Raw CDN / GitHub Actions 實際部署細節
+後續建議按優先次序：
+
+1. **把「現行操作」同「歷史事故紀錄」分開**：README 現時接近逐日工程日誌，分類規則／Vercel 事故／修復過程交錯且篇幅很長。保留細節，但搬到 `docs/` 或既有報告檔；README 首頁只留目前架構、常用命令、資料發布流程及目前未解事項。
+2. **加一張有日期的現況表**：逐項列 `已完成／待人工執行／未處理`、負責 workflow 及最後驗證日期，避免「已修」仍留在「已知待處理」標題下，或舊部署步驟被當成目前指引。
+3. **落實自動測試 workflow**：README 記錄目前 `test.yml` 尚未安裝、測試在 `ci-proposed/`。這是最重要的維護風險；應由有 repository workflow 權限的人按 `ci-proposed/README.md` 安裝，並先確認測試命令／依賴與現有 workflow 一致。
+4. **把 README 範例命令標明副作用與執行位置**：尤其 `data_snapshot.py publish` 會更新公開 `data` branch、補抓可能重下載 PDF、Instagram publish 會真的發文。每段保留「先 dry-run／是否寫入／是否觸發外部副作用」標籤。
+
+以上係文件整理建議，唔需要大改分類或爬蟲邏輯先可以逐項處理。

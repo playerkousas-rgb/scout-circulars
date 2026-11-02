@@ -197,11 +197,12 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
                  ("海灘清潔服務日", "service"), ("秋季遠足活動", "activity"),
                  ("東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事", "activity"),
                  ("東九50樂悠遊之與你「童」行(步行籌款活動)", "activity"),
-                 ("探尋宗教足跡-參訪寶蓮禪寺(P102/2026)", "activity")]
+                 ("探尋宗教足跡-參訪寶蓮禪寺(P102/2026)", "activity"),
+                 ("童軍訓練班及活動專用特惠菜式", "announcement"),
+                 ("新東毅行.越嶺同行", "activity")]
         for title, want in cases:
             item = _item(title=title)
-            cache = _cache({"筲箕灣區": [item]})
-            got = sq.pick_today(cache, TODAY, _enrich([item]))[0]["category"]
+            got = sq.classify_category(item, None)
             self.assertEqual(got, want, f"{title} 應該係 {want} 而係 {got}")
 
         unclassified = _item(title="一般通告")
