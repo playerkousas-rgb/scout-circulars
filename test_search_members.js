@@ -21,9 +21,9 @@ const src = html.slice(start, end);
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(src + `
-  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS };
+  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS, expandBranchScopeByAge };
 `, ctx);
-const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS } = ctx.__exports;
+const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS, expandBranchScopeByAge } = ctx.__exports;
 
 let pass = 0;
 let fail = 0;
@@ -123,6 +123,33 @@ check('分類：enrich 冇 categories → announcement', matchesCategory({ title
 check('分類：enrich 冇 categories 唔再當未分類', matchesCategory({ title: '旅團註冊須知' }, {}, 'other'), false);
 check('分類：ALL 永遠命中', matchesCategory({ title: '乜都冇' }, null, 'ALL'), true);
 
+// 5b. 2026-11-04 用戶規則：歲數／「XX支部或以上」展開（前端同 Python 同步）。
+function branchList(item, enrich) {
+  return [...itemBranches(item, enrich)].sort().join('、');
+}
+check('15歲以上之童軍成員 → 童軍＋深資童軍＋樂行童軍',
+  branchList({ title: '活動通告' }, { audience: '15歲以上之童軍成員' }),
+  ['樂行童軍', '深資童軍', '童軍'].sort().join('、'));
+check('18歲以上之童軍成員 → 深資童軍＋樂行童軍（裸「童軍」要清走）',
+  branchList({ title: '活動通告' }, { audience: '18歲或以上之童軍成員' }),
+  ['樂行童軍', '深資童軍'].sort().join('、'));
+check('11至26歲明列支部 → 跟通告列出嘅三個支部',
+  branchList({ title: '獎項公布' }, { audience: '11至26歲的童軍、深資童軍或樂行童軍支部成員' }),
+  ['樂行童軍', '深資童軍', '童軍'].sort().join('、'));
+check('童軍支部或以上 → 童軍＋深資童軍＋樂行童軍',
+  branchList({ title: '活動通告' }, { audience: '童軍支部或以上成員' }),
+  ['樂行童軍', '深資童軍', '童軍'].sort().join('、'));
+check('幼童軍支部或以上 → 幼童軍以上嘅青年支部，唔包領袖',
+  branchList({ title: '活動1 課程及嘉年華 報名表 幼童軍或以上' }, null),
+  ['幼童軍', '樂行童軍', '深資童軍', '童軍'].sort().join('、'));
+check('18歲以下家長同意書唔會變成深資／樂行推播',
+  ['深資童軍', '樂行童軍'].some(b => itemBranches(
+    { title: '童軍訓練班' },
+    { audience: '童軍、領袖。18歲以下之參加者必須簽署家長同意書' }
+  ).has(b)), false);
+check('「或以上」展開後童軍篩選會命中幼童軍或以上通告',
+  matchesBranch({ title: '活動1 課程及嘉年華 報名表 幼童軍或以上' }, null, '童軍'), true);
+
 // 6. 使用 repo 真實資料作回歸測試：所有「童軍」結果都必須有精確 token（audience 或標題）。
 const cache = JSON.parse(fs.readFileSync(path.join(base, 'cache.json'), 'utf8'));
 const enrichMap = JSON.parse(fs.readFileSync(path.join(base, 'enrich.json'), 'utf8'));
@@ -133,10 +160,12 @@ const realMatches = items.filter(item => {
 });
 const invalidRealMatches = realMatches.filter(item => {
   const enrich = enrichMap[item.pdf_url] || enrichMap[item.url] || null;
-  const tokens = enrich?.audience
-    ? extractMemberTokens(enrich.audience)
-    : extractMemberTokens(item.title || '');
-  return !(tokens.includes('童軍') || tokens.includes('所有成員'));
+  const source = enrich?.audience || item.title || '';
+  const tokens = extractMemberTokens(source);
+  // 2026-11-04：「XX支部或以上／XX歲以上」展開出嚟嘅童軍一樣係有效命中，
+  // 唔係舊版嗰種「童軍」食咗「幼童軍」嘅假陽性。
+  const implied = expandBranchScopeByAge(source).implied;
+  return !(tokens.includes('童軍') || tokens.includes('所有成員') || implied.has('童軍'));
 });
 check('真實資料中「童軍」標籤有結果', realMatches.length > 0, true);
 check('真實資料中沒有非童軍 audience 混入', invalidRealMatches.length, 0);

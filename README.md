@@ -36,7 +36,7 @@
   - 問題回報／意見反映（2026-09-24）：頂欄叮噹旁一粒 **💬**（手機 sticky 頂欄；桌面喺 🔔 通知隔籬）。入去已經有兩個分頁，唔另外加下拉。頁尾／側欄文字入口保留。問題回報填 **APP + 什麼問題**；意見反映填 **有什麼意見**（例如想要什麼幫助）；**姓名／電郵／電話全部選填**。表單 `POST` 去 Scout Admin 嘅 Apps Script（[playerkousas-rgb/scout-admin](https://github.com/playerkousas-rgb/scout-admin)），無本站後端、唔經 Vercel function。回歸測試：`node test_report_feedback.js`
 - `subscription_catalog.json`：受控官方支部、訓練、服務、活動與比賽訂閱選項（不設自由文字標籤）
 - `subscription_tagging.py`：由標題、PDF 文字與參加對象產生可靠的支部／訂閱 IDs
-- `tools/apply_notice_corrections.py`：抓取及 enrich 後、發布前套用人工確認的分類修正；規則留在 allowlist 並有回歸測試
+- `tools/apply_notice_corrections.py`：抓取及 enrich 後、發布前套用人工確認的分類／改名／網頁型通告補標籤修正；規則留在 allowlist 並有回歸測試（2026-11-04 擴充，見「通告分類」）
 - `push-client.js`、`sw.js`：瀏覽器 LocalStorage、Service Worker 與 Web Push 收件處理
 - `notify.py`：GitHub Actions 的匿名 Push dispatcher（先聚合每個訂閱者的命中）
 - `check_cache_fresh.py`／`check_local_gain.py`：本機補跑（`run-local-scrape.bat`）舊版嘅兩個閘門（前者判斷「cache 係咪今日」，後者判斷「本機有冇 GitHub 未有嘅通告」）。**2026-09-14 起 `run-local-scrape.bat` 已唔再 call 佢哋**（見下文「本機補漏」），檔案同 `test_check_local_gain.py` 保留作參考／診斷用途
@@ -146,6 +146,12 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   1. `enrich.json` 有 `audience`（由 PDF 內文抽出）→ 以佢為準；
   2. 冇 `audience`（舊通告／抽唔到）→ 退而求其次睇標題。
 - 兩者都用最長詞優先（longest-match），所以「童軍」不會誤中「小童軍」「幼童軍」「深資童軍」「樂行童軍」；「所有成員」當作全部支部命中。
+- **2026-11-04 用戶規則：歲數／「XX支部或以上」都要展開做支部標籤**。通告成日唔逐個支部列名：
+  - `15歲以上之童軍成員` → 童軍＋深資童軍＋樂行童軍；`18歲以上` → 深資童軍＋樂行童軍（裸「童軍」只係泛稱，唔代表童軍支部）；`11至26歲` 用下限計（各支部年齡上限 8／12／16／20／26）。
+  - `童軍支部或以上成員` → 童軍＋深資童軍＋樂行童軍；`幼童軍支部或以上` → 幼童軍以上四個青年支部。階層係 **小童軍＜幼童軍＜童軍＜深資童軍＜樂行童軍**，用戶確認**唔**自動加領袖／成年成員。
+  - 只認「XX歲（或）以上」＋附近成員字眼；`18歲以下…家長同意書` 唔會誤當資格。通告自己列咗第二個支部就當明確清單，全部保留，唔會被歲數推論清走。
+  - 權威規則喺 `subscription_tagging.py`（`age_and_or_above_branches()`／`extra_branch_tokens()`）；`enrich.py` 抽 `audience`、推播 `branch_tags`、前端 `index.html` 篩選（`expandBranchScopeByAge()` JS 鏡像）三邊共用。異體字對照（`奬／獎`、`敎／教`、`歳／歲`）共用 `CHAR_VARIANTS`，NFKC 本身唔會合一。
+  - 回歸測試：`test_branch_age_rules_2026_11_04.py`、`test_enrich.py` ⑪、`test_search_members.js`。
 
 ## 時間視窗
 
@@ -265,6 +271,18 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 - 想調整分類規則，改 `subscription_tagging.py` 的受控分類詞表；不要為罕見／不可靠的名稱加推播匹配。
 - 分類係 PDF 內文級估算，唔一定 100% 準；重要通告請開附件確認。
 - **2026-11-03 用戶確認的兩項標題規則**：標題有「特惠菜式」＝公布（行政資訊，不是訓練）；標題有「毅行」＝活動（遠足／步行活動，即使內文提及訓練或章項目）。三個分類入口（`subscription_tagging.py`、`story_queue.py`、`index.html` 出圖台）同步更新；`test_enrich.py`、`test_story_queue.py`、`test_batch_category.js` 有回歸測試。
+- **2026-11-04 用戶確認（`data` branch 2026-11-04 批次三張通告）**：
+  - `11-2026 小童軍支部 - 「小草」賀新春—小童軍親子利是封設計比賽 (截止: 2026-12-26)` → **比賽**。呢張係將軍澳區網頁型通告（URL 係 `/notice/?nid=209`，`enrich.py` 永遠唔會下載），以往前端一律兜底做「公布」；`tools/apply_notice_corrections.py` 而家會用標題規則補一條 `enrich` entry（連截止日、小童軍支部標籤）。
+  - `冬日弦音 • 聖誕燒烤派對` → **活動**（`派對／燒烤` 加落 `OTHER_ACTIVITY_TERMS`，三份分類規則同步）。
+  - `葛量洪青少年制服團隊傑出服務奬2026-2027` → 標題**還原**＋**公布**：`奬／獎` 異體字令列表標題同 PDF 對唔上，舊版把內文第一條「2.1 11至26歲…支部成員;」當成 PDF 真標題寫入 `cache.json`，分類又被「服務」裸字拉去做服務。而家 `compact_title()` 共用異體字對照、`heading_looks_like_title()`／`extract_pdf_heading()` 擋編號／分號資格條款、`reapply_stored_title_fixes()` 自動還原舊嘅壞更正，並把 `服務獎／獎學基金` 列為公布覆蓋詞。對象依歲數規則補做 `童軍、深資童軍、樂行童軍`。
+  - **即刻套用今日資料**（`data` 快照先載入、修正、再發布；每日 00:15 HKT scrape workflow 亦會自動跑一次）：
+    ```bash
+    python tools/data_snapshot.py load
+    python tools/apply_notice_corrections.py
+    python tools/data_snapshot.py publish
+    ```
+    ⚠️ `publish` 會更新公開 `data` branch；本機執行前確認冇其他人同時寫入（lease 會擋）。修正係冪等，重跑唔會重複改。
+  - 回歸測試：`test_notice_corrections.py`（今日三張＋冪等）、`test_enrich.py` ⑪、`test_branch_age_rules_2026_11_04.py`、`test_story_queue.py`、`test_batch_category.js`。
 
 ### 列表標題 vs PDF 標題（`--apply-title-fixes`）
 
@@ -276,6 +294,9 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
 - 更正會記錄 `listing_title`（原本列表標題）；之後每次 `enrich.py` run 零下載
   「重新套用」一次（`reapply_stored_title_fixes`），因為 `core.py`（尤其 `--force`）
   每日都會用列表標題重建 `cache.json`，否則更正第二日就會被蓋走。
+  **2026-11-04**：同一個函數而家會自動**還原**舊版寫入、但過唔到
+  `heading_looks_like_title()` 嘅壞更正（`title_check=reverted`），`cache.json` 同
+  `enrich.json` 同步，唔使人手逐張執。
 - 護欄：`heading_looks_like_title()` —— 公函欄位（由／致／知會／編號…）、檔號行
   （「行政通告第 13/2026號」）、欄位行（截止日期…）、表格／時間表行一律唔會寫入；
   舊版 enrich.json 冇 `listing_title` 嘅亂抽更正永遠唔會套用。

@@ -51,7 +51,10 @@ import logging
 import warnings
 
 from subscription_tagging import extract_categories as classify_subscription_categories
-from subscription_tagging import extract_subscription_metadata, load_catalog
+from subscription_tagging import (
+    CHAR_VARIANTS, YOUTH_SECTION_ORDER, age_and_or_above_branches,
+    extract_subscription_metadata, load_catalog,
+)
 
 # 靜音 pdfminer/pdfplumber 嘈雜的 FontBBox 等警告
 logging.getLogger("pdfminer").setLevel(logging.ERROR)
@@ -60,7 +63,7 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.8"  # PDF 標題／表格／對象／訂閱分類規則版本
+ENRICH_VERSION = "3.9"  # 2026-11-04：標題異體字／資格條款防線、歲數與「支部或以上」對象抽取
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
 # （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
 # 標題更正會記錄 listing_title，之後每次 run 重新套用（見
@@ -180,6 +183,11 @@ def compact(s):
 # enrich 本來就要下載 PDF，喺呢度核對一次：對得上就維持，對唔上先改名。
 
 _TITLE_PUNCT_RE = re.compile(r"[「」『』\"“”'（）()\[\]【】\-–—/／:：,.。、·•*＊]")
+# 2026-11-04：列表頁同 PDF 內文會用唔同異體字（「傑出服務奬」vs「傑出服務獎」）。
+# NFKC **唔會**合一呢啲字，舊版因此以為兩份標題對唔上，就把 PDF 第一條
+# 「2.1 11至26歲…支部成員;」當成真標題寫返 cache（葛量洪獎學基金個案）。
+# 比對前先做一層異體字正規化；顯示用嘅標題完全唔改。對照表共用
+# subscription_tagging.CHAR_VARIANTS（分類關鍵詞都用同一份）。
 _LETTERHEAD_RE = re.compile(
     r"香港童軍總會|Scout Association|電話|傳真|\bTel\b|\bFax\b|\bE-?mail\b|電郵|"
     r"www\.|https?://|檔號|發文者|受文者|內部傳閱"
@@ -278,6 +286,27 @@ _SECTION_LABEL_RE = re.compile(
     r"備註|其他|詳情|服裝|集合|解散|交通|獎項|查詢)"
     r"[：:]?$"
 )
+# 2026-11-04：參加資格嘅編號條款唔係標題。個案（葛量洪獎學基金 CPA202607）：
+# PDF 文字層第一個撞中「通告」hint 嘅候選係
+#   「2.1 11至26歲(以本通告發出日為準)的童軍、深資童軍或樂行童軍支部成員;」
+# 38 字、括號平衡、又唔係表格／欄位，舊版全部防線都過到，結果寫咗做通告名。
+# 形狀特徵：(a) 編號開頭 2.1／（1）／1. 等；(b) 講歲數／成員／資格；
+# (c) 句尾係分號或逗號（真標題唔會咁收尾）。三者任一＋語境就要擋。
+_NUMBERED_CLAUSE_RE = re.compile(
+    r"^(?:\d{1,2}(?:\.\d{1,2})+|[（(]?\d{1,2}[）).、]|[（(][一二三四五六七八九十]{1,3}[）)])\s*\S"
+)
+_ELIGIBILITY_WORD_RE = re.compile(r"歲|年滿|支部成員|成員|資格|或以上|以上")
+_CLAUSE_TAIL_RE = re.compile(r"[;；,，、]$")
+
+
+def looks_like_eligibility_clause(line: str) -> bool:
+    """編號／分號收尾嘅參加資格條款，永遠唔可以當通告標題。"""
+    text = compact(nfkc(line or ""))
+    if not text or not _ELIGIBILITY_WORD_RE.search(text):
+        return False
+    return bool(_NUMBERED_CLAUSE_RE.match(text) or _CLAUSE_TAIL_RE.search(text))
+
+
 TITLE_SIMILARITY_THRESHOLD = 0.90
 
 
@@ -311,8 +340,8 @@ def has_unbalanced_brackets(text: str) -> bool:
 
 
 def compact_title(value: str) -> str:
-    """比較用：去掉引號、空白、標點同句尾「通告」，並統一「渡假／度假」異體寫法。"""
-    text = nfkc(value or "").replace("渡假", "度假")
+    """比較用：去掉引號、空白、標點同句尾「通告」，統一異體字（奬→獎、渡假→度假）。"""
+    text = nfkc(value or "").replace("渡假", "度假").translate(CHAR_VARIANTS)
     text = _TITLE_PUNCT_RE.sub("", text)
     text = re.sub(r"\s+", "", text)
     text = re.sub(r"通告$", "", text)
@@ -366,6 +395,9 @@ def extract_pdf_heading(text: str) -> str:
         # 2026-10-06：欄位標籤行（「（一）日期：」「（二）參加資格：」）唔係標題
         if _SECTION_LABEL_RE.match(compact_line):
             continue
+        # 2026-11-04：編號／分號收尾嘅參加資格條款唔係標題（葛量洪個案）
+        if looks_like_eligibility_clause(line):
+            continue
         if re.fullmatch(r"20\d{2}年\d{1,2}月\d{1,2}日", compact_line):
             continue
         if _CIRCULAR_CODE_RE.match(line.strip()):
@@ -399,6 +431,9 @@ def heading_looks_like_title(text: str) -> bool:
         return False
     # 2026-10-06：欄位標籤行（「（一）日期：」）唔可以寫返 cache 做標題
     if _SECTION_LABEL_RE.match(line):
+        return False
+    # 2026-11-04：編號／分號收尾嘅參加資格條款唔可以寫返 cache（葛量洪個案）
+    if looks_like_eligibility_clause(line):
         return False
     if _HEADING_SKIP_RE.search(line) or _CIRCULAR_NUMBER_RE.match(line) or _CIRCULAR_CODE_RE.match(line):
         return False
@@ -560,6 +595,9 @@ def reapply_stored_title_fixes(cache: dict, enrich: dict) -> int:
       2. 更正標題要通過 heading_looks_like_title()；
       3. 只有當 cache 標題仍然係原本嘅列表標題（即係未被其他嘢改過）先寫——
          列表標題日後改咗就唔會覆蓋。
+      4. 2026-11-04 修復：舊版寫入過、但而家過唔到 heading_looks_like_title()
+         嘅「更正」（例如編號參加資格條款）會自動還原做列表標題，並把 entry
+         標成 reverted，唔會再被重新套用。唔使人手逐張執。
     回傳今次實際寫入幾多條。
     """
     fixed = 0
@@ -570,7 +608,16 @@ def reapply_stored_title_fixes(cache: dict, enrich: dict) -> int:
         corrected = str(entry.get("title") or "")
         if not listing_title or not corrected or listing_title == corrected:
             continue
+        # 2026-11-04：唔似標題嘅舊更正 → 還原（cache + enrich 同步）。
         if not heading_looks_like_title(corrected):
+            current = _cache_title_for(cache, url)
+            changed_cache = apply_title_to_cache(cache, url, listing_title) if current == corrected else False
+            entry["title"] = listing_title
+            entry["title_check"] = "reverted"
+            entry["title_revert_reason"] = "heading_looks_like_title failed on stored correction"
+            if changed_cache:
+                fixed += 1
+                print(f"   ↩️  還原唔似標題嘅舊更正：{corrected[:28]} → {listing_title[:28]}")
             continue
         if _cache_title_for(cache, url) != listing_title:
             continue
@@ -845,7 +892,12 @@ def audience_scope(text):
     arbitrary PDF line wrap. Keep the scope available for evidence/review.
     """
     lines = [compact(line).strip() for line in nfkc(text).splitlines()]
-    explicit = re.compile(r"(?<![\u4e00-\u9fff])(?:參加資格|參加對象|入會資格|受資助資格|資助對象)\s*[:：]?")
+    # 2026-11-04：獎學金／獎項／提名通告唔用「參加資格」，用「申請資格／參選
+    # 資格／提名資格」等；舊版一個都唔認，於是 audience 留空（葛量洪個案）。
+    explicit = re.compile(
+        r"(?<![\u4e00-\u9fff])(?:參加資格|參加對象|入會資格|受資助資格|資助對象|"
+        r"申請資格|參選資格|提名資格|甄選資格|受獎資格)\s*[:：]?"
+    )
     weak = re.compile(r"^(?:[（(]?[一二三四五六七八九十\d]+[）)、.]\s*)?(?:對象|資格)\s*[:：]")
     boundary = re.compile(
         r"^(?:[（(]?[一二三四五六七八九十\d]+[）)、.]\s*)?"
@@ -867,6 +919,26 @@ def audience_scope(text):
                     break
                 parts.append(following)
             return " ".join(parts).strip()
+    # 2026-11-04：冇任何 label 嗰陣，認「編號＋歲數＋支部＋成員」嘅資格條款。
+    # 呢個係有界 fallback（頭 40 行、四個條件同时命中），唔係全文亂掃，維持
+    # 「寧願漏抽」原則：家長同意書「18歲以下…」、行程表年齡欄都唔會誤中。
+    # 個案：葛量洪通告「2.1 11至26歲(…)的童軍、深資童軍或樂行童軍支部成員;」
+    for i, line in enumerate(lines[:40]):
+        if not line or not _NUMBERED_CLAUSE_RE.match(line):
+            continue
+        if not re.search(r"歲", line):
+            continue
+        if not re.search(r"小童軍|幼童軍|深資童軍|樂行童軍|童軍", line):
+            continue
+        if not re.search(r"成員|資格|對象|人士|參加者", line):
+            continue
+        parts = [line]
+        for following in lines[i + 1:i + 5]:
+            # 下一個欄位（截止日期／費用…）唔屬於資格範圍，唔好撈埋入嚟。
+            if boundary.match(following) or not _NUMBERED_CLAUSE_RE.match(following):
+                break
+            parts.append(following)
+        return " ".join(parts).strip()
     return _recipient_scope(text)
 
 
@@ -910,6 +982,21 @@ def extract_audience(text):
         age = re.search(r"(?:年滿|年齡(?:為)?)(\d+)歲|(?:\d+)歲或以上", c)
         qualifier = f"（{age.group(0)}）" if age else ""
         found = ["各支部成員" + qualifier] + [x for x in found if x != "童軍"]
+    # 2026-11-04 用戶規則：歲數／「XX支部或以上」寫法要落實做支部標籤。
+    # 例如「15歲以上之童軍成員」唔可以淨係得「童軍」；「童軍支部或以上成員」
+    # 要補埋深資童軍、樂行童軍。展開規則統一放喺 subscription_tagging，
+    # 呢度只把推論到嘅支部加落 audience（前端／推播就自動跟住）。
+    age_branches, above_branches = age_and_or_above_branches(scope)
+    implied = age_branches | above_branches
+    explicit_other_sections = any(
+        section in c for section in YOUTH_SECTION_ORDER if section != "童軍"
+    )
+    if age_branches and not explicit_other_sections:
+        # 「18歲以上之童軍成員」個裸「童軍」只係泛稱，唔係童軍支部。
+        found = [x for x in found if x not in YOUTH_SECTION_ORDER]
+    for branch in YOUTH_SECTION_ORDER:
+        if branch in implied and branch not in found:
+            found.append(branch)
     return "、".join(dict.fromkeys(found))
 
 
@@ -1693,7 +1780,11 @@ def main():
         reapplied = reapply_stored_title_fixes(cache, enrich)
         if reapplied:
             cache_dirty = True
-            print(f"📝 重新套用 {reapplied} 個已核實嘅 PDF 標題（cache 之前被列表標題蓋走）")
+            # 2026-11-04：還原唔似標題嘅舊更正會同時改 enrich entry
+            # （title_check=reverted），所以要喺原本嗰次 dump 之後再寫一次。
+            with open(ENRICH_FILE, "w", encoding="utf-8") as f:
+                json.dump(enrich, f, ensure_ascii=False, indent=2)
+            print(f"📝 重新套用／還原 {reapplied} 個標題（cache 之前被列表標題蓋走，或舊更正過唔到防線）")
 
     # 2026-09-14：呢個寫入之前完全冇接上（cache_dirty 設咗從來冇讀過），
     # 所以 PR #19 個「標題雙重認證」實際上從未改過 cache.json。
