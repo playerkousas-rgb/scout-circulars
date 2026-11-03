@@ -90,6 +90,11 @@ const cases = [
   ['九灣小漁夫出海記-水上文化親子大冒險', 'activity'],
   ['維多利亞城區森林大冒險小幼童軍填色比賽', 'competition'],  // 大冒險唔會食走比賽
   ['小童軍親子堆沙工作坊及BBQ', 'training'],                  // 「親子」刻意唔收
+  // 2026-11-04 用戶確認：聯誼派對＝活動、獎學金／傑出服務獎＝公布。
+  ['冬日弦音 • 聖誕燒烤派對', 'activity'],
+  ['葛量洪青少年制服團隊傑出服務奬2026-2027', 'announcement'], // 異體字「奬」都要認到
+  ['葛量洪獎學基金 (Grantham Scholarships Fund) 葛量洪青少年制服團隊傑出服務獎 2026-2027', 'announcement'],
+  ['11-2026 小童軍支部 - 「小草」賀新春—小童軍親子利是封設計比賽 (截止: 2026-12-26)', 'competition'],
 ];
 for (const [title, want] of cases) {
   const got = batchCategory({ title, source_site: 'x' }, null);

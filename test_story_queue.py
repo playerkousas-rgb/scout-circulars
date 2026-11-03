@@ -209,6 +209,20 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
         self.assertEqual(sq.pick_today(_cache({"筲箕灣區": [unclassified]}), TODAY,
                                        _enrich([unclassified])), [])
 
+    def test_2026_11_04_party_and_scholarship_rules(self):
+        """用戶 2026-11-04：聖誕燒烤派對＝活動；傑出服務獎／獎學基金＝公布。
+
+        同 subscription_tagging 同 index.html BATCH_RE 三份規則一致；
+        利是封設計比賽仍然係比賽（標題賽事字眼行先）。
+        """
+        cases = [("冬日弦音 • 聖誕燒烤派對", "activity"),
+                 ("葛量洪青少年制服團隊傑出服務奬2026-2027", "announcement"),
+                 ("葛量洪獎學基金 (Grantham Scholarships Fund) 葛量洪青少年制服團隊傑出服務獎 2026-2027", "announcement"),
+                 ("11-2026 小童軍支部 - 「小草」賀新春—小童軍親子利是封設計比賽 (截止: 2026-12-26)", "competition")]
+        for title, want in cases:
+            got = sq.classify_category(_item(title=title), None)
+            self.assertEqual(got, want, f"{title} 應該係 {want} 而係 {got}")
+
     def test_rally_is_activity_and_lost_property_is_announcement(self):
         """2026-10-06 用戶規則：「香港童軍大會操」＝活動；失物認領＝公布。
 

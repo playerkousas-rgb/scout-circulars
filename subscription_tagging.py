@@ -145,6 +145,10 @@ OTHER_ACTIVITY_TERMS = [
     # 要維持比賽（比賽喺 title_decisive 行先，就係為咗呢個個案）。同理「親子」
     # 全庫 69 筆、大半係工作坊／比賽，一律唔收。
     "出海記", "大冒險",
+    # 2026-11-04 用戶個案：「冬日弦音 • 聖誕燒烤派對」（Cir23/2026）標題冇
+    # 「活動」二字，舊版兜底成公布。派對／燒烤係聯誼活動，唔係行政公布；
+    # 三份規則（subscription_tagging／story_queue／index.html BATCH_RE）同步。
+    "派對", "燒烤",
 ]
 
 # 2026-10-03 新增：強活動詞（同樂日、考察團、代表團等）——呢啲標題一律算活動，
@@ -194,6 +198,11 @@ ANNOUNCEMENT_OVERRIDE_TERMS = [
     "嘉許計劃",
     # 價目／餐飲安排屬行政資訊；即使標題同時提到「訓練班」亦歸公布。
     "特惠菜式",
+    # 2026-11-04 用戶個案：「葛量洪青少年制服團隊傑出服務奬2026-2027」係
+    # 獎學金／獎項公布，唔係招募義工嘅服務活動。標題個「服務」裸字會被
+    # SERVICE_BARE_TERMS 拎去做服務，所以要喺 title_decisive 之前截住。
+    # 「服務獎」亦覆蓋既有「服務獎勵」；「獎學基金」 covers 基金名放全名嘅寫法。
+    "服務獎", "獎學基金",
 ]
 ANNOUNCEMENT_OVERRIDE_EXCLUDE_TERMS = [
     "青年獎勵",  # 香港青年獎勵計劃係訓練，唔係公布
@@ -239,11 +248,98 @@ REFERENCE_TITLE_TERMS = [
 MONTHLY_DIGEST_TITLE_RE = re.compile(r"通告[【\[].{0,20}?年.{0,10}?月")
 ALL_MEMBERS_TERMS = ["所有成員", "全體成員", "各支部成員"]
 
+# ── 2026-11-04 用戶規則：年齡／「XX支部或以上」當係支部標籤 ─────────────
+# 通告寫「15歲以上之童軍成員」唔係淨係得「童軍」一個支部：15 歲嘅童軍、深資
+# 童軍、樂行童軍都合資格；「18歲以上」就剩返深資童軍、樂行童軍。
+# 「XX支部或以上成員」＝嗰個支部＋佢上面嘅青年支部（小童軍＜幼童軍＜童軍＜
+# 深資童軍＜樂行童軍）；用戶 2026-11-04 確認領袖／成年成員**唔**自動加。
+YOUTH_SECTION_ORDER = ("小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍")
+# 年齡判斷只喺「童軍系統」三個支部推論；小童軍／幼童軍一定要通告自己寫明，
+# 唔好由「XX歲以上之童軍成員」猜佢哋出嚟（會誤推畀幼童軍訂閱者）。
+AGE_SCOPE_SECTIONS = ("童軍", "深資童軍", "樂行童軍")
+# 各支部年齡上限（香港童軍總會支部年齡，約數）：只要上限 ≥ 通告寫嘅歲數，
+# 嗰個支部仍然可以有合資格成員。15 → 童軍(16)＋深資(20)＋樂行(26)；
+# 18 → 深資(20)＋樂行(26)。用戶俾嘅兩個例子就係咁計出嚟。
+SECTION_AGE_CEILING = {
+    "小童軍": 8, "幼童軍": 12, "童軍": 16, "深資童軍": 20, "樂行童軍": 26,
+}
+# 最長分支名行先，避免「深資童軍」被「童軍」食咗。
+_BRANCH_OR_ABOVE_RE = re.compile(
+    r"(小童軍|幼童軍|深資童軍|樂行童軍|童軍)(?:支部)?\s*(?:或以上|以上)"
+    r"\s*(?:之|的)?\s*(?:支部)?(?:成員)?"
+)
+# 「15歲以上」「18歲或以上」「年滿18歲」；刻意唔收「18歲以下」——嗰句係
+# 未成年同意書，唔係參加資格（見 test_enrich.py 嘅 RT06 個案）。
+_AGE_ABOVE_RE = re.compile(r"(?:年滿|年齡(?:為|滿)?)?\s*(\d{1,2})\s*歲\s*(?:或以上|以上)")
+# 「11至26歲」呢類年齡區間：下限先決定適用支部。
+_AGE_RANGE_RE = re.compile(r"(\d{1,2})\s*(?:歲)?\s*(?:至|到|－|-|—|~)\s*(\d{1,2})\s*歲")
+_MEMBER_CONTEXT_RE = re.compile(r"童軍|成員|支部")
+
+
+def branches_from_or_above(branch: str) -> Tuple[str, ...]:
+    """「XX支部或以上」→ 嗰個支部＋上面嘅青年支部（唔包領袖）。"""
+    if branch not in YOUTH_SECTION_ORDER:
+        return ()
+    return YOUTH_SECTION_ORDER[YOUTH_SECTION_ORDER.index(branch):]
+
+
+def branches_from_min_age(age: int) -> Tuple[str, ...]:
+    """「XX歲以上之童軍成員」→ 年齡上限仍然覆蓋到 XX 歲嘅童軍系統支部。"""
+    return tuple(s for s in AGE_SCOPE_SECTIONS if SECTION_AGE_CEILING[s] >= age)
+
+
+def age_and_or_above_branches(value: Any) -> Tuple[Set[str], Set[str]]:
+    """分開回傳 (歲數推論嘅支部, 「XX支部或以上」推論嘅支部)。
+
+    分開係有必要：「18歲以上之童軍成員」入面嗰個裸「童軍」只係泛稱，唔代表
+    童軍支部（用戶 2026-11-04：18 歲以上＝深資童軍＋樂行童軍）；但
+    「童軍支部或以上」個「童軍」係真支部，要留低。enrich.extract_audience()
+    同 _scan_branch_tokens() 就靠呢個分別決定要唔要清走裸「童軍」。
+    """
+    text = unicodedata.normalize("NFKC", html.unescape(str(value or ""))).translate(CHAR_VARIANTS)
+    if not text:
+        return set(), set()
+    above: Set[str] = set()
+    for match in _BRANCH_OR_ABOVE_RE.finditer(text):
+        above.update(branches_from_or_above(match.group(1)))
+    ages: List[int] = []
+    for match in _AGE_ABOVE_RE.finditer(text):
+        if _MEMBER_CONTEXT_RE.search(text[match.end():match.end() + 24]):
+            ages.append(int(match.group(1)))
+    for match in _AGE_RANGE_RE.finditer(text):
+        if _MEMBER_CONTEXT_RE.search(text[match.end():match.end() + 24]):
+            ages.append(int(match.group(1)))
+    age_branches: Set[str] = set()
+    for age in ages:
+        age_branches.update(branches_from_min_age(age))
+    return age_branches, above
+
+
+def extra_branch_tokens(value: Any) -> Set[str]:
+    """由歲數／「或以上」寫法推論出嘅全部額外支部（配合 longest-match 掃描）。
+
+    只認「XX歲(或)以上」＋附近嘅成員字眼，唔認「XX歲以下」；年齡區間用下限。
+    呢個係 Python 端唯一定義，enrich.py 抽 audience 同推播支部標籤都用佢，
+    index.html 嘅 expandBranchScopeByAge() 係佢嘅 JS 鏡像。
+    """
+    age_branches, above = age_and_or_above_branches(value)
+    return age_branches | above
+
+
+
+# 2026-11-04：站方列表同 PDF 常用異體字（「傑出服務奬」vs「傑出服務獎」）。
+# NFKC **唔會**合一呢啲字，唔統一的話關鍵詞／標題對照會兩邊走。
+# 呢個對照表係共用：normalize()（所有分類／支部詞）、extra_branch_tokens()
+# 同 enrich.compact_title() 都用同一份，唔好各自抄一份。
+CHAR_VARIANTS = str.maketrans({
+    "奬": "獎", "奨": "獎", "敎": "教", "歳": "歲", "館": "館", "鶴": "鶴",
+})
+
 
 def normalize(value: Any) -> str:
-    """NFKC + whitespace-insensitive text suitable for Chinese matching."""
+    """NFKC + 異體字合一 + whitespace-insensitive text suitable for Chinese matching."""
     value = html.unescape(str(value or ""))
-    value = unicodedata.normalize("NFKC", value).lower()
+    value = unicodedata.normalize("NFKC", value).lower().translate(CHAR_VARIANTS)
     value = value.replace("\u00a0", " ")
     return re.sub(r"[\u200b-\u200f\ufeff\s]+", "", value)
 
@@ -666,15 +762,21 @@ def _scan_branch_tokens(value: Any, catalog: Mapping[str, Any]) -> Set[str]:
     """Scan longest aliases first so 幼童軍/深資童軍 never become 童軍."""
     text = normalize(value)
     # Retain age/role restrictions in display without turning them into broad
-    # youth subscriptions. We cannot infer eligible ages from branch names.
+    # youth subscriptions. Explicit 「XX歲以上」 phrases are expanded by
+    # extra_branch_tokens() (2026-11-04); bare branch names are never guessed.
     text = re.sub(r"各支部成員[（(][^）)]*[）)]", "", text)
     text = text.replace("教練員", "領袖")
+    # 2026-11-04：歲數／「XX支部或以上」寫法嘅隱含支部。放喺「所有成員」之前
+    # 計，等「所有成員」仍然係最高優先（全部支部），唔會被年齡收窄。
+    age_branches, above_branches = age_and_or_above_branches(value)
+    implied = age_branches | above_branches
     if "各支部成員" in text:
-        return {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"} | _scan_branch_tokens(text.replace("各支部成員", ""), catalog)
+        return ({"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"}
+                | _scan_branch_tokens(text.replace("各支部成員", ""), catalog) | implied)
     if not text:
-        return set()
+        return implied
     if any(normalize(term) in text for term in ALL_MEMBERS_TERMS):
-        return set(catalog.get("_branch_ids", set()))
+        return set(catalog.get("_branch_ids", set())) | implied
 
     aliases: List[Tuple[str, str]] = []
     for branch in catalog.get("branches", []):
@@ -695,7 +797,14 @@ def _scan_branch_tokens(value: Any, catalog: Mapping[str, Any]) -> Set[str]:
             index += len(alias)
         else:
             index += 1
-    return found
+    # 「18歲以上之童軍成員」個裸「童軍」係泛稱，唔代表童軍支部；但通告
+    # 自己列咗第二個支部（幼童軍／深資童軍…）就當係明確清單，全部保留。
+    explicit_other_sections = any(
+        normalize(section) in text for section in YOUTH_SECTION_ORDER if section != "童軍"
+    )
+    if age_branches and not explicit_other_sections:
+        found = {branch for branch in found if branch not in YOUTH_SECTION_ORDER}
+    return found | implied
 
 
 def extract_branch_ids(title: Any, audience: Any = "", *, catalog: Optional[Mapping[str, Any]] = None) -> Set[str]:

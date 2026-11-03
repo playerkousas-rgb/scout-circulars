@@ -853,6 +853,64 @@
       '領袖', '家長', '成年成員', '會務委員', '公眾', '親友', '所有成員',
     ];
 
+    // ── 2026-11-04 用戶規則：歲數／「XX支部或以上」展開 ────────────────
+    // 同 subscription_tagging.extra_branch_tokens() 一模一樣嘅 JS 鏡像。
+    // 「15歲以上之童軍成員」＝童軍＋深資童軍＋樂行童軍；「18歲以上」剩返
+    // 深資童軍＋樂行童軍；「童軍支部或以上成員」＝童軍＋深資童軍＋樂行童軍。
+    // 用戶確認「以上」只計青年支部，領袖／成年成員唔自動加。
+    const YOUTH_SECTION_ORDER = ['小童軍', '幼童軍', '童軍', '深資童軍', '樂行童軍'];
+    const SECTION_AGE_CEILING = { '小童軍': 8, '幼童軍': 12, '童軍': 16, '深資童軍': 20, '樂行童軍': 26 };
+    const AGE_SCOPE_SECTIONS = ['童軍', '深資童軍', '樂行童軍'];
+    const RE_BRANCH_OR_ABOVE = /(小童軍|幼童軍|深資童軍|樂行童軍|童軍)(?:支部)?\s*(?:或以上|以上)\s*(?:之|的)?\s*(?:支部)?(?:成員)?/g;
+    // 刻意唔收「XX歲以下」：嗰句係未成年同意書，唔係參加資格。
+    const RE_AGE_ABOVE = /(\d{1,2})\s*歲\s*(?:或以上|以上)/g;
+    const RE_AGE_RANGE = /(\d{1,2})\s*(?:歲)?\s*(?:至|到|－|-|—|~)\s*(\d{1,2})\s*歲/g;
+    const RE_MEMBER_CONTEXT = /童軍|成員|支部/;
+
+    function branchesFromOrAbove(branch) {
+      const i = YOUTH_SECTION_ORDER.indexOf(branch);
+      return i < 0 ? [] : YOUTH_SECTION_ORDER.slice(i);
+    }
+
+    function branchesFromMinAge(age) {
+      return AGE_SCOPE_SECTIONS.filter(s => SECTION_AGE_CEILING[s] >= age);
+    }
+
+    // 同 Python age_and_or_above_branches() 對齊：歲數同「或以上」要分開計，
+    // 因為「18歲以上之童軍成員」個裸「童軍」唔代表童軍支部。
+    function branchAgeScope(value) {
+      // 異體字（奬/獎、敎/教、歳/歲）同 Python CHAR_VARIANTS 一致。
+      const text = String(value ?? '').normalize('NFKC')
+        .replace(/[奬奨]/g, '獎').replace(/敎/g, '教').replace(/歳/g, '歲');
+      const age = new Set();
+      const above = new Set();
+      const ages = [];
+      for (const m of text.matchAll(RE_BRANCH_OR_ABOVE)) {
+        for (const branch of branchesFromOrAbove(m[1])) above.add(normalizeSearchText(branch));
+      }
+      for (const m of text.matchAll(RE_AGE_ABOVE)) {
+        if (RE_MEMBER_CONTEXT.test(text.slice(m.index + m[0].length, m.index + m[0].length + 24))) ages.push(Number(m[1]));
+      }
+      for (const m of text.matchAll(RE_AGE_RANGE)) {
+        if (RE_MEMBER_CONTEXT.test(text.slice(m.index + m[0].length, m.index + m[0].length + 24))) ages.push(Number(m[1]));
+      }
+      for (const a of ages) {
+        for (const branch of branchesFromMinAge(a)) age.add(normalizeSearchText(branch));
+      }
+      return { age, above, text };
+    }
+
+    // 回傳 { implied, genericScout }：implied 係要加嘅支部；genericScout 係
+    // 「歲數句入面嘅裸童軍要清走」（通告冇列第二個青年支部時先成立）。
+    function expandBranchScopeByAge(value) {
+      const { age, above, text } = branchAgeScope(value);
+      const implied = new Set([...age, ...above]);
+      const genericScout = age.size > 0 && !YOUTH_SECTION_ORDER.some(
+        s => s !== '童軍' && text.includes(s)
+      );
+      return { implied, genericScout };
+    }
+
     function normalizeSearchText(value) {
       return String(value ?? '').normalize('NFKC').toLowerCase().trim();
     }
@@ -891,10 +949,17 @@
       const tokens = base
         ? extractMemberTokens(base)
         : extractMemberTokens(item.title || '');
-      if (tokens.includes('所有成員')) {
+      // 2026-11-04：歲數／「XX支部或以上」嘅隱含支部一樣要計入篩選，
+      // 同 Python 推播標籤（subscription_tagging）保持一致。
+      const { implied, genericScout } = expandBranchScopeByAge(base || item.title || '');
+      const filtered = genericScout
+        ? tokens.filter(t => !YOUTH_SECTION_ORDER.some(s => normalizeSearchText(s) === t))
+        : tokens;
+      for (const branch of implied) filtered.push(branch);
+      if (filtered.includes('所有成員')) {
         return new Set(BRANCH_TAGS.filter(t => t.id !== 'ALL').map(t => normalizeSearchText(t.id)));
       }
-      return new Set(tokens);
+      return new Set(filtered);
     }
 
     function matchesBranch(item, enrich, branchId) {
@@ -6272,7 +6337,9 @@
       // 2026-10-09：「之行／之旅」行程＝活動（「服務之旅」仍係服務）。
       // 2026-10-15：加「出海記／大冒險」（用戶點名九龍灣區「九灣小漁夫出海記-水上
       // 文化親子大冒險」）；同 subscription_tagging.OTHER_ACTIVITY_TERMS 對齊。
-      activity: /活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅|出海記|大冒險/,
+      // 2026-11-04：派對／燒烤係聯誼活動（「冬日弦音 • 聖誕燒烤派對」），
+      // 同 subscription_tagging.OTHER_ACTIVITY_TERMS／story_queue._RE_ACTIVITY 對齊。
+      activity: /活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅|出海記|大冒險|派對|燒烤/,
       // 2026-10-09：同 subscription_tagging.MEMBERSHIP_ADMIN_TERMS 對齊——
       // 入會表格、招收新會員、會員招募＝公布（service／competition／training 行先）。
       membership_admin: /入會|招收|招募/,
@@ -6283,7 +6350,9 @@
       // story_queue._RE_REFERENCE_TITLE 對齊）——月度摘要內文有晒全月通告字眼，
       // 一俾人睇就分錯，所以呢類一律＝公布。
       reference_title: /行事曆|一覽表|訓練綱要|課程大綱|章程|指引|結果公布|得獎名單|名單|便覽|通告一覽|通告[【[][^】\]]{0,20}?年[^】\]]{0,10}?月/,
-      announcement_override: /童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼|獎勵計劃|特惠菜式/,
+      // 2026-11-04：「傑出服務獎／獎學基金」係獎項公布，唔係服務活動；
+      // 同 subscription_tagging.ANNOUNCEMENT_OVERRIDE_TERMS 對齊。
+      announcement_override: /童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|服務獎|獎學基金|嘉許計劃|津貼計劃|津貼|獎勵計劃|特惠菜式/,
       // 標題有「公告／公布／公佈」＝公布；下面先用 announcement_result 遮蓋賽果片語。
       announcement_title: /公告|公布|公佈/,
       announcement_result: /成績公布|成績公佈|結果公布|結果公佈|公布結果|公佈結果|賽果公布|賽果公佈/,
@@ -6299,6 +6368,13 @@
       lost_property: /失物認領|失物待領|失物領回|失物處理/,
     };
 
+    // 2026-11-04：異體字（奬/獎、敎/教、歳/歲）同 Python CHAR_VARIANTS 對齊，
+    // 否則「傑出服務奬」喺出圖台會跌落「服務」而主畫面係「公布」。
+    function normalizeTitleText(value) {
+      return String(value ?? '').normalize('NFKC')
+        .replace(/[奬奨]/g, '獎').replace(/敎/g, '教').replace(/歳/g, '歲');
+    }
+
     function batchCategory(item, ex) {
       if (BATCH_TOOLS_SOURCES.has(String((item && item.source_site) || '').trim())) return 'tools';
       const cats = ex && ex.categories;
@@ -6310,7 +6386,7 @@
           if (c.id === 'training' || c.id === 'service' || c.id === 'activity') return c.id;
         }
       }
-      const title = String((item && item.title) || '');
+      const title = normalizeTitleText((item && item.title) || '');
       // 2026-10-06 用戶規則：失物認領／失物待領＝公布（行政公告），優先過一切；
       // 「香港童軍大會操」＝活動（大會操本身係活動，唔係比賽）；但「有服務XX
       // 一定是歸服務」，所以大會操嘅服務邀請／義工招募仍然歸服務（「服務獎勵」

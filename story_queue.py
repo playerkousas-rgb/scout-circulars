@@ -23,6 +23,10 @@ from urllib.parse import urlsplit, parse_qs
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+# 2026-11-04：異體字（奬/獎、敎/教…）對照共用 subscription_tagging 嘅定義，
+# 唔好喺 Story 規則再抄一份，否則「傑出服務奬」會一邊公布、一邊服務。
+from subscription_tagging import CHAR_VARIANTS  # noqa: E402
+
 HKT = timezone(timedelta(hours=8))
 
 # 排序時冇截止日期嘅通告排最尾
@@ -49,7 +53,9 @@ _RE_SERVICE = re.compile(r"服務(?!組)|工作人員|義工|義務")
 # 2026-10-15：「出海記／大冒險」行程＝活動（用戶點名九龍灣區「九灣小漁夫出海記-
 # 水上文化親子大冒險」俾海報內文「訓練班」搶去做訓練）。同 subscription_tagging.
 # OTHER_ACTIVITY_TERMS 對齊；「森林大冒險…填色比賽」仍然係比賽，因為比賽行先。
-_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅|出海記|大冒險")
+# 2026-11-04：派對／燒烤＝聯誼活動（「冬日弦音 • 聖誕燒烤派對」），
+# 同 subscription_tagging.OTHER_ACTIVITY_TERMS／index.html BATCH_RE 對齊。
+_RE_ACTIVITY = re.compile(r"活動|旅行|遠足|宿營|露營|嘉年華|同樂日|晚宴|參觀|參訪|體驗|遊|市集|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|步行籌款|籌款|之行|之旅|出海記|大冒險|派對|燒烤")
 # 2026-10-09：同 subscription_tagging.MEMBERSHIP_ADMIN_TERMS 對齊——入會表格、
 # 招收新會員、會員招募係行政公布。擺喺 service／competition／training 之後：
 # 「工作人員招募」＝服務、「XX錦標賽-隊員招募」＝比賽、「訓練班學員招募」＝訓練。
@@ -66,7 +72,9 @@ _RE_REFERENCE_TITLE = re.compile(
 )
 
 # 2026-10-03 用戶規則：童軍獎勵、津貼計劃等算公布；同樂日、考察團、代表團等算活動
-_RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|津貼計劃|津貼|特惠菜式")
+# 2026-11-04：「傑出服務獎／獎學基金」係獎項公布，唔係招募義工；
+# 同 subscription_tagging.ANNOUNCEMENT_OVERRIDE_TERMS／index.html BATCH_RE 對齊。
+_RE_ANNOUNCEMENT_OVERRIDE = re.compile(r"童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|服務獎|獎學基金|嘉許計劃|津貼計劃|津貼|特惠菜式")
 # 2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布（明確字眼以標題為準）。
 # 「成績公布／結果公布／公佈結果」係賽果＝比賽，所以先遮蓋先。
 _RE_ANNOUNCEMENT_TITLE = re.compile(r"公告|公布|公佈")
@@ -116,7 +124,7 @@ def classify_category(item: dict, ex: dict | None) -> str:
     # 2026-10-06：最前面加 失物認領(公布) > 香港童軍大會操(活動)。
     # 2026-10-09：訓練之後加 會員招募行政(入會/招收/招募→公布)，先過活動。
     # 同 subscription_tagging.extract_categories 對齊。
-    title = str(item.get("title") or "")
+    title = str(item.get("title") or "").translate(CHAR_VARIANTS)
     # 2026-10-06 用戶規則：失物認領／失物待領＝公布（行政公告），優先過一切。
     if _RE_LOST_PROPERTY.search(title):
         return "announcement"

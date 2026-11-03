@@ -17,7 +17,7 @@ from enrich import (
     heading_looks_like_title, reapply_stored_title_fixes, has_unbalanced_brackets,
     looks_like_table_row, deadline_from_tables, fee_from_tables,
     is_enrichable_url, skip_reason, summarize_skipped_links, collect_targets,
-    summarize_cross_source_consistency,
+    summarize_cross_source_consistency, audience_scope, looks_like_eligibility_clause,
     TITLE_SIMILARITY_THRESHOLD, INCREMENTAL_CATCHUP_DAYS,
     CURRENT_SUBSCRIPTION_CATALOG_VERSION, has_current_enrichment_tags,
 )
@@ -1361,6 +1361,110 @@ def main():
             [c.get("id") for c in tws_entry.get("categories", [])],
         ),
         ([tws_listing], [tws_listing], tws_listing, "verified", False, "", ["幼童軍"], ["announcement"]),
+    )
+
+    # ── ⑪ 2026-11-04 用戶規則：改名防線、歲數／「支部或以上」支部標籤 ──
+    grantham_listing = "葛量洪青少年制服團隊傑出服務奬2026-2027"
+    bad_clause = "2.1 11至26歲(以本通告發出日為準)的童軍、深資童軍或樂行童軍支部成員;"
+    grantham_pdf = (
+        "葛量洪獎學基金 (Grantham Scholarships Fund)\n"
+        "葛量洪青少年制服團隊傑出服務獎2026-2027\n"
+        "（二）申請資格：\n" + bad_clause + "\n"
+        "（三）截止日期：2026年12月7日\n"
+    )
+    passed += test(
+        "⑪ 異體字「奬／獎」唔會再令列表標題對唔上 PDF（唔再改名）",
+        (
+            compact_title("傑出服務奬2026") == compact_title("傑出服務獎2026"),
+            reconcile_listing_title(grantham_listing, grantham_pdf)["status"],
+            reconcile_listing_title(grantham_listing, grantham_pdf)["title"],
+        ),
+        (True, "verified", grantham_listing),
+    )
+    passed += test(
+        "⑪ 編號／分號收尾嘅參加資格條款唔係標題（兩道防線）",
+        (
+            looks_like_eligibility_clause(bad_clause),
+            heading_looks_like_title(bad_clause),
+            heading_looks_like_title("區總部公布"),
+            extract_pdf_heading(grantham_pdf),
+        ),
+        (True, False, True, "葛量洪獎學基金 (Grantham Scholarships Fund)"),
+    )
+    grantham_no_label = "葛量洪獎學基金\n" + bad_clause + "\n（三）截止日期：2026年12月7日"
+    passed += test(
+        "⑪ 冇 label 嘅編號資格條款都抽到 audience（有界 fallback，唔撈下個欄位）",
+        (
+            "11至26歲" in audience_scope(grantham_no_label),
+            "樂行童軍" in audience_scope(grantham_no_label),
+            "截止日期" in audience_scope(grantham_no_label),
+            extract_audience(grantham_no_label),
+        ),
+        (True, True, False, "深資童軍、樂行童軍、童軍"),
+    )
+    passed += test(
+        "⑪ 獎學金通告用「申請資格」label 都抽到對象",
+        extract_audience("（二）申請資格：15歲或以上之童軍成員。\n（三）費用：全免"),
+        "童軍、深資童軍、樂行童軍",
+    )
+    passed += test(
+        "⑪ 15歲以上＝童軍＋深資童軍＋樂行童軍；18歲以上唔包童軍",
+        (
+            extract_audience("參加資格：15歲以上之童軍成員。"),
+            extract_audience("參加資格：18歲或以上之童軍成員。"),
+        ),
+        ("童軍、深資童軍、樂行童軍", "深資童軍、樂行童軍"),
+    )
+    passed += test(
+        "⑪ 「XX支部或以上成員」展開到該支部以上（唔包領袖）",
+        (
+            extract_audience("參加資格：童軍支部或以上成員。"),
+            extract_audience("參加資格：幼童軍支部或以上之成員。"),
+            extract_audience("參加資格：深資童軍或以上支部成員。"),
+        ),
+        ("童軍、深資童軍、樂行童軍",
+         "幼童軍、童軍、深資童軍、樂行童軍",
+         "深資童軍、樂行童軍"),
+    )
+    passed += test(
+        "⑪ 18歲以下家長同意書唔當係年齡資格（唔會變深資／樂行）",
+        extract_audience("參加資格：童軍、領袖\n18歲以下之參加者必須簽署家長／監護人同意書（RT06）。"),
+        "童軍、領袖",
+    )
+    passed += test(
+        "⑪ 推播支部標籤跟歲數規則（標題冇支部字眼都啱）",
+        (
+            extract_subscription_metadata("活動通告", "", "15歲以上之童軍成員")["branch_tags"],
+            extract_subscription_metadata("活動通告", "", "18歲以上之童軍成員")["branch_tags"],
+            extract_subscription_metadata("活動通告", "", "幼童軍支部或以上成員")["branch_tags"],
+        ),
+        (["樂行童軍", "深資童軍", "童軍"],
+         ["樂行童軍", "深資童軍"],
+         ["幼童軍", "樂行童軍", "深資童軍", "童軍"]),
+    )
+    passed += test(
+        "⑪ 三張通告嘅分類（活動／公布／比賽）",
+        (
+            extract_categories("冬日弦音 • 聖誕燒烤派對", "")[0]["label"],
+            extract_categories("葛量洪青少年制服團隊傑出服務奬2026-2027", "社會服務")[0]["label"],
+            extract_categories("11-2026 小童軍支部 - 「小草」賀新春—小童軍親子利是封設計比賽 (截止: 2026-12-26)", "")[0]["label"],
+        ),
+        ("活動", "公布", "比賽"),
+    )
+    reverted_cache = {"data": {"總會": [
+        {"title": bad_clause, "pdf_url": "https://example/grantham.pdf",
+         "url": "https://example/grantham.pdf", "captured_date": "2026-11-04"}]},
+        "notices": [{"title": bad_clause, "pdf_url": "https://example/grantham.pdf"}]}
+    reverted_enrich = {"https://example/grantham.pdf": {
+        "title": bad_clause, "listing_title": grantham_listing, "title_check": "corrected"}}
+    passed += test(
+        "⑪ 舊版寫入嘅假標題會自動還原做列表標題（cache＋enrich）",
+        (
+            reapply_stored_title_fixes(reverted_cache, reverted_enrich),
+            reverted_cache["data"]["總會"][0]["title"],
+            reverted_enrich["https://example/grantham.pdf"]["title_check"],
+        ),
+        (1, grantham_listing, "reverted"),
     )
 
     total = len(TEST_RESULTS)
