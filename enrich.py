@@ -776,8 +776,13 @@ def find_date(s):
 # 舊版 extract_deadline 喺呢個 3 行窗口攞第一個日期＝第一堂日期（唔係截止日）。
 # 有表格結構就直接讀「截止日期」欄，唔使猜。
 _TABLE_DEADLINE_HEADER_RE = re.compile(r"截止")
+# 表格費用欄會用「費用($)」「課程費用（每位）」「材料費」等標題；
+# 接受受控的費用同義詞及括號單位，但刻意唔接受「按金」「費用發放方式」等欄。
 _TABLE_FEE_HEADER_RE = re.compile(
-    r"^(?:費用|班費|收費|報名費|活動費用|團費)(?:\s*[（(][^）)]{0,12}[)）]|\s*[:：]|\s*\$)?$"
+    r"^(?:(?:訓練班|報名|活動|訓練|課程|集訓|班|材料|器材|學|餐|團|建造|造艇)?費用|"
+    r"收費|報名費用|報名費|活動費|訓練班費|訓練費|課程費|集訓費|班費|餐費|團費|"
+    r"材料費|器材費|學費|建造費|造艇費|售價|每人費用|每位費用)"
+    r"(?:[（(][^）)]{0,20}[)）])?$"
 )
 # 2026-10-06：好多通告唔寫「截止」兩個字，而係「必須於 2026 年 11 月 30 日
 # （星期一）或之前填妥回條，交回…」。個案：東九龍地域 26228「2027年童軍獎券
@@ -794,8 +799,8 @@ _DEADLINE_DATE_BEFORE_RE = re.compile(
 )
 
 
-def _table_column_first_value(tables, header_re, max_header_rows=4):
-    """喺表格搵表頭含指定字眼嘅欄，回傳該欄第一個非空值。"""
+def _table_column_values(tables, header_re, max_header_rows=4):
+    """逐個回傳表格費用欄／截止欄嘅非空資料格（最多檢查前幾行表頭）。"""
     for rows in tables or []:
         column = None
         start = 0
@@ -812,8 +817,12 @@ def _table_column_first_value(tables, header_re, max_header_rows=4):
             if column < len(row):
                 value = str(row[column] or "").strip()
                 if value:
-                    return value
-    return ""
+                    yield value
+
+
+def _table_column_first_value(tables, header_re, max_header_rows=4):
+    """喺表格搵表頭含指定字眼嘅欄，回傳該欄第一個非空值。"""
+    return next(_table_column_values(tables, header_re, max_header_rows), "")
 
 
 def deadline_from_tables(tables):
@@ -823,23 +832,25 @@ def deadline_from_tables(tables):
 
 
 def fee_from_tables(tables):
-    """表格『費用／班費／收費』欄嘅第一個金額。
+    """表格費用欄嘅第一個有效金額。
 
-    只認個欄名，唔會攞「按金」（可退）或者「名額」；純數字欄位（例如 160）
-    喺童軍通告一律當港幣。2026-10-27：若格內唔係金額／全免（例如津貼申請表
-    填寫『所屬銀行』『待定』），一律回空字串，唔好原樣當費用回傳。
+    只認費用類表頭，唔會攞「按金」（可退）或者「名額」；純數字欄位（例如 160）
+    喺童軍通告一律當港幣。若費用欄前幾格係空白／「待定」等非金額文字，繼續掃
+    同一欄後面的資料列，避免第一個佔位格令整欄嘅實際費用漏抽。
     """
-    value = _table_column_first_value(tables, _TABLE_FEE_HEADER_RE)
-    if not value:
-        return ""
-    bare = compact(value)
-    if re.fullmatch(r"[\d,]+(?:\.\d+)?", bare):
-        if float(bare.replace(",", "")) > 0:
-            return f"HK${bare}"
-        return ""
-    if re.search(r"(?:USD\$|US\$|美元)\s*[\d,]+(?:\.\d+)?", bare):
-        return normalize_fee(value)
-    return _fee_from_scope(value)
+    for value in _table_column_values(tables, _TABLE_FEE_HEADER_RE):
+        bare = compact(value)
+        if re.fullmatch(r"[\d,]+(?:\.\d+)?", bare):
+            if float(bare.replace(",", "")) > 0:
+                return f"HK${bare}"
+            continue
+        if re.search(r"(?:USD\$|US\$|美元)\s*[\d,]+(?:\.\d+)?", bare):
+            fee = normalize_fee(value)
+        else:
+            fee = _fee_from_scope(value)
+        if fee:
+            return fee
+    return ""
 
 
 def extract_after_label(text, label_keys, stop_keys, max_len=120):
@@ -1059,6 +1070,12 @@ FEE_PATTERNS = [
     r"(?:HK\$|HKD|港幣|\$)\s*[\d,]+(?:\.\d+)?\s*元?(?:正)?",
     r"[\d,]+\s*元(?:正)?",
 ]
+FEE_LABEL_KEYS = [
+    "報名費用", "活動費用", "課程費用", "訓練班費用", "集訓費用", "材料費用",
+    "費用", "收費", "報名費", "餐費", "團費", "班費", "集訓費", "訓練費",
+    "課程費", "材料費", "器材費", "學費", "建造費", "造艇費", "售價",
+]
+
 
 def extract_fee(text, tables=None):
     """費用：抽『費用 label』附近的金額。
@@ -1073,13 +1090,34 @@ def extract_fee(text, tables=None):
         text,
         # 2026-10-06：加「售價」——紀念品／盲盒訂購類通告寫「售價：每個港幣 50 元」
         # （個案：東九龍地域「東九50時間錦囊」盲盒訂購），舊版會漏咗費用。
-        label_keys=["費用", "收費", "報名費", "餐費", "團費", "班費", "活動費用", "報名費用", "售價"],
+        # 2026-11-04：帆布獨木舟建造班等以「材料費／造艇費」列價；另接受集訓／課程費用。
+        label_keys=FEE_LABEL_KEYS,
         lines_after=2,
     )
     value = _fee_from_scope(scope)
     if value:
         return value
     return fee_from_tables(tables) if tables else ""
+
+
+def _has_fee_label(text, tables=None) -> bool:
+    """檢查 PDF 文字層／表格有冇費用欄位，供「有欄名但漏金額」時觸發 OCR。"""
+    for line in str(text or "").splitlines():
+        c = compact(line)
+        if not c:
+            continue
+        for label in FEE_LABEL_KEYS:
+            if label not in c:
+                continue
+            tail = c.split(label, 1)[1]
+            # 獨立欄名（可能斷行）或「費用：／材料費($)」等欄名都值得 OCR；
+            # 「費用發放方式」呢類行政文字唔會觸發。
+            if not tail or tail[0] in "（(：:$＄" or re.match(r"\d", tail):
+                return True
+    return any(
+        _TABLE_FEE_HEADER_RE.search(compact(cell))
+        for rows in tables or [] for row in rows or [] for cell in row or []
+    )
 
 
 def _fee_from_scope(scope: str) -> str:
@@ -1253,20 +1291,33 @@ def enrich_one(url, title="", use_ocr=True, verbose=False, source=""):
     tables = pdf_tables_via_pdfplumber(data)
     method = "text"
     probe = extract_fields(text, title, source=source, tables=tables)
+    ocr_fee_fallback = ""
 
-    # 文字抽唔到任何欄位 + 文字本身太少 → 可能圖片型 → OCR
+    # 文字抽唔到任何欄位 + 文字本身太少 → 可能圖片型 → OCR。
+    # 另外，如果文字層／表格已經見到費用欄名但讀唔到金額，單獨 OCR 一次作後備；
+    # 有些 PDF 會把金額以圖片嵌入，其他文字（標題／對象／日期）仍可正常抽出。
     has_any = any(probe[k] for k in ("deadline", "audience", "fee"))
-    if (not has_any and len(compact(text)) < 40) and use_ocr:
+    sparse_text = not has_any and len(compact(text)) < 40
+    if sparse_text and use_ocr:
         if verbose:
             print("    → 文字型抽唔到，改用 OCR")
         ocr_text = pdf_text_via_ocr(data)
         if ocr_text.strip():
             method = "ocr"
             text = ocr_text
+    elif not probe["fee"] and use_ocr and _has_fee_label(text, tables):
+        if verbose:
+            print("    → 已見費用欄但未讀到金額，OCR 費用作後備")
+        ocr_text = pdf_text_via_ocr(data)
+        if ocr_text.strip():
+            ocr_fee_fallback = extract_fee(ocr_text, tables=tables)
 
     check = reconcile_listing_title(title, text, pdf_meta_title=meta_title)
     verified_title = check["title"]
     fields = extract_fields(text, verified_title, source=source, tables=tables)
+    if not fields["fee"] and ocr_fee_fallback:
+        fields["fee"] = ocr_fee_fallback
+        fields["_fee_method"] = "ocr"
     fields["_method"] = method
     fields["_verified_title"] = verified_title
     fields["_title_check"] = check["status"]

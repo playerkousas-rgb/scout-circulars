@@ -10,6 +10,7 @@ import json
 import sys
 sys.path.insert(0, ".")
 
+import enrich as enrich_module
 from enrich import (
     extract_audience, extract_deadline, extract_fee, normalize_fee, extract_categories,
     compact_title, title_similarity, extract_pdf_heading, reconcile_listing_title,
@@ -39,6 +40,29 @@ def test(name, got, want):
         print(f"   期望: {want!r}")
         print(f"   實際: {got!r}")
     return int(ok)
+
+
+def _run_fee_only_ocr_fallback():
+    """模擬 PDF 文字層有欄位但金額係圖片，避免依賴網絡／真 PDF。"""
+    title = "第 22屆初級航空活動章訓練班暨第6屆童軍風箏章(興趣組)訓練班"
+    body = (
+        f"{title}\n參加資格：童軍\n活動內容：" + "課程安排及注意事項。" * 8 + "\n費用："
+    )
+    replacements = {
+        "download": lambda _url: b"%PDF-fake-fixture",
+        "pdf_text_via_pdfplumber": lambda _data: body,
+        "pdf_meta_title_via_pdfplumber": lambda _data: title,
+        "pdf_tables_via_pdfplumber": lambda _data: [],
+        "pdf_text_via_ocr": lambda _data: f"{title}\n費用：HK$120",
+    }
+    originals = {name: getattr(enrich_module, name) for name in replacements}
+    try:
+        for name, replacement in replacements.items():
+            setattr(enrich_module, name, replacement)
+        return enrich_module.enrich_one("https://example.test/course.pdf", title, use_ocr=True)
+    finally:
+        for name, original in originals.items():
+            setattr(enrich_module, name, original)
 
 
 def main():
@@ -640,6 +664,30 @@ def main():
         extract_fee("（一）日期：\n日期 星期 時間 費用($) 名額 截止日期", tables=[sa69_table]),
         "HK$160",
     )
+    passed += test(
+        "費用欄同義詞：材料費／集訓費都抽得到",
+        [
+            extract_fee("（三）材料費：每名 HK$350"),
+            extract_fee("（四）集訓費 HK$80"),
+        ],
+        ["HK$350", "HK$80"],
+    )
+    passed += test(
+        "表格費用欄：略過待定佔位格，繼續抽後面有效金額",
+        fee_from_tables([[["課程費用（每位）", "名額"], ["待定", "12"], ["HK$180", "12"]]]),
+        "HK$180",
+    )
+    passed += test(
+        "表格費用欄：帆布獨木舟建造類材料費可用裸數字（欄位明確）",
+        fee_from_tables([[["材料費", "名額"], ["320", "10"]]]),
+        "HK$320",
+    )
+    fee_ocr = _run_fee_only_ocr_fallback()
+    passed += test(
+        "OCR 後備：文字層有費用欄但只讀到對象時，可補抽圖片金額",
+        (fee_ocr.get("fee"), fee_ocr.get("_fee_method")),
+        ("HK$120", "ocr"),
+    )
 
     # ── 2026-10-06：分類／標籤唔可以由內文搶走標題嘅明確字眼 ──
     raffle_body = (
@@ -1131,6 +1179,29 @@ def main():
         [extract_categories("香港童軍大會操(六) 服務獎勵頒發", "")[0]["label"],
          extract_categories("童軍服務獎勵計劃", "")[0]["label"]],
         ["活動", "公布"],
+    )
+
+    # ⑫ 2026-11-04 用戶點名分類／標籤：大會操內明確比賽成績＝比賽；
+    # 「集訓」及「建造班」都係訓練，唔好兜底標成公布。
+    named_training_titles = [
+        "童軍田徑會第35期會員集訓(P116/2026)",
+        "帆布獨木舟建造班",
+        "第 22屆初級航空活動章訓練班暨第6屆童軍風箏章(興趣組)訓練班",
+    ]
+    named_rally_result = "2026年香港童軍大會操步操比賽、隊列比賽及升旗比賽成績公布"
+    passed += test(
+        "⑫ 2026-11-04：點名通告分類標籤",
+        [extract_categories(t, "")[0]["label"] for t in [named_rally_result, *named_training_titles]],
+        ["比賽", "訓練", "訓練", "訓練"],
+    )
+    passed += test(
+        "⑫ 2026-11-04：點名通告個人化大類標籤同步",
+        [
+            "category:competition" in extract_subscription_metadata(named_rally_result, "")["subscription_tags"],
+            *["category:training" in extract_subscription_metadata(t, "")["subscription_tags"]
+              for t in named_training_titles],
+        ],
+        [True, True, True, True],
     )
 
     # ⑨ 2026-10-08 用戶點名個案：步行籌款活動＝活動、參訪寶蓮禪寺＝活動、

@@ -1793,8 +1793,8 @@
       return regions;
     }
 
-    // hot ＝「有更新」綠燈；預設跟件數，但小工具要另外用 sourceUpdateCount()
-    // 淨係今日有新上架先著燈（見 2026-10-06 改動）。
+    // hot ＝「有更新」綠燈；小工具數字跟目前「今天／之前發布」視窗，
+    // 但綠燈仍然只代表今日有新上架（見 sourceUpdateCount）。
     function badgeHtml(n, hot = n > 0) {
       return `<span class="count-badge ${hot ? 'hot' : ''}">${n}</span>`;
     }
@@ -1802,14 +1802,15 @@
     function sourceCount(source) {
       if (!isSourceEnabled(source)) return 0;
       const items = state.grouped[source] || [];
-      // 小工具側欄只報今日新上架；舊工具仍可於「之前發布」查看。
-      if (source === 'Scout System') return items.filter(toolIsNewToday).length;
+      // 工具係長期資產：件數跟「今天更新/發布」或「之前發布」目前選擇，
+      // 避免選「之前發布」但側欄仍然只數今日而顯示 0。
+      if (source === 'Scout System') return items.filter(toolInToolsWindow).length;
       return items.filter(item => itemInWindow(item)).length;
     }
 
     function scoutKindCount(kindId) {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(item => toolIsNewToday(item) && itemScoutKind(item) === kindId).length;
+      return (state.grouped['Scout System'] || []).filter(item => toolInToolsWindow(item) && itemScoutKind(item) === kindId).length;
     }
 
     // ── 「有更新」燈號（綠色高亮 + hot badge）──────────────────────
@@ -1891,13 +1892,13 @@
     }
 
     // 小工具只睇自己嗰兩個掣：「之前發布」＝全部（冇日期嘅舊工具都留低），
-    // 「今天」＝今日新上架。只控制內容列表；側欄數字固定計今日。
+    // 「今天」＝今日新上架。內容列表及側欄件數都跟同一個視窗。
     function toolInToolsWindow(item) {
       return withinDays((item && (item.date || item.captured_date)) || '', currentToolsWindow().days);
     }
 
     // 「今日新上架」＝小工具視窗「今天」嗰個門檻（days: 1，HKT 日起計），
-    // 唔理用戶而家揀咗邊個掣：側欄數字及燈號只認今日。
+    // 唔理用戶而家揀咗邊個掣：綠燈只認今日，件數則由 toolInToolsWindow() 跟隨視窗。
     function toolIsNewToday(item) {
       const todayWindow = TOOLS_TIME_WINDOWS.find(x => x.id === 'tools-today') || TOOLS_TIME_WINDOWS[0];
       return withinDays((item && (item.date || item.captured_date)) || '', todayWindow && todayWindow.days != null ? todayWindow.days : 1);
@@ -2142,6 +2143,15 @@
         btn.textContent = tag.label;
         btn.setAttribute('aria-pressed', state.category === tag.id ? 'true' : 'false');
         btn.onclick = () => {
+          // 地域／總會來源本身冇 Scout System 小工具；點「小工具」直接進入
+          // Scout System 專用瀏覽模式（內設六類＋「今天更新/發布／之前發布」）。
+          if (tag.id === 'tools') {
+            state.category = 'ALL';
+            state.searchScope = 'current';
+            renderScopeChips();
+            chooseSource('Scout System');
+            return;
+          }
           state.category = tag.id;
           renderCategoryChips();
           renderHeader();
@@ -2191,7 +2201,11 @@
     }
 
     function chooseSource(source) {
+      const wasScoutSystemView = viewingScoutSystem();
       state.activeSource = source;
+      // 每次由通告來源進入 Scout System 都先開「之前發布」，避免沿用先前
+      // 選過的「今天更新/發布」而睇唔到長期工具；喺 Scout System 內切換種類則保留選擇。
+      if (!wasScoutSystemView && viewingScoutSystem()) state.toolsWindowId = 'tools-all';
       renderWindowChips();   // 頂欄 ★／收藏掣高亮要跟住郁
       renderCategoryChips();
       renderAccordion();
@@ -2251,7 +2265,7 @@
         if ((shouldOpen || kindQueryHit) && regionEnabled) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
-        // Scout System 側欄件數及燈號均只計今日新上架。
+        // 件數跟目前各自的視窗（工具用專用發布視窗）；綠燈只按今日新上架。
         const updates = filteredSources.reduce((sum, src) => sum + sourceUpdateCount(src), 0);
         if (updates > 0 && regionEnabled) regionEl.classList.add('has-updates');
         const header = document.createElement('button');
@@ -6330,7 +6344,7 @@
       // subscription_tagging.COMPETITION_TERMS／story_queue._RE_COMPETITION 對齊。
       competition: /比賽|錦標賽|大賽|競賽|錦標|公開賽|邀請賽|練習賽|體驗賽|會操|選拔賽|田徑賽|友誼賽|實體賽|成績公布|成績公佈|結果公布|結果公佈|公布結果|公佈結果|賽果公布|賽果公佈/,
       // 2026-10-09：「座談會」同講座／簡介會同類＝訓練。
-      training: /訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|座談會/,
+      training: /訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|座談會|集訓|建造班/,
       // 2026-10-09：補「工作人員」——「XX工作人員招募」係服務，唔可以俾
       // 會員招募行政規則（招募）吞咗。同 story_queue._RE_SERVICE 對齊。
       service: /服務|義工|義務|工作人員/,
@@ -6361,10 +6375,11 @@
       activity_strong: /毅行|同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|石籃的故事/,
       // 「特惠菜式」係行政資訊，即使標題亦有訓練班字眼仍歸公布。
       announcement_menu: /特惠菜式/,
-      // 2026-10-06 用戶規則：「香港童軍大會操」＝活動（大會操係週年活動／典禮，
-      // 唔係比賽）；失物認領／失物待領＝公布（唯一例外）。
+      // 2026-10-06 用戶規則：「香港童軍大會操」一般＝活動；明確列出步操／隊列／
+      // 升旗比賽則係比賽。失物認領／失物待領仍然係公布（優先例外）。
       // 同 subscription_tagging.py／story_queue.py 對齊。
       rally_activity: /香港童軍大會操/,
+      rally_competition: /步操比賽|隊列比賽|升旗比賽|比賽成績|比賽結果/,
       lost_property: /失物認領|失物待領|失物領回|失物處理/,
     };
 
@@ -6387,13 +6402,12 @@
         }
       }
       const title = normalizeTitleText((item && item.title) || '');
-      // 2026-10-06 用戶規則：失物認領／失物待領＝公布（行政公告），優先過一切；
-      // 「香港童軍大會操」＝活動（大會操本身係活動，唔係比賽）；但「有服務XX
-      // 一定是歸服務」，所以大會操嘅服務邀請／義工招募仍然歸服務（「服務獎勵」
-      // 呢類表揚通告除外）。
+      // 失物認領／失物待領＝公布；香港童軍大會操一般＝活動，但明確嘅步操／隊列／
+      // 升旗比賽＝比賽。大會操內服務邀請／義工招募仍然由服務優先（服務獎勵除外）。
       if (BATCH_RE.lost_property.test(title)) return 'announcement';
       if (BATCH_RE.rally_activity.test(title)) {
         if (BATCH_RE.service.test(title) && !BATCH_RE.announcement_override.test(title)) return 'service';
+        if (BATCH_RE.rally_competition.test(title)) return 'competition';
         return 'activity';
       }
       // 2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布（明確字眼以標題為準）；

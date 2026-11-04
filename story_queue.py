@@ -46,7 +46,7 @@ _RE_COMPETITION = re.compile(
     r"選拔賽|田徑賽|友誼賽|實體賽|"
     r"成績公佈|成績公布|結果公佈|結果公布|公佈結果|公布結果|賽果公佈|賽果公布"
 )
-_RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|青年獎勵|座談會")
+_RE_TRAINING = re.compile(r"訓練|工作坊|課程|研習|考章|徽章班|考核|講座|簡介會|青年獎勵|座談會|集訓|建造班")
 # 2026-10-01：同 subscription_tagging.SERVICE_BARE_TERMS 對齊——「服務」係裸字就算，
 # 但要剔除「服務組」（童軍專章嘅分組標籤，唔係招義工，例如「XX章(服務組)訓練班」）。
 _RE_SERVICE = re.compile(r"服務(?!組)|工作人員|義工|義務")
@@ -84,10 +84,11 @@ _RE_YOUTH_AWARD = re.compile(r"青年獎勵")
 # 2026-10-06：用戶點名「一個石籃的故事」係保育體驗活動；標題本身冇「活動」二字，
 # 所以加到強活動規則，避免富內容嘅 Story 標題兜底成 other／公布。
 _RE_ACTIVITY_STRONG = re.compile(r"毅行|同樂日|考察團|代表團|交流團|訪問團|參訪團|童探索|分享會|石籃的故事")
-# 2026-10-06 用戶規則：「香港童軍大會操」＝活動（大會操係週年活動／典禮，唔係
-# 比賽）；失物認領／失物待領＝公布（唯一例外）。同
-# subscription_tagging.RALLY_ACTIVITY_TERMS／LOST_PROPERTY_TERMS 對齊。
+# 2026-10-06 用戶規則：「香港童軍大會操」一般＝活動；2026-11-04 點名嘅步操、
+# 隊列、升旗比賽成績則係比賽。失物認領／失物待領仍然係公布（優先例外）。
+# 同 subscription_tagging.py 對齊。
 _RE_RALLY_ACTIVITY = re.compile(r"香港童軍大會操")
+_RE_RALLY_COMPETITION = re.compile(r"步操比賽|隊列比賽|升旗比賽|比賽成績|比賽結果")
 _RE_LOST_PROPERTY = re.compile(r"失物認領|失物待領|失物領回|失物處理")
 
 
@@ -120,20 +121,22 @@ def classify_category(item: dict, ex: dict | None) -> str:
             # 「公佈」唔在 STORY_SLOGANS 入面，_today_candidates() 會自動跳過。
             if cid == "announcement":
                 return "announcement"
-    # 2026-10-03：優先序改做 標題公布(公告/公布) > 公布覆蓋(童軍獎勵/津貼計劃) > 強活動(同樂日/考察團/代表團/童探索) > 服務 > 比賽 > 訓練 > 活動
-    # 2026-10-06：最前面加 失物認領(公布) > 香港童軍大會操(活動)。
+    # 2026-10-03：優先序包括 標題公布 > 公布覆蓋 > 強活動 > 服務 > 比賽 > 訓練 > 活動。
+    # 2026-10-06：最前面加 失物認領(公布) > 香港童軍大會操；2026-11-04 大會操內
+    # 明確列出步操／隊列／升旗比賽時改判比賽（服務邀請仍由服務優先）。
     # 2026-10-09：訓練之後加 會員招募行政(入會/招收/招募→公布)，先過活動。
     # 同 subscription_tagging.extract_categories 對齊。
     title = str(item.get("title") or "").translate(CHAR_VARIANTS)
     # 2026-10-06 用戶規則：失物認領／失物待領＝公布（行政公告），優先過一切。
     if _RE_LOST_PROPERTY.search(title):
         return "announcement"
-    # 2026-10-06 用戶規則：「香港童軍大會操」＝活動，唔係比賽；但「有服務XX
-    # 一定是歸服務」，所以大會操嘅服務邀請／義工招募仍然歸服務（「服務獎勵」
-    # 呢類表揚通告除外，見 _RE_ANNOUNCEMENT_OVERRIDE）。
+    # 大會操一般＝活動，但明確列出步操／隊列／升旗比賽時＝比賽；「有服務XX
+    # 一定是歸服務」仍然優先，所以服務邀請／義工招募唔會被賽事或活動字眼搶走。
     if _RE_RALLY_ACTIVITY.search(title):
         if _RE_SERVICE.search(title) and not _RE_ANNOUNCEMENT_OVERRIDE.search(title):
             return "service"
+        if _RE_RALLY_COMPETITION.search(title):
+            return "competition"
         return "activity"
     # 標題有「公告／公布／公佈」＝公布；「成績公布」等賽果片語遮蓋後唔算。
     if _RE_ANNOUNCEMENT_TITLE.search(_RE_ANNOUNCEMENT_RESULT.sub("", title)):

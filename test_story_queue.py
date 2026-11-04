@@ -194,6 +194,9 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
 
     def test_category_title_fallback_keywords(self):
         cases = [("全港射擊錦標賽", "competition"), ("領袖訓練工作坊", "training"),
+                 ("童軍田徑會第35期會員集訓(P116/2026)", "training"),
+                 ("帆布獨木舟建造班", "training"),
+                 ("第 22屆初級航空活動章訓練班暨第6屆童軍風箏章(興趣組)訓練班", "training"),
                  ("海灘清潔服務日", "service"), ("秋季遠足活動", "activity"),
                  ("東九龍地域50周年暨賽馬會童「SING」匯航計劃 - 一個石籃的故事", "activity"),
                  ("東九50樂悠遊之與你「童」行(步行籌款活動)", "activity"),
@@ -224,16 +227,16 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
             self.assertEqual(got, want, f"{title} 應該係 {want} 而係 {got}")
 
     def test_rally_is_activity_and_lost_property_is_announcement(self):
-        """2026-10-06 用戶規則：「香港童軍大會操」＝活動；失物認領＝公布。
+        """2026-10-06 規則：「香港童軍大會操」一般＝活動；明確列賽事＝比賽。
 
         同 subscription_tagging.extract_categories 對齊——大會操係週年活動／
-        典禮，唔係比賽（舊版因為「會操」呢類賽事詞會判 other／比賽）；
-        失物認領通告係行政公告，係「大會操＝活動」嘅唯一例外。
+        典禮，唔係比賽；步操／隊列／升旗比賽成績按通告內容分類，失物認領優先＝公布。
         """
         cases = [("2026年香港童軍大會操(四)", "activity"),
                  ("2026 年香港童軍大會操", "activity"),
                  ("參與2026年香港童軍大會操暨午宴活動", "activity"),
                  ("香港童軍大會操荃灣區會旅遊巴士安排", "activity"),
+                 ("2026年香港童軍大會操步操比賽、隊列比賽及升旗比賽成績公布", "competition"),
                  ("2026年香港童軍大會操失物認領安排", "announcement"),
                  ("香港童軍115周年國際賽船大會-失物待領", "announcement"),
                  # 用戶：「有服務XX 一定是歸服務」——贏過大會操＝活動
