@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-test_rally_categories_2026_10_06.py — 「大會操＝活動，失物認領除外」驗收測試
+test_rally_categories_2026_10_06.py — 「大會操一般＝活動，明確賽事／失物認領除外」驗收測試
 ==========================================================================
 背景
 ----
@@ -13,11 +13,12 @@ test_rally_categories_2026_10_06.py — 「大會操＝活動，失物認領除�
 （fix_rally_categories_2026_10_06.py 補正咗 enrich.json 嘅 11 條欠帳）。
 本測試釘住：
 
-  1. 規則本身：標題有「香港童軍大會操」＝活動；失物認領／失物待領＝公布；
-     「有服務XX 一定是歸服務」贏過大會操＝活動（「服務獎勵」呢類表揚通告除外）；
+  1. 規則本身：標題有「香港童軍大會操」一般＝活動；明確列出步操／隊列／升旗
+     比賽＝比賽；失物認領／失物待領＝公布；「有服務XX 一定是歸服務」仍然優先
+     （「服務獎勵」呢類表揚通告除外）；
      用戶只收全名，其他會操（九龍地域會操／聯隊週年大會操）維持原判；
   2. enrich.json 入面嘅大會操／失物認領通告全部同規則一致（冇漏改）；
-  3. 大會操通告嘅訂閱標籤係 activity:other，唔可以再係 category:competition；
+  3. 一般大會操通告嘅訂閱標籤係 activity:other；明確列出賽事嘅大會操係 category:competition；
   4. 鐵律：呢批 entry 嘅其他欄位（截止／費用／對象／enrich_version）冇被
      補正 script 順手改走。
 
@@ -33,7 +34,8 @@ BASE_DIR = Path(__file__).parent
 sys.path.insert(0, str(BASE_DIR))
 
 from subscription_tagging import (  # noqa: E402
-    LOST_PROPERTY_TERMS, RALLY_ACTIVITY_TERMS, _term_hits, extract_categories,
+    LOST_PROPERTY_TERMS, RALLY_ACTIVITY_TERMS, RALLY_COMPETITION_TERMS,
+    _term_hits, extract_categories,
 )
 
 TEST_RESULTS = []
@@ -60,7 +62,7 @@ def main():
 
     # ① 規則：用戶點名嘅兩條 + 同一系列其餘幾條
     passed += test(
-        "① 大會操一律＝活動（總會(一)～(四)、午宴活動、荃灣區旅遊巴士安排）",
+        "① 一般大會操＝活動（總會(一)～(四)、午宴活動、荃灣區旅遊巴士安排）",
         [cat(t) for t in (
             "2026年香港童軍大會操(四)",
             "香港童軍大會操荃灣區會旅遊巴士安排",
@@ -78,8 +80,14 @@ def main():
          extract_categories("2026年香港童軍大會操(四)", "")],
         [("activity", "other")],
     )
+    rally_result = "2026年香港童軍大會操步操比賽、隊列比賽及升旗比賽成績公布"
     passed += test(
-        "① 失物認領／失物待領＝公布（大會操規則嘅唯一例外）",
+        "① 大會操內明確列出步操／隊列／升旗比賽＝比賽",
+        (cat(rally_result), [c["id"] for c in extract_categories(rally_result, "")]),
+        ("比賽", ["competition"]),
+    )
+    passed += test(
+        "① 失物認領／失物待領＝公布（優先於大會操活動／賽事判斷）",
         [cat(t) for t in (
             "2026年香港童軍大會操失物認領安排",
             "2026年香港童軍大會操 - 失物待領",
@@ -132,24 +140,34 @@ def main():
                 [(c.get("id"), c.get("subtype")) for c in want]:
             mismatched.append((entry.get("source"), title, got, want))
 
-    passed += test("② enrich.json 有 11 條大會操／失物認領通告", len(named), 11)
+    passed += test("② enrich.json 有 12 條大會操／失物認領通告", len(named), 12)
     passed += test("② 全部同現行規則一致（冇漏改）", mismatched, [])
 
-    # ③ 訂閱標籤：大會操唔可以再掛住「所有比賽」
-    rally_with_competition = [
+    # ③ 訂閱標籤：一般大會操係 activity:other；明確列賽事嘅大會操係 competition。
+    stale_rally_competition = [
         (e.get("source"), e.get("title"), e.get("subscription_tags"))
         for _u, e in named
         if _term_hits(str(e.get("title") or ""), RALLY_ACTIVITY_TERMS)
+        and not _term_hits(str(e.get("title") or ""), RALLY_COMPETITION_TERMS)
         and "category:competition" in (e.get("subscription_tags") or [])
     ]
-    passed += test("③ 冇大會操通告仲掛住 category:competition", rally_with_competition, [])
+    passed += test("③ 一般大會操通告冇錯掛 category:competition", stale_rally_competition, [])
     passed += test(
-        "③ 大會操通告嘅訂閱標籤包含 activity:other",
+        "③ 一般大會操通告嘅訂閱標籤包含 activity:other",
         sorted({t for _u, e in named
                 if _term_hits(str(e.get("title") or ""), RALLY_ACTIVITY_TERMS)
+                and not _term_hits(str(e.get("title") or ""), RALLY_COMPETITION_TERMS)
                 for t in (e.get("subscription_tags") or [])}),
         ["activity:other"],
     )
+    mislabelled_rally_results = [
+        (e.get("source"), e.get("title"), e.get("subscription_tags"))
+        for _u, e in named
+        if _term_hits(str(e.get("title") or ""), RALLY_ACTIVITY_TERMS)
+        and _term_hits(str(e.get("title") or ""), RALLY_COMPETITION_TERMS)
+        and "category:competition" not in (e.get("subscription_tags") or [])
+    ]
+    passed += test("③ 明確比賽成績嘅大會操標籤包含 category:competition", mislabelled_rally_results, [])
     passed += test(
         "③ 失物認領通告嘅訂閱標籤係 category:announcement",
         sorted({t for _u, e in named

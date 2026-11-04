@@ -2,8 +2,8 @@
 //   用法： npm i jsdom && node test_scout_system_light.js
 //
 // 用戶要求：Scout System 唔好一直著燈 —— 今日冇新上架就唔好著燈。
-// 小工具係長期資產，但側欄數字、綠色高亮及 hot badge 均只計今日新上架。
-// 舊工具仍保留喺「之前發布」，唔計入側欄今日數字。
+// 小工具係長期資產：側欄件數跟目前「今天／之前發布」視窗；綠色高亮仍然只計今日新上架。
+// 「之前發布」模式下，舊工具亦要喺來源及內設分類旁邊正確顯示數量。
 const { JSDOM } = require('jsdom');
 const fs = require('fs');
 
@@ -78,7 +78,7 @@ const sourceBtn = (d, label) => $$(d, '#accordion .source-btn').find(b => {
 const lit = (el) => !!el && el.classList.contains('has-updates');
 
 (async () => {
-  // ── 1. 今日冇新上架：Scout System 全熄燈，數字為 0 ──────────────
+  // ── 1. 今日冇新上架：側欄照數「之前發布」資產，但唔著燈 ───────
   {
     const dom = boot(buildCache([
       Object.assign(mk('舊密碼遊戲', 'https://example.test/old-game', 'Scout System', daysAgo(200), 'Scout System'), { tags: ['遊戲'] }),
@@ -91,20 +91,22 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(!!ssSection, '側欄有 Scout System 一欄');
     ok(!lit(ssSection), '今日冇新上架 → Scout System 唔著綠燈');
     const badge = regionBadge(d, 'Scout System');
-    ok(!!badge && badge.textContent.trim() === '0', '今日冇新上架，側欄數字為 0：' + (badge && badge.textContent));
-    ok(!!badge && !badge.classList.contains('hot'), 'badge 唔再發綠光（冇 hot class）');
+    ok(!!badge && badge.textContent.trim() === '2', '「之前發布」模式下側欄數兩件舊工具：' + (badge && badge.textContent));
+    ok(!!badge && !badge.classList.contains('hot'), '今日冇新上架，badge 唔發綠光（冇 hot class）');
     ok((ssSection.querySelector(':scope > button').title || '').includes('今日冇新上架'),
        'tooltip 講明今日冇新上架：' + ssSection.querySelector(':scope > button').title);
 
     const allBtn = sourceBtn(d, '全部 (Scout System)');
     ok(!!allBtn && !lit(allBtn), '「全部 (Scout System)」都唔著燈');
-    ok(!!allBtn && allBtn.querySelector('small').textContent.trim() === '0 則', '「全部」今日 0 則');
+    ok(!!allBtn && allBtn.querySelector('small').textContent.trim() === '2 則', '「全部」顯示之前發布嘅 2 件工具');
 
     const kinds = ['助手', '遊戲', '系統', '工具', '其他', '連結'].map(k => sourceBtn(d, k)).filter(Boolean);
     ok(kinds.length === 6, '內設六類掣齊：' + kinds.length);
     ok(kinds.every(b => !lit(b)), '六類冇一個著燈（今日冇新上架）');
-    ok(!!sourceBtn(d, '遊戲') && sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '0 則',
-       '「遊戲」今日 0 則（唔計半年前嗰件）');
+    ok(!!sourceBtn(d, '遊戲') && sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 則',
+       '「遊戲」喺之前發布有 1 件，即使今日 0 件都唔顯示 0');
+    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '1 則',
+       '「助手」之前發布數量正確');
 
     // 對照組：地域／區會通告喺視窗內 → 照樣著燈，唔可以一併熄晒
     ok(lit(regionSection(d, '港島地域')), '地域（港島地域）有今日新通告 → 照樣著燈');
@@ -128,13 +130,29 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
 
     ok(lit(regionSection(d, 'Scout System')), '今日有新上架 → Scout System 著綠燈');
     const badge = regionBadge(d, 'Scout System');
-    ok(!!badge && badge.classList.contains('hot') && badge.textContent.trim() === '1', 'badge 發綠光並只報今日 1 件：' + (badge && badge.textContent));
+    ok(!!badge && badge.classList.contains('hot') && badge.textContent.trim() === '3', 'badge 數 3 件已發布工具，並因今日有更新發綠光：' + (badge && badge.textContent));
     ok(lit(sourceBtn(d, '遊戲')), '「遊戲」類有新工具 → 著燈');
-    ok(sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 則', '同類有一新一舊，只計今日 1 則');
-    ok(sourceBtn(d, '全部 (Scout System)').querySelector('small').textContent.trim() === '1 則', 'Scout System 全部只計今日 1 則');
+    ok(sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '2 則', '遊戲類一新一舊，共顯示 2 件');
+    ok(sourceBtn(d, '全部 (Scout System)').querySelector('small').textContent.trim() === '3 則', 'Scout System 全部顯示 3 件');
     ok(!lit(sourceBtn(d, '助手')), '「助手」類今日冇新 → 唔著燈');
-    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '0 則', '「助手」今日 0 則');
+    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '1 則', '「助手」目前「之前發布」顯示 1 件');
     ok(lit(sourceBtn(d, '全部 (Scout System)')), '「全部 (Scout System)」著燈');
+
+    const allScoutSource = sourceBtn(d, '全部 (Scout System)');
+    if (allScoutSource) allScoutSource.click();
+    const todayWindow = $$(d, '#window-chips button').find(b => b.textContent.trim() === '今天更新/發布');
+    ok(!!todayWindow, 'Scout System 有「今天」切換掣');
+    if (todayWindow) todayWindow.click();
+    ok(!!regionBadge(d, 'Scout System') && regionBadge(d, 'Scout System').textContent.trim() === '1',
+       '切到「今天」後，Scout System 側欄件數同步變 1');
+    ok(sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 則',
+       '切到「今天」後，遊戲分類件數同步變 1');
+    ok(sourceBtn(d, '助手').querySelector('small').textContent.trim() === '0 則',
+       '切到「今天」後，舊助手分類件數同步變 0');
+    const allToolsWindow = $$(d, '#window-chips button').find(b => b.textContent.trim() === '之前發布');
+    if (allToolsWindow) allToolsWindow.click();
+    ok(!!regionBadge(d, 'Scout System') && regionBadge(d, 'Scout System').textContent.trim() === '3',
+       '切返「之前發布」後，側欄恢復顯示全部 3 件');
 
     dom.window.close();
   }
@@ -148,7 +166,7 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     await wait(900);
     ok(!lit(regionSection(d, 'Scout System')), '尋日上架（唔係今日）→ 唔著燈');
     const badge = regionBadge(d, 'Scout System');
-    ok(!!badge && !badge.classList.contains('hot') && badge.textContent.trim() === '0', 'badge 唔發光並報今日 0 件');
+    ok(!!badge && !badge.classList.contains('hot') && badge.textContent.trim() === '1', 'badge 顯示 1 件舊工具但唔發光');
     ok(!lit(sourceBtn(d, '遊戲')), '尋日新嘅「遊戲」都唔著燈');
     dom.window.close();
   }
@@ -165,6 +183,45 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(!lit(sourceBtn(d, '筲箕灣區')), '區會掣都熄燈');
     ok(!lit(regionSection(d, 'Scout System')), '同一版面 Scout System 都熄燈');
     ok(!lit(regionSection(d, '全港 (所有層級)')), '全港列冇嘢新 → 熄燈');
+    dom.window.close();
+  }
+
+  // ── 5. 通告分類「小工具」直入 Scout System，並重設成「之前發布」──
+  {
+    const dom = boot(buildCache(
+      [mk('【助手】舊集會流程', 'https://example.test/helper-old', 'Scout System', daysAgo(40), 'Scout System')],
+      [mk('今日區會通告', 'https://example.test/today-circ', '筲箕灣區', isoHKT(now), '港島地域')],
+    ));
+    const d = dom.window.document;
+    await wait(900);
+
+    const scoutButton = sourceBtn(d, '全部 (Scout System)');
+    ok(!!scoutButton, '側欄可進入 Scout System');
+    if (scoutButton) scoutButton.click();
+    const todayToolWindow = $$(d, '#window-chips button').find(b => b.textContent.trim() === '今天更新/發布');
+    ok(!!todayToolWindow, 'Scout System 顯示專用「今天更新/發布」視窗');
+    if (todayToolWindow) todayToolWindow.click();
+
+    const districtButton = sourceBtn(d, '筲箕灣區');
+    ok(!!districtButton, '可返回區會通告視圖');
+    if (districtButton) districtButton.click();
+    const genericToolsChip = d.querySelector('#category-chips [data-cat="tools"]');
+    ok(!!genericToolsChip && genericToolsChip.textContent.trim() === '小工具', '通告分類有「小工具」選項');
+    if (genericToolsChip) genericToolsChip.click();
+
+    const toolWindows = $$(d, '#window-chips button');
+    const beforePublished = toolWindows.find(b => b.textContent.trim() === '之前發布');
+    const activeKindChips = $$(d, '#category-chips [data-cat]');
+    ok(d.querySelector('#page-title')?.textContent.trim() === 'Scout System',
+       '選「小工具」後主視圖切到 Scout System');
+    ok(d.querySelector('#category-chips')?.previousElementSibling?.textContent.includes('小工具'),
+       '分類列切換成 Scout System 內設小工具分類');
+    ok(activeKindChips.length === 6 && activeKindChips.some(b => b.textContent.trim() === '助手'),
+       'Scout System 六個內設分類已顯示');
+    ok(!!beforePublished && beforePublished.classList.contains('active'),
+       '由通告進入時重設為「之前發布」，唔沿用先前嘅「今天」');
+    ok(!!regionBadge(d, 'Scout System') && regionBadge(d, 'Scout System').textContent.trim() === '1',
+       '直入後舊小工具已計入側欄件數');
     dom.window.close();
   }
 
