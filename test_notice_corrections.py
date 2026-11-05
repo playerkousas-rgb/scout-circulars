@@ -159,6 +159,37 @@ class NoticeCorrections2026_11_04Tests(unittest.TestCase):
 class NoticeCorrections2026_11_05Tests(unittest.TestCase):
     """New title rules must also repair complete entries skipped by incremental enrich."""
 
+    def test_2026_11_06_student_uniform_subsidy_is_announcement(self):
+        """今日真實個案：總會「學生隊員制服資助計劃」存檔標籤係訓練（內文「課程」）。
+
+        用戶規則：呢張每年都出、名一樣，一律公布。修正步驟（每日發布前執行）
+        要將存檔 categories／subscription_tags 由 training 改返 announcement。
+        """
+        enrich = {
+            "https://scout.org.hk/uploads/tc/circulars/26656/ACR202604C_學生隊員制服資助計劃.pdf": {
+                "source": "總會",
+                "title": "學生隊員制服資助計劃",
+                "audience": "幼童軍、樂行童軍",
+                "categories": [{"id": "training", "label": "訓練", "score": 3.0, "evidence": ["課程"]}],
+                "subscription_tags": ["category:training", "training:幼童軍", "training:樂行童軍"],
+                "subscription_tag_details": [
+                    {"id": "category:training", "label": "所有訓練", "kind": "category"},
+                    {"id": "training:幼童軍", "label": "所有幼童軍訓練", "kind": "training"},
+                ],
+            }
+        }
+        summary = apply_corrections(enrich)
+        self.assertEqual(summary.get("corrected_categories"), 1)
+        record = next(iter(enrich.values()))
+        self.assertEqual([c["id"] for c in record["categories"]], ["announcement"])
+        self.assertIn("category:announcement", record["subscription_tags"])
+        self.assertFalse(any(tag.startswith("training:") for tag in record["subscription_tags"]))
+
+        # 冪等：再跑一次唔會再加嘢
+        again = apply_corrections(enrich)
+        self.assertEqual(again.get("corrected_categories"), 1)
+        self.assertEqual([c["id"] for c in record["categories"]], ["announcement"])
+
     def test_named_title_categories_are_reapplied_idempotently(self):
         cases = {
             "rally.pdf": (

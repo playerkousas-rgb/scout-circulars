@@ -196,7 +196,14 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
     而唔收裸「資助計劃」——「幼童軍度假營2026資助計劃」屬活動、「比賽資助計劃」屬比賽，
     唔可以被公布覆蓋詞搶走。三份規則（`subscription_tagging`／`story_queue`／`index.html` BATCH_RE）
     同步，`tools/apply_notice_corrections.py` 亦有「學生隊員制服資助計劃」重寫舊 enrich 標籤。
-    回歸測試：`test_story_queue.py`、`test_batch_category.js`。
+    **2026-11-06 補**：用戶指「呢張基本每年都出，名字還都一樣」，所以加多一層
+    —「用戶點名嘅固定名」＝永遠公布，**標題先決**：前端 `itemCategories()` 用
+    `NAMED_ANNOUNCEMENT_RE` 直接判公布，唔理 enrich 存檔標籤。原因：當年 enrich 由
+    PDF 內文抽到一句「課程」，就把標籤判成訓練（存檔 `categories=[training]`），
+    卡片同分類掣都會錯；而家標題一命中就係公布，等下一年同名通告都自動正確。
+    存檔標籤本身由 `apply_notice_corrections.py` 每晚重寫。
+    回歸測試：`test_story_queue.py`、`test_batch_category.js`、`test_search_members.js`、
+    `test_notice_corrections.py`。
   - **2026-10-06（第二批）：標題有「嘉許計劃」＝公布**（同「獎勵計劃」「津貼計劃」同組），
     「卓越領袖嘉許計劃2027」唔會再被內文「服務記錄」搶去服務——同一計劃嘅附錄（主要日期及安排）
     同 2026 年獲嘉許名單一直都係公布，之前係同一件事三個標籤。

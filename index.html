@@ -1000,6 +1000,12 @@
     const CATEGORY_IDS = new Set(['training', 'service', 'activity', 'competition', 'tools', 'announcement']);
     // 來源級分類：呢啲來源出嘅通告一律係「小工具」（同 subscription_tagging.py 嘅 TOOLS_SOURCES 保持一致）
     const TOOLS_SOURCES = new Set(['Scout System']);
+    // 2026-11-06 用戶規則：用戶點名、每年都出而且名一樣嘅通告，標籤永遠係公布。
+    // 用家原話：「學生隊員制服資助計劃…基本每年都出，名字還都一樣」。
+    // 標題先決：唔可以由 enrich 由 PDF 內文抽到嘅「課程」等字眼搶走（今日就係
+    // 咁由公布變咗訓練）。同 subscription_tagging.ANNOUNCEMENT_OVERRIDE_TERMS／
+    // story_queue／BATCH_RE 三份規則同步。
+    const NAMED_ANNOUNCEMENT_RE = /學生隊員制服資助計劃|制服資助計劃/;
     // Scout System 側欄／分類掣內設，唔靠抓取先出現。命中次序：站方標籤 → 標題，都冇就歸「其他」。
     // 「小工具」係成個來源嘅分類，唔當內設「工具」，避免全部掉入工具。
     const SCOUT_SYSTEM_KINDS = [
@@ -1081,6 +1087,9 @@
 
     function itemCategories(item, enrich) {
       if (TOOLS_SOURCES.has(String(item?.source_site || '').trim())) return new Set(['tools']);
+      // 用戶點名嘅「每年同名」通告：標題先決＝公布，唔理 enrich 存檔標籤
+      // （舊紀錄可能係由 PDF 內文嘅「課程」判成訓練）。
+      if (NAMED_ANNOUNCEMENT_RE.test(String(item?.title || ''))) return new Set(['announcement']);
       // enrich.py 寫入：categories: [{ id, subtype, label, score, evidence }...]
       const raw = enrich?.categories;
       // 新分類規則以「公布」作行政／無其他命中時嘅兜底。enrich.json 可能仍有

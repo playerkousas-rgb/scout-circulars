@@ -237,8 +237,9 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
 
         from subscription_tagging import extract_categories
         self.assertEqual([c["id"] for c in extract_categories(title, "")], ["announcement"])
-        # 內文有「活動／訓練」字眼都唔可以搶走（標題先決＋公布覆蓋詞）
-        body = "資助有經濟需要的學生隊員購買制服，活動詳情及訓練安排見附件。"
+        # 內文有「課程／活動／訓練」字眼都唔可以搶走（標題先決＋公布覆蓋詞）——
+        # 今日真實個案就係內文一句「課程」令 enrich 存檔變咗 training。
+        body = "資助有經濟需要的學生隊員購買制服。課程內容、活動詳情及訓練安排見附件。"
         self.assertEqual([c["id"] for c in extract_categories(title, body)], ["announcement"])
 
         # 公布唔出 Story（同其他公布一致）

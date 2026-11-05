@@ -171,5 +171,26 @@ check('真實資料中「童軍」標籤有結果', realMatches.length > 0, true
 check('真實資料中沒有非童軍 audience 混入', invalidRealMatches.length, 0);
 const byTitleOnly = realMatches.filter(item => !(enrichMap[item.pdf_url] || enrichMap[item.url])?.audience);
 
+// 2026-11-06 用戶規則：用戶點名、每年同名嘅通告，標籤永遠係公布（標題先決）。
+function checkCats(label, item, ex, expected) {
+  const got = [...itemCategories(item, ex)];
+  const ok = JSON.stringify(got) === JSON.stringify(expected);
+  console.log(`${ok ? '✅' : '❌'} ${label} → ${JSON.stringify(got)} (expect ${JSON.stringify(expected)})`);
+  if (ok) pass += 1;
+  else fail += 1;
+}
+checkCats('「學生隊員制服資助計劃」存檔係訓練 → 照顯示公布',
+  { title: '學生隊員制服資助計劃', source_site: '總會' },
+  { categories: [{ id: 'training', label: '訓練', evidence: ['課程'] }] },
+  ['announcement']);
+checkCats('「學生隊員制服資助計劃申請表」→ 公布',
+  { title: '學生隊員制服資助計劃申請表', source_site: '港島西區' },
+  null,
+  ['announcement']);
+checkCats('「幼童軍度假營2026資助計劃」唔受影響（照 enrich 分類）',
+  { title: '香港童軍115周年 幼童軍度假營2026資助計劃', source_site: '沙田南區' },
+  { categories: [{ id: 'activity', label: '活動' }] },
+  ['activity']);
+
 console.log(`\n${pass}/${pass + fail} 通過；真實資料「童軍」命中 ${realMatches.length} 筆（其中 ${byTitleOnly.length} 筆靠標題）`);
 process.exit(fail ? 1 : 0);
