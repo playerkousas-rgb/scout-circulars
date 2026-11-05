@@ -156,5 +156,64 @@ class NoticeCorrections2026_11_04Tests(unittest.TestCase):
         self.assertEqual(cache["notices"][0]["title"], bad_title)
 
 
+class NoticeCorrections2026_11_05Tests(unittest.TestCase):
+    """New title rules must also repair complete entries skipped by incremental enrich."""
+
+    def test_named_title_categories_are_reapplied_idempotently(self):
+        cases = {
+            "rally.pdf": (
+                "2026年香港童軍大會操步操比賽、隊列比賽及升旗比賽成績公布",
+                "activity", "category:competition",
+            ),
+            "camp.pdf": (
+                "童軍田徑會第35期會員集訓(P116/2026)",
+                "announcement", "category:training",
+            ),
+            "canoe.pdf": (
+                "帆布獨木舟建造班",
+                "announcement", "category:training",
+            ),
+            "aviation.pdf": (
+                "第 22屆初級航空活動章訓練班暨第6屆童軍風箏章(興趣組)訓練班",
+                "announcement", "category:training",
+            ),
+        }
+        enrich = {
+            url: {
+                "title": title,
+                "source": "總會",
+                "audience": "童軍" if url == "aviation.pdf" else "",
+                "categories": [{"id": old_id, "label": "舊分類"}],
+                "branch_tags": [],
+                "subscription_tags": [f"category:{old_id}", "course:scout-kite-badge"],
+                "subscription_tag_details": [],
+                "subscription_catalog_version": "current",
+                "enrich_version": "3.9",
+            }
+            for url, (title, old_id, _want_tag) in cases.items()
+        }
+
+        summary = apply_corrections(enrich)
+        self.assertEqual(summary, {"corrected_categories": 4})
+        for url, (_title, _old_id, want_tag) in cases.items():
+            with self.subTest(url=url):
+                record = enrich[url]
+                self.assertEqual([c["id"] for c in record["categories"]],
+                                 [want_tag.removeprefix("category:")])
+                self.assertIn(want_tag, record["subscription_tags"])
+                self.assertIn("course:scout-kite-badge", record["subscription_tags"])
+
+        corrected = {
+            url: (entry["categories"], entry["subscription_tags"], entry["subscription_tag_details"])
+            for url, entry in enrich.items()
+        }
+        apply_corrections(enrich)
+        self.assertEqual(
+            corrected,
+            {url: (entry["categories"], entry["subscription_tags"], entry["subscription_tag_details"])
+             for url, entry in enrich.items()},
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

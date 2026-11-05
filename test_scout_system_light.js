@@ -222,6 +222,22 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
        '由通告進入時重設為「之前發布」，唔沿用先前嘅「今天」');
     ok(!!regionBadge(d, 'Scout System') && regionBadge(d, 'Scout System').textContent.trim() === '1',
        '直入後舊小工具已計入側欄件數');
+
+    const noticeModeChip = d.querySelector('#category-chips [data-mode="notices"]');
+    ok(!!noticeModeChip && noticeModeChip.textContent.trim() === '通告',
+       '小工具專屬標籤前面有「通告」返回標籤');
+    if (noticeModeChip) noticeModeChip.click();
+    ok(d.querySelector('#page-title')?.textContent.trim() === '筲箕灣區',
+       '撳「通告」後返回進入小工具前嘅區會');
+    ok(d.querySelector('#category-chips')?.previousElementSibling?.textContent.includes('分類'),
+       '返回後分類標籤列恢復一般「分類」模式');
+    ok(!!d.querySelector('#category-chips [data-cat="tools"]')
+       && d.querySelector('#category-chips [data-cat="tools"]').textContent.trim() === '小工具',
+       '通告模式嘅一般分類標籤已恢復（包括「小工具」）');
+    ok(!d.querySelector('#category-chips [data-mode="notices"]'),
+       '返回通告模式後收起 Scout System 專屬返回標籤');
+    ok($$(d, '#window-chips button').some(b => b.textContent.trim() === '7天'),
+       '返回後恢復通告日期範圍掣');
     dom.window.close();
   }
 

@@ -155,6 +155,8 @@
     .chip.chip-category.active[data-cat="tools"] { background: linear-gradient(135deg, #0e7490, #06b6d4); color: #04121a; border-color: #67e8f9; }
     .chip.chip-category.active[data-cat="other"] { background: linear-gradient(135deg, #334155, #64748b); color: #0b1220; border-color: #94a3b8; }
     .chip.chip-category.active[data-cat="ALL"] { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
+    .chip.chip-notice-return { border-color: rgba(96,165,250,.55); color: #bfdbfe; font-weight: 700; }
+    .chip.chip-notice-return:hover { background: rgba(59,130,246,.18); }
     /* 卡片上的分類小標籤（同來源 badge、通告名排同一行，慳行數） */
     .cat-tags { display: inline-flex; flex-wrap: wrap; gap: 6px; }
     .cat-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: #cfe3ff; }
@@ -1241,6 +1243,7 @@
       category: 'ALL',   // 分類標籤（單選）：'ALL' | 'training' | 'service' | 'activity' | 'competition' | 'other'
       bookmarks: {},     // key -> 收藏快照（見 BOOKMARK_KEY 說明）
       lastSource: null,  // 撳 ★ 分頁之前喺邊個來源，用嚟返返去
+      lastNoticeSource: null, // 由 Scout System 返回時，恢復進入前嘅通告來源
       pushCatalog: null, // 受控官方訂閱字典；絕不由自由文字建立標籤
       notificationMode: new URLSearchParams(location.search).has('n'),
       notificationNoticeIds: parseNotificationNoticeIds(new URLSearchParams(location.search).get('n')),
@@ -2121,6 +2124,26 @@
       const label = wrap.previousElementSibling;
       if (viewingScoutSystem()) {
         if (label && label.classList.contains('field-label')) label.textContent = '小工具：';
+        const noticesBtn = document.createElement('button');
+        noticesBtn.type = 'button';
+        noticesBtn.className = 'chip chip-category chip-notice-return';
+        noticesBtn.dataset.mode = 'notices';
+        noticesBtn.textContent = '通告';
+        noticesBtn.title = '返回通告模式及一般分類標籤';
+        noticesBtn.setAttribute('aria-label', '返回通告模式');
+        noticesBtn.setAttribute('aria-pressed', 'false');
+        noticesBtn.onclick = () => {
+          state.category = 'ALL';
+          state.searchScope = 'current';
+          renderScopeChips();
+          const candidate = state.lastNoticeSource;
+          const target = candidate && candidate !== 'BOOKMARKS' && candidate !== 'Scout System'
+            && candidate !== 'REGION:Scout System' && !isScoutKindSource(candidate)
+            ? candidate : 'ALL_SOURCES';
+          chooseSource(target);
+        };
+        wrap.appendChild(noticesBtn);
+
         const activeKind = scoutKindIdFromSource(state.activeSource);
         for (const kind of SCOUT_SYSTEM_KINDS) {
           const btn = document.createElement('button');
@@ -2146,9 +2169,6 @@
           // 地域／總會來源本身冇 Scout System 小工具；點「小工具」直接進入
           // Scout System 專用瀏覽模式（內設六類＋「今天更新/發布／之前發布」）。
           if (tag.id === 'tools') {
-            state.category = 'ALL';
-            state.searchScope = 'current';
-            renderScopeChips();
             chooseSource('Scout System');
             return;
           }
@@ -2202,10 +2222,23 @@
 
     function chooseSource(source) {
       const wasScoutSystemView = viewingScoutSystem();
+      const enteringScoutSystem = !wasScoutSystemView && (
+        source === 'Scout System' || source === 'REGION:Scout System' || isScoutKindSource(source)
+      );
+      if (enteringScoutSystem) {
+        let previousNoticeSource = state.activeSource;
+        if (previousNoticeSource === 'BOOKMARKS') previousNoticeSource = state.lastSource || 'ALL_SOURCES';
+        if (!previousNoticeSource || previousNoticeSource === 'Scout System'
+            || previousNoticeSource === 'REGION:Scout System' || isScoutKindSource(previousNoticeSource)) {
+          previousNoticeSource = 'ALL_SOURCES';
+        }
+        state.lastNoticeSource = previousNoticeSource;
+        state.toolsWindowId = 'tools-all';
+        state.category = 'ALL';
+        state.searchScope = 'current';
+        renderScopeChips();
+      }
       state.activeSource = source;
-      // 每次由通告來源進入 Scout System 都先開「之前發布」，避免沿用先前
-      // 選過的「今天更新/發布」而睇唔到長期工具；喺 Scout System 內切換種類則保留選擇。
-      if (!wasScoutSystemView && viewingScoutSystem()) state.toolsWindowId = 'tools-all';
       renderWindowChips();   // 頂欄 ★／收藏掣高亮要跟住郁
       renderCategoryChips();
       renderAccordion();
@@ -5177,7 +5210,7 @@
           subtitle = '目前顯示全港所有通告。';
         }
       }
-      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。小工具唔以日期分類，只分「今天更新/發布」同「之前發布」。';
+      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。撳「通告」可返回一般通告分類；小工具只分「今天更新/發布」同「之前發布」。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
 
@@ -5314,7 +5347,7 @@
           ? `<br><small>目前只顯示「${escapeHtml(CATEGORY_TAGS.find(c => c.id === state.category)?.label || state.category)}」分類。分類由 enrich.py 嘅 PDF 內文判斷；如果全部係「其他」，可能 enrich.json 仲未補 categories（跑 python enrich.py --backfill-categories）。</small>`
           : '';
         const scoutHint = viewingScoutSystem()
-          ? '<br><small>Scout System 內設分類：助手、遊戲、系統、工具、其他、連結。小工具唔以日期分類：撳「之前發布」就會見到全部。</small>'
+          ? '<br><small>Scout System 內設分類：助手、遊戲、系統、工具、其他、連結。撳「通告」可返回一般通告分類；撳「之前發布」會顯示全部小工具。</small>'
           : '';
         messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}${catHint}${scoutHint}</div>`;
         return;

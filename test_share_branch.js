@@ -976,8 +976,8 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     await wait(80);
     ok(titles(dS).includes('舊密碼遊戲'), '撳返「之前發布」全部小工具返晒嚟');
     const kindChips = $$(dS, '#category-chips .chip').map(c => c.textContent.trim());
-    ok(JSON.stringify(kindChips) === JSON.stringify(kindLabels),
-       '入咗 Scout System，分類掣改成內設六類：' + kindChips.join(' '));
+    ok(JSON.stringify(kindChips) === JSON.stringify(['通告', ...kindLabels]),
+       '入咗 Scout System，先有「通告」返回掣，再列內設六類：' + kindChips.join(' '));
     ok($$(dS, '#category-chips .chip').find(c => c.textContent.trim() === '遊戲').classList.contains('active'),
        '遊戲分類掣呈 active');
     domS.window.close();
