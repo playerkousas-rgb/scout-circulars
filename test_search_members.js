@@ -187,6 +187,10 @@ checkCats('「學生隊員制服資助計劃申請表」→ 公布',
   { title: '學生隊員制服資助計劃申請表', source_site: '港島西區' },
   null,
   ['announcement']);
+checkCats('「無人機運動訓練計劃」唔會被當公布',
+  { title: '無人機運動訓練計劃', source_site: '總會' },
+  { categories: [{ id: 'training', label: '訓練' }] },
+  ['training']);
 checkCats('「幼童軍度假營2026資助計劃」唔受影響（照 enrich 分類）',
   { title: '香港童軍115周年 幼童軍度假營2026資助計劃', source_site: '沙田南區' },
   { categories: [{ id: 'activity', label: '活動' }] },

@@ -191,19 +191,18 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   - 標題有強證據（明確字眼）→ 直接分類，**唔會**被 PDF 內文其他字眼搶走。
   - **2026-10-03 用戶規則：標題有「公告／公布／公佈」＝公布**（例如「總部公告」「區總部公布」「D-26-05 - …區會公布」），排喺服務／比賽／訓練之前。
     唯一例外係賽果：「成績公布／結果公布／公佈結果／賽果公布」＝比賽類（2026-10-01 定咗）。
-  - **2026-11-06：標題有「制服資助計劃」＝公布**（用戶點名「學生隊員制服資助計劃」ACR202604C，
-    同「津貼計劃」同組嘅行政資助計劃；連「…申請表」都係公布）。刻意只收「制服資助計劃」
-    而唔收裸「資助計劃」——「幼童軍度假營2026資助計劃」屬活動、「比賽資助計劃」屬比賽，
-    唔可以被公布覆蓋詞搶走。三份規則（`subscription_tagging`／`story_queue`／`index.html` BATCH_RE）
-    同步，`tools/apply_notice_corrections.py` 亦有「學生隊員制服資助計劃」重寫舊 enrich 標籤。
-    **2026-11-06 補**：用戶指「呢張基本每年都出，名字還都一樣」，所以加多一層
-    —「用戶點名嘅固定名」＝永遠公布，**標題先決**：前端 `itemCategories()` 用
-    `NAMED_ANNOUNCEMENT_RE` 直接判公布，唔理 enrich 存檔標籤。原因：當年 enrich 由
-    PDF 內文抽到一句「課程」，就把標籤判成訓練（存檔 `categories=[training]`），
-    卡片同分類掣都會錯；而家標題一命中就係公布，等下一年同名通告都自動正確。
-    存檔標籤本身由 `apply_notice_corrections.py` 每晚重寫。
-    回歸測試：`test_story_queue.py`、`test_batch_category.js`、`test_search_members.js`、
-    `test_notice_corrections.py`。
+  - **2026-11-06：「學生隊員制服資助計劃」＝公布（只收整個名，唔收「計劃」）**。
+    用戶點名總會 ACR202604C，並指「呢張基本每年都出，名字還都一樣」——所以用
+    **整個名** 做固定規則（連「…申請表」「…2027」都認到），每年同名通告自動正確。
+    ⚠️ 用戶提醒「可能有訓練計劃、活動計劃、服務計劃」：所以規則永遠唔會用裸「計劃」
+    或裸「資助計劃」，各類「計劃」跟返自己個字眼 —— 訓練計劃＝訓練、活動計劃＝活動、
+    服務計劃＝服務、比賽計劃＝比賽（`TRAINING_TERMS` 今次補咗「訓練計劃」，
+    之前會跌落兜底公布）。三份規則（`subscription_tagging`／`story_queue`／
+    `index.html` BATCH_RE）＋ 前端 `NAMED_ANNOUNCEMENT_RE` 同步，全部係**標題先決**，
+    內文只係標題睇唔出時嘅後備。`tools/apply_notice_corrections.py` 亦有同名項目
+    重寫舊 enrich 標籤（今日存檔錯判做訓練，就係由佢每晚改返）。
+    回歸測試：`test_enrich.py`、`test_story_queue.py`、`test_batch_category.js`、
+    `test_search_members.js`、`test_notice_corrections.py`。
   - **2026-10-06（第二批）：標題有「嘉許計劃」＝公布**（同「獎勵計劃」「津貼計劃」同組），
     「卓越領袖嘉許計劃2027」唔會再被內文「服務記錄」搶去服務——同一計劃嘅附錄（主要日期及安排）
     同 2026 年獲嘉許名單一直都係公布，之前係同一件事三個標籤。

@@ -181,6 +181,33 @@ def main():
             "課程內容：訓練班安排\n申請資格：持有有效支部成員紀錄冊")],
         ["announcement"],
     )
+    # 2026-11-06 用戶提醒：「可能有訓練計劃、活動計劃、服務計劃」——唔可以見到
+    # 「計劃」就當公布；四種「計劃」要跟返自己個字眼分類。
+    passed += test(
+        "標題：「訓練計劃」＝訓練（唔會跌落兜底公布）",
+        [c["id"] for c in extract_categories("無人機運動訓練計劃", "")],
+        ["training"],
+    )
+    passed += test(
+        "標題：「活動計劃」＝活動",
+        [c["id"] for c in extract_categories("學校旅團支援活動計劃", "")],
+        ["activity"],
+    )
+    passed += test(
+        "標題：「服務計劃」＝服務",
+        [c["id"] for c in extract_categories("大美督海上活動中心服務計劃", "")],
+        ["service"],
+    )
+    passed += test(
+        "標題：「比賽計劃」＝比賽",
+        [c["id"] for c in extract_categories("全港青少年比賽計劃", "")],
+        ["competition"],
+    )
+    passed += test(
+        "標題：「比賽資助計劃」＝比賽（個『計劃』唔會令佢變公布）",
+        [c["id"] for c in extract_categories("2026-2027年度全港青少年比賽資助計劃", "")],
+        ["competition"],
+    )
     passed += test(
         "標題：有明確字眼（訓練班）時，內文『社區服務』搶唔走",
         [c["id"] for c in extract_categories("童軍繩結訓練班(P88/2026)", "活動性質：社區服務")],
