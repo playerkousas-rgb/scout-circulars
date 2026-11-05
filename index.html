@@ -2007,7 +2007,11 @@
         const btn = document.createElement('button');
         btn.className = `chip ${state.activeSource !== 'BOOKMARKS' && activeWindowId === win.id ? 'active' : ''}`;
         btn.textContent = win.label;
-        if (toolsView) btn.title = win.days == null ? '顯示全部已發布嘅小工具（包括今天）' : '只顯示今日新上架嘅小工具';
+        // 2026-11-06 用戶規則：小工具「今天」＝由未上架變成上架（今日新上架／重新上架）。
+        // 一直喺架上嘅舊工具屬「之前發布」，唔會因為第一次入圖書館就當今日。
+        if (toolsView) btn.title = win.days == null
+          ? '顯示全部已發布嘅小工具（包括今天）'
+          : '只顯示今日新上架／重新上架嘅小工具（由未上架變成上架）';
         btn.onclick = () => {
           if (toolsView) state.toolsWindowId = win.id;
           else state.windowId = win.id;

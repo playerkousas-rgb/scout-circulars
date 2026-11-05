@@ -5,9 +5,18 @@
 - 讀取：anon key 就夠（RLS 限 visible=true SELECT），唔使 service key。
 - data["Scout System"] = 全份 visible catalog（只收 visible=true，已上架的）。
   隱藏（visible=false）永遠唔會入圖書館；若舊版曾經可見但而家隱藏，下次同步會自動移除。
-- 以 URL 作為唯一更新判準：
-  - 同一 URL 改名、改標籤、改分類、改描述、換 icon → 只同步更新欄位，保留舊 date / captured_date（留喺「之前發布」），唔算新 APP。
-  - 全新 URL 上架（或超大型改版換新 URL 重新上架）→ 當日計入「今天更新/發布」（date / captured_date = 今日，並入 notices），隔日起自動歸入「之前發布」。
+- 2026-11-06 用戶規則（Scout System 結構同通告唔同）：「今天更新/發布」只收
+  **由未上架變成上架** 嘅小工具 —— 即係今日新上架、或者下架後重新上架。
+  一直喺架上嘅舊 app 一律留喺「之前發布」，日期用返商店真實日期，唔會因為
+  圖書館第一次見到個 URL 就蓋成今日（2026-10-21 同 2026-11-06 兩次全版變今日
+  都係咁嚟）。
+  - 同一 URL 改名、改標籤、改分類、改描述、換 icon → 只更新欄位，日期不變。
+  - 新 URL 但商店 `created_at` 舊過今日 → 上架咗好耐，用 `created_at` 做日期。
+  - `created_at` 係今日 → 真係今日上架，計入「今天更新/發布」。
+  - 曾經上架、之後喺 store 唔見咗（隱藏／下架）→ 記錄喺 `_meta.appstore.delisted`；
+    再上架就係今日。
+  - 防呆：一次過有太多「未見過嘅 URL」想變今日（例如 baseline 斷咗、store 換 domain），
+    唔會照單全收，改用商店真實日期並喺 log 大聲講。
 - 自己（scout-circulars.vercel.app）永遠 skip。
 - enrich.json 同步：每個可見 app 保證有 enrich 條目（小工具分類、支部標籤、描述）；
   若現有 app 欄位無變動，唔會無故刷新 enriched_at 時間戳。
@@ -38,6 +47,14 @@ LEGACY_SOURCES = {"SCOUT APP STORE", "SCOUT APP STORE "}
 
 def hkt_today() -> str:
     return datetime.now(HKT).strftime("%Y-%m-%d")
+
+
+def _parse_date(value: str):
+    """'2026-11-06' / '2026-11-06T...' → date；唔合法就 None。"""
+    try:
+        return datetime.strptime(str(value)[:10], "%Y-%m-%d").date()
+    except (TypeError, ValueError):
+        return None
 
 
 def fetch_live(url: str, anon: str) -> list:
@@ -186,11 +203,15 @@ def main() -> int:
             enrich = {}
 
     today = hkt_today()
+    today_dt = _parse_date(today)
     first_sync = sync.get("first_sync")
     if not first_sync:
         first_sync = sync["first_sync"] = today
 
     known_dates: dict[str, str] = sync.setdefault("known_dates", {})
+    # 「今天」＝由未上架變成上架（見檔頭 2026-11-06 規則）。delisted 記住
+    # 曾經上架、而家喺 store 唔見咗嘅 URL；佢再上返架就係今日。
+    delisted: dict[str, str] = sync.setdefault("delisted", {})
     sync.pop("known_ids", None)
 
     # 現有 URL 集合（同時檢查 url 同 pdf_url，因 core.py 寫入嘅 notices 只帶 pdf_url）
@@ -247,57 +268,75 @@ def main() -> int:
     }
     has_baseline = bool(existing_map or known_norm_dates or enrich_norm_map)
 
-    # ── catalog 鏡像（全份 visible，已上架）＋ 新 URL 判定 ──
-    # 規則：以 URL 作為 Scout System 唯一更新點：
-    # - 同一 URL（改名、改標籤、改分類、改描述）→ 保留舊 date / captured_date（之前發布），只更新內容；
-    # - 新 URL（全新上架，或超大型改版換新 URL 重新上架）→ 當日歸入「今天更新/發布」（date = 今日）。
+    # 上一次 catalog = 上一次真係喺架上嘅清單（core.py 每日重建時會保住佢）
+    prev_dates: dict[str, str] = {}
+    for e in data.get(SOURCE) or []:
+        if not isinstance(e, dict):
+            continue
+        key = _norm_url(e.get("url") or e.get("pdf_url"))
+        if key:
+            prev_dates.setdefault(key, str(e.get("captured_date") or e.get("date") or ""))
+
+    if not visible_apps:
+        # 0 個上架 = store 抓唔到嘢，唔可以照寫（否則清空成個 Scout System）
+        print(f"❌ {SOURCE}：store 回傳 0 個已上架 APP，拒絕寫入（保留現有 catalog）",
+              file=sys.stderr)
+        return 1
+
+    # ── catalog 鏡像（全份 visible，已上架）＋ 上架日判定 ──
+    # 2026-11-06 用戶規則：Scout System 同通告唔同結構，「今天更新/發布」只收
+    # 由「未上架」變成「上架」嘅小工具（今日新上架／重新上架）。
+    # 一直喺架上嘅舊 app 一律留喺「之前發布」，用返本身嘅上架日期 ——
+    # 唔會因為圖書館第一次見到個 URL 就蓋成今日（2026-10-21、2026-11-06 兩次
+    # 「全個 Scout System 變晒今日」都係咁嚟）。
     catalog = []
-    new_notices = []
-    new_known_dates: dict[str, str] = {}
+    today_items = []          # 今日（重新）上架：date == today
     for a in visible_apps:
         url = (a.get("url") or "").strip()
         norm_u = _norm_url(url)
         created = (a.get("created_at") or "")[:10]
+        created_dt = _parse_date(created)
+        published_before_today = bool(created_dt) and created_dt < today_dt
 
-        old = existing_map.get(url) or existing_map.get(norm_u)
-        enrich_entry = enrich_norm_map.get(norm_u)
-
-        already_known_url = bool(
-            old
-            or url in known_dates
-            or norm_u in known_norm_dates
-            or url in existing_urls
-            or norm_u in existing_norm_urls
-            or enrich_entry
+        hist_date = (
+            prev_dates.get(norm_u)
+            or known_dates.get(url)
+            or known_norm_dates.get(norm_u)
+            or (enrich_norm_map.get(norm_u) or {}).get("captured_date")
+            or ""
         )
+        was_delisted = norm_u in delisted or url in delisted
+        evidence = False          # 有正面證據先准「今日」（新 created_at／重新上架）
 
-        # 若已有 baseline，任何從未出現過嘅新 URL 都視為「今天更新/發布」；
-        # 若係首次空庫初始化（無 baseline），則只將 created >= first_sync 視為今日新上架，防止舊庫風暴。
-        is_new_app = (not already_known_url) and (has_baseline or (bool(created) and created >= first_sync))
-
-        if is_new_app:
-            captured = today
-            date_val = today
+        if was_delisted:
+            # 下架 → 重新上架：今日
+            listing_date = today
+            evidence = True
+        elif hist_date:
+            # 一路喺架上（或者上過架）：保留原本上架日期
+            listing_date = hist_date
+        elif published_before_today:
+            # 商店話佢好早就建立：只係圖書館歷史斷咗，唔可以當今日
+            listing_date = created
+        elif created_dt:
+            # created_at 係今日（或未來，store 時間有問題）→ 真係今日上架
+            listing_date = today
+            evidence = True
         else:
-            hist_date = (
-                ((old.get("captured_date") or old.get("date")) if old else None)
-                or known_dates.get(url)
-                or known_norm_dates.get(norm_u)
-                or (enrich_entry.get("captured_date") if enrich_entry else None)
-            )
-            if not hist_date:
-                hist_date = BASELINE_DATE
-            captured = hist_date
-            date_val = (old.get("date") if old and old.get("date") else captured)
+            # 完全冇 created_at：有 baseline 就當今日新上架（下面防呆會把關）
+            listing_date = today if has_baseline else BASELINE_DATE
 
-        new_known_dates[url] = captured
+        if not listing_date:
+            listing_date = BASELINE_DATE
+        if today_dt and _parse_date(listing_date) and _parse_date(listing_date) > today_dt:
+            listing_date = today          # 唔好把未來日期寫入圖書館
 
-        catalog.append({
+        entry = {
             "title": a.get("name") or "",
             "url": url,
             "pdf_url": url,
-            "date": date_val,
-            "captured_date": captured,
+            "date": listing_date,
+            "captured_date": listing_date,
             "source_site": SOURCE,
             "region": SOURCE,
             "source_url": "https://scoutappstore.vercel.app/",
@@ -306,24 +345,60 @@ def main() -> int:
             "icon": a.get("icon") or "",
             "store_category": a.get("category") or "",
             "store_page": a.get("page") or "",
-        })
-
-        if is_new_app:
-            new_notices.append({
-                "title": a.get("name") or "",
-                "url": url,
-                "pdf_url": url,
-                "date": today,
-                "captured_date": today,
-                "source_site": SOURCE,
-                "region": SOURCE,
-                "source_url": "https://scoutappstore.vercel.app/",
-                "tags": category_to_tags(a),
-                "description": a.get("description") or a.get("note") or "",
-                "icon": a.get("icon") or "",
+        }
+        catalog.append(entry)
+        if listing_date == today:
+            today_items.append({
+                "entry": entry,
+                "evidence": evidence,
+                "fallback": created if published_before_today else BASELINE_DATE,
             })
 
-    sync["known_dates"] = new_known_dates
+    # ── 防呆：唔可以一次過把成個 catalog 洗成今日 ──
+    # 兩次事故（2026-10-21、2026-11-06）都係「baseline 一閃失 → 全部 URL 當新」。
+    # 而家：無正面證據（商店 created_at 舊／冇 created_at）而又一次過多過
+    # 上限，就當 baseline 斷咗，改用真實日期，並喺 log 講清楚。
+    blast_limit = max(3, int(len(catalog) * 0.3))
+    if has_baseline and len(today_items) > blast_limit:
+        defused = 0
+        for item in today_items:
+            if item["evidence"]:
+                continue
+            entry = item["entry"]
+            entry["date"] = entry["captured_date"] = item["fallback"] or BASELINE_DATE
+            defused += 1
+        today_items = [i for i in today_items if i["entry"]["captured_date"] == today]
+        if defused:
+            print(f"⚠️  {SOURCE}：{defused} 個未曾見過嘅 URL 想一次過變「今日」"
+                  f"（上限 {blast_limit}）—— 當 baseline 斷咗，改用商店真實日期，"
+                  f"唔會全版變今日")
+
+    # ── 抓唔齊嘅自我保護：一次過少咁多 = store 回傳唔完整 ──
+    # 與其把成個 catalog 縮水（會連 enrich、notices 一齊跌走），保留舊條目。
+    visible_norms = {_norm_url((a.get("url") or "").strip()) for a in visible_apps}
+    visible_norms.discard("")
+    prev_by_norm: dict[str, dict] = {}
+    for e in data.get(SOURCE) or []:
+        if isinstance(e, dict):
+            key = _norm_url(e.get("url") or e.get("pdf_url"))
+            if key:
+                prev_by_norm.setdefault(key, e)
+    missing_norms = [k for k in prev_dates if k and k not in visible_norms]
+    suspicious_shrink = bool(missing_norms) and len(missing_norms) > max(2, len(prev_dates) // 3)
+    carried = 0
+    if suspicious_shrink:
+        for key in missing_norms:
+            prev_entry = prev_by_norm.get(key)
+            if prev_entry:
+                catalog.append(dict(prev_entry))
+                carried += 1
+        print(f"⚠️  {SOURCE}：上一次 catalog 有 {len(prev_dates)} 項，今次 store 只回 "
+              f"{len(visible_norms)} 項 —— 當抓唔齊，保留 {carried} 項舊資料、"
+              f"唔記下架、唔清 enrich")
+
+    new_known_dates: dict[str, str] = {
+        e["url"]: e["captured_date"] for e in catalog if e.get("url")
+    }
 
     # 按 store sort_order 排序（跟 App Store 展示順序）
     catalog.sort(key=lambda x: next((a.get("sort_order", 0) for a in visible_apps if a.get("url") == x["url"]), 0))
@@ -342,17 +417,48 @@ def main() -> int:
     if SOURCE not in source_order:
         source_order.append(SOURCE)
 
-    # 同步現有 notices 入面嘅 Scout System 條目標題與標籤（嚴格保留舊 captured_date）
+    # ── notices 對帳：每個已上架 app 都要有一條，日期跟 catalog ──
+    # 之前只會為「新 APP」append 一條，舊 app 甩咗就永遠唔會補返（2026-11-06
+    # 見到 cache 有 17 個 app 但 notices 只有 13 條）；重新上架又會疊多一條
+    # 重複。而家一次過對帳：缺就補（用本身日期，唔會當今日），有就更新
+    # 標題／標籤／日期，一條 app 只會有一條 notice。
     catalog_by_norm = {_norm_url(c["url"]): c for c in catalog}
+    notices_by_norm: dict[str, dict] = {}
     for n in notices:
         if isinstance(n, dict) and n.get("source_site") == SOURCE:
-            u = _norm_url(n.get("url") or n.get("pdf_url"))
-            if u in catalog_by_norm:
-                c_item = catalog_by_norm[u]
-                n["title"] = c_item["title"]
-                n["tags"] = list(c_item["tags"])
+            key = _norm_url(n.get("url") or n.get("pdf_url"))
+            if key:
+                notices_by_norm.setdefault(key, n)
 
-    notices.extend(new_notices)
+    added_notices = 0
+    for key, c_item in catalog_by_norm.items():
+        n = notices_by_norm.get(key)
+        if n is None:
+            n = {
+                "title": c_item["title"],
+                "url": c_item["url"],
+                "pdf_url": c_item["url"],
+                "date": c_item["date"],
+                "captured_date": c_item["captured_date"],
+                "source_site": SOURCE,
+                "region": SOURCE,
+                "source_url": "https://scoutappstore.vercel.app/",
+                "tags": list(c_item["tags"]),
+                "description": c_item["description"],
+                "icon": c_item["icon"],
+            }
+            notices.append(n)
+            notices_by_norm[key] = n
+            added_notices += 1
+        else:
+            n["title"] = c_item["title"]
+            n["tags"] = list(c_item["tags"])
+            n.setdefault("url", c_item["url"])
+            n.setdefault("pdf_url", c_item["url"])
+            n["date"] = c_item["date"]
+            n["captured_date"] = c_item["captured_date"]
+
+    new_notices = [i["entry"] for i in today_items]   # 只作輸出用（今日上架）
 
     # ── enrich.json 同步 ──
     # 為每個可見 app 保證有 enrich 條目 — 按 store_category 分類，舊紀錄改名／換位自動更新；
@@ -404,12 +510,41 @@ def main() -> int:
             if changed:
                 e["enriched_at"] = datetime.now(HKT).strftime("%Y-%m-%d %H:%M:%S")
 
-    # 移除已隱藏或已換新 URL 嘅舊 app enrich（只移除 source=Scout System，唔誤刪通告 enrich）
-    visible_urls = {(a.get("url") or "").strip() for a in visible_apps}
-    for url in list(enrich.keys()):
-        v = enrich[url]
-        if isinstance(v, dict) and v.get("source") == SOURCE and url not in visible_urls:
-            del enrich[url]
+    # ── 下架記錄：邊啲上過架嘅 app 而家唔喺架上 ──
+    # 記住嘅目的只有一個：下次再上架就當「今日」。
+    for key in list(delisted):
+        if key in visible_norms:
+            delisted.pop(key, None)
+    if not suspicious_shrink:
+        for key in missing_norms:
+            delisted.setdefault(key, today)
+
+    # 移除真係下架／換新 URL 嘅舊 app enrich（只移除 source=Scout System，唔誤刪通告 enrich）
+    if not suspicious_shrink:
+        for url in list(enrich.keys()):
+            v = enrich[url]
+            if isinstance(v, dict) and v.get("source") == SOURCE and _norm_url(url) not in visible_norms:
+                del enrich[url]
+
+    # enrich 自我修復：catalog 內每個 app（包括抓唔齊時保留下嚟嘅）都要有條目。
+    # 之前 enrich.json 可以一直缺 7 個 app 而冇人知（前端只係少咗描述）。
+    for c_item in catalog:
+        url = (c_item.get("url") or "").strip()
+        if not url or isinstance(enrich.get(url), dict):
+            continue
+        enrich[url] = build_enrich_entry(
+            {
+                "name": c_item.get("title") or "",
+                "description": c_item.get("description") or "",
+                "tags": c_item.get("tags") or [],
+                "category": c_item.get("store_category") or "",
+                "page": c_item.get("store_page") or "",
+            },
+            c_item.get("captured_date") or BASELINE_DATE,
+        )
+
+    sync["known_dates"] = new_known_dates
+    sync["delisted"] = delisted
 
     # 寫檔 — 永遠只計 visible，唔保留 hidden 計數
     sync["last_sync"] = today
@@ -428,7 +563,18 @@ def main() -> int:
     cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     enrich_path.write_text(json.dumps(enrich, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    print(f"✅ {SOURCE}：catalog {len(catalog)} 項（已上架 {len(visible_apps)}）｜新 APP {len(new_notices)} 個（baseline {first_sync}）")
+    # 靜默失敗防線：每個已上架 app 一定要有 enrich 條目，否則大聲講。
+    missing_enrich = [
+        (c.get("url") or "").strip() for c in catalog
+        if not isinstance(enrich.get((c.get("url") or "").strip()), dict)
+    ]
+    if missing_enrich:
+        print(f"⚠️  {SOURCE}：{len(missing_enrich)} 個已上架 APP 冇 enrich 條目："
+              f"{'、'.join(missing_enrich[:5])}", file=sys.stderr)
+
+    print(f"✅ {SOURCE}：catalog {len(catalog)} 項（已上架 {len(visible_apps)}）"
+          f"｜今日新上架 {len(today_items)} 個｜下架記錄 {len(delisted)} 個"
+          f"｜補 notices {added_notices} 條（baseline {first_sync}）")
     for n in new_notices:
         print(f"   + {n['title']} {n['url']}")
     return 0
