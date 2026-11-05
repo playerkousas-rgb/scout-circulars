@@ -99,6 +99,9 @@ const cases = [
   ['葛量洪青少年制服團隊傑出服務奬2026-2027', 'announcement'], // 異體字「奬」都要認到
   ['葛量洪獎學基金 (Grantham Scholarships Fund) 葛量洪青少年制服團隊傑出服務獎 2026-2027', 'announcement'],
   ['11-2026 小童軍支部 - 「小草」賀新春—小童軍親子利是封設計比賽 (截止: 2026-12-26)', 'competition'],
+  // 2026-11-06 用戶確認：學生隊員制服資助計劃＝公布（同津貼計劃同組）。
+  ['學生隊員制服資助計劃', 'announcement'],
+  ['學生隊員制服資助計劃申請表', 'announcement'],
 ];
 for (const [title, want] of cases) {
   const got = batchCategory({ title, source_site: 'x' }, null);

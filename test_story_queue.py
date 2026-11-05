@@ -226,6 +226,25 @@ class TestEnrichJoinAndCategory(unittest.TestCase):
             got = sq.classify_category(_item(title=title), None)
             self.assertEqual(got, want, f"{title} 應該係 {want} 而係 {got}")
 
+    def test_2026_11_06_student_uniform_subsidy_is_announcement(self):
+        """用戶 2026-11-06：「學生隊員制服資助計劃」標籤係公布。
+
+        同「津貼計劃」同組嘅行政資助計劃；以前 story_queue／出圖台會跌落
+        「未分類」（other），IG Story 同推播標籤就會錯。
+        """
+        title = "學生隊員制服資助計劃"
+        self.assertEqual(sq.classify_category(_item(title=title), None), "announcement")
+
+        from subscription_tagging import extract_categories
+        self.assertEqual([c["id"] for c in extract_categories(title, "")], ["announcement"])
+        # 內文有「活動／訓練」字眼都唔可以搶走（標題先決＋公布覆蓋詞）
+        body = "資助有經濟需要的學生隊員購買制服，活動詳情及訓練安排見附件。"
+        self.assertEqual([c["id"] for c in extract_categories(title, body)], ["announcement"])
+
+        # 公布唔出 Story（同其他公布一致）
+        item = _item(title=title)
+        self.assertEqual(sq.pick_today(_cache({"總會": [item]}), TODAY, _enrich([item])), [])
+
     def test_rally_is_activity_and_lost_property_is_announcement(self):
         """2026-10-06 規則：「香港童軍大會操」一般＝活動；明確列賽事＝比賽。
 
