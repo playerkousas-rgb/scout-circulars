@@ -99,6 +99,14 @@ const cases = [
   ['葛量洪青少年制服團隊傑出服務奬2026-2027', 'announcement'], // 異體字「奬」都要認到
   ['葛量洪獎學基金 (Grantham Scholarships Fund) 葛量洪青少年制服團隊傑出服務獎 2026-2027', 'announcement'],
   ['11-2026 小童軍支部 - 「小草」賀新春—小童軍親子利是封設計比賽 (截止: 2026-12-26)', 'competition'],
+  // 2026-11-06 用戶確認：學生隊員制服資助計劃＝公布（同津貼計劃同組）。
+  ['學生隊員制服資助計劃', 'announcement'],
+  ['學生隊員制服資助計劃申請表', 'announcement'],
+  // 用戶提醒「可能有訓練計劃／活動計劃／服務計劃」——唔可以見「計劃」就當公布。
+  ['無人機運動訓練計劃', 'training'],
+  ['學校旅團支援活動計劃', 'activity'],
+  ['大美督海上活動中心服務計劃', 'service'],
+  ['全港青少年比賽計劃', 'competition'],
 ];
 for (const [title, want] of cases) {
   const got = batchCategory({ title, source_site: 'x' }, null);

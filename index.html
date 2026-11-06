@@ -1000,6 +1000,12 @@
     const CATEGORY_IDS = new Set(['training', 'service', 'activity', 'competition', 'tools', 'announcement']);
     // 來源級分類：呢啲來源出嘅通告一律係「小工具」（同 subscription_tagging.py 嘅 TOOLS_SOURCES 保持一致）
     const TOOLS_SOURCES = new Set(['Scout System']);
+    // 2026-11-06 用戶規則：用戶點名、每年都出而且名一樣嘅通告，標籤永遠係公布。
+    // 用家原話：「學生隊員制服資助計劃…基本每年都出，名字還都一樣」。
+    // 標題先決：唔可以由 enrich 由 PDF 內文抽到嘅「課程」等字眼搶走（今日就係
+    // 咁由公布變咗訓練）。同 subscription_tagging.ANNOUNCEMENT_OVERRIDE_TERMS／
+    // story_queue／BATCH_RE 三份規則同步。
+    const NAMED_ANNOUNCEMENT_RE = /學生隊員制服資助計劃/;
     // Scout System 側欄／分類掣內設，唔靠抓取先出現。命中次序：站方標籤 → 標題，都冇就歸「其他」。
     // 「小工具」係成個來源嘅分類，唔當內設「工具」，避免全部掉入工具。
     const SCOUT_SYSTEM_KINDS = [
@@ -1081,6 +1087,9 @@
 
     function itemCategories(item, enrich) {
       if (TOOLS_SOURCES.has(String(item?.source_site || '').trim())) return new Set(['tools']);
+      // 用戶點名嘅「每年同名」通告：標題先決＝公布，唔理 enrich 存檔標籤
+      // （舊紀錄可能係由 PDF 內文嘅「課程」判成訓練）。
+      if (NAMED_ANNOUNCEMENT_RE.test(String(item?.title || ''))) return new Set(['announcement']);
       // enrich.py 寫入：categories: [{ id, subtype, label, score, evidence }...]
       const raw = enrich?.categories;
       // 新分類規則以「公布」作行政／無其他命中時嘅兜底。enrich.json 可能仍有
@@ -2007,7 +2016,11 @@
         const btn = document.createElement('button');
         btn.className = `chip ${state.activeSource !== 'BOOKMARKS' && activeWindowId === win.id ? 'active' : ''}`;
         btn.textContent = win.label;
-        if (toolsView) btn.title = win.days == null ? '顯示全部已發布嘅小工具（包括今天）' : '只顯示今日新上架嘅小工具';
+        // 2026-11-06 用戶規則：小工具「今天」＝由未上架變成上架（今日新上架／重新上架）。
+        // 一直喺架上嘅舊工具屬「之前發布」，唔會因為第一次入圖書館就當今日。
+        if (toolsView) btn.title = win.days == null
+          ? '顯示全部已發布嘅小工具（包括今天）'
+          : '只顯示今日新上架／重新上架嘅小工具（由未上架變成上架）';
         btn.onclick = () => {
           if (toolsView) state.toolsWindowId = win.id;
           else state.windowId = win.id;
@@ -6399,7 +6412,10 @@
       reference_title: /行事曆|一覽表|訓練綱要|課程大綱|章程|指引|結果公布|得獎名單|名單|便覽|通告一覽|通告[【[][^】\]]{0,20}?年[^】\]]{0,10}?月/,
       // 2026-11-04：「傑出服務獎／獎學基金」係獎項公布，唔係服務活動；
       // 同 subscription_tagging.ANNOUNCEMENT_OVERRIDE_TERMS 對齊。
-      announcement_override: /童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|服務獎|獎學基金|嘉許計劃|津貼計劃|津貼|獎勵計劃|特惠菜式/,
+      // 2026-11-06：用戶點名「學生隊員制服資助計劃」＝公布 → 只寫整個名
+      // （唔收裸「計劃」／「資助計劃」，否則訓練計劃／活動計劃／服務計劃同
+      // 度假營資助計劃都會變公布）。
+      announcement_override: /童軍獎勵|旅團獎勵|優異旅團|傑出旅團|功績獎勵|服務獎勵|服務獎|獎學基金|嘉許計劃|津貼計劃|學生隊員制服資助計劃|津貼|獎勵計劃|特惠菜式/,
       // 標題有「公告／公布／公佈」＝公布；下面先用 announcement_result 遮蓋賽果片語。
       announcement_title: /公告|公布|公佈/,
       announcement_result: /成績公布|成績公佈|結果公布|結果公佈|公布結果|公佈結果|賽果公布|賽果公佈/,

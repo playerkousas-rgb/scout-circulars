@@ -58,7 +58,18 @@ notify.py（匿名 Push）＋ story-queue／story-daily 自動當「新通告」
 
 1. **觸發用 polling 唔用 webhook**：現有 scrape 每日跑一次，頻率同今日更新一致；
    Supabase Realtime／DB webhook 要额外基建，暫時唔值。`submissions` 表匿名讀唔到，
-   所以「新上架」訊號只能嚟自 `apps` 表出現新 `id`（用 `apps.id` 集合做 fingerprint 去重）。
+   所以「新上架」訊號只能嚟自 `apps` 表出現新 `url`（以 URL 做唯一識別，改名／改標籤／
+   換 icon 都唔算新上架）。
+   **2026-11-06 用戶規則**：「今天更新/發布」＝ **由未上架變成上架**，唔係「圖書館第一次
+   見到個 URL」。實作（`tools/scrape_appstore.py`）：
+   - 一直喺 `data["Scout System"]` 入面 → 保留本身日期（之前發布）；
+   - 新 URL、`created_at` 舊過今日 → 用 `created_at`（商店真實日期），唔會變今日；
+   - `created_at` 係今日 → 今日新上架；
+   - 上過架之後喺 store 唔見咗 → 記入 `_meta.appstore.delisted`，再上架就係今日；
+   - 防呆 ①：一次過太多「未見過嘅 URL」想變今日（baseline 斷咗／store 換 domain）→
+     改用真實日期並喺 log 警告；
+   - 防呆 ②：store 回傳數目突然大幅縮水 → 當抓唔齊，保留舊 catalog／enrich，
+     唔記下架（避免重現「一批舊 app 之後全部變今日」）。
 2. **去重**：以 `url` 同現有 49 來源＋手動加入嘅項目對碰；同一 url 已收錄就 skip
   （用家階段 0 手動加過嘅原生 APP 唔會雙重派發）。實作時要確認 core.py 嘅 url 去重行為。
 3. **ICON 來源反轉**：階段 2 起前端 tools icon 解像順序改為

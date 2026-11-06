@@ -255,139 +255,242 @@ class TagSelectorIsolationTests(unittest.TestCase):
 
 
 class AppStoreSyncTests(unittest.TestCase):
-    """確保 Scout System 唔會日日變「今日更新」：改動標籤唔算新 APP，全新上架先算。"""
+    """Scout System 上架日規則（2026-11-06 用戶規則）。
 
-    def test_nine_existing_apps_are_in_previously_published(self):
-        import json
-        from pathlib import Path
+    「今天更新/發布」只收 **由未上架變成上架** 嘅小工具：
+      * 一直喺架上 → 保留本身日期，留在「之前發布」；
+      * created_at 係今日 → 今日新上架；
+      * 下架後重新上架 → 今日；
+      * created_at 舊過今日（baseline 斷咗）→ 用商店真實日期，唔可以變今日；
+      * 一次過太多未見過嘅 URL → 防呆介入，唔會全版變今日。
+    同時保證：每個已上架 app 都有一條 notice（唔重複）＋ 一條 enrich。
+    """
 
-        cache = json.loads(Path("cache.json").read_text(encoding="utf-8"))
-        ss = cache.get("data", {}).get("Scout System", [])
-        self.assertEqual(len(ss), 9)
-        for item in ss:
-            self.assertEqual(item.get("date"), "2026-09-24", item.get("title"))
-            self.assertEqual(item.get("captured_date"), "2026-09-24", item.get("title"))
+    BASELINE = "2026-09-24"
 
-    def test_tag_or_name_changes_with_same_url_do_not_make_app_new_today(self):
+    # ── fixture helpers ───────────────────────────────────────────
+    def _app(self, name, url, created_at, tags=None, category="工具", page="apps"):
+        return {
+            "id": name,
+            "name": name,
+            "url": url,
+            "description": f"{name} 描述",
+            "note": None,
+            "icon": "",
+            "icon_source": "favicon",
+            "category": category,
+            "page": page,
+            "tags": tags if tags is not None else ["童軍", "小工具"],
+            "visible": True,
+            "sort_order": 0,
+            "created_at": created_at,
+        }
+
+    def _catalog_entry(self, app, date):
+        return {
+            "title": app["name"],
+            "url": app["url"],
+            "pdf_url": app["url"],
+            "date": date,
+            "captured_date": date,
+            "source_site": "Scout System",
+            "region": "Scout System",
+            "source_url": "https://scoutappstore.vercel.app/",
+            "tags": list(app.get("tags") or []),
+            "description": app.get("description") or "",
+            "icon": "",
+            "store_category": app.get("category") or "",
+            "store_page": app.get("page") or "",
+        }
+
+    def _cache(self, tools, extra_notices=None):
+        notices = []
+        for item in tools:
+            notices.append({
+                "source_site": "Scout System",
+                "region": "Scout System",
+                "pdf_url": item["url"],
+                "title": item["title"],
+                "captured_date": item["captured_date"],
+                "tags": list(item.get("tags") or []),
+            })
+        notices.extend(extra_notices or [])
+        return {
+            "last_updated": f"{self.BASELINE} 00:00:00",
+            "meta": {"version": "5.3.0", "total_sources": 1, "total_notices": len(notices)},
+            "data": {"Scout System": tools},
+            "notices": notices,
+            "_meta": {
+                "appstore": {
+                    "first_sync": self.BASELINE,
+                    "last_sync": self.BASELINE,
+                    "known_dates": {i["url"]: i["captured_date"] for i in tools},
+                }
+            },
+        }
+
+    def _run(self, cache, apps, enrich=None):
+        """喺 temp dir 跑一次同步，回傳 (cache, enrich, stdout)。"""
         import json
         import subprocess
         import tempfile
         from pathlib import Path
 
-        store = json.loads(Path("appstore.json").read_text(encoding="utf-8"))
-        apps = [dict(a) for a in store["apps"]]
-        # 修改現有 APP「遠足路程表」嘅名稱、支部標籤同分類（但 URL 不變）
-        for a in apps:
-            if a.get("url") == "https://drawtheroute-yd8p.vercel.app/":
-                a["name"] = "遠足路程規劃表 2.0"
-                a["tags"] = ["幼童軍", "童軍", "深資童軍", "樂行童軍"]
-                a["category"] = "集會助手及指南"
-
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
-            cache_copy = tmp_path / "cache.json"
-            enrich_copy = tmp_path / "enrich.json"
-            apps_json = tmp_path / "apps.json"
-
-            orig_cache = json.loads(Path("cache.json").read_text(encoding="utf-8"))
-            cache_copy.write_text(json.dumps(orig_cache, ensure_ascii=False), encoding="utf-8")
-            enrich_copy.write_text(Path("enrich.json").read_text(encoding="utf-8"), encoding="utf-8")
-            apps_json.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
-
+            cache_path = tmp_path / "cache.json"
+            enrich_path = tmp_path / "enrich.json"
+            apps_path = tmp_path / "apps.json"
+            cache_path.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+            enrich_path.write_text(json.dumps(enrich or {}, ensure_ascii=False), encoding="utf-8")
+            apps_path.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
             res = subprocess.run(
                 [
                     sys.executable,
                     "tools/scrape_appstore.py",
-                    "--apps-json", str(apps_json),
-                    "--cache", str(cache_copy),
-                    "--enrich", str(enrich_copy),
+                    "--apps-json", str(apps_path),
+                    "--cache", str(cache_path),
+                    "--enrich", str(enrich_path),
                 ],
                 capture_output=True,
                 text=True,
                 check=True,
             )
-            self.assertIn("新 APP 0 個", res.stdout)
+            return (
+                json.loads(cache_path.read_text(encoding="utf-8")),
+                json.loads(enrich_path.read_text(encoding="utf-8")),
+                res.stdout,
+            )
 
-            updated_cache = json.loads(cache_copy.read_text(encoding="utf-8"))
-            updated_enrich = json.loads(enrich_copy.read_text(encoding="utf-8"))
-            ss = updated_cache["data"]["Scout System"]
-            self.assertEqual(len(ss), 9)
-            for item in ss:
-                # 同一 URL 改名或改標籤：全部 9 個仍然留喺「之前發布」(2026-09-24)，唔會變今日
-                self.assertEqual(item["date"], "2026-09-24", item["title"])
-                self.assertEqual(item["captured_date"], "2026-09-24", item["title"])
-                if item["url"] == "https://drawtheroute-yd8p.vercel.app/":
-                    self.assertEqual(item["title"], "遠足路程規劃表 2.0")
-                    self.assertIn("幼童軍", item["tags"])
-                    self.assertEqual(item["store_category"], "集會助手及指南")
+    def _items(self, cache):
+        return {i["url"]: i for i in cache["data"]["Scout System"]}
 
-            e = updated_enrich["https://drawtheroute-yd8p.vercel.app/"]
-            self.assertEqual(e["title"], "遠足路程規劃表 2.0")
-            self.assertIn("幼童軍", e["branch_tags"])
-            self.assertEqual(e["ss_kind"], "assistant")
+    def _notices(self, cache):
+        return [n for n in cache["notices"] if n.get("source_site") == "Scout System"]
 
-    def test_major_rewrite_with_new_url_or_brand_new_app_counts_as_new_today(self):
-        import json
-        import subprocess
-        import tempfile
-        from pathlib import Path
+    # ── 測試 ─────────────────────────────────────────────────────
+    def test_existing_apps_keep_published_dates_when_they_change(self):
+        old_a = self._app("遠足路程表", "https://drawtheroute.test/", "2026-09-03T10:00:00+00:00")
+        old_b = self._app("童軍進度紀錄", "https://scoutbadge.test/", "2026-09-04T10:00:00+00:00")
+        cache = self._cache([self._catalog_entry(old_a, self.BASELINE),
+                             self._catalog_entry(old_b, self.BASELINE)])
+
+        # 改名、改標籤、改分類，但 URL 唔變
+        apps = [dict(old_a, name="遠足路程規劃表 2.0", tags=["幼童軍", "童軍"], category="集會助手及指南"),
+                dict(old_b)]
+
+        updated, enrich, out = self._run(cache, apps)
+        self.assertIn("今日新上架 0 個", out)
+        items = self._items(updated)
+        for item in items.values():
+            self.assertEqual(item["date"], self.BASELINE)
+            self.assertEqual(item["captured_date"], self.BASELINE)
+        self.assertEqual(items["https://drawtheroute.test/"]["title"], "遠足路程規劃表 2.0")
+        self.assertIn("幼童軍", items["https://drawtheroute.test/"]["tags"])
+        self.assertEqual(enrich["https://drawtheroute.test/"]["ss_kind"], "assistant")
+        self.assertEqual(len(self._notices(updated)), 2, "改名唔應該多一條 notice")
+
+    def test_brand_new_app_created_today_counts_as_today(self):
         from tools.scrape_appstore import hkt_today
 
         today = hkt_today()
-        store = json.loads(Path("appstore.json").read_text(encoding="utf-8"))
-        apps = [dict(a) for a in store["apps"]]
-        # 超大型改版：同一個 ID 但換咗全新 URL → 以 URL 為準，應該當成今日重新上架
-        for a in apps:
-            if a.get("url") == "https://drawtheroute-yd8p.vercel.app/":
-                a["url"] = "https://drawtheroute-v3-major.vercel.app/"
+        old = self._app("遠足路程表", "https://drawtheroute.test/", "2026-09-03T10:00:00+00:00")
+        fresh = self._app("新出小工具", "https://brandnew.test/", f"{today}T01:00:00+00:00")
+        cache = self._cache([self._catalog_entry(old, self.BASELINE)])
 
-        with tempfile.TemporaryDirectory() as tmp:
-            tmp_path = Path(tmp)
-            cache_copy = tmp_path / "cache.json"
-            enrich_copy = tmp_path / "enrich.json"
-            apps_json = tmp_path / "apps.json"
+        updated, enrich, out = self._run(cache, [old, fresh])
+        self.assertIn("今日新上架 1 個", out)
+        items = self._items(updated)
+        self.assertEqual(items["https://brandnew.test/"]["captured_date"], today)
+        self.assertEqual(items["https://drawtheroute.test/"]["captured_date"], self.BASELINE)
+        self.assertEqual(len(self._notices(updated)), 2)
+        self.assertEqual(self._notices(updated)[1]["captured_date"] if self._notices(updated)[1]["pdf_url"] == "https://brandnew.test/" else self._notices(updated)[0]["captured_date"], today)
+        self.assertIn("https://brandnew.test/", enrich)
+        self.assertEqual(enrich["https://brandnew.test/"]["categories"][0]["id"], "tools")
 
-            cache_copy.write_text(Path("cache.json").read_text(encoding="utf-8"), encoding="utf-8")
-            enrich_copy.write_text(Path("enrich.json").read_text(encoding="utf-8"), encoding="utf-8")
-            apps_json.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
+    def test_new_url_with_old_created_at_is_not_today(self):
+        old = self._app("遠足路程表", "https://drawtheroute.test/", "2026-09-03T10:00:00+00:00")
+        moved = dict(old, url="https://drawtheroute-v3.test/", name="遠足路程表 V3")
+        cache = self._cache([self._catalog_entry(old, self.BASELINE)])
 
-            res1 = subprocess.run(
-                [
-                    sys.executable,
-                    "tools/scrape_appstore.py",
-                    "--apps-json", str(apps_json),
-                    "--cache", str(cache_copy),
-                    "--enrich", str(enrich_copy),
-                ],
-                capture_output=True,
-                text=True,
-                check=True,
-            )
-            self.assertIn("新 APP 1 個", res1.stdout)
-            c1 = json.loads(cache_copy.read_text(encoding="utf-8"))
-            by_url = {x["url"]: x for x in c1["data"]["Scout System"]}
-            self.assertEqual(by_url["https://drawtheroute-v3-major.vercel.app/"]["captured_date"], today)
-            self.assertEqual(by_url["https://scoutbadge.vercel.app/"]["captured_date"], "2026-09-24")
+        updated, _enrich, out = self._run(cache, [moved])
+        self.assertIn("今日新上架 0 個", out)
+        items = self._items(updated)
+        # 換 URL 但商店話 2026-09-03 已經建立 → 唔可以當今日
+        self.assertEqual(items["https://drawtheroute-v3.test/"]["captured_date"], "2026-09-03")
+        # delisted 用 normalize 咗嘅 key（去尾斜線）
+        self.assertIn("https://drawtheroute.test", updated["_meta"]["appstore"]["delisted"])
 
-            # 同日再跑一次（例如改名／改標籤，但 URL 唔再變）：唔會重複當新 APP
-            for a in apps:
-                if a.get("url") == "https://drawtheroute-v3-major.vercel.app/":
-                    a["name"] = "遠足路程表 V3"
-                    a["tags"] = ["幼童軍", "童軍"]
-            apps_json.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
-            res2 = subprocess.run(
-                [
-                    sys.executable,
-                    "tools/scrape_appstore.py",
-                    "--apps-json", str(apps_json),
-                    "--cache", str(cache_copy),
-                    "--enrich", str(enrich_copy),
-                ],
-                capture_output=True,
-                text=True,
-                check=True,
-            )
-            self.assertIn("新 APP 0 個", res2.stdout)
+    def test_baseline_loss_uses_store_dates_not_today(self):
+        apps = [
+            self._app("工具一", "https://t1.test/", "2026-09-03T10:00:00+00:00"),
+            self._app("工具二", "https://t2.test/", "2026-09-05T10:00:00+00:00"),
+        ]
+        # 完全冇歷史：冇 data["Scout System"]、冇 known_dates、冇 enrich
+        cache = {"last_updated": "", "meta": {}, "data": {}, "notices": [], "_meta": {}}
+
+        updated, enrich, out = self._run(cache, apps)
+        self.assertIn("今日新上架 0 個", out)
+        items = self._items(updated)
+        self.assertEqual(items["https://t1.test/"]["captured_date"], "2026-09-03")
+        self.assertEqual(items["https://t2.test/"]["captured_date"], "2026-09-05")
+        self.assertEqual(len(self._notices(updated)), 2)
+        self.assertEqual(len(enrich), 2)
+
+    def test_mass_unknown_urls_are_defused_instead_of_flooding_today(self):
+        keep = [self._app(f"舊工具{i}", f"https://old{i}.test/", "2026-09-03T10:00:00+00:00") for i in range(10)]
+        cache = self._cache([self._catalog_entry(a, self.BASELINE) for a in keep])
+        # 8 個從未見過、又冇 created_at 嘅 URL（模擬 baseline 斷咗／store 換 key）
+        unknown = [{"name": f"神秘工具{i}", "url": f"https://mystery{i}.test/", "visible": True,
+                    "tags": ["小工具"], "category": "工具", "page": "apps", "sort_order": 0}
+                   for i in range(8)]
+
+        updated, _enrich, out = self._run(cache, keep + unknown)
+        self.assertIn("當 baseline 斷咗", out)
+        self.assertIn("今日新上架 0 個", out)
+        items = self._items(updated)
+        for i in range(8):
+            self.assertEqual(items[f"https://mystery{i}.test/"]["captured_date"], self.BASELINE)
+        for i in range(10):
+            self.assertEqual(items[f"https://old{i}.test/"]["captured_date"], self.BASELINE)
+
+    def test_delisted_app_that_comes_back_counts_as_today(self):
+        from tools.scrape_appstore import hkt_today
+
+        today = hkt_today()
+        a = self._app("工具甲", "https://a.test/", "2026-09-03T10:00:00+00:00")
+        b = self._app("工具乙", "https://b.test/", "2026-09-04T10:00:00+00:00")
+        cache = self._cache([self._catalog_entry(a, self.BASELINE), self._catalog_entry(b, self.BASELINE)])
+
+        # 第一日：乙下架
+        step1, _enrich, out1 = self._run(cache, [a])
+        self.assertIn("今日新上架 0 個", out1)
+        self.assertIn("https://b.test", step1["_meta"]["appstore"]["delisted"])
+        self.assertEqual(self._items(step1)["https://a.test/"]["captured_date"], self.BASELINE)
+
+        # 第二日：乙重新上架 → 今日
+        step2, _enrich2, out2 = self._run(step1, [a, b])
+        self.assertIn("今日新上架 1 個", out2)
+        items = self._items(step2)
+        self.assertEqual(items["https://b.test/"]["captured_date"], today)
+        self.assertEqual(items["https://a.test/"]["captured_date"], self.BASELINE)
+        self.assertNotIn("https://b.test", step2["_meta"]["appstore"]["delisted"])
+        b_notices = [n for n in self._notices(step2) if (n.get("url") or n.get("pdf_url")) == "https://b.test/"]
+        self.assertEqual(len(b_notices), 1, "重新上架唔可以疊多一條重複 notice")
+        self.assertEqual(b_notices[0]["captured_date"], today)
+
+    def test_missing_notices_are_backfilled_without_becoming_today(self):
+        a = self._app("工具甲", "https://a.test/", "2026-09-03T10:00:00+00:00")
+        b = self._app("工具乙", "https://b.test/", "2026-09-04T10:00:00+00:00")
+        cache = self._cache([self._catalog_entry(a, self.BASELINE), self._catalog_entry(b, self.BASELINE)])
+        cache["notices"] = [n for n in cache["notices"] if n["pdf_url"] != "https://b.test/"]
+
+        updated, _enrich, out = self._run(cache, [a, b])
+        self.assertIn("補 notices 1 條", out)
+        self.assertIn("今日新上架 0 個", out)
+        b_notices = [n for n in self._notices(updated) if (n.get("url") or n.get("pdf_url")) == "https://b.test/"]
+        self.assertEqual(len(b_notices), 1)
+        self.assertEqual(b_notices[0]["captured_date"], self.BASELINE)
 
 
 if __name__ == "__main__":
