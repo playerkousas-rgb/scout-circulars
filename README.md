@@ -171,17 +171,26 @@ index.html?raw=https://raw.githubusercontent.com/<user>/<repo>/main/cache.json
   - 兩套視窗完全脫鈎：喺小工具分頁揀邊個掣都唔會改到通告嗰邊，反之亦然。
     舊有「6個月視窗額外包含 6 個月以上小工具」嘅特例，同埋卡片上嘅「6個月以上」標籤，都一併取消。
   - 離開小工具分頁（全港／地域／區會混合清單）時，小工具照跟通告視窗，
-    唔會一撳「今天」就成版舊工具跳出嚟；但左欄 Scout System 嘅數字永遠報小工具視窗嘅真實件數，
-    撳入去見到幾多件就寫幾多件。
+    唔會一撳「今天」就成版舊工具跳出嚟。
+  - **側欄件數（2026-11-06 用戶指出「側欄 36 撳落去只有 21」）**：左欄一律報
+    **「撳落去會見到幾多件」**，同該視圖列表完全對數，而且唔會跟你喺另一邊撳過乜而跳。
+    通告類（全港／地域／區會）跟通告視窗；小工具一欄寫 **「今日新上架／已發布總數」**
+    （例 `2/17`），六類內設分類同「全部 (Scout System)」寫 `N / M 則`
+    （N＝目前視窗見到幾多件，M＝該類已發布總數）。
+    以前「全港 36」＝19 件今日通告 ＋ 17 件全部小工具，一撳「今天更新/發布」就變 21 —— 純粹係
+    一個數字混咗兩套時間定義，列表其實由頭到尾都係 21 件。
 - **「有更新」綠燈（2026-10-06 用戶規則：Scout System 唔好一直著燈）**：側欄嘅綠色高亮
   （`.region.has-updates`／`.source-btn.has-updates`）同發光數字 badge（`.count-badge.hot`）
   同「件數」分開計。通告照舊跟目前時間視窗；**Scout System 只認「今日新上架」**
   （`toolIsNewToday()`＝小工具「今天」掣嗰個 days: 1、HKT 日起計嘅門檻）。
   小工具係長期資產，「之前發布」永遠有貨，用件數做燈號等於 24 小時長著；
   而家今日冇新上架 → Scout System 一欄、六個內設分類、「全部 (Scout System)」全部熄燈，
-  過咗 HKT 午夜即刻熄（唔係等足 24 小時），但**數字照報全部件數**（撳入去見到幾多件就寫幾多件），
-  Scout System 一欄嘅 tooltip 會寫「（今日冇新上架）」。全港列嘅燈號同樣只計今日新上架嘅小工具。
-  回歸測試：`node test_scout_system_light.js`
+  過咗 HKT 午夜即刻熄（唔係等足 24 小時）；件數照報，但寫成 **「今日新上架／已發布總數」**
+  （`2/17`），唔會再只寫一個「17」令人以為 17 件都係今日新，Scout System 一欄嘅 tooltip
+  會寫「（今日新上架 N 件／已發布共 M 件・今日冇新上架）」。全港列嘅燈號同樣只計今日新上架嘅小工具。
+  標題亦跟住個掣寫：**「Scout System（今天新上架）」／「Scout System（之前發布）」**，
+  以前揀住「今天」但標題寫「(全部)」係自相矛盾。
+  回歸測試：`node test_scout_system_light.js`、`node test_sidebar_counts.js`
 
 ## 通告分類
 
@@ -492,7 +501,8 @@ node test_search_members.js     # 支部 + 分類配對邏輯（直接由 index.
 node test_report_feedback.js    # 問題回報／意見反映 payload 對齊 Scout Admin；預覽頁／Cloudflare 注入已清走
 node test_share_branch.js       # 支部標籤 + 分享面板 DOM 測試（需要 jsdom）
 node test_time_windows.js       # 「今天」午夜界線；小工具唔以日期分類（今天／之前發布）；Scout System 綠燈只認今日新上架
-node test_scout_system_light.js # Scout System 側欄綠燈：今日冇新上架就熄燈，但件數照報（需要 jsdom）
+node test_scout_system_light.js # Scout System 側欄綠燈：今日冇新上架就熄燈，件數寫「今日/總數」（需要 jsdom）
+node test_sidebar_counts.js     # 側欄件數 = 列表件數（換視窗、入出 Scout System 都唔准跳數）（需要 jsdom）
 node test_batch_category.js     # 出圖台 ?batch=1 分類（公告／公布規則，直接由 index.html 抽出）
 python test_notify.py           # Push 去重、交集和合併通知邏輯（不會發網絡請求）
 python test_push_common.py      # API 受控 ID 與 endpoint SSRF 防護

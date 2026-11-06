@@ -159,6 +159,12 @@ jobs:
       - name: 出圖台 ?batch=1 分類（公告／公布規則，直接由 index.html 抽出）
         run: node test_batch_category.js
 
+      - name: Scout System 側欄綠燈（今日新上架／件數分開）
+        run: node test_scout_system_light.js
+
+      - name: 側欄件數 = 列表件數（2026-11-06：36↔21 跳數修正）
+        run: node test_sidebar_counts.js
+
       - name: PWA 圖示／manifest／通知 badge 一致性
         run: node test_icons.js
 
