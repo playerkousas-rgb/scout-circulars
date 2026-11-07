@@ -10,6 +10,8 @@ pass. Run after scrape/enrich and before publishing data.
   * 為永遠唔會被 enrich.py 處理嘅「網頁型通告」（例如將軍澳區
     /notice/?nid=209）補一條只含標題分類嘅 enrich entry，等前端唔使
     一律兜底做「公布」。
+2026-11-07 再加：還原被區會信頭地址（「香港青衣長康邨康美樓 C301 室」）
+寫壞嘅兩張青衣區「取錄通知」標題；cache 兩份副本＋enrich 同步。
 所有修正都係冪等（每日跑一次都唔會重複寫／重複算）。
 """
 from __future__ import annotations
@@ -29,6 +31,8 @@ from subscription_tagging import extract_subscription_metadata  # noqa: E402
 
 CACHE_PATH = ROOT / "cache.json"
 ENRICH_PATH = ROOT / "enrich.json"
+# 寫入資料嘅 audit 標記；舊 entry 可能仍帶住舊日期，唔影響規則本身。
+REVIEW_LABEL = "apply_notice_corrections 2026-11-07"
 
 # Apply to every mirrored copy sharing these exact titles.
 CATEGORY_CORRECTIONS = {
@@ -54,6 +58,14 @@ CATEGORY_CORRECTIONS = {
 TITLE_CORRECTIONS = {
     "https://scout.org.hk/uploads/tc/circulars/26576/CPA202607_Grantham_Chi_2026.pdf":
         "葛量洪青少年制服團隊傑出服務奬2026-2027",
+    # 2026-11-07 用戶報告：青衣區兩張「取錄通知」被 PDF 信頭地址
+    # 「香港青衣長康邨康美樓 C301 室」當成標題。列表頁原名先係權威；
+    # enrich.py 3.10 已擋地址行，呢兩條負責清走舊 snapshot 入面已寫壞嘅紀錄
+    # （兩份 cache 副本＋enrich 都要還原，否則改完下一次 run 又會蓋返）。
+    "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701-1.pdf":
+        "取錄通知",
+    "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260901-1.pdf":
+        "取錄通知",
 }
 
 # 2026-11-04 用戶規則：內文「2.1 11至26歲…的童軍、深資童軍或樂行童軍支部
@@ -173,7 +185,7 @@ def apply_corrections(enrich: dict, cache: dict | None = None) -> dict[str, int]
             if entry.get("title") != title or entry.get("title_check") != "verified":
                 entry["title"] = title
                 entry["title_check"] = "verified"
-                entry["title_restored_by"] = "apply_notice_corrections 2026-11-04"
+                entry["title_restored_by"] = REVIEW_LABEL
             # 舊嘅假標題曾經被當成 PDF 標題寫入；留低 audit 但唔再生效。
             if entry.get("listing_title") == entry.get("title"):
                 entry.pop("listing_title", None)
@@ -237,7 +249,7 @@ def apply_corrections(enrich: dict, cache: dict | None = None) -> dict[str, int]
                 "title_check": "verified",
                 "enriched_at": now,
                 "enrich_version": ENRICH_VERSION,
-                "notice_correction": "apply_notice_corrections 2026-11-04",
+                "notice_correction": REVIEW_LABEL,
             }
             injected += 1
 

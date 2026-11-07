@@ -16,6 +16,19 @@
 > 2. `core.process_source`：抽出 0 個資產**唔再**寫入新指紋（保留舊指紋下輪重試）並計入 `error_sources`，
 >    以後再有來源「靜靜咁壞」會即刻在 dashboard 見到，唔會無聲無息漏一個月通告。
 
+> **2026-11-07 青衣區信頭地址抽錯標題修復：** 青衣區兩張「取錄通知」被改成
+> 「香港青衣長康邨康美樓 C301 室」——PDF 文字層第一行其實係區會信頭地址，
+> 舊版 `enrich.py` 冇擋裸地址（只擋「地址：」欄位名），`--apply-title-fixes`
+> 就把它當成 PDF 真標題寫返 `cache.json`。三道防線（`test_tyd_address_title_2026_11_07.py` 鎖住）：
+> 1. `extract_pdf_heading`／`heading_looks_like_title` 用
+>    `looks_like_postal_address()` 擋中英文通訊地址（冇標題字眼＋屋邨／樓層＋室號）；
+> 2. `listing_supported_by_pdf` 放寬到 4 字，等「取錄通知」「比賽結果」呢類
+>    區會短標題可以做 substring 對證，唔會再因為「對唔上」而被地址／活動名取代；
+> 3. `tools/apply_notice_corrections.py` 嘅 allowlist 還原已被寫壞嘅兩張通告
+>    （cache 兩份副本＋enrich 同步），所以下一次 run 會自動清走 `data` snapshot 嘅舊紀錄。
+> 另外手動後備 `.github/workflows/scrape-appstore.yml` 補回「Apply reviewed notice corrections」
+> 步驟，之前用佢跑一次會跳過晒所有人工確認嘅分類／標題修正。
+
 本專案按你提供的核心哲學重建：
 
 - **來源隔離（Source Isolation）**

@@ -51131,7 +51131,7 @@
   },
   "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/d260701-1.pdf": {
     "source": "青衣區",
-    "title": "香港青衣長康邨康美樓 C301 室",
+    "title": "取錄通知",
     "deadline": "",
     "audience": "",
     "fee": "",
@@ -51163,7 +51163,9 @@
     "subscription_catalog_version": "3.1.0",
     "method": "text",
     "error": "",
-    "title_check": "corrected",
+    "title_check": "verified",
+    "title_restored_by": "apply_notice_corrections 2026-11-07",
+    "title_restored_reason": "PDF 信頭地址唔係通告標題；還原青衣區列表頁原名",
     "enriched_at": "2026-09-16 05:06:36",
     "enrich_version": "3.2"
   },

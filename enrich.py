@@ -63,7 +63,8 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.9"  # 2026-11-04：標題異體字／資格條款防線、歲數與「支部或以上」對象抽取
+ENRICH_VERSION = "3.10"  # 2026-11-07：信頭地址唔可以當 PDF 標題（青衣區取錄通知個案）
+# 3.9（2026-11-04）：標題異體字／資格條款防線、歲數與「支部或以上」對象抽取
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
 # （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
 # 標題更正會記錄 listing_title，之後每次 run 重新套用（見
@@ -307,6 +308,45 @@ def looks_like_eligibility_clause(line: str) -> bool:
     return bool(_NUMBERED_CLAUSE_RE.match(text) or _CLAUSE_TAIL_RE.search(text))
 
 
+# ── 2026-11-07：區會信頭／頁尾通訊地址唔係通告標題 ──────────────────────
+# 個案：青衣區兩張「取錄通知」PDF（d260701-1.pdf、sc260901-1.pdf）文字層
+# 第一行就係信頭地址「香港青衣長康邨康美樓 C301 室」，下一行係英文地址
+# 「Flat C301, Hong Mei House, Cheung Hong Estate, Tsing Yi, Hong Kong」。
+# _HEADING_SKIP_RE 只擋「地址：」呢類有欄位名嘅寫法，冇擋裸地址，於是
+# extract_pdf_heading 揀咗地址做 PDF 標題 → reconcile 判 corrected →
+# --apply-title-fixes 把地址寫返 cache.json，列表／推播／分享全部變地址。
+# 形狀：地區＋屋邨／大廈／樓層＋門牌／室號；真通告名有標題字眼，唔會中。
+_POSTAL_ADDRESS_RE = re.compile(
+    r"(?:香港|九龍|新界|港島|離島|青衣|葵涌|荃灣|屯門|元朗|沙田|大埔|將軍澳|"
+    r"粉嶺|上水|柴灣|灣仔|旺角|觀塘|黃大仙|西貢|深水埗|紅磡|北角|香港仔)"
+    r"[^，,。；;｜|]{0,24}?"
+    r"(?:邨|村|屋苑|苑|大廈|大樓|樓|中心|街|道|路|里|巷|圍|徑)"
+    r"[^，,。；;｜|]{0,24}?"
+    r"(?:[A-Za-z]?\d{1,4}\s*(?:室|舖|鋪|號|樓)|\d{1,4}\s*號)"
+    r"|(?:邨|苑|屋苑|大廈|大樓)[^，,。；;｜|]{0,16}?[A-Za-z]?\d{1,4}\s*(?:室|舖|鋪|號)"
+)
+# 對 compact() 後（冇空格）嘅字串做配對，因為 heading_looks_like_title 傳入嘅
+# 已經係去咗空白嘅寫法。
+_ENGLISH_ADDRESS_RE = re.compile(
+    r"(?:flat|room|unit|suite)[a-z]?\d{1,4}\b"
+    r"|(?:estate|house|building)[^\n]{0,60}(?:hongkong|kowloon|newterritories)\b",
+    re.I,
+)
+
+
+def looks_like_postal_address(text: str) -> bool:
+    """信頭／頁尾嘅中英文通訊地址，永遠唔可以當通告標題或寫返 cache。"""
+    line = compact(nfkc(text or ""))
+    if not line or len(line) > 80:
+        return False
+    # 真標題帶「通告／公布／訓練班」等字眼；地址唔會。寧願唔擋，都唔好誤殺標題。
+    if _HEADING_HINT_RE.search(line) or _CROSS_REF_RE.search(line):
+        return False
+    if _POSTAL_ADDRESS_RE.search(line):
+        return True
+    return bool(_ENGLISH_ADDRESS_RE.search(line))
+
+
 TITLE_SIMILARITY_THRESHOLD = 0.90
 
 
@@ -392,6 +432,9 @@ def extract_pdf_heading(text: str) -> str:
         # 內文指示句（「請以劃線支票支付…」）唔係標題。
         if looks_like_table_row(line) or _BODY_INSTRUCTION_RE.match(compact_line):
             continue
+        # 2026-11-07：信頭／頁尾地址（「香港青衣長康邨康美樓 C301 室」）唔係標題
+        if looks_like_postal_address(line):
+            continue
         # 2026-10-06：欄位標籤行（「（一）日期：」「（二）參加資格：」）唔係標題
         if _SECTION_LABEL_RE.match(compact_line):
             continue
@@ -428,6 +471,9 @@ def heading_looks_like_title(text: str) -> bool:
     # 2026-10-06：表格列（用戶個案嘅「13, 17, 20, 23, 31 地質生態導賞員訓練班
     # 楊劍聰」）同內文指示句都唔可以寫返 cache.json 當標題。
     if looks_like_table_row(line) or _BODY_INSTRUCTION_RE.match(line):
+        return False
+    # 2026-11-07：區會信頭地址唔可以寫返 cache（青衣區取錄通知個案）
+    if looks_like_postal_address(line):
         return False
     # 2026-10-06：欄位標籤行（「（一）日期：」）唔可以寫返 cache 做標題
     if _SECTION_LABEL_RE.match(line):
@@ -491,7 +537,12 @@ def listing_supported_by_pdf(listing: str, pdf_text: str, heading: str = "") -> 
     hay = compact_title(pdf_text)
     for variant in title_variants(listing):
         needle = compact_title(variant)
-        if len(needle) >= 6 and needle in hay:
+        # 2026-11-07：區會列表成日用 4–5 字嘅文件類型名（「取錄通知」「比賽結果」
+        # 「區總部公布」）。舊版要有 6 字先做 substring 對證，呢類短標題永遠
+        # 「對唔上」，於是 PDF 第一行（信頭地址／活動名）就被當成真標題寫返
+        # cache —— 青衣區兩張取錄通知就係咁變成「香港青衣長康邨康美樓 C301 室」。
+        # 4 個中文字已經係完整詞組，唔係單字雜訊；PDF 內文有就維持列表標題。
+        if len(needle) >= 4 and needle in hay:
             return True
         if heading and len(needle) >= 6 and title_similarity(variant, heading) >= TITLE_SIMILARITY_THRESHOLD:
             return True
