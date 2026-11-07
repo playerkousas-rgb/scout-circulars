@@ -29,6 +29,16 @@
 > 另外手動後備 `.github/workflows/scrape-appstore.yml` 補回「Apply reviewed notice corrections」
 > 步驟，之前用佢跑一次會跳過晒所有人工確認嘅分類／標題修正。
 
+> **2026-11-07 SCOUT APP STORE 上架日規則更新：** 用戶裁定「今天更新/發布」＝
+> **今日公開**，唔係今日入庫（`created_at`），亦唔係圖書館第一次見到個 URL。
+> 三種狀態：**今天公開＝今天上架**／**今天入庫但沒公開＝未上架**／
+> **之前入庫但今天公開＝今天上架**（「遊戲學習」個案：created 11-06、11-07 先公開，
+> 舊規則用 `created_at` 把它寫成 11-06，所以只計到「緊急救援」）。
+> `tools/scrape_appstore.py` 改用 `_meta.appstore.first_public` 記首次公開日，
+> `created_at` 只做首次同步／防呆降級嘅 fallback；`pending` 記未上架、
+> `delisted` 記曾經上架再隱藏；一次性 `FIRST_PUBLIC_OVERRIDES` 修正已寫錯嘅日期。
+> 回歸：`test_appstore_publication_rule_2026_11_07.py`、`test_tools_category.py`。
+
 本專案按你提供的核心哲學重建：
 
 - **來源隔離（Source Isolation）**
