@@ -61,6 +61,12 @@ jobs:
         run: |
           python enrich.py --verbose --apply-title-fixes
 
+      # ── Step 2.5: 人工確認嘅分類／標題修正（同 scrape.yml 一致）──
+      # 2026-11-07：呢個手動後備 workflow 之前漏咗呢步，用佢跑一次會跳過
+      # 所有已確認修正（例如還原被信頭地址寫壞嘅通告名）。
+      - name: Apply reviewed notice corrections
+        run: python tools/apply_notice_corrections.py
+
       # ── Step 3: 健康檢查 ──
       - name: Health check (report only)
         run: |
