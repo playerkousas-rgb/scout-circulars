@@ -57,17 +57,26 @@ notify.py（匿名 Push）＋ story-queue／story-daily 自動當「新通告」
 設計決定：
 
 1. **觸發用 polling 唔用 webhook**：現有 scrape 每日跑一次，頻率同今日更新一致；
-   Supabase Realtime／DB webhook 要额外基建，暫時唔值。`submissions` 表匿名讀唔到，
-   所以「新上架」訊號只能嚟自 `apps` 表出現新 `url`（以 URL 做唯一識別，改名／改標籤／
-   換 icon 都唔算新上架）。
-   **2026-11-06 用戶規則**：「今天更新/發布」＝ **由未上架變成上架**，唔係「圖書館第一次
-   見到個 URL」。實作（`tools/scrape_appstore.py`）：
-   - 一直喺 `data["Scout System"]` 入面 → 保留本身日期（之前發布）；
-   - 新 URL、`created_at` 舊過今日 → 用 `created_at`（商店真實日期），唔會變今日；
-   - `created_at` 係今日 → 今日新上架；
-   - 上過架之後喺 store 唔見咗 → 記入 `_meta.appstore.delisted`，再上架就係今日；
+   Supabase Realtime／DB webhook 要额外基建，暫時唔值。`submissions` 表匿名讀唔到、
+   `apps` 亦冇 `visible_at`／`updated_at` 欄，所以「公開」訊號只能係
+   **第一次觀察到某個 `url` 係 `visible=true`**（以 URL 做唯一識別，改名／改標籤／
+   換 icon 都唔算新上架；隱藏 app 受 RLS 限制圖書館唔會見到）。
+   **2026-11-07 用戶規則（取代 2026-11-06）**：「今天更新/發布」＝ **今日公開**，
+   `created_at` 只係 store「入庫日」，唔係上架日；圖書館第一次見到個 URL 亦唔等於公開。
+   三種狀態（用戶原話）：
+   - 今天公開 = 今天上架；
+   - 今天入庫但沒公開（`visible=false`）= 未上架（唔入 catalog、唔計今日，記喺
+     `_meta.appstore.pending`；anon RLS 只見到已公開，live 模式見唔到呢類 app）；
+   - 之前入庫，但今天公開 = 今天上架（`created_at` 舊過今日都照計）。
+   實作（`tools/scrape_appstore.py`）：
+   - `_meta.appstore.first_public[url]`＝首次觀察到 `visible=true` 嘅日子，係權威上架日；
+     已公開過就保留，改名／改標籤／改描述／換 icon 都唔改日期；
+   - `created_at` 只喺「首次同步／baseline 全失」或者防呆降級時做 fallback 日期；
+   - 上過架之後喺 store 唔見咗 → `_meta.appstore.delisted`＋`pending`，再上架就係今日；
+   - 一次性 `FIRST_PUBLIC_OVERRIDES` 修正 2026-11-07 嗰次 RUN 用舊規則把
+     「遊戲學習」(created 11-06、11-07 公開) 寫成 11-06 嘅日期；
    - 防呆 ①：一次過太多「未見過嘅 URL」想變今日（baseline 斷咗／store 換 domain）→
-     改用真實日期並喺 log 警告；
+     改用入庫日／BASELINE_DATE 並喺 log 警告；
    - 防呆 ②：store 回傳數目突然大幅縮水 → 當抓唔齊，保留舊 catalog／enrich，
      唔記下架（避免重現「一批舊 app 之後全部變今日」）。
 2. **去重**：以 `url` 同現有 49 來源＋手動加入嘅項目對碰；同一 url 已收錄就 skip

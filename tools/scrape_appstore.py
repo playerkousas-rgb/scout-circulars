@@ -5,18 +5,25 @@
 - 讀取：anon key 就夠（RLS 限 visible=true SELECT），唔使 service key。
 - data["Scout System"] = 全份 visible catalog（只收 visible=true，已上架的）。
   隱藏（visible=false）永遠唔會入圖書館；若舊版曾經可見但而家隱藏，下次同步會自動移除。
-- 2026-11-06 用戶規則（Scout System 結構同通告唔同）：「今天更新/發布」只收
-  **由未上架變成上架** 嘅小工具 —— 即係今日新上架、或者下架後重新上架。
-  一直喺架上嘅舊 app 一律留喺「之前發布」，日期用返商店真實日期，唔會因為
-  圖書館第一次見到個 URL 就蓋成今日（2026-10-21 同 2026-11-06 兩次全版變今日
-  都係咁嚟）。
-  - 同一 URL 改名、改標籤、改分類、改描述、換 icon → 只更新欄位，日期不變。
-  - 新 URL 但商店 `created_at` 舊過今日 → 上架咗好耐，用 `created_at` 做日期。
-  - `created_at` 係今日 → 真係今日上架，計入「今天更新/發布」。
-  - 曾經上架、之後喺 store 唔見咗（隱藏／下架）→ 記錄喺 `_meta.appstore.delisted`；
-    再上架就係今日。
-  - 防呆：一次過有太多「未見過嘅 URL」想變今日（例如 baseline 斷咗、store 換 domain），
-    唔會照單全收，改用商店真實日期並喺 log 大聲講。
+- **2026-11-07 用戶規則（取代 2026-11-06）：上架日＝「公開」嘅日子，唔係「入庫」嘅日子。**
+  `created_at` 係 store 建立紀錄嘅時間（入庫日），`visible=true` 先至係公開；
+  圖書館第一次見到個 URL、或者個 app 今日先建立，都唔等於今日公開。
+  三種狀態：
+    1. **今天公開 = 今天上架**：第一次觀察到 `visible=true` → 上架日 = 今日；
+    2. **今天入庫但沒公開 = 未上架**：`visible=false` → 唔入 catalog、唔計今日、
+       記喺 `_meta.appstore.pending`（anon RLS 只見到已公開，live 模式見唔到
+       呢類 app，離線 `--apps-json` 可以驗證）；
+    3. **之前入庫，但今天公開 = 今天上架**：`created_at` 舊過今日都好，只要
+       之前從未公開過、今日首次公開，就係今日上架（「遊戲學習」個案）。
+  其餘：
+  - 一直喺架上（已有首次公開日）→ 保留本身上架日；改名／改標籤／改分類／
+    改描述／換 icon 都唔改日期。
+  - 曾經上架、之後喺 store 唔見咗（隱藏／下架）→ `_meta.appstore.delisted`；
+    再上架＝今日重新上架。
+  - `created_at` **只**做「首次同步／baseline 全失」時嘅 fallback 日期，
+    唔再用嚟判斷「今日」。
+  - 防呆：一次過有太多從未公開過嘅 URL 想變今日（baseline 斷咗／store 換 domain），
+    唔會照單全收，改用 `created_at`（或 BASELINE_DATE）並喺 log 大聲講。
 - 自己（scout-circulars.vercel.app）永遠 skip。
 - enrich.json 同步：每個可見 app 保證有 enrich 條目（小工具分類、支部標籤、描述）；
   若現有 app 欄位無變動，唔會無故刷新 enriched_at 時間戳。
@@ -43,6 +50,15 @@ BASELINE_DATE = "2026-09-24"
 SELF_URLS = {"https://scout-circulars.vercel.app/", "https://scout-circulars.vercel.app"}
 # 舊版曾用大寫來源名，兼容遷移
 LEGACY_SOURCES = {"SCOUT APP STORE", "SCOUT APP STORE "}
+
+# 2026-11-07 一次性修正：11-07 嗰次 RUN 仍然用緊舊規則（新 URL + created_at
+# 舊過今日 → 用 created_at），把「遊戲學習」(created 11-06、11-07 先公開)
+# 寫成 11-06。呢個 dict 釘死真正嘅首次公開日；只有當現存日期仍然等於
+# 舊規則抄落嘅 created_at 先至修正（見 main 嘅 wrong_date），改完就由
+# first_public 正常接管，將來下架再上架唔會被舊日期蓋返。
+FIRST_PUBLIC_OVERRIDES = {
+    "https://app.astra-ai.co/lab": "2026-11-07",
+}
 
 
 def hkt_today() -> str:
@@ -152,6 +168,7 @@ def main() -> int:
     ap.add_argument("--apps-json", help="自訂 apps 陣列 JSON 檔（測試）")
     ap.add_argument("--cache", default=str(ROOT / "cache.json"))
     ap.add_argument("--enrich", default=str(ROOT / "enrich.json"))
+    ap.add_argument("--today", help="覆寫 HKT 今日（只供離線測試日期規則）")
     args = ap.parse_args()
 
     store = json.loads((ROOT / "appstore.json").read_text(encoding="utf-8"))
@@ -172,7 +189,13 @@ def main() -> int:
             print(f"⚠️ live fetch 失敗（{e}），改用 appstore.json 快照（僅本地測試）", file=sys.stderr)
             apps = store["apps"]
 
-    # 只收已上架（visible=true）；隱藏嘅唔入圖書館
+    # 只收已上架（visible=true）；隱藏嘅唔入圖書館。
+    # live REST 受 RLS 限制只會回 visible=true，hidden_apps 得離線／測試模式有，
+    # 用嚟記低「未上架」狀態，唔會寫入 catalog。
+    hidden_apps = [
+        a for a in apps
+        if not a.get("visible") and (a.get("url") or "").strip()
+    ]
     visible_apps = [
         a for a in apps
         if a.get("visible") and (a.get("url") or "").strip() not in SELF_URLS and _norm_url(a.get("url")) not in {_norm_url(u) for u in SELF_URLS}
@@ -202,16 +225,25 @@ def main() -> int:
         except Exception:
             enrich = {}
 
-    today = hkt_today()
+    today = args.today or hkt_today()
     today_dt = _parse_date(today)
     first_sync = sync.get("first_sync")
     if not first_sync:
         first_sync = sync["first_sync"] = today
 
     known_dates: dict[str, str] = sync.setdefault("known_dates", {})
-    # 「今天」＝由未上架變成上架（見檔頭 2026-11-06 規則）。delisted 記住
-    # 曾經上架、而家喺 store 唔見咗嘅 URL；佢再上返架就係今日。
+    # 2026-11-07：first_public（normalized URL → 首次公開日）先係權威嘅「上架日」。
+    # 舊 snapshot 只有 known_dates（舊規則下可能係抄 created_at），所以第一次
+    # 見到呢個欄位時由 known_dates 遷移，之後由下面嘅判定寫入真正公開日。
+    first_public: dict[str, str] = sync.setdefault("first_public", {})
+    for _k, _v in known_dates.items():
+        if _k and _v:
+            first_public.setdefault(_norm_url(_k), _v)
+    # 未上架：store 有紀錄但未公開（或曾經上架而家隱藏）嘅 URL。
+    pending: dict[str, dict] = sync.setdefault("pending", {})
+    # delisted 記住曾經上架、而家喺 store 唔見咗嘅 URL；再上返架就係今日。
     delisted: dict[str, str] = sync.setdefault("delisted", {})
+    sync["rule"] = "first-public-visible-2026-11-07"
     sync.pop("known_ids", None)
 
     # 現有 URL 集合（同時檢查 url 同 pdf_url，因 core.py 寫入嘅 notices 只帶 pdf_url）
@@ -266,7 +298,7 @@ def main() -> int:
         for k, v in enrich.items()
         if isinstance(v, dict) and v.get("source") == SOURCE
     }
-    has_baseline = bool(existing_map or known_norm_dates or enrich_norm_map)
+    has_baseline = bool(existing_map or known_norm_dates or enrich_norm_map or first_public)
 
     # 上一次 catalog = 上一次真係喺架上嘅清單（core.py 每日重建時會保住佢）
     prev_dates: dict[str, str] = {}
@@ -284,13 +316,16 @@ def main() -> int:
         return 1
 
     # ── catalog 鏡像（全份 visible，已上架）＋ 上架日判定 ──
-    # 2026-11-06 用戶規則：Scout System 同通告唔同結構，「今天更新/發布」只收
-    # 由「未上架」變成「上架」嘅小工具（今日新上架／重新上架）。
-    # 一直喺架上嘅舊 app 一律留喺「之前發布」，用返本身嘅上架日期 ——
-    # 唔會因為圖書館第一次見到個 URL 就蓋成今日（2026-10-21、2026-11-06 兩次
-    # 「全個 Scout System 變晒今日」都係咁嚟）。
+    # 2026-11-07 用戶規則：上架日＝首次「公開」（第一次見到 visible=true），
+    # 唔係 store 入庫日 created_at，亦唔係圖書館第一次見到個 URL 嘅日子。
+    #   * 之前從未公開、今日公開（created_at 舊都好）→ 今日上架；
+    #   * 之前公開過 → 保留首次公開日；
+    #   * store 有紀錄但未公開 → 未上架（唔入 catalog）；
+    #   * 冇任何 baseline（首次同步／全失）→ 用 created_at / BASELINE_DATE，
+    #     唔會全版變今日（2026-10-21、2026-11-06 兩次事故）。
     catalog = []
-    today_items = []          # 今日（重新）上架：date == today
+    today_items = []          # 今日公開／重新上架：date == today
+    publication_events: dict[str, str] = {}   # norm url → 今次判定，用嚟寫 first_public
     for a in visible_apps:
         url = (a.get("url") or "").strip()
         norm_u = _norm_url(url)
@@ -300,31 +335,46 @@ def main() -> int:
 
         hist_date = (
             prev_dates.get(norm_u)
+            or first_public.get(norm_u)
             or known_dates.get(url)
             or known_norm_dates.get(norm_u)
             or (enrich_norm_map.get(norm_u) or {}).get("captured_date")
             or ""
         )
+        override = FIRST_PUBLIC_OVERRIDES.get(norm_u) or FIRST_PUBLIC_OVERRIDES.get(url)
         was_delisted = norm_u in delisted or url in delisted
-        evidence = False          # 有正面證據先准「今日」（新 created_at／重新上架）
+        # 一次性修正只針對「現存日期仍然係舊規則抄落嘅 created_at」嘅紀錄；
+        # 改完（first_public／known_dates 已係正確日期）唔會再觸發。
+        wrong_date = bool(
+            override and created and hist_date == created and created < override
+        )
+        evidence = False          # 有正面證據先准喺防呆時保留「今日」
 
         if was_delisted:
-            # 下架 → 重新上架：今日
+            # 下架 → 重新上架：今日公開（優先過一次性修正，唔會俾舊日期蓋返）
             listing_date = today
             evidence = True
+            publication_events[norm_u] = "relisted"
+        elif wrong_date:
+            listing_date = override
+            evidence = True
+            publication_events[norm_u] = "repaired"
         elif hist_date:
-            # 一路喺架上（或者上過架）：保留原本上架日期
+            # 一路喺架上（之前公開過）：保留原本嘅首次公開日
             listing_date = hist_date
-        elif published_before_today:
-            # 商店話佢好早就建立：只係圖書館歷史斷咗，唔可以當今日
-            listing_date = created
-        elif created_dt:
-            # created_at 係今日（或未來，store 時間有問題）→ 真係今日上架
-            listing_date = today
-            evidence = True
+            publication_events[norm_u] = "kept"
+        elif not has_baseline:
+            # 首次同步／baseline 全失：冇任何「之前公開」紀錄，唔可以當今日
+            listing_date = created or BASELINE_DATE
+            publication_events[norm_u] = "baseline"
         else:
-            # 完全冇 created_at：有 baseline 就當今日新上架（下面防呆會把關）
-            listing_date = today if has_baseline else BASELINE_DATE
+            # 從未公開過、今日首次觀察到 visible=true → 今日公開 = 今日上架。
+            # created_at 舊過今日唔再壓住呢個判定（「之前入庫但今天公開」個案）。
+            listing_date = today
+            # 今日入庫＋今日公開係雙重正面證據；其餘交畀下面防呆把關，
+            # 一次過太多「從未公開」URL 時會被降級，避免全版變今日。
+            evidence = bool(created_dt and created_dt == today_dt)
+            publication_events[norm_u] = "first_public"
 
         if not listing_date:
             listing_date = BASELINE_DATE
@@ -356,8 +406,8 @@ def main() -> int:
 
     # ── 防呆：唔可以一次過把成個 catalog 洗成今日 ──
     # 兩次事故（2026-10-21、2026-11-06）都係「baseline 一閃失 → 全部 URL 當新」。
-    # 而家：無正面證據（商店 created_at 舊／冇 created_at）而又一次過多過
-    # 上限，就當 baseline 斷咗，改用真實日期，並喺 log 講清楚。
+    # 而家：無正面證據（非今日入庫／非重新上架／非明確修正）而又一次過多過
+    # 上限，就當 baseline 斷咗，改用入庫日／BASELINE_DATE，並喺 log 講清楚。
     blast_limit = max(3, int(len(catalog) * 0.3))
     if has_baseline and len(today_items) > blast_limit:
         defused = 0
@@ -369,8 +419,8 @@ def main() -> int:
             defused += 1
         today_items = [i for i in today_items if i["entry"]["captured_date"] == today]
         if defused:
-            print(f"⚠️  {SOURCE}：{defused} 個未曾見過嘅 URL 想一次過變「今日」"
-                  f"（上限 {blast_limit}）—— 當 baseline 斷咗，改用商店真實日期，"
+            print(f"⚠️  {SOURCE}：{defused} 個未曾公開過嘅 URL 想一次過變「今日」"
+                  f"（上限 {blast_limit}）—— 當 baseline 斷咗，改用商店入庫日，"
                   f"唔會全版變今日")
 
     # ── 抓唔齊嘅自我保護：一次過少咁多 = store 回傳唔完整 ──
@@ -395,6 +445,33 @@ def main() -> int:
         print(f"⚠️  {SOURCE}：上一次 catalog 有 {len(prev_dates)} 項，今次 store 只回 "
               f"{len(visible_norms)} 項 —— 當抓唔齊，保留 {carried} 項舊資料、"
               f"唔記下架、唔清 enrich")
+
+    # ── 三種狀態落簿 ──────────────────────────────────────────────
+    # 上架：first_public[url] = 首次公開日（以最終 catalog 為準，防呆降級後都唔會寫錯）
+    for e in catalog:
+        key = _norm_url(e.get("url") or e.get("pdf_url"))
+        if not key:
+            continue
+        state = publication_events.get(key)
+        date = str(e.get("captured_date") or "")
+        if state in ("relisted", "repaired", "first_public"):
+            first_public[key] = date
+        else:
+            first_public.setdefault(key, date)
+    # 未上架：store 有紀錄但未公開（live RLS 見唔到，離線／--apps-json 先有），
+    # 呢類 app 永遠唔入 catalog、唔計今日。
+    for a in hidden_apps:
+        key = _norm_url(a.get("url"))
+        if key and key not in visible_norms:
+            pending.setdefault(key, {
+                "name": a.get("name") or "",
+                "created_at": (a.get("created_at") or "")[:10],
+                "first_seen_hidden": today,
+                "state": "未上架",
+            })
+    # 今日公開咗就唔再係未上架（重新上架由 delisted 判定做今日）
+    for key in visible_norms:
+        pending.pop(key, None)
 
     new_known_dates: dict[str, str] = {
         e["url"]: e["captured_date"] for e in catalog if e.get("url")
@@ -458,7 +535,7 @@ def main() -> int:
             n["date"] = c_item["date"]
             n["captured_date"] = c_item["captured_date"]
 
-    new_notices = [i["entry"] for i in today_items]   # 只作輸出用（今日上架）
+    new_notices = [i["entry"] for i in today_items]   # 只作輸出用（今日公開／重新上架）
 
     # ── enrich.json 同步 ──
     # 為每個可見 app 保證有 enrich 條目 — 按 store_category 分類，舊紀錄改名／換位自動更新；
@@ -518,6 +595,7 @@ def main() -> int:
     if not suspicious_shrink:
         for key in missing_norms:
             delisted.setdefault(key, today)
+            pending.setdefault(key, {"state": "未上架", "hidden_since": today})
 
     # 移除真係下架／換新 URL 嘅舊 app enrich（只移除 source=Scout System，唔誤刪通告 enrich）
     if not suspicious_shrink:
@@ -545,11 +623,14 @@ def main() -> int:
 
     sync["known_dates"] = new_known_dates
     sync["delisted"] = delisted
+    sync["first_public"] = first_public
+    sync["pending"] = pending
 
     # 寫檔 — 永遠只計 visible，唔保留 hidden 計數
     sync["last_sync"] = today
     sync["catalog_size"] = len(catalog)
     sync["visible_count"] = len(visible_apps)
+    sync["pending_count"] = len(pending)
     sync.pop("hidden_skipped", None)
 
     # 更新 meta.total_notices / last_updated（跟 core.py 格式）
@@ -573,8 +654,10 @@ def main() -> int:
               f"{'、'.join(missing_enrich[:5])}", file=sys.stderr)
 
     print(f"✅ {SOURCE}：catalog {len(catalog)} 項（已上架 {len(visible_apps)}）"
-          f"｜今日新上架 {len(today_items)} 個｜下架記錄 {len(delisted)} 個"
+          f"｜今日新上架 {len(today_items)} 個｜未上架 {len(pending)} 個"
+          f"｜下架記錄 {len(delisted)} 個"
           f"｜補 notices {added_notices} 條（baseline {first_sync}）")
+    print("   判定：上架日＝首次公開（visible=true）；created_at 只係入庫日／baseline fallback")
     for n in new_notices:
         print(f"   + {n['title']} {n['url']}")
     return 0

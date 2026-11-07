@@ -255,14 +255,14 @@ class TagSelectorIsolationTests(unittest.TestCase):
 
 
 class AppStoreSyncTests(unittest.TestCase):
-    """Scout System 上架日規則（2026-11-06 用戶規則）。
+    """Scout System 上架日規則（2026-11-07 用戶規則，取代 2026-11-06）。
 
-    「今天更新/發布」只收 **由未上架變成上架** 嘅小工具：
-      * 一直喺架上 → 保留本身日期，留在「之前發布」；
-      * created_at 係今日 → 今日新上架；
+    「今天更新/發布」＝ **今日公開**，唔係今日入庫，亦唔係圖書館第一次見到 URL：
+      * 一直喺架上 → 保留首次公開日，留在「之前發布」；
+      * 之前入庫（created_at 舊）但今日首次公開 → 今日上架；
+      * 今日入庫但未公開（visible=false）→ 未上架，唔入 catalog；
       * 下架後重新上架 → 今日；
-      * created_at 舊過今日（baseline 斷咗）→ 用商店真實日期，唔可以變今日；
-      * 一次過太多未見過嘅 URL → 防呆介入，唔會全版變今日。
+      * 冇 baseline／一次過太多未見過 URL → 防呆介入，唔會全版變今日。
     同時保證：每個已上架 app 都有一條 notice（唔重複）＋ 一條 enrich。
     """
 
@@ -408,16 +408,27 @@ class AppStoreSyncTests(unittest.TestCase):
         self.assertIn("https://brandnew.test/", enrich)
         self.assertEqual(enrich["https://brandnew.test/"]["categories"][0]["id"], "tools")
 
-    def test_new_url_with_old_created_at_is_not_today(self):
+    def test_old_created_at_published_today_counts_as_today(self):
+        """2026-11-07 用戶規則：之前入庫、今日先公開 → 今日上架。
+
+        舊規則（2026-11-06）用 created_at 壓住新 URL，令「遊戲學習」
+        （created 11-06、11-07 公開）被寫成 11-06；呢個測試鎖住新規則。
+        """
+        from tools.scrape_appstore import hkt_today
+
+        today = hkt_today()
         old = self._app("遠足路程表", "https://drawtheroute.test/", "2026-09-03T10:00:00+00:00")
         moved = dict(old, url="https://drawtheroute-v3.test/", name="遠足路程表 V3")
         cache = self._cache([self._catalog_entry(old, self.BASELINE)])
 
         updated, _enrich, out = self._run(cache, [moved])
-        self.assertIn("今日新上架 0 個", out)
+        self.assertIn("今日新上架 1 個", out)
         items = self._items(updated)
-        # 換 URL 但商店話 2026-09-03 已經建立 → 唔可以當今日
-        self.assertEqual(items["https://drawtheroute-v3.test/"]["captured_date"], "2026-09-03")
+        # 新 URL 今日首次公開；created_at 2026-09-03 只係入庫日，唔可以蓋走
+        self.assertEqual(items["https://drawtheroute-v3.test/"]["captured_date"], today)
+        self.assertEqual(
+            updated["_meta"]["appstore"]["first_public"]["https://drawtheroute-v3.test"], today
+        )
         # delisted 用 normalize 咗嘅 key（去尾斜線）
         self.assertIn("https://drawtheroute.test", updated["_meta"]["appstore"]["delisted"])
 
