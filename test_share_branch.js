@@ -948,7 +948,7 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     const kindLabels = ['助手', '遊戲', '系統', '工具', '其他', '連結'];
     const sideKinds = $$(dS, '.source-btn span').map(s => s.textContent.trim()).filter(t => kindLabels.includes(t));
     ok(JSON.stringify(sideKinds) === JSON.stringify(kindLabels),
-       'Scout System 側欄內設六類：' + sideKinds.join(' '));
+       'Scout System 側欄：小工具五個細分類＋連結（兩大類）：' + sideKinds.join(' '));
     // 預設「全港 × 今天」：小工具照跟通告視窗，唔會成版舊工具跳出嚟；
     // 但側欄數字一律報小工具真實件數（2 件），唔會寫 0 令人以為冇嘢。
     ok(!titles(dS).includes('舊密碼遊戲'), '全港「今天」唔會出半年前嘅小工具');
@@ -976,8 +976,9 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     await wait(80);
     ok(titles(dS).includes('舊密碼遊戲'), '撳返「之前發布」全部小工具返晒嚟');
     const kindChips = $$(dS, '#category-chips .chip').map(c => c.textContent.trim());
-    ok(JSON.stringify(kindChips) === JSON.stringify(['通告', ...kindLabels]),
-       '入咗 Scout System，先有「通告」返回掣，再列內設六類：' + kindChips.join(' '));
+    ok(JSON.stringify(kindChips) === JSON.stringify(['通告', '小工具', ...kindLabels.slice(0, 5), '連結']),
+       '入咗 Scout System，先有「通告」返回掣，再列兩大類（小工具／連結）＋小工具五個細分類：'
+       + kindChips.join(' '));
     ok($$(dS, '#category-chips .chip').find(c => c.textContent.trim() === '遊戲').classList.contains('active'),
        '遊戲分類掣呈 active');
     domS.window.close();

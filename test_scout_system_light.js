@@ -103,9 +103,13 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(!!allBtn && allBtn.querySelector('small').textContent.trim() === '0 / 2 則',
        '通告視圖下「全部」跟通告視窗＝0 件（同列表對數），總數 2 仍然見到：' + (allBtn && allBtn.querySelector('small').textContent.trim()));
 
-    const kinds = ['助手', '遊戲', '系統', '工具', '其他', '連結'].map(k => sourceBtn(d, k)).filter(Boolean);
-    ok(kinds.length === 6, '內設六類掣齊：' + kinds.length);
-    ok(kinds.every(b => !lit(b)), '六類冇一個著燈（今日冇新上架）');
+    const groups = ['小工具', '連結'].map(k => sourceBtn(d, k)).filter(Boolean);
+    ok(groups.length === 2, '兩大類掣齊（小工具／連結）：' + groups.length);
+    const childKinds = ['助手', '遊戲', '系統', '工具', '其他'].map(k => sourceBtn(d, k)).filter(Boolean);
+    ok(childKinds.length === 5, '小工具再細分五類：' + childKinds.length);
+    ok(!!sourceBtn(d, '連結') && !sourceBtn(d, '連結').classList.contains('kind-child'),
+       '連結唔再細分（冇子分類）');
+    ok(groups.concat(childKinds).every(b => !lit(b)), '兩大類同細分類冇一個著燈（今日冇新上架）');
     ok(!!sourceBtn(d, '遊戲') && sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '0 / 1 則',
        '「遊戲」目前視窗 0 件／共 1 件');
     ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '0 / 1 則',
@@ -221,10 +225,14 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(d.querySelector('#page-title')?.textContent.trim() === 'Scout System（之前發布）',
        '選「小工具」後主視圖切到 Scout System，標題跟住視窗寫「之前發布」：'
        + d.querySelector('#page-title')?.textContent.trim());
-    ok(d.querySelector('#category-chips')?.previousElementSibling?.textContent.includes('小工具'),
-       '分類列切換成 Scout System 內設小工具分類');
-    ok(activeKindChips.length === 6 && activeKindChips.some(b => b.textContent.trim() === '助手'),
-       'Scout System 六個內設分類已顯示');
+    ok(d.querySelector('#category-chips')?.previousElementSibling?.textContent.includes('分類'),
+       '分類列切換成 Scout System 兩大類＋小工具細分類');
+    const groupChips = $$(d, '#category-chips [data-group]').map(b => b.textContent.trim());
+    ok(activeKindChips.length === 5 && groupChips.length === 2
+       && activeKindChips.some(b => b.textContent.trim() === '助手')
+       && groupChips.join(' ') === '小工具 連結',
+       'Scout System 兩大類＋小工具五個細分類已顯示：' + groupChips.join(' ') + ' / '
+       + activeKindChips.map(b => b.textContent.trim()).join(' '));
     ok(!!beforePublished && beforePublished.classList.contains('active'),
        '由通告進入時重設為「之前發布」，唔沿用先前嘅「今天」');
     ok(!!regionBadge(d, 'Scout System') && regionBadge(d, 'Scout System').textContent.trim() === '0/1',
@@ -245,6 +253,69 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
        '返回通告模式後收起 Scout System 專屬返回標籤');
     ok($$(d, '#window-chips button').some(b => b.textContent.trim() === '7天'),
        '返回後恢復通告日期範圍掣');
+    dom.window.close();
+  }
+
+  // ── 6. 兩大類：小工具（自家出品再細分）／連結（他人網站 APP 全部歸連結）──
+  {
+    const mkTool = (title, url, page, category, tags) => Object.assign(
+      mk(title, url, 'Scout System', daysAgo(30), 'Scout System'),
+      { tags, store_page: page, store_category: category },
+    );
+    const dom = boot(buildCache([
+      mkTool('自家計時器', 'https://example.test/own-tool', 'apps', '工具', ['童軍', '小工具']),
+      mkTool('自家小冊子', 'https://example.test/own-other', 'apps', '其他', ['童軍', '小工具']),
+      // 他人網站：原分類叫「其他」都要歸連結
+      mkTool('海外單車遊資料', 'https://example.test/link-other', 'links', '其他', ['童軍', '連結']),
+      // 他人網站：原分類叫「課堂學習工具」都唔可以變小工具
+      mkTool('課堂學習工具', 'https://example.test/link-tool', 'links', '課堂學習工具', ['童軍', '連結']),
+    ]));
+    const w = dom.window, d = w.document;
+    await wait(900);
+    const cardTitles = () => $$(d, 'article.card h3').map(el => el.textContent.trim());
+
+    const allScout = sourceBtn(d, '全部 (Scout System)');
+    if (allScout) allScout.click();
+    await wait(80);
+
+    const toolsGroup = sourceBtn(d, '小工具');
+    const linksGroup = sourceBtn(d, '連結');
+    ok(!!toolsGroup && !!linksGroup, '側欄有「小工具」同「連結」兩大類掣');
+    ok(!!toolsGroup && /^2 \/ 2 則$/.test(toolsGroup.querySelector('small').textContent.trim()),
+       '「小工具」只計自家出品（2 件），唔會包他人連結：'
+       + (toolsGroup && toolsGroup.querySelector('small').textContent.trim()));
+    ok(!!linksGroup && /^2 \/ 2 則$/.test(linksGroup.querySelector('small').textContent.trim()),
+       '「連結」計晒他人網站／APP（2 件）：'
+       + (linksGroup && linksGroup.querySelector('small').textContent.trim()));
+    ok(!!sourceBtn(d, '工具') && sourceBtn(d, '工具').classList.contains('kind-child'),
+       '小工具細分類（例如「工具」）係子項，唔係同大類平排');
+
+    linksGroup.click();
+    await wait(80);
+    ok(cardTitles().includes('海外單車遊資料') && cardTitles().includes('課堂學習工具'),
+       '連結：兩個他人網站都出（原分類「工具」都唔會漏）：' + cardTitles().join(' | '));
+    ok(!cardTitles().includes('自家計時器') && !cardTitles().includes('自家小冊子'),
+       '連結：唔會混入自家出品');
+    ok($$(d, 'article.card a.link').every(a => a.textContent.trim() === '開啟連結 ↗'),
+       '連結卡嘅動作寫「開啟連結」而唔係「進入系統」：'
+       + $$(d, 'article.card a.link').map(a => a.textContent.trim()).join(' / '));
+    ok(d.querySelector('#page-title')?.textContent.includes('連結'),
+       '頁面標題寫「Scout System · 連結」：' + d.querySelector('#page-title')?.textContent.trim());
+
+    toolsGroup.click();
+    await wait(80);
+    ok(cardTitles().includes('自家計時器') && cardTitles().includes('自家小冊子'),
+       '小工具：自家出品全部出：' + cardTitles().join(' | '));
+    ok(!cardTitles().includes('海外單車遊資料') && !cardTitles().includes('課堂學習工具'),
+       '小工具：唔會混入他人連結');
+
+    sourceBtn(d, '工具').click();
+    await wait(80);
+    ok(JSON.stringify(cardTitles().sort()) === JSON.stringify(['自家計時器']),
+       '小工具 › 工具：只出自家「工具」分類：' + cardTitles().join(' | '));
+
+    const groupChips = $$(d, '#category-chips [data-group]').map(b => b.textContent.trim());
+    ok(groupChips.join(' ') === '小工具 連結', '分類掣先列兩大類：' + groupChips.join(' '));
     dom.window.close();
   }
 

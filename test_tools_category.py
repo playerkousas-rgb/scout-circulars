@@ -504,5 +504,56 @@ class AppStoreSyncTests(unittest.TestCase):
         self.assertEqual(b_notices[0]["captured_date"], self.BASELINE)
 
 
+class ScoutSystemGroupTests(unittest.TestCase):
+    """2026-11-12 用戶規則：Scout System 只分兩大類。
+
+    * 小工具＝自家出品（store page apps／cards／ppt），再按原分類細分；
+    * 連結＝他人網站／APP（store page links），全部直接歸連結，唔再細分。
+    store page 最權威，唔可以再因為原分類叫「課堂學習工具」而把他人網站當工具。
+    """
+
+    def _app(self, page, category):
+        return {
+            "name": "測試項目", "url": "https://x.test/", "tags": ["童軍"],
+            "category": category, "page": page, "visible": True,
+        }
+
+    def test_links_page_is_always_link(self):
+        from tools.scrape_appstore import store_app_kind
+        for category in ("其他", "課堂學習工具", "工具", "遊戲", "系統", "助手", "連結"):
+            self.assertEqual(store_app_kind(self._app("links", category)), "link",
+                             f"links page 嘅「{category}」都要歸連結")
+
+    def test_own_pages_are_subdivided_by_category(self):
+        from tools.scrape_appstore import store_app_kind
+        for page in ("apps", "cards", "ppt"):
+            self.assertEqual(store_app_kind(self._app(page, "課堂學習工具")), "tool")
+            self.assertEqual(store_app_kind(self._app(page, "遊戲")), "game")
+            self.assertEqual(store_app_kind(self._app(page, "電子紀錄冊")), "assistant")
+            self.assertEqual(store_app_kind(self._app(page, "其他")), "other")
+
+    def test_group_tag_follows_page(self):
+        from tools.scrape_appstore import category_to_tags
+        link_tags = category_to_tags(self._app("links", "課堂學習工具"))
+        self.assertIn("連結", link_tags)
+        self.assertNotIn("小工具", link_tags)
+
+        own_tags = category_to_tags(self._app("apps", "工具"))
+        self.assertIn("小工具", own_tags)
+        self.assertNotIn("連結", own_tags)
+
+    def test_enrich_entry_marks_links_as_link(self):
+        from tools.scrape_appstore import build_enrich_entry
+        entry = build_enrich_entry(
+            {"name": "海外單車遊資料", "url": "https://veloplanner.com/",
+             "page": "links", "category": "其他", "tags": ["深資童軍", "樂行童軍"]},
+            "2026-09-24",
+        )
+        self.assertEqual(entry["ss_kind"], "link")
+        self.assertEqual(entry["categories"][0]["subtype"], "link")
+        self.assertEqual(entry["subscription_tags"], ["scout_kind:link"])
+        self.assertEqual(entry["store_page"], "links")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
