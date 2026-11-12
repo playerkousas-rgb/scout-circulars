@@ -945,10 +945,20 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     const domS = boot();
     const wS = domS.window, dS = wS.document;
     await wait(800);
+    // 2026-11-12 用戶規則：先按大標題（小工具／連結），細分類只屬於小工具。
+    const bigLabels = ['小工具', '連結'];
+    const sideBig = $$(dS, '.source-btn span').map(s => s.textContent.trim()).filter(t => bigLabels.includes(t));
+    ok(JSON.stringify(sideBig) === JSON.stringify(bigLabels),
+       'Scout System 側欄先列兩大標題：' + sideBig.join(' '));
     const kindLabels = ['助手', '遊戲', '系統', '工具', '其他', '連結'];
+    const collapsedKinds = $$(dS, '.source-btn span').map(s => s.textContent.trim()).filter(t => kindLabels.includes(t));
+    ok(JSON.stringify(collapsedKinds) === JSON.stringify(['連結']),
+       '未撳入「小工具」時，側欄只有連結（細分類收起）：' + collapsedKinds.join(' '));
+    click(wS, $$(dS, '.source-btn').find(b => b.querySelector('span')?.textContent.trim() === '小工具'));
+    await wait(100);
     const sideKinds = $$(dS, '.source-btn span').map(s => s.textContent.trim()).filter(t => kindLabels.includes(t));
     ok(JSON.stringify(sideKinds) === JSON.stringify(kindLabels),
-       'Scout System 側欄內設六類：' + sideKinds.join(' '));
+       '撳入「小工具」後才展開五個細分類＋連結：' + sideKinds.join(' '));
     // 預設「全港 × 今天」：小工具照跟通告視窗，唔會成版舊工具跳出嚟；
     // 但側欄數字一律報小工具真實件數（2 件），唔會寫 0 令人以為冇嘢。
     ok(!titles(dS).includes('舊密碼遊戲'), '全港「今天」唔會出半年前嘅小工具');
@@ -976,8 +986,12 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
     await wait(80);
     ok(titles(dS).includes('舊密碼遊戲'), '撳返「之前發布」全部小工具返晒嚟');
     const kindChips = $$(dS, '#category-chips .chip').map(c => c.textContent.trim());
-    ok(JSON.stringify(kindChips) === JSON.stringify(['通告', ...kindLabels]),
-       '入咗 Scout System，先有「通告」返回掣，再列內設六類：' + kindChips.join(' '));
+    ok(JSON.stringify(kindChips) === JSON.stringify(['通告', '小工具', '連結']),
+       '入咗 Scout System，先有「通告」返回掣，再只列兩大標題（小工具／連結）：'
+       + kindChips.join(' '));
+    const subChips = $$(dS, '#subcategory-chips .chip').map(c => c.textContent.trim());
+    ok(JSON.stringify(subChips) === JSON.stringify(kindLabels.slice(0, 5)),
+       '第二行才是小工具細分（助手／遊戲／系統／工具／其他）：' + subChips.join(' '));
     ok($$(dS, '#category-chips .chip').find(c => c.textContent.trim() === '遊戲').classList.contains('active'),
        '遊戲分類掣呈 active');
     domS.window.close();

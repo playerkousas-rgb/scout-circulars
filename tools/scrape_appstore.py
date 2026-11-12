@@ -84,15 +84,21 @@ def fetch_live(url: str, anon: str) -> list:
 
 
 def category_to_tags(a: dict) -> list:
-    """支部標籤（只跟 5 個支部）+ 小工具 標籤；去重保序。"""
+    """支部標籤（只跟 5 個支部）+ 大類標籤（小工具／連結）；去重保序。
+
+    2026-11-12 用戶規則：Scout System 只分兩大類——自家出品「小工具」同
+    他人網站／APP「連結」。store 嘅 links page 一律當連結，唔好再因為
+    原分類叫「xxx工具」而混入小工具。
+    """
     allowed = {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"}
     tags = [t for t in (a.get("tags") or []) if t in allowed]
-    if "小工具" not in tags:
-        tags.append("小工具")
+    group_tag = "連結" if (a.get("page") or "").strip().lower() == "links" else "小工具"
+    if group_tag not in tags:
+        tags.append(group_tag)
     return tags
 
 
-# App Store 原分類 → Scout System 內建六類（跟 index.html SCOUT_KIND_LABELS 同步）
+# App Store 原分類 → 自家出品小工具嘅細分類（跟 index.html SCOUT_KIND_LABELS 同步）
 STORE_CATEGORY_TO_KIND = {
     "集會助手及指南": "assistant",
     "助手": "assistant",
@@ -128,13 +134,26 @@ def store_category_to_kind(cat: str) -> str:
     return "other"
 
 
+def store_app_kind(a: dict) -> str:
+    """Scout System 分類：store page 最權威。
+
+    * links page ＝ 他人嘅網站／APP → 一律「連結」，唔再細分（就算原分類
+      叫「課堂學習工具」都唔會變成工具）；
+    * apps／cards／ppt ＝ 自家出品 → 按原分類細分（助手／遊戲／系統／工具／其他）。
+    """
+    page = (a.get("page") or "").strip().lower()
+    if page == "links":
+        return "link"
+    return store_category_to_kind(a.get("category") or "")
+
+
 def build_enrich_entry(a: dict, captured_date: str) -> dict:
     """為 Scout System 工具產生 enrich 條目（小工具專屬，不經 PDF）。"""
     title = a.get("name") or ""
     desc = a.get("description") or a.get("note") or ""
     allowed_branches = {"小童軍", "幼童軍", "童軍", "深資童軍", "樂行童軍"}
     branch_tags = [t for t in (a.get("tags") or []) if t in allowed_branches]
-    kind = store_category_to_kind(a.get("category") or "")
+    kind = store_app_kind(a)
     # 若無支部標籤，視作全體適用（保留空，enrich 仍可分類為 tools）
     return {
         "source": SOURCE,
@@ -544,7 +563,7 @@ def main() -> int:
         url = (a.get("url") or "").strip()
         c_item = catalog_by_norm.get(_norm_url(url))
         captured_date = c_item["captured_date"] if c_item else BASELINE_DATE
-        kind = store_category_to_kind(a.get("category") or "")
+        kind = store_app_kind(a)
         if url not in enrich or not isinstance(enrich.get(url), dict):
             enrich[url] = build_enrich_entry(a, captured_date)
         else:

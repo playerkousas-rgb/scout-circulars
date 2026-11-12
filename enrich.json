@@ -65510,7 +65510,7 @@
       {
         "id": "tools",
         "label": "小工具",
-        "subtype": "other",
+        "subtype": "link",
         "score": 1.0
       }
     ],
@@ -65519,9 +65519,9 @@
       "樂行童軍"
     ],
     "subscription_tags": [
-      "scout_kind:other"
+      "scout_kind:link"
     ],
-    "ss_kind": "other",
+    "ss_kind": "link",
     "ss_category": "其他",
     "store_category": "其他",
     "store_page": "links",

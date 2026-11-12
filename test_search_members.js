@@ -21,9 +21,9 @@ const src = html.slice(start, end);
 const ctx = {};
 vm.createContext(ctx);
 vm.runInContext(src + `
-  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS, expandBranchScopeByAge };
+  ;__exports = { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS, SCOUT_SYSTEM_GROUPS, scoutGroupOfKind, isScoutGroupSource, scoutGroupIdFromSource, scoutKindsInGroup, expandBranchScopeByAge };
 `, ctx);
-const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS, expandBranchScopeByAge } = ctx.__exports;
+const { BRANCH_TAGS, extractMemberTokens, itemBranches, matchesBranch, matchesKeyword, matchesSearchQuery, CATEGORY_TAGS, itemCategories, matchesCategory, itemScoutKind, isScoutSystemItem, SCOUT_SYSTEM_KINDS, SCOUT_SYSTEM_GROUPS, scoutGroupOfKind, isScoutGroupSource, scoutGroupIdFromSource, scoutKindsInGroup, expandBranchScopeByAge } = ctx.__exports;
 
 let pass = 0;
 let fail = 0;
@@ -95,6 +95,28 @@ checkArray('分類標籤 = 全部 + 訓練/服務/活動/比賽/小工具/公布
 checkArray('Scout System 內設分類',
   SCOUT_SYSTEM_KINDS.map(k => k.label),
   ['助手', '遊戲', '系統', '工具', '其他', '連結']);
+// 2026-11-12 用戶規則：只分兩大類——小工具（自家出品，再細分）／連結（他人網站／APP）。
+checkArray('Scout System 兩大類',
+  SCOUT_SYSTEM_GROUPS.map(g => g.label),
+  ['小工具', '連結']);
+checkArray('小工具再細分五類',
+  scoutKindsInGroup('tools').map(k => k.label),
+  ['助手', '遊戲', '系統', '工具', '其他']);
+check('連結大類只有一類（唔再細分）', scoutKindsInGroup('links').length, 1);
+check('store page=links → 連結（原分類「其他」）',
+  itemScoutKind({ source_site: 'Scout System', title: '海外單車遊資料', store_page: 'links', store_category: '其他' }), 'link');
+check('store page=links 唔理原分類叫「工具」',
+  itemScoutKind({ source_site: 'Scout System', title: '課堂學習工具', store_page: 'links', store_category: '課堂學習工具' }), 'link');
+check('自家 app（apps page）→ 小工具細分類',
+  itemScoutKind({ source_site: 'Scout System', title: '遠足路程表', store_page: 'apps', store_category: '工具' }), 'tool');
+check('自家 app 標題有「連結」都唔會誤入連結',
+  itemScoutKind({ source_site: 'Scout System', title: '有用連結大全', store_page: 'apps', store_category: '其他' }), 'other');
+check('舊 cache 冇 store_page：站方分類「連結」照樣歸連結',
+  itemScoutKind({ source_site: 'Scout System', title: '某網站', store_category: '連結' }), 'link');
+check('小工具細分類都屬小工具大類', scoutGroupOfKind('game'), 'tools');
+check('連結屬連結大類', scoutGroupOfKind('link'), 'links');
+check('SCOUT_GROUP:links 係大類來源', isScoutGroupSource('SCOUT_GROUP:links'), true);
+check('由 SCOUT_GROUP:tools 拆到大類 id', scoutGroupIdFromSource('SCOUT_GROUP:tools'), 'tools');
 check('站方標籤「遊戲」歸遊戲', itemScoutKind({ source_site: 'Scout System', title: '密碼旗號', tags: ['幼童軍', '遊戲'] }), 'game');
 check('標題【助手】歸助手', itemScoutKind({ source_site: 'Scout System', title: '【助手】集會流程' }), 'assistant');
 check('冇標籤又冇關鍵詞歸其他', itemScoutKind({ source_site: 'Scout System', title: '密碼旗號' }), 'other');

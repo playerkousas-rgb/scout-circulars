@@ -157,6 +157,14 @@
     .chip.chip-category.active[data-cat="ALL"] { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
     .chip.chip-notice-return { border-color: rgba(96,165,250,.55); color: #bfdbfe; font-weight: 700; }
     .chip.chip-notice-return:hover { background: rgba(59,130,246,.18); }
+    /* Scout System 兩大類：小工具（自家出品）／連結（他人網站／APP） */
+    .chip.chip-category.chip-group { border-color: rgba(148,163,184,.55); color: #e2e8f0; font-weight: 700; }
+    .chip.chip-category.chip-group.active { background: linear-gradient(135deg, #2153ad, #1b82f8); color: #fff; border-color: #4d82e7; }
+    .chip.chip-category.chip-sub { font-size: 12px; padding: 7px 11px; }
+    .source-btn.kind-child { margin-left: 18px; width: calc(100% - 18px); padding: 8px 12px; }
+    .source-btn.kind-group { font-weight: 700; }
+    .source-btn.kind-group small { font-weight: 400; }
+    .source-btn .kind-caret { display: inline-block; margin-left: 6px; color: var(--muted); font-weight: 400; }
     /* 卡片上的分類小標籤（同來源 badge、通告名排同一行，慳行數） */
     .cat-tags { display: inline-flex; flex-wrap: wrap; gap: 6px; }
     .cat-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: #cfe3ff; }
@@ -654,6 +662,12 @@
               <div class="field-chips" id="category-chips"></div>
             </div>
 
+            <!-- 只有「小工具」（自家出品）才有細分類；連結冇子分類 -->
+            <div class="controls" id="subcategory-row" hidden>
+              <span class="field-label">小工具細分：</span>
+              <div class="field-chips" id="subcategory-chips"></div>
+            </div>
+
             <div class="controls">
               <div class="chips" id="window-chips"></div>
             </div>
@@ -1006,15 +1020,22 @@
     // 咁由公布變咗訓練）。同 subscription_tagging.ANNOUNCEMENT_OVERRIDE_TERMS／
     // story_queue／BATCH_RE 三份規則同步。
     const NAMED_ANNOUNCEMENT_RE = /學生隊員制服資助計劃/;
-    // Scout System 側欄／分類掣內設，唔靠抓取先出現。命中次序：站方標籤 → 標題，都冇就歸「其他」。
-    // 「小工具」係成個來源嘅分類，唔當內設「工具」，避免全部掉入工具。
+    // Scout System 只分兩大類（2026-11-12 用戶規則）：
+    //   1. 小工具＝自家出品（store page: apps／cards／ppt），再按原分類細分；
+    //   2. 連結＝他人嘅網站／APP（store page: links），全部直接歸連結，唔再細分。
+    // 判斷次序：store page 最權威（links 一定係連結；自家出品唔會誤入連結），
+    // 之後才睇站方標籤／分類 → 標題，都冇就歸「其他」。
+    const SCOUT_SYSTEM_GROUPS = [
+      { id: 'tools', label: '小工具' },
+      { id: 'links', label: '連結' },
+    ];
     const SCOUT_SYSTEM_KINDS = [
-      { id: 'assistant', label: '助手' },
-      { id: 'game', label: '遊戲' },
-      { id: 'system', label: '系統' },
-      { id: 'tool', label: '工具' },
-      { id: 'other', label: '其他' },
-      { id: 'link', label: '連結' },
+      { id: 'assistant', label: '助手', group: 'tools' },
+      { id: 'game', label: '遊戲', group: 'tools' },
+      { id: 'system', label: '系統', group: 'tools' },
+      { id: 'tool', label: '工具', group: 'tools' },
+      { id: 'other', label: '其他', group: 'tools' },
+      { id: 'link', label: '連結', group: 'links' },
     ];
     const SCOUT_KIND_LABELS = {
       '助手': 'assistant', '小助手': 'assistant', '集會助手': 'assistant', '集會助手及指南': 'assistant',
@@ -1040,9 +1061,41 @@
       return isScoutKindSource(sourceId) ? String(sourceId).slice('SCOUT_KIND:'.length) : '';
     }
 
+    // 兩大類本身都可以揀（小工具＝全部自家出品；連結＝全部他人網站／APP）。
+    function isScoutGroupSource(sourceId) {
+      return String(sourceId || '').startsWith('SCOUT_GROUP:');
+    }
+
+    function scoutGroupIdFromSource(sourceId) {
+      return isScoutGroupSource(sourceId) ? String(sourceId).slice('SCOUT_GROUP:'.length) : '';
+    }
+
+    function scoutGroupOfKind(kindId) {
+      return SCOUT_SYSTEM_KINDS.find(kind => kind.id === kindId)?.group || 'tools';
+    }
+
+    function scoutGroupLabel(groupId) {
+      return SCOUT_SYSTEM_GROUPS.find(group => group.id === groupId)?.label || '小工具';
+    }
+
+    function scoutKindsInGroup(groupId) {
+      return SCOUT_SYSTEM_KINDS.filter(kind => kind.group === groupId);
+    }
+
     function viewingScoutSystem() {
       const src = String(state.activeSource || '');
-      return src === 'Scout System' || src === 'REGION:Scout System' || isScoutKindSource(src);
+      return src === 'Scout System' || src === 'REGION:Scout System'
+        || isScoutKindSource(src) || isScoutGroupSource(src);
+    }
+
+    // 站方 store page：links＝他人網站／APP；apps／cards／ppt＝自家出品。
+    function scoutStorePage(item, ex) {
+      const page = String(item?.store_page || ex?.store_page || '').trim().toLowerCase();
+      if (page) return page;
+      // 舊 cache 冇 store_page：用站方分類補返（只有「連結」類別確定係連結）。
+      const cat = String(item?.store_category || ex?.store_category || ex?.ss_category || '').trim();
+      if (SCOUT_KIND_LABELS[cat] === 'link') return 'links';
+      return '';
     }
 
     function scoutKindTokens(item) {
@@ -1078,11 +1131,23 @@
 
     function itemScoutKind(item) {
       if (!isScoutSystemItem(item)) return '';
+      const ex = (typeof state !== 'undefined' && state?.enrich)
+        ? (state.enrich[item?.url] || state.enrich[item?.pdf_url] || null)
+        : null;
+      // 2026-11-12 用戶規則：他人嘅網站／APP 一律歸「連結」，唔理原分類叫「工具」定「其他」。
+      if (scoutStorePage(item, ex) === 'links') return 'link';
+      // 自家出品（apps／cards／ppt）唔會因為張三李四嘅標籤而變連結。
+      const owned = !!scoutStorePage(item, ex);
       for (const token of scoutKindTokens(item)) {
-        if (SCOUT_KIND_LABELS[token]) return SCOUT_KIND_LABELS[token];
-        if (SCOUT_SYSTEM_KINDS.some(kind => kind.id === token)) return token;
+        const kindId = SCOUT_KIND_LABELS[token]
+          || (SCOUT_SYSTEM_KINDS.some(kind => kind.id === token) ? token : '');
+        if (!kindId) continue;
+        if (owned && kindId === 'link') continue;
+        return kindId;
       }
-      return scoutKindFromText(item?.title || '') || 'other';
+      const fromTitle = scoutKindFromText(item?.title || '');
+      if (owned && fromTitle === 'link') return 'other';
+      return fromTitle || 'other';
     }
 
     function itemCategories(item, enrich) {
@@ -1314,7 +1379,7 @@
       return state.enabledRegions.has(regionName);
     }
     function isSourceEnabled(sourceName) {
-      if (isScoutKindSource(sourceName)) return isSourceEnabled('Scout System');
+      if (isScoutKindSource(sourceName) || isScoutGroupSource(sourceName)) return isSourceEnabled('Scout System');
       const region = getRegionForSource(sourceName);
       if (region && !isRegionEnabled(region)) return false;
       if (ALWAYS_ENABLED_REGIONS.has(region)) return true;
@@ -1323,7 +1388,7 @@
     }
 
     function getRegionForSource(sourceName) {
-      if (isScoutKindSource(sourceName)) return 'Scout System';
+      if (isScoutKindSource(sourceName) || isScoutGroupSource(sourceName)) return 'Scout System';
       for (const [regionName, sources] of Object.entries(state.regions)) {
         if (sources.includes(sourceName)) return regionName;
       }
@@ -1848,6 +1913,25 @@
       return (state.grouped['Scout System'] || []).filter(item => itemScoutKind(item) === kindId).length;
     }
 
+    // 兩大類（小工具／連結）嘅件數：目前視窗＋總數。
+    function itemInScoutGroup(item, groupId) {
+      return scoutGroupOfKind(itemScoutKind(item)) === groupId;
+    }
+
+    function scoutGroupCount(groupId) {
+      if (!isSourceEnabled('Scout System')) return 0;
+      return (state.grouped['Scout System'] || []).filter(item => itemInWindow(item) && itemInScoutGroup(item, groupId)).length;
+    }
+
+    function scoutGroupTotal(groupId) {
+      return (state.grouped['Scout System'] || []).filter(item => itemInScoutGroup(item, groupId)).length;
+    }
+
+    function scoutGroupUpdateCount(groupId) {
+      if (!isSourceEnabled('Scout System')) return 0;
+      return (state.grouped['Scout System'] || []).filter(item => toolIsNewToday(item) && itemInScoutGroup(item, groupId)).length;
+    }
+
     // 小工具一欄嘅件數：例「2/3」＝今日新上架 2 件／已發布共 3 件。
     // 以前只寫一個數字，用戶見到「17」以為 17 件都係今日新上架。
     function toolsBadgeHtml(fresh, total) {
@@ -1869,6 +1953,11 @@
     }
 
     function getBucket(sourceId) {
+      if (isScoutGroupSource(sourceId)) {
+        if (!isSourceEnabled('Scout System')) return [];
+        const group = scoutGroupIdFromSource(sourceId);
+        return (state.grouped['Scout System'] || []).filter(item => itemInScoutGroup(item, group));
+      }
       if (isScoutKindSource(sourceId)) {
         if (!isSourceEnabled('Scout System')) return [];
         const kind = scoutKindIdFromSource(sourceId);
@@ -1908,9 +1997,15 @@
     function getSourceTitle(sourceId) {
       if (sourceId === 'BOOKMARKS') return '★ 我的收藏';
       if (sourceId === 'ALL_SOURCES') return '全港 (所有層級)';
+      if (isScoutGroupSource(sourceId)) {
+        return `Scout System · ${scoutGroupLabel(scoutGroupIdFromSource(sourceId))}（${toolsWindowTitle()}）`;
+      }
       if (isScoutKindSource(sourceId)) {
-        const kind = SCOUT_SYSTEM_KINDS.find(item => item.id === scoutKindIdFromSource(sourceId));
-        return `Scout System · ${kind ? kind.label : ''}（${toolsWindowTitle()}）`;
+        const kindId = scoutKindIdFromSource(sourceId);
+        const kind = SCOUT_SYSTEM_KINDS.find(item => item.id === kindId);
+        // 顯示層級：小工具 › 助手；連結係大標題本身，唔會再有下一層。
+        const parent = scoutGroupLabel(scoutGroupOfKind(kindId));
+        return `Scout System · ${parent} › ${kind ? kind.label : ''}（${toolsWindowTitle()}）`;
       }
       if (sourceId === 'Scout System') return `Scout System（${toolsWindowTitle()}）`;
       if (sourceId && sourceId.startsWith('REGION:')) {
@@ -2001,6 +2096,10 @@
         items = [...getBucket(state.activeSource)];
       }
 
+      if (isScoutGroupSource(state.activeSource)) {
+        const group = scoutGroupIdFromSource(state.activeSource);
+        items = items.filter(item => itemInScoutGroup(item, group));
+      }
       if (isScoutKindSource(state.activeSource)) {
         const kind = scoutKindIdFromSource(state.activeSource);
         items = items.filter(item => itemScoutKind(item) === kind);
@@ -2170,14 +2269,15 @@
     }
 
     // 分類標籤：單選，同支部一樣。揀完會同時過濾卡片 + 收藏夾。
-    // 入咗 Scout System 就改顯示內設六類（助手／遊戲／系統／工具／其他／連結），唔再用通告分類。
+    // 入咗 Scout System 就改顯示兩大類：小工具（自家出品，再細分助手／遊戲／
+    // 系統／工具／其他）同連結（他人網站／APP，唔再細分）。
     function renderCategoryChips() {
       const wrap = $('#category-chips');
       if (!wrap) return;
       wrap.innerHTML = '';
       const label = wrap.previousElementSibling;
       if (viewingScoutSystem()) {
-        if (label && label.classList.contains('field-label')) label.textContent = '小工具：';
+        if (label && label.classList.contains('field-label')) label.textContent = '分類：';
         const noticesBtn = document.createElement('button');
         noticesBtn.type = 'button';
         noticesBtn.className = 'chip chip-category chip-notice-return';
@@ -2193,24 +2293,59 @@
           const candidate = state.lastNoticeSource;
           const target = candidate && candidate !== 'BOOKMARKS' && candidate !== 'Scout System'
             && candidate !== 'REGION:Scout System' && !isScoutKindSource(candidate)
+            && !isScoutGroupSource(candidate)
             ? candidate : 'ALL_SOURCES';
           chooseSource(target);
         };
         wrap.appendChild(noticesBtn);
 
+        // 第一層：兩大標題（小工具／連結）。連結冇子分類；只有自家出品嘅
+        // 小工具才在下面第二行再細分，唔會同大標題平排。
         const activeKind = scoutKindIdFromSource(state.activeSource);
-        for (const kind of SCOUT_SYSTEM_KINDS) {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = `chip chip-category${activeKind === kind.id ? ' active' : ''}`;
-          btn.dataset.cat = kind.id;
-          btn.textContent = kind.label;
-          btn.setAttribute('aria-pressed', activeKind === kind.id ? 'true' : 'false');
-          btn.onclick = () => chooseSource(activeKind === kind.id ? 'Scout System' : `SCOUT_KIND:${kind.id}`);
-          wrap.appendChild(btn);
+        const activeGroup = scoutGroupIdFromSource(state.activeSource)
+          || (activeKind ? scoutGroupOfKind(activeKind) : '');
+        for (const group of SCOUT_SYSTEM_GROUPS) {
+          const isGroupActive = activeGroup === group.id;
+          const groupBtn = document.createElement('button');
+          groupBtn.type = 'button';
+          groupBtn.className = `chip chip-category chip-group${isGroupActive ? ' active' : ''}`;
+          groupBtn.dataset.group = group.id;
+          groupBtn.textContent = group.label;
+          groupBtn.title = group.id === 'tools'
+            ? '自家出品嘅小工具（撳入去可再細分：助手／遊戲／系統／工具／其他）'
+            : '他人嘅網站／APP（全部歸連結，唔再細分）';
+          groupBtn.setAttribute('aria-pressed', isGroupActive ? 'true' : 'false');
+          groupBtn.onclick = () => {
+            const onGroupItself = activeGroup === group.id && !activeKind;
+            chooseSource(onGroupItself ? 'Scout System' : `SCOUT_GROUP:${group.id}`);
+          };
+          wrap.appendChild(groupBtn);
+        }
+
+        // 第二層：只有選咗「小工具」才有細分類。連結永遠唔會有子項。
+        const subRow = $('#subcategory-row');
+        const subWrap = $('#subcategory-chips');
+        if (subRow && subWrap) {
+          subWrap.innerHTML = '';
+          const showSub = activeGroup === 'tools';
+          subRow.hidden = !showSub;
+          if (showSub) {
+            for (const kind of scoutKindsInGroup('tools')) {
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = `chip chip-category chip-sub${activeKind === kind.id ? ' active' : ''}`;
+              btn.dataset.cat = kind.id;
+              btn.textContent = kind.label;
+              btn.setAttribute('aria-pressed', activeKind === kind.id ? 'true' : 'false');
+              btn.onclick = () => chooseSource(activeKind === kind.id ? 'SCOUT_GROUP:tools' : `SCOUT_KIND:${kind.id}`);
+              subWrap.appendChild(btn);
+            }
+          }
         }
         return;
       }
+      const subRow = $('#subcategory-row');
+      if (subRow) subRow.hidden = true;
       if (label && label.classList.contains('field-label')) label.textContent = '分類：';
       for (const tag of CATEGORY_TAGS) {
         const btn = document.createElement('button');
@@ -2221,7 +2356,7 @@
         btn.setAttribute('aria-pressed', state.category === tag.id ? 'true' : 'false');
         btn.onclick = () => {
           // 地域／總會來源本身冇 Scout System 小工具；點「小工具」直接進入
-          // Scout System 專用瀏覽模式（內設六類＋「今天更新/發布／之前發布」）。
+          // Scout System 專用瀏覽模式（兩大類＋「今天更新/發布／之前發布」）。
           if (tag.id === 'tools') {
             chooseSource('Scout System');
             return;
@@ -2277,13 +2412,15 @@
     function chooseSource(source) {
       const wasScoutSystemView = viewingScoutSystem();
       const enteringScoutSystem = !wasScoutSystemView && (
-        source === 'Scout System' || source === 'REGION:Scout System' || isScoutKindSource(source)
+        source === 'Scout System' || source === 'REGION:Scout System'
+        || isScoutKindSource(source) || isScoutGroupSource(source)
       );
       if (enteringScoutSystem) {
         let previousNoticeSource = state.activeSource;
         if (previousNoticeSource === 'BOOKMARKS') previousNoticeSource = state.lastSource || 'ALL_SOURCES';
         if (!previousNoticeSource || previousNoticeSource === 'Scout System'
-            || previousNoticeSource === 'REGION:Scout System' || isScoutKindSource(previousNoticeSource)) {
+            || previousNoticeSource === 'REGION:Scout System'
+            || isScoutKindSource(previousNoticeSource) || isScoutGroupSource(previousNoticeSource)) {
           previousNoticeSource = 'ALL_SOURCES';
         }
         state.lastNoticeSource = previousNoticeSource;
@@ -2337,7 +2474,10 @@
 
       const regions = Object.entries(state.regions);
       for (const [regionName, sources] of regions) {
-        const kindQueryHit = regionName === 'Scout System' && !!q && SCOUT_SYSTEM_KINDS.some(kind => kind.label.toLowerCase().includes(q) || kind.id.includes(q));
+        const kindQueryHit = regionName === 'Scout System' && !!q && (
+          SCOUT_SYSTEM_KINDS.some(kind => kind.label.toLowerCase().includes(q) || kind.id.includes(q))
+          || SCOUT_SYSTEM_GROUPS.some(group => group.label.toLowerCase().includes(q) || group.id.includes(q))
+        );
         const filteredSources = q
           ? sources.filter(src => src.toLowerCase().includes(q) || regionName.toLowerCase().includes(q) || kindQueryHit)
           : sources;
@@ -2348,7 +2488,8 @@
         regionEl.className = `region ${regionEnabled ? '' : 'rt-disabled'}`.trim();
         const isRegionActive = state.activeSource === 'REGION:' + regionName;
         const shouldOpen = isRegionActive || filteredSources.includes(state.activeSource)
-          || (regionName === 'Scout System' && (state.activeSource === 'Scout System' || isScoutKindSource(state.activeSource)));
+          || (regionName === 'Scout System' && (state.activeSource === 'Scout System'
+            || isScoutKindSource(state.activeSource) || isScoutGroupSource(state.activeSource)));
         if ((shouldOpen || kindQueryHit) && regionEnabled) regionEl.classList.add('open');
 
         const total = filteredSources.reduce((sum, src) => sum + sourceCount(src), 0);
@@ -2398,23 +2539,63 @@
         }
 
         if (regionName === 'Scout System') {
-          const visibleKinds = (!q || regionName.toLowerCase().includes(q) || 'scout system'.includes(q))
-            ? SCOUT_SYSTEM_KINDS
-            : SCOUT_SYSTEM_KINDS.filter(kind => kind.label.toLowerCase().includes(q) || kind.id.includes(q));
-          for (const kind of visibleKinds) {
-            const cnt = regionEnabled ? scoutKindCount(kind.id) : 0;
-            // 內設六類嘅燈號：今日有該類新工具先著
-            const fresh = regionEnabled ? scoutKindUpdateCount(kind.id) : 0;
-            const active = scoutKindIdFromSource(state.activeSource) === kind.id;
-            const kindBtn = document.createElement('button');
-            kindBtn.className = `source-btn ${active ? 'active' : ''} ${fresh > 0 && regionEnabled ? 'has-updates' : ''}`;
-            kindBtn.innerHTML = `<span>${escapeHtml(kind.label)}</span><small>${regionEnabled ? `${cnt} / ${scoutKindTotal(kind.id)} 則` : '已隱藏'}</small>`;
-            kindBtn.disabled = !regionEnabled;
-            kindBtn.onclick = () => {
+          // 2026-11-12 用戶規則：Scout System 只分兩大類——
+          //   小工具（自家出品，下面再列助手／遊戲／系統／工具／其他）
+          //   連結（他人網站／APP，全部一類，唔再細分）
+          const allScoutMatches = !q || regionName.toLowerCase().includes(q) || 'scout system'.includes(q);
+          const activeKindId = scoutKindIdFromSource(state.activeSource);
+          const activeGroupId = scoutGroupIdFromSource(state.activeSource)
+            || (activeKindId ? scoutGroupOfKind(activeKindId) : '');
+          for (const group of SCOUT_SYSTEM_GROUPS) {
+            const kinds = scoutKindsInGroup(group.id);
+            const groupSelfMatch = allScoutMatches
+              || group.label.toLowerCase().includes(q) || group.id.includes(q);
+            const visibleKinds = groupSelfMatch
+              ? kinds
+              : kinds.filter(kind => kind.label.toLowerCase().includes(q) || kind.id.includes(q));
+            const hasChildren = group.id !== 'links';
+            if (!groupSelfMatch && (!hasChildren || !visibleKinds.length)) continue;
+
+            const activeGroup = activeGroupId === group.id;
+            const groupCnt = regionEnabled ? scoutGroupCount(group.id) : 0;
+            const groupFresh = regionEnabled ? scoutGroupUpdateCount(group.id) : 0;
+            // 先按大標題：小工具嘅細分類預設收起，撳入「小工具」才展開
+            // （搜尋細分類名稱時亦自動展開，唔會搜唔到）。
+            const childrenOpen = hasChildren && (activeGroup || (!!q && !groupSelfMatch));
+            const groupBtn = document.createElement('button');
+            groupBtn.dataset.group = group.id;
+            groupBtn.className = `source-btn kind-group ${activeGroup ? 'active' : ''} ${groupFresh > 0 && regionEnabled ? 'has-updates' : ''}`;
+            groupBtn.title = group.id === 'tools'
+              ? '小工具：自家出品（撳入去再分助手／遊戲／系統／工具／其他）'
+              : '連結：他人嘅網站／APP（全部歸連結，唔再細分）';
+            groupBtn.innerHTML = `<span>${escapeHtml(group.label)}</span>`
+              + (hasChildren ? `<span class="kind-caret" aria-hidden="true">${childrenOpen ? '▾' : '▸'}</span>` : '')
+              + `<small>${regionEnabled ? `${groupCnt} / ${scoutGroupTotal(group.id)} 則` : '已隱藏'}</small>`;
+            groupBtn.disabled = !regionEnabled;
+            groupBtn.onclick = () => {
               if (!regionEnabled) return;
-              chooseSource('SCOUT_KIND:' + kind.id);
+              const onGroupItself = activeGroupId === group.id && !activeKindId;
+              chooseSource(onGroupItself ? 'Scout System' : 'SCOUT_GROUP:' + group.id);
             };
-            list.appendChild(kindBtn);
+            list.appendChild(groupBtn);
+
+            // 連結係單一類，唔使再列子分類；小工具才逐類細分。
+            if (!childrenOpen) continue;
+            for (const kind of visibleKinds) {
+              const cnt = regionEnabled ? scoutKindCount(kind.id) : 0;
+              // 燈號：今日有該類新工具先著
+              const fresh = regionEnabled ? scoutKindUpdateCount(kind.id) : 0;
+              const active = scoutKindIdFromSource(state.activeSource) === kind.id;
+              const kindBtn = document.createElement('button');
+              kindBtn.className = `source-btn kind-child ${active ? 'active' : ''} ${fresh > 0 && regionEnabled ? 'has-updates' : ''}`;
+              kindBtn.innerHTML = `<span>${escapeHtml(kind.label)}</span><small>${regionEnabled ? `${cnt} / ${scoutKindTotal(kind.id)} 則` : '已隱藏'}</small>`;
+              kindBtn.disabled = !regionEnabled;
+              kindBtn.onclick = () => {
+                if (!regionEnabled) return;
+                chooseSource('SCOUT_KIND:' + kind.id);
+              };
+              list.appendChild(kindBtn);
+            }
           }
         }
 
@@ -5277,7 +5458,7 @@
           subtitle = '目前顯示全港所有通告。';
         }
       }
-      else if (viewingScoutSystem()) subtitle = 'Scout System 內設：助手、遊戲、系統、工具、其他、連結。撳「通告」可返回一般通告分類；小工具只分「今天更新/發布」同「之前發布」。';
+      else if (viewingScoutSystem()) subtitle = 'Scout System 分兩大類：小工具（自家出品，再分助手／遊戲／系統／工具／其他）同連結（他人網站／APP，全部歸連結）。撳「通告」可返回一般通告分類；小工具只分「今天更新/發布」同「之前發布」。';
       else if (state.activeSource && state.activeSource.startsWith('REGION:')) subtitle = `目前顯示 ${getSourceTitle(state.activeSource)} 所有區會的通告。`;
       else if (state.activeSource) subtitle = '';
 
@@ -5315,7 +5496,8 @@
         模式：<code>${scopeLabel}</code>
         ${state.personalMode && personalDate ? `・日期：<code>${escapeHtml(personalDate)}</code>` : (!exactNotification ? `・視窗：<code>${escapeHtml(windowStatusLabel())}</code>` : '')}
         ${!exactNotification && !state.personalMode && state.branch !== 'ALL' ? `・支部：<code>${escapeHtml(state.branch)}</code>` : ''}
-        ${!exactNotification && !state.personalMode && viewingScoutSystem() && scoutKindIdFromSource(state.activeSource) ? `・分類：<code>${escapeHtml(SCOUT_SYSTEM_KINDS.find(k => k.id === scoutKindIdFromSource(state.activeSource))?.label || '')}</code>` : ''}
+        ${!exactNotification && !state.personalMode && viewingScoutSystem() && scoutKindIdFromSource(state.activeSource) ? `・分類：<code>${escapeHtml(scoutGroupLabel(scoutGroupOfKind(scoutKindIdFromSource(state.activeSource))))} › ${escapeHtml(SCOUT_SYSTEM_KINDS.find(k => k.id === scoutKindIdFromSource(state.activeSource))?.label || '')}</code>` : ''}
+        ${!exactNotification && !state.personalMode && viewingScoutSystem() && scoutGroupIdFromSource(state.activeSource) ? `・分類：<code>${escapeHtml(scoutGroupLabel(scoutGroupIdFromSource(state.activeSource)))}</code>` : ''}
         ${!exactNotification && !state.personalMode && !viewingScoutSystem() && state.category !== 'ALL' ? `・分類：<code>${escapeHtml(currentCat?.label || state.category)}</code>` : ''}
         ${!exactNotification && !state.personalMode ? regionInfo : ''}
         ・顯示：<code>${current}</code>
@@ -5414,7 +5596,7 @@
           ? `<br><small>目前只顯示「${escapeHtml(CATEGORY_TAGS.find(c => c.id === state.category)?.label || state.category)}」分類。分類由 enrich.py 嘅 PDF 內文判斷；如果全部係「其他」，可能 enrich.json 仲未補 categories（跑 python enrich.py --backfill-categories）。</small>`
           : '';
         const scoutHint = viewingScoutSystem()
-          ? '<br><small>Scout System 內設分類：助手、遊戲、系統、工具、其他、連結。撳「通告」可返回一般通告分類；撳「之前發布」會顯示全部小工具。</small>'
+          ? '<br><small>Scout System 分兩大類：小工具（自家出品，再分助手／遊戲／系統／工具／其他）同連結（他人網站／APP）。撳「通告」可返回一般通告分類；撳「之前發布」會顯示全部小工具。</small>'
           : '';
         messagesEl.innerHTML = `<div class="msg">這個來源在目前時間視窗 / 搜尋條件下暫時沒有資料。${branchHint}${catHint}${scoutHint}</div>`;
         return;
@@ -5450,6 +5632,7 @@
         };
         const kindId = isTool ? itemScoutKind(item) : '';
         const kindLabel = SCOUT_SYSTEM_KINDS.find(k => k.id === kindId)?.label || '';
+        const toolActionLabel = kindId === 'link' ? '開啟連結 ↗' : '進入系統 ↗';
         const kindHtml = kindLabel ? `<span class="cat-tag kind">${escapeHtml(kindLabel)}</span>` : '';
         // 2026-10-01：小工具取消日期分類，「6個月以上」標籤一併移除——
         // 既然冇咗 6 個月視窗嘅概念，貼喺每張工具卡上面就淨係噪音。
@@ -5476,7 +5659,7 @@
           </div>
           ${extraHtml}
           <div class="meta-row meta-foot">
-            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">${isTool ? '進入系統 ↗' : '開啟附件'}</a>
+            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">${isTool ? toolActionLabel : '開啟附件'}</a>
             <div class="card-icons">
               <button class="star-btn${starred ? ' on' : ''}" type="button"
                 aria-pressed="${starred ? 'true' : 'false'}"
