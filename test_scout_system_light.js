@@ -104,16 +104,25 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
        '通告視圖下「全部」跟通告視窗＝0 件（同列表對數），總數 2 仍然見到：' + (allBtn && allBtn.querySelector('small').textContent.trim()));
 
     const groups = ['小工具', '連結'].map(k => sourceBtn(d, k)).filter(Boolean);
-    ok(groups.length === 2, '兩大類掣齊（小工具／連結）：' + groups.length);
-    const childKinds = ['助手', '遊戲', '系統', '工具', '其他'].map(k => sourceBtn(d, k)).filter(Boolean);
-    ok(childKinds.length === 5, '小工具再細分五類：' + childKinds.length);
+    ok(groups.length === 2, '兩大類標題掣齊（小工具／連結）：' + groups.length);
+    ok(!sourceBtn(d, '助手') && !sourceBtn(d, '遊戲'),
+       '先按大標題：小工具嘅細分類預設收起，唔會同大標題平排');
     ok(!!sourceBtn(d, '連結') && !sourceBtn(d, '連結').classList.contains('kind-child'),
        '連結唔再細分（冇子分類）');
-    ok(groups.concat(childKinds).every(b => !lit(b)), '兩大類同細分類冇一個著燈（今日冇新上架）');
-    ok(!!sourceBtn(d, '遊戲') && sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '0 / 1 則',
-       '「遊戲」目前視窗 0 件／共 1 件');
-    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '0 / 1 則',
-       '「助手」目前視窗 0 件／共 1 件');
+    ok(groups.every(b => !lit(b)), '兩大標題今日冇新上架 → 唔著燈');
+    sourceBtn(d, '小工具').click();
+    await wait(120);
+    const childKinds = ['助手', '遊戲', '系統', '工具', '其他'].map(k => sourceBtn(d, k)).filter(Boolean);
+    ok(childKinds.length === 5, '撳入「小工具」才展開五個細分類：' + childKinds.length);
+    ok(childKinds.every(b => b.classList.contains('kind-child')),
+       '細分類係小工具子項（縮排），唔係同大標題平排');
+    ok(childKinds.every(b => !lit(b)), '細分類今日冇新上架 → 唔著燈');
+    // 撳側欄「小工具」會入 Scout System 並重設成「之前發布」，所以細分類
+    // 見到嘅係全部已發布件數（長期資產），唔係通告視窗。
+    ok(!!sourceBtn(d, '遊戲') && sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 / 1 則',
+       '「遊戲」共 1 件');
+    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '1 / 1 則',
+       '「助手」共 1 件');
 
     // 對照組：地域／區會通告喺視窗內 → 照樣著燈，唔可以一併熄晒
     ok(lit(regionSection(d, '港島地域')), '地域（港島地域）有今日新通告 → 照樣著燈');
@@ -139,11 +148,13 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     const badge = regionBadge(d, 'Scout System');
     ok(!!badge && badge.classList.contains('hot') && badge.textContent.trim() === '1/3',
        'badge 寫 1/3（今日新上架 1 件／共 3 件），並因今日有更新發綠光：' + (badge && badge.textContent));
+    sourceBtn(d, '小工具').click();
+    await wait(120);
     ok(lit(sourceBtn(d, '遊戲')), '「遊戲」類有新工具 → 著燈');
-    ok(sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 / 2 則', '遊戲類：通告視圖今天 1 件／共 2 件');
-    ok(sourceBtn(d, '全部 (Scout System)').querySelector('small').textContent.trim() === '1 / 3 則', 'Scout System 全部：今天 1 件／共 3 件');
+    ok(sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '2 / 2 則', '遊戲類：之前發布 2 件／共 2 件');
+    ok(sourceBtn(d, '全部 (Scout System)').querySelector('small').textContent.trim() === '3 / 3 則', 'Scout System 全部：之前發布 3 件／共 3 件');
     ok(!lit(sourceBtn(d, '助手')), '「助手」類今日冇新 → 唔著燈');
-    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '0 / 1 則', '「助手」今天 0 件／共 1 件');
+    ok(!!sourceBtn(d, '助手') && sourceBtn(d, '助手').querySelector('small').textContent.trim() === '1 / 1 則', '「助手」共 1 件');
     ok(lit(sourceBtn(d, '全部 (Scout System)')), '「全部 (Scout System)」著燈');
 
     const allScoutSource = sourceBtn(d, '全部 (Scout System)');
@@ -153,6 +164,8 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     if (todayWindow) todayWindow.click();
     ok(!!regionBadge(d, 'Scout System') && regionBadge(d, 'Scout System').textContent.trim() === '1/3',
        '切到「今天」後，Scout System 側欄仍然寫 1/3（今日／總數唔會跳）');
+    sourceBtn(d, '小工具').click();
+    await wait(120);
     ok(sourceBtn(d, '遊戲').querySelector('small').textContent.trim() === '1 / 2 則',
        '切到「今天」後，遊戲分類跟今天視窗＝1 / 2 則');
     ok(sourceBtn(d, '助手').querySelector('small').textContent.trim() === '0 / 1 則',
@@ -177,6 +190,8 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(!lit(regionSection(d, 'Scout System')), '尋日上架（唔係今日）→ 唔著燈');
     const badge = regionBadge(d, 'Scout System');
     ok(!!badge && !badge.classList.contains('hot') && badge.textContent.trim() === '0/1', 'badge 寫 0/1（今日 0 件／共 1 件）但唔發光');
+    sourceBtn(d, '小工具').click();
+    await wait(120);
     ok(!lit(sourceBtn(d, '遊戲')), '尋日新嘅「遊戲」都唔著燈');
     dom.window.close();
   }
@@ -228,11 +243,17 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(d.querySelector('#category-chips')?.previousElementSibling?.textContent.includes('分類'),
        '分類列切換成 Scout System 兩大類＋小工具細分類');
     const groupChips = $$(d, '#category-chips [data-group]').map(b => b.textContent.trim());
-    ok(activeKindChips.length === 5 && groupChips.length === 2
-       && activeKindChips.some(b => b.textContent.trim() === '助手')
-       && groupChips.join(' ') === '小工具 連結',
-       'Scout System 兩大類＋小工具五個細分類已顯示：' + groupChips.join(' ') + ' / '
-       + activeKindChips.map(b => b.textContent.trim()).join(' '));
+    ok(groupChips.join(' ') === '小工具 連結' && activeKindChips.length === 0,
+       '分類掣先只列兩大標題（小工具／連結）：' + groupChips.join(' ')
+       + ' / 細分類 ' + activeKindChips.length);
+    ok(d.querySelector('#subcategory-row')?.hidden !== false,
+       '未揀「小工具」之前，細分類一行收起');
+    $$(d, '#category-chips [data-group]').find(b => b.textContent.trim() === '小工具')?.click();
+    await wait(120);
+    const subChips = $$(d, '#subcategory-chips [data-cat]').map(b => b.textContent.trim());
+    ok(d.querySelector('#subcategory-row')?.hidden === false
+       && subChips.join(' ') === '助手 遊戲 系統 工具 其他',
+       '撳「小工具」後才出現「小工具細分」五類：' + subChips.join(' '));
     ok(!!beforePublished && beforePublished.classList.contains('active'),
        '由通告進入時重設為「之前發布」，唔沿用先前嘅「今天」');
     ok(!!regionBadge(d, 'Scout System') && regionBadge(d, 'Scout System').textContent.trim() === '0/1',
@@ -287,8 +308,8 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(!!linksGroup && /^2 \/ 2 則$/.test(linksGroup.querySelector('small').textContent.trim()),
        '「連結」計晒他人網站／APP（2 件）：'
        + (linksGroup && linksGroup.querySelector('small').textContent.trim()));
-    ok(!!sourceBtn(d, '工具') && sourceBtn(d, '工具').classList.contains('kind-child'),
-       '小工具細分類（例如「工具」）係子項，唔係同大類平排');
+    ok(!sourceBtn(d, '助手') && !sourceBtn(d, '工具'),
+       '未撳入「小工具」之前，細分類唔會出現（先按大標題）');
 
     linksGroup.click();
     await wait(80);
@@ -302,12 +323,14 @@ const lit = (el) => !!el && el.classList.contains('has-updates');
     ok(d.querySelector('#page-title')?.textContent.includes('連結'),
        '頁面標題寫「Scout System · 連結」：' + d.querySelector('#page-title')?.textContent.trim());
 
-    toolsGroup.click();
+    sourceBtn(d, '小工具').click();
     await wait(80);
     ok(cardTitles().includes('自家計時器') && cardTitles().includes('自家小冊子'),
        '小工具：自家出品全部出：' + cardTitles().join(' | '));
     ok(!cardTitles().includes('海外單車遊資料') && !cardTitles().includes('課堂學習工具'),
        '小工具：唔會混入他人連結');
+    ok(!!sourceBtn(d, '工具') && sourceBtn(d, '工具').classList.contains('kind-child'),
+       '撳入「小工具」後才列出子分類（例如「工具」），子項有縮排');
 
     sourceBtn(d, '工具').click();
     await wait(80);

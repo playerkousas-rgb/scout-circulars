@@ -130,6 +130,9 @@ const chip = (label) => $$('#window-chips button').find(b => b.textContent.trim(
   ok(badgeText('全港 (所有層級)') === allBadgeBefore, '小工具視窗唔會滲入全港個數：' + badgeText('全港 (所有層級)'));
   ok(paneTitle() === 'Scout System（今天新上架）', '標題跟住變「今天新上架」：' + paneTitle());
   ok(smallOf('全部 (Scout System)') === '2 / 3 則', '「全部」= 目前 2 / 共 3：' + smallOf('全部 (Scout System)'));
+  // 先按大標題：細分類要撳入「小工具」才展開
+  sourceBtn('小工具')?.click();
+  await wait(300);
   ok(smallOf('助手') === '1 / 2 則', '「助手」目前 1 / 共 2：' + smallOf('助手'));
   ok(smallOf('遊戲') === '1 / 1 則', '「遊戲」目前 1 / 共 1：' + smallOf('遊戲'));
 
