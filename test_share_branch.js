@@ -725,6 +725,9 @@ const click = (w, el) => el.dispatchEvent(new w.MouseEvent('click', { bubbles: t
       ok(href.pathname === '/share-launch.html' && new URLSearchParams(href.hash.slice(1)).get('target') === id,
          '電腦文字分享 ' + id + ' 先用 app-first 分享頁');
     }
+    // Keep the desktop IG render deterministic in jsdom; it cannot decode the
+    // real WebP story bases and must not depend on network/CDN timing.
+    wD.eval('storyBaseImgFor = async () => null');
     click(wD, sheetD.querySelector('[data-act="ig"]')); await wait(90);
     const boxD = sheetD.querySelector('[data-role="igbox"]');
     ok(boxD && !boxD.hidden, '電腦版：照樣出到 IG 圖預覽');

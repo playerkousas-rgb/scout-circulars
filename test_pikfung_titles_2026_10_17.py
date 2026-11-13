@@ -97,8 +97,14 @@ class ProductionShape(unittest.TestCase):
                 if notice.get("source_site") == SOURCE and notice.get("pdf_url") == url:
                     self.assertEqual(norm(notice["title"]), norm(item["title"]))
             entry = self.enrich.get(url)
-            if isinstance(entry, dict) and entry.get("title"):
-                self.assertEqual(norm(entry["title"]), norm(item["title"]))
+            if isinstance(entry, dict):
+                # Enrichment titles may be manually corrected, so they are not
+                # required to equal the source listing title. Compare the
+                # preserved listing_title when available instead.
+                listing_title = entry.get("listing_title")
+                if listing_title:
+                    listing_title = str(listing_title).removeprefix("Drive,").strip()
+                    self.assertEqual(norm(listing_title), norm(item["title"]))
 
 
 if __name__ == "__main__":

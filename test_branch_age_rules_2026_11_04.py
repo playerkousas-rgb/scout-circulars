@@ -46,6 +46,11 @@ class SectionOrderTests(unittest.TestCase):
         self.assertEqual(age_and_or_above_branches(text), (set(), set()))
         self.assertEqual(extra_branch_tokens(text), set())
 
+    def test_bounded_age_range_does_not_expand_past_its_upper_limit(self):
+        text = "受資助資格：年齡為8至11歲，持有有效幼童軍紀錄冊及童軍成員編號的幼童軍。"
+        self.assertEqual(age_and_or_above_branches(text), (set(), set()))
+        self.assertEqual(extract_audience(text), "幼童軍")
+
     def test_or_above_and_age_phrases(self):
         age, above = age_and_or_above_branches("童軍支部或以上成員")
         self.assertEqual(age, set())

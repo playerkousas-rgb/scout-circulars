@@ -314,7 +314,7 @@ class ServeLocalCompatTests(unittest.TestCase):
     def _local_handler(self, path):
         import serve_local
 
-        local_cls = serve_local.build_handler(object, object, pdf_proxy.handler)
+        local_cls = serve_local.build_handler(object, object, object, pdf_proxy.handler)
         self.assertFalse(issubclass(local_cls, pdf_proxy.handler))
 
         class Probe(local_cls):
