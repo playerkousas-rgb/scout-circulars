@@ -25,6 +25,7 @@ import random
 import sys
 import time
 import contextlib
+from urllib.parse import urlparse
 
 import core
 from bs4 import BeautifulSoup
@@ -43,7 +44,8 @@ core.fetch_with_playwright = _pw_unavailable
 
 
 def check_one(name: str, config: dict, expected_empty: bool) -> dict:
-    out = {"name": name, "url": config.get("url", ""), "type": config.get("type", "")}
+    requested_url = config.get("url", "")
+    out = {"name": name, "url": requested_url, "requested_url": requested_url, "type": config.get("type", "")}
     buf = io.StringIO()
     t0 = time.time()
     try:
@@ -63,6 +65,10 @@ def check_one(name: str, config: dict, expected_empty: bool) -> dict:
         out["log"] = buf.getvalue()[-1500:]
         return out
 
+    final_url = getattr(result, "url", "") or requested_url
+    out["final_url"] = final_url
+    out["address_changed"] = bool(requested_url and final_url and final_url != requested_url)
+    out["status_code"] = getattr(result, "status_code", None)
     soup = BeautifulSoup(result.html, "html.parser")
     fp_sel = config.get("fingerprint_selector", "body")
     try:
@@ -98,7 +104,15 @@ def check_one(name: str, config: dict, expected_empty: bool) -> dict:
     out["seconds"] = round(time.time() - t0, 1)
     out["log_tail"] = buf.getvalue()[-400:]
 
-    if assets:
+    requested_host = (urlparse(requested_url).hostname or "").lower().removeprefix("www.")
+    final_host = (urlparse(final_url).hostname or "").lower().removeprefix("www.")
+    out["offsite_redirect"] = bool(requested_host and final_host and requested_host != final_host)
+
+    if out["offsite_redirect"]:
+        out["status"] = "OFFSITE_REDIRECT"
+    elif out.get("fingerprint_matches", 0) == 0:
+        out["status"] = "LAYOUT_CHANGED"
+    elif assets:
         out["status"] = "OK"
     else:
         out["status"] = "EMPTY"
@@ -127,27 +141,32 @@ def main():
             time.sleep(random.uniform(1.5, 4.0))
         r = check_one(n, sources[n], n in expected_empty)
         results[r["name"]] = r
-        mark = {"OK": "✅", "EMPTY": "🟡", "FETCH_FAIL": "❌"}.get(r["status"], "?")
+        mark = {"OK": "✅", "EMPTY": "🟡", "FETCH_FAIL": "❌", "LAYOUT_CHANGED": "🟠", "OFFSITE_REDIRECT": "🔴"}.get(r["status"], "?")
         extra = f" assets={r.get('assets')}" if r["status"] != "FETCH_FAIL" else f" {r.get('error', '')[:60]}"
-        print(f"{mark} {r['name']:<10} {r['status']:<10}{extra} ({r['seconds']}s)", flush=True)
+        if r.get("address_changed"):
+            extra += f" url→{r.get('final_url', '')[:100]}"
+        print(f"{mark} {r['name']:<10} {r['status']:<16}{extra} ({r['seconds']}s)", flush=True)
 
     print("\n" + "═" * 70)
     ok = [n for n, r in results.items() if r["status"] == "OK"]
-    empty = [n for n, r in results.items() if r["status"] == "EMPTY"]
-    fail = [n for n, r in results.items() if r["status"] == "FETCH_FAIL"]
-    print(f"總計 {len(results)} | ✅ OK {len(ok)} | 🟡 EMPTY {len(empty)} | ❌ FETCH_FAIL {len(fail)}")
-    for n in empty:
+    attention = [n for n, r in results.items()
+                 if (r["status"] != "OK" and not (r.get("expected_empty") and r["status"] == "EMPTY"))
+                 or r.get("address_changed")]
+    redirected = [n for n, r in results.items() if r.get("address_changed")]
+    print(f"總計 {len(results)} | ✅ OK {len(ok)} | ⚠️ 需覆核 {len(attention)} | ↪️ 網址有轉址 {len(redirected)}")
+    for n in attention:
         r = results[n]
         tag = " (expected_empty)" if r.get("expected_empty") else ""
-        print(f"  🟡 {n}{tag}: fp_matches={r.get('fingerprint_matches')} html={r.get('html_len')}")
-    for n in fail:
-        r = results[n]
-        print(f"  ❌ {n}: {r.get('error')}")
+        final = f" → {r.get('final_url')}" if r.get("address_changed") else ""
+        print(f"  ⚠️ {n}{tag}: {r['status']} assets={r.get('assets')} fp_matches={r.get('fingerprint_matches')}{final}")
 
     with open("health_report.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     print("\n詳細報告已寫入 health_report.json")
+    # CI should be visibly red when an enabled source is inaccessible, offsite,
+    # structurally changed, unexpectedly empty, or has started redirecting.
+    return bool(attention)
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(1 if main() else 0)

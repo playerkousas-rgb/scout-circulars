@@ -327,9 +327,10 @@ def age_and_or_above_branches(value: Any) -> Tuple[Set[str], Set[str]]:
     for match in _AGE_ABOVE_RE.finditer(text):
         if _MEMBER_CONTEXT_RE.search(text[match.end():match.end() + 24]):
             ages.append(int(match.group(1)))
-    for match in _AGE_RANGE_RE.finditer(text):
-        if _MEMBER_CONTEXT_RE.search(text[match.end():match.end() + 24]):
-            ages.append(int(match.group(1)))
+    # A bounded age range (e.g. 8–11) must not be treated as a minimum-age
+    # rule. Expanding its lower bound to every older section invents eligibility
+    # beyond the stated upper bound. Explicit branch names in the same text are
+    # still extracted by the normal branch matcher.
     age_branches: Set[str] = set()
     for age in ages:
         age_branches.update(branches_from_min_age(age))
@@ -339,7 +340,7 @@ def age_and_or_above_branches(value: Any) -> Tuple[Set[str], Set[str]]:
 def extra_branch_tokens(value: Any) -> Set[str]:
     """由歲數／「或以上」寫法推論出嘅全部額外支部（配合 longest-match 掃描）。
 
-    只認「XX歲(或)以上」＋附近嘅成員字眼，唔認「XX歲以下」；年齡區間用下限。
+    只認「XX歲(或)以上」＋附近嘅成員字眼，唔認「XX歲以下」或有上限嘅年齡區間。
     呢個係 Python 端唯一定義，enrich.py 抽 audience 同推播支部標籤都用佢，
     index.html 嘅 expandBranchScopeByAge() 係佢嘅 JS 鏡像。
     """

@@ -1520,6 +1520,12 @@ def should_follow_detail_pages(config: Dict[str, Any]) -> bool:
 
 
 def make_asset_record(url: str, title: Optional[str], config: Dict[str, Any]) -> Optional[Dict[str, str]]:
+    # Circular records represent PDFs, not every downloadable attachment found on a
+    # source page. Keep opaque download endpoints (e.g. WordPress wpdmdl) because
+    # they often serve PDFs without a .pdf suffix, but never ingest known non-PDF
+    # document/archive formats as circulars.
+    if url_path_ext(url) in DOWNLOAD_EXTENSIONS - {".pdf"}:
+        return None
     final_title = clean_title(title or "", config) if title else None
     if not final_title and title:
         final_title = salvage_title_from_text(title, config)
