@@ -39,6 +39,20 @@
 > `delisted` 記曾經上架再隱藏；一次性 `FIRST_PUBLIC_OVERRIDES` 修正已寫錯嘅日期。
 > 回歸：`test_appstore_publication_rule_2026_11_07.py`、`test_tools_category.py`。
 
+> **2026-11-16 元朗西區重複 `.pdf.pdf` 錯位連結修復：** 元朗西區今日發佈
+> 「元朗西區50周年幼童軍主席盾比賽」（及先前 `activity12-2026`、`activity13-2026`）時，
+> 喺 WordPress 文章區塊將連結誤植為 `/circular/activity15-2026.pdf.pdf`（回傳 404），
+> 真檔其實位於同目錄單一 `.pdf`（`/circular/activity15-2026.pdf`）。由於部分其他區會
+> 舊 WordPress 檔案真檔名真係 `.pdf.pdf`，唔可以全網盲剝：
+> 1. `core.py`：針對 `ylw-scout.org.hk/circular/*.pdf.pdf` 確定性收斂為單一 `.pdf`（連既有
+>    cache 載入時一併搬遷並保留原 `captured_date`）；其他網域若出現 `.pdf.pdf` 則先探測
+>    原網址是否真 `%PDF`，確定 404 且單一 `.pdf` 回傳真 `%PDF` 先自動改連；
+> 2. `enrich.py`（3.11）及 `api/pdf_proxy.py`：下載 `.pdf.pdf` 遇 404 時自動退回單一 `.pdf`
+>    重試，並支援全形貨幣符號 `＄`（例如「＄200.00」）費用抽取；
+> 3. `tools/apply_notice_corrections.py`：冪等搬遷 `cache.json`（`data`＋`notices`）與
+>    `enrich.json` 內三張元朗西區 `.pdf.pdf` 記錄、清走舊 404 錯誤並補齊真 PDF 欄位。
+> 回歸：`test_ylw_double_pdf_2026_11_16.py`。
+
 本專案按你提供的核心哲學重建：
 
 - **來源隔離（Source Isolation）**
