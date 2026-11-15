@@ -63,7 +63,8 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.10"  # 2026-11-07：信頭地址唔可以當 PDF 標題（青衣區取錄通知個案）
+ENRICH_VERSION = "3.11"  # 2026-11-16：重複 .pdf.pdf 404 自動退回單一 .pdf 下載、全形＄費用抽取（元朗西區個案）
+# 3.10（2026-11-07）：信頭地址唔可以當 PDF 標題（青衣區取錄通知個案）
 # 3.9（2026-11-04）：標題異體字／資格條款防線、歲數與「支部或以上」對象抽取
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
 # （「行政通告第 13/2026號」），並把「公告／公布／公佈」加入標題 hint；
@@ -1114,11 +1115,11 @@ def locate_label_scope(text, label_keys, lines_after=3, stop_keys=None,
     return ""
 
 
-# 金額樣式：$123 / HK$123 / 港幣123元 / 123元 / 全免 / 免費
+# 金額樣式：$123 / HK$123 / 港幣123元 / 123元 / 全免 / 免費（含全形＄，例如元朗西區「＄200.00」）
 FEE_PATTERNS = [
     r"全免",
     r"免費",
-    r"(?:HK\$|HKD|港幣|\$)\s*[\d,]+(?:\.\d+)?\s*元?(?:正)?",
+    r"(?:HK[\$＄]|HKD|港幣|[\$＄])\s*[\d,]+(?:\.\d+)?\s*元?(?:正)?",
     r"[\d,]+\s*元(?:正)?",
 ]
 FEE_LABEL_KEYS = [
@@ -1181,7 +1182,7 @@ def _fee_from_scope(scope: str) -> str:
     # 只看第一句，避免撈到後段代購費／按金
     first_sentence = re.split(r"[。;；]", c, maxsplit=1)[0]
 
-    combined = r"(?:HK\$|HKD|港幣|\$)\s*[\d,]+(?:\.\d+)?\s*元?(?:正)?|[\d,]+\s*元(?:正)?"
+    combined = r"(?:HK[\$＄]|HKD|港幣|[\$＄])\s*[\d,]+(?:\.\d+)?\s*元?(?:正)?|[\d,]+\s*元(?:正)?"
     spans = []
     raw = []          # 保留原字串（含「港幣…元正」格式）
     nums = []         # 對應數值
@@ -1233,10 +1234,10 @@ def normalize_fee(fee_str: str) -> str:
     if re.search(r"費用全免|全免|免費", s):
         return "全免"
     # 美元優先
-    m = re.search(r"(?:USD\$|US\$|美元)\s*([\d,]+(?:\.\d+)?)", s)
+    m = re.search(r"(?:USD[\$＄]|US[\$＄]|美元)\s*([\d,]+(?:\.\d+)?)", s)
     if m:
         return f"US${m.group(1)}"
-    m = re.search(r"(?:HK\$|HKD|港幣|\$)\s*([\d,]+(?:\.\d+)?)\s*元?(?:正)?", s)
+    m = re.search(r"(?:HK[\$＄]|HKD|港幣|[\$＄])\s*([\d,]+(?:\.\d+)?)\s*元?(?:正)?", s)
     if m:
         return f"HK${m.group(1)}"
     m = re.search(r"([\d,]+(?:\.\d+)?)\s*元(?:正)?", s)
@@ -1296,14 +1297,42 @@ def drive_direct_url(url):
     return f"https://drive.google.com/uc?export=download&id={m.group(1)}"
 
 
+_DOUBLE_PDF_PATH_RE = re.compile(r"(?:\.pdf){2,}$", re.IGNORECASE)
+
+
+def collapse_double_pdf_url(url: str) -> str:
+    """若路徑尾端係重複嘅 .pdf.pdf，回傳收斂做單一 .pdf 嘅後備網址；否則回原字串。"""
+    if not url:
+        return ""
+    try:
+        parts = urllib.parse.urlsplit(url)
+    except ValueError:
+        return url
+    if not _DOUBLE_PDF_PATH_RE.search(parts.path or ""):
+        return url
+    new_path = _DOUBLE_PDF_PATH_RE.sub(".pdf", parts.path)
+    return urllib.parse.urlunsplit((parts.scheme, parts.netloc, new_path, parts.query, parts.fragment))
+
+
 def download(url, timeout=25):
     # URL 含中文 → 需 percent-encode（保留已 encode 的部分）
     safe_url = urllib.parse.quote(url, safe=":/?#[]@!$&'()*+,;=%~")
     req = urllib.request.Request(safe_url, headers={
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     })
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read()
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.read()
+    except urllib.error.HTTPError as exc:
+        alt_url = collapse_double_pdf_url(url)
+        if exc.code == 404 and alt_url and alt_url != url:
+            alt_safe = urllib.parse.quote(alt_url, safe=":/?#[]@!$&'()*+,;=%~")
+            alt_req = urllib.request.Request(alt_safe, headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            })
+            with urllib.request.urlopen(alt_req, timeout=timeout) as r:
+                return r.read()
+        raise
 
 
 def _empty_enrichment(title, error, source=""):

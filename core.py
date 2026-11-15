@@ -578,9 +578,100 @@ def resolve_url(base_url: str, href: Optional[str]) -> Optional[str]:
     return urljoin(base_url, href)
 
 
+DOUBLE_PDF_SUFFIX_RE = re.compile(r"(?:\.pdf){2,}$", re.IGNORECASE)
+_DOUBLE_PDF_PROBE_CACHE: Dict[str, str] = {}
+
+
+def collapse_double_pdf_url(url: str) -> str:
+    """把網址路徑尾端重複嘅 .pdf.pdf 收斂為單一 .pdf（保留原查詢參數同錨點）。"""
+    if not url:
+        return ""
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        return url
+    if not DOUBLE_PDF_SUFFIX_RE.search(parsed.path or ""):
+        return url
+    new_path = DOUBLE_PDF_SUFFIX_RE.sub(".pdf", parsed.path)
+    return urlunparse((parsed.scheme, parsed.netloc, new_path, parsed.params, parsed.query, parsed.fragment))
+
+
+def normalize_known_double_pdf_url(url: str) -> str:
+    """已知站方喺文章編輯器誤植重複 .pdf.pdf、而伺服器真檔只有單一 .pdf 嘅確定性修正。
+
+    ⚠️ 唔可以盲目套用到全網所有網域：港島西區／筲箕灣區／大埔南區部分 WordPress
+    uploads 當年真係以 `xxx.pdf.pdf` 檔名上載，直接改單一 `.pdf` 反而會 404。
+    元朗西區 `/circular/` 係獨立靜態目錄（activity12/13/15-2026 連續三次文章連結
+    錯寫成 `.pdf.pdf` 404，真檔一律係單一 `.pdf`），可離線確定性修正。
+    其他網域若出現 `.pdf.pdf`，由 `repair_broken_double_pdf_url()` 先探測 404 再降級。
+    """
+    if not url:
+        return ""
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        return url
+    host = (parsed.hostname or "").lower()
+    if host in {"ylw-scout.org.hk", "www.ylw-scout.org.hk"} and (parsed.path or "").lower().startswith("/circular/"):
+        return collapse_double_pdf_url(url)
+    return url
+
+
+def _probe_pdf_magic(url: str, verify_ssl: bool = True, timeout: int = 8) -> Tuple[Optional[int], bool]:
+    """輕量探測首 5 bytes：回傳 (status_code, starts_with_pdf_magic)。網路失敗回 (None, False)。"""
+    try:
+        resp = SESSION.get(
+            url,
+            headers={"Range": "bytes=0-4"},
+            verify=verify_ssl,
+            timeout=timeout,
+            stream=True,
+            allow_redirects=True,
+        )
+        try:
+            status = resp.status_code
+            head = resp.raw.read(5, decode_content=True) if status in (200, 206) else b""
+            return status, head.startswith(b"%PDF")
+        finally:
+            resp.close()
+    except Exception:
+        return None, False
+
+
+def repair_broken_double_pdf_url(url: str, verify_ssl: bool = True) -> str:
+    """若網址尾端有重複 `.pdf.pdf`：先試原網址（保護真檔名真係 `.pdf.pdf` 嘅舊檔），
+    確定原網址 4xx/非 PDF 且單一 `.pdf` 回傳真 `%PDF` 時，先至自動修正為單一 `.pdf`。
+    """
+    if not url:
+        return ""
+    normalized = normalize_known_double_pdf_url(url)
+    if normalized != url:
+        return normalized
+    collapsed = collapse_double_pdf_url(url)
+    if collapsed == url:
+        return url
+    cached = _DOUBLE_PDF_PROBE_CACHE.get(url)
+    if cached is not None:
+        return cached
+    orig_status, orig_is_pdf = _probe_pdf_magic(url, verify_ssl=verify_ssl)
+    if orig_status is None or orig_is_pdf:
+        _DOUBLE_PDF_PROBE_CACHE[url] = url
+        return url
+    if 400 <= orig_status < 500 or not orig_is_pdf:
+        alt_status, alt_is_pdf = _probe_pdf_magic(collapsed, verify_ssl=verify_ssl)
+        if alt_status in (200, 206) and alt_is_pdf:
+            print(f"  🔧 修正錯位重複副檔名：{url} → {collapsed}")
+            _DOUBLE_PDF_PROBE_CACHE[url] = collapsed
+            return collapsed
+    _DOUBLE_PDF_PROBE_CACHE[url] = url
+    return url
+
+
 def sanitize_url(url: str, sanitize_params: Optional[List[str]] = None) -> str:
     if not url:
         return ""
+
+    url = normalize_known_double_pdf_url(url)
 
     # v5.6.20: 把 Google Drive open?id= 格式正規化為標準 /file/d/<id>/view
     # （深水埗東區 2026-27 新通告改用 drive.google.com/open?id=；正規化後
@@ -1365,9 +1456,14 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
             soup = BeautifulSoup(content, "html.parser")
             
             found_pdf = False
+            verify_ssl = config.get("verify_ssl", True)
             for a in soup.find_all("a", href=True):
-                href = a.get("href", "").strip()
+                href = resolve_url(post_link or url, a.get("href", "").strip()) or a.get("href", "").strip()
                 if href and '.pdf' in href.lower():
+                    href = repair_broken_double_pdf_url(
+                        sanitize_url(href, config.get("url_sanitize", [])),
+                        verify_ssl=verify_ssl,
+                    )
                     display_text = title
                     link_text = a.get_text(strip=True)
                     if link_text and not is_generic_download_title(link_text):
@@ -1378,6 +1474,21 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     pdf_count += 1
                     found_pdf = True
                     print(f"[{name}] 找到 PDF → {display_text}")
+
+            # Gutenberg 檔案區塊若漏咗 <a> 但留低 <object data="...pdf">／<embed>／<iframe>
+            if not found_pdf:
+                for node in soup.select("object[data], embed[src], iframe[src]"):
+                    raw_src = (node.get("data") or node.get("src") or "").strip()
+                    href = resolve_url(post_link or url, raw_src) or raw_src
+                    if href and ".pdf" in href.lower():
+                        href = repair_broken_double_pdf_url(
+                            sanitize_url(href, config.get("url_sanitize", [])),
+                            verify_ssl=verify_ssl,
+                        )
+                        mock_html += f'<a href="{href}">{title}</a><br/>'
+                        pdf_count += 1
+                        found_pdf = True
+                        print(f"[{name}] 找到內嵌 PDF → {title}")
 
             # v5.6.17: allow_page_notice_fallback - 無 PDF 文章用連結
             if not found_pdf and config.get("allow_page_notice_fallback") and post_link:
@@ -1612,10 +1723,14 @@ def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str
     if not page_title and soup.title:
         page_title = clean_title(soup.title.get_text(" ", strip=True), config)
 
+    verify_ssl = config.get("verify_ssl", True)
     for a in soup.select("a[href]"):
         href = resolve_url(detail_url, a.get("href"))
         href = sanitize_url(href or "", config.get("url_sanitize", []))
-        if not href or not is_download_url(href) or href in seen:
+        if not href or not is_download_url(href):
+            continue
+        href = repair_broken_double_pdf_url(href, verify_ssl=verify_ssl)
+        if href in seen:
             continue
         seen.add(href)
 
@@ -1630,7 +1745,10 @@ def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str
             href = node.get("src") or node.get("data")
             href = resolve_url(detail_url, href)
             href = sanitize_url(href or "", config.get("url_sanitize", []))
-            if not href or not is_download_url(href) or href in seen:
+            if not href or not is_download_url(href):
+                continue
+            href = repair_broken_double_pdf_url(href, verify_ssl=verify_ssl)
+            if href in seen:
                 continue
             seen.add(href)
             record = make_asset_record(href, page_title, config)
@@ -1651,7 +1769,10 @@ def extract_detail_assets(soup: BeautifulSoup, detail_url: str, config: Dict[str
             continue
         href = resolve_url(detail_url, target)
         href = sanitize_url(href or "", config.get("url_sanitize", []))
-        if not href or not is_download_url(href) or href in seen:
+        if not href or not is_download_url(href):
+            continue
+        href = repair_broken_double_pdf_url(href, verify_ssl=verify_ssl)
+        if href in seen:
             continue
         seen.add(href)
         record = make_asset_record(href, page_title, config)
@@ -1995,14 +2116,18 @@ def extract_assets_from_listing(
         detail_anchors = list(asset_anchors)
 
     accept_all = bool(config.get("accept_all_links"))
+    verify_ssl = config.get("verify_ssl", True)
     for a in asset_anchors:
         href = resolve_url(page_url, a.get("href"))
         href = sanitize_url(href or "", config.get("url_sanitize", []))
-        if not href or href in seen_assets:
+        if not href:
             continue
         # accept_all_links: 此來源已在上游(如 nextjs_rsc)精準篩選好連結，
         # 不需再經 is_download_url 過濾，避免漏掉報名表單/內頁等合法通告。
         if not accept_all and not is_download_url(href):
+            continue
+        href = repair_broken_double_pdf_url(href, verify_ssl=verify_ssl)
+        if href in seen_assets:
             continue
         raw_text = a.get_text(" ", strip=True) or a.get("title") or a.get("aria-label") or ""
         inferred_title = infer_listing_title(a, soup, config) or raw_text
@@ -2024,15 +2149,17 @@ def extract_assets_from_listing(
         if is_article_candidate(href, config.get("url", page_url), raw_text):
             seen_details.add(href)
             detail_candidates.append(href)
-        elif is_download_url(href) and href not in seen_assets:
-            inferred_title = infer_listing_title(a, soup, config) or raw_text
-            record = make_asset_record(href, inferred_title, config)
-            if record:
-                tags = extract_item_tag_labels(a, config)
-                if tags:
-                    record["tags"] = tags
-                seen_assets.add(href)
-                assets.append(record)
+        elif is_download_url(href):
+            href = repair_broken_double_pdf_url(href, verify_ssl=verify_ssl)
+            if href not in seen_assets:
+                inferred_title = infer_listing_title(a, soup, config) or raw_text
+                record = make_asset_record(href, inferred_title, config)
+                if record:
+                    tags = extract_item_tag_labels(a, config)
+                    if tags:
+                        record["tags"] = tags
+                    seen_assets.add(href)
+                    assets.append(record)
 
     if not asset_anchors and not detail_anchors:
         for a in collect_anchor_nodes(soup, config):
@@ -2042,6 +2169,7 @@ def extract_assets_from_listing(
                 continue
             raw_text = a.get_text(" ", strip=True) or a.get("title") or a.get("aria-label") or ""
             if is_download_url(href):
+                href = repair_broken_double_pdf_url(href, verify_ssl=verify_ssl)
                 if href in seen_assets:
                     continue
                 inferred_title = infer_listing_title(a, soup, config) or raw_text
@@ -2540,11 +2668,25 @@ def main(
     existing_keys: Set[Tuple[str, str]] = set()
     local_record_map: Dict[Tuple[str, str], Dict[str, Any]] = {}
     for record in local_records:
+        raw_url = record.get("pdf_url", "")
+        fixed_url = normalize_known_double_pdf_url(raw_url)
+        if fixed_url != raw_url:
+            record = dict(record)
+            record["pdf_url"] = fixed_url
+            if "url" in record:
+                record["url"] = fixed_url
         key = (record.get("source_site", ""), record.get("pdf_url", ""))
         if not all(key):
             continue
         existing_keys.add(key)
-        local_record_map[key] = record
+        if key in local_record_map:
+            prev = local_record_map[key]
+            prev_cap = str(prev.get("captured_date") or "")
+            cur_cap = str(record.get("captured_date") or "")
+            if cur_cap and (not prev_cap or cur_cap < prev_cap):
+                prev["captured_date"] = cur_cap
+        else:
+            local_record_map[key] = record
 
     if USE_SUPABASE:
         for record in supabase_fetch_all():

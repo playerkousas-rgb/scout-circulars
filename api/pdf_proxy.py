@@ -180,10 +180,35 @@ def _query_int(qs, key: str):
     return int(raw)
 
 
-def fetch_pdf(url: str) -> bytes:
-    req = urllib.request.Request(_quote(url), headers={"User-Agent": USER_AGENT})
+_DOUBLE_PDF_PATH_RE = re.compile(r"(?:\.pdf){2,}$", re.IGNORECASE)
+
+
+def _collapse_double_pdf_url(url: str) -> str | None:
+    """若上游連結寫錯做 .pdf.pdf 而 404，回傳單一 .pdf 後備網址（只改同 host 同目錄尾綴）。"""
     try:
-        with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT) as resp:  # noqa: S310（URL 已過名單檢查）
+        parts = urllib.parse.urlsplit(url)
+    except ValueError:
+        return None
+    if not _DOUBLE_PDF_PATH_RE.search(parts.path or ""):
+        return None
+    new_path = _DOUBLE_PDF_PATH_RE.sub(".pdf", parts.path)
+    return urllib.parse.urlunsplit((parts.scheme, parts.netloc, new_path, parts.query, parts.fragment))
+
+
+def fetch_pdf(url: str) -> bytes:
+    def _open(target: str):
+        req = urllib.request.Request(_quote(target), headers={"User-Agent": USER_AGENT})
+        return urllib.request.urlopen(req, timeout=FETCH_TIMEOUT)  # noqa: S310（URL 已過名單檢查）
+
+    try:
+        try:
+            resp_cm = _open(url)
+        except urllib.error.HTTPError as exc:
+            alt = _collapse_double_pdf_url(url) if exc.code == 404 else None
+            if not alt:
+                raise
+            resp_cm = _open(alt)
+        with resp_cm as resp:
             length = _content_length(resp)
             if length is not None and length > MAX_PDF_BYTES:
                 raise ProxyError(413, "pdf_too_large", extra={"bytes": length})
@@ -205,16 +230,31 @@ def fetch_pdf_slice(url: str, off: int, n: int) -> tuple[bytes, bool]:
         raise ProxyError(400, "bad_range")
     n = min(int(n), MAX_PDF_BYTES, LOCAL_DRAW_MAX - off)
     end = off + n - 1
-    req = urllib.request.Request(
-        _quote(url),
-        headers={"User-Agent": USER_AGENT, "Range": f"bytes={off}-{end}"},
-    )
+
+    def _open_slice(target: str):
+        req = urllib.request.Request(
+            _quote(target),
+            headers={"User-Agent": USER_AGENT, "Range": f"bytes={off}-{end}"},
+        )
+        return urllib.request.urlopen(req, timeout=FETCH_TIMEOUT)  # noqa: S310
+
     try:
-        resp_cm = urllib.request.urlopen(req, timeout=FETCH_TIMEOUT)  # noqa: S310
+        resp_cm = _open_slice(url)
     except urllib.error.HTTPError as exc:
         if exc.code == 416:
             return b"", True
-        raise ProxyError(502, "upstream_unreachable") from exc
+        alt = _collapse_double_pdf_url(url) if exc.code == 404 else None
+        if alt:
+            try:
+                resp_cm = _open_slice(alt)
+            except urllib.error.HTTPError as alt_exc:
+                if alt_exc.code == 416:
+                    return b"", True
+                raise ProxyError(502, "upstream_unreachable") from alt_exc
+            except Exception as alt_exc:
+                raise ProxyError(502, "upstream_unreachable") from alt_exc
+        else:
+            raise ProxyError(502, "upstream_unreachable") from exc
     except ProxyError:
         raise
     except Exception as exc:
