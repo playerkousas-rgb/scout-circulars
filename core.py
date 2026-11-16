@@ -1475,20 +1475,10 @@ def fetch_main_page(name: str, config: Dict[str, Any]) -> Optional[FetchResult]:
                     found_pdf = True
                     print(f"[{name}] 找到 PDF → {display_text}")
 
-            # Gutenberg 檔案區塊若漏咗 <a> 但留低 <object data="...pdf">／<embed>／<iframe>
-            if not found_pdf:
-                for node in soup.select("object[data], embed[src], iframe[src]"):
-                    raw_src = (node.get("data") or node.get("src") or "").strip()
-                    href = resolve_url(post_link or url, raw_src) or raw_src
-                    if href and ".pdf" in href.lower():
-                        href = repair_broken_double_pdf_url(
-                            sanitize_url(href, config.get("url_sanitize", [])),
-                            verify_ssl=verify_ssl,
-                        )
-                        mock_html += f'<a href="{href}">{title}</a><br/>'
-                        pdf_count += 1
-                        found_pdf = True
-                        print(f"[{name}] 找到內嵌 PDF → {title}")
+            # ⚠️ 切勿喺 wordpress_api 退回掃描 <object>/<embed>/<iframe>：
+            # 元朗西區等舊 WordPress 文章（2024–2025）部分只嵌 <object data="...pdf">
+            # 而無 <a href>，若突然納入會令舊通告首次入庫並被蓋上今日 captured_date，
+            # 衝上今日更新及區會頂部造成混亂（2026-11-16 教訓）。
 
             # v5.6.17: allow_page_notice_fallback - 無 PDF 文章用連結
             if not found_pdf and config.get("allow_page_notice_fallback") and post_link:

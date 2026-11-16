@@ -55,6 +55,10 @@ CATEGORY_CORRECTIONS = {
     # 2026-11-06 用戶確認：學生隊員制服資助計劃＝公布（同津貼計劃同組嘅
     # 行政資助計劃）；「資助計劃」亦已加入三份分類規則，重寫舊 enrich 標籤。
     "學生隊員制服資助計劃",
+    # 2026-11-16：元朗西區木章助學金計劃標題還原後重算分類＝公布（助學金計劃）。
+    "鄧永昌主席領袖木章助學金計劃(25-26年度)",
+    "鄧永昌主席領袖木章助學金計劃(2026-27年度)",
+    "鄧永昌主席領袖木章助學金計劃(修訂)",
 }
 
 # 2026-11-04：標題被 `--apply-title-fixes` 寫壞嘅通告，還原做列表頁原名。
@@ -70,6 +74,12 @@ TITLE_CORRECTIONS = {
         "取錄通知",
     "https://tyd.scout-ntr.org.hk/dist_cir/notice_train/sc260901-1.pdf":
         "取錄通知",
+    # 2026-11-16：元朗西區兩張木章助學金計劃被 PDF 內文斷行子句
+    # 「舉辦之本地「領袖木章訓練」課程;」覆寫標題；enrich.py 3.12 已擋分號子句。
+    "https://www.ylw-scout.org.hk/circular/special01-2025.pdf":
+        "鄧永昌主席領袖木章助學金計劃(25-26年度)",
+    "https://www.ylw-scout.org.hk/circular/special02-2026.pdf":
+        "鄧永昌主席領袖木章助學金計劃(2026-27年度)",
 }
 
 # 2026-11-04 用戶規則：內文「2.1 11至26歲…的童軍、深資童軍或樂行童軍支部
@@ -126,6 +136,58 @@ REPAIRED_PDF_BACKFILLS = {
         "audience_evidence": "本區已宣誓及持有效幼童軍記錄冊之幼童軍成員。(比賽當日之成員必須年滿七歲半及未滿十二歲)",
         "fee": "HK$200.00",
     },
+}
+
+# 2026-11-16 用戶報告：run 43777689610 因 wordpress_api 誤掃 <object data="...pdf">，
+# 將元朗西區 14 份 2024–2026 年初嘅舊 WordPress 通告首次入庫並蓋上今日日期
+# （2026-11-16），令舊通告排上區會頂部及今日更新。按「記錄只增不減」同壁峰區先例，
+# 全部還原做 ylw-scout.org.hk WordPress API 官方文章發佈日，並標記
+# backfilled_at + suppress_notifications=True（唔入今日更新、唔發推播、唔上 Story；
+# core.merge_reviewed_backfills 會跨 run 保留）。真正今日新通告 activity15-2026.pdf
+# 維持 2026-11-16 不變。
+HISTORICAL_DATE_CORRECTIONS: dict[str, tuple[str, str, str]] = {
+    "https://www.ylw-scout.org.hk/circular/activity01-2026.pdf": (
+        "2026-01-12", "2026-11-16", "ylw-scout.org.hk WP post #1597 發佈日 2026-01-12",
+    ),
+    "https://www.ylw-scout.org.hk/circular/special02-2026.pdf": (
+        "2026-01-01", "2026-11-16", "ylw-scout.org.hk WP post #1507 發佈日 2026-01-01",
+    ),
+    "https://www.ylw-scout.org.hk/circular/special01-2026.pdf": (
+        "2026-01-01", "2026-11-16", "ylw-scout.org.hk WP post #1510 發佈日 2026-01-01",
+    ),
+    "https://www.ylw-scout.org.hk/circular/training05-2025.pdf": (
+        "2025-08-25", "2026-11-16", "ylw-scout.org.hk WP post #1172 發佈日 2025-08-25",
+    ),
+    "https://www.ylw-scout.org.hk/circular/training03-2025.pdf": (
+        "2025-06-09", "2026-11-16", "ylw-scout.org.hk WP post #1071 發佈日 2025-06-09",
+    ),
+    "https://www.ylw-scout.org.hk/circular/activity03-2025.pdf": (
+        "2025-05-15", "2026-11-16", "ylw-scout.org.hk WP post #1062 發佈日 2025-05-15",
+    ),
+    "https://www.ylw-scout.org.hk/circular/training02-2025.pdf": (
+        "2025-05-15", "2026-11-16", "ylw-scout.org.hk WP post #1056 發佈日 2025-05-15",
+    ),
+    "https://www.ylw-scout.org.hk/circular/admin01-2025.pdf": (
+        "2025-05-01", "2026-11-16", "ylw-scout.org.hk WP post #1042 發佈日 2025-05-01",
+    ),
+    "https://www.ylw-scout.org.hk/circular/activity02-2025.pdf": (
+        "2025-05-01", "2026-11-16", "ylw-scout.org.hk WP post #1045 發佈日 2025-05-01",
+    ),
+    "https://www.ylw-scout.org.hk/circular/special01-2025.pdf": (
+        "2025-04-01", "2026-11-16", "ylw-scout.org.hk WP post #1016 發佈日 2025-04-01",
+    ),
+    "https://www.ylw-scout.org.hk/circular/special05-2024.pdf": (
+        "2024-12-05", "2026-11-16", "ylw-scout.org.hk WP post #972 發佈日 2024-12-05",
+    ),
+    "https://www.ylw-scout.org.hk/circular/special04-2024.pdf": (
+        "2024-12-05", "2026-11-16", "ylw-scout.org.hk WP post #968 發佈日 2024-12-05",
+    ),
+    "https://www.ylw-scout.org.hk/circular/activity08-2024.pdf": (
+        "2024-10-14", "2026-11-16", "ylw-scout.org.hk WP post #872 發佈日 2024-10-14",
+    ),
+    "https://www.ylw-scout.org.hk/circular/activity07-2024.pdf": (
+        "2024-10-08", "2026-11-16", "ylw-scout.org.hk WP post #867 發佈日 2024-10-08",
+    ),
 }
 
 _DOUBLE_PDF_RE = re.compile(r"(?:\.pdf){2,}$", re.IGNORECASE)
@@ -260,6 +322,140 @@ def _set_title_in_cache(cache: dict, url: str, title: str) -> int:
     return changed
 
 
+def _apply_historical_date_corrections(cache: dict, enrich: dict) -> int:
+    """還原被誤蓋今日入庫日嘅舊通告日期（data + notices + enrich 同步，重排並修正 daily_new）。
+
+    冪等：已對齊嘅記錄唔會重寫，第二次執行回傳 0。
+    """
+    redated_urls: set[str] = set()
+    redated_from_run_date: set[str] = set()
+    touched_sources: set[str] = set()
+    notices_touched = False
+
+    last_run = (cache.get("_meta") or {}).get("last_run")
+    run_date = str(last_run.get("updated_at") or "")[:10] if isinstance(last_run, dict) else ""
+
+    for source_name, arr in (cache.get("data") or {}).items():
+        if not isinstance(arr, list):
+            continue
+        for item in arr:
+            if not isinstance(item, dict):
+                continue
+            url = str(item.get("pdf_url") or item.get("url") or "")
+            spec = HISTORICAL_DATE_CORRECTIONS.get(url)
+            if not spec:
+                continue
+            hist_date, backfill_date, _evidence = spec
+            old_cap = str(item.get("captured_date") or item.get("date") or "")
+            needs_change = (
+                item.get("date") != hist_date
+                or item.get("captured_date") != hist_date
+                or item.get("published_date") != hist_date
+                or item.get("backfilled_at") != backfill_date
+                or item.get("suppress_notifications") is not True
+            )
+            if needs_change:
+                if run_date and old_cap == run_date and hist_date != run_date:
+                    redated_from_run_date.add(url)
+                item["date"] = hist_date
+                item["captured_date"] = hist_date
+                item["published_date"] = hist_date
+                item["backfilled_at"] = backfill_date
+                item["suppress_notifications"] = True
+                redated_urls.add(url)
+                touched_sources.add(source_name)
+
+    notices = cache.get("notices")
+    if isinstance(notices, list):
+        for item in notices:
+            if not isinstance(item, dict):
+                continue
+            url = str(item.get("pdf_url") or item.get("url") or "")
+            spec = HISTORICAL_DATE_CORRECTIONS.get(url)
+            if not spec:
+                continue
+            hist_date, backfill_date, _evidence = spec
+            old_cap = str(item.get("captured_date") or "")
+            needs_change = (
+                item.get("captured_date") != hist_date
+                or item.get("published_date") != hist_date
+                or item.get("backfilled_at") != backfill_date
+                or item.get("suppress_notifications") is not True
+                or ("date" in item and item.get("date") != hist_date)
+            )
+            if needs_change:
+                if run_date and old_cap == run_date and hist_date != run_date:
+                    redated_from_run_date.add(url)
+                if "date" in item:
+                    item["date"] = hist_date
+                item["captured_date"] = hist_date
+                item["published_date"] = hist_date
+                item["backfilled_at"] = backfill_date
+                item["suppress_notifications"] = True
+                redated_urls.add(url)
+                notices_touched = True
+
+    for source_name in touched_sources:
+        arr = cache["data"][source_name]
+        arr.sort(
+            key=lambda x: (
+                (x.get("date") or x.get("captured_date") or "") if isinstance(x, dict) else "",
+                (x.get("title") or "") if isinstance(x, dict) else "",
+            ),
+            reverse=True,
+        )
+
+    if notices_touched and isinstance(notices, list):
+        notices.sort(
+            key=lambda x: (
+                (x.get("captured_date") or "") if isinstance(x, dict) else "",
+                (x.get("source_site") or "") if isinstance(x, dict) else "",
+                (x.get("title") or "") if isinstance(x, dict) else "",
+            ),
+            reverse=True,
+        )
+
+    if redated_urls and isinstance(last_run, dict) and run_date:
+        if isinstance(notices, list):
+            # 同 core.py 一致：daily_new 反數所有來源（含 data["Scout System"]）嘅今日入庫數
+            seen_today: set[tuple[str, str]] = set()
+            for src_name, arr in (cache.get("data") or {}).items():
+                if not isinstance(arr, list):
+                    continue
+                for r in arr:
+                    if isinstance(r, dict) and (r.get("captured_date") or r.get("date") or "") == run_date:
+                        u = str(r.get("pdf_url") or r.get("url") or "")
+                        if u:
+                            seen_today.add((src_name, u))
+            for r in notices:
+                if isinstance(r, dict) and (r.get("captured_date") or "") == run_date:
+                    u = str(r.get("pdf_url") or r.get("url") or "")
+                    s = str(r.get("source_site") or "")
+                    if u:
+                        seen_today.add((s, u))
+            last_run["daily_new"] = len(seen_today)
+        if redated_from_run_date and isinstance(last_run.get("new"), int):
+            last_run["new"] = max(0, last_run["new"] - len(redated_from_run_date))
+
+    for url, (hist_date, backfill_date, evidence) in HISTORICAL_DATE_CORRECTIONS.items():
+        if _cache_item(cache, url) is None:
+            continue
+        entry = enrich.get(url)
+        if not isinstance(entry, dict):
+            continue
+        if (
+            entry.get("published_date") != hist_date
+            or entry.get("reviewed_at") != backfill_date
+            or entry.get("date_evidence") != evidence
+        ):
+            entry["published_date"] = hist_date
+            entry["reviewed_at"] = backfill_date
+            entry["date_evidence"] = evidence
+            redated_urls.add(url)
+
+    return len(redated_urls)
+
+
 def _rewrite_category_metadata(record: dict) -> None:
     """用現行規則重算分類／訂閱標籤，保留獨立嘅課程 topic 標籤。"""
     source = record.get("source", record.get("source_site", ""))
@@ -303,6 +499,7 @@ def apply_corrections(enrich: dict, cache: dict | None = None) -> dict[str, int]
     injected = 0
     migrated_urls = 0
     repaired_pdfs = 0
+    redated_notices = 0
 
     # 0) 修正錯位 `.pdf.pdf` 連結（cache 兩份副本 + enrich 同步，保留原入庫日）
     if cache:
@@ -323,6 +520,9 @@ def apply_corrections(enrich: dict, cache: dict | None = None) -> dict[str, int]
             # 舊嘅假標題曾經被當成 PDF 標題寫入；留低 audit 但唔再生效。
             if entry.get("listing_title") == entry.get("title"):
                 entry.pop("listing_title", None)
+
+        # 1.5) 還原被誤蓋今日入庫日嘅歷史舊通告（喺標題還原後執行，確保排序用正確標題）
+        redated_notices = _apply_historical_date_corrections(cache, enrich)
 
     # 2) 補歲數／「支部或以上」抽出嘅 labelled audience
     for url, audience in AUDIENCE_CORRECTIONS.items():
@@ -430,6 +630,8 @@ def apply_corrections(enrich: dict, cache: dict | None = None) -> dict[str, int]
         summary["migrated_urls"] = migrated_urls
     if repaired_pdfs:
         summary["repaired_pdfs"] = repaired_pdfs
+    if redated_notices:
+        summary["redated_notices"] = redated_notices
     return summary
 
 

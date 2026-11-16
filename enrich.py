@@ -63,7 +63,8 @@ warnings.filterwarnings("ignore")
 
 CACHE_FILE = "cache.json"
 ENRICH_FILE = "enrich.json"
-ENRICH_VERSION = "3.11"  # 2026-11-16：重複 .pdf.pdf 404 自動退回單一 .pdf 下載、全形＄費用抽取（元朗西區個案）
+ENRICH_VERSION = "3.12"  # 2026-11-16：禁止分號／逗號／頓號收尾內文子句當標題（元朗西區木章助學金個案）
+# 3.11（2026-11-16）：重複 .pdf.pdf 404 自動退回單一 .pdf 下載、全形＄費用抽取（元朗西區個案）
 # 3.10（2026-11-07）：信頭地址唔可以當 PDF 標題（青衣區取錄通知個案）
 # 3.9（2026-11-04）：標題異體字／資格條款防線、歲數與「支部或以上」對象抽取
 # 3.3（2026-10-03）：標題抽出避開公函欄位（由／致／知會／編號）同檔號行
@@ -423,7 +424,7 @@ def extract_pdf_heading(text: str) -> str:
             continue
         if has_unbalanced_brackets(line):
             continue
-        if compact_line.endswith("。") or _CROSS_REF_RE.search(compact_line):
+        if compact_line.endswith("。") or _CLAUSE_TAIL_RE.search(compact_line) or _CROSS_REF_RE.search(compact_line):
             continue
         if _LETTERHEAD_RE.search(line):
             continue
@@ -467,7 +468,7 @@ def heading_looks_like_title(text: str) -> bool:
     line = compact(nfkc(text or "")).strip()
     if not line or len(line) > 40:
         return False
-    if has_unbalanced_brackets(line) or line.endswith("。") or _CROSS_REF_RE.search(line):
+    if has_unbalanced_brackets(line) or line.endswith("。") or _CLAUSE_TAIL_RE.search(line) or _CROSS_REF_RE.search(line):
         return False
     # 2026-10-06：表格列（用戶個案嘅「13, 17, 20, 23, 31 地質生態導賞員訓練班
     # 楊劍聰」）同內文指示句都唔可以寫返 cache.json 當標題。
