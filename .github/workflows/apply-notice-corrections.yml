@@ -1,0 +1,51 @@
+# ============================================================
+# 輕量修正快照（~15 秒，零 Playwright／零 PDF 下載）
+#
+# 當 tools/apply_notice_corrections.py 合入 main（或手動觸發）時，即時載入
+# refs/heads/data 最新快照 → 套用經核實嘅日期／標題／分類修正 → 重算今日
+# Story 清單 → 發佈快照，唔使等 20 分鐘全量爬蟲先修復線上畫面。
+# ============================================================
+
+name: Apply Notice Corrections
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/apply_notice_corrections.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scout-circulars-scrape-and-push
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      PYTHONUTF8: "1"
+      TZ: "Asia/Hong_Kong"
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Load latest complete data snapshot
+        run: python tools/data_snapshot.py load
+
+      - name: Apply reviewed notice corrections
+        run: python tools/apply_notice_corrections.py
+
+      - name: Refresh Story queue
+        run: python3 story_queue.py --limit 5
+
+      - name: Publish latest-only data snapshot
+        run: python tools/data_snapshot.py publish
