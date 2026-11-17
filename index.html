@@ -179,6 +179,10 @@
     .chip-bm { border-color: rgba(250,204,21,.4); color: #facc15; margin-left: 6px; }
     .chip-bm:hover { background: rgba(250,204,21,.1); }
     .chip-bm.active { background: linear-gradient(135deg, #a16207, #facc15); color: #1a1205; border-color: #facc15; font-weight: 700; }
+    /* ⚠️ 已下架分頁：紅色系，同樣唔係時間範圍 */
+    .chip-hidden { border-color: rgba(239,68,68,.5); color: #ef4444; margin-left: 6px; }
+    .chip-hidden:hover { background: rgba(239,68,68,.1); }
+    .chip-hidden.active { background: linear-gradient(135deg, #b91c1c, #ef4444); color: #fff; border-color: #ef4444; font-weight: 700; }
     .chip-n { display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 999px; background: rgba(0,0,0,.28); font-size: 11px; font-weight: 700; }
     .scope-chips { display: flex; gap: 8px; }
     .scope-chip { border: 1px solid var(--line); background: #0b1424; color: var(--muted); border-radius: 12px; padding: 10px 14px; cursor: pointer; font-size: 13px; }
@@ -1716,6 +1720,30 @@
       }).sort((a, b) => String(b._bmSavedAt || '').localeCompare(String(a._bmSavedAt || '')));
     }
 
+    // 已下架小工具清單：以 store-hidden.json 為信號，列出所有已收埋嘅 Scout System app。
+    // 唔受時間視窗影響，唔會因為「今日」視窗而消失。
+    function getHiddenAppItems() {
+      const live = liveItemsByKey();
+      const hiddenItems = [];
+      for (const [, hit] of live) {
+        if (isHiddenApp(hit)) {
+          // 保留原本的 captured_date（首次公開日），只標示 _hiddenApp
+          hiddenItems.push({ ...hit, _hiddenApp: true });
+        }
+      }
+      // 按 captured_date 倒序（最新公開嘅最頂）
+      hiddenItems.sort((a, b) => {
+        const da = parseDate(a.captured_date || a.date)?.getTime() ?? -Infinity;
+        const db = parseDate(b.captured_date || b.date)?.getTime() ?? -Infinity;
+        return db - da;
+      });
+      return hiddenItems;
+    }
+
+    function hiddenAppCount() {
+      return getHiddenAppItems().length;
+    }
+
     const $ = (sel) => document.querySelector(sel);
     const accordionEl = $('#accordion');
     const cardsEl = $('#cards');
@@ -2058,6 +2086,7 @@
 
     function getSourceTitle(sourceId) {
       if (sourceId === 'BOOKMARKS') return '★ 我的收藏';
+      if (sourceId === 'HIDDEN_APPS') return '⚠️ 已下架小工具';
       if (sourceId === 'ALL_SOURCES') return '全港 (所有層級)';
       if (isScoutGroupSource(sourceId)) {
         return `Scout System · ${scoutGroupLabel(scoutGroupIdFromSource(sourceId))}（${toolsWindowTitle()}）`;
@@ -2146,6 +2175,19 @@
           });
         }
         return items;   // 已按收藏時間排序，唔再依日期重排
+      }
+
+      // 已下架小工具：同樣唔套用時間視窗，只顯示 Scout System 已收埋嘅 app。
+      // 開啟掣鎖死、標示「⚠️ 已下架」，保留原上架日。
+      if (state.activeSource === 'HIDDEN_APPS') {
+        items = getHiddenAppItems();
+        if (state.keyword || state.branch !== 'ALL' || state.category !== 'ALL') {
+          items = items.filter(item => {
+            const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
+            return matchesSearchQuery(item, ex, state.keyword, state.branch) && matchesCategory(item, ex, state.category);
+          });
+        }
+        return items;   // 已按 captured_date 倒序排序
       }
 
       if (state.searchScope === 'global') {
@@ -2250,6 +2292,30 @@
       bmBtn.title = '睇返你收藏咗嘅通告（唔受上面時間範圍影響）';
       bmBtn.onclick = toggleBookmarksView;
       wrap.appendChild(bmBtn);
+
+      // ⚠️ 已下架：只喺 Scout System 視圖出現，列出已收埋嘅小工具（唔受時間視窗影響）。
+      if (toolsView) {
+        const hiddenCount = hiddenAppCount();
+        const hiddenBtn = document.createElement('button');
+        hiddenBtn.className = `chip chip-hidden ${state.activeSource === 'HIDDEN_APPS' ? 'active' : ''}`;
+        hiddenBtn.innerHTML = `⚠️ 已下架${hiddenCount ? ` <span class="chip-n">${hiddenCount}</span>` : ''}`;
+        hiddenBtn.title = '睇返已收埋嘅小工具（唔受上面時間範圍影響，開啟掣會鎖死）';
+        hiddenBtn.onclick = () => {
+          if (state.activeSource === 'HIDDEN_APPS') {
+            state.activeSource = state.lastSource || 'Scout System';
+          } else {
+            state.lastSource = state.activeSource;
+            state.activeSource = 'HIDDEN_APPS';
+          }
+          renderWindowChips();
+          renderCategoryChips();
+          renderAccordion();
+          renderSidebarMeta();
+          renderHeader();
+          renderCards();
+        };
+        wrap.appendChild(hiddenBtn);
+      }
 
       // 🔔 個人化通知：放喺「收藏」隔籬，一撳開設定面板（先揀支部，再點選項目）。
       const pushBtn = document.createElement('button');
@@ -2517,6 +2583,19 @@
         bmBtn.onclick = () => chooseSource('BOOKMARKS');
         bmEl.appendChild(bmBtn);
         accordionEl.appendChild(bmEl);
+      }
+
+      // 已下架小工具（偽來源，置頂；只喺有隱藏 app 時出現，唔受時間視窗影響）
+      const hiddenTotal = hiddenAppCount();
+      if (hiddenTotal > 0 && (!q || '已下架'.includes(q) || 'hidden'.includes(q))) {
+        const hiddenEl = document.createElement('section');
+        hiddenEl.className = 'region';
+        const hiddenBtn = document.createElement('button');
+        hiddenBtn.innerHTML = `<span>⚠️ 已下架小工具</span>${badgeHtml(hiddenTotal)}`;
+        if (state.activeSource === 'HIDDEN_APPS') hiddenEl.classList.add('open');
+        hiddenBtn.onclick = () => chooseSource('HIDDEN_APPS');
+        hiddenEl.appendChild(hiddenBtn);
+        accordionEl.appendChild(hiddenEl);
       }
 
       // All Levels Pseudo-Region
