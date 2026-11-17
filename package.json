@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "jsdom": "^31.0.1"
+  }
+}
