@@ -52,7 +52,11 @@ jobs:
 
       # ── Step 1.5: 加掃 SCOUT APP STORE（只收已上架，隱藏跳過）──
       # anon key 唯讀；baseline 機制保證首次同步唔會派發舊 app 風暴
+      # service key 經 env 注入（secrets.STORE_SERVICE_KEY || secrets.SUPABASE_SERVICE_KEY，同 update-store-icons.yml 一致）——
+      # RLS 唔界 anon 睇 visible=false；要分辨「曾經上架而收埋」需要佢。無 key 時自動退回 anon（行為同以前一樣）。
       - name: Scrape SCOUT APP STORE catalogue
+        env:
+          STORE_SERVICE_KEY: ${{ secrets.STORE_SERVICE_KEY || secrets.SUPABASE_SERVICE_KEY }}
         run: |
           python tools/scrape_appstore.py
 

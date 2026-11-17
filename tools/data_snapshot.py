@@ -13,7 +13,8 @@ import subprocess
 import tempfile
 
 FILES = ('cache.json', 'enrich.json', 'fingerprints.json',
-         'subscription_stats.json', 'appstore.json', 'story-queue.json')
+         'subscription_stats.json', 'appstore.json', 'story-queue.json',
+         'store-hidden.json')
 CORE = FILES[:3]
 
 
@@ -47,6 +48,13 @@ def validate(name, raw):
             raise ValueError('cache.json: missing grouped data or flat notices')
         if not value['notices'] or not value.get('last_updated'):
             raise ValueError('cache.json: refusing empty notices or missing update time')
+    if name == 'store-hidden.json':
+        # APP STORE 收埋咗嘅曾經上架 app 清單；前端顯示層靠佢收埋。
+        if not isinstance(value, dict):
+            raise ValueError('store-hidden.json: expected JSON object')
+        hidden = value.get('hidden')
+        if not isinstance(hidden, list) or not all(isinstance(u, str) for u in hidden):
+            raise ValueError('store-hidden.json: expected {"hidden": [url, ...]} with string URLs')
     return raw
 
 
@@ -58,7 +66,17 @@ def load():
         sha = git('rev-parse', 'FETCH_HEAD')
         blobs = {}
         for name in FILES:
-            raw = subprocess.check_output(['git', 'show', f'{sha}:{name}'])
+            try:
+                raw = subprocess.check_output(['git', 'show', f'{sha}:{name}'])
+            except subprocess.CalledProcessError:
+                # 首次引入 store-hidden.json（2026-11-15）：origin/data 仲未有呢個檔，
+                # 沿用 main 分支入面嘅種子（空 hidden 清單），唔好令第一次 load 炸。
+                # 其他檔缺咗照樣照錯（唔可以静靜哋用舊檔頂替）。
+                if name != 'store-hidden.json':
+                    raise
+                seed = base / name
+                raw = seed.read_bytes() if seed.exists() else b'{"hidden": []}\n'
+                print('Bootstrap: data branch 未有 store-hidden.json，沿用 repo 種子空清單')
             blobs[name] = validate(name, raw)
         # Validate the entire snapshot before replacing any working files.
         for name, raw in blobs.items():

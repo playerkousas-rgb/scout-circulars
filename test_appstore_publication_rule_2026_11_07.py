@@ -80,10 +80,12 @@ def run_sync(cache, apps, enrich=None, today=None):
         (p / "cache.json").write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
         (p / "enrich.json").write_text(json.dumps(enrich or {}, ensure_ascii=False), encoding="utf-8")
         (p / "apps.json").write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
+        (p / "store-hidden.json").write_text('{"hidden": []}\n', encoding="utf-8")
         cmd = [sys.executable, str(ROOT / "tools" / "scrape_appstore.py"),
                "--apps-json", str(p / "apps.json"),
                "--cache", str(p / "cache.json"),
-               "--enrich", str(p / "enrich.json")]
+               "--enrich", str(p / "enrich.json"),
+               "--hidden", str(p / "store-hidden.json")]
         if today:
             cmd += ["--today", today]
         res = subprocess.run(cmd, capture_output=True, text=True, check=True, cwd=str(ROOT))

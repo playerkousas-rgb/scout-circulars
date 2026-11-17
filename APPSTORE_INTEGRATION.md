@@ -93,8 +93,54 @@ notify.py（匿名 Push）＋ story-queue／story-daily 自動當「新通告」
 
 | 需要 | 位置 | 用途 |
 |---|---|---|
-| service_role key | Supabase Dashboard → Project Settings → API → `service_role` | 階段 1 寫入（bypass RLS） |
+| service_role key | Supabase Dashboard → Project Settings → API → `service_role` | 階段 1 寫入（bypass RLS）；2026-11-15 起同時畀 appstore 同步用（讀取 visible=false） |
 | admin 密碼 | Supabase Dashboard → Authentication → Users（`ai@skwscout.org.hk`） | 階段 1 替代途徑 |
-| — | anon key 已喺 `appstore.json` | 階段 2 讀取，唔使額外 secrets |
+| — | anon key 已喺 `appstore.json` | 一般讀取，唔使額外 secrets |
 
 service_role key 同 admin 密碼只放 GitHub repo secrets／Vercel env，**唔入 repo**。
+
+## 2026-11-15：APP STORE「收埋」× 圖書館隱藏同步（store-hidden.json）
+
+**背景**：用戶新規則——曾經上架嘅 app 喺 APP STORE 被收埋（`visible=false`）/再放出，
+圖書館唔刪 cache.json 記錄同原始日期；「收埋」要跟住隱藏，「放出」要連原日期一齊返。
+隱藏信號唔可以靠 git history 推斷，要由 store 嘅 runtime 狀態同步。
+
+**RLS 實情（2026-11-15 覆核，三處一致）**：
+哨兵 migration 係 `website` repo 嘅 `migrations/20260924-market.sql`：
+`create policy "public catalogue" on public.apps for select using (visible = true)`
+——anon **睇唔到** `visible=false` 列。佐證：`APPSTORE_INTEGRATION.md`（2026-09-24，
+同日 live REST 驗證）、`scrape.yml` 舊註釋（「RLS 限 visible=true」）。
+⚠️ `docs/50` 真理倉 SG11-b 條目稱「apps 表匿名可 `select("*")`、收埋只係前端過濾」——
+**與 migration 實檔矛盾**，以 migration 為準（讀 code 會誤以為 `store.js`
+client-side `a.visible !== false` 係唯一把關）。
+
+**同步鏈（隱藏生效最長 1 天）**
+1. `scrape.yml`／`scrape-appstore.yml`：appstore 步驟注入
+   `STORE_SERVICE_KEY: ${{ secrets.STORE_SERVICE_KEY || secrets.SUPABASE_SERVICE_KEY }}`
+   （secret 名稱複用 `update-store-icons.yml` 現有慣例）。`tools/scrape_appstore.py`
+   優先用 service key 讀 `apps`（bypass RLS，睇到 `visible=false`）；冇 key 就退回 anon
+   （會 printing `::warning::`，曾經上架而收埋嘅 app 會當 store-missing（delisted）處理——
+   行為同 2026-11-07 以前一樣）。
+2. `scrape_appstore.py`：曾經公開過而而家 `visible=false` → 保留 cache.json／enrich.json
+   記錄同原 `captured_date`，URL 寫入 `store-hidden.json`（data 分支，`data_snapshot.py`
+   已收錄此檔）；唔會當 delisted、唔會過當「今日重新上架」。從未公開而 `visible=false`
+   → 未上架不收錄。store-missing（連 service key 都搵唔到）→ delisted（舊行為）。
+   疑似抓唔齊 → `store-hidden.json` 凍結唔郁（防誤收全館）。
+3. 前端 `loadHiddenApps()`：讀 `store-hidden.json`（`?hidden=` 可覆寫；`?raw=` 鏈式推導；
+   本地 `/store-hidden.json`）。靜默失敗原則：斷網／404／壞 JSON → 乜都唔收埋（fail-open），
+   PWA 離線唔阻畫面。**瀏覽器唔可以直接查 Supabase 判斷收埋**（anon 見唔到隱藏列，
+   直查永遠回空陣列，收埋咗嘅 app 會靜靜重新出現）——呢個 PR 早期試過直連，
+   因上述 RLS 實情放棄。
+4. 顯示層：收埋咗嘅 app 喺正常瀏覽／搜尋／全港／分類／側欄計數全部唔見；
+   `⭐ 我的收藏` 仍然見到卡片，標示「⚠️ 已下架（可撳 ★ 取消收藏）」，開啟掣鎖死；
+   通告（非小工具）記錄照舊（原站已移除邏輯不受影響）。
+
+**未做／可選（需要另開 PR 或用戶操作）**：
+- `first_public` 唔變（仍靠每日快照首次觀察）；`apps` 表冇 `first_visible_at` 欄，
+  入庫日（`created_at`）≠ 上架日，唔可以頂替。
+- 若想收埋「即時」生效：website repo 加 `security definer` RPC
+  （例如 `library_hidden_apps() returns setof text`，`grant execute to anon`），
+  前端改讀 RPC；鏡像路徑繼續保留做後備。⚠️ RPC 會令「哪些 URL 已收埋」對公眾可見
+  （先公開後收埋嘅 app，URL 本來就公開過）——需要用戶明確同意先整。
+- `docs/50` SG11-b 條目建議據實修正（隱藏＝RLS 真正過濾的前端 + 伺服器雙重，
+  敏感 App 照樣唔可以單靠收埋當安全邊界）。
