@@ -66,8 +66,12 @@ jobs:
           python core.py
 
       # ── Step 1.5: 加掃 SCOUT APP STORE（只收已上架 visible=true，隱藏唔入）──
-      # anon key 唯讀（RLS 限 visible=true），baseline 防舊 app 風暴；已上架→Scout System，隱藏→自動下架
+      # 帶 service key（env 注入）：已上架→Scout System；曾經上架而收埋→保留記錄＋寫 store-hidden.json；從未公開→未上架
+      # service key 經 env 注入（secrets.STORE_SERVICE_KEY || secrets.SUPABASE_SERVICE_KEY，同 update-store-icons.yml 一致）——
+      # RLS 唔界 anon 睇 visible=false；要分辨「曾經上架而收埋」需要佢。無 key 時自動退回 anon（行為同以前一樣）。
       - name: Scrape SCOUT APP STORE catalogue
+        env:
+          STORE_SERVICE_KEY: ${{ secrets.STORE_SERVICE_KEY || secrets.SUPABASE_SERVICE_KEY }}
         run: |
           python tools/scrape_appstore.py
 

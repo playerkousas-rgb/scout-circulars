@@ -224,6 +224,8 @@
     .bm-gone .gone-tag { display: inline-flex; align-items: center; width: fit-content; gap: 5px;
                          font-size: 12px; padding: 5px 9px; border-radius: 999px; color: #fca5a5;
                          background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); }
+    /* 已下架小工具嘅開啟掣：鎖死、撳唔到、唔係連結 */
+    .link-disabled { color: var(--muted); opacity: .55; cursor: not-allowed; pointer-events: none; text-decoration: line-through; }
 
     /* enrich 補充資料（截止/對象/費用）*/
     .ex-box { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 10px; background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.22); }
@@ -830,6 +832,9 @@
     const SCOUT_ADMIN_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxj5BDDGgjs559smkK4Z5aYImWYeXbN5af8U1ObON0z9WnsN6QJW4I1XWolhs5kQ_H-UQ/exec';
     const SCOUT_ADMIN_DEFAULT_APP = '通告圖書館';
     const RAW_ENRICH_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/enrich.json';
+    // APP STORE「收埋」信號：data 分支每日 ACTION 同步（容忍 1 天延遲）。
+    // 前端靜默讀取 —— 斷網／非 200／壞 JSON 都當冇嘢被收埋，永遠唔阻 UI。
+    const RAW_HIDDEN_URL = 'https://raw.githubusercontent.com/playerkousas-rgb/scout-circulars/data/store-hidden.json';
     // Story 草稿（stories 分支，force-push 維持最近 7 日）：專屬頁 hero 圖熱連結 ——
     // 全部流量/儲存行 GitHub CDN，Vercel 零 byte（結論：唔會再爆 storage）
     const TIME_WINDOWS = [
@@ -1261,6 +1266,7 @@
       if (!ids?.size) return [];
       let items = [];
       for (const source of state.sourceOrder) items = items.concat(state.grouped[source] || []);
+      items = items.filter(item => !isHiddenApp(item));
       const seen = new Set();
       return items.filter(item => {
         const id = notificationNoticeId(item);
@@ -1281,6 +1287,7 @@
       const date = validPersonalDate(state.personalDate);
       let items = [];
       for (const source of state.sourceOrder) items = items.concat(state.grouped[source] || []);
+      items = items.filter(item => !isHiddenApp(item));
       items = items.filter(item => {
         const itemDate = String(item.captured_date || item.date || '').slice(0, 10);
         const ex = state.enrich[item.pdf_url] || state.enrich[item.url] || null;
@@ -1316,6 +1323,7 @@
       branch: 'ALL',     // 支部標籤（單選）：'ALL' | '小童軍' | '幼童軍' | …
       category: 'ALL',   // 分類標籤（單選）：'ALL' | 'training' | 'service' | 'activity' | 'competition' | 'other'
       bookmarks: {},     // key -> 收藏快照（見 BOOKMARK_KEY 說明）
+      hiddenAppUrls: new Set(), // store-hidden.json：APP STORE 收埋咗嘅曾經上架 app（normalized URL）
       lastSource: null,  // 撳 ★ 分頁之前喺邊個來源，用嚟返返去
       lastNoticeSource: null, // 由 Scout System 返回時，恢復進入前嘅通告來源
       pushCatalog: null, // 受控官方訂閱字典；絕不由自由文字建立標籤
@@ -1547,7 +1555,7 @@
           for (const src of filtered) {
             const srcEnabled = isSourceEnabled(src);
             const cnt = (() => {
-              try { return (state.grouped[src]||[]).filter(it => itemInWindow(it)).length; } catch(_) { return 0; }
+              try { return (state.grouped[src]||[]).filter(it => itemInWindow(it) && !isHiddenApp(it)).length; } catch(_) { return 0; }
             })();
             const it = document.createElement('div');
             it.className = `rt-item rt-district-item ${srcEnabled && regionEnabled ? '' : 'disabled'}`;
@@ -1703,7 +1711,7 @@
       const live = liveItemsByKey();
       return Object.entries(state.bookmarks).map(([key, snap]) => {
         const hit = live.get(key);
-        return hit ? { ...hit, _bmSavedAt: snap.saved_at }
+        return hit ? { ...hit, _bmSavedAt: snap.saved_at, _hiddenApp: isHiddenApp(hit) }
                    : { ...snap, _bmSavedAt: snap.saved_at, _bmGone: true };
       }).sort((a, b) => String(b._bmSavedAt || '').localeCompare(String(a._bmSavedAt || '')));
     }
@@ -1780,6 +1788,54 @@
         const r = await fetchDataSnapshot(getEnrichUrl(), { cache: 'no-store' });
         if (r.ok) state.enrich = await r.json();
       } catch (_) { state.enrich = {}; }
+    }
+
+    // ── APP STORE「收埋」信號 ─────────────────────────────────────
+    // 主來源：store-hidden.json（data 分支，每日 ACTION 鏡像）。
+    // ⚠️ 瀏覽器唔可以直查 Supabase `apps` 表判斷收埋：RLS
+    // （migrations/20260924-market.sql：policy "public catalogue" `using (visible = true)`）
+    // 匿名睇唔到 visible=false 列——查 `visible=eq.false` 永遠回空陣列，
+    // 收埋咗嘅 app 會靜靜重新出現。同步隱藏靠 ACTION（帶 service key）出鏡像。
+    // 靜默讀取 —— 任何失敗（斷網／非 200／壞 JSON／格式唔啱）都當冇嘢被收埋，
+    // state.hiddenAppUrls 維持空集合，主畫面照常出。
+    function getHiddenUrl() {
+      const params = new URLSearchParams(location.search);
+      const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname.endsWith('.e2b.app');
+      let base = params.get('hidden');
+      if (!base) {
+        const rawCache = params.get('raw');
+        base = rawCache ? rawCache.replace(/cache\.json.*$/, 'store-hidden.json') : (isLocal ? '/store-hidden.json' : RAW_HIDDEN_URL);
+      }
+      return `${base}${base.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    }
+
+    // 與 tools/scrape_appstore.py 嘅 _norm_url 一模一樣：trim + 去晒尾斜線；
+    // 刻意唔改 scheme／host／path 大小寫（兩邊要逐個字一致先比對到）。
+    function normAppUrl(u) {
+      return String(u ?? '').trim().replace(/\/+$/, '');
+    }
+
+    async function loadHiddenApps() {
+      state.hiddenAppUrls = new Set();
+      try {
+        const r = await fetchDataSnapshot(getHiddenUrl(), { cache: 'no-store' });
+        if (!r.ok) return;
+        const obj = await r.json();
+        const list = obj && Array.isArray(obj.hidden) ? obj.hidden : [];
+        state.hiddenAppUrls = new Set(list.map(normAppUrl).filter(Boolean));
+      } catch (_) { /* 靜默吞錯：唔阻 UI */ }
+    }
+
+    // 呢個 item 係咪「APP STORE 收埋咗」嘅曾經上架 app。
+    function isHiddenApp(item) {
+      if (!item || !isScoutSystemItem(item)) return false;
+      const u = normAppUrl(item.url || item.pdf_url);
+      return !!u && state.hiddenAppUrls instanceof Set && state.hiddenAppUrls.has(u);
+    }
+
+    // 一般瀏覽／搜尋／分類／計數用嘅過濾：收埋咗嘅 app 全部唔出現。
+    function visibleScoutTools(items) {
+      return (items || []).filter(item => !isHiddenApp(item));
     }
 
     function parseDate(value) {
@@ -1884,7 +1940,7 @@
     //   ・小工具唔再將「全部工具」塞入全港個數；Scout System 自己一行寫
     //     「今日新上架／已發布總數」（見 toolsBadgeHtml()）＋「N / M 則」。
     function noticeViewCount(items) {
-      return items.filter(item => inWindow((item && (item.date || item.captured_date)) || '')).length;
+      return items.filter(item => !isHiddenApp(item) && inWindow((item && (item.date || item.captured_date)) || '')).length;
     }
 
     function sourceCount(source) {
@@ -1894,23 +1950,23 @@
 
     // 小工具總數（長期資產，唔理視窗）——側欄寫「N/M」嘅分母。
     function toolsTotal() {
-      return (state.grouped['Scout System'] || []).length;
+      return visibleScoutTools(state.grouped['Scout System']).length;
     }
 
     // 小工具目前視窗嘅件數（喺 Scout System 分頁＝今天／之前發布；
     // 喺通告視圖＝通告視窗），即係撳落去會見到嘅數目。
     function toolsViewCount() {
-      return (state.grouped['Scout System'] || []).filter(item => itemInWindow(item)).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(item => itemInWindow(item)).length;
     }
 
     function scoutKindCount(kindId) {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(item => itemInWindow(item) && itemScoutKind(item) === kindId).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(item => itemInWindow(item) && itemScoutKind(item) === kindId).length;
     }
 
     // 某類小工具嘅總件數（唔理視窗）。
     function scoutKindTotal(kindId) {
-      return (state.grouped['Scout System'] || []).filter(item => itemScoutKind(item) === kindId).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(item => itemScoutKind(item) === kindId).length;
     }
 
     // 兩大類（小工具／連結）嘅件數：目前視窗＋總數。
@@ -1920,16 +1976,16 @@
 
     function scoutGroupCount(groupId) {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(item => itemInWindow(item) && itemInScoutGroup(item, groupId)).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(item => itemInWindow(item) && itemInScoutGroup(item, groupId)).length;
     }
 
     function scoutGroupTotal(groupId) {
-      return (state.grouped['Scout System'] || []).filter(item => itemInScoutGroup(item, groupId)).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(item => itemInScoutGroup(item, groupId)).length;
     }
 
     function scoutGroupUpdateCount(groupId) {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(item => toolIsNewToday(item) && itemInScoutGroup(item, groupId)).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(item => toolIsNewToday(item) && itemInScoutGroup(item, groupId)).length;
     }
 
     // 小工具一欄嘅件數：例「2/3」＝今日新上架 2 件／已發布共 3 件。
@@ -1949,10 +2005,16 @@
 
     function scoutKindUpdateCount(kindId) {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(item => toolIsNewToday(item) && itemScoutKind(item) === kindId).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(item => toolIsNewToday(item) && itemScoutKind(item) === kindId).length;
     }
 
+    // 一般瀏覽／搜尋用嘅 bucket：一律剔走 APP STORE 收埋咗嘅 app。
+    // （⭐ 我的收藏刻意唔行呢度 —— 收埋咗嘅 app 仍然要見到，標示已下架。）
     function getBucket(sourceId) {
+      return bucketRaw(sourceId).filter(item => !isHiddenApp(item));
+    }
+
+    function bucketRaw(sourceId) {
       if (isScoutGroupSource(sourceId)) {
         if (!isSourceEnabled('Scout System')) return [];
         const group = scoutGroupIdFromSource(sourceId);
@@ -2054,7 +2116,7 @@
 
     function scoutSystemNewTodayCount() {
       if (!isSourceEnabled('Scout System')) return 0;
-      return (state.grouped['Scout System'] || []).filter(toolIsNewToday).length;
+      return visibleScoutTools(state.grouped['Scout System']).filter(toolIsNewToday).length;
     }
 
     // 2026-10-01：小工具（Scout System）取消以日期分類——不過淨係喺小工具分頁。
@@ -2092,6 +2154,7 @@
           if (!isSourceEnabled(src)) continue;
           items = items.concat(state.grouped[src] || []);
         }
+        items = items.filter(item => !isHiddenApp(item));
       } else {
         items = [...getBucket(state.activeSource)];
       }
@@ -5480,7 +5543,7 @@
       const scopeLabel = exactNotification ? '通知結果' : (state.personalMode ? '個人化' : (state.searchScope === 'global' ? '全港' : '目前分頁'));
       const totalAll = state.sourceOrder.reduce((sum, src) => {
         if (!isSourceEnabled(src)) return sum;
-        return sum + (state.grouped[src] || []).length;
+        return sum + (state.grouped[src] || []).filter(item => !isHiddenApp(item)).length;
       }, 0);
       const totalCurrent = (exactNotification || state.personalMode) ? current : (state.searchScope === 'global' ? totalAll : getBucket(state.activeSource).length);
       const currentCat = CATEGORY_TAGS.find(c => c.id === state.category);
@@ -5541,16 +5604,17 @@
             '亦唔會喺其他裝置出現。清除瀏覽器資料會一併清走。</small></div>';
           return;
         }
-        const goneCount = items.filter(i => i._bmGone).length;
+        // 已落架／已下架：通告係「原站移除」，小工具係「APP STORE 收埋」。
+        const goneCount = items.filter(i => i._bmGone || i._hiddenApp).length;
         let noteHtml = '';
         if (goneCount) {
-          noteHtml = `<div class="bm-note">當中 ${goneCount} 則通告原站已經移除，即係已經報唔到。` +
+          noteHtml = `<div class="bm-note">當中 ${goneCount} 則通告／小工具原站已經移除或 App Store 已下架，即係已經報唔到。` +
             `記錄仍然保留俾你參考，想清走就撳嗰張卡片嘅 ★。</div>`;
         }
         messagesEl.innerHTML = noteHtml +
           `<div class="bm-tools">
              <button type="button" id="bm-copy">複製清單</button>
-             ${goneCount ? `<button type="button" id="bm-clear-gone">清走已移除（${goneCount}）</button>` : ''}
+             ${goneCount ? `<button type="button" id="bm-clear-gone">清走已移除／已下架（${goneCount}）</button>` : ''}
              <button type="button" id="bm-clear" class="danger">清空收藏</button>
            </div>`;
         messagesEl.querySelector('#bm-copy').onclick = async () => {
@@ -5568,11 +5632,12 @@
         const clearGoneBtn = messagesEl.querySelector('#bm-clear-gone');
         if (clearGoneBtn) {
           clearGoneBtn.onclick = () => {
-            // 一次過清走已落架嘅，但係由用戶主動撳，唔係系統自作主張
-            if (!confirm(`清走 ${goneCount} 則原站已移除嘅收藏？`)) return;
+            // 一次過清走已落架／已下架嘅，但係由用戶主動撳，唔係系統自作主張
+            if (!confirm(`清走 ${goneCount} 則原站已移除／已下架嘅收藏？`)) return;
             const live = liveItemsByKey();
             for (const key of Object.keys(state.bookmarks)) {
-              if (!live.has(key)) delete state.bookmarks[key];
+              const hit = live.get(key);
+              if (!hit || isHiddenApp(hit)) delete state.bookmarks[key];
             }
             saveBookmarks();
             renderAccordion();
@@ -5640,10 +5705,14 @@
           ? (kindHtml || '<span class="cat-tag kind">助手</span>')
           : [...cats].map(id => `<span class="cat-tag ${id}">${catLabels[id] || id}</span>`).join('') + kindHtml;
         const iconHtml = isTool && item.icon ? `<img class="tool-card-icon" src="${escapeHtml(item.icon)}" alt="" onerror="this.style.display='none'">` : '';
+        // 小工具收埋（store-hidden.json）或者完全消失：一律當「已下架」——
+        // ⭐ 我的收藏保留記錄，但唔准再開啟（開啟掣鎖死變撳唔到）。
+        const toolGone = isTool && (item._hiddenApp || item._bmGone);
+        const gone = Boolean(item._bmGone) || toolGone;
         const card = document.createElement('article');
-        card.className = `card${item._bmGone ? ' bm-gone' : ''}${isTool ? ' tool-card' : ''}`;
+        card.className = `card${gone ? ' bm-gone' : ''}${isTool ? ' tool-card' : ''}`;
         card.innerHTML = `
-          ${item._bmGone ? '<div class="gone-tag">⚠️ 原站已移除（報唔到，可撳 ★ 取消收藏）</div>' : ''}
+          ${gone ? `<div class="gone-tag">${isTool ? '⚠️ 已下架（可撳 ★ 取消收藏）' : '⚠️ 原站已移除（報唔到，可撳 ★ 取消收藏）'}</div>` : ''}
           <div class="card-head">
             ${iconHtml}
             <div class="card-title-wrap">
@@ -5659,7 +5728,9 @@
           </div>
           ${extraHtml}
           <div class="meta-row meta-foot">
-            <a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="noopener noreferrer">${isTool ? toolActionLabel : '開啟附件'}</a>
+            ${toolGone
+              ? '<span class="link link-disabled" aria-disabled="true" role="link" tabindex="-1">已下架，暫時唔可以開啟</span>'
+              : `<a class="link" href="${escapeHtml(shareUrlFor(item) || href)}" target="_blank" rel="${isTool ? 'noopener' : 'noopener noreferrer'}">${isTool ? toolActionLabel : '開啟附件'}</a>`}
             <div class="card-icons">
               <button class="star-btn${starred ? ' on' : ''}" type="button"
                 aria-pressed="${starred ? 'true' : 'false'}"
@@ -5800,6 +5871,7 @@
         state.cache = await resp.json();
 
         await loadEnrich();
+        await loadHiddenApps();   // APP STORE 收埋信號（live 主查 → 失敗退昨日鏡像）；唔阻畫面
 
         state.grouped = state.cache.data && Object.keys(state.cache.data).length
           ? state.cache.data
@@ -5836,6 +5908,7 @@
           let found = null;
           outer: for (const source of state.sourceOrder) {
             for (const it of state.grouped[source] || []) {
+              if (isHiddenApp(it)) continue;   // APP STORE 收埋咗：深鏈都唔出現
               if (notificationNoticeId(it) === onlyId) { found = it; break outer; }
             }
           }

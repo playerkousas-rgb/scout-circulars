@@ -344,6 +344,8 @@ class AppStoreSyncTests(unittest.TestCase):
             cache_path.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
             enrich_path.write_text(json.dumps(enrich or {}, ensure_ascii=False), encoding="utf-8")
             apps_path.write_text(json.dumps(apps, ensure_ascii=False), encoding="utf-8")
+            hidden_path = tmp_path / "store-hidden.json"
+            hidden_path.write_text('{"hidden": []}\n', encoding="utf-8")
             res = subprocess.run(
                 [
                     sys.executable,
@@ -351,6 +353,7 @@ class AppStoreSyncTests(unittest.TestCase):
                     "--apps-json", str(apps_path),
                     "--cache", str(cache_path),
                     "--enrich", str(enrich_path),
+                    "--hidden", str(hidden_path),
                 ],
                 capture_output=True,
                 text=True,

@@ -66,6 +66,7 @@ enrich.json
 fingerprints.json
 subscription_stats.json
 sources.json
+store-hidden.json
 
 # 圖示母圖與預覽（本機換圖先用到）
 icons/src/
