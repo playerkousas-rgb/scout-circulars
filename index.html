@@ -5911,7 +5911,7 @@
           </div>
           <h2>${escapeHtml(item.title || '未命名通告')}</h2>
           ${metas.length ? `<div class="np-metas">${metas.map(([k, v, tone]) => `<div class="np-meta ${tone}"><b>${k}</b><span>${escapeHtml(v)}</span></div>`).join('')}</div>` : ''}
-          <a class="np-primary" href="${escapeHtml(shareUrlFor(item))}" target="_blank" rel="noopener noreferrer">開啟附件（PDF 原文）</a>
+          <a class="np-primary" href="${escapeHtml(shareUrlFor(item))}" target="_blank" rel="${isScoutSystemItem(item) ? 'noopener' : 'noopener noreferrer'}">開啟附件（PDF 原文）</a>
           <div class="np-row">
             <button type="button" data-act="npshare">📤 分享…</button>
             <button type="button" data-act="nplink">🔗 複製專屬連結</button>
