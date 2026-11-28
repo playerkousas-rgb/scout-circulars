@@ -1,0 +1,826 @@
+{
+  "_meta": {
+    "description": "SCOUT APP STORE（github.com/playerkousas-rgb/website）嘅 Supabase 直連設定＋snapshot。anon key 係公開金鑰（website README 明確說明：安全靠 RLS， anon 只讀、寫入限 admin），可 commit；service role key 冇喺 website repo 出現，如要寫入要另行向 Supabase Dashboard 攞。",
+    "source_repo": "https://github.com/playerkousas-rgb/website",
+    "supabase_url": "https://visqyeskdauipodudpxz.supabase.co",
+    "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpc3F5ZXNrZGF1aXBvZHVkcHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0MjQ5MjUsImV4cCI6MjEwNDAwMDkyNX0.Ct2jJpJUtRFiVSux774aGRdegFG8fr5mWeD1RMm_dXs",
+    "admin_email": "ai@skwscout.org.hk",
+    "fetched_at": "2026-11-28",
+    "tables": {
+      "pages": "id(text pk), label, icon, enabled, sort_order",
+      "categories": "(page,name) 複合主鍵, icon, sort_order",
+      "apps": "id(uuid pk), name, url, github, description, note, icon, icon_source, category, page, tags[], visible, clicks, stars, hearts, featured, sort_order, created_at",
+      "submissions": "id(uuid pk), name, url, description, author, page, category, tags[], status(pending/approved/rejected), created_at, reviewed_at, app_id"
+    },
+    "rpcs": [
+      "bump_clicks(p_id)",
+      "bump_stars(p_id,p_delta)",
+      "bump_hearts(p_id,p_delta)",
+      "submit_work(jsonb)",
+      "review_work(uuid,boolean)"
+    ],
+    "rls": "pages/categories：公開 SELECT、authenticated admin 先可寫；apps：公開 SELECT 限 visible=true、admin 先可寫；submissions：匿名只可經 submit_work 投稿、admin 經 review_work 審批。is_store_admin() = auth email = admin_email。",
+    "migrations": [
+      "README 基礎 schema",
+      "migrations/20260924-market.sql",
+      "migrations/20260924-hearts.sql"
+    ],
+    "vercel_env_keys": [
+      "ADMIN_PIN",
+      "SUPABASE_URL",
+      "SUPABASE_ANON_KEY",
+      "ADMIN_EMAIL",
+      "ADMIN_AUTH_PASSWORD"
+    ],
+    "same_project_as_circulars_push": true,
+    "same_project_note": "用戶 2026-09-24 確認：通告圖書館 push_subscriptions 同 App Store 共用此 project；故 repo 現有 SUPABASE_SERVICE_KEY secret 即此 project 嘅 service key（新格式可為 sb_secret_…，舊格式 eyJ… role=service_role）。改名（display name）唔影響；ref／subdomain 唔可以改（URL 同所有 key 綁定 ref）。"
+  },
+  "pages": [
+    {
+      "id": "apps",
+      "label": "小工具 Apps",
+      "icon": "🧰",
+      "enabled": true,
+      "sort_order": 0
+    },
+    {
+      "id": "cards",
+      "label": "學習圖卡",
+      "icon": "🃏",
+      "enabled": false,
+      "sort_order": 1
+    },
+    {
+      "id": "ppt",
+      "label": "PPT 簡報",
+      "icon": "📽️",
+      "enabled": false,
+      "sort_order": 2
+    },
+    {
+      "id": "links",
+      "label": "有用連結",
+      "icon": "🔗",
+      "enabled": true,
+      "sort_order": 3
+    }
+  ],
+  "categories": [
+    {
+      "name": "集會助手及指南",
+      "icon": "🗂️",
+      "sort_order": 0,
+      "page": "apps"
+    },
+    {
+      "name": "電子紀錄冊",
+      "icon": "🧭",
+      "sort_order": 1,
+      "page": "apps"
+    },
+    {
+      "name": "系統",
+      "icon": "🛠️",
+      "sort_order": 2,
+      "page": "apps"
+    },
+    {
+      "name": "遊戲",
+      "icon": "🎮",
+      "sort_order": 3,
+      "page": "apps"
+    },
+    {
+      "name": "工具",
+      "icon": "🧰",
+      "sort_order": 4,
+      "page": "apps"
+    },
+    {
+      "name": "其他",
+      "icon": "📖",
+      "sort_order": 5,
+      "page": "apps"
+    },
+    {
+      "name": "技能及專章圖卡",
+      "icon": "🃏",
+      "sort_order": 0,
+      "page": "cards"
+    },
+    {
+      "name": "步操及禮儀圖卡",
+      "icon": "🎖️",
+      "sort_order": 1,
+      "page": "cards"
+    },
+    {
+      "name": "工作紙及考驗筆記",
+      "icon": "📝",
+      "sort_order": 2,
+      "page": "cards"
+    },
+    {
+      "name": "其他圖文教材",
+      "icon": "📚",
+      "sort_order": 3,
+      "page": "cards"
+    },
+    {
+      "name": "課堂學習工具",
+      "icon": "📖",
+      "sort_order": 0,
+      "page": "links"
+    },
+    {
+      "name": "童軍技能及知識",
+      "icon": "🪢",
+      "sort_order": 0,
+      "page": "links"
+    },
+    {
+      "name": "其他學習工具",
+      "icon": "🔍",
+      "sort_order": 1,
+      "page": "links"
+    },
+    {
+      "name": "露營及行山資訊",
+      "icon": "⛺",
+      "sort_order": 1,
+      "page": "links"
+    },
+    {
+      "name": "其他",
+      "icon": "🔗",
+      "sort_order": 2,
+      "page": "links"
+    },
+    {
+      "name": "集會及活動資源",
+      "icon": "🎯",
+      "sort_order": 2,
+      "page": "links"
+    },
+    {
+      "name": "3D 打印工具",
+      "icon": "🔧",
+      "sort_order": 3,
+      "page": "links"
+    },
+    {
+      "name": "官方及總會網站",
+      "icon": "⚜️",
+      "sort_order": 3,
+      "page": "links"
+    },
+    {
+      "name": "地球資訊",
+      "icon": "🌐",
+      "sort_order": 4,
+      "page": "links"
+    },
+    {
+      "name": "其他實用網站",
+      "icon": "🌐",
+      "sort_order": 4,
+      "page": "links"
+    },
+    {
+      "name": "教材",
+      "icon": "📖",
+      "sort_order": 5,
+      "page": "links"
+    },
+    {
+      "name": "生圖工具",
+      "icon": "🖼️",
+      "sort_order": 6,
+      "page": "links"
+    },
+    {
+      "name": "集會教學簡報",
+      "icon": "📽️",
+      "sort_order": 0,
+      "page": "ppt"
+    },
+    {
+      "name": "專章及訓練簡報",
+      "icon": "📊",
+      "sort_order": 1,
+      "page": "ppt"
+    },
+    {
+      "name": "領袖訓練及行政範本",
+      "icon": "📋",
+      "sort_order": 2,
+      "page": "ppt"
+    },
+    {
+      "name": "教學影片及多媒體",
+      "icon": "🎬",
+      "sort_order": 3,
+      "page": "ppt"
+    }
+  ],
+  "apps": [
+    {
+      "id": "c63f5370-86c5-4ea7-9c3b-6f61c893208a",
+      "name": "幼童軍進度紀錄",
+      "url": "https://cubsbadge.vercel.app/",
+      "github": null,
+      "description": "全團進度管理",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "系統",
+      "page": "apps",
+      "tags": [
+        "幼童軍"
+      ],
+      "visible": true,
+      "clicks": 145,
+      "stars": 0,
+      "hearts": 1,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:34:48.42387+00:00"
+    },
+    {
+      "id": "a9bb7300-64ef-4518-abaa-804bfdde54f3",
+      "name": "深資童軍進度紀錄",
+      "url": "https://vsbadge.vercel.app/",
+      "github": null,
+      "description": "全團進度管理",
+      "note": null,
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Ventures.png",
+      "icon_source": "upload",
+      "category": "系統",
+      "page": "apps",
+      "tags": [
+        "深資童軍"
+      ],
+      "visible": true,
+      "clicks": 122,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:36:35.115163+00:00"
+    },
+    {
+      "id": "fe492651-081a-4daf-b6ed-d20e5720aff9",
+      "name": "童軍進度紀錄",
+      "url": "https://scoutbadge.vercel.app/",
+      "github": null,
+      "description": "全團進度管理",
+      "note": null,
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Scouts.png",
+      "icon_source": "upload",
+      "category": "系統",
+      "page": "apps",
+      "tags": [
+        "童軍"
+      ],
+      "visible": true,
+      "clicks": 349,
+      "stars": 2,
+      "hearts": 2,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:35:55.980938+00:00"
+    },
+    {
+      "id": "fb162992-6a15-4356-a97d-376e477a14bc",
+      "name": "樂行童軍進度紀錄",
+      "url": "https://roverbadge.vercel.app/",
+      "github": null,
+      "description": "全團進度管理",
+      "note": null,
+      "icon": "https://krscout.org/wp-content/uploads/2021/06/Logo-Rover.png",
+      "icon_source": "upload",
+      "category": "系統",
+      "page": "apps",
+      "tags": [
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 45,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-03T16:36:51.703246+00:00"
+    },
+    {
+      "id": "1f288753-ff7c-43ce-b3d3-c3093bffff77",
+      "name": "兒童工作紙",
+      "url": "https://www.kiddoworksheets.com/",
+      "github": null,
+      "description": "各種兒童練習題",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "教材",
+      "page": "links",
+      "tags": [
+        "小童軍",
+        "幼童軍"
+      ],
+      "visible": true,
+      "clicks": 1,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T03:50:15.128264+00:00"
+    },
+    {
+      "id": "ff4f907f-2678-4d87-b52e-12c431d00e93",
+      "name": "氣象資訊",
+      "url": "https://www.windy.com/?33.613,81.569,3",
+      "github": null,
+      "description": null,
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他學習工具",
+      "page": "links",
+      "tags": [
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 3,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T03:43:13.296465+00:00"
+    },
+    {
+      "id": "96ef4294-624a-4346-a1f7-d4cc5c6e5c18",
+      "name": "觀鳥相機",
+      "url": "https://madarles.hu/",
+      "github": null,
+      "description": null,
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他",
+      "page": "links",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 0,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T03:57:51.336659+00:00"
+    },
+    {
+      "id": "36b00a0f-d11e-4dc4-84d5-ecc9ef08ca0d",
+      "name": "紙飛機摺法",
+      "url": "https://www.foldnfly.com/#/1-1-1-1-1-1-1-1-2-1",
+      "github": null,
+      "description": null,
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "教材",
+      "page": "links",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍"
+      ],
+      "visible": true,
+      "clicks": 4,
+      "stars": 1,
+      "hearts": 1,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T03:55:14.746916+00:00"
+    },
+    {
+      "id": "9907536a-bc67-4a63-bfec-698f573d9a88",
+      "name": "觀星日曆",
+      "url": "https://nightsonearth.com/?location=united-states-tahoe-vista-39120&month=9&year=2026&day=0",
+      "github": null,
+      "description": null,
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "地球資訊",
+      "page": "links",
+      "tags": [
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 1,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T03:42:43.148497+00:00"
+    },
+    {
+      "id": "95957ae4-7871-44cf-a95f-7ae5c461f79b",
+      "name": "遊戲學習",
+      "url": "https://app.astra-ai.co/lab",
+      "github": null,
+      "description": "遊戲中學習",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "課堂學習工具",
+      "page": "links",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 15,
+      "stars": 1,
+      "hearts": 1,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-06T02:32:00.063953+00:00"
+    },
+    {
+      "id": "c0eb7ef5-afbb-485a-9e6f-1256b6775d09",
+      "name": "香港城市監察",
+      "url": "https://hk-city-monitor.pages.dev/",
+      "github": null,
+      "description": "實時監控香港",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他實用網站",
+      "page": "links",
+      "tags": [],
+      "visible": true,
+      "clicks": 0,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-23T18:21:32.197686+00:00"
+    },
+    {
+      "id": "1c8e7c8c-468c-4596-a4f3-550c8e3e89cc",
+      "name": "光污染",
+      "url": "https://www.nightearth.com/top.php#gsc.tab=0",
+      "github": null,
+      "description": null,
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "地球資訊",
+      "page": "links",
+      "tags": [
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 0,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T03:40:54.524486+00:00"
+    },
+    {
+      "id": "2868d26c-de00-4dd1-89db-864fea86c7c8",
+      "name": "香港歷史地圖",
+      "url": "https://hkmaps.hk/",
+      "github": null,
+      "description": "香港的變遷",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他",
+      "page": "links",
+      "tags": [
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 3,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-06T02:13:02.409395+00:00"
+    },
+    {
+      "id": "a84b6bde-5795-4191-9217-7575bd0f8f83",
+      "name": "營釘力學",
+      "url": "https://campfiretw.com/tarp-guide/#stake",
+      "github": null,
+      "description": "點打釘先岩",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "露營及行山資訊",
+      "page": "links",
+      "tags": [
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 3,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-15T02:46:56.077705+00:00"
+    },
+    {
+      "id": "acbe80ac-8642-430e-9f2e-8d03dfd4149d",
+      "name": "天幕搭法",
+      "url": "https://campfiretw.com/tarp-guide/",
+      "github": null,
+      "description": "各種天幕搭法和效果",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "露營及行山資訊",
+      "page": "links",
+      "tags": [
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 2,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-15T02:46:07.243265+00:00"
+    },
+    {
+      "id": "185bf489-8b70-437c-85d9-02950e7188f7",
+      "name": "緊急救援",
+      "url": "https://apps.apple.com/hk/app/hksos/id1671480993?l=en-GB",
+      "github": null,
+      "description": "香港政府救援APP",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "官方及總會網站",
+      "page": "links",
+      "tags": [
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 1,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-07T05:19:04.039528+00:00"
+    },
+    {
+      "id": "c0a90f31-18d7-49a3-a12a-28f61307e400",
+      "name": "3D 摺紙",
+      "url": "https://oru.relayt.jp/",
+      "github": null,
+      "description": "可3D 觀看步驟的摺紙教學",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "教材",
+      "page": "links",
+      "tags": [],
+      "visible": true,
+      "clicks": 0,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-16T00:05:30.90895+00:00"
+    },
+    {
+      "id": "0577a569-9dc7-4694-b7d5-4d97b4844f14",
+      "name": "禁飛區",
+      "url": "https://esua.cad.gov.hk/web/droneMap",
+      "github": null,
+      "description": "查看能否航拍",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "官方及總會網站",
+      "page": "links",
+      "tags": [
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 0,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-12T04:25:46.262957+00:00"
+    },
+    {
+      "id": "efe252db-ece9-4ae4-8ef6-55556c184817",
+      "name": "江山時序",
+      "url": "https://deanchen.me/jiangshan-map/?lang=zh-tw",
+      "github": null,
+      "description": "看地圖學歷史",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "課堂學習工具",
+      "page": "links",
+      "tags": [
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 3,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-10T08:11:08.749627+00:00"
+    },
+    {
+      "id": "1abcb024-4695-4494-93bb-0749d10995cf",
+      "name": "數學學習",
+      "url": "https://www.1stclassmaths.com/",
+      "github": null,
+      "description": "GCSE 及A-Level",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "課堂學習工具",
+      "page": "links",
+      "tags": [
+        "童軍",
+        "深資童軍"
+      ],
+      "visible": true,
+      "clicks": 2,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-16T10:12:32.150531+00:00"
+    },
+    {
+      "id": "5a80060c-4970-4dd1-a277-2dabb9a28ebe",
+      "name": "野外觀察者",
+      "url": "https://wildwatcher.earth/",
+      "github": null,
+      "description": "觀察野生動物實時相機",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他學習工具",
+      "page": "links",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 1,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-11-12T05:08:45.873445+00:00"
+    },
+    {
+      "id": "90aba7e1-b9d2-4baf-a951-2831627bf101",
+      "name": "全球燈塔及天氣",
+      "url": "https://mapped.earth/lighthouses/world",
+      "github": null,
+      "description": "全球燈塔及一些地理資訊",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "地球資訊",
+      "page": "links",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 3,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-10-21T03:48:41.682808+00:00"
+    },
+    {
+      "id": "e5182d83-9118-423f-8aea-ed1ea1e1e29e",
+      "name": "電路模擬器",
+      "url": "https://wokwi.com/",
+      "github": null,
+      "description": null,
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他學習工具",
+      "page": "links",
+      "tags": [
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 0,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T03:03:21.338965+00:00"
+    },
+    {
+      "id": "b36232bf-b37a-4df2-a3a9-9e3743b50bf1",
+      "name": "維基百科圖卡",
+      "url": "https://wikigacha.com/?lang=ZH_HANT",
+      "github": null,
+      "description": null,
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他學習工具",
+      "page": "links",
+      "tags": [
+        "小童軍",
+        "幼童軍",
+        "童軍",
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 2,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T04:26:01.830755+00:00"
+    },
+    {
+      "id": "f3445082-957f-449a-af0a-fe6611c7e9e2",
+      "name": "海外單車遊資料",
+      "url": "https://veloplanner.com/",
+      "github": null,
+      "description": "海外單車必備",
+      "note": null,
+      "icon": null,
+      "icon_source": "favicon",
+      "category": "其他",
+      "page": "links",
+      "tags": [
+        "深資童軍",
+        "樂行童軍"
+      ],
+      "visible": true,
+      "clicks": 5,
+      "stars": 0,
+      "hearts": 0,
+      "featured": false,
+      "sort_order": 0,
+      "created_at": "2026-09-04T04:10:28.866542+00:00"
+    }
+  ]
+}
